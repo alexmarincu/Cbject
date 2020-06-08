@@ -4,11 +4,11 @@
 #include "../Primitives.h"
 #include "Shape.h"
 
-CLASS_MEMBERS(Shape)
+CLASS_MEMBERS
 _Point origin;
 END;
 
-CLASS_VIRTUAL_METHODS(Shape)
+CLASS_VIRTUAL_METHODS
 _UInt32(Ref area)(Shape me);
 END;
 

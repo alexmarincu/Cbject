@@ -4,7 +4,12 @@
 #include "../Primitives.h"
 #include "../Shape/Shape.h"
 
-CLASS_EXTENSION_INIT_PARAMS(Rectangle, Shape)
+#undef CLASS_NAME
+#define CLASS_NAME Rectangle
+#undef SUPER_CLASS_NAME
+#define SUPER_CLASS_NAME Shape
+
+CLASS_EXTENSION_INIT_PARAMS
 UInt32 width;
 UInt32 height;
 END;

@@ -4,9 +4,13 @@
 #include "../Primitives.h"
 #include "Point.h"
 
-ABSTRACT_CLASS_INIT_PARAMS(Shape)
+#undef CLASS_NAME
+#define CLASS_NAME Shape
+
+ABSTRACT_CLASS_INIT_PARAMS
 Point origin;
 END;
+
 
 /**
  * Getters and Setters
