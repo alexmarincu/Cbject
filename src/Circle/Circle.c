@@ -5,6 +5,9 @@
 // Data
 struct Circle circlePool[CIRCLE_POOL_SIZE];
 
+default_set(UInt32, radius);
+default_get(UInt32, radius);
+
 static _UInt32 override_Shape_area(Circle me);
 static _UInt8 override_CObject_objectSize(Circle me);
 
@@ -13,7 +16,7 @@ static _UInt8 override_CObject_objectSize(Circle me)
     return sizeof(*me);
 }
 
-Void Circle_init(_Circle me, CircleInitParams Ref params)
+Void Circle_init(Circle me, CircleInitParams Ref params)
 {
     static CircleVT const vT = {
         {{(_UInt8(Ref)(CObject me)) override_CObject_objectSize},
@@ -21,7 +24,7 @@ Void Circle_init(_Circle me, CircleInitParams Ref params)
 
     Shape_init((_Shape) me, (ShapeInitParams Ref) params);
     ((_CObject) me)->vT = (CObjectVT Ref) &vT;
-    me->radius = params->radius;
+    ((_Circle) me)->radius = params->radius;
 }
 
 __Circle get_Circle(CircleInitParams Ref params)
@@ -48,10 +51,12 @@ Void drop_Circle(__Circle me)
     me = null;
 }
 
-Void Circle_reset(_Circle me)
+Void Circle_reset(Circle me)
 {
-    me->radius = 0;
+    ((_Circle) me)->radius = 0;
     Shape_reset((_Shape) me);
 }
 
 static _UInt32 override_Shape_area(Circle me) { return me->radius * me->radius * 3; }
+
+_UInt8 Circle_classSize() { return sizeof(struct Circle); }

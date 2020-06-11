@@ -1,7 +1,6 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
 
-#include "../Primitives.h"
 #include "../Shape/Shape.h"
 
 #undef CLASS_NAME
@@ -12,6 +11,10 @@
 CLASS_EXTENSION_INIT_PARAMS
 UInt32 width;
 UInt32 height;
-END;
+end;
+
+set_get(UInt32, width);
+set_get(UInt32, height);
+fun(_UInt32, test, UInt32 a);
 
 #endif // RECTANGLE_H

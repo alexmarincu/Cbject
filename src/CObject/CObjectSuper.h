@@ -1,5 +1,6 @@
-#ifndef CObjectBJECTSUPER_H
-#define CObjectBJECTSUPER_H
+#ifndef COBJECTSUPER_H
+#define COBJECTSUPER_H
+
 #include "CObject.h"
 
 typedef struct
@@ -13,7 +14,4 @@ struct CObject
     _Boolean isInitialized;
 };
 
-Void CObject_init(_CObject me);
-Void CObject_reset(_CObject me);
-
-#endif // CObjectBJECTSUPER_H
+#endif // COBJECTSUPER_H

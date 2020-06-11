@@ -1,15 +1,15 @@
 #ifndef SHAPESUPER_H
 #define SHAPESUPER_H
+
 #include "../CObject/CObjectSuper.h"
-#include "../Primitives.h"
 #include "Shape.h"
 
-CLASS_MEMBERS
+class_members
 _Point origin;
-END;
+end;
 
-CLASS_VIRTUAL_METHODS
-_UInt32(Ref area)(Shape me);
-END;
+class_virtual_functions
+virtual_fun(_UInt32, area);
+end;
 
 #endif // SHAPESUPER_H

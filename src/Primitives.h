@@ -1,14 +1,12 @@
-#ifndef STANDARDTYPES_H
-#define STANDARDTYPES_H
+#ifndef PRIMITIVES_H
+#define PRIMITIVES_H
 
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdio.h>
 
-#define null NULL
+#define null ((void *) 0)
 
-typedef void _Void;
-typedef _Void const Void;
+typedef void Void;
 typedef bool _Boolean;
 typedef _Boolean const Boolean;
 typedef uint8_t _UInt8;
@@ -30,4 +28,4 @@ typedef _Int64 const Int64;
 #define _Ref *
 #define Ref *const
 
-#endif // STANDARDTYPES_H
+#endif // PRIMITIVES_H

@@ -1,14 +1,14 @@
 #ifndef CIRCLESUPER_H
 #define CIRCLESUPER_H
 
-#include "../Primitives.h"
 #include "../Shape/ShapeSuper.h"
 #include "Circle.h"
 
-CLASS_EXTENSION_MEMBERS
+class_extension_members
 _UInt32 radius;
-END;
+end;
 
-CLASS_EXTENSION_VIRTUAL_METHODS
-END;
+class_extension_virtual_functions
+end;
+
 #endif // CIRCLESUPER_H

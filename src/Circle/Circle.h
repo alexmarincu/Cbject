@@ -1,6 +1,6 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
-#include "../Primitives.h"
+
 #include "../Shape/Shape.h"
 
 #undef CLASS_NAME
@@ -10,6 +10,8 @@
 
 CLASS_EXTENSION_INIT_PARAMS
 UInt32 radius;
-END;
+end;
+
+set_get(UInt32, radius);
 
 #endif // CIRCLE_H

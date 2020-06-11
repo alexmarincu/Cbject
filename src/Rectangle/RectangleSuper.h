@@ -1,15 +1,15 @@
 #ifndef RECTANGLESUPER_H
 #define RECTANGLESUPER_H
-#include "../Primitives.h"
+
 #include "../Shape/ShapeSuper.h"
 #include "Rectangle.h"
 
-CLASS_EXTENSION_MEMBERS
+class_extension_members
 _UInt32 width;
 _UInt32 height;
-END;
+end;
 
-CLASS_EXTENSION_VIRTUAL_METHODS
-END;
+class_extension_virtual_functions
+end;
 
 #endif // RECTANGLESUPER_H

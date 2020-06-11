@@ -4,6 +4,16 @@
 
 struct Rectangle rectanglePool[RECTANGLE_POOL_SIZE];
 
+default_set(UInt32, width);
+default_get(UInt32, width);
+default_set(UInt32, height);
+default_get(UInt32, height);
+
+fun(_UInt32, test, UInt32 a)
+{
+    return a;
+}
+
 static _UInt32 override_Shape_area(Rectangle me);
 static _UInt8 override_CObject_objectSize(Rectangle me);
 
@@ -12,7 +22,7 @@ static _UInt8 override_CObject_objectSize(Rectangle me)
     return sizeof(*me);
 }
 
-Void Rectangle_init(_Rectangle me, RectangleInitParams Ref params)
+Void Rectangle_init(Rectangle me, RectangleInitParams Ref params)
 {
     static RectangleVT const vT = {
         {{(_UInt8(Ref)(CObject me)) override_CObject_objectSize},
@@ -20,8 +30,8 @@ Void Rectangle_init(_Rectangle me, RectangleInitParams Ref params)
 
     Shape_init((_Shape) me, (ShapeInitParams Ref) params);
     ((_CObject) me)->vT = (CObjectVT Ref) &vT;
-    me->width = params->width;
-    me->height = params->height;
+    ((_Rectangle) me)->width = params->width;
+    ((_Rectangle) me)->height = params->height;
 }
 
 __Rectangle get_Rectangle(RectangleInitParams Ref params)
@@ -48,11 +58,13 @@ Void drop_Rectangle(__Rectangle me)
     me = null;
 }
 
-Void Rectangle_reset(_Rectangle me)
+Void Rectangle_reset(Rectangle me)
 {
-    me->width = 0;
-    me->height = 0;
+    ((_Rectangle)me)->width = 0;
+    ((_Rectangle)me)->height = 0;
     Shape_reset((_Shape) me);
 }
 
 static _UInt32 override_Shape_area(Rectangle me) { return me->width * me->height; }
+
+_UInt8 Rectangle_classSize() { return sizeof(struct Rectangle); }
