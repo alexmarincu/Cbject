@@ -5,17 +5,17 @@
 
 Void App_start()
 {
-    CircleInitParams cp = {{2, 3}, 5};
-    _Circle circle = get_Circle(&cp);
-    _$(Circle, circleOnTheStack, &cp);
+    Point point = {2, 3};
+    _Circle circle = Circle_get(point, 5);
+    _$(Circle, circleOnTheStack, point, 5);
     _UInt32 newRadius = 3;
     Circle_radiusSet(circle, &newRadius);
     Circle_radiusSet(circleOnTheStack, &newRadius);
     Circle_radiusGet(circle, &newRadius);
     Circle_radiusGet(circleOnTheStack, &newRadius);
-    RectangleInitParams rp = {{12, 23}, 34, 2};
-    _Rectangle rectangle = get_Rectangle(&rp);
-    _$(Rectangle, rectangleOnTheStack, &rp);
+    //RectangleInitParams rp = {{12, 23}, 34, 2};
+    _Rectangle rectangle = Rectangle_get(point, 34, 2);
+    _$(Rectangle, rectangleOnTheStack, point, 34,2);
     _UInt32 newWidth = 30;
     Rectangle_widthSet(rectangle, &newWidth);
     Rectangle_widthSet(rectangleOnTheStack, &newWidth);

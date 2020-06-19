@@ -1,11 +1,9 @@
 #ifndef PRIMITIVES_H
 #define PRIMITIVES_H
-
 #include <stdbool.h>
 #include <stdint.h>
 
 #define null ((void *) 0)
-
 typedef void Void;
 typedef bool _Boolean;
 typedef _Boolean const Boolean;
@@ -25,7 +23,7 @@ typedef int32_t _Int32;
 typedef _Int32 const Int32;
 typedef int64_t _Int64;
 typedef _Int64 const Int64;
-#define _Ref *
-#define Ref *const
+#define _ptr *
+#define ptr *const
 
 #endif // PRIMITIVES_H

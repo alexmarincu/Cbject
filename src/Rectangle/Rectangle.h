@@ -1,17 +1,16 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
-
 #include "../Shape/Shape.h"
 
-#undef CLASS_NAME
-#define CLASS_NAME Rectangle
-#undef SUPER_CLASS_NAME
-#define SUPER_CLASS_NAME Shape
+#undef class
+#define class Rectangle
+#undef super_class
+#define super_class Shape
 
-CLASS_EXTENSION_INIT_PARAMS
-UInt32 width;
-UInt32 height;
-end;
+class_init_params(
+    Point origin,
+    UInt32 width,
+    UInt32 height);
 
 set_get(UInt32, width);
 set_get(UInt32, height);

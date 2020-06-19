@@ -1,12 +1,11 @@
 #ifndef COBJECT_H
 #define COBJECT_H
 
-#include "../Primitives.h"
 #include "CObjectUtilities.h"
 
-typedef struct CObject _Ref __CObject;
-typedef struct CObject Ref _CObject;
-typedef struct CObject const Ref CObject;
+typedef struct CObject _ptr __CObject;
+typedef struct CObject ptr _CObject;
+typedef struct CObject const ptr CObject;
 
 Void CObject_init(_CObject me);
 Void CObject_reset(_CObject me);

@@ -5,12 +5,12 @@
 
 typedef struct
 {
-    _UInt8(Ref objectSize)(CObject me);
+    _UInt8(ptr objectSize)(CObject me);
 } CObjectVT;
 
 struct CObject
 {
-    CObjectVT const _Ref vT;
+    CObjectVT const _ptr vT;
     _Boolean isInitialized;
 };
 

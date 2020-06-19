@@ -1,17 +1,12 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
-
 #include "../Shape/Shape.h"
 
-#undef CLASS_NAME
-#define CLASS_NAME Circle
-#undef SUPER_CLASS_NAME
-#define SUPER_CLASS_NAME Shape
-
-CLASS_EXTENSION_INIT_PARAMS
-UInt32 radius;
-end;
-
+#undef class
+#define class Circle
+#undef super_class
+#define super_class Shape
+class_init_params(Point origin, UInt32 radius);
 set_get(UInt32, radius);
 
 #endif // CIRCLE_H
