@@ -5,17 +5,17 @@
 
 Void App_start()
 {
-    Point point = {2, 3};
-    _Circle circle = Circle_get(point, 5);
-    _$(Circle, circleOnTheStack, point, 5);
+    CircleInitParams cp = {{2, 3}, 5};
+    _Circle circle = Circle_get(&cp);
+    _$(Circle, circleOnTheStack, &cp);
     _UInt32 newRadius = 3;
     Circle_radiusSet(circle, &newRadius);
     Circle_radiusSet(circleOnTheStack, &newRadius);
     Circle_radiusGet(circle, &newRadius);
     Circle_radiusGet(circleOnTheStack, &newRadius);
-    //RectangleInitParams rp = {{12, 23}, 34, 2};
-    _Rectangle rectangle = Rectangle_get(point, 34, 2);
-    _$(Rectangle, rectangleOnTheStack, point, 34,2);
+    RectangleInitParams rp = {{12, 23}, 34, 2};
+    _Rectangle rectangle = Rectangle_get(&rp);
+    _$(Rectangle, rectangleOnTheStack, &rp);
     _UInt32 newWidth = 30;
     Rectangle_widthSet(rectangle, &newWidth);
     Rectangle_widthSet(rectangleOnTheStack, &newWidth);
@@ -37,7 +37,4 @@ Void App_start()
         printf("shapes[%d].area() = %d\n", i, Shape_area(shapes[i]));
         printf("shapes[%d].objectSize() = %d\n", i, CObject_objectSize((CObject) shapes[i]));
     }
-
-    drop_Circle((__Circle) circle);
-    drop_Rectangle((__Rectangle) rectangle);
 }

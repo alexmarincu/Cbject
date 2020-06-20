@@ -5,7 +5,10 @@
 
 #undef class
 #define class Shape
-abstract_class_init_params(Point origin);
+
+abstract_class_init_params(
+    Point origin);
+
 set_get(Point, origin);
 fun(_UInt32, area);
 fun(Void, draw);

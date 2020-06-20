@@ -4,6 +4,7 @@
 
 #undef class
 #define class Point
+
 data_class_members(
     _UInt32 x;
     _UInt32 y);

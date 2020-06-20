@@ -5,27 +5,40 @@
 
 #define super_class CObject
 
-#define abstract_class_init_params__(className, ...)       \
-    typedef struct className _ptr __##className;           \
-    typedef struct className ptr _##className;             \
-    typedef struct className const ptr className;          \
-    _UInt8 className##_classSize();                        \
-    Void className##_init(_##className me, ##__VA_ARGS__); \
-    Void className##_reset(_##className me)
-#define abstract_class_init_params_(className, ...) abstract_class_init_params__(className, ##__VA_ARGS__)
-#define abstract_class_init_params(...) abstract_class_init_params_(class, ##__VA_ARGS__)
+#define abstract_class_init_params__(className, classInitParams)      \
+    typedef struct className _ptr __##className;                      \
+    typedef struct className ptr _##className;                        \
+    typedef struct className const ptr className;                     \
+    typedef struct className##InitParams _##className##InitParams;    \
+    typedef struct className##InitParams const className##InitParams; \
+                                                                      \
+    struct className##InitParams                                      \
+    {                                                                 \
+        classInitParams;                                              \
+    };                                                                \
+                                                                      \
+    _UInt8 className##_classSize();                                   \
+    Void className##_init(_##className me, className##InitParams ptr params)
+#define abstract_class_init_params_(className, classInitParams) abstract_class_init_params__(className, classInitParams)
+#define abstract_class_init_params(classInitParams) abstract_class_init_params_(class, classInitParams)
 
-#define class_init_params__(className, ...)                \
-    typedef struct className _ptr __##className;           \
-    typedef struct className ptr _##className;             \
-    typedef struct className const ptr className;          \
-    __##className className##_get(__VA_ARGS__);            \
-    Void drop_##className(__##className me);               \
-    _UInt8 className##_classSize();                        \
-    Void className##_init(_##className me, ##__VA_ARGS__); \
-    Void className##_reset(_##className me)
-#define class_init_params_(className, ...) class_init_params__(className, ##__VA_ARGS__)
-#define class_init_params(...) class_init_params_(class, ##__VA_ARGS__)
+#define class_init_params__(className, classInitParams)               \
+    typedef struct className _ptr __##className;                      \
+    typedef struct className ptr _##className;                        \
+    typedef struct className const ptr className;                     \
+    typedef struct className##InitParams _##className##InitParams;    \
+    typedef struct className##InitParams const className##InitParams; \
+                                                                      \
+    struct className##InitParams                                      \
+    {                                                                 \
+        classInitParams;                                              \
+    };                                                                \
+                                                                      \
+    __##className className##_get(className##InitParams ptr params);  \
+    _UInt8 className##_classSize();                                   \
+    Void className##_init(_##className me, className##InitParams ptr params)
+#define class_init_params_(className, classInitParams) class_init_params__(className, classInitParams)
+#define class_init_params(classInitParams) class_init_params_(class, classInitParams)
 
 #define class_members__(className, superClassName, classMembers) \
     struct className                                             \
@@ -41,6 +54,7 @@
 #define data_class_members__(className, classMembers) \
     typedef struct className _##className;            \
     typedef struct className const className;         \
+                                                      \
     struct className                                  \
     {                                                 \
         classMembers;                                 \
@@ -51,6 +65,7 @@
 #define class_virtual_functions__(className, superClassName, classVirtualFunctions) \
     typedef struct className##VT _##className##VT;                                  \
     typedef struct className##VT const className##VT;                               \
+                                                                                    \
     struct className##VT                                                            \
     {                                                                               \
         superClassName##VT super;                                                   \
@@ -118,12 +133,41 @@
 #define override_virtual_fun_(className, type, superClassName, functionName, ...) override_virtual_fun__(className, type, superClassName, functionName, ##__VA_ARGS__)
 #define override_virtual_fun(type, superClassName, functionName, ...) override_virtual_fun_(class, type, superClassName, functionName, ##__VA_ARGS__)
 
-#define class_init__(className, superClassName, ...)                                \
+#define abstract_class_init__(className, superClassName)                            \
     static _UInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
     _UInt8 className##_classSize() { return sizeof(struct className); }             \
-    Void className##_init(_##className me, ##__VA_ARGS__)
-#define class_init_(className, superClassName, ...) class_init__(className, superClassName, ##__VA_ARGS__)
-#define class_init(...) class_init_(class, super_class, ##__VA_ARGS__)
+    Void className##_init(_##className me, className##InitParams ptr params)
+#define abstract_class_init_(className, superClassName) abstract_class_init__(className, superClassName)
+#define abstract_class_init() abstract_class_init_(class, super_class)
+
+#if CObject_useStaticPool == true
+#define class_init__(className, superClassName)                                     \
+    static struct className className##Pool[className##_poolSize];                  \
+                                                                                    \
+    __##className className##_get(className##InitParams ptr params)                 \
+    {                                                                               \
+        __##className me = null;                                                    \
+        _UInt32 i;                                                                  \
+                                                                                    \
+        for (i = 0; i < className##_poolSize; i++)                                  \
+        {                                                                           \
+            if (CObject_isInitialized((CObject) &className##Pool[i]) == false)      \
+            {                                                                       \
+                me = &className##Pool[i];                                           \
+                className##_init(me, params);                                       \
+                break;                                                              \
+            }                                                                       \
+        }                                                                           \
+                                                                                    \
+        return me;                                                                  \
+    }                                                                               \
+                                                                                    \
+    static _UInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
+    _UInt8 className##_classSize() { return sizeof(struct className); }             \
+    Void className##_init(_##className me, className##InitParams ptr params)
+#endif
+#define class_init_(className, superClassName) class_init__(className, superClassName)
+#define class_init() class_init_(class, super_class)
 
 #define super_class_init__(superClassName, ...) \
     superClassName##_init((_##superClassName) me, ##__VA_ARGS__)
@@ -133,6 +177,7 @@
 #if super_class == CObject
 #define bind_virtual_functions__(className, ...)                                   \
     CObject_init((_CObject) me);                                                   \
+                                                                                   \
     do                                                                             \
     {                                                                              \
         static className##VT const vT = {                                          \

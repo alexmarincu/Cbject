@@ -9,17 +9,10 @@ default_fun(_UInt32, area)
     return 0;
 }
 
-class_init(Point origin)
+abstract_class_init()
 {
     bind_virtual_functions(
         default_Shape_area);
 
-    me->origin = origin;
-}
-
-Void Shape_reset(_Shape me)
-{
-    me->origin.x = 0;
-    me->origin.y = 0;
-    CObject_reset((_CObject) me);
+    me->origin = params->origin;
 }
