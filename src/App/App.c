@@ -37,4 +37,8 @@ Void App_start()
         printf("shapes[%d].area() = %d\n", i, Shape_area(shapes[i]));
         printf("shapes[%d].objectSize() = %d\n", i, CObject_objectSize((CObject) shapes[i]));
     }
+
+    Shape_draw((Shape) circle);
+    Shape_draw((Shape) rectangle);
+
 }

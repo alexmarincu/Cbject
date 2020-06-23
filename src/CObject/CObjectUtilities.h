@@ -49,8 +49,6 @@
 #define class_members_(className, superClassName, classMembers) class_members__(className, superClassName, classMembers)
 #define class_members(classMembers) class_members_(class, super_class, classMembers)
 
-#define end }
-
 #define data_class_members__(className, classMembers) \
     typedef struct className _##className;            \
     typedef struct className const className;         \
@@ -114,12 +112,12 @@
 
 #define default_fun__(className, type, functionName, ...)                                                                              \
     type className##_##functionName(className me, ##__VA_ARGS__) { return ((className##VT ptr)((CObject) me)->vT)->functionName(me); } \
-    static type default_##className##_##functionName(className me, ##__VA_ARGS__)
+    type super_##className##_##functionName(className me, ##__VA_ARGS__)
 #define default_fun_(className, type, functionName, ...) default_fun__(className, type, functionName, ##__VA_ARGS__)
 #define default_fun(type, functionName, ...) default_fun_(class, type, functionName, ##__VA_ARGS__)
 
 #define _default_fun__(className, type, functionName, ...) \
-    static type default_##className##_##functionName(className me, ##__VA_ARGS__)
+    type super_##className##_##functionName(className me, ##__VA_ARGS__)
 #define _default_fun_(className, type, functionName, ...) _default_fun__(className, type, functionName, ##__VA_ARGS__)
 #define _default_fun(type, functionName, ...) _default_fun_(class, type, functionName, ##__VA_ARGS__)
 
@@ -142,10 +140,9 @@
 
 #if CObject_useStaticPool == true
 #define class_init__(className, superClassName)                                     \
-    static struct className className##Pool[className##_poolSize];                  \
-                                                                                    \
     __##className className##_get(className##InitParams ptr params)                 \
     {                                                                               \
+        static struct className className##Pool[className##_poolSize];              \
         __##className me = null;                                                    \
         _UInt32 i;                                                                  \
                                                                                     \
@@ -180,7 +177,7 @@
                                                                                    \
     do                                                                             \
     {                                                                              \
-        static className##VT const vT = {                                          \
+        static className##VT const vT = {                                                \
             (_UInt8(ptr)(CObject me)) override_CObject_objectSize, ##__VA_ARGS__}; \
         ((_CObject) me)->vT = (CObjectVT ptr) &vT;                                 \
     } while (0)
@@ -188,7 +185,7 @@
 #define bind_virtual_functions__(className, ...)                                   \
     do                                                                             \
     {                                                                              \
-        static className##VT const vT = {                                          \
+        static className##VT const vT = {                                                \
             (_UInt8(ptr)(CObject me)) override_CObject_objectSize, ##__VA_ARGS__}; \
         ((_CObject) me)->vT = (CObjectVT ptr) &vT;                                 \
     } while (0)

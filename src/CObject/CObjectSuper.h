@@ -14,4 +14,6 @@ struct CObject
     _Boolean isInitialized;
 };
 
+_UInt8 super_CObject_objectSize(CObject me);
+
 #endif // COBJECTSUPER_H

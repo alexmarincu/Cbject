@@ -17,7 +17,8 @@ class_init()
     super_class_init((ShapeInitParams ptr) params);
 
     bind_virtual_functions(
-        override_virtual_fun(_UInt32, Shape, area));
+        override_virtual_fun(_UInt32, Shape, area),
+        super_Shape_draw);
 
     me->width = params->width;
     me->height = params->height;

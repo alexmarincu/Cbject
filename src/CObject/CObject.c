@@ -1,6 +1,6 @@
 #include "CObjectSuper.h"
 
-static _UInt8 default_CObject_objectSize(CObject me)
+_UInt8 super_CObject_objectSize(CObject me)
 {
     return sizeof(*me);
 }
@@ -17,7 +17,7 @@ _Boolean CObject_isInitialized(CObject me)
 
 Void CObject_init(_CObject me)
 {
-    static CObjectVT const vT = {CObject_objectSize};
+    static CObjectVT const vT = {super_CObject_objectSize};
     me->vT = &vT;
     me->isInitialized = true;
 }
