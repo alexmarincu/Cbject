@@ -18,9 +18,26 @@ default_fun(Void, draw)
 
 abstract_class_init()
 {
+    CObject_init((_CObject) me);
+
+    _Boolean isVtSetupDone = false;
+
+    if (isVtSetupDone)
+    {
+        isVtSetupDone = true;
+
+        static _ShapeVT vT;
+        vT.super = *(((CObject) me)->vT);
+        vT.super.objectSize = (_UInt8(ptr)(CObject me)) override_CObject_objectSize;
+        vT.area = super_Shape_area;
+        vT.draw = super_Shape_draw;
+        ((_CObject) me)->vT = (CObjectVT ptr) &vT;
+    }
+
+    /*
     bind_virtual_functions(
         super_Shape_area,
         super_Shape_draw);
-        
+*/
     me->origin = params->origin;
 }

@@ -3,14 +3,17 @@
 
 #include "CObject.h"
 
-typedef struct
+typedef struct CObjectVT _CObjectVT;
+typedef struct CObjectVT const CObjectVT;
+
+struct CObjectVT
 {
-    _UInt8(ptr objectSize)(CObject me);
-} CObjectVT;
+    _UInt8(_ptr objectSize)(CObject me);
+};
 
 struct CObject
 {
-    CObjectVT const _ptr vT;
+    CObjectVT _ptr vT;
     _Boolean isInitialized;
 };
 
