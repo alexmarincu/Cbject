@@ -8,7 +8,7 @@
             "name": "Debug",
             "type": "gdb",
             "request": "launch",
-            "target": "./build/oop-in-c",
+            "target": "./build/CObject",
             "cwd": "${workspaceRoot}",
             "valuesFormatting": "parseText"
         }
