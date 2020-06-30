@@ -17,14 +17,10 @@ class_init()
     super_class_init((ShapeInitParams ptr) params);
 
     bind_virtual_functions(
-        override_virtual_fun(_UInt32, Shape, area),
-        super_Shape_draw);
+        override_virtual_fun(_UInt32, Shape, area));
 
     me->width = params->width;
     me->height = params->height;
 }
-
-
-
 
 override_fun(_UInt32, Shape, area) { return me->width * me->height; }

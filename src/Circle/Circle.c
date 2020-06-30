@@ -12,7 +12,7 @@ class_init()
     super_class_init((ShapeInitParams ptr) params);
 
     bind_virtual_functions(
-        override_virtual_fun(_UInt32, Shape, area),
+        override_virtual_fun(_UInt32, Shape, area);
         override_virtual_fun(Void, Shape, draw));
 
     me->radius = params->radius;
@@ -21,6 +21,7 @@ class_init()
 override_fun(Void, Shape, draw)
 {
     (Void) me;
+    super_Shape_draw((Shape) me);
     printf("Circle draw");
 }
 

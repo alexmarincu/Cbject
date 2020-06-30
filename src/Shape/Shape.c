@@ -20,7 +20,7 @@ abstract_class_init()
 {
     CObject_init((_CObject) me);
 
-    bind_virtual_functions_new(
+    bind_virtual_functions(
         bind_virtual_fun(area);
         bind_virtual_fun(draw));
 

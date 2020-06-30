@@ -124,11 +124,6 @@
 #define override_fun_(className, type, superClassName, functionName, ...) override_fun__(className, type, superClassName, functionName, ##__VA_ARGS__)
 #define override_fun(type, superClassName, functionName, ...) override_fun_(class, type, superClassName, functionName, ##__VA_ARGS__)
 
-#define override_virtual_fun__(className, type, superClassName, functionName, ...) \
-    (type(ptr)(superClassName me, ##__VA_ARGS__)) override_##superClassName##_##functionName
-#define override_virtual_fun_(className, type, superClassName, functionName, ...) override_virtual_fun__(className, type, superClassName, functionName, ##__VA_ARGS__)
-#define override_virtual_fun(type, superClassName, functionName, ...) override_virtual_fun_(class, type, superClassName, functionName, ##__VA_ARGS__)
-
 #define abstract_class_init__(className, superClassName)                            \
     static _UInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
     _UInt8 className##_classSize() { return sizeof(struct className); }             \
@@ -169,39 +164,33 @@
 #define super_class_init_(superClassName, ...) super_class_init__(superClassName, ##__VA_ARGS__)
 #define super_class_init(...) super_class_init_(super_class, ##__VA_ARGS__)
 
-#define bind_virtual_functions__(className, ...)                                   \
-    CObject_init((_CObject) me);                                                   \
-                                                                                   \
-    do                                                                             \
-    {                                                                              \
-        static className##VT vT = {                                                \
-            (_UInt8(ptr)(CObject me)) override_CObject_objectSize, ##__VA_ARGS__}; \
-        ((_CObject) me)->vT = (CObjectVT ptr) &vT;                                 \
-    } while (0)
-#define bind_virtual_functions_(className, ...) bind_virtual_functions__(className, ##__VA_ARGS__)
-#define bind_virtual_functions(...) bind_virtual_functions_(class, ##__VA_ARGS__)
-
-#define bind_virtual_functions_new__(className, superClassName, virtualFunctions)                       \
+#define bind_virtual_functions__(className, superClassName, virtualFunctions)                           \
     do                                                                                                  \
     {                                                                                                   \
+        static _##className##VT vT;                                                                     \
         static _Boolean isVtSetupDone = false;                                                          \
                                                                                                         \
-        if (isVtSetupDone)                                                                              \
+        if (isVtSetupDone == false)                                                                     \
         {                                                                                               \
             isVtSetupDone = true;                                                                       \
-            static _##className##VT vT;                                                                 \
-            *((_##superClassName##VT ptr) & vT) = *(((superClassName) me)->vT);                         \
+            *((_##superClassName##VT ptr) &vT) = *((superClassName##VT ptr)(((CObject) me)->vT));      \
             ((_CObjectVT ptr) &vT)->objectSize = (_UInt8(ptr)(CObject me)) override_CObject_objectSize; \
             virtualFunctions;                                                                           \
-            ((_CObject) me)->vT = (CObjectVT ptr) &vT;                                                  \
         }                                                                                               \
+                                                                                                        \
+        ((_CObject) me)->vT = (CObjectVT ptr) &vT;                                                      \
     } while (0)
-#define bind_virtual_functions_new_(className, superClassName, virtualFunctions) bind_virtual_functions_new__(className, superClassName, virtualFunctions)
-#define bind_virtual_functions_new(virtualFunctions) bind_virtual_functions_new_(class, super_class, virtualFunctions)
+#define bind_virtual_functions_(className, superClassName, virtualFunctions) bind_virtual_functions__(className, superClassName, virtualFunctions)
+#define bind_virtual_functions(virtualFunctions) bind_virtual_functions_(class, super_class, virtualFunctions)
 
 #define bind_virtual_fun__(className, functionName) \
     vT.functionName = super_##className##_##functionName
 #define bind_virtual_fun_(className, functionName) bind_virtual_fun__(className, functionName)
 #define bind_virtual_fun(functionName) bind_virtual_fun_(class, functionName)
+
+#define override_virtual_fun__(className, type, superClassName, functionName, ...) \
+    ((_##superClassName##VT ptr) &vT)->functionName = (type(ptr)(superClassName me, ##__VA_ARGS__)) override_##superClassName##_##functionName
+#define override_virtual_fun_(className, type, superClassName, functionName, ...) override_virtual_fun__(className, type, superClassName, functionName, ##__VA_ARGS__)
+#define override_virtual_fun(type, superClassName, functionName, ...) override_virtual_fun_(class, type, superClassName, functionName, ##__VA_ARGS__)
 
 #endif // COBJECTUTILITIES_H
