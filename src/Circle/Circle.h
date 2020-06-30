@@ -10,7 +10,7 @@
 
 class_init_params(
     Point origin;
-     UInt32 radius);
+    UInt32 radius);
 
 set_get(UInt32, radius);
 
