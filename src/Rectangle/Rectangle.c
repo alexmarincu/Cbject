@@ -24,4 +24,7 @@ class_init()
     me->height = params->height;
 }
 
+
+
+
 override_fun(_UInt32, Shape, area) { return me->width * me->height; }

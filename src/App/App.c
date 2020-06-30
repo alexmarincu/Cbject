@@ -5,17 +5,27 @@
 
 Void App_start()
 {
-    CircleInitParams cp = {{2, 3}, 5};
+    CircleInitParams cp = {
+        .origin.x = 2,
+        .origin.y = 3,
+        .radius = 5};
+
     _Circle circle = Circle_get(&cp);
-    _$(Circle, circleOnTheStack, &cp);
+    _object(Circle, circleOnTheStack, &cp);
     _UInt32 newRadius = 3;
     Circle_radiusSet(circle, &newRadius);
     Circle_radiusSet(circleOnTheStack, &newRadius);
     Circle_radiusGet(circle, &newRadius);
     Circle_radiusGet(circleOnTheStack, &newRadius);
-    RectangleInitParams rp = {{12, 23}, 34, 2};
+
+    RectangleInitParams rp = {
+        .origin.x = 12,
+        .origin.y = 23,
+        .width = 34,
+        .height = 2};
+
     _Rectangle rectangle = Rectangle_get(&rp);
-    _$(Rectangle, rectangleOnTheStack, &rp);
+    _object(Rectangle, rectangleOnTheStack, &rp);
     _UInt32 newWidth = 30;
     Rectangle_widthSet(rectangle, &newWidth);
     Rectangle_widthSet(rectangleOnTheStack, &newWidth);
@@ -40,5 +50,4 @@ Void App_start()
 
     Shape_draw((Shape) circle);
     Shape_draw((Shape) rectangle);
-
 }

@@ -66,21 +66,19 @@
                                                                                     \
     struct className##VT                                                            \
     {                                                                               \
-        superClassName##VT super;                                                   \
+        _##superClassName##VT super;                                                   \
         classVirtualFunctions;                                                      \
     }
 #define class_virtual_functions_(className, superClassName, classVirtualFunctions) class_virtual_functions__(className, superClassName, classVirtualFunctions)
 #define class_virtual_functions(classVirtualFunctions) class_virtual_functions_(class, super_class, classVirtualFunctions)
 
-#define $(className, varName, ...)                  \
-    UInt8 varName##Size = className##_classSize();  \
-    UInt8 varName##Stack[varName##Size];            \
+#define object(className, varName, ...)                  \
+    UInt8 varName##Stack[className##_classSize()];            \
     className varName = (className) varName##Stack; \
     className##_init((_##className) varName, ##__VA_ARGS__)
 
-#define _$(className, varName, ...)                       \
-    UInt8 varName##Size = className##_classSize();        \
-    UInt8 varName##Stack[varName##Size];                  \
+#define _object(className, varName, ...)                       \
+    UInt8 varName##Stack[className##_classSize()];                  \
     _##className varName = (_##className) varName##Stack; \
     className##_init(varName, ##__VA_ARGS__)
 
@@ -106,12 +104,12 @@
 #define fun(type, functionName, ...) fun_(class, type, functionName, ##__VA_ARGS__)
 
 #define virtual_fun__(className, type, functionName, ...) \
-    type(ptr functionName)(className me, ##__VA_ARGS__);
+    type(_ptr functionName)(className me, ##__VA_ARGS__);
 #define virtual_fun_(className, type, functionName, ...) virtual_fun__(className, type, functionName, ##__VA_ARGS__)
 #define virtual_fun(type, functionName, ...) virtual_fun_(class, type, functionName, ##__VA_ARGS__)
 
 #define default_fun__(className, type, functionName, ...)                                                                              \
-    type className##_##functionName(className me, ##__VA_ARGS__) { return ((className##VT ptr)((CObject) me)->vT)->functionName(me); } \
+    type className##_##functionName(className me, ##__VA_ARGS__) { return ((className##VT ptr)((CObject) me)->vT)->functionName(me, ##__VA_ARGS__); } \
     type super_##className##_##functionName(className me, ##__VA_ARGS__)
 #define default_fun_(className, type, functionName, ...) default_fun__(className, type, functionName, ##__VA_ARGS__)
 #define default_fun(type, functionName, ...) default_fun_(class, type, functionName, ##__VA_ARGS__)
@@ -171,25 +169,15 @@
 #define super_class_init_(superClassName, ...) super_class_init__(superClassName, ##__VA_ARGS__)
 #define super_class_init(...) super_class_init_(super_class, ##__VA_ARGS__)
 
-#if super_class == CObject
 #define bind_virtual_functions__(className, ...)                                   \
     CObject_init((_CObject) me);                                                   \
                                                                                    \
     do                                                                             \
     {                                                                              \
-        static className##VT const vT = {                                                \
+        static className##VT vT = {                                                \
             (_UInt8(ptr)(CObject me)) override_CObject_objectSize, ##__VA_ARGS__}; \
         ((_CObject) me)->vT = (CObjectVT ptr) &vT;                                 \
     } while (0)
-#else
-#define bind_virtual_functions__(className, ...)                                   \
-    do                                                                             \
-    {                                                                              \
-        static className##VT const vT = {                                                \
-            (_UInt8(ptr)(CObject me)) override_CObject_objectSize, ##__VA_ARGS__}; \
-        ((_CObject) me)->vT = (CObjectVT ptr) &vT;                                 \
-    } while (0)
-#endif
 #define bind_virtual_functions_(className, ...) bind_virtual_functions__(className, ##__VA_ARGS__)
 #define bind_virtual_functions(...) bind_virtual_functions_(class, ##__VA_ARGS__)
 
