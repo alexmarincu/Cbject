@@ -1,28 +1,22 @@
 #include "CircleSuper.h"
 #include <stdio.h>
 
-default_set(UInt32, radius);
-default_get(UInt32, radius);
+default_set_get(UInt32, radius);
+override_fun(mUInt32, Shape, area);
+override_fun(Void, Shape, draw, UInt8 a);
 
-override_fun(_UInt32, Shape, area);
-override_fun(Void, Shape, draw);
-
-class_init()
-{
-    super_class_init((ShapeInitParams ptr) params);
-
+class_init(
+    Shape_init((mShape) me, (ShapeInitParams Ptr) params);
     bind_virtual_functions(
-        override_virtual_fun(_UInt32, Shape, area);
-        override_virtual_fun(Void, Shape, draw));
+        override_virtual_fun(mUInt32, Shape, area);
+        override_virtual_fun(Void, Shape, draw, UInt8 a));
+    me->radius = params->radius);
 
-    me->radius = params->radius;
-}
-
-override_fun(Void, Shape, draw)
+override_fun(Void, Shape, draw, UInt8 a)
 {
     (Void) me;
-    super_Shape_draw((Shape) me);
+    super_Shape_draw((Shape) me, a);
     printf("Circle draw");
 }
 
-override_fun(_UInt32, Shape, area) { return me->radius * me->radius * 3; }
+override_fun(mUInt32, Shape, area) { return me->radius * me->radius * 3; }

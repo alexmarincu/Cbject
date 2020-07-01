@@ -4,8 +4,8 @@
 #include "Rectangle.h"
 
 class_members(
-    _UInt32 width;
-    _UInt32 height);
+    mUInt32 width;
+    mUInt32 height);
 
 class_virtual_functions();
 

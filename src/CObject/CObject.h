@@ -3,12 +3,12 @@
 
 #include "CObjectUtilities.h"
 
-typedef struct CObject _ptr __CObject;
-typedef struct CObject ptr _CObject;
-typedef struct CObject const ptr CObject;
+typedef struct CObject mPtr mmCObject;
+typedef struct CObject Ptr mCObject;
+typedef struct CObject const Ptr CObject;
 
-Void CObject_init(_CObject me);
-_UInt8 CObject_objectSize(CObject me);
-_Boolean CObject_isInitialized(CObject me);
+Void CObject_init(mCObject me);
+mUInt8 CObject_objectSize(CObject me);
+mBoolean CObject_isInitialized(CObject me);
 
 #endif // COBJECT_H

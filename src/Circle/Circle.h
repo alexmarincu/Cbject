@@ -3,8 +3,8 @@
 #include "../Shape/Shape.h"
 
 #undef class
-#define class Circle
 #undef super_class
+#define class Circle
 #define super_class Shape
 #define Circle_poolSize 10U
 

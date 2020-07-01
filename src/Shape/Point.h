@@ -6,7 +6,7 @@
 #define class Point
 
 data_class_members(
-    _UInt32 x;
-    _UInt32 y);
+    mUInt32 x;
+    mUInt32 y);
 
 #endif // POINT_H

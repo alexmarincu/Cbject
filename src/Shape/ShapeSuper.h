@@ -4,13 +4,13 @@
 #include "Shape.h"
 
 class_members(
-    _Point origin);
+    mPoint origin);
 
 class_virtual_functions(
-    virtual_fun(_UInt32, area);
-    virtual_fun(Void, draw));
+    virtual_function(mUInt32, area);
+    virtual_function(Void, draw, UInt8 a));
 
-_default_fun(_UInt32, area);
-_default_fun(Void, draw);
+virtual_fun(mUInt32, area);
+virtual_fun(Void, draw, UInt8 a);
 
 #endif // SHAPESUPER_H

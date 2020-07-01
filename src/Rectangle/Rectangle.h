@@ -3,8 +3,8 @@
 #include "../Shape/Shape.h"
 
 #undef class
-#define class Rectangle
 #undef super_class
+#define class Rectangle
 #define super_class Shape
 #define Rectangle_poolSize 10U
 
@@ -15,6 +15,6 @@ class_init_params(
 
 set_get(UInt32, width);
 set_get(UInt32, height);
-fun(_UInt32, test, UInt32 a);
+fun(mUInt32, test, UInt32 a);
 
 #endif // RECTANGLE_H

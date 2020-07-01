@@ -3,20 +3,20 @@
 
 #include "CObject.h"
 
-typedef struct CObjectVT _CObjectVT;
+typedef struct CObjectVT mCObjectVT;
 typedef struct CObjectVT const CObjectVT;
 
 struct CObjectVT
 {
-    _UInt8(_ptr objectSize)(CObject me);
+    mUInt8(mPtr objectSize)(CObject me);
 };
 
 struct CObject
 {
-    CObjectVT _ptr vT;
-    _Boolean isInitialized;
+    CObjectVT mPtr vT;
+    mBoolean isInitialized;
 };
 
-_UInt8 super_CObject_objectSize(CObject me);
+mUInt8 super_CObject_objectSize(CObject me);
 
 #endif // COBJECTSUPER_H

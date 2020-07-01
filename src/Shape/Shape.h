@@ -10,8 +10,7 @@ abstract_class_init_params(
     Point origin);
 
 set_get(Point, origin);
-
-fun(_UInt32, area);
-fun(Void, draw);
+fun(mUInt32, area);
+fun(Void, draw, UInt8 a);
 
 #endif // SHAPE_H
