@@ -18,7 +18,7 @@ override_fun(Void, Shape, draw, UInt8 a)
 {
     (Void) me;
     super_Shape_draw((Shape) me, a);
-    printf("Circle draw");
+    printf("Circle draw\n");
 }
 
 override_fun(mUInt32, Shape, area) { return me->radius * me->radius * 3; }

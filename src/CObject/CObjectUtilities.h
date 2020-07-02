@@ -60,6 +60,21 @@
 #define data_class_members_(className, classMembers) data_class_members__(className, classMembers)
 #define data_class_members(classMembers) data_class_members_(class, classMembers)
 
+#define enum_class_members__(className, ...) \
+    typedef enum className m##className;     \
+    typedef enum className const className;  \
+                                             \
+    enum className                           \
+    {                                        \
+        __VA_ARGS__                          \
+    }
+#define enum_class_members_(className, ...) enum_class_members__(className, __VA_ARGS__)
+#define enum_class_members(...) enum_class_members_(class, __VA_ARGS__)
+
+#define enum_member__(className, memberName) className##_##memberName
+#define enum_member_(className, memberName) enum_member__(className, memberName)
+#define enum_member(memberName) enum_member_(class, memberName)
+
 #define class_virtual_functions__(className, superClassName, classVirtualFunctions) \
     typedef struct className##VT m##className##VT;                                  \
     typedef struct className##VT const className##VT;                               \

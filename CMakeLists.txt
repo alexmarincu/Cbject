@@ -10,7 +10,8 @@ src/App/App.c
 src/CObject/CObject.c
 src/Shape/Shape.c
 src/Circle/Circle.c
-src/Rectangle/Rectangle.c)
+src/Rectangle/Rectangle.c
+src/ColoredCircle/ColoredCircle.c)
 
 add_executable(CObject ${SOURCE})
 
