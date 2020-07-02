@@ -6,8 +6,8 @@
 #define class Color
 
 enum_class_values(
-    enum_val(red),
-    enum_val(yellow),
-    enum_val(blue) = 5);
+    red,
+    yellow,
+    blue = 6);
 
 #endif // COLOR_H

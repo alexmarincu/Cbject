@@ -5,6 +5,14 @@
 
 #define super_class CObject
 
+#define fe_1(macro, x) macro(x)
+#define fe_2(macro, x, ...) macro(x) fe_1(macro, __VA_ARGS__)
+#define fe_3(macro, x, ...) macro(x) fe_2(macro, __VA_ARGS__)
+#define fe_4(macro, x, ...) macro(x) fe_3(macro, __VA_ARGS__)
+#define fe_5(macro, x, ...) macro(x) fe_4(macro, __VA_ARGS__)
+#define get_arg_n(arg1, arg2, arg3, arg4, arg5, argN, ...) argN
+#define for_each(macro, ...) get_arg_n(__VA_ARGS__, fe_5, fe_4, fe_3, fe_2, fe_1)(macro, __VA_ARGS__)
+
 #define abstract_class_init_params__(className, classInitParams)      \
     typedef struct className mPtr mm##className;                      \
     typedef struct className Ptr m##className;                        \
@@ -60,20 +68,20 @@
 #define data_class_members_(className, classMembers) data_class_members__(className, classMembers)
 #define data_class_members(classMembers) data_class_members_(class, classMembers)
 
+#define enum_val__(className, valueName) className##_##valueName,
+#define enum_val_(className, valueName) enum_val__(className, valueName)
+#define enum_val(valueName) enum_val_(class, valueName)
+
 #define enum_class_values__(className, ...) \
     typedef enum className m##className;    \
     typedef enum className const className; \
                                             \
     enum className                          \
     {                                       \
-        __VA_ARGS__                         \
+        for_each(enum_val, __VA_ARGS__)     \
     }
 #define enum_class_values_(className, ...) enum_class_values__(className, __VA_ARGS__)
 #define enum_class_values(...) enum_class_values_(class, __VA_ARGS__)
-
-#define enum_val__(className, memberName) className##_##memberName
-#define enum_val_(className, memberName) enum_val__(className, memberName)
-#define enum_val(memberName) enum_val_(class, memberName)
 
 #define class_virtual_functions__(className, superClassName, classVirtualFunctions) \
     typedef struct className##VT m##className##VT;                                  \
