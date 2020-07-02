@@ -1,5 +1,6 @@
 #include "App.h"
 #include "../Circle/Circle.h"
+#include "../ColoredCircle/ColoredCircle.h"
 #include "../Rectangle/Rectangle.h"
 #include <stdio.h>
 
@@ -57,11 +58,23 @@ Void App_start()
     width = Rectangle_widthGet(stackRectangle);
     printf("stackRectangle.width = %d\n", width);
 
+    mColoredCircle coloredCircle = ColoredCircle_get(
+        &((ColoredCircleInitParams){
+            .radius = 10,
+            .color = Color_red}));
+
+    radius = Circle_radiusGet((Circle) coloredCircle);
+    printf("coloredCircle.radius = %d\n", radius);
+    Circle_radiusSet((mCircle) coloredCircle, newRadius);
+    radius = Circle_radiusGet((Circle) coloredCircle);
+    printf("coloredCircle.radius = %d\n", radius);
+
     Shape shapes[] = {
         (Shape) circle,
         (Shape) stackCircle,
         (Shape) rectangle,
-        (Shape) stackRectangle};
+        (Shape) stackRectangle,
+        (Shape) coloredCircle};
 
     printf("circle.isInitialized() = %d\n", CObject_isInitialized((CObject) circle));
 
@@ -72,7 +85,14 @@ Void App_start()
     origin = Shape_originGet((Shape) circle);
     printf("circle.origin.x = %d\n", origin.x);
 
+    origin = Shape_originGet((Shape) coloredCircle);
+    printf("coloredCircle.origin.x = %d\n", origin.x);
+    Shape_originSet((mShape) coloredCircle, newOrigin);
+    origin = Shape_originGet((Shape) coloredCircle);
+    printf("coloredCircle.origin.x = %d\n", origin.x);
+
     printf("circle.area() = %d\n", Shape_area((Shape) circle));
+    printf("coloredCircle.area() = %d\n", Shape_area((Shape) coloredCircle));
     printf("rectangle.area() = %d\n", Shape_area((Shape) rectangle));
 
     for (mUInt8 i = 0; i < 4; i++)
@@ -83,4 +103,5 @@ Void App_start()
 
     Shape_draw((Shape) circle, 5);
     Shape_draw((Shape) rectangle, 6);
+    Shape_draw((Shape) coloredCircle, 5);
 }

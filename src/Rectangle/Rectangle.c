@@ -4,7 +4,7 @@ override_fun(mUInt32, Shape, area);
 class_init(
     Shape_init((mShape) me, (ShapeInitParams Ptr) params);
     bind_virtual_functions(
-        override_virtual_fun(mUInt32, Shape, area));
+        bind_override_fun(mUInt32, Shape, area));
     me->width = params->width;
     me->height = params->height);
 

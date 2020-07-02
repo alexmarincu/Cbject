@@ -60,6 +60,21 @@
 #define data_class_members_(className, classMembers) data_class_members__(className, classMembers)
 #define data_class_members(classMembers) data_class_members_(class, classMembers)
 
+#define enum_class_members__(className, ...) \
+    typedef enum className m##className;     \
+    typedef enum className const className;  \
+                                             \
+    enum className                           \
+    {                                        \
+        __VA_ARGS__                          \
+    }
+#define enum_class_members_(className, ...) enum_class_members__(className, __VA_ARGS__)
+#define enum_class_members(...) enum_class_members_(class, __VA_ARGS__)
+
+#define enum_member__(className, memberName) className##_##memberName
+#define enum_member_(className, memberName) enum_member__(className, memberName)
+#define enum_member(memberName) enum_member_(class, memberName)
+
 #define class_virtual_functions__(className, superClassName, classVirtualFunctions) \
     typedef struct className##VT m##className##VT;                                  \
     typedef struct className##VT const className##VT;                               \
@@ -114,15 +129,10 @@
 #define virtual_function_(className, type, functionName, ...) virtual_function__(className, type, functionName, ##__VA_ARGS__)
 #define virtual_function(type, functionName, ...) virtual_function_(class, type, functionName, ##__VA_ARGS__)
 
-#define virtual_call__(className, type, functionName, ...) \
-    type className##_##functionName(className me, ##__VA_ARGS__)
-#define virtual_call_(className, type, functionName, ...) virtual_call__(className, type, functionName, ##__VA_ARGS__)
-#define virtual_call(type, functionName, ...) virtual_call_(class, type, functionName, ##__VA_ARGS__)
-
-#define call__(className, functionName, ...) \
+#define virtual_call__(className, functionName, ...) \
     return ((className##VT Ptr)((CObject) me)->vT)->functionName(me, ##__VA_ARGS__)
-#define call_(className, functionName, ...) call__(className, functionName, ##__VA_ARGS__)
-#define call(functionName, ...) call_(class, functionName, ##__VA_ARGS__)
+#define virtual_call_(className, functionName, ...) virtual_call__(className, functionName, ##__VA_ARGS__)
+#define virtual_call(functionName, ...) virtual_call_(class, functionName, ##__VA_ARGS__)
 
 #define virtual_fun__(className, type, functionName, ...) \
     type super_##className##_##functionName(className me, ##__VA_ARGS__)
@@ -212,8 +222,8 @@
 #define bind_virtual_fun_(className, functionName) bind_virtual_fun__(className, functionName)
 #define bind_virtual_fun(functionName) bind_virtual_fun_(class, functionName)
 
-#define override_virtual_fun__(className, type, superClassName, functionName, ...) \
+#define bind_override_fun__(className, type, superClassName, functionName, ...) \
     ((m##superClassName##VT Ptr) & vT)->functionName = (type(Ptr)(superClassName me, ##__VA_ARGS__)) override_##superClassName##_##functionName
-#define override_virtual_fun_(className, type, superClassName, functionName, ...) override_virtual_fun__(className, type, superClassName, functionName, ##__VA_ARGS__)
-#define override_virtual_fun(type, superClassName, functionName, ...) override_virtual_fun_(class, type, superClassName, functionName, ##__VA_ARGS__)
+#define bind_override_fun_(className, type, superClassName, functionName, ...) bind_override_fun__(className, type, superClassName, functionName, ##__VA_ARGS__)
+#define bind_override_fun(type, superClassName, functionName, ...) bind_override_fun_(class, type, superClassName, functionName, ##__VA_ARGS__)
 #endif // COBJECTUTILITIES_H
