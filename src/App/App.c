@@ -58,6 +58,19 @@ Void App_start()
     width = Rectangle_widthGet(stackRectangle);
     printf("stackRectangle.width = %d\n", width);
 
+    mRectangle heapRectangle = Rectangle_new(
+        &((RectangleInitParams){
+            .origin.x = 12,
+            .origin.y = 23,
+            .width = 34,
+            .height = 2}));
+
+    width = Rectangle_widthGet(heapRectangle);
+    printf("heapRectangle.width = %d\n", width);
+    Rectangle_widthSet(heapRectangle, newWidth);
+    width = Rectangle_widthGet(heapRectangle);
+    printf("heapRectangle.width = %d\n", width);
+
     mColoredCircle coloredCircle = ColoredCircle_get(
         &((ColoredCircleInitParams){
             .radius = 10,

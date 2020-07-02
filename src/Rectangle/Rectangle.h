@@ -6,12 +6,13 @@
 #undef super_class
 #define class Rectangle
 #define super_class Shape
-#define Rectangle_poolSize 10U
 
 class_init_params(
     Point origin;
     UInt32 width;
     UInt32 height);
+
+class_pool_size(10);
 
 set_get(UInt32, width);
 set_get(UInt32, height);

@@ -6,11 +6,12 @@
 #undef super_class
 #define class Circle
 #define super_class Shape
-#define Circle_poolSize 10U
 
 class_init_params(
     Point origin;
     UInt32 radius);
+
+class_pool_size(10);
 
 set_get(UInt32, radius);
 

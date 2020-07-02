@@ -30,6 +30,25 @@
 #define abstract_class_init_params_(className, classInitParams) abstract_class_init_params__(className, classInitParams)
 #define abstract_class_init_params(classInitParams) abstract_class_init_params_(class, classInitParams)
 
+#if CObject_useStaticPool == true
+#if CObject_useHeap == true
+#define class_init_params__(className, classInitParams)               \
+    typedef struct className mPtr mm##className;                      \
+    typedef struct className Ptr m##className;                        \
+    typedef struct className const Ptr className;                     \
+    typedef struct className##InitParams m##className##InitParams;    \
+    typedef struct className##InitParams const className##InitParams; \
+                                                                      \
+    struct className##InitParams                                      \
+    {                                                                 \
+        classInitParams;                                              \
+    };                                                                \
+                                                                      \
+    mm##className className##_get(className##InitParams Ptr params);  \
+    mm##className className##_new(className##InitParams Ptr params);  \
+    mUInt8 className##_classSize();                                   \
+    Void className##_init(m##className me, className##InitParams Ptr params)
+#else
 #define class_init_params__(className, classInitParams)               \
     typedef struct className mPtr mm##className;                      \
     typedef struct className Ptr m##className;                        \
@@ -45,8 +64,53 @@
     mm##className className##_get(className##InitParams Ptr params);  \
     mUInt8 className##_classSize();                                   \
     Void className##_init(m##className me, className##InitParams Ptr params)
+#endif
+#else
+#if CObject_useHeap == true
+#define class_init_params__(className, classInitParams)               \
+    typedef struct className mPtr mm##className;                      \
+    typedef struct className Ptr m##className;                        \
+    typedef struct className const Ptr className;                     \
+    typedef struct className##InitParams m##className##InitParams;    \
+    typedef struct className##InitParams const className##InitParams; \
+                                                                      \
+    struct className##InitParams                                      \
+    {                                                                 \
+        classInitParams;                                              \
+    };                                                                \
+                                                                      \
+    mm##className className##_new(className##InitParams Ptr params);  \
+    mUInt8 className##_classSize();                                   \
+    Void className##_init(m##className me, className##InitParams Ptr params)
+#else
+#define class_init_params__(className, classInitParams)               \
+    typedef struct className mPtr mm##className;                      \
+    typedef struct className Ptr m##className;                        \
+    typedef struct className const Ptr className;                     \
+    typedef struct className##InitParams m##className##InitParams;    \
+    typedef struct className##InitParams const className##InitParams; \
+                                                                      \
+    struct className##InitParams                                      \
+    {                                                                 \
+        classInitParams;                                              \
+    };                                                                \
+                                                                      \
+    mUInt8 className##_classSize();                                   \
+    Void className##_init(m##className me, className##InitParams Ptr params)
+#endif
+#endif
 #define class_init_params_(className, classInitParams) class_init_params__(className, classInitParams)
 #define class_init_params(classInitParams) class_init_params_(class, classInitParams)
+
+#if CObject_useStaticPool == true
+#define class_pool_size__(className, poolSize) \
+    enum                                       \
+    {                                          \
+        className##_poolSize = poolSize        \
+    }
+#define class_pool_size_(className, poolSize) class_pool_size__(className, poolSize)
+#define class_pool_size(poolSize) class_pool_size_(class, poolSize)
+#endif
 
 #define class_members__(className, superClassName, classMembers) \
     struct className                                             \
@@ -160,7 +224,9 @@
 
 #define abstract_class_init__(className, superClassName, initBlock)                 \
     static mUInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
+                                                                                    \
     mUInt8 className##_classSize() { return sizeof(struct className); }             \
+                                                                                    \
     Void className##_init(m##className me, className##InitParams Ptr params)        \
     {                                                                               \
         if (#superClassName == "CObject") { CObject_init((mCObject) me); }          \
@@ -170,6 +236,45 @@
 #define abstract_class_init(initBlock) abstract_class_init_(class, super_class, initBlock)
 
 #if CObject_useStaticPool == true
+#if CObject_useHeap == true
+#include <stdlib.h>
+#define class_init__(className, superClassName, initBlock)                          \
+    mm##className className##_get(className##InitParams Ptr params)                 \
+    {                                                                               \
+        static struct className className##Pool[className##_poolSize];              \
+        mm##className me = null;                                                    \
+        mUInt32 i;                                                                  \
+                                                                                    \
+        for (i = 0; i < className##_poolSize; i++)                                  \
+        {                                                                           \
+            if (CObject_isInitialized((CObject) &className##Pool[i]) == false)      \
+            {                                                                       \
+                me = &className##Pool[i];                                           \
+                className##_init(me, params);                                       \
+                break;                                                              \
+            }                                                                       \
+        }                                                                           \
+                                                                                    \
+        return me;                                                                  \
+    }                                                                               \
+                                                                                    \
+    mm##className className##_new(className##InitParams Ptr params)                 \
+    {                                                                               \
+        mm##className me = (mm##className) malloc(sizeof(struct className));        \
+        className##_init(me, params);                                               \
+        return me;                                                                  \
+    }                                                                               \
+                                                                                    \
+    static mUInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
+                                                                                    \
+    mUInt8 className##_classSize() { return sizeof(struct className); }             \
+                                                                                    \
+    Void className##_init(m##className me, className##InitParams Ptr params)        \
+    {                                                                               \
+        if (#superClassName == "CObject") { CObject_init((mCObject) me); }          \
+        initBlock;                                                                  \
+    }
+#else
 #define class_init__(className, superClassName, initBlock)                          \
     mm##className className##_get(className##InitParams Ptr params)                 \
     {                                                                               \
@@ -191,12 +296,47 @@
     }                                                                               \
                                                                                     \
     static mUInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
+                                                                                    \
     mUInt8 className##_classSize() { return sizeof(struct className); }             \
+                                                                                    \
     Void className##_init(m##className me, className##InitParams Ptr params)        \
     {                                                                               \
         if (#superClassName == "CObject") { CObject_init((mCObject) me); }          \
         initBlock;                                                                  \
     }
+#endif
+#else
+#if CObject_useHeap == true
+#include <stdlib.h>
+#define class_init__(className, superClassName, initBlock)                          \
+    mm##className className##_new(className##InitParams Ptr params)                 \
+    {                                                                               \
+        mm##className me = (mm##className) malloc(sizeof(struct className));        \
+        className##_init(me, params);                                               \
+        return me;                                                                  \
+    }                                                                               \
+                                                                                    \
+    static mUInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
+                                                                                    \
+    mUInt8 className##_classSize() { return sizeof(struct className); }             \
+                                                                                    \
+    Void className##_init(m##className me, className##InitParams Ptr params)        \
+    {                                                                               \
+        if (#superClassName == "CObject") { CObject_init((mCObject) me); }          \
+        initBlock;                                                                  \
+    }
+#else
+#define class_init__(className, superClassName, initBlock)                          \
+    static mUInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
+                                                                                    \
+    mUInt8 className##_classSize() { return sizeof(struct className); }             \
+                                                                                    \
+    Void className##_init(m##className me, className##InitParams Ptr params)        \
+    {                                                                               \
+        if (#superClassName == "CObject") { CObject_init((mCObject) me); }          \
+        initBlock;                                                                  \
+    }
+#endif
 #endif
 #define class_init_(className, superClassName, initBlock) class_init__(className, superClassName, initBlock)
 #define class_init(initBlock) class_init_(class, super_class, initBlock)

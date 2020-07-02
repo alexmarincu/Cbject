@@ -7,11 +7,12 @@
 #undef super_class
 #define class ColoredCircle
 #define super_class Circle
-#define ColoredCircle_poolSize 10U
 
 class_init_params(
     UInt32 radius;
     Color color);
+
+class_pool_size(10);
 
 set_get(UInt32, radius);
 set_get(Color, color);
