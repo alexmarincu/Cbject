@@ -5,9 +5,9 @@
 #undef class
 #define class Color
 
-enum_class_members(
-    enum_member(red),
-    enum_member(yellow),
-    enum_member(blue) = 5);
+enum_class_values(
+    enum_val(red),
+    enum_val(yellow),
+    enum_val(blue) = 5);
 
 #endif // COLOR_H
