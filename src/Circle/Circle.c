@@ -7,9 +7,11 @@ override_fun(Void, Shape, draw, UInt8 a);
 
 class_init(
     Shape_init((mShape) me, (ShapeInitParams Ptr) params);
+
     bind_virtual_functions(
-        override_virtual_fun(mUInt32, Shape, area);
-        override_virtual_fun(Void, Shape, draw, UInt8 a));
+        bind_override_fun(mUInt32, Shape, area);
+        bind_override_fun(Void, Shape, draw, UInt8 a));
+
     me->radius = params->radius);
 
 override_fun(Void, Shape, draw, UInt8 a)

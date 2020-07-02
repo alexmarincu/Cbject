@@ -9,19 +9,15 @@ abstract_class_init(
 
 default_set_get(Point, origin);
 
-// virtual_call(mUInt32, area) { call(area); }
-default_fun(
-    call(area),
-    mUInt32, area)
+fun(mUInt32, area) { virtual_call(area); }
+virtual_fun(mUInt32, area)
 {
     (Void) me;
     return 0;
 }
 
-// virtual_call(Void, draw, UInt8 a) { call(draw, a); }
-default_fun(
-    call(draw, a),
-    Void, draw, UInt8 a)
+fun(Void, draw, UInt8 a) { virtual_call(draw, a); }
+virtual_fun(Void, draw, UInt8 a)
 {
     (Void) me;
     printf("Shape draw\n");
