@@ -9,8 +9,8 @@ abstract_class_init(
 
 default_set_get(Point, origin);
 
-fun(mUInt32, area) { virtual_call(area); }
-virtual_fun(mUInt32, area)
+fun(mFloat, area) { virtual_call(area); }
+virtual_fun(mFloat, area)
 {
     (Void) me;
     return 0;

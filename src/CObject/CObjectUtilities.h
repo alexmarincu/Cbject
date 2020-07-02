@@ -160,12 +160,12 @@
 #define class_virtual_functions(classVirtualFunctions) class_virtual_functions_(class, super_class, classVirtualFunctions)
 
 #define Object(className, varName, ...)             \
-    UInt8 varName##Stack[className##_classSize()];  \
+    Byte varName##Stack[className##_classSize()];   \
     className varName = (className) varName##Stack; \
     className##_init((m##className) varName, ##__VA_ARGS__)
 
 #define mObject(className, varName, ...)                  \
-    UInt8 varName##Stack[className##_classSize()];        \
+    Byte varName##Stack[className##_classSize()];         \
     m##className varName = (m##className) varName##Stack; \
     className##_init(varName, ##__VA_ARGS__)
 

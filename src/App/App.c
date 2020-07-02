@@ -70,6 +70,7 @@ Void App_start()
     Rectangle_widthSet(heapRectangle, newWidth);
     width = Rectangle_widthGet(heapRectangle);
     printf("heapRectangle.width = %d\n", width);
+    free(heapRectangle);
 
     mColoredCircle coloredCircle = ColoredCircle_get(
         &((ColoredCircleInitParams){
@@ -104,13 +105,13 @@ Void App_start()
     origin = Shape_originGet((Shape) coloredCircle);
     printf("coloredCircle.origin.x = %d\n", origin.x);
 
-    printf("circle.area() = %d\n", Shape_area((Shape) circle));
-    printf("coloredCircle.area() = %d\n", Shape_area((Shape) coloredCircle));
-    printf("rectangle.area() = %d\n", Shape_area((Shape) rectangle));
+    printf("circle.area() = %.2f\n", Shape_area((Shape) circle));
+    printf("coloredCircle.area() = %.2f\n", Shape_area((Shape) coloredCircle));
+    printf("rectangle.area() = %.2f\n", Shape_area((Shape) rectangle));
 
     for (mUInt8 i = 0; i < 4; i++)
     {
-        printf("shapes[%d].area() = %d\n", i, Shape_area(shapes[i]));
+        printf("shapes[%d].area() = %.2f\n", i, Shape_area(shapes[i]));
         printf("shapes[%d].objectSize() = %d\n", i, CObject_objectSize((CObject) shapes[i]));
     }
 
