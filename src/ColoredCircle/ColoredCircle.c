@@ -12,8 +12,8 @@ class_init(
             .origin.y = 0,
             .radius = params->radius}));
     bind_virtual_functions(
-        bind_override_fun(Void, Shape, draw, UInt8 a));
-    me->color = params->color);
+        bind_override_fun(Void, Shape, draw, UInt8 a););
+    me->color = params->color;);
 
 override_fun(Void, Shape, draw, UInt8 a)
 {

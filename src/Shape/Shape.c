@@ -4,8 +4,8 @@
 abstract_class_init(
     bind_virtual_functions(
         bind_virtual_fun(area);
-        bind_virtual_fun(draw));
-    me->origin = params->origin);
+        bind_virtual_fun(draw););
+    me->origin = params->origin;);
 
 default_set_get(Point, origin);
 

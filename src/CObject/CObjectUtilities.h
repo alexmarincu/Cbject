@@ -22,7 +22,7 @@
                                                                       \
     struct className##InitParams                                      \
     {                                                                 \
-        classInitParams;                                              \
+        classInitParams                                               \
     };                                                                \
                                                                       \
     mUInt8 className##_classSize();                                   \
@@ -41,7 +41,7 @@
                                                                       \
     struct className##InitParams                                      \
     {                                                                 \
-        classInitParams;                                              \
+        classInitParams                                               \
     };                                                                \
                                                                       \
     mm##className className##_get(className##InitParams Ptr params);  \
@@ -58,7 +58,7 @@
                                                                       \
     struct className##InitParams                                      \
     {                                                                 \
-        classInitParams;                                              \
+        classInitParams                                               \
     };                                                                \
                                                                       \
     mm##className className##_get(className##InitParams Ptr params);  \
@@ -76,7 +76,7 @@
                                                                       \
     struct className##InitParams                                      \
     {                                                                 \
-        classInitParams;                                              \
+        classInitParams                                               \
     };                                                                \
                                                                       \
     mm##className className##_new(className##InitParams Ptr params);  \
@@ -92,7 +92,7 @@
                                                                       \
     struct className##InitParams                                      \
     {                                                                 \
-        classInitParams;                                              \
+        classInitParams                                               \
     };                                                                \
                                                                       \
     mUInt8 className##_classSize();                                   \
@@ -116,7 +116,7 @@
     struct className                                             \
     {                                                            \
         struct superClassName super;                             \
-        classMembers;                                            \
+        classMembers                                             \
     }
 #define class_members_(className, superClassName, classMembers) class_members__(className, superClassName, classMembers)
 #define class_members(classMembers) class_members_(class, super_class, classMembers)
@@ -127,7 +127,7 @@
                                                       \
     struct className                                  \
     {                                                 \
-        classMembers;                                 \
+        classMembers                                  \
     }
 #define data_class_members_(className, classMembers) data_class_members__(className, classMembers)
 #define data_class_members(classMembers) data_class_members_(class, classMembers)
@@ -154,7 +154,7 @@
     struct className##VT                                                            \
     {                                                                               \
         m##superClassName##VT super;                                                \
-        classVirtualFunctions;                                                      \
+        classVirtualFunctions                                                       \
     }
 #define class_virtual_functions_(className, superClassName, classVirtualFunctions) class_virtual_functions__(className, superClassName, classVirtualFunctions)
 #define class_virtual_functions(classVirtualFunctions) class_virtual_functions_(class, super_class, classVirtualFunctions)
@@ -224,13 +224,12 @@
 
 #define abstract_class_init__(className, superClassName, initBlock)                 \
     static mUInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
-                                                                                    \
     mUInt8 className##_classSize() { return sizeof(struct className); }             \
                                                                                     \
     Void className##_init(m##className me, className##InitParams Ptr params)        \
     {                                                                               \
         if (#superClassName == "CObject") { CObject_init((mCObject) me); }          \
-        initBlock;                                                                  \
+        initBlock                                                                   \
     }
 #define abstract_class_init_(className, superClassName, initBlock) abstract_class_init__(className, superClassName, initBlock)
 #define abstract_class_init(initBlock) abstract_class_init_(class, super_class, initBlock)
@@ -263,13 +262,12 @@
     }                                                                               \
                                                                                     \
     static mUInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
-                                                                                    \
     mUInt8 className##_classSize() { return sizeof(struct className); }             \
                                                                                     \
     Void className##_init(m##className me, className##InitParams Ptr params)        \
     {                                                                               \
         if (#superClassName == "CObject") { CObject_init((mCObject) me); }          \
-        initBlock;                                                                  \
+        initBlock                                                                   \
     }
 #else
 #define class_init__(className, superClassName, initBlock)                          \
@@ -290,13 +288,12 @@
     }                                                                               \
                                                                                     \
     static mUInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
-                                                                                    \
     mUInt8 className##_classSize() { return sizeof(struct className); }             \
                                                                                     \
     Void className##_init(m##className me, className##InitParams Ptr params)        \
     {                                                                               \
         if (#superClassName == "CObject") { CObject_init((mCObject) me); }          \
-        initBlock;                                                                  \
+        initBlock                                                                   \
     }
 #endif
 #else
@@ -311,24 +308,22 @@
     }                                                                               \
                                                                                     \
     static mUInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
-                                                                                    \
     mUInt8 className##_classSize() { return sizeof(struct className); }             \
                                                                                     \
     Void className##_init(m##className me, className##InitParams Ptr params)        \
     {                                                                               \
         if (#superClassName == "CObject") { CObject_init((mCObject) me); }          \
-        initBlock;                                                                  \
+        initBlock                                                                   \
     }
 #else
 #define class_init__(className, superClassName, initBlock)                          \
     static mUInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
-                                                                                    \
     mUInt8 className##_classSize() { return sizeof(struct className); }             \
                                                                                     \
     Void className##_init(m##className me, className##InitParams Ptr params)        \
     {                                                                               \
         if (#superClassName == "CObject") { CObject_init((mCObject) me); }          \
-        initBlock;                                                                  \
+        initBlock                                                                   \
     }
 #endif
 #endif
@@ -351,7 +346,7 @@
             isVtSetupDone = true;                                                                       \
             *((m##superClassName##VT Ptr) & vT) = *((superClassName##VT Ptr)(((CObject) me)->vT));      \
             ((mCObjectVT Ptr) &vT)->objectSize = (mUInt8(Ptr)(CObject me)) override_CObject_objectSize; \
-            virtualFunctions;                                                                           \
+            virtualFunctions                                                                            \
         }                                                                                               \
                                                                                                         \
         ((mCObject) me)->vT = (CObjectVT Ptr) &vT;                                                      \
@@ -368,4 +363,5 @@
     ((m##superClassName##VT Ptr) & vT)->functionName = (type(Ptr)(superClassName me, ##__VA_ARGS__)) override_##superClassName##_##functionName
 #define bind_override_fun_(className, type, superClassName, functionName, ...) bind_override_fun__(className, type, superClassName, functionName, ##__VA_ARGS__)
 #define bind_override_fun(type, superClassName, functionName, ...) bind_override_fun_(class, type, superClassName, functionName, ##__VA_ARGS__)
+
 #endif // COBJECTUTILITIES_H

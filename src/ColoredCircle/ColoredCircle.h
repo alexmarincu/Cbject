@@ -10,7 +10,7 @@
 
 class_init_params(
     UInt32 radius;
-    Color color);
+    Color color;);
 
 class_pool_size(10);
 

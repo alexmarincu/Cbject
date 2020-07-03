@@ -4,7 +4,7 @@
 #include "ColoredCircle.h"
 
 class_members(
-    mColor color);
+    mColor color;);
 
 class_virtual_functions();
 

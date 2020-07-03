@@ -7,7 +7,7 @@
 #define class Shape
 
 abstract_class_init_params(
-    Point origin);
+    Point origin;);
 
 set_get(Point, origin);
 fun(mFloat, area);

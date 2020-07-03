@@ -9,7 +9,7 @@
 
 class_init_params(
     Point origin;
-    UInt32 radius);
+    UInt32 radius;);
 
 class_pool_size(10);
 

@@ -5,7 +5,7 @@
 
 class_members(
     mUInt32 width;
-    mUInt32 height);
+    mUInt32 height;);
 
 class_virtual_functions();
 

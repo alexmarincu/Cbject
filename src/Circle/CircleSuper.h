@@ -4,7 +4,7 @@
 #include "Circle.h"
 
 class_members(
-    mUInt32 radius);
+    mUInt32 radius;);
 
 class_virtual_functions();
 
