@@ -3,9 +3,7 @@
 #include "../Shape/Shape.h"
 
 #undef class
-#undef super_class
 #define class Rectangle
-#define super_class Shape
 
 class_init_params(
     Point origin;

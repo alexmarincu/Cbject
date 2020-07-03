@@ -1,6 +1,5 @@
 #ifndef COBJECT_H
 #define COBJECT_H
-
 #include "CObjectUtilities.h"
 
 typedef struct CObject mPtr mmCObject;

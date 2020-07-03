@@ -1,6 +1,11 @@
 #include "ShapeSuper.h"
 #include <stdio.h>
 
+#undef class
+#define class Shape
+#undef super_class
+#define super_class CObject
+
 abstract_class_init(
     bind_virtual_functions(
         bind_virtual_fun(area);

@@ -4,6 +4,7 @@
 
 #undef class
 #define class Application
+
 singleton_class_init_params();
 
 fun(Void, start);

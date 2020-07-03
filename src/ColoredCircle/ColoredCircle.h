@@ -4,9 +4,7 @@
 #include "Color.h"
 
 #undef class
-#undef super_class
 #define class ColoredCircle
-#define super_class Circle
 
 class_init_params(
     UInt32 radius;

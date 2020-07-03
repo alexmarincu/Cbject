@@ -1,4 +1,10 @@
 #include "RectangleSuper.h"
+
+#undef class
+#define class Rectangle
+#undef super_class
+#define super_class Shape
+
 override_fun(mFloat, Shape, area);
 
 class_init(

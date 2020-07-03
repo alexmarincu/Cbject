@@ -3,6 +3,11 @@
 #include "../CObject/CObjectSuper.h"
 #include "Shape.h"
 
+#undef class
+#define class Shape
+#undef super_class
+#define super_class CObject
+
 class_members(
     mPoint origin;);
 

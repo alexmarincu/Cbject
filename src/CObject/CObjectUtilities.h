@@ -3,15 +3,47 @@
 #include "CObjectSettings.h"
 #include "Primitives.h"
 
-#define super_class CObject
-
 #define fe_1(macro, x) macro(x)
 #define fe_2(macro, x, ...) macro(x) fe_1(macro, __VA_ARGS__)
 #define fe_3(macro, x, ...) macro(x) fe_2(macro, __VA_ARGS__)
 #define fe_4(macro, x, ...) macro(x) fe_3(macro, __VA_ARGS__)
 #define fe_5(macro, x, ...) macro(x) fe_4(macro, __VA_ARGS__)
-#define get_arg_n(arg1, arg2, arg3, arg4, arg5, argN, ...) argN
-#define for_each(macro, ...) get_arg_n(__VA_ARGS__, fe_5, fe_4, fe_3, fe_2, fe_1)(macro, __VA_ARGS__)
+#define fe_6(macro, x, ...) macro(x) fe_5(macro, __VA_ARGS__)
+#define fe_7(macro, x, ...) macro(x) fe_6(macro, __VA_ARGS__)
+#define fe_8(macro, x, ...) macro(x) fe_7(macro, __VA_ARGS__)
+#define fe_9(macro, x, ...) macro(x) fe_8(macro, __VA_ARGS__)
+#define fe_10(macro, x, ...) macro(x) fe_9(macro, __VA_ARGS__)
+#define fe_11(macro, x, ...) macro(x) fe_10(macro, __VA_ARGS__)
+#define fe_12(macro, x, ...) macro(x) fe_11(macro, __VA_ARGS__)
+#define fe_13(macro, x, ...) macro(x) fe_12(macro, __VA_ARGS__)
+#define fe_14(macro, x, ...) macro(x) fe_13(macro, __VA_ARGS__)
+#define fe_15(macro, x, ...) macro(x) fe_14(macro, __VA_ARGS__)
+#define fe_16(macro, x, ...) macro(x) fe_15(macro, __VA_ARGS__)
+#define fe_17(macro, x, ...) macro(x) fe_16(macro, __VA_ARGS__)
+#define fe_18(macro, x, ...) macro(x) fe_17(macro, __VA_ARGS__)
+#define fe_19(macro, x, ...) macro(x) fe_18(macro, __VA_ARGS__)
+#define fe_20(macro, x, ...) macro(x) fe_19(macro, __VA_ARGS__)
+#define fe_21(macro, x, ...) macro(x) fe_20(macro, __VA_ARGS__)
+#define fe_22(macro, x, ...) macro(x) fe_21(macro, __VA_ARGS__)
+#define fe_23(macro, x, ...) macro(x) fe_22(macro, __VA_ARGS__)
+#define fe_24(macro, x, ...) macro(x) fe_23(macro, __VA_ARGS__)
+#define fe_25(macro, x, ...) macro(x) fe_24(macro, __VA_ARGS__)
+#define fe_26(macro, x, ...) macro(x) fe_25(macro, __VA_ARGS__)
+#define fe_27(macro, x, ...) macro(x) fe_26(macro, __VA_ARGS__)
+#define fe_28(macro, x, ...) macro(x) fe_27(macro, __VA_ARGS__)
+#define fe_29(macro, x, ...) macro(x) fe_28(macro, __VA_ARGS__)
+#define fe_30(macro, x, ...) macro(x) fe_29(macro, __VA_ARGS__)
+#define get_argN(                                                         \
+    arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10,          \
+    arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20, \
+    arg21, arg22, arg23, arg24, arg25, arg26, arg27, arg28, arg29, arg30, \
+    argN, ...) argN
+#define for_each(macro, ...)                                                  \
+    get_argN(                                                                 \
+        __VA_ARGS__,                                                          \
+        fe_30, fe_29, fe_28, fe_27, fe_26, fe_25, fe_24, fe_23, fe_22, fe_21, \
+        fe_20, fe_19, fe_18, fe_17, fe_16, fe_15, fe_14, fe_13, fe_12, fe_11, \
+        fe_10, fe_9, fe_8, fe_7, fe_6, fe_5, fe_4, fe_3, fe_2, fe_1)(macro, __VA_ARGS__)
 
 #define abstract_class_init_params__(className, classInitParams)      \
     typedef struct className mPtr mm##className;                      \

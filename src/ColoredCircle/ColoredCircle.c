@@ -1,6 +1,11 @@
 #include "ColoredCircleSuper.h"
 #include <stdio.h>
 
+#undef class
+#define class ColoredCircle
+#undef super_class
+#define super_class Circle
+
 default_set_get(Color, color);
 override_fun(Void, Shape, draw, UInt8 a);
 
