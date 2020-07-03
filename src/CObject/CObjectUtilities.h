@@ -30,6 +30,24 @@
 #define abstract_class_init_params_(className, classInitParams) abstract_class_init_params__(className, classInitParams)
 #define abstract_class_init_params(classInitParams) abstract_class_init_params_(class, classInitParams)
 
+#define singleton_class_init_params__(className, classInitParams)     \
+    typedef struct className mPtr mm##className;                      \
+    typedef struct className Ptr m##className;                        \
+    typedef struct className const Ptr className;                     \
+    typedef struct className##InitParams m##className##InitParams;    \
+    typedef struct className##InitParams const className##InitParams; \
+                                                                      \
+    struct className##InitParams                                      \
+    {                                                                 \
+        classInitParams                                               \
+    };                                                                \
+                                                                      \
+    mm##className className##_get();                                  \
+    mUInt8 className##_classSize();                                   \
+    Void className##_init(m##className me, className##InitParams Ptr params)
+#define singleton_class_init_params_(className, classInitParams) singleton_class_init_params__(className, classInitParams)
+#define singleton_class_init_params(classInitParams) singleton_class_init_params_(class, classInitParams)
+
 #if CObject_useStaticPool == true
 #if CObject_useHeap == true
 #define class_init_params__(className, classInitParams)               \
@@ -120,6 +138,23 @@
     }
 #define class_members_(className, superClassName, classMembers) class_members__(className, superClassName, classMembers)
 #define class_members(classMembers) class_members_(class, super_class, classMembers)
+
+#define singleton_class_members__(className, superClassName, classMembers) \
+    struct className                                                       \
+    {                                                                      \
+        struct superClassName super;                                       \
+        classMembers                                                       \
+    };                                                                     \
+                                                                           \
+    typedef struct className##VT m##className##VT;                         \
+    typedef struct className##VT const className##VT;                      \
+                                                                           \
+    struct className##VT                                                   \
+    {                                                                      \
+        m##superClassName##VT super;                                       \
+    }
+#define singleton_class_members_(className, superClassName, classMembers) singleton_class_members__(className, superClassName, classMembers)
+#define singleton_class_members(classMembers) singleton_class_members_(class, super_class, classMembers)
 
 #define data_class_members__(className, classMembers) \
     typedef struct className m##className;            \
@@ -233,6 +268,24 @@
     }
 #define abstract_class_init_(className, superClassName, initBlock) abstract_class_init__(className, superClassName, initBlock)
 #define abstract_class_init(initBlock) abstract_class_init_(class, super_class, initBlock)
+
+#define singleton_class_init__(className, superClassName, initBlock)                \
+    mm##className className##_get()                                                 \
+    {                                                                               \
+        static struct className singleton;                                          \
+        return &singleton;                                                          \
+    }                                                                               \
+                                                                                    \
+    static mUInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
+    mUInt8 className##_classSize() { return sizeof(struct className); }             \
+                                                                                    \
+    Void className##_init(m##className me, className##InitParams Ptr params)        \
+    {                                                                               \
+        if (#superClassName == "CObject") { CObject_init((mCObject) me); }          \
+        initBlock                                                                   \
+    }
+#define singleton_class_init_(className, superClassName, initBlock) singleton_class_init__(className, superClassName, initBlock)
+#define singleton_class_init(initBlock) singleton_class_init_(class, super_class, initBlock)
 
 #if CObject_useStaticPool == true
 #if CObject_useHeap == true

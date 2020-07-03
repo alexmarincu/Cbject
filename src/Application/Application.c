@@ -1,10 +1,21 @@
-#include "App.h"
+#include "Application.h"
+#include "../CObject/CObjectSuper.h"
 #include "../Circle/Circle.h"
 #include "../ColoredCircle/ColoredCircle.h"
 #include "../Rectangle/Rectangle.h"
 #include <stdio.h>
 
-Void App_start()
+#undef class
+#define class Application
+#undef super_class
+#define super_class CObject
+
+singleton_class_members();
+
+singleton_class_init(
+    bind_virtual_functions(););
+
+fun(Void, start)
 {
     mCircle circle = Circle_get(
         &((CircleInitParams){
