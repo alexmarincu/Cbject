@@ -15,8 +15,13 @@ singleton_class_members();
 singleton_class_init(
     bind_virtual_functions(););
 
+static fun(Void, printBeginMessage);
+static fun(Void, printEndMessage);
+
 fun(Void, start)
 {
+    Application_printBeginMessage(me);
+
     mCircle circle = Circle_get(
         &((CircleInitParams){
             .origin.x = 2,
@@ -127,4 +132,9 @@ fun(Void, start)
     Shape_draw((Shape) circle, 5);
     Shape_draw((Shape) rectangle, 6);
     Shape_draw((Shape) coloredCircle, 5);
+
+    Application_printEndMessage(me);
 }
+
+static fun(Void, printBeginMessage) { printf("\nApplication started ->\n\n"); }
+static fun(Void, printEndMessage) { printf("\nApplication ended <-\n"); }
