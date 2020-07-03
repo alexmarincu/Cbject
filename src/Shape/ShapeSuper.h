@@ -8,7 +8,7 @@
 #undef super_class
 #define super_class CObject
 
-class_members(
+abstract_class_members(
     mPoint origin;);
 
 class_virtual_functions(

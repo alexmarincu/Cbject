@@ -167,9 +167,26 @@
     {                                                            \
         struct superClassName super;                             \
         classMembers                                             \
+    };                                                           \
+                                                                 \
+    typedef struct className##VT m##className##VT;               \
+    typedef struct className##VT const className##VT;            \
+                                                                 \
+    struct className##VT                                         \
+    {                                                            \
+        m##superClassName##VT super;                             \
     }
 #define class_members_(className, superClassName, classMembers) class_members__(className, superClassName, classMembers)
 #define class_members(classMembers) class_members_(class, super_class, classMembers)
+
+#define abstract_class_members__(className, superClassName, classMembers) \
+    struct className                                                      \
+    {                                                                     \
+        struct superClassName super;                                      \
+        classMembers                                                      \
+    }
+#define abstract_class_members_(className, superClassName, classMembers) abstract_class_members__(className, superClassName, classMembers)
+#define abstract_class_members(classMembers) abstract_class_members_(class, super_class, classMembers)
 
 #define singleton_class_members__(className, superClassName, classMembers) \
     struct className                                                       \

@@ -11,6 +11,4 @@
 class_members(
     mColor color;);
 
-class_virtual_functions();
-
 #endif // COLOREDCIRCLESUPER_H
