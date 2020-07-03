@@ -241,18 +241,15 @@
 #define class_init__(className, superClassName, initBlock)                          \
     mm##className className##_get(className##InitParams Ptr params)                 \
     {                                                                               \
-        static struct className className##Pool[className##_poolSize];              \
+        static struct className pool[className##_poolSize];                         \
+        static mUInt64 count = 0;                                                   \
         mm##className me = null;                                                    \
-        mUInt32 i;                                                                  \
                                                                                     \
-        for (i = 0; i < className##_poolSize; i++)                                  \
+        if (count < className##_poolSize)                                           \
         {                                                                           \
-            if (CObject_isInitialized((CObject) &className##Pool[i]) == false)      \
-            {                                                                       \
-                me = &className##Pool[i];                                           \
-                className##_init(me, params);                                       \
-                break;                                                              \
-            }                                                                       \
+            me = &pool[count];                                                      \
+            className##_init(me, params);                                           \
+            count++;                                                                \
         }                                                                           \
                                                                                     \
         return me;                                                                  \
@@ -278,18 +275,15 @@
 #define class_init__(className, superClassName, initBlock)                          \
     mm##className className##_get(className##InitParams Ptr params)                 \
     {                                                                               \
-        static struct className className##Pool[className##_poolSize];              \
+        static struct className pool[className##_poolSize];                         \
+        static mUInt64 count = 0;                                                   \
         mm##className me = null;                                                    \
-        mUInt32 i;                                                                  \
                                                                                     \
-        for (i = 0; i < className##_poolSize; i++)                                  \
+        if (count < className##_poolSize)                                           \
         {                                                                           \
-            if (CObject_isInitialized((CObject) &className##Pool[i]) == false)      \
-            {                                                                       \
-                me = &className##Pool[i];                                           \
-                className##_init(me, params);                                       \
-                break;                                                              \
-            }                                                                       \
+            me = &pool[count];                                                      \
+            className##_init(me, params);                                           \
+            count++;                                                                \
         }                                                                           \
                                                                                     \
         return me;                                                                  \

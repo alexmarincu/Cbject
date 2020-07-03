@@ -14,7 +14,6 @@ struct CObjectVT
 struct CObject
 {
     CObjectVT mPtr vT;
-    mBoolean isInitialized;
 };
 
 mUInt8 super_CObject_objectSize(CObject me);

@@ -9,6 +9,5 @@ typedef struct CObject const Ptr CObject;
 
 Void CObject_init(mCObject me);
 mUInt8 CObject_objectSize(CObject me);
-mBoolean CObject_isInitialized(CObject me);
 
 #endif // COBJECT_H

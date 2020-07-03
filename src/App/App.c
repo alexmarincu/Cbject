@@ -90,8 +90,6 @@ Void App_start()
         (Shape) stackRectangle,
         (Shape) coloredCircle};
 
-    printf("circle.isInitialized() = %d\n", CObject_isInitialized((CObject) circle));
-
     mPoint origin = Shape_originGet((Shape) circle);
     printf("circle.origin.x = %d\n", origin.x);
     Point newOrigin = {3, 4};
