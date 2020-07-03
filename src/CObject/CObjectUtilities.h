@@ -74,7 +74,7 @@
         classInitParams                                               \
     };                                                                \
                                                                       \
-    mm##className className##_get();                                  \
+    mm##className className##_getInstance();                          \
     mUInt8 className##_classSize();                                   \
     Void className##_init(m##className me, className##InitParams Ptr params)
 #define singleton_class_init_params_(className, classInitParams) singleton_class_init_params__(className, classInitParams)
@@ -94,8 +94,8 @@
         classInitParams                                               \
     };                                                                \
                                                                       \
-    mm##className className##_get(className##InitParams Ptr params);  \
-    mm##className className##_new(className##InitParams Ptr params);  \
+    mm##className get_##className(className##InitParams Ptr params);  \
+    mm##className new_##className(className##InitParams Ptr params);  \
     mUInt8 className##_classSize();                                   \
     Void className##_init(m##className me, className##InitParams Ptr params)
 #else
@@ -111,7 +111,7 @@
         classInitParams                                               \
     };                                                                \
                                                                       \
-    mm##className className##_get(className##InitParams Ptr params);  \
+    mm##className get_##className(className##InitParams Ptr params);  \
     mUInt8 className##_classSize();                                   \
     Void className##_init(m##className me, className##InitParams Ptr params)
 #endif
@@ -129,7 +129,7 @@
         classInitParams                                               \
     };                                                                \
                                                                       \
-    mm##className className##_new(className##InitParams Ptr params);  \
+    mm##className new_##className(className##InitParams Ptr params);  \
     mUInt8 className##_classSize();                                   \
     Void className##_init(m##className me, className##InitParams Ptr params)
 #else
@@ -255,7 +255,7 @@
 
 #define set_get__(className, type, memberName)                            \
     Void className##_##memberName##Set(m##className me, type memberName); \
-    m##type className##_##memberName##Get(className me)
+    m##type className##_##memberName(className me)
 #define set_get_(className, type, memberName) set_get__(className, type, memberName)
 #define set_get(type, memberName) set_get_(class, type, memberName)
 
@@ -265,13 +265,13 @@
 #define default_set(type, memberName) default_set_(class, type, memberName)
 
 #define default_get__(className, type, memberName) \
-    m##type className##_##memberName##Get(className me) { return me->memberName; }
+    m##type className##_##memberName(className me) { return me->memberName; }
 #define default_get_(className, type, memberName) default_get__(className, type, memberName)
 #define default_get(type, memberName) default_get_(class, type, memberName)
 
 #define default_set_get__(className, type, memberName)                                                    \
     Void className##_##memberName##Set(m##className me, type memberName) { me->memberName = memberName; } \
-    m##type className##_##memberName##Get(className me) { return me->memberName; }
+    m##type className##_##memberName(className me) { return me->memberName; }
 #define default_set_get_(className, type, memberName) default_set_get__(className, type, memberName)
 #define default_set_get(type, memberName) default_set_get_(class, type, memberName)
 
@@ -319,7 +319,7 @@
 #define abstract_class_init(initBlock) abstract_class_init_(class, super_class, initBlock)
 
 #define singleton_class_init__(className, superClassName, initBlock)                \
-    mm##className className##_get()                                                 \
+    mm##className className##_getInstance()                                         \
     {                                                                               \
         static struct className singleton;                                          \
         return &singleton;                                                          \
@@ -340,7 +340,7 @@
 #if CObject_useHeap == true
 #include <stdlib.h>
 #define class_init__(className, superClassName, initBlock)                          \
-    mm##className className##_get(className##InitParams Ptr params)                 \
+    mm##className get_##className(className##InitParams Ptr params)                 \
     {                                                                               \
         static struct className pool[className##_poolSize];                         \
         static mUInt64 count = 0;                                                   \
@@ -356,7 +356,7 @@
         return me;                                                                  \
     }                                                                               \
                                                                                     \
-    mm##className className##_new(className##InitParams Ptr params)                 \
+    mm##className new_##className(className##InitParams Ptr params)                 \
     {                                                                               \
         mm##className me = (mm##className) malloc(sizeof(struct className));        \
         className##_init(me, params);                                               \
@@ -373,7 +373,7 @@
     }
 #else
 #define class_init__(className, superClassName, initBlock)                          \
-    mm##className className##_get(className##InitParams Ptr params)                 \
+    mm##className get_##className(className##InitParams Ptr params)                 \
     {                                                                               \
         static struct className pool[className##_poolSize];                         \
         static mUInt64 count = 0;                                                   \
@@ -402,7 +402,7 @@
 #if CObject_useHeap == true
 #include <stdlib.h>
 #define class_init__(className, superClassName, initBlock)                          \
-    mm##className className##_new(className##InitParams Ptr params)                 \
+    mm##className new_##className(className##InitParams Ptr params)                 \
     {                                                                               \
         mm##className me = (mm##className) malloc(sizeof(struct className));        \
         className##_init(me, params);                                               \

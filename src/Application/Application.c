@@ -22,17 +22,17 @@ fun(Void, start)
 {
     Application_printBeginMessage(me);
 
-    mCircle circle = Circle_get(
+    mCircle circle = get_Circle(
         &((CircleInitParams){
             .origin.x = 2,
             .origin.y = 3,
             .radius = 5}));
 
-    mUInt32 radius = Circle_radiusGet(circle);
+    mUInt32 radius = Circle_radius(circle);
     printf("circle.radius = %d\n", radius);
     UInt32 newRadius = 3;
     Circle_radiusSet(circle, newRadius);
-    radius = Circle_radiusGet(circle);
+    radius = Circle_radius(circle);
     printf("circle.radius = %d\n", radius);
 
     mObject(Circle, stackCircle,
@@ -41,24 +41,24 @@ fun(Void, start)
                 .origin.y = 3,
                 .radius = 5}));
 
-    radius = Circle_radiusGet(stackCircle);
+    radius = Circle_radius(stackCircle);
     printf("stackCircle.radius = %d\n", radius);
     Circle_radiusSet(stackCircle, newRadius);
-    radius = Circle_radiusGet(stackCircle);
+    radius = Circle_radius(stackCircle);
     printf("stackCircle.radius = %d\n", radius);
 
-    mRectangle rectangle = Rectangle_get(
+    mRectangle rectangle = get_Rectangle(
         &((RectangleInitParams){
             .origin.x = 12,
             .origin.y = 23,
             .width = 34,
             .height = 2}));
 
-    mUInt32 width = Rectangle_widthGet(rectangle);
+    mUInt32 width = Rectangle_width(rectangle);
     printf("rectangle.width = %d\n", width);
     UInt32 newWidth = 30;
     Rectangle_widthSet(rectangle, newWidth);
-    width = Rectangle_widthGet(rectangle);
+    width = Rectangle_width(rectangle);
     printf("rectangle.width = %d\n", width);
 
     mObject(Rectangle, stackRectangle,
@@ -68,35 +68,35 @@ fun(Void, start)
                 .width = 34,
                 .height = 2}));
 
-    width = Rectangle_widthGet(stackRectangle);
+    width = Rectangle_width(stackRectangle);
     printf("stackRectangle.width = %d\n", width);
     Rectangle_widthSet(stackRectangle, newWidth);
-    width = Rectangle_widthGet(stackRectangle);
+    width = Rectangle_width(stackRectangle);
     printf("stackRectangle.width = %d\n", width);
 
-    mRectangle heapRectangle = Rectangle_new(
+    mRectangle heapRectangle = new_Rectangle(
         &((RectangleInitParams){
             .origin.x = 12,
             .origin.y = 23,
             .width = 34,
             .height = 2}));
 
-    width = Rectangle_widthGet(heapRectangle);
+    width = Rectangle_width(heapRectangle);
     printf("heapRectangle.width = %d\n", width);
     Rectangle_widthSet(heapRectangle, newWidth);
-    width = Rectangle_widthGet(heapRectangle);
+    width = Rectangle_width(heapRectangle);
     printf("heapRectangle.width = %d\n", width);
     free(heapRectangle);
 
-    mColoredCircle coloredCircle = ColoredCircle_get(
+    mColoredCircle coloredCircle = get_ColoredCircle(
         &((ColoredCircleInitParams){
             .radius = 10,
             .color = Color_red}));
 
-    radius = Circle_radiusGet((Circle) coloredCircle);
+    radius = Circle_radius((Circle) coloredCircle);
     printf("coloredCircle.radius = %d\n", radius);
     Circle_radiusSet((mCircle) coloredCircle, newRadius);
-    radius = Circle_radiusGet((Circle) coloredCircle);
+    radius = Circle_radius((Circle) coloredCircle);
     printf("coloredCircle.radius = %d\n", radius);
 
     Shape shapes[] = {
@@ -106,17 +106,17 @@ fun(Void, start)
         (Shape) stackRectangle,
         (Shape) coloredCircle};
 
-    mPoint origin = Shape_originGet((Shape) circle);
+    mPoint origin = Shape_origin((Shape) circle);
     printf("circle.origin.x = %d\n", origin.x);
     Point newOrigin = {3, 4};
     Shape_originSet((mShape) circle, newOrigin);
-    origin = Shape_originGet((Shape) circle);
+    origin = Shape_origin((Shape) circle);
     printf("circle.origin.x = %d\n", origin.x);
 
-    origin = Shape_originGet((Shape) coloredCircle);
+    origin = Shape_origin((Shape) coloredCircle);
     printf("coloredCircle.origin.x = %d\n", origin.x);
     Shape_originSet((mShape) coloredCircle, newOrigin);
-    origin = Shape_originGet((Shape) coloredCircle);
+    origin = Shape_origin((Shape) coloredCircle);
     printf("coloredCircle.origin.x = %d\n", origin.x);
 
     printf("circle.area() = %.2f\n", Shape_area((Shape) circle));

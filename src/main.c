@@ -3,7 +3,7 @@
 
 Void main()
 {
-    mApplication application = Application_get();
+    mApplication application = Application_getInstance();
     Application_init(application, null);
     printf("application.objectSize() = %d\n", CObject_objectSize((CObject) application));
     Application_start(application);
