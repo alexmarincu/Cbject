@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define null ((void *) 0)
+#define null NULL
 typedef void Void;
 typedef bool mBoolean;
 typedef bool const Boolean;
@@ -29,5 +29,6 @@ typedef float mFloat;
 typedef float const Float;
 #define mPtr *
 #define Ptr *const
+#define Array_size(array) (sizeof(array) / sizeof(*(array)))
 
 #endif // PRIMITIVES_H

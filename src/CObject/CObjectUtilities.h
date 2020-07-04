@@ -276,24 +276,24 @@
 #define default_set_get(type, memberName) default_set_get_(class, type, memberName)
 
 #define fun__(className, type, functionName, ...) \
-    type className##_##functionName(className me, ##__VA_ARGS__)
+    type className##_##functionName(m##className me, ##__VA_ARGS__)
 #define fun_(className, type, functionName, ...) fun__(className, type, functionName, ##__VA_ARGS__)
 #define fun(type, functionName, ...) fun_(class, type, functionName, ##__VA_ARGS__)
 
-#define virtual_function__(className, type, functionName, ...) \
+#define virtual_fun__(className, type, functionName, ...) \
     type(mPtr functionName)(className me, ##__VA_ARGS__)
-#define virtual_function_(className, type, functionName, ...) virtual_function__(className, type, functionName, ##__VA_ARGS__)
-#define virtual_function(type, functionName, ...) virtual_function_(class, type, functionName, ##__VA_ARGS__)
+#define virtual_fun_(className, type, functionName, ...) virtual_fun__(className, type, functionName, ##__VA_ARGS__)
+#define virtual_fun(type, functionName, ...) virtual_fun_(class, type, functionName, ##__VA_ARGS__)
 
 #define virtual_call__(className, functionName, ...) \
     return ((className##VT Ptr)((CObject) me)->vT)->functionName(me, ##__VA_ARGS__)
 #define virtual_call_(className, functionName, ...) virtual_call__(className, functionName, ##__VA_ARGS__)
 #define virtual_call(functionName, ...) virtual_call_(class, functionName, ##__VA_ARGS__)
 
-#define virtual_fun__(className, type, functionName, ...) \
+#define super_fun__(className, type, functionName, ...) \
     type super_##className##_##functionName(className me, ##__VA_ARGS__)
-#define virtual_fun_(className, type, functionName, ...) virtual_fun__(className, type, functionName, ##__VA_ARGS__)
-#define virtual_fun(type, functionName, ...) virtual_fun_(class, type, functionName, ##__VA_ARGS__)
+#define super_fun_(className, type, functionName, ...) super_fun__(className, type, functionName, ##__VA_ARGS__)
+#define super_fun(type, functionName, ...) super_fun_(class, type, functionName, ##__VA_ARGS__)
 
 #define default_fun__(className, call, type, functionName, ...)            \
     type className##_##functionName(className me, ##__VA_ARGS__) { call; } \
