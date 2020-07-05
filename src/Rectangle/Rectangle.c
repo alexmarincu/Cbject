@@ -5,7 +5,7 @@
 #undef super_class
 #define super_class Shape
 
-override_fun(mFloat, Shape, area);
+override_fun(mFloat, Shape, area, ());
 
 class_init(
     Shape_init((mShape) me, (ShapeInitParams Ptr) params);
@@ -17,5 +17,5 @@ class_init(
 default_set_get(UInt32, width);
 default_set_get(UInt32, height);
 
-fun(mUInt32, test, UInt32 a) { return a; }
-override_fun(mFloat, Shape, area) { return me->width * me->height; }
+fun(mUInt32, test, (UInt32 a)) { return a; }
+override_fun(mFloat, Shape, area, ()) { return me->width * me->height; }

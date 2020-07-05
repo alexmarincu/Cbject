@@ -14,6 +14,6 @@ class_pool_size(10);
 
 set_get(UInt32, width);
 set_get(UInt32, height);
-fun(mUInt32, test, UInt32 a);
+fun(mUInt32, test, (UInt32 a));
 
 #endif // RECTANGLE_H

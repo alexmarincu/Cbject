@@ -7,7 +7,7 @@
 #define super_class Circle
 
 default_set_get(Color, color);
-override_fun(Void, Shape, draw, UInt8 a);
+override_fun(Void, Shape, draw, (UInt8 a));
 
 class_init(
     Circle_init(
@@ -20,7 +20,7 @@ class_init(
         bind_override_fun(Void, Shape, draw, UInt8 a););
     me->color = params->color;);
 
-override_fun(Void, Shape, draw, UInt8 a)
+override_fun(Void, Shape, draw, (UInt8 a))
 {
     printf("ColoredCircle draw\n");
 }

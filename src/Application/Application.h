@@ -7,6 +7,6 @@
 
 singleton_class_init_params();
 
-fun(Void, start);
+fun(Void, start, ());
 
 #endif // APPLICATION_H

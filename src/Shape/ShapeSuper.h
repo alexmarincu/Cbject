@@ -11,10 +11,8 @@
 abstract_class_members(
     mPoint origin;);
 
-class_virtual_functions(
-    virtual_fun(mFloat, area);
-    virtual_fun(Void, draw, UInt8 a););
-
-super_fun(Void, draw, UInt8 a);
+virtual_functions(
+    (mFloat, area, ()),
+    (Void, draw, (UInt8 a)));
 
 #endif // SHAPESUPER_H

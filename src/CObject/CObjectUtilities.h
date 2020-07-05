@@ -3,6 +3,13 @@
 #include "CObjectSettings.h"
 #include "Primitives.h"
 
+#define va_args_(...) , ##__VA_ARGS__
+#define va_args(...) va_args_(__VA_ARGS__)
+
+#define strip_parentheses__(...) __VA_ARGS__
+#define strip_parentheses_(x) x
+#define strip_parentheses(arguments) strip_parentheses_(strip_parentheses__ arguments)
+
 #define fe_1(macro, x) macro(x)
 #define fe_2(macro, x, ...) macro(x) fe_1(macro, __VA_ARGS__)
 #define fe_3(macro, x, ...) macro(x) fe_2(macro, __VA_ARGS__)
@@ -230,7 +237,7 @@
     }
 #define enum_class_values_(className, ...) enum_class_values__(className, __VA_ARGS__)
 #define enum_class_values(...) enum_class_values_(class, __VA_ARGS__)
-
+/*
 #define class_virtual_functions__(className, superClassName, classVirtualFunctions) \
     typedef struct className##VT m##className##VT;                                  \
     typedef struct className##VT const className##VT;                               \
@@ -242,6 +249,32 @@
     }
 #define class_virtual_functions_(className, superClassName, classVirtualFunctions) class_virtual_functions__(className, superClassName, classVirtualFunctions)
 #define class_virtual_functions(classVirtualFunctions) class_virtual_functions_(class, super_class, classVirtualFunctions)
+*/
+#define virtual_fun_ptr_(className, type, functionName, arguments) \
+    type(mPtr functionName)(className me va_args(strip_parentheses(arguments)))
+//#define virtual_fun_(className, type, functionName, arguments) virtual_fun__(className, type, functionName, arguments)
+#define virtual_fun_ptr(type, functionName, arguments) virtual_fun_ptr_(class, type, functionName, arguments)
+#define strip_parentheses_and_apply_virtual_fun_ptr(funSignature) virtual_fun_ptr funSignature;
+
+#define virtual_fun__(className, type, functionName, arguments) \
+    type super_##className##_##functionName(className me va_args(strip_parentheses(arguments)))
+#define virtual_fun_(className, type, functionName, arguments) virtual_fun__(className, type, functionName, arguments)
+#define virtual_fun(type, functionName, arguments) virtual_fun_(class, type, functionName, arguments)
+#define strip_parentheses_and_apply_virtual_fun(funSignature) virtual_fun funSignature;
+
+#define virtual_functions__(className, superClassName, ...)                 \
+    typedef struct className##VT m##className##VT;                          \
+    typedef struct className##VT const className##VT;                       \
+                                                                            \
+    struct className##VT                                                    \
+    {                                                                       \
+        m##superClassName##VT super;                                        \
+        for_each(strip_parentheses_and_apply_virtual_fun_ptr, __VA_ARGS__); \
+    };                                                                      \
+                                                                            \
+    for_each(strip_parentheses_and_apply_virtual_fun, __VA_ARGS__)
+#define virtual_functions_(className, superClassName, ...) virtual_functions__(className, superClassName, __VA_ARGS__)
+#define virtual_functions(...) virtual_functions_(class, super_class, __VA_ARGS__)
 
 #define Object(className, varName, ...)             \
     Byte varName##Stack[className##_classSize()];   \
@@ -275,25 +308,24 @@
 #define default_set_get_(className, type, memberName) default_set_get__(className, type, memberName)
 #define default_set_get(type, memberName) default_set_get_(class, type, memberName)
 
-#define fun__(className, type, functionName, ...) \
-    type className##_##functionName(m##className me, ##__VA_ARGS__)
-#define fun_(className, type, functionName, ...) fun__(className, type, functionName, ##__VA_ARGS__)
-#define fun(type, functionName, ...) fun_(class, type, functionName, ##__VA_ARGS__)
+#define fun__(className, type, functionName, arguments) \
+    type className##_##functionName(m##className me va_args(strip_parentheses(arguments)))
+#define fun_(className, type, functionName, arguments) fun__(className, type, functionName, arguments)
+#define fun(type, functionName, arguments) fun_(class, type, functionName, arguments)
 
-#define virtual_fun__(className, type, functionName, ...) \
-    type(mPtr functionName)(className me, ##__VA_ARGS__)
-#define virtual_fun_(className, type, functionName, ...) virtual_fun__(className, type, functionName, ##__VA_ARGS__)
-#define virtual_fun(type, functionName, ...) virtual_fun_(class, type, functionName, ##__VA_ARGS__)
+#define virtual_call__(className, functionName, arguments) \
+    return ((className##VT Ptr)((CObject) me)->vT)->functionName(me va_args(strip_parentheses(arguments)))
+#define virtual_call_(className, functionName, arguments) virtual_call__(className, functionName, arguments)
+#define virtual_call(functionName, arguments) virtual_call_(class, functionName, arguments)
 
-#define virtual_call__(className, functionName, ...) \
-    return ((className##VT Ptr)((CObject) me)->vT)->functionName(me, ##__VA_ARGS__)
-#define virtual_call_(className, functionName, ...) virtual_call__(className, functionName, ##__VA_ARGS__)
-#define virtual_call(functionName, ...) virtual_call_(class, functionName, ##__VA_ARGS__)
+#define add_comma(argument) , argument
+#define ignore_first(arg1, ...) __VA_ARGS__
+#define first(arg1, ...) arg1
 
-#define super_fun__(className, type, functionName, ...) \
-    type super_##className##_##functionName(className me, ##__VA_ARGS__)
-#define super_fun_(className, type, functionName, ...) super_fun__(className, type, functionName, ##__VA_ARGS__)
-#define super_fun(type, functionName, ...) super_fun_(class, type, functionName, ##__VA_ARGS__)
+#define virtual_functions_new__(className, type, functionName, arguments) \
+    type super_##className##_##functionName(className me for_each(add_comma, strip_parentheses(arguments)))
+#define virtual_functions_new_(className, type, functionName, arguments) virtual_functions_new__(className, type, functionName, arguments)
+#define virtual_functions_new(type, functionName, arguments) virtual_functions_new_(class, type, functionName, arguments)
 
 #define default_fun__(className, call, type, functionName, ...)            \
     type className##_##functionName(className me, ##__VA_ARGS__) { call; } \
@@ -301,10 +333,10 @@
 #define default_fun_(className, call, type, functionName, ...) default_fun__(className, call, type, functionName, ##__VA_ARGS__)
 #define default_fun(call, type, functionName, ...) default_fun_(class, call, type, functionName, ##__VA_ARGS__)
 
-#define override_fun__(className, type, superClassName, functionName, ...) \
-    static type override_##superClassName##_##functionName(className me, ##__VA_ARGS__)
-#define override_fun_(className, type, superClassName, functionName, ...) override_fun__(className, type, superClassName, functionName, ##__VA_ARGS__)
-#define override_fun(type, superClassName, functionName, ...) override_fun_(class, type, superClassName, functionName, ##__VA_ARGS__)
+#define override_fun__(className, type, superClassName, functionName, arguments) \
+    static type override_##superClassName##_##functionName(className me va_args(strip_parentheses(arguments)))
+#define override_fun_(className, type, superClassName, functionName, arguments) override_fun__(className, type, superClassName, functionName, arguments)
+#define override_fun(type, superClassName, functionName, arguments) override_fun_(class, type, superClassName, functionName, arguments)
 
 #define abstract_class_init__(className, superClassName, initBlock)                 \
     static mUInt8 override_CObject_objectSize(className me) { return sizeof(*me); } \
