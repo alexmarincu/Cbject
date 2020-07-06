@@ -9,6 +9,6 @@
 #define super_class Circle
 
 class_members(
-    mColor color;);
+    mColor color);
 
 #endif // COLOREDCIRCLESUPER_H

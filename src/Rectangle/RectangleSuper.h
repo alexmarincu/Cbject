@@ -9,7 +9,7 @@
 #define super_class Shape
 
 class_members(
-    mUInt32 width;
-    mUInt32 height;);
+    mUInt32 width,
+    mUInt32 height);
 
 #endif // RECTANGLESUPER_H

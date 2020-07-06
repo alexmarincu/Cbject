@@ -9,7 +9,7 @@
 #define super_class CObject
 
 abstract_class_members(
-    mPoint origin;);
+    mPoint origin);
 
 virtual_functions(
     (mFloat, area, ()),

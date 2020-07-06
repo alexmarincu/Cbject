@@ -6,9 +6,9 @@
 #define class Rectangle
 
 class_init_params(
-    Point origin;
-    UInt32 width;
-    UInt32 height;);
+    Point origin,
+    UInt32 width,
+    UInt32 height);
 
 class_pool_size(10);
 

@@ -11,12 +11,11 @@
 #define super_class CObject
 
 singleton_class_members(
-    mCircle mPt circle;
-    mRectangle mPt rectangle;
-    mColoredCircle mPt coloredCircle;);
+    mCircle mPt circle,
+    mRectangle mPt rectangle,
+    mColoredCircle mPt coloredCircle);
 
-singleton_class_init(
-    bind_virtual_functions(););
+singleton_class_init({ bind_virtual_functions(); });
 
 static fun(Void, printBeginMessage, ());
 static fun(Void, printEndMessage, ());

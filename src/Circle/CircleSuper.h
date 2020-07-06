@@ -9,6 +9,6 @@
 #define super_class Shape
 
 class_members(
-    mUInt32 radius;);
+    mUInt32 radius);
 
 #endif // CIRCLESUPER_H

@@ -6,8 +6,8 @@
 #define class Circle
 
 class_init_params(
-    Point origin;
-    UInt32 radius;);
+    Point origin,
+    UInt32 radius);
 
 class_pool_size(10);
 
