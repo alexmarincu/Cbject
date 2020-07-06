@@ -11,7 +11,7 @@ override_fun(Void, Shape, draw, (UInt8 a));
 
 class_init(
     Circle_init(
-        (mCircle) me,
+        (mCircle Pt) me,
         &((CircleInitParams){
             .origin.x = 0,
             .origin.y = 0,

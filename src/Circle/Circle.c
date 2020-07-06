@@ -12,7 +12,7 @@ override_fun(mFloat, Shape, area, ());
 override_fun(Void, Shape, draw, (UInt8 a));
 
 class_init(
-    Shape_init((mShape) me, (ShapeInitParams Ptr) params);
+    Shape_init((mShape Pt) me, (ShapeInitParams Pt) params);
     bind_virtual_functions(
         bind_override_fun(mFloat, Shape, area);
         bind_override_fun(Void, Shape, draw, UInt8 a););
@@ -22,7 +22,7 @@ default_set_get(UInt32, radius);
 
 override_fun(Void, Shape, draw, (UInt8 a))
 {
-    super_Shape_draw((Shape) me, a);
+    super_Shape_draw((Shape Pt) me, a);
     printf("Circle draw\n");
 }
 

@@ -27,8 +27,8 @@ typedef int64_t mInt64;
 typedef int64_t const Int64;
 typedef float mFloat;
 typedef float const Float;
-#define mPtr *
-#define Ptr *const
+#define mPt *
+#define Pt *const
 #define Array_size(array) (sizeof(array) / sizeof(*(array)))
 
 #endif // PRIMITIVES_H

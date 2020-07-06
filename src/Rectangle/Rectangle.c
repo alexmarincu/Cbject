@@ -8,7 +8,7 @@
 override_fun(mFloat, Shape, area, ());
 
 class_init(
-    Shape_init((mShape) me, (ShapeInitParams Ptr) params);
+    Shape_init((mShape Pt) me, (ShapeInitParams Pt) params);
     bind_virtual_functions(
         bind_override_fun(mFloat, Shape, area););
     me->width = params->width;
