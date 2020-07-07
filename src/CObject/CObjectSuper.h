@@ -8,14 +8,14 @@ typedef struct CObjectVT const CObjectVT;
 
 struct CObjectVT
 {
-    mUInt8(mPt objectSize)(CObject Pt me);
+    mUInt8(mpt objectSize)(CObject pt me);
 };
 
 struct CObject
 {
-    CObjectVT mPt vT;
+    CObjectVT mpt vT;
 };
 
-mUInt8 super_CObject_objectSize(CObject Pt me);
+mUInt8 super_CObject_objectSize(CObject pt me);
 
 #endif // COBJECTSUPER_H

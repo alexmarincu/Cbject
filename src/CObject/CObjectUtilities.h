@@ -66,7 +66,7 @@
     };                                                                \
                                                                       \
     mUInt8 className##_classSize();                                   \
-    Void className##_init(m##className Pt me, className##InitParams Pt params)
+    Void className##_init(m##className pt me, className##InitParams pt params)
 #define abstract_class_init_params_(className, ...) abstract_class_init_params__(className, __VA_ARGS__)
 #define abstract_class_init_params(...) abstract_class_init_params_(class, __VA_ARGS__)
 
@@ -81,9 +81,9 @@
         for_each(add_semicolon, __VA_ARGS__)                          \
     };                                                                \
                                                                       \
-    m##className mPt className##_getInstance();                       \
+    m##className mpt className##_getInstance();                       \
     mUInt8 className##_classSize();                                   \
-    Void className##_init(m##className Pt me, className##InitParams Pt params)
+    Void className##_init(m##className pt me, className##InitParams pt params)
 #define singleton_class_init_params_(className, ...) singleton_class_init_params__(className, __VA_ARGS__)
 #define singleton_class_init_params(...) singleton_class_init_params_(class, __VA_ARGS__)
 
@@ -100,10 +100,10 @@
                 for_each(add_semicolon, __VA_ARGS__)                           \
             };                                                                 \
                                                                                \
-            m##className mPt get_##className(className##InitParams Pt params); \
-            m##className mPt new_##className(className##InitParams Pt params); \
+            m##className mpt get_##className(className##InitParams pt params); \
+            m##className mpt new_##className(className##InitParams pt params); \
             mUInt8 className##_classSize();                                    \
-            Void className##_init(m##className Pt me, className##InitParams Pt params)
+            Void className##_init(m##className pt me, className##InitParams pt params)
     #else
         #define class_init_params__(className, ...)                            \
             typedef struct className m##className;                             \
@@ -116,9 +116,9 @@
                 for_each(add_semicolon, __VA_ARGS__)                           \
             };                                                                 \
                                                                                \
-            m##className mPt get_##className(className##InitParams Pt params); \
+            m##className mpt get_##className(className##InitParams pt params); \
             mUInt8 className##_classSize();                                    \
-            Void className##_init(m##className Pt me, className##InitParams Pt params)
+            Void className##_init(m##className pt me, className##InitParams pt params)
     #endif
 #else
     #if CObject_useHeap == true
@@ -133,9 +133,9 @@
                 for_each(add_semicolon, __VA_ARGS__)                           \
             };                                                                 \
                                                                                \
-            m##className mPt new_##className(className##InitParams Pt params); \
+            m##className mpt new_##className(className##InitParams pt params); \
             mUInt8 className##_classSize();                                    \
-            Void className##_init(m##className Pt me, className##InitParams Pt params)
+            Void className##_init(m##className pt me, className##InitParams pt params)
     #else
         #define class_init_params__(className, ...)                           \
             typedef struct className m##className;                            \
@@ -149,7 +149,7 @@
             };                                                                \
                                                                               \
             mUInt8 className##_classSize();                                   \
-            Void className##_init(m##className Pt me, className##InitParams Pt params)
+            Void className##_init(m##className pt me, className##InitParams pt params)
     #endif
 #endif
 #define class_init_params_(className, ...) class_init_params__(className, __VA_ARGS__)
@@ -235,13 +235,13 @@
 #define enum_class_values(...) enum_class_values_(class, __VA_ARGS__)
 
 #define virtual_fun_Pt__(className, type, functionName, arguments) \
-    type(mPt functionName)(className Pt me va_args(strip_parentheses(arguments)))
+    type(mpt functionName)(className pt me va_args(strip_parentheses(arguments)))
 #define virtual_fun_Pt_(className, type, functionName, arguments) virtual_fun_Pt__(className, type, functionName, arguments)
 #define virtual_fun_Pt(type, functionName, arguments) virtual_fun_Pt_(class, type, functionName, arguments)
 #define strip_parentheses_and_apply_virtual_fun_Pt(funSignature) virtual_fun_Pt funSignature;
 
 #define virtual_fun__(className, type, functionName, arguments) \
-    type super_##className##_##functionName(className Pt me va_args(strip_parentheses(arguments)))
+    type super_##className##_##functionName(className pt me va_args(strip_parentheses(arguments)))
 #define virtual_fun_(className, type, functionName, arguments) virtual_fun__(className, type, functionName, arguments)
 #define virtual_fun(type, functionName, arguments) virtual_fun_(class, type, functionName, arguments)
 #define strip_parentheses_and_apply_virtual_fun(funSignature) virtual_fun funSignature;
@@ -262,43 +262,43 @@
 
 #define Object(className, varName, initParams)            \
     Byte varName##Stack[className##_classSize()];         \
-    className Pt varName = (className Pt) varName##Stack; \
-    className##_init((m##className Pt) varName, initParams)
+    className pt varName = (className pt) varName##Stack; \
+    className##_init((m##className pt) varName, initParams)
 
 #define mObject(className, varName, initParams)                 \
     Byte varName##Stack[className##_classSize()];               \
-    m##className Pt varName = (m##className Pt) varName##Stack; \
+    m##className pt varName = (m##className pt) varName##Stack; \
     className##_init(varName, initParams)
 
 #define set_get__(className, type, memberName)                               \
-    Void className##_##memberName##Set(m##className Pt me, type memberName); \
-    m##type className##_##memberName(className Pt me)
+    Void className##_##memberName##Set(m##className pt me, type memberName); \
+    m##type className##_##memberName(className pt me)
 #define set_get_(className, type, memberName) set_get__(className, type, memberName)
 #define set_get(type, memberName) set_get_(class, type, memberName)
 
 #define default_set__(className, type, memberName) \
-    Void className##_##memberName##Set(m##className Pt me, type memberName) { me->memberName = memberName; }
+    Void className##_##memberName##Set(m##className pt me, type memberName) { me->memberName = memberName; }
 #define default_set_(className, type, memberName) default_set__(className, type, memberName)
 #define default_set(type, memberName) default_set_(class, type, memberName)
 
 #define default_get__(className, type, memberName) \
-    m##type className##_##memberName(className Pt me) { return me->memberName; }
+    m##type className##_##memberName(className pt me) { return me->memberName; }
 #define default_get_(className, type, memberName) default_get__(className, type, memberName)
 #define default_get(type, memberName) default_get_(class, type, memberName)
 
 #define default_set_get__(className, type, memberName)                                                       \
-    Void className##_##memberName##Set(m##className Pt me, type memberName) { me->memberName = memberName; } \
-    m##type className##_##memberName(className Pt me) { return me->memberName; }
+    Void className##_##memberName##Set(m##className pt me, type memberName) { me->memberName = memberName; } \
+    m##type className##_##memberName(className pt me) { return me->memberName; }
 #define default_set_get_(className, type, memberName) default_set_get__(className, type, memberName)
 #define default_set_get(type, memberName) default_set_get_(class, type, memberName)
 
 #define fun__(className, type, functionName, arguments) \
-    type className##_##functionName(m##className Pt me va_args(strip_parentheses(arguments)))
+    type className##_##functionName(m##className pt me va_args(strip_parentheses(arguments)))
 #define fun_(className, type, functionName, arguments) fun__(className, type, functionName, arguments)
 #define fun(type, functionName, arguments) fun_(class, type, functionName, arguments)
 
 #define virtual_call__(className, functionName, arguments) \
-    return ((className##VT Pt)((CObject Pt) me)->vT)->functionName(me va_args(strip_parentheses(arguments)))
+    return ((className##VT pt)((CObject pt) me)->vT)->functionName(me va_args(strip_parentheses(arguments)))
 #define virtual_call_(className, functionName, arguments) virtual_call__(className, functionName, arguments)
 #define virtual_call(functionName, arguments) virtual_call_(class, functionName, arguments)
 
@@ -307,17 +307,17 @@
 #define first(arg1, ...) arg1
 
 #define override_fun__(className, type, superClassName, functionName, arguments) \
-    static type override_##superClassName##_##functionName(className Pt me va_args(strip_parentheses(arguments)))
+    static type override_##superClassName##_##functionName(className pt me va_args(strip_parentheses(arguments)))
 #define override_fun_(className, type, superClassName, functionName, arguments) override_fun__(className, type, superClassName, functionName, arguments)
 #define override_fun(type, superClassName, functionName, arguments) override_fun_(class, type, superClassName, functionName, arguments)
 
 #define abstract_class_init__(className, superClassName, ...)                          \
-    static mUInt8 override_CObject_objectSize(className Pt me) { return sizeof(*me); } \
+    static mUInt8 override_CObject_objectSize(className pt me) { return sizeof(*me); } \
     mUInt8 className##_classSize() { return sizeof(m##className); }                    \
                                                                                        \
-    Void className##_init(m##className Pt me, className##InitParams Pt params)         \
+    Void className##_init(m##className pt me, className##InitParams pt params)         \
     {                                                                                  \
-        if (#superClassName == "CObject") { CObject_init((mCObject Pt) me); }          \
+        if (#superClassName == "CObject") { CObject_init((mCObject pt) me); }          \
                                                                                        \
         do                                                                             \
             __VA_ARGS__                                                                \
@@ -327,18 +327,18 @@
 #define abstract_class_init(...) abstract_class_init_(class, super_class, __VA_ARGS__)
 
 #define singleton_class_init__(className, superClassName, ...)                         \
-    m##className mPt className##_getInstance()                                         \
+    m##className mpt className##_getInstance()                                         \
     {                                                                                  \
         static m##className singleton;                                                 \
         return &singleton;                                                             \
     }                                                                                  \
                                                                                        \
-    static mUInt8 override_CObject_objectSize(className Pt me) { return sizeof(*me); } \
+    static mUInt8 override_CObject_objectSize(className pt me) { return sizeof(*me); } \
     mUInt8 className##_classSize() { return sizeof(m##className); }                    \
                                                                                        \
-    Void className##_init(m##className Pt me, className##InitParams Pt params)         \
+    Void className##_init(m##className pt me, className##InitParams pt params)         \
     {                                                                                  \
-        if (#superClassName == "CObject") { CObject_init((mCObject Pt) me); }          \
+        if (#superClassName == "CObject") { CObject_init((mCObject pt) me); }          \
                                                                                        \
         do                                                                             \
             __VA_ARGS__                                                                \
@@ -351,11 +351,11 @@
     #if CObject_useHeap == true
         #include <stdlib.h>
         #define class_init__(className, superClassName, ...)                                   \
-            m##className mPt get_##className(className##InitParams Pt params)                  \
+            m##className mpt get_##className(className##InitParams pt params)                  \
             {                                                                                  \
                 static m##className pool[className##_poolSize];                                \
                 static mUInt64 count = 0;                                                      \
-                m##className mPt me = null;                                                    \
+                m##className mpt me = null;                                                    \
                                                                                                \
                 if (count < className##_poolSize)                                              \
                 {                                                                              \
@@ -367,19 +367,19 @@
                 return me;                                                                     \
             }                                                                                  \
                                                                                                \
-            m##className mPt new_##className(className##InitParams Pt params)                  \
+            m##className mpt new_##className(className##InitParams pt params)                  \
             {                                                                                  \
-                m##className mPt me = (m##className mPt) malloc(sizeof(m##className));         \
+                m##className mpt me = (m##className mpt) malloc(sizeof(m##className));         \
                 className##_init(me, params);                                                  \
                 return me;                                                                     \
             }                                                                                  \
                                                                                                \
-            static mUInt8 override_CObject_objectSize(className Pt me) { return sizeof(*me); } \
+            static mUInt8 override_CObject_objectSize(className pt me) { return sizeof(*me); } \
             mUInt8 className##_classSize() { return sizeof(m##className); }                    \
                                                                                                \
-            Void className##_init(m##className Pt me, className##InitParams Pt params)         \
+            Void className##_init(m##className pt me, className##InitParams pt params)         \
             {                                                                                  \
-                if (#superClassName == "CObject") { CObject_init((mCObject Pt) me); }          \
+                if (#superClassName == "CObject") { CObject_init((mCObject pt) me); }          \
                                                                                                \
                 do                                                                             \
                     __VA_ARGS__                                                                \
@@ -387,11 +387,11 @@
             }
     #else
         #define class_init__(className, superClassName, ...)                                   \
-            m##className mPt get_##className(className##InitParams Pt params)                  \
+            m##className mpt get_##className(className##InitParams pt params)                  \
             {                                                                                  \
                 static m##className pool[className##_poolSize];                                \
                 static mUInt64 count = 0;                                                      \
-                m##className mPt me = null;                                                    \
+                m##className mpt me = null;                                                    \
                                                                                                \
                 if (count < className##_poolSize)                                              \
                 {                                                                              \
@@ -403,12 +403,12 @@
                 return me;                                                                     \
             }                                                                                  \
                                                                                                \
-            static mUInt8 override_CObject_objectSize(className Pt me) { return sizeof(*me); } \
+            static mUInt8 override_CObject_objectSize(className pt me) { return sizeof(*me); } \
             mUInt8 className##_classSize() { return sizeof(m##className); }                    \
                                                                                                \
-            Void className##_init(m##className Pt me, className##InitParams Pt params)         \
+            Void className##_init(m##className pt me, className##InitParams pt params)         \
             {                                                                                  \
-                if (#superClassName == "CObject") { CObject_init((mCObject Pt) me); }          \
+                if (#superClassName == "CObject") { CObject_init((mCObject pt) me); }          \
                                                                                                \
                 do                                                                             \
                     __VA_ARGS__                                                                \
@@ -419,19 +419,19 @@
     #if CObject_useHeap == true
         #include <stdlib.h>
         #define class_init__(className, superClassName, ...)                                   \
-            m##className mPt new_##className(className##InitParams Pt params)                  \
+            m##className mpt new_##className(className##InitParams pt params)                  \
             {                                                                                  \
-                m##className mPt me = (m##className Pt) malloc(sizeof(m##className));          \
+                m##className mpt me = (m##className pt) malloc(sizeof(m##className));          \
                 className##_init(me, params);                                                  \
                 return me;                                                                     \
             }                                                                                  \
                                                                                                \
-            static mUInt8 override_CObject_objectSize(className Pt me) { return sizeof(*me); } \
+            static mUInt8 override_CObject_objectSize(className pt me) { return sizeof(*me); } \
             mUInt8 className##_classSize() { return sizeof(m##className); }                    \
                                                                                                \
-            Void className##_init(m##className Pt me, className##InitParams Pt params)         \
+            Void className##_init(m##className pt me, className##InitParams pt params)         \
             {                                                                                  \
-                if (#superClassName == "CObject") { CObject_init((mCObject Pt) me); }          \
+                if (#superClassName == "CObject") { CObject_init((mCObject pt) me); }          \
                                                                                                \
                 do                                                                             \
                     __VA_ARGS__                                                                \
@@ -439,12 +439,12 @@
             }
     #else
         #define class_init__(className, superClassName, ...)                                   \
-            static mUInt8 override_CObject_objectSize(className Pt me) { return sizeof(*me); } \
+            static mUInt8 override_CObject_objectSize(className pt me) { return sizeof(*me); } \
             mUInt8 className##_classSize() { return sizeof(m##className); }                    \
                                                                                                \
-            Void className##_init(m##className Pt me, className##InitParams Pt params)         \
+            Void className##_init(m##className pt me, className##InitParams pt params)         \
             {                                                                                  \
-                if (#superClassName == "CObject") { CObject_init((mCObject Pt) me); }          \
+                if (#superClassName == "CObject") { CObject_init((mCObject pt) me); }          \
                                                                                                \
                 do                                                                             \
                     __VA_ARGS__                                                                \
@@ -462,7 +462,7 @@
 #define bind_functions(...) for_each(bind_virtual_fun, __VA_ARGS__)
 
 #define bind_override_fun(type, superClassName, functionName, arguments) \
-    ((m##superClassName##VT Pt) & vT)->functionName = (type(Pt)(superClassName Pt me va_args(strip_parentheses(arguments)))) override_##superClassName##_##functionName
+    ((m##superClassName##VT pt) & vT)->functionName = (type(pt)(superClassName pt me va_args(strip_parentheses(arguments)))) override_##superClassName##_##functionName
 #define strip_parentheses_and_apply_bind_override_fun(funSignature) bind_override_fun funSignature;
 #define override_functions(...) for_each(strip_parentheses_and_apply_bind_override_fun, __VA_ARGS__)
 
@@ -475,15 +475,15 @@
         if (isVtSetupDone == false)                                                                      \
         {                                                                                                \
             isVtSetupDone = true;                                                                        \
-            *((m##superClassName##VT Pt) & vT) = *((superClassName##VT Pt)(((CObject Pt) me)->vT));      \
-            ((mCObjectVT Pt) &vT)->objectSize = (mUInt8(Pt)(CObject Pt me)) override_CObject_objectSize; \
+            *((m##superClassName##VT pt) & vT) = *((superClassName##VT pt)(((CObject pt) me)->vT));      \
+            ((mCObjectVT pt) &vT)->objectSize = (mUInt8(pt)(CObject pt me)) override_CObject_objectSize; \
                                                                                                          \
             do                                                                                           \
                 __VA_ARGS__                                                                              \
             while (0);                                                                                   \
         }                                                                                                \
                                                                                                          \
-        ((mCObject Pt) me)->vT = (CObjectVT Pt) &vT;                                                     \
+        ((mCObject pt) me)->vT = (CObjectVT pt) &vT;                                                     \
     } while (0)
 #define setup_virtual_functions_(className, superClassName, ...) setup_virtual_functions__(className, superClassName, __VA_ARGS__)
 #define setup_virtual_functions(...) setup_virtual_functions_(class, super_class, __VA_ARGS__)
