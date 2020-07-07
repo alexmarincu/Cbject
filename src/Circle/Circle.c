@@ -11,12 +11,17 @@ static Float pi = 3.14;
 override_fun(mFloat, Shape, area, ());
 override_fun(Void, Shape, draw, (UInt8 a));
 
-class_init(
+class_init({
     Shape_init((mShape Pt) me, (ShapeInitParams Pt) params);
-    bind_virtual_functions(
-        bind_override_fun(mFloat, Shape, area);
-        bind_override_fun(Void, Shape, draw, UInt8 a););
-    me->radius = params->radius;);
+
+    setup_virtual_functions({
+        override_functions(
+            (mFloat, Shape, area, ()),
+            (Void, Shape, draw, (UInt8 a)));
+    });
+
+    me->radius = params->radius;
+});
 
 default_set_get(UInt32, radius);
 

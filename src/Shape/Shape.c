@@ -6,13 +6,10 @@
 #undef super_class
 #define super_class CObject
 
-//static virtual_fun_new(mFloat, area, args());
-
-abstract_class_init(
-    bind_virtual_functions(
-        bind_virtual_fun(area);
-        bind_virtual_fun(draw););
-    me->origin = params->origin;);
+abstract_class_init({
+    setup_virtual_functions({ bind_functions(area, draw); });
+    me->origin = params->origin;
+});
 
 default_set_get(Point, origin);
 

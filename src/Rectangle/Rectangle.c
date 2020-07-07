@@ -7,12 +7,12 @@
 
 override_fun(mFloat, Shape, area, ());
 
-class_init(
+class_init({
     Shape_init((mShape Pt) me, (ShapeInitParams Pt) params);
-    bind_virtual_functions(
-        bind_override_fun(mFloat, Shape, area););
+    setup_virtual_functions({ override_functions((mFloat, Shape, area, ())); });
     me->width = params->width;
-    me->height = params->height;);
+    me->height = params->height;
+});
 
 default_set_get(UInt32, width);
 default_set_get(UInt32, height);

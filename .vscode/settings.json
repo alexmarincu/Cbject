@@ -5,6 +5,17 @@
         "bitset": "cpp",
         "chrono": "cpp",
         "algorithm": "cpp",
-        "random": "c"
+        "random": "c",
+        "array": "cpp",
+        "compare": "cpp",
+        "functional": "cpp",
+        "istream": "cpp",
+        "ostream": "cpp",
+        "ranges": "cpp",
+        "ratio": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "variant": "cpp"
     }
 }

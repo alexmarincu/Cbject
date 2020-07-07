@@ -15,7 +15,7 @@ singleton_class_members(
     mRectangle mPt rectangle,
     mColoredCircle mPt coloredCircle);
 
-singleton_class_init({ bind_virtual_functions(); });
+singleton_class_init({ setup_virtual_functions({}); });
 
 static fun(Void, printBeginMessage, ());
 static fun(Void, printEndMessage, ());
