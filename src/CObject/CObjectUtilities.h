@@ -182,6 +182,28 @@
 #define class_members_(className, superClassName, ...) class_members__(className, superClassName, __VA_ARGS__)
 #define class_members(...) class_members_(class, super_class, __VA_ARGS__)
 
+#define prepend_class_name_and_add_semicolon__(className, constName) className##_##constName;
+#define prepend_class_name_and_add_semicolon_(className, constName) prepend_class_name_and_add_semicolon__(className, constName)
+#define prepend_class_name_and_add_semicolon(constName) prepend_class_name_and_add_semicolon_(class, constName)
+
+#define constant__(className, type, ...) type const className##_##__VA_ARGS__
+#define constant_(className, type, ...) constant__(className, type, __VA_ARGS__)
+#define constant(type, ...) constant_(class, type, __VA_ARGS__)
+#define strip_parentheses_and_apply_constant(constSignature) constant constSignature;
+#define constants(...) for_each(strip_parentheses_and_apply_constant, __VA_ARGS__)
+
+#define public_constant__(className, type, constName) extern type const className##_##constName
+#define public_constant_(className, type, constName) public_constant__(className, type, constName)
+#define public_constant(type, constName) public_constant_(class, type, constName)
+#define strip_parentheses_and_apply_public_constant(constSignature) public_constant constSignature;
+#define public_constants(...) for_each(strip_parentheses_and_apply_public_constant, __VA_ARGS__)
+
+#define private_constant__(className, type, ...) static type const className##_##__VA_ARGS__
+#define private_constant_(className, type, ...) private_constant__(className, type, __VA_ARGS__)
+#define private_constant(type, ...) private_constant_(class, type, __VA_ARGS__)
+#define strip_parentheses_and_apply_private_constant(constSignature) private_constant constSignature;
+#define private_constants(className, ...)  for_each(strip_parentheses_and_apply_private_constant, __VA_ARGS__)
+
 #define abstract_class_members__(className, superClassName, ...) \
     struct className                                             \
     {                                                            \
@@ -296,6 +318,11 @@
     type className##_##functionName(m##className pt me va_args(strip_parentheses(arguments)))
 #define fun_(className, type, functionName, arguments) fun__(className, type, functionName, arguments)
 #define fun(type, functionName, arguments) fun_(class, type, functionName, arguments)
+
+#define private_fun__(className, type, functionName, arguments) \
+    static type className##_##functionName(m##className pt me va_args(strip_parentheses(arguments)))
+#define private_fun_(className, type, functionName, arguments) private_fun__(className, type, functionName, arguments)
+#define private_fun(type, functionName, arguments) private_fun_(class, type, functionName, arguments)
 
 #define virtual_call__(className, functionName, arguments) \
     return ((className##VT pt)((CObject pt) me)->vT)->functionName(me va_args(strip_parentheses(arguments)))
