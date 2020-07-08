@@ -6,7 +6,6 @@
 #define class Circle
 
 public_constant(Float, pi);
-
 public_constants((Float, anotherPi));
 
 class_init_params(

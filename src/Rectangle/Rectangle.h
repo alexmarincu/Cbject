@@ -12,8 +12,10 @@ class_init_params(
 
 class_pool_size(10);
 
-set_get(UInt32, width);
-set_get(UInt32, height);
+setters_getters(
+    (UInt32, width),
+    (UInt32, height));
+
 fun(mUInt32, test, (UInt32 a));
 
 #endif // RECTANGLE_H
