@@ -5,6 +5,10 @@
 #undef class
 #define class Circle
 
+public_constant(Float, pi);
+
+public_constants((Float, anotherPi));
+
 class_init_params(
     Point origin,
     UInt32 radius);

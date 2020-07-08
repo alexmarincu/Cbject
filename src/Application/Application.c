@@ -17,15 +17,15 @@ singleton_class_members(
 
 singleton_class_init({ setup_virtual_functions({}); });
 
-static fun(Void, printBeginMessage, ());
-static fun(Void, printEndMessage, ());
-static fun(Void, circleExample, ());
-static fun(Void, stackCircleExample, ());
-static fun(Void, rectangleExample, ());
-static fun(Void, stackRectangleExample, ());
-static fun(Void, heapRectangleExample, ());
-static fun(Void, coloredCircleExample, ());
-static fun(Void, polymorphismExample, ());
+private_fun(Void, printBeginMessage, ());
+private_fun(Void, printEndMessage, ());
+private_fun(Void, circleExample, ());
+private_fun(Void, stackCircleExample, ());
+private_fun(Void, rectangleExample, ());
+private_fun(Void, stackRectangleExample, ());
+private_fun(Void, heapRectangleExample, ());
+private_fun(Void, coloredCircleExample, ());
+private_fun(Void, polymorphismExample, ());
 
 fun(Void, start, ())
 {
@@ -40,12 +40,13 @@ fun(Void, start, ())
     Application_printEndMessage(me);
 }
 
-static fun(Void, printBeginMessage, ()) { printf("\nApplication started ->\n"); }
-static fun(Void, printEndMessage, ()) { printf("\nApplication ended <-\n"); }
+private_fun(Void, printBeginMessage, ()) { printf("\nApplication started ->\n"); }
+private_fun(Void, printEndMessage, ()) { printf("\nApplication ended <-\n"); }
 
-static fun(Void, circleExample, ())
+private_fun(Void, circleExample, ())
 {
     printf("\n= Circle example:\n");
+    printf("Circle_pi = %.2f\n", Circle_pi);
 
     me->circle = get_Circle(
         &((CircleInitParams){
@@ -67,7 +68,7 @@ static fun(Void, circleExample, ())
     Shape_draw((mShape pt) me->circle, 5);
 }
 
-static fun(Void, stackCircleExample, ())
+private_fun(Void, stackCircleExample, ())
 {
     printf("\n= StackCircle example:\n");
 
@@ -83,7 +84,7 @@ static fun(Void, stackCircleExample, ())
     printf("stackCircle.radius = %d\n", Circle_radius(stackCircle));
 }
 
-static fun(Void, rectangleExample, ())
+private_fun(Void, rectangleExample, ())
 {
     printf("\n= Rectangle example:\n");
 
@@ -105,7 +106,7 @@ static fun(Void, rectangleExample, ())
     Shape_draw((mShape pt) me->rectangle, 6);
 }
 
-static fun(Void, stackRectangleExample, ())
+private_fun(Void, stackRectangleExample, ())
 {
     printf("\n= StackRectangle example:\n");
 
@@ -125,7 +126,7 @@ static fun(Void, stackRectangleExample, ())
     printf("rectangle.height = %d\n", Rectangle_height(stackRectangle));
 }
 
-static fun(Void, heapRectangleExample, ())
+private_fun(Void, heapRectangleExample, ())
 {
     printf("\n= HeapRectangle example:\n");
 
@@ -146,7 +147,7 @@ static fun(Void, heapRectangleExample, ())
     free(heapRectangle);
 }
 
-static fun(Void, coloredCircleExample, ())
+private_fun(Void, coloredCircleExample, ())
 {
     printf("\n= ColoredCircle example:\n");
 
@@ -169,7 +170,7 @@ static fun(Void, coloredCircleExample, ())
     Shape_draw((mShape pt) me->coloredCircle, 5);
 }
 
-static fun(Void, polymorphismExample, ())
+private_fun(Void, polymorphismExample, ())
 {
     printf("\n= Polymorphism example:\n");
 
