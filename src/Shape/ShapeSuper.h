@@ -9,10 +9,10 @@
 #define super_class CObject
 
 abstract_class_members(
-    mPoint origin);
+    Point origin);
 
 virtual_functions(
-    (mFloat, area, ()),
-    (Void, draw, (UInt8 a)));
+    (Float, area, ()),
+    (Void, draw, (UInt8 const a)));
 
 #endif // SHAPESUPER_H

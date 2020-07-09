@@ -7,8 +7,8 @@
 #define class ColoredCircle
 
 class_init_params(
-    UInt32 radius,
-    Color color);
+    UInt32 const radius,
+    Color const color);
 
 class_pool_size(10);
 

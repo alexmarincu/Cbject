@@ -13,15 +13,15 @@ abstract_class_init({
 
 default_set_get(Point, origin);
 
-fun(mFloat, area, ()) { virtual_call(area, ()); }
-virtual_fun(mFloat, area, ())
+fun(Float, area, ()) { virtual_call(area, ()); }
+virtual_fun(Float, area, ())
 {
     (Void) me;
     return 0;
 }
 
-fun(Void, draw, (UInt8 a)) { virtual_call(draw, (a)); }
-virtual_fun(Void, draw, (UInt8 a))
+fun(Void, draw, (UInt8 const  a)) { virtual_call(draw, (a)); }
+virtual_fun(Void, draw, (UInt8 const a))
 {
     (Void) me;
     printf("Shape draw\n");

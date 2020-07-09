@@ -7,14 +7,14 @@
 #define super_class Shape
 
 class_members(
-    mUInt32 width,
-    mUInt32 height);
+    UInt32 width,
+    UInt32 height);
 
-override_fun(mFloat, Shape, area, ());
+override_fun(Float, Shape, area, ());
 
 class_init({
-    Shape_init((mShape pt) me, (ShapeInitParams pt) params);
-    setup_virtual_functions({ bind_override_functions((mFloat, Shape, area, ())); });
+    Shape_init((Shape *) me, (ShapeInitParams *) params);
+    setup_virtual_functions({ bind_override_functions((Float, Shape, area, ())); });
     me->width = params->width;
     me->height = params->height;
 });
@@ -23,5 +23,5 @@ default_setters_getters(
     (UInt32, width),
     (UInt32, height));
 
-fun(mUInt32, test, (UInt32 a)) { return a; }
-override_fun(mFloat, Shape, area, ()) { return me->width * me->height; }
+fun(UInt32, test, (UInt32 const a)) { return a; }
+override_fun(Float, Shape, area, ()) { return me->width * me->height; }
