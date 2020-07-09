@@ -7,7 +7,7 @@ typedef struct CObjectVT CObjectVT;
 
 struct CObjectVT
 {
-    UInt8(* objectSize)(CObject const * const me);
+    UInt8 (*objectSize)(CObject const * const me);
 };
 
 struct CObject
