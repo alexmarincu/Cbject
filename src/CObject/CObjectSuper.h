@@ -3,19 +3,18 @@
 
 #include "CObject.h"
 
-typedef struct CObjectVT mCObjectVT;
-typedef struct CObjectVT const CObjectVT;
+typedef struct CObjectVT CObjectVT;
 
 struct CObjectVT
 {
-    mUInt8(mpt objectSize)(CObject pt me);
+    UInt8(* objectSize)(CObject const * const me);
 };
 
 struct CObject
 {
-    CObjectVT mpt vT;
+    CObjectVT const * vT;
 };
 
-mUInt8 super_CObject_objectSize(CObject pt me);
+UInt8 super_CObject_objectSize(CObject const * const me);
 
 #endif // COBJECTSUPER_H

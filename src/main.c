@@ -3,9 +3,9 @@
 
 Int8 main()
 {
-    mApplication pt application = Application_getInstance();
+    Application * const application = Application_getInstance();
     Application_init(application, null);
-    printf("application.objectSize() = %d\n", CObject_objectSize((CObject pt) application));
+    printf("application.objectSize() = %d\n", CObject_objectSize((CObject *) application));
     Application_start(application);
     return 0;
 }

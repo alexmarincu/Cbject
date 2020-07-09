@@ -9,8 +9,8 @@ public_constant(Float, pi);
 public_constants((Float, anotherPi));
 
 class_init_params(
-    Point origin,
-    UInt32 radius);
+    Point const origin,
+    UInt32 const radius);
 
 class_pool_size(10);
 

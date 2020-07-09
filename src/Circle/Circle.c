@@ -15,16 +15,16 @@ private_constants(
     (Float, anotherPrivatePi = 3.14));
 
 override_functions(
-    (mFloat, Shape, area, ()),
-    (Void, Shape, draw, (UInt8 a)));
+    (Float, Shape, area, ()),
+    (Void, Shape, draw, (UInt8 const a)));
 
 class_init({
-    Shape_init((mShape pt) me, (ShapeInitParams pt) params);
+    Shape_init((Shape * const) me, (ShapeInitParams *) params);
 
     setup_virtual_functions({
         bind_override_functions(
-            (mFloat, Shape, area, ()),
-            (Void, Shape, draw, (UInt8 a)));
+            (Float, Shape, area, ()),
+            (Void, Shape, draw, (UInt8 const a)));
     });
 
     me->radius = params->radius;
@@ -32,10 +32,10 @@ class_init({
 
 default_set_get(UInt32, radius);
 
-override_fun(Void, Shape, draw, (UInt8 a))
+override_fun(Void, Shape, draw, (UInt8 const a))
 {
-    super_Shape_draw((Shape pt) me, a);
+    super_Shape_draw((Shape *) me, a);
     printf("Circle draw\n");
 }
 
-override_fun(mFloat, Shape, area, ()) { return me->radius * me->radius * Circle_pi; }
+override_fun(Float, Shape, area, ()) { return me->radius * me->radius * Circle_pi; }
