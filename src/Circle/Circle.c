@@ -14,14 +14,15 @@ private_constants(
     (Float, privatePi = 3.14),
     (Float, anotherPrivatePi = 3.14));
 
-override_fun(mFloat, Shape, area, ());
-override_fun(Void, Shape, draw, (UInt8 a));
+override_functions(
+    (mFloat, Shape, area, ()),
+    (Void, Shape, draw, (UInt8 a)));
 
 class_init({
     Shape_init((mShape pt) me, (ShapeInitParams pt) params);
 
     setup_virtual_functions({
-        override_functions(
+        bind_override_functions(
             (mFloat, Shape, area, ()),
             (Void, Shape, draw, (UInt8 a)));
     });

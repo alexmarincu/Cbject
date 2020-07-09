@@ -12,7 +12,8 @@ class_init_params(
 
 class_pool_size(10);
 
-set_get(UInt32, radius);
-set_get(Color, color);
+setters_getters(
+    (UInt32, radius),
+    (Color, color));
 
 #endif // COLOREDCIRCLE_H

@@ -7,7 +7,7 @@
 #define super_class CObject
 
 abstract_class_init({
-    setup_virtual_functions({ bind_functions(area, draw); });
+    setup_virtual_functions({ bind_virtual_functions(area, draw); });
     me->origin = params->origin;
 });
 

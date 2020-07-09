@@ -17,15 +17,16 @@ singleton_class_members(
 
 singleton_class_init({ setup_virtual_functions({}); });
 
-private_fun(Void, printBeginMessage, ());
-private_fun(Void, printEndMessage, ());
-private_fun(Void, circleExample, ());
-private_fun(Void, stackCircleExample, ());
-private_fun(Void, rectangleExample, ());
-private_fun(Void, stackRectangleExample, ());
-private_fun(Void, heapRectangleExample, ());
-private_fun(Void, coloredCircleExample, ());
-private_fun(Void, polymorphismExample, ());
+private_functions(
+    (Void, printBeginMessage, ()),
+    (Void, printEndMessage, ()),
+    (Void, circleExample, ()),
+    (Void, stackCircleExample, ()),
+    (Void, rectangleExample, ()),
+    (Void, stackRectangleExample, ()),
+    (Void, heapRectangleExample, ()),
+    (Void, coloredCircleExample, ()),
+    (Void, polymorphismExample, ()));
 
 fun(Void, start, ())
 {

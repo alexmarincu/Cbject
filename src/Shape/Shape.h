@@ -10,7 +10,9 @@ abstract_class_init_params(
     Point origin);
 
 set_get(Point, origin);
-fun(mFloat, area, ());
-fun(Void, draw, (UInt8 a));
+
+functions(
+    (mFloat, area, ()),
+    (Void, draw, (UInt8 a)));
 
 #endif // SHAPE_H

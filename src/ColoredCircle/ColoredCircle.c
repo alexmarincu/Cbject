@@ -21,7 +21,7 @@ class_init({
             .origin.y = 0,
             .radius = params->radius}));
 
-    setup_virtual_functions({ override_functions((Void, Shape, draw, (UInt8 a))); });
+    setup_virtual_functions({ bind_override_functions((Void, Shape, draw, (UInt8 a))); });
     me->color = params->color;
 });
 
