@@ -52,86 +52,50 @@
         fe_20, fe_19, fe_18, fe_17, fe_16, fe_15, fe_14, fe_13, fe_12, fe_11, \
         fe_10, fe_9, fe_8, fe_7, fe_6, fe_5, fe_4, fe_3, fe_2, fe_1)(macro, __VA_ARGS__)
 
-#define add_semicolon(memberTypeAndName) memberTypeAndName;
+#define add_semicolon(x) x;
 
-#define abstract_class_init_params__(className, ...) \
-    typedef struct className className;              \
-                                                     \
-    typedef struct className##InitParams             \
-    {                                                \
-        for_each(add_semicolon, __VA_ARGS__)         \
-    } className##InitParams;                         \
-                                                     \
-    UInt8 className##_classSize();                   \
+#define init_params(className, ...)          \
+    typedef struct className className;      \
+                                             \
+    typedef struct className##InitParams     \
+    {                                        \
+        for_each(add_semicolon, __VA_ARGS__) \
+    } className##InitParams;                 \
+                                             \
+    UInt8 className##_classSize();           \
     Void className##_init(className * const me, className##InitParams const * const params)
+
+#define class_get(className) className * get_##className(className##InitParams const * const params)
+#define class_new(className) className * new_##className(className##InitParams const * const params)
+
+#define abstract_class_init_params__(className, ...) init_params(className, __VA_ARGS__)
 #define abstract_class_init_params_(className, ...) abstract_class_init_params__(className, __VA_ARGS__)
 #define abstract_class_init_params(...) abstract_class_init_params_(class, __VA_ARGS__)
 
 #define singleton_class_init_params__(className, ...) \
-    typedef struct className className;               \
-                                                      \
-    typedef struct className##InitParams              \
-    {                                                 \
-        for_each(add_semicolon, __VA_ARGS__)          \
-    } className##InitParams;                          \
-                                                      \
-    className * className##_getInstance();            \
-    UInt8 className##_classSize();                    \
-    Void className##_init(className * const me, className##InitParams const * const params)
+    init_params(className, __VA_ARGS__);              \
+    className * className##_getInstance()
 #define singleton_class_init_params_(className, ...) singleton_class_init_params__(className, __VA_ARGS__)
 #define singleton_class_init_params(...) singleton_class_init_params_(class, __VA_ARGS__)
 
 #if CObject_useStaticPool == true
     #if CObject_useHeap == true
-        #define class_init_params__(className, ...)                                  \
-            typedef struct className className;                                      \
-                                                                                     \
-            typedef struct className##InitParams                                     \
-            {                                                                        \
-                for_each(add_semicolon, __VA_ARGS__)                                 \
-            } className##InitParams;                                                 \
-                                                                                     \
-            className * get_##className(className##InitParams const * const params); \
-            className * new_##className(className##InitParams const * const params); \
-            UInt8 className##_classSize();                                           \
-            Void className##_init(className * const me, className##InitParams const * const params)
+        #define class_init_params__(className, ...) \
+            init_params(className, __VA_ARGS__);    \
+            class_get(className);                   \
+            class_new(className)
     #else
-        #define class_init_params__(className, ...)                                  \
-            typedef struct className className;                                      \
-                                                                                     \
-            typedef struct className##InitParams                                     \
-            {                                                                        \
-                for_each(add_semicolon, __VA_ARGS__)                                 \
-            } className##InitParams;                                                 \
-                                                                                     \
-            className * get_##className(className##InitParams const * const params); \
-            UInt8 className##_classSize();                                           \
-            Void className##_init(className * const me, className##InitParams const * const params)
+        #define class_init_params__(className, ...) \
+            init_params(className, __VA_ARGS__);    \
+            class_get(className)
     #endif
 #else
     #if CObject_useHeap == true
-        #define class_init_params__(className, ...)                                  \
-            typedef struct className className;                                      \
-                                                                                     \
-            typedef struct className##InitParams                                     \
-            {                                                                        \
-                for_each(add_semicolon, __VA_ARGS__)                                 \
-            } className##InitParams;                                                 \
-                                                                                     \
-            className * new_##className(className##InitParams const * const params); \
-            UInt8 className##_classSize();                                           \
-            Void className##_init(className * const me, className##InitParams const * const params)
+        #define class_init_params__(className, ...) \
+            init_params(className, __VA_ARGS__);    \
+            class_new(className)
     #else
-        #define class_init_params__(className, ...)  \
-            typedef struct className className;      \
-                                                     \
-            typedef struct className##InitParams     \
-            {                                        \
-                for_each(add_semicolon, __VA_ARGS__) \
-            } className##InitParams;                 \
-                                                     \
-            UInt8 className##_classSize();           \
-            Void className##_init(className * const me, className##InitParams const * const params)
+        #define class_init_params__(className, ...) init_params(className, __VA_ARGS__)
     #endif
 #endif
 #define class_init_params_(className, ...) class_init_params__(className, __VA_ARGS__)
@@ -147,17 +111,22 @@
     #define class_pool_size(poolSize) class_pool_size_(class, poolSize)
 #endif
 
-#define class_members__(className, superClassName, ...) \
-    struct className                                    \
-    {                                                   \
-        struct superClassName super;                    \
-        for_each(add_semicolon, __VA_ARGS__)            \
-    };                                                  \
-                                                        \
-    typedef struct className##VT                        \
-    {                                                   \
-        superClassName##VT super;                       \
+#define class_vt(className, superClassName) \
+    typedef struct className##VT            \
+    {                                       \
+        superClassName##VT super;           \
     } className##VT
+
+#define members(className, superClassName, ...) \
+    struct className                            \
+    {                                           \
+        superClassName super;                   \
+        for_each(add_semicolon, __VA_ARGS__)    \
+    }
+
+#define class_members__(className, superClassName, ...) \
+    members(className, superClassName, __VA_ARGS__);    \
+    class_vt(className, superClassName)
 #define class_members_(className, superClassName, ...) class_members__(className, superClassName, __VA_ARGS__)
 #define class_members(...) class_members_(class, super_class, __VA_ARGS__)
 
@@ -183,26 +152,13 @@
 #define strip_parentheses_and_apply_private_constant(constSignature) private_constant constSignature;
 #define private_constants(className, ...) for_each(strip_parentheses_and_apply_private_constant, __VA_ARGS__)
 
-#define abstract_class_members__(className, superClassName, ...) \
-    struct className                                             \
-    {                                                            \
-        superClassName super;                                    \
-        for_each(add_semicolon, __VA_ARGS__)                     \
-    }
+#define abstract_class_members__(className, superClassName, ...) members(className, superClassName, __VA_ARGS__)
 #define abstract_class_members_(className, superClassName, ...) abstract_class_members__(className, superClassName, __VA_ARGS__)
 #define abstract_class_members(...) abstract_class_members_(class, super_class, __VA_ARGS__)
 
 #define singleton_class_members__(className, superClassName, ...) \
-    struct className                                              \
-    {                                                             \
-        superClassName super;                                     \
-        for_each(add_semicolon, __VA_ARGS__)                      \
-    };                                                            \
-                                                                  \
-    typedef struct className##VT                                  \
-    {                                                             \
-        superClassName##VT super;                                 \
-    } className##VT
+    members(className, superClassName, __VA_ARGS__);              \
+    class_vt(className, superClassName)
 #define singleton_class_members_(className, superClassName, ...) singleton_class_members__(className, superClassName, __VA_ARGS__)
 #define singleton_class_members(...) singleton_class_members_(class, super_class, __VA_ARGS__)
 
@@ -249,15 +205,10 @@
 #define virtual_functions_(className, superClassName, ...) virtual_functions__(className, superClassName, __VA_ARGS__)
 #define virtual_functions(...) virtual_functions_(class, super_class, __VA_ARGS__)
 
-#define Object(className, varName, initParams)                \
+#define Object(className, varName, ...)                       \
     Byte const varName##Stack[className##_classSize()];       \
     className * const varName = (className *) varName##Stack; \
-    className##_init((className *) varName, initParams)
-
-#define mObject(className, varName, initParams)               \
-    Byte const varName##Stack[className##_classSize()];       \
-    className * const varName = (className *) varName##Stack; \
-    className##_init(varName, initParams)
+    className##_init((className *) varName, __VA_ARGS__)
 
 #define set_get__(className, type, memberName)                                       \
     Void className##_##memberName##Set(className * const me, type const memberName); \

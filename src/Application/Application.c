@@ -73,11 +73,11 @@ private_fun(Void, stackCircleExample, ())
 {
     printf("\n= StackCircle example:\n");
 
-    mObject(Circle, stackCircle,
-            &((CircleInitParams){
-                .origin.x = 2,
-                .origin.y = 3,
-                .radius = 3}));
+    Object(Circle, stackCircle,
+           &((CircleInitParams){
+               .origin.x = 2,
+               .origin.y = 3,
+               .radius = 3}));
 
     printf("stackCircle.radius = %d\n", Circle_radius(stackCircle));
     printf("Set radius to 4\n");
@@ -111,12 +111,12 @@ private_fun(Void, stackRectangleExample, ())
 {
     printf("\n= StackRectangle example:\n");
 
-    mObject(Rectangle, stackRectangle,
-            &((RectangleInitParams){
-                .origin.x = 12,
-                .origin.y = 23,
-                .width = 34,
-                .height = 2}));
+    Object(Rectangle, stackRectangle,
+           &((RectangleInitParams){
+               .origin.x = 12,
+               .origin.y = 23,
+               .width = 34,
+               .height = 2}));
 
     printf("stackRectangle.width = %d\n", Rectangle_width(stackRectangle));
     printf("rectangle.height = %d\n", Rectangle_height(stackRectangle));
