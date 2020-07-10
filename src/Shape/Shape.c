@@ -20,7 +20,7 @@ virtual_fun(Float, area, ())
     return 0;
 }
 
-fun(Void, draw, (UInt8 const  a)) { virtual_call(draw, (a)); }
+fun(Void, draw, (UInt8 const a)) { virtual_call(draw, (a)); }
 virtual_fun(Void, draw, (UInt8 const a))
 {
     (Void) me;
