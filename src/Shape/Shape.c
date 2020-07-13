@@ -26,3 +26,8 @@ virtual_fun(Void, draw, (UInt8 const a))
     (Void) me;
     printf("Shape draw\n");
 }
+
+fun(Void, dummy, ())
+{
+    printf("Shape dummy\n");
+}
