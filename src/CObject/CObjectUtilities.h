@@ -111,11 +111,11 @@
     #define class_pool_size(poolSize) class_pool_size_(class, poolSize)
 #endif
 
-#define class_vt(className, superClassName) \
-    typedef struct className##VT            \
+#define class_klass(className, superClassName) \
+    typedef struct className##Class            \
     {                                       \
-        superClassName##VT super;           \
-    } className##VT
+        superClassName##Class super;           \
+    } className##Class
 
 #define members(className, superClassName, ...) \
     struct className                            \
@@ -126,7 +126,7 @@
 
 #define class_members__(className, superClassName, ...) \
     members(className, superClassName, __VA_ARGS__);    \
-    class_vt(className, superClassName)
+    class_klass(className, superClassName)
 #define class_members_(className, superClassName, ...) class_members__(className, superClassName, __VA_ARGS__)
 #define class_members(...) class_members_(class, super_class, __VA_ARGS__)
 
@@ -158,7 +158,7 @@
 
 #define singleton_class_members__(className, superClassName, ...) \
     members(className, superClassName, __VA_ARGS__);              \
-    class_vt(className, superClassName)
+    class_klass(className, superClassName)
 #define singleton_class_members_(className, superClassName, ...) singleton_class_members__(className, superClassName, __VA_ARGS__)
 #define singleton_class_members(...) singleton_class_members_(class, super_class, __VA_ARGS__)
 
@@ -182,11 +182,30 @@
 #define enum_class_values_(className, ...) enum_class_values__(className, __VA_ARGS__)
 #define enum_class_values(...) enum_class_values_(class, __VA_ARGS__)
 
-#define virtual_fun_Pt__(className, type, functionName, arguments) \
+#define fun__(className, type, functionName, arguments) \
+    type className##_##functionName(className * const me va_args(strip_parentheses(arguments)))
+#define fun_(className, type, functionName, arguments) fun__(className, type, functionName, arguments)
+#define fun(type, functionName, arguments) fun_(class, type, functionName, arguments)
+#define strip_parentheses_and_apply_fun(funSignature) fun funSignature;
+#define functions(...) for_each(strip_parentheses_and_apply_fun, __VA_ARGS__)
+
+#define private_fun__(className, type, functionName, arguments) \
+    static type className##_##functionName(className * const me va_args(strip_parentheses(arguments)))
+#define private_fun_(className, type, functionName, arguments) private_fun__(className, type, functionName, arguments)
+#define private_fun(type, functionName, arguments) private_fun_(class, type, functionName, arguments)
+#define strip_parentheses_and_apply_private_fun(funSignature) private_fun funSignature;
+#define private_functions(...) for_each(strip_parentheses_and_apply_private_fun, __VA_ARGS__)
+
+#define virtual_call__(className, functionName, arguments) \
+    return ((className##Class *) ((CObject *) me)->klass)->functionName(me va_args(strip_parentheses(arguments)))
+#define virtual_call_(className, functionName, arguments) virtual_call__(className, functionName, arguments)
+#define virtual_call(functionName, arguments) virtual_call_(class, functionName, arguments)
+
+#define virtual_fun_pt__(className, type, functionName, arguments) \
     type (*functionName)(className * const me va_args(strip_parentheses(arguments)))
-#define virtual_fun_Pt_(className, type, functionName, arguments) virtual_fun_Pt__(className, type, functionName, arguments)
-#define virtual_fun_Pt(type, functionName, arguments) virtual_fun_Pt_(class, type, functionName, arguments)
-#define strip_parentheses_and_apply_virtual_fun_Pt(funSignature) virtual_fun_Pt funSignature;
+#define virtual_fun_pt_(className, type, functionName, arguments) virtual_fun_pt__(className, type, functionName, arguments)
+#define virtual_fun_pt(type, functionName, arguments) virtual_fun_pt_(class, type, functionName, arguments)
+#define strip_parentheses_and_apply_virtual_fun_pt(funSignature) virtual_fun_pt funSignature;
 
 #define virtual_fun__(className, type, functionName, arguments) \
     type super_##className##_##functionName(className * const me va_args(strip_parentheses(arguments)))
@@ -195,13 +214,14 @@
 #define strip_parentheses_and_apply_virtual_fun(funSignature) virtual_fun funSignature;
 
 #define virtual_functions__(className, superClassName, ...)               \
-    typedef struct className##VT                                          \
+    typedef struct className##Class                                          \
     {                                                                     \
-        superClassName##VT super;                                         \
-        for_each(strip_parentheses_and_apply_virtual_fun_Pt, __VA_ARGS__) \
-    } className##VT;                                                      \
+        superClassName##Class super;                                         \
+        for_each(strip_parentheses_and_apply_virtual_fun_pt, __VA_ARGS__) \
+    } className##Class;                                                      \
                                                                           \
-    for_each(strip_parentheses_and_apply_virtual_fun, __VA_ARGS__)
+    for_each(strip_parentheses_and_apply_virtual_fun, __VA_ARGS__)\
+        for_each(strip_parentheses_and_apply_fun, __VA_ARGS__)
 #define virtual_functions_(className, superClassName, ...) virtual_functions__(className, superClassName, __VA_ARGS__)
 #define virtual_functions(...) virtual_functions_(class, super_class, __VA_ARGS__)
 
@@ -235,25 +255,6 @@
 #define default_set_get(type, memberName) default_set_get_(class, type, memberName)
 #define strip_parentheses_and_apply_default_set_get(memberSignature) default_set_get memberSignature
 #define default_setters_getters(...) for_each(strip_parentheses_and_apply_default_set_get, __VA_ARGS__)
-
-#define fun__(className, type, functionName, arguments) \
-    type className##_##functionName(className * const me va_args(strip_parentheses(arguments)))
-#define fun_(className, type, functionName, arguments) fun__(className, type, functionName, arguments)
-#define fun(type, functionName, arguments) fun_(class, type, functionName, arguments)
-#define strip_parentheses_and_apply_fun(funSignature) fun funSignature;
-#define functions(...) for_each(strip_parentheses_and_apply_fun, __VA_ARGS__)
-
-#define private_fun__(className, type, functionName, arguments) \
-    static type className##_##functionName(className * const me va_args(strip_parentheses(arguments)))
-#define private_fun_(className, type, functionName, arguments) private_fun__(className, type, functionName, arguments)
-#define private_fun(type, functionName, arguments) private_fun_(class, type, functionName, arguments)
-#define strip_parentheses_and_apply_private_fun(funSignature) private_fun funSignature;
-#define private_functions(...) for_each(strip_parentheses_and_apply_private_fun, __VA_ARGS__)
-
-#define virtual_call__(className, functionName, arguments) \
-    return ((className##VT *) ((CObject *) me)->vT)->functionName(me va_args(strip_parentheses(arguments)))
-#define virtual_call_(className, functionName, arguments) virtual_call__(className, functionName, arguments)
-#define virtual_call(functionName, arguments) virtual_call_(class, functionName, arguments)
 
 #define add_comma(argument) , argument
 #define ignore_first(arg1, ...) __VA_ARGS__
@@ -411,34 +412,34 @@
 #define class_init(...) class_init_(class, super_class, __VA_ARGS__)
 
 #define bind_virtual_fun__(className, functionName) \
-    vT.functionName = super_##className##_##functionName;
+    klass.functionName = super_##className##_##functionName;
 #define bind_virtual_fun_(className, functionName) bind_virtual_fun__(className, functionName)
 #define bind_virtual_fun(functionName) bind_virtual_fun_(class, functionName)
 #define bind_virtual_functions(...) for_each(bind_virtual_fun, __VA_ARGS__)
 
 #define bind_override_fun(type, superClassName, functionName, arguments) \
-    ((superClassName##VT *) &vT)->functionName = (type(*)(superClassName * const me va_args(strip_parentheses(arguments)))) override_##superClassName##_##functionName
+    ((superClassName##Class *) &klass)->functionName = (type(*)(superClassName * const me va_args(strip_parentheses(arguments)))) override_##superClassName##_##functionName
 #define strip_parentheses_and_apply_bind_override_fun(funSignature) bind_override_fun funSignature;
 #define bind_override_functions(...) for_each(strip_parentheses_and_apply_bind_override_fun, __VA_ARGS__)
 
 #define setup_virtual_functions__(className, superClassName, ...)                                               \
     do                                                                                                          \
     {                                                                                                           \
-        static className##VT vT;                                                                                \
+        static className##Class klass;                                                                                \
         static Boolean isVtSetupDone = false;                                                                   \
                                                                                                                 \
         if (isVtSetupDone == false)                                                                             \
         {                                                                                                       \
             isVtSetupDone = true;                                                                               \
-            *((superClassName##VT *) &vT) = *((superClassName##VT *) (((CObject *) me)->vT));                   \
-            ((CObjectVT *) &vT)->objectSize = (UInt8(*)(CObject const * const me)) override_CObject_objectSize; \
+            *((superClassName##Class *) &klass) = *((superClassName##Class *) (((CObject *) me)->klass));                   \
+            ((CObjectClass *) &klass)->objectSize = (UInt8(*)(CObject const * const me)) override_CObject_objectSize; \
                                                                                                                 \
             do                                                                                                  \
                 __VA_ARGS__                                                                                     \
             while (0);                                                                                          \
         }                                                                                                       \
                                                                                                                 \
-        ((CObject *) me)->vT = (CObjectVT *) &vT;                                                               \
+        ((CObject *) me)->klass = (CObjectClass *) &klass;                                                               \
     } while (0)
 #define setup_virtual_functions_(className, superClassName, ...) setup_virtual_functions__(className, superClassName, __VA_ARGS__)
 #define setup_virtual_functions(...) setup_virtual_functions_(class, super_class, __VA_ARGS__)

@@ -3,16 +3,14 @@
 
 #include "CObject.h"
 
-typedef struct CObjectVT CObjectVT;
-
-struct CObjectVT
+typedef struct CObjectClass
 {
     UInt8 (*objectSize)(CObject const * const me);
-};
+} CObjectClass;
 
 struct CObject
 {
-    CObjectVT const * vT;
+    CObjectClass const * klass;
 };
 
 UInt8 super_CObject_objectSize(CObject const * const me);
