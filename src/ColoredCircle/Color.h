@@ -2,8 +2,8 @@
 #define COLOR_H
 #include "../CObject/CObject.h"
 
-#undef class
-#define class Color
+#undef Class
+#define Class Color
 
 enum_class_values(
     red,

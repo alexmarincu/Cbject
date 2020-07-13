@@ -2,8 +2,8 @@
 #define APPLICATION_H
 #include "../CObject/CObject.h"
 
-#undef class
-#define class Application
+#undef Class
+#define Class Application
 
 singleton_class_init_params();
 

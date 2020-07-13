@@ -5,10 +5,10 @@
 #include "../Rectangle/Rectangle.h"
 #include <stdio.h>
 
-#undef class
-#define class Application
-#undef super_class
-#define super_class CObject
+#undef Class
+#define Class Application
+#undef SuperClass
+#define SuperClass CO
 
 singleton_class_members(
     Circle * circle,
@@ -183,6 +183,6 @@ private_fun(Void, polymorphismExample, ())
     for (UInt8 i = 0; i < Array_size(shapes); i++)
     {
         printf("shapes[%d].area() = %.2f\n", i, Shape_area(shapes[i]));
-        printf("shapes[%d].objectSize() = %d\n", i, CObject_objectSize((CObject *) shapes[i]));
+        printf("shapes[%d].objectSize() = %d\n", i, CO_objectSize((CO *) shapes[i]));
     }
 }

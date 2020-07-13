@@ -1,10 +1,10 @@
 #include "CircleSuper.h"
 #include <stdio.h>
 
-#undef class
-#define class Circle
-#undef super_class
-#define super_class Shape
+#undef Class
+#define Class Circle
+#undef SuperClass
+#define SuperClass Shape
 
 constants(
     (Float, pi = 3.14),

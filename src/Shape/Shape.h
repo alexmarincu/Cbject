@@ -3,8 +3,8 @@
 #include "../CObject/CObject.h"
 #include "Point.h"
 
-#undef class
-#define class Shape
+#undef Class
+#define Class Shape
 
 abstract_class_init_params(
     Point const origin);

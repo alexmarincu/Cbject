@@ -2,8 +2,8 @@
 #define POINT_H
 #include "../CObject/CObject.h"
 
-#undef class
-#define class Point
+#undef Class
+#define Class Point
 
 data_class_members(
     UInt32 x,

@@ -3,8 +3,8 @@
 #include "../Circle/Circle.h"
 #include "Color.h"
 
-#undef class
-#define class ColoredCircle
+#undef Class
+#define Class ColoredCircle
 
 class_init_params(
     UInt32 const radius,

@@ -1,7 +1,7 @@
 #ifndef COBJECTSETTINGS_H
 #define COBJECTSETTINGS_H
 
-#define CObject_useHeap true
-#define CObject_useStaticPool true
+#define CO_useHeap true
+#define CO_useStaticPool true
 
 #endif // COBJECTSETTINGS_H

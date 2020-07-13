@@ -3,16 +3,16 @@
 
 #include "CObject.h"
 
-typedef struct CObjectClass
+typedef struct COClass
 {
-    UInt8 (*objectSize)(CObject const * const me);
-} CObjectClass;
+    UInt8 (*objectSize)(CO const * const me);
+} COClass;
 
-struct CObject
+struct CO
 {
-    CObjectClass const * klass;
+    COClass const * thisClass;
 };
 
-UInt8 super_CObject_objectSize(CObject const * const me);
+UInt8 super_CO_objectSize(CO const * const me);
 
 #endif // COBJECTSUPER_H
