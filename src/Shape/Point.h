@@ -1,6 +1,6 @@
 #ifndef POINT_H
 #define POINT_H
-#include "../CObject/CObject.h"
+#include "../CO/CO.h"
 
 #undef Class
 #define Class Point

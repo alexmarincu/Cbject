@@ -7,7 +7,7 @@ enable_testing()
 set(SOURCE
 src/main.c
 src/Application/Application.c
-src/CObject/CObject.c
+src/CO/CO.c
 src/Shape/Shape.c
 src/Circle/Circle.c
 src/Rectangle/Rectangle.c

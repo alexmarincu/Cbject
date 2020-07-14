@@ -15,14 +15,14 @@ override_fun(Void, Shape, draw, (UInt8 const a));
 
 class_init({
     Circle_init(
-        (Circle *) me,
+        (Circle *) _this,
         &((CircleInitParams){
             .origin.x = 0,
             .origin.y = 0,
             .radius = params->radius}));
 
     setup_virtual_functions({ bind_override_functions((Void, Shape, draw, (UInt8 const a))); });
-    me->color = params->color;
+    _this->color = params->color;
 });
 
 override_fun(Void, Shape, draw, (UInt8 const a))
