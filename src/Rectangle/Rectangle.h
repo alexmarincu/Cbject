@@ -2,8 +2,8 @@
 #define RECTANGLE_H
 #include "../Shape/Shape.h"
 
-#undef class
-#define class Rectangle
+#undef Class
+#define Class Rectangle
 
 class_init_params(
     Point const origin,

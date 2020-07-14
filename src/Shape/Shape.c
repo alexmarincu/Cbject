@@ -1,10 +1,10 @@
 #include "ShapeSuper.h"
 #include <stdio.h>
 
-#undef class
-#define class Shape
-#undef super_class
-#define super_class CObject
+#undef Class
+#define Class Shape
+#undef SuperClass
+#define SuperClass CO
 
 abstract_class_init({
     setup_virtual_functions({ bind_virtual_functions(area, draw); });
@@ -25,4 +25,9 @@ virtual_fun(Void, draw, (UInt8 const a))
 {
     (Void) me;
     printf("Shape draw\n");
+}
+
+fun(Void, dummy, ())
+{
+    printf("Shape dummy\n");
 }

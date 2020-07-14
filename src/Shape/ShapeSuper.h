@@ -3,10 +3,10 @@
 #include "../CObject/CObjectSuper.h"
 #include "Shape.h"
 
-#undef class
-#define class Shape
-#undef super_class
-#define super_class CObject
+#undef Class
+#define Class Shape
+#undef SuperClass
+#define SuperClass CO
 
 abstract_class_members(
     Point origin);

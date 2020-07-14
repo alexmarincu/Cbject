@@ -2,10 +2,10 @@
 #include "../Circle/CircleSuper.h"
 #include <stdio.h>
 
-#undef class
-#define class ColoredCircle
-#undef super_class
-#define super_class Circle
+#undef Class
+#define Class ColoredCircle
+#undef SuperClass
+#define SuperClass Circle
 
 class_members(
     Color color);

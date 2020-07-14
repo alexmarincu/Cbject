@@ -1,10 +1,10 @@
 #include "Rectangle.h"
 #include "../Shape/ShapeSuper.h"
 
-#undef class
-#define class Rectangle
-#undef super_class
-#define super_class Shape
+#undef Class
+#define Class Rectangle
+#undef SuperClass
+#define SuperClass Shape
 
 class_members(
     UInt32 width,
