@@ -1,6 +1,6 @@
 #ifndef SHAPE_H
 #define SHAPE_H
-#include "../CObject/CObject.h"
+#include "../CO/CO.h"
 #include "Point.h"
 
 #undef Class

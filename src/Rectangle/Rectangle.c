@@ -13,10 +13,10 @@ class_members(
 override_fun(Float, Shape, area, ());
 
 class_init({
-    Shape_init((Shape *) me, (ShapeInitParams *) params);
+    Shape_init((Shape *) _this, (ShapeInitParams *) params);
     setup_virtual_functions({ bind_override_functions((Float, Shape, area, ())); });
-    me->width = params->width;
-    me->height = params->height;
+    _this->width = params->width;
+    _this->height = params->height;
 });
 
 default_setters_getters(
@@ -24,4 +24,4 @@ default_setters_getters(
     (UInt32, height));
 
 fun(UInt32, test, (UInt32 const a)) { return a; }
-override_fun(Float, Shape, area, ()) { return me->width * me->height; }
+override_fun(Float, Shape, area, ()) { return _this->width * _this->height; }

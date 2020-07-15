@@ -1,6 +1,6 @@
 #ifndef SHAPESUPER_H
 #define SHAPESUPER_H
-#include "../CObject/CObjectSuper.h"
+#include "../CO/super_CO.h"
 #include "Shape.h"
 
 #undef Class

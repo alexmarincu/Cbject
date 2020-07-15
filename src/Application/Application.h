@@ -1,6 +1,6 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
-#include "../CObject/CObject.h"
+#include "../CO/CO.h"
 
 #undef Class
 #define Class Application
