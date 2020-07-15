@@ -12,7 +12,7 @@ class_members(
 
 override_fun(Float, Shape, area, ());
 
-class_init({
+init({
     Shape_init((Shape *) _this, (ShapeInitParams *) params);
     setup_virtual_functions({ bind_override_functions((Float, Shape, area, ())); });
     _this->width = params->width;

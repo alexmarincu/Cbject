@@ -18,7 +18,7 @@ override_functions(
     (Float, Shape, area, ()),
     (Void, Shape, draw, (UInt8 const a)));
 
-class_init({
+init({
     Shape_init((Shape * const) _this, (ShapeInitParams *) params);
 
     setup_virtual_functions({
