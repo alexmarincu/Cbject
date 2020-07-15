@@ -15,7 +15,9 @@ singleton_class_members(
     Rectangle * rectangle,
     ColoredCircle * coloredCircle);
 
-singleton_class_init({ setup_virtual_functions({}); });
+singleton_class_setup();
+
+init({ setup_virtual_functions({}); });
 
 private_functions(
     (Void, printBeginMessage, ()),

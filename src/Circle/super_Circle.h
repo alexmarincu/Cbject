@@ -1,6 +1,6 @@
 #ifndef CIRCLESUPER_H
 #define CIRCLESUPER_H
-#include "../Shape/ShapeSuper.h"
+#include "../Shape/super_Shape.h"
 #include "Circle.h"
 
 #undef Class

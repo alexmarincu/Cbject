@@ -1,5 +1,5 @@
 #include "Rectangle.h"
-#include "../Shape/ShapeSuper.h"
+#include "../Shape/super_Shape.h"
 
 #undef Class
 #define Class Rectangle
@@ -11,6 +11,8 @@ class_members(
     UInt32 height);
 
 override_fun(Float, Shape, area, ());
+
+class_setup();
 
 init({
     Shape_init((Shape *) _this, (ShapeInitParams *) params);

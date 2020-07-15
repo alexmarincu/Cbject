@@ -1,4 +1,4 @@
-#include "ShapeSuper.h"
+#include "super_Shape.h"
 #include <stdio.h>
 
 #undef Class
@@ -6,7 +6,9 @@
 #undef SuperClass
 #define SuperClass CO
 
-abstract_class_init({
+abstract_class_setup();
+
+init({
     setup_virtual_functions({ bind_virtual_functions(area, draw); });
     _this->origin = params->origin;
 });

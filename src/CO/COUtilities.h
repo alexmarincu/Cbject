@@ -267,22 +267,25 @@
 #define strip_parentheses_and_apply_override_fun(funSignature) override_fun funSignature;
 #define override_functions(...) for_each(strip_parentheses_and_apply_override_fun, __VA_ARGS__)
 
-#define abstract_class_init__(className, superClassName, ...)                                     \
-    static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
-    UInt8 className##_classSize() { return sizeof(className); }                                   \
-                                                                                                  \
-    Void className##_init(className * const _this, className##InitParams const * const params)    \
-    {                                                                                             \
-        if (#superClassName == "CO") { CO_init((CO *) _this); }                                   \
-                                                                                                  \
-        do                                                                                        \
-            __VA_ARGS__                                                                           \
-        while (0);                                                                                \
+#define init__(className, superClassName, ...)                                                 \
+    Void className##_init(className * const _this, className##InitParams const * const params) \
+    {                                                                                          \
+        if (#superClassName == "CO") { CO_init((CO *) _this); }                                \
+                                                                                               \
+        do                                                                                     \
+            __VA_ARGS__                                                                        \
+        while (0);                                                                             \
     }
-#define abstract_class_init_(className, superClassName, ...) abstract_class_init__(className, superClassName, __VA_ARGS__)
-#define abstract_class_init(...) abstract_class_init_(Class, SuperClass, __VA_ARGS__)
+#define init_(className, superClassName, ...) init__(className, superClassName, __VA_ARGS__)
+#define init(...) init_(Class, SuperClass, __VA_ARGS__)
 
-#define singleton_class_init__(className, superClassName, ...)                                    \
+#define abstract_class_setup__(className)                                                         \
+    static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
+    UInt8 className##_classSize() { return sizeof(className); }
+#define abstract_class_setup_(className) abstract_class_setup__(className)
+#define abstract_class_setup() abstract_class_setup_(Class)
+
+#define singleton_class_setup__(className)                                                        \
     className * className##_getInstance()                                                         \
     {                                                                                             \
         static className singleton;                                                               \
@@ -290,23 +293,14 @@
     }                                                                                             \
                                                                                                   \
     static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
-    UInt8 className##_classSize() { return sizeof(className); }                                   \
-                                                                                                  \
-    Void className##_init(className * const _this, className##InitParams const * const params)    \
-    {                                                                                             \
-        if (#superClassName == "CO") { CO_init((CO *) _this); }                                   \
-                                                                                                  \
-        do                                                                                        \
-            __VA_ARGS__                                                                           \
-        while (0);                                                                                \
-    }
-#define singleton_class_init_(className, superClassName, ...) singleton_class_init__(className, superClassName, __VA_ARGS__)
-#define singleton_class_init(...) singleton_class_init_(Class, SuperClass, __VA_ARGS__)
+    UInt8 className##_classSize() { return sizeof(className); }
+#define singleton_class_setup_(className) singleton_class_setup__(className)
+#define singleton_class_setup() singleton_class_setup_(Class)
 
 #if CO_useStaticPool == true
     #if CO_useHeap == true
         #include <stdlib.h>
-        #define init__(className, superClassName, ...)                                              \
+        #define class_setup__(className)                                                                  \
             className * get_##className(className##InitParams const * const params)                       \
             {                                                                                             \
                 static className pool[className##_poolSize];                                              \
@@ -331,18 +325,9 @@
             }                                                                                             \
                                                                                                           \
             static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
-            UInt8 className##_classSize() { return sizeof(className); }                                   \
-                                                                                                          \
-            Void className##_init(className * const _this, className##InitParams const * const params)    \
-            {                                                                                             \
-                if (#superClassName == "CO") { CO_init((CO *) _this); }                                   \
-                                                                                                          \
-                do                                                                                        \
-                    __VA_ARGS__                                                                           \
-                while (0);                                                                                \
-            }
+            UInt8 className##_classSize() { return sizeof(className); }
     #else
-        #define init__(className, superClassName, ...)                                              \
+        #define class_setup__(className)                                                                  \
             className * get_##className(className##InitParams const * const params)                       \
             {                                                                                             \
                 static className pool[className##_poolSize];                                              \
@@ -360,21 +345,12 @@
             }                                                                                             \
                                                                                                           \
             static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
-            UInt8 className##_classSize() { return sizeof(className); }                                   \
-                                                                                                          \
-            Void className##_init(className * const _this, className##InitParams const * const params)    \
-            {                                                                                             \
-                if (#superClassName == "CO") { CO_init((CO *) _this); }                                   \
-                                                                                                          \
-                do                                                                                        \
-                    __VA_ARGS__                                                                           \
-                while (0);                                                                                \
-            }
+            UInt8 className##_classSize() { return sizeof(className); }
     #endif
 #else
     #if CO_useHeap == true
         #include <stdlib.h>
-        #define init__(className, superClassName, ...)                                              \
+        #define class_setup__(className)                                                                  \
             className * new_##className(className##InitParams const * const params)                       \
             {                                                                                             \
                 className * _this = (className *) malloc(sizeof(className));                              \
@@ -383,33 +359,15 @@
             }                                                                                             \
                                                                                                           \
             static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
-            UInt8 className##_classSize() { return sizeof(className); }                                   \
-                                                                                                          \
-            Void className##_init(className * const _this, className##InitParams const * const params)    \
-            {                                                                                             \
-                if (#superClassName == "CO") { CO_init((CO *) _this); }                                   \
-                                                                                                          \
-                do                                                                                        \
-                    __VA_ARGS__                                                                           \
-                while (0);                                                                                \
-            }
+            UInt8 className##_classSize() { return sizeof(className); }
     #else
-        #define init__(className, superClassName, ...)                                              \
+        #define class_setup__(className)                                                                  \
             static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
-            UInt8 className##_classSize() { return sizeof(className); }                                   \
-                                                                                                          \
-            Void className##_init(className * const _this, className##InitParams const * const params)    \
-            {                                                                                             \
-                if (#superClassName == "CO") { CO_init((CO *) _this); }                                   \
-                                                                                                          \
-                do                                                                                        \
-                    __VA_ARGS__                                                                           \
-                while (0);                                                                                \
-            }
+            UInt8 className##_classSize() { return sizeof(className); }
     #endif
 #endif
-#define init_(className, superClassName, ...) init__(className, superClassName, __VA_ARGS__)
-#define init(...) init_(Class, SuperClass, __VA_ARGS__)
+#define class_setup_(className) class_setup__(className)
+#define class_setup() class_setup_(Class)
 
 #define bind_virtual_fun__(className, functionName) \
     _class.functionName = super_##className##_##functionName;

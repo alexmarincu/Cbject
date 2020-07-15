@@ -1,4 +1,4 @@
-#include "CircleSuper.h"
+#include "super_Circle.h"
 #include <stdio.h>
 
 #undef Class
@@ -17,6 +17,8 @@ private_constants(
 override_functions(
     (Float, Shape, area, ()),
     (Void, Shape, draw, (UInt8 const a)));
+
+class_setup();
 
 init({
     Shape_init((Shape * const) _this, (ShapeInitParams *) params);
