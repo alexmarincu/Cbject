@@ -306,7 +306,7 @@
 #if CO_useStaticPool == true
     #if CO_useHeap == true
         #include <stdlib.h>
-        #define class_init__(className, superClassName, ...)                                              \
+        #define init__(className, superClassName, ...)                                              \
             className * get_##className(className##InitParams const * const params)                       \
             {                                                                                             \
                 static className pool[className##_poolSize];                                              \
@@ -342,7 +342,7 @@
                 while (0);                                                                                \
             }
     #else
-        #define class_init__(className, superClassName, ...)                                              \
+        #define init__(className, superClassName, ...)                                              \
             className * get_##className(className##InitParams const * const params)                       \
             {                                                                                             \
                 static className pool[className##_poolSize];                                              \
@@ -374,7 +374,7 @@
 #else
     #if CO_useHeap == true
         #include <stdlib.h>
-        #define class_init__(className, superClassName, ...)                                              \
+        #define init__(className, superClassName, ...)                                              \
             className * new_##className(className##InitParams const * const params)                       \
             {                                                                                             \
                 className * _this = (className *) malloc(sizeof(className));                              \
@@ -394,7 +394,7 @@
                 while (0);                                                                                \
             }
     #else
-        #define class_init__(className, superClassName, ...)                                              \
+        #define init__(className, superClassName, ...)                                              \
             static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
             UInt8 className##_classSize() { return sizeof(className); }                                   \
                                                                                                           \
@@ -408,8 +408,8 @@
             }
     #endif
 #endif
-#define class_init_(className, superClassName, ...) class_init__(className, superClassName, __VA_ARGS__)
-#define class_init(...) class_init_(Class, SuperClass, __VA_ARGS__)
+#define init_(className, superClassName, ...) init__(className, superClassName, __VA_ARGS__)
+#define init(...) init_(Class, SuperClass, __VA_ARGS__)
 
 #define bind_virtual_fun__(className, functionName) \
     _class.functionName = super_##className##_##functionName;
