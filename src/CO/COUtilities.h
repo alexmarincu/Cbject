@@ -197,7 +197,7 @@
 #define private_functions(...) for_each(strip_parentheses_and_apply_private_fun, __VA_ARGS__)
 
 #define virtual_call__(className, functionName, arguments) \
-    return ((className##Class *) ((CO *) _this)->_class)->functionName(_this va_args(strip_parentheses(arguments)))
+    return ((className##Class *) ((CO *) _this)->_class)->virtuals.functionName(_this va_args(strip_parentheses(arguments)))
 #define virtual_call_(className, functionName, arguments) virtual_call__(className, functionName, arguments)
 #define virtual_call(functionName, arguments) virtual_call_(Class, functionName, arguments)
 
@@ -213,14 +213,17 @@
 #define virtual_fun(type, functionName, arguments) virtual_fun_(Class, type, functionName, arguments)
 #define strip_parentheses_and_apply_virtual_fun(funSignature) virtual_fun funSignature;
 
-#define virtual_functions__(className, superClassName, ...)               \
-    typedef struct className##Class                                       \
-    {                                                                     \
-        superClassName##Class super;                                      \
-        for_each(strip_parentheses_and_apply_virtual_fun_pt, __VA_ARGS__) \
-    } className##Class;                                                   \
-                                                                          \
-    for_each(strip_parentheses_and_apply_virtual_fun, __VA_ARGS__)        \
+#define virtual_functions__(className, superClassName, ...)                   \
+    typedef struct className##Class                                           \
+    {                                                                         \
+        superClassName##Class super;                                          \
+        struct                                                                \
+        {                                                                     \
+            for_each(strip_parentheses_and_apply_virtual_fun_pt, __VA_ARGS__) \
+        } virtuals;                                                           \
+    } className##Class;                                                       \
+                                                                              \
+    for_each(strip_parentheses_and_apply_virtual_fun, __VA_ARGS__)            \
         for_each(strip_parentheses_and_apply_fun, __VA_ARGS__)
 #define virtual_functions_(className, superClassName, ...) virtual_functions__(className, superClassName, __VA_ARGS__)
 #define virtual_functions(...) virtual_functions_(Class, SuperClass, __VA_ARGS__)
@@ -370,34 +373,36 @@
 #define class_setup() class_setup_(Class)
 
 #define bind_virtual_fun__(className, functionName) \
-    _class.functionName = super_##className##_##functionName;
+    _class.virtuals.functionName = super_##className##_##functionName;
 #define bind_virtual_fun_(className, functionName) bind_virtual_fun__(className, functionName)
 #define bind_virtual_fun(functionName) bind_virtual_fun_(Class, functionName)
 #define bind_virtual_functions(...) for_each(bind_virtual_fun, __VA_ARGS__)
 
 #define bind_override_fun(type, superClassName, functionName, arguments) \
-    ((superClassName##Class *) &_class)->functionName = (type(*)(superClassName * const _this va_args(strip_parentheses(arguments)))) override_##superClassName##_##functionName
+    ((superClassName##Class *) &_class)->virtuals.functionName = (type(*)(superClassName * const _this va_args(strip_parentheses(arguments)))) override_##superClassName##_##functionName
 #define strip_parentheses_and_apply_bind_override_fun(funSignature) bind_override_fun funSignature;
 #define bind_override_functions(...) for_each(strip_parentheses_and_apply_bind_override_fun, __VA_ARGS__)
 
-#define setup_virtual_functions__(className, superClassName, ...)                                          \
-    do                                                                                                     \
-    {                                                                                                      \
-        static className##Class _class;                                                                    \
-        static Boolean isClassSetupDone = false;                                                           \
-                                                                                                           \
-        if (isClassSetupDone == false)                                                                     \
-        {                                                                                                  \
-            isClassSetupDone = true;                                                                       \
-            *((superClassName##Class *) &_class) = *((superClassName##Class *) (((CO *) _this)->_class));  \
-            ((COClass *) &_class)->objectSize = (UInt8(*)(CO const * const _this)) override_CO_objectSize; \
-                                                                                                           \
-            do                                                                                             \
-                __VA_ARGS__                                                                                \
-            while (0);                                                                                     \
-        }                                                                                                  \
-                                                                                                           \
-        ((CO *) _this)->_class = (COClass *) &_class;                                                      \
+#define setup_virtual_functions__(className, superClassName, ...)                                                   \
+    do                                                                                                              \
+    {                                                                                                               \
+        static className##Class _class;                                                                             \
+        static char const * const type = #className;                                                                \
+        static Boolean isClassSetupDone = false;                                                                    \
+                                                                                                                    \
+        if (isClassSetupDone == false)                                                                              \
+        {                                                                                                           \
+            isClassSetupDone = true;                                                                                \
+            *((superClassName##Class *) &_class) = *((superClassName##Class *) (((CO *) _this)->_class));           \
+            ((COClass *) &_class)->type = type;                                                                     \
+            ((COClass *) &_class)->virtuals.objectSize = (UInt8(*)(CO const * const _this)) override_CO_objectSize; \
+                                                                                                                    \
+            do                                                                                                      \
+                __VA_ARGS__                                                                                         \
+            while (0);                                                                                              \
+        }                                                                                                           \
+                                                                                                                    \
+        ((CO *) _this)->_class = (COClass *) &_class;                                                               \
     } while (0)
 #define setup_virtual_functions_(className, superClassName, ...) setup_virtual_functions__(className, superClassName, __VA_ARGS__)
 #define setup_virtual_functions(...) setup_virtual_functions_(Class, SuperClass, __VA_ARGS__)

@@ -4,7 +4,11 @@
 #include "CO.h"
 typedef struct COClass
 {
-    UInt8 (*objectSize)(CO const * const _this);
+    char const * type;
+    struct
+    {
+        UInt8 (*objectSize)(CO const * const _this);
+    } virtuals;
 } COClass;
 
 struct CO
@@ -13,4 +17,5 @@ struct CO
 };
 
 UInt8 super_CO_objectSize(CO const * const _this);
+
 #endif // SUPER_CO_H

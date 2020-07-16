@@ -69,6 +69,7 @@ private_fun(Void, circleExample, ())
     printf("circle.origin.x = %d\n", Shape_origin((Shape *) _this->circle).x);
     printf("circle.origin.y = %d\n", Shape_origin((Shape *) _this->circle).y);
     Shape_draw((Shape *) _this->circle, 5);
+    printf("circle.class = %s\n", CO_classType((CO *) _this->circle));
 }
 
 private_fun(Void, stackCircleExample, ())
@@ -107,6 +108,7 @@ private_fun(Void, rectangleExample, ())
     printf("rectangle.height = %d\n", Rectangle_height(_this->rectangle));
     printf("rectangle.area() = %.2f\n", Shape_area((Shape *) _this->rectangle));
     Shape_draw((Shape *) _this->rectangle, 6);
+    printf("rectangle.class = %s\n", CO_classType((CO *) _this->rectangle));
 }
 
 private_fun(Void, stackRectangleExample, ())
