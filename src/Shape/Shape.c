@@ -7,10 +7,7 @@
 #define SuperClass CO
 
 abstract_class_setup({ bind_virtual_functions(area, draw); });
-
-init({
-    _this->origin = params->origin;
-});
+init({ _this->origin = params->origin; });
 
 default_set_get(Point, origin);
 

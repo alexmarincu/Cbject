@@ -10,13 +10,12 @@
 #undef SuperClass
 #define SuperClass CO
 
-singleton_class_members(
+class_members(
     Circle * circle,
     Rectangle * rectangle,
     ColoredCircle * coloredCircle);
 
 singleton_class_setup({});
-
 init({});
 
 private_functions(
