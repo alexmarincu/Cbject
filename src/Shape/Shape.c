@@ -6,10 +6,9 @@
 #undef SuperClass
 #define SuperClass CO
 
-abstract_class_setup();
+abstract_class_setup({ bind_virtual_functions(area, draw); });
 
 init({
-    setup_virtual_functions({ bind_virtual_functions(area, draw); });
     _this->origin = params->origin;
 });
 

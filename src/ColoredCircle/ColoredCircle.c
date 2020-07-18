@@ -13,7 +13,7 @@ class_members(
 default_set_get(Color, color);
 override_fun(Void, Shape, draw, (UInt8 const a));
 
-class_setup();
+class_setup({ bind_override_functions((Void, Shape, draw, (UInt8 const a))); });
 
 init({
     Circle_init(
@@ -23,7 +23,6 @@ init({
             .origin.y = 0,
             .radius = params->radius}));
 
-    setup_virtual_functions({ bind_override_functions((Void, Shape, draw, (UInt8 const a))); });
     _this->color = params->color;
 });
 
