@@ -287,10 +287,7 @@
 #define init_(className, superClassName, ...) init__(className, superClassName, __VA_ARGS__)
 #define init(...) init_(Class, SuperClass, __VA_ARGS__)
 
-#define abstract_class_setup__(className, superClassName, ...)                                                      \
-    static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); }                   \
-    UInt8 className##Class_size() { return sizeof(className); }                                                     \
-                                                                                                                    \
+#define class_getInstance(className, superClassName, ...)                                                           \
     className##Class const * const className##Class_getInstance()                                                   \
     {                                                                                                               \
         static className##Class _class;                                                                             \
@@ -310,188 +307,98 @@
                                                                                                                     \
         return &_class;                                                                                             \
     }
+
+#define abstract_class_setup__(className, superClassName, ...)                                    \
+    static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
+    UInt8 className##Class_size() { return sizeof(className); }                                   \
+    class_getInstance(className, superClassName, __VA_ARGS__)
 #define abstract_class_setup_(className, superClassName, ...) abstract_class_setup__(className, superClassName, __VA_ARGS__)
 #define abstract_class_setup(...) abstract_class_setup_(Class, SuperClass, __VA_ARGS__)
 
-#define singleton_class_setup__(className, superClassName, ...)                                                     \
-    className * className##_getInstance()                                                                           \
-    {                                                                                                               \
-        static className singleton;                                                                                 \
-        return &singleton;                                                                                          \
-    }                                                                                                               \
-                                                                                                                    \
-    static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); }                   \
-    UInt8 className##Class_size() { return sizeof(className); }                                                     \
-                                                                                                                    \
-    className##Class const * const className##Class_getInstance()                                                   \
-    {                                                                                                               \
-        static className##Class _class;                                                                             \
-        static char const * const type = #className;                                                                \
-        static Boolean isClassSetupDone = false;                                                                    \
-                                                                                                                    \
-        if (((COClass *) &_class)->type == null)                                                                    \
-        {                                                                                                           \
-            *((superClassName##Class *) &_class) = *superClassName##Class##_getInstance();                          \
-            ((COClass *) &_class)->type = type;                                                                     \
-            ((COClass *) &_class)->virtuals.objectSize = (UInt8(*)(CO const * const _this)) override_CO_objectSize; \
-                                                                                                                    \
-            do                                                                                                      \
-                __VA_ARGS__                                                                                         \
-            while (0);                                                                                              \
-        }                                                                                                           \
-                                                                                                                    \
-        return &_class;                                                                                             \
-    }
+#define singleton_class_setup__(className, superClassName, ...)                                   \
+    className * className##_getInstance()                                                         \
+    {                                                                                             \
+        static className singleton;                                                               \
+        return &singleton;                                                                        \
+    }                                                                                             \
+                                                                                                  \
+    static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
+    UInt8 className##Class_size() { return sizeof(className); }                                   \
+    class_getInstance(className, superClassName, __VA_ARGS__)
 #define singleton_class_setup_(className, superClassName, ...) singleton_class_setup__(className, superClassName, __VA_ARGS__)
 #define singleton_class_setup(...) singleton_class_setup_(Class, SuperClass, __VA_ARGS__)
 
 #if CO_useStaticPool == true
     #if CO_useHeap == true
         #include <stdlib.h>
-        #define class_setup__(className, superClassName, ...)                                                               \
-            className * get_##className(className##InitParams const * const params)                                         \
-            {                                                                                                               \
-                static className pool[className##_poolSize];                                                                \
-                static UInt64 count = 0;                                                                                    \
-                className * _this = null;                                                                                   \
-                                                                                                                            \
-                if (count < className##_poolSize)                                                                           \
-                {                                                                                                           \
-                    _this = &pool[count];                                                                                   \
-                    className##_init(_this, params);                                                                        \
-                    count++;                                                                                                \
-                }                                                                                                           \
-                                                                                                                            \
-                return _this;                                                                                               \
-            }                                                                                                               \
-                                                                                                                            \
-            className * new_##className(className##InitParams const * const params)                                         \
-            {                                                                                                               \
-                className * _this = (className *) malloc(sizeof(className));                                                \
-                className##_init(_this, params);                                                                            \
-                return _this;                                                                                               \
-            }                                                                                                               \
-                                                                                                                            \
-            static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); }                   \
-            UInt8 className##Class_size() { return sizeof(className); }                                                     \
-                                                                                                                            \
-            className##Class const * const className##Class_getInstance()                                                   \
-            {                                                                                                               \
-                static className##Class _class;                                                                             \
-                static char const * const type = #className;                                                                \
-                static Boolean isClassSetupDone = false;                                                                    \
-                                                                                                                            \
-                if (((COClass *) &_class)->type == null)                                                                    \
-                {                                                                                                           \
-                    *((superClassName##Class *) &_class) = *superClassName##Class##_getInstance();                          \
-                    ((COClass *) &_class)->type = type;                                                                     \
-                    ((COClass *) &_class)->virtuals.objectSize = (UInt8(*)(CO const * const _this)) override_CO_objectSize; \
-                                                                                                                            \
-                    do                                                                                                      \
-                        __VA_ARGS__                                                                                         \
-                    while (0);                                                                                              \
-                }                                                                                                           \
-                                                                                                                            \
-                return &_class;                                                                                             \
-            }
+        #define class_setup__(className, superClassName, ...)                                             \
+            className * get_##className(className##InitParams const * const params)                       \
+            {                                                                                             \
+                static className pool[className##_poolSize];                                              \
+                static UInt64 count = 0;                                                                  \
+                className * _this = null;                                                                 \
+                                                                                                          \
+                if (count < className##_poolSize)                                                         \
+                {                                                                                         \
+                    _this = &pool[count];                                                                 \
+                    className##_init(_this, params);                                                      \
+                    count++;                                                                              \
+                }                                                                                         \
+                                                                                                          \
+                return _this;                                                                             \
+            }                                                                                             \
+                                                                                                          \
+            className * new_##className(className##InitParams const * const params)                       \
+            {                                                                                             \
+                className * _this = (className *) malloc(sizeof(className));                              \
+                className##_init(_this, params);                                                          \
+                return _this;                                                                             \
+            }                                                                                             \
+                                                                                                          \
+            static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
+            UInt8 className##Class_size() { return sizeof(className); }                                   \
+            class_getInstance(className, superClassName, __VA_ARGS__)
     #else
-        #define class_setup__(className, superClassName, ...)                                                               \
-            className * get_##className(className##InitParams const * const params)                                         \
-            {                                                                                                               \
-                static className pool[className##_poolSize];                                                                \
-                static UInt64 count = 0;                                                                                    \
-                className * _this = null;                                                                                   \
-                                                                                                                            \
-                if (count < className##_poolSize)                                                                           \
-                {                                                                                                           \
-                    _this = &pool[count];                                                                                   \
-                    className##_init(_this, params);                                                                        \
-                    count++;                                                                                                \
-                }                                                                                                           \
-                                                                                                                            \
-                return _this;                                                                                               \
-            }                                                                                                               \
-                                                                                                                            \
-            static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); }                   \
-            UInt8 className##Class_size() { return sizeof(className); }                                                     \
-                                                                                                                            \
-            className##Class const * const className##Class_getInstance()                                                   \
-            {                                                                                                               \
-                static className##Class _class;                                                                             \
-                static char const * const type = #className;                                                                \
-                static Boolean isClassSetupDone = false;                                                                    \
-                                                                                                                            \
-                if (((COClass *) &_class)->type == null)                                                                    \
-                {                                                                                                           \
-                    *((superClassName##Class *) &_class) = *superClassName##Class##_getInstance();                          \
-                    ((COClass *) &_class)->type = type;                                                                     \
-                    ((COClass *) &_class)->virtuals.objectSize = (UInt8(*)(CO const * const _this)) override_CO_objectSize; \
-                                                                                                                            \
-                    do                                                                                                      \
-                        __VA_ARGS__                                                                                         \
-                    while (0);                                                                                              \
-                }                                                                                                           \
-                                                                                                                            \
-                return &_class;                                                                                             \
-            }
+        #define class_setup__(className, superClassName, ...)                                             \
+            className * get_##className(className##InitParams const * const params)                       \
+            {                                                                                             \
+                static className pool[className##_poolSize];                                              \
+                static UInt64 count = 0;                                                                  \
+                className * _this = null;                                                                 \
+                                                                                                          \
+                if (count < className##_poolSize)                                                         \
+                {                                                                                         \
+                    _this = &pool[count];                                                                 \
+                    className##_init(_this, params);                                                      \
+                    count++;                                                                              \
+                }                                                                                         \
+                                                                                                          \
+                return _this;                                                                             \
+            }                                                                                             \
+                                                                                                          \
+            static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
+            UInt8 className##Class_size() { return sizeof(className); }                                   \
+            class_getInstance(className, superClassName, __VA_ARGS__)
     #endif
 #else
     #if CO_useHeap == true
         #include <stdlib.h>
-        #define class_setup__(className, superClassName, ...)                                                               \
-            className * new_##className(className##InitParams const * const params)                                         \
-            {                                                                                                               \
-                className * _this = (className *) malloc(sizeof(className));                                                \
-                className##_init(_this, params);                                                                            \
-                return _this;                                                                                               \
-            }                                                                                                               \
-                                                                                                                            \
-            static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); }                   \
-            UInt8 className##Class_size() { return sizeof(className); }                                                     \
-                                                                                                                            \
-            className##Class const * const className##Class_getInstance()                                                   \
-            {                                                                                                               \
-                static className##Class _class;                                                                             \
-                static char const * const type = #className;                                                                \
-                static Boolean isClassSetupDone = false;                                                                    \
-                                                                                                                            \
-                if (((COClass *) &_class)->type == null)                                                                    \
-                {                                                                                                           \
-                    *((superClassName##Class *) &_class) = *superClassName##Class##_getInstance();                          \
-                    ((COClass *) &_class)->type = type;                                                                     \
-                    ((COClass *) &_class)->virtuals.objectSize = (UInt8(*)(CO const * const _this)) override_CO_objectSize; \
-                                                                                                                            \
-                    do                                                                                                      \
-                        __VA_ARGS__                                                                                         \
-                    while (0);                                                                                              \
-                }                                                                                                           \
-                                                                                                                            \
-                return &_class;                                                                                             \
-            }
+        #define class_setup__(className, superClassName, ...)                                             \
+            className * new_##className(className##InitParams const * const params)                       \
+            {                                                                                             \
+                className * _this = (className *) malloc(sizeof(className));                              \
+                className##_init(_this, params);                                                          \
+                return _this;                                                                             \
+            }                                                                                             \
+                                                                                                          \
+            static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
+            UInt8 className##Class_size() { return sizeof(className); }                                   \
+            class_getInstance(className, superClassName, __VA_ARGS__)
     #else
-        #define class_setup__(className, superClassName, ...)                                                               \
-            static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); }                   \
-            UInt8 className##Class_size() { return sizeof(className); }                                                     \
-                                                                                                                            \
-            className##Class const * const className##Class_getInstance()                                                   \
-            {                                                                                                               \
-                static className##Class _class;                                                                             \
-                static char const * const type = #className;                                                                \
-                static Boolean isClassSetupDone = false;                                                                    \
-                                                                                                                            \
-                if (((COClass *) &_class)->type == null)                                                                    \
-                {                                                                                                           \
-                    *((superClassName##Class *) &_class) = *superClassName##Class##_getInstance();                          \
-                    ((COClass *) &_class)->type = type;                                                                     \
-                    ((COClass *) &_class)->virtuals.objectSize = (UInt8(*)(CO const * const _this)) override_CO_objectSize; \
-                                                                                                                            \
-                    do                                                                                                      \
-                        __VA_ARGS__                                                                                         \
-                    while (0);                                                                                              \
-                }                                                                                                           \
-                                                                                                                            \
-                return &_class;                                                                                             \
-            }
+        #define class_setup__(className, superClassName, ...)                                             \
+            static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
+            UInt8 className##Class_size() { return sizeof(className); }                                   \
+            class_getInstance(className, superClassName, __VA_ARGS__)
     #endif
 #endif
 #define class_setup_(className, superClassName, ...) class_setup__(className, superClassName, __VA_ARGS__)
