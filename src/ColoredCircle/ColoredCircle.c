@@ -13,7 +13,7 @@ class_members(
 default_set_get(Color, color);
 override_fun(Void, Shape, draw, (UInt8 const a));
 
-class_setup({ bind_override_functions((Void, Shape, draw, (UInt8 const a))); });
+class_setup({ bind_override_fun(Void, Shape, draw, (UInt8 const a)); });
 
 init({
     Circle_init(
