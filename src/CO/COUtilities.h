@@ -206,7 +206,7 @@
 #define strip_parentheses_and_apply_virtual_fun_pt(funSignature) virtual_fun_pt funSignature;
 
 #define virtual_call__(className, functionName, params) \
-    return ((className##Class *) ((CO *) this_)->class_)->virtuals.functionName(this_ va_args(strip_parentheses(params)))
+    return ((className##Class *) ((CO *) this_)->class_)->virtFun.functionName(this_ va_args(strip_parentheses(params)))
 #define virtual_call_(className, functionName, params) virtual_call__(className, functionName, params)
 #define virtual_call(functionName, params) virtual_call_(Class_, functionName, params)
 
@@ -230,7 +230,7 @@
         struct                                                                \
         {                                                                     \
             for_each(strip_parentheses_and_apply_virtual_fun_pt, __VA_ARGS__) \
-        } virtuals;                                                           \
+        } virtFun;                                                            \
     } className##Class;                                                       \
                                                                               \
     className##Class const * const className##Class_getInstance();            \
@@ -304,25 +304,25 @@
 #define clear_(className, ...) clear__(className, __VA_ARGS__)
 #define clear(...) clear_(Class_, __VA_ARGS__)
 
-#define getClassInstance_impl(className, superClassName, ...)                                                       \
-    className##Class const * const className##Class_getInstance()                                                   \
-    {                                                                                                               \
-        static className##Class class_;                                                                             \
-                                                                                                                    \
-        if (((COClass *) &class_)->type == null)                                                                    \
-        {                                                                                                           \
-            static char const * const type = #className;                                                            \
-            *((superClassName##Class *) &class_) = *superClassName##Class##_getInstance();                          \
-            ((COClass *) &class_)->virtuals.objectSize = (UInt8(*)(CO const * const this_)) override_CO_objectSize; \
-                                                                                                                    \
-            do                                                                                                      \
-                __VA_ARGS__                                                                                         \
-            while (0);                                                                                              \
-                                                                                                                    \
-            ((COClass *) &class_)->type = type;                                                                     \
-        }                                                                                                           \
-                                                                                                                    \
-        return &class_;                                                                                             \
+#define getClassInstance_impl(className, superClassName, ...)                                                      \
+    className##Class const * const className##Class_getInstance()                                                  \
+    {                                                                                                              \
+        static className##Class class_;                                                                            \
+                                                                                                                   \
+        if (((COClass *) &class_)->type == null)                                                                   \
+        {                                                                                                          \
+            static char const * const type = #className;                                                           \
+            *((superClassName##Class *) &class_) = *superClassName##Class##_getInstance();                         \
+            ((COClass *) &class_)->virtFun.objectSize = (UInt8(*)(CO const * const this_)) override_CO_objectSize; \
+                                                                                                                   \
+            do                                                                                                     \
+                __VA_ARGS__                                                                                        \
+            while (0);                                                                                             \
+                                                                                                                   \
+            ((COClass *) &class_)->type = type;                                                                    \
+        }                                                                                                          \
+                                                                                                                   \
+        return &class_;                                                                                            \
     }
 
 #define getObject_impl(className)                                           \
@@ -415,13 +415,13 @@
 #define class_setup(...) class_setup_(Class_, super_Class_, __VA_ARGS__)
 
 #define bind_virtual_fun__(className, functionName) \
-    class_.virtuals.functionName = super_##className##_##functionName;
+    class_.virtFun.functionName = super_##className##_##functionName;
 #define bind_virtual_fun_(className, functionName) bind_virtual_fun__(className, functionName)
 #define bind_virtual_fun(functionName) bind_virtual_fun_(Class_, functionName)
 #define bind_virtual_functions(...) for_each(bind_virtual_fun, __VA_ARGS__)
 
 #define bind_override_fun__(className, type, superClassName, functionName, arguments) \
-    ((superClassName##Class *) &class_)->virtuals.functionName = (type(*)(superClassName * const this_ va_args(strip_parentheses(arguments)))) super_##className##_##functionName
+    ((superClassName##Class *) &class_)->virtFun.functionName = (type(*)(superClassName * const this_ va_args(strip_parentheses(arguments)))) super_##className##_##functionName
 #define bind_override_fun_(className, type, superClassName, functionName, arguments) bind_override_fun__(className, type, superClassName, functionName, arguments)
 #define bind_override_fun(type, superClassName, functionName, arguments) bind_override_fun_(Class_, type, superClassName, functionName, arguments)
 

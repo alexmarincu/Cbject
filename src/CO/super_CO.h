@@ -9,7 +9,7 @@ typedef struct COClass
     struct
     {
         UInt8 (*objectSize)(CO const * const this_);
-    } virtuals;
+    } virtFun;
 } COClass;
 
 struct CO
