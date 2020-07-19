@@ -3,8 +3,8 @@
 #include "../CO/CO.h"
 #include "Point.h"
 
-#undef Class
-#define Class Shape
+#undef Class_
+#define Class_ Shape
 
 abstract_class_init_params(
     Point const origin);

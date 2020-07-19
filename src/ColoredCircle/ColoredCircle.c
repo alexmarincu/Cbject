@@ -2,8 +2,8 @@
 #include "../Circle/super_Circle.h"
 #include <stdio.h>
 
-#undef Class
-#define Class ColoredCircle
+#undef Class_
+#define Class_ ColoredCircle
 #undef SuperClass
 #define SuperClass Circle
 
@@ -17,13 +17,13 @@ class_setup({ bind_override_fun(Void, Shape, draw, (UInt8 const a)); });
 
 init({
     Circle_init(
-        (Circle *) _this,
+        (Circle *) this_,
         &((CircleInitParams){
             .origin.x = 0,
             .origin.y = 0,
             .radius = params->radius}));
 
-    _this->color = params->color;
+    this_->color = params->color;
 });
 
 override_fun(Void, Shape, draw, (UInt8 const a))

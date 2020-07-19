@@ -4,9 +4,9 @@
 
 typedef struct CO CO;
 
-Void CO_init(CO * const _this);
-UInt8 CO_objectSize(CO const * const _this);
-char const * CO_classType(CO const * const _this);
+Void CO_init(CO * const this_);
+UInt8 CO_objectSize(CO const * const this_);
+char const * CO_classType(CO const * const this_);
 UInt8 COClass_size();
 
 #endif // CO_H

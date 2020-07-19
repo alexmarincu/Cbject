@@ -1,8 +1,8 @@
 #include "super_Circle.h"
 #include <stdio.h>
 
-#undef Class
-#define Class Circle
+#undef Class_
+#define Class_ Circle
 #undef SuperClass
 #define SuperClass Shape
 
@@ -25,16 +25,16 @@ class_setup({
 });
 
 init({
-    Shape_init((Shape * const) _this, (ShapeInitParams *) params);
-    _this->radius = params->radius;
+    Shape_init((Shape * const) this_, (ShapeInitParams *) params);
+    this_->radius = params->radius;
 });
 
 default_set_get(UInt32, radius);
 
 override_fun(Void, Shape, draw, (UInt8 const a))
 {
-    super_Shape_draw((Shape *) _this, a);
+    super_Shape_draw((Shape *) this_, a);
     printf("Circle draw\n");
 }
 
-override_fun(Float, Shape, area, ()) { return _this->radius * _this->radius * Circle_pi; }
+override_fun(Float, Shape, area, ()) { return this_->radius * this_->radius * Circle_pi; }

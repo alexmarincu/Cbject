@@ -3,8 +3,8 @@
 #include "../CO/super_CO.h"
 #include "Shape.h"
 
-#undef Class
-#define Class Shape
+#undef Class_
+#define Class_ Shape
 #undef SuperClass
 #define SuperClass CO
 

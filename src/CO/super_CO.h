@@ -8,16 +8,16 @@ typedef struct COClass
 
     struct
     {
-        UInt8 (*objectSize)(CO const * const _this);
+        UInt8 (*objectSize)(CO const * const this_);
     } virtuals;
 } COClass;
 
 struct CO
 {
-    COClass const * _class;
+    COClass const * class_;
 };
 
 COClass const * const COClass_getInstance();
-UInt8 super_CO_objectSize(CO const * const _this);
+UInt8 super_CO_objectSize(CO const * const this_);
 
 #endif // SUPER_CO_H

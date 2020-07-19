@@ -2,8 +2,8 @@
 #define CIRCLE_H
 #include "../Shape/Shape.h"
 
-#undef Class
-#define Class Circle
+#undef Class_
+#define Class_ Circle
 
 public_constant(Float, pi);
 public_constants((Float, anotherPi));

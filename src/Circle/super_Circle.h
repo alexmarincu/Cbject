@@ -3,8 +3,8 @@
 #include "../Shape/super_Shape.h"
 #include "Circle.h"
 
-#undef Class
-#define Class Circle
+#undef Class_
+#define Class_ Circle
 #undef SuperClass
 #define SuperClass Shape
 
