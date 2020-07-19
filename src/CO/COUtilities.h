@@ -2,6 +2,9 @@
 #define COUTILITIES_H
 #include "COSettings.h"
 #include "Primitives.h"
+#include <assert.h>
+
+#define ct_assert(condition, message) typedef char ct_assert_##message[(!!(condition)) * 2 - 1]
 
 #define va_args_(...) , ##__VA_ARGS__
 #define va_args(...) va_args_(__VA_ARGS__)
@@ -271,11 +274,12 @@
     Void className##_init(className * const _this, className##InitParams const * const params) \
     {                                                                                          \
         if (#superClassName == "CO") { CO_init((CO *) _this); }                                \
-        ((CO *) _this)->_class = (COClass *) className##Class_getInstance();                   \
                                                                                                \
         do                                                                                     \
             __VA_ARGS__                                                                        \
         while (0);                                                                             \
+                                                                                               \
+        ((CO *) _this)->_class = (COClass *) className##Class_getInstance();                   \
     }
 #define init_(className, superClassName, ...) init__(className, superClassName, __VA_ARGS__)
 #define init(...) init_(Class, SuperClass, __VA_ARGS__)
@@ -289,12 +293,13 @@
         {                                                                                                           \
             static char const * const type = #className;                                                            \
             *((superClassName##Class *) &_class) = *superClassName##Class##_getInstance();                          \
-            ((COClass *) &_class)->type = type;                                                                     \
             ((COClass *) &_class)->virtuals.objectSize = (UInt8(*)(CO const * const _this)) override_CO_objectSize; \
                                                                                                                     \
             do                                                                                                      \
                 __VA_ARGS__                                                                                         \
             while (0);                                                                                              \
+                                                                                                                    \
+            ((COClass *) &_class)->type = type;                                                                     \
         }                                                                                                           \
                                                                                                                     \
         return &_class;                                                                                             \
@@ -321,6 +326,7 @@
     className * new_##className(className##InitParams const * const params) \
     {                                                                       \
         className * _this = (className *) malloc(sizeof(className));        \
+        assert((_this != null) && "Heap memory allocation failed");         \
         className##_init(_this, params);                                    \
         return _this;                                                       \
     }
