@@ -27,6 +27,8 @@ init({
     this_->color = params->color;
 });
 
+clear({ Circle_clear((Circle *) this_); });
+
 override_fun(Void, Shape, draw, (UInt8 const a))
 {
     printf("ColoredCircle draw\n");

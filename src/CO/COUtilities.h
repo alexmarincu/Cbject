@@ -57,19 +57,21 @@
 
 #define add_semicolon(x) x;
 
-#define init_params(className, ...)          \
-    typedef struct className className;      \
-                                             \
-    typedef struct className##InitParams     \
-    {                                        \
-        for_each(add_semicolon, __VA_ARGS__) \
-    } className##InitParams;                 \
-                                             \
-    UInt8 className##Class_size();           \
-    Void className##_init(className * const this_, className##InitParams const * const params)
+#define init_params(className, ...)                                                             \
+    typedef struct className className;                                                         \
+                                                                                                \
+    typedef struct className##InitParams                                                        \
+    {                                                                                           \
+        for_each(add_semicolon, __VA_ARGS__)                                                    \
+    } className##InitParams;                                                                    \
+                                                                                                \
+    UInt8 className##Class_size();                                                              \
+    Void className##_init(className * const this_, className##InitParams const * const params); \
+    Void className##_clear(className * const this_)
 
 #define class_get(className) className * get_##className(className##InitParams const * const params)
 #define class_new(className) className * new_##className(className##InitParams const * const params)
+#define class_delete(className) className * delete_##className(className * this_)
 
 #define abstract_class_init_params__(className, ...) init_params(className, __VA_ARGS__)
 #define abstract_class_init_params_(className, ...) abstract_class_init_params__(className, __VA_ARGS__)
@@ -86,7 +88,8 @@
         #define class_init_params__(className, ...) \
             init_params(className, __VA_ARGS__);    \
             class_get(className);                   \
-            class_new(className)
+            class_new(className);                   \
+            class_delete(className)
     #else
         #define class_init_params__(className, ...) \
             init_params(className, __VA_ARGS__);    \
@@ -96,7 +99,8 @@
     #if CO_useHeap == true
         #define class_init_params__(className, ...) \
             init_params(className, __VA_ARGS__);    \
-            class_new(className)
+            class_new(className)                    \
+                class_delete(className)
     #else
         #define class_init_params__(className, ...) init_params(className, __VA_ARGS__)
     #endif
@@ -290,6 +294,16 @@
 #define init_(className, superClassName, ...) init__(className, superClassName, __VA_ARGS__)
 #define init(...) init_(Class_, super_Class_, __VA_ARGS__)
 
+#define clear__(className, ...)                     \
+    Void className##_clear(className * const this_) \
+    {                                               \
+        do                                          \
+            __VA_ARGS__                             \
+        while (0);                                  \
+    }
+#define clear_(className, ...) clear__(className, __VA_ARGS__)
+#define clear(...) clear_(Class_, __VA_ARGS__)
+
 #define getClassInstance_impl(className, superClassName, ...)                                                       \
     className##Class const * const className##Class_getInstance()                                                   \
     {                                                                                                               \
@@ -311,7 +325,7 @@
         return &class_;                                                                                             \
     }
 
-#define getObject_impl(className, ...)                                      \
+#define getObject_impl(className)                                           \
     className * get_##className(className##InitParams const * const params) \
     {                                                                       \
         static className pool[className##_poolSize];                        \
@@ -328,13 +342,20 @@
         return this_;                                                       \
     }
 
-#define newObject_impl(className, ...)                                      \
+#define newObject_impl(className)                                           \
     className * new_##className(className##InitParams const * const params) \
     {                                                                       \
         className * this_ = (className *) malloc(sizeof(className));        \
         assert((this_ != null) && "Heap memory allocation failed");         \
         className##_init(this_, params);                                    \
         return this_;                                                       \
+    }
+
+#define deleteObject_impl(className)                  \
+    className * delete_##className(className * this_) \
+    {                                                 \
+        className##_clear(this_);                     \
+        free(this_);                                  \
     }
 
 #define abstract_class_setup__(className, superClassName, ...)                                    \
@@ -363,14 +384,15 @@
         #define class_setup__(className, superClassName, ...)                                             \
             static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
             getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
-            getObject_impl(className, __VA_ARGS__);                                                       \
-            newObject_impl(className, __VA_ARGS__);                                                       \
+            getObject_impl(className);                                                                    \
+            newObject_impl(className);                                                                    \
+            deleteObject_impl(className);                                                                 \
             UInt8 className##Class_size() { return sizeof(className); }
     #else
         #define class_setup__(className, superClassName, ...)                                             \
             static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
             getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
-            getObject_impl(className, __VA_ARGS__);                                                       \
+            getObject_impl(className);                                                                    \
             UInt8 className##Class_size() { return sizeof(className); }
     #endif
 #else
@@ -379,7 +401,8 @@
         #define class_setup__(className, superClassName, ...)                                             \
             static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
             getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
-            newObject_impl(className, __VA_ARGS__);                                                       \
+            newObject_impl(className);                                                                    \
+            deleteObject_impl(className);                                                                 \
             UInt8 className##Class_size() { return sizeof(className); }
     #else
         #define class_setup__(className, superClassName, ...)                                             \

@@ -19,6 +19,7 @@ override_functions(
     (Void, Shape, draw, (UInt8 const a)));
 
 class_pool_size(10);
+
 class_setup({
     bind_override_functions(
         (Float, Shape, area, ()),
@@ -29,6 +30,8 @@ init({
     Shape_init((Shape * const) this_, (ShapeInitParams *) params);
     this_->radius = params->radius;
 });
+
+clear({ Shape_clear((Shape * const) this_); });
 
 default_set_get(UInt32, radius);
 

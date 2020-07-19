@@ -8,6 +8,7 @@
 
 abstract_class_setup({ bind_virtual_functions(area, draw); });
 init({ this_->origin = params->origin; });
+clear({});
 
 default_set_get(Point, origin);
 

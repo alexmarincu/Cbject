@@ -13,10 +13,12 @@
 class_members(
     Circle * circle,
     Rectangle * rectangle,
+    Rectangle * heapRectangle,
     ColoredCircle * coloredCircle);
 
 singleton_class_setup({});
 init({});
+clear({ delete_Rectangle(this_->heapRectangle); });
 
 private_functions(
     (Void, printBeginMessage, ()),
@@ -134,21 +136,20 @@ private_fun(Void, heapRectangleExample, ())
 {
     printf("\n= HeapRectangle example:\n");
 
-    Rectangle * const heapRectangle = new_Rectangle(
+    this_->heapRectangle = new_Rectangle(
         &((RectangleInitParams){
             .origin.x = 12,
             .origin.y = 23,
             .width = 34,
             .height = 2}));
 
-    printf("heapRectangle.width = %d\n", Rectangle_width(heapRectangle));
-    printf("rectangle.height = %d\n", Rectangle_height(heapRectangle));
+    printf("heapRectangle.width = %d\n", Rectangle_width(this_->heapRectangle));
+    printf("rectangle.height = %d\n", Rectangle_height(this_->heapRectangle));
     printf("Set width to 2 and height to 3\n");
-    Rectangle_widthSet(heapRectangle, 2);
-    Rectangle_heightSet(heapRectangle, 3);
-    printf("heapRectangle.width = %d\n", Rectangle_width(heapRectangle));
-    printf("rectangle.height = %d\n", Rectangle_height(heapRectangle));
-    free(heapRectangle);
+    Rectangle_widthSet(this_->heapRectangle, 2);
+    Rectangle_heightSet(this_->heapRectangle, 3);
+    printf("heapRectangle.width = %d\n", Rectangle_width(this_->heapRectangle));
+    printf("rectangle.height = %d\n", Rectangle_height(this_->heapRectangle));
 }
 
 private_fun(Void, coloredCircleExample, ())
