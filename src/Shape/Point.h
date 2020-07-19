@@ -5,7 +5,7 @@
 #undef Class
 #define Class Point
 
-data_class_members(
+data_class(
     UInt32 x,
     UInt32 y);
 

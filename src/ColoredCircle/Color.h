@@ -5,7 +5,7 @@
 #undef Class
 #define Class Color
 
-enum_class_values(
+enum_class(
     red,
     yellow,
     blue = 6);

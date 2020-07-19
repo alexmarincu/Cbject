@@ -161,25 +161,25 @@
 #define abstract_class_members_(className, superClassName, ...) abstract_class_members__(className, superClassName, __VA_ARGS__)
 #define abstract_class_members(...) abstract_class_members_(Class, SuperClass, __VA_ARGS__)
 
-#define data_class_members__(className, ...) \
+#define data_class__(className, ...) \
     typedef struct className                 \
     {                                        \
         for_each(add_semicolon, __VA_ARGS__) \
     } className
-#define data_class_members_(className, ...) data_class_members__(className, __VA_ARGS__)
-#define data_class_members(...) data_class_members_(Class, __VA_ARGS__)
+#define data_class_(className, ...) data_class__(className, __VA_ARGS__)
+#define data_class(...) data_class_(Class, __VA_ARGS__)
 
 #define prepend_class_name_and_add_comma__(className, valueName) className##_##valueName,
 #define prepend_class_name_and_add_comma_(className, valueName) prepend_class_name_and_add_comma__(className, valueName)
 #define prepend_class_name_and_add_comma(valueName) prepend_class_name_and_add_comma_(Class, valueName)
 
-#define enum_class_values__(className, ...)                     \
+#define enum_class__(className, ...)                     \
     typedef enum className                                      \
     {                                                           \
         for_each(prepend_class_name_and_add_comma, __VA_ARGS__) \
     } className
-#define enum_class_values_(className, ...) enum_class_values__(className, __VA_ARGS__)
-#define enum_class_values(...) enum_class_values_(Class, __VA_ARGS__)
+#define enum_class_(className, ...) enum_class__(className, __VA_ARGS__)
+#define enum_class(...) enum_class_(Class, __VA_ARGS__)
 
 #define fun__(className, type, functionName, arguments) \
     type className##_##functionName(className * const _this va_args(strip_parentheses(arguments)))
