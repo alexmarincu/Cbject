@@ -36,5 +36,16 @@ init({
 });
 
 clear({ Circle_clear((Circle *) this_); });
-override_fun(Void, Shape, draw, (UInt8 const a)) { printf("ColoredCircle draw\n"); }
-override_fun(Void, Circle, rotate, ()) { printf("Rotate counter-clockwise\n"); }
+
+override_fun(Void, Shape, draw, (UInt8 const a))
+{
+    super_Shape_draw((Shape *) this_, 5);
+    super_Circle_draw((Circle *) this_, 5);
+    printf("ColoredCircle draw\n");
+}
+
+override_fun(Void, Circle, rotate, ())
+{
+    super_Circle_rotate((Circle *) this_);
+    printf("Rotate counter-clockwise\n");
+}

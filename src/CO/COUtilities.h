@@ -274,7 +274,7 @@
 #define first(arg1, ...) arg1
 
 #define override_fun__(className, type, superClassName, functionName, arguments) \
-    static type override_##superClassName##_##functionName(className * const this_ va_args(strip_parentheses(arguments)))
+    type super_##className##_##functionName(className * const this_ va_args(strip_parentheses(arguments)))
 #define override_fun_(className, type, superClassName, functionName, arguments) override_fun__(className, type, superClassName, functionName, arguments)
 #define override_fun(type, superClassName, functionName, arguments) override_fun_(Class_, type, superClassName, functionName, arguments)
 #define strip_parentheses_and_apply_override_fun(funSignature) override_fun funSignature;
@@ -420,8 +420,11 @@
 #define bind_virtual_fun(functionName) bind_virtual_fun_(Class_, functionName)
 #define bind_virtual_functions(...) for_each(bind_virtual_fun, __VA_ARGS__)
 
-#define bind_override_fun(type, superClassName, functionName, arguments) \
-    ((superClassName##Class *) &class_)->virtuals.functionName = (type(*)(superClassName * const this_ va_args(strip_parentheses(arguments)))) override_##superClassName##_##functionName
+#define bind_override_fun__(className, type, superClassName, functionName, arguments) \
+    ((superClassName##Class *) &class_)->virtuals.functionName = (type(*)(superClassName * const this_ va_args(strip_parentheses(arguments)))) super_##className##_##functionName
+#define bind_override_fun_(className, type, superClassName, functionName, arguments) bind_override_fun__(className, type, superClassName, functionName, arguments)
+#define bind_override_fun(type, superClassName, functionName, arguments) bind_override_fun_(Class_, type, superClassName, functionName, arguments)
+
 #define strip_parentheses_and_apply_bind_override_fun(funSignature) bind_override_fun funSignature;
 #define bind_override_functions(...) for_each(strip_parentheses_and_apply_bind_override_fun, __VA_ARGS__)
 

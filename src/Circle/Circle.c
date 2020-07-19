@@ -14,10 +14,6 @@ private_constants(
     (Float, privatePi = 3.14),
     (Float, anotherPrivatePi = 3.14));
 
-override_functions(
-    (Float, Shape, area, ()),
-    (Void, Shape, draw, (UInt8 const a)));
-
 class_pool_size(10);
 
 class_setup({

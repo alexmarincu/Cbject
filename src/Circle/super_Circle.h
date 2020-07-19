@@ -13,4 +13,8 @@ virtual_class_members(
 
 virtual_functions((Void, rotate, ()));
 
+override_functions(
+    (Float, Shape, area, ()),
+    (Void, Shape, draw, (UInt8 const a)));
+
 #endif // CIRCLESUPER_H
