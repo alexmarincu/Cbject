@@ -5,10 +5,10 @@
 
 #undef Class_
 #define Class_ Shape
-#undef SuperClass
-#define SuperClass CO
+#undef super_Class_
+#define super_Class_ CO
 
-abstract_class_members(
+virtual_class_members(
     Point origin);
 
 virtual_functions(

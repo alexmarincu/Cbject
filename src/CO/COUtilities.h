@@ -133,7 +133,7 @@
     members(className, superClassName, __VA_ARGS__);    \
     class_class(className, superClassName)
 #define class_members_(className, superClassName, ...) class_members__(className, superClassName, __VA_ARGS__)
-#define class_members(...) class_members_(Class_, SuperClass, __VA_ARGS__)
+#define class_members(...) class_members_(Class_, super_Class_, __VA_ARGS__)
 
 #define prepend_class_name_and_add_semicolon__(className, constName) className##_##constName;
 #define prepend_class_name_and_add_semicolon_(className, constName) prepend_class_name_and_add_semicolon__(className, constName)
@@ -157,9 +157,9 @@
 #define strip_parentheses_and_apply_private_constant(constSignature) private_constant constSignature;
 #define private_constants(className, ...) for_each(strip_parentheses_and_apply_private_constant, __VA_ARGS__)
 
-#define abstract_class_members__(className, superClassName, ...) members(className, superClassName, __VA_ARGS__)
-#define abstract_class_members_(className, superClassName, ...) abstract_class_members__(className, superClassName, __VA_ARGS__)
-#define abstract_class_members(...) abstract_class_members_(Class_, SuperClass, __VA_ARGS__)
+#define virtual_class_members__(className, superClassName, ...) members(className, superClassName, __VA_ARGS__)
+#define virtual_class_members_(className, superClassName, ...) virtual_class_members__(className, superClassName, __VA_ARGS__)
+#define virtual_class_members(...) virtual_class_members_(Class_, super_Class_, __VA_ARGS__)
 
 #define data_class__(className, ...)         \
     typedef struct className                 \
@@ -195,22 +195,28 @@
 #define strip_parentheses_and_apply_private_fun(funSignature) private_fun funSignature;
 #define private_functions(...) for_each(strip_parentheses_and_apply_private_fun, __VA_ARGS__)
 
-#define virtual_call__(className, functionName, arguments) \
-    return ((className##Class *) ((CO *) this_)->class_)->virtuals.functionName(this_ va_args(strip_parentheses(arguments)))
-#define virtual_call_(className, functionName, arguments) virtual_call__(className, functionName, arguments)
-#define virtual_call(functionName, arguments) virtual_call_(Class_, functionName, arguments)
-
 #define virtual_fun_pt__(className, type, functionName, arguments) \
     type (*functionName)(className * const this_ va_args(strip_parentheses(arguments)))
 #define virtual_fun_pt_(className, type, functionName, arguments) virtual_fun_pt__(className, type, functionName, arguments)
 #define virtual_fun_pt(type, functionName, arguments) virtual_fun_pt_(Class_, type, functionName, arguments)
 #define strip_parentheses_and_apply_virtual_fun_pt(funSignature) virtual_fun_pt funSignature;
 
-#define virtual_fun__(className, type, functionName, arguments) \
+#define virtual_call__(className, functionName, params) \
+    return ((className##Class *) ((CO *) this_)->class_)->virtuals.functionName(this_ va_args(strip_parentheses(params)))
+#define virtual_call_(className, functionName, params) virtual_call__(className, functionName, params)
+#define virtual_call(functionName, params) virtual_call_(Class_, functionName, params)
+
+#define super_fun__(className, type, functionName, arguments) \
     type super_##className##_##functionName(className * const this_ va_args(strip_parentheses(arguments)))
-#define virtual_fun_(className, type, functionName, arguments) virtual_fun__(className, type, functionName, arguments)
-#define virtual_fun(type, functionName, arguments) virtual_fun_(Class_, type, functionName, arguments)
-#define strip_parentheses_and_apply_virtual_fun(funSignature) virtual_fun funSignature;
+#define super_fun_(className, type, functionName, arguments) super_fun__(className, type, functionName, arguments)
+#define super_fun(type, functionName, arguments) super_fun_(Class_, type, functionName, arguments)
+#define strip_parentheses_and_apply_super_fun(funSignature) super_fun funSignature;
+
+#define virtual_fun__(className, type, functionName, arguments, params)                                  \
+    fun__(className, type, functionName, arguments) { virtual_call__(className, functionName, params); } \
+    super_fun__(className, type, functionName, arguments)
+#define virtual_fun_(className, type, functionName, arguments, params) virtual_fun__(className, type, functionName, arguments, params)
+#define virtual_fun(type, functionName, arguments, params) virtual_fun_(Class_, type, functionName, arguments, params)
 
 #define virtual_functions__(className, superClassName, ...)                   \
     typedef struct className##Class                                           \
@@ -224,9 +230,9 @@
     } className##Class;                                                       \
                                                                               \
     className##Class const * const className##Class_getInstance();            \
-    for_each(strip_parentheses_and_apply_virtual_fun, __VA_ARGS__)
+    for_each(strip_parentheses_and_apply_super_fun, __VA_ARGS__)
 #define virtual_functions_(className, superClassName, ...) virtual_functions__(className, superClassName, __VA_ARGS__)
-#define virtual_functions(...) virtual_functions_(Class_, SuperClass, __VA_ARGS__)
+#define virtual_functions(...) virtual_functions_(Class_, super_Class_, __VA_ARGS__)
 
 #define Object(className, varName, ...)                       \
     Byte const varName##Stack[className##Class_size()];       \
@@ -282,7 +288,7 @@
         ((CO *) this_)->class_ = (COClass *) className##Class_getInstance();                   \
     }
 #define init_(className, superClassName, ...) init__(className, superClassName, __VA_ARGS__)
-#define init(...) init_(Class_, SuperClass, __VA_ARGS__)
+#define init(...) init_(Class_, super_Class_, __VA_ARGS__)
 
 #define getClassInstance_impl(className, superClassName, ...)                                                       \
     className##Class const * const className##Class_getInstance()                                                   \
@@ -336,7 +342,7 @@
     UInt8 className##Class_size() { return sizeof(className); }                                   \
     getClassInstance_impl(className, superClassName, __VA_ARGS__)
 #define abstract_class_setup_(className, superClassName, ...) abstract_class_setup__(className, superClassName, __VA_ARGS__)
-#define abstract_class_setup(...) abstract_class_setup_(Class_, SuperClass, __VA_ARGS__)
+#define abstract_class_setup(...) abstract_class_setup_(Class_, super_Class_, __VA_ARGS__)
 
 #define singleton_class_setup__(className, superClassName, ...)                                   \
     className * className##_getInstance()                                                         \
@@ -349,7 +355,7 @@
     UInt8 className##Class_size() { return sizeof(className); }                                   \
     getClassInstance_impl(className, superClassName, __VA_ARGS__)
 #define singleton_class_setup_(className, superClassName, ...) singleton_class_setup__(className, superClassName, __VA_ARGS__)
-#define singleton_class_setup(...) singleton_class_setup_(Class_, SuperClass, __VA_ARGS__)
+#define singleton_class_setup(...) singleton_class_setup_(Class_, super_Class_, __VA_ARGS__)
 
 #if CO_useStaticPool == true
     #if CO_useHeap == true
@@ -383,7 +389,7 @@
     #endif
 #endif
 #define class_setup_(className, superClassName, ...) class_setup__(className, superClassName, __VA_ARGS__)
-#define class_setup(...) class_setup_(Class_, SuperClass, __VA_ARGS__)
+#define class_setup(...) class_setup_(Class_, super_Class_, __VA_ARGS__)
 
 #define bind_virtual_fun__(className, functionName) \
     class_.virtuals.functionName = super_##className##_##functionName;

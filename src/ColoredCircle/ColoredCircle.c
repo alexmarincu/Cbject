@@ -4,8 +4,8 @@
 
 #undef Class_
 #define Class_ ColoredCircle
-#undef SuperClass
-#define SuperClass Circle
+#undef super_Class_
+#define super_Class_ Circle
 
 class_members(
     Color color);

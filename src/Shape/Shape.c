@@ -3,23 +3,21 @@
 
 #undef Class_
 #define Class_ Shape
-#undef SuperClass
-#define SuperClass CO
+#undef super_Class_
+#define super_Class_ CO
 
 abstract_class_setup({ bind_virtual_functions(area, draw); });
 init({ this_->origin = params->origin; });
 
 default_set_get(Point, origin);
 
-fun(Float, area, ()) { virtual_call(area, ()); }
-virtual_fun(Float, area, ())
+virtual_fun(Float, area, (), ())
 {
     (Void) this_;
     return 0;
 }
 
-fun(Void, draw, (UInt8 const a)) { virtual_call(draw, (a)); }
-virtual_fun(Void, draw, (UInt8 const a))
+virtual_fun(Void, draw, (UInt8 const a), (a))
 {
     (Void) this_;
     printf("Shape draw\n");

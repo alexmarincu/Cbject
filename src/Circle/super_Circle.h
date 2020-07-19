@@ -5,8 +5,8 @@
 
 #undef Class_
 #define Class_ Circle
-#undef SuperClass
-#define SuperClass Shape
+#undef super_Class_
+#define super_Class_ Shape
 
 class_members(
     UInt32 radius);

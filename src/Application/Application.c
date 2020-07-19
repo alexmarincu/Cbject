@@ -7,8 +7,8 @@
 
 #undef Class_
 #define Class_ Application
-#undef SuperClass
-#define SuperClass CO
+#undef super_Class_
+#define super_Class_ CO
 
 class_members(
     Circle * circle,
