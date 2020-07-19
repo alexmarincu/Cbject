@@ -70,6 +70,7 @@ private_fun(Void, circleExample, ())
     printf("circle.origin.x = %d\n", Shape_origin((Shape *) this_->circle).x);
     printf("circle.origin.y = %d\n", Shape_origin((Shape *) this_->circle).y);
     Shape_draw((Shape *) this_->circle, 5);
+    Circle_rotate(this_->circle);
     printf("circle.class = %s\n", CO_classType((CO *) this_->circle));
 }
 
@@ -173,6 +174,7 @@ private_fun(Void, coloredCircleExample, ())
     printf("coloredCircle.origin.x = %d\n", Shape_origin((Shape *) this_->coloredCircle).x);
     printf("coloredCircle.origin.y = %d\n", Shape_origin((Shape *) this_->coloredCircle).y);
     Shape_draw((Shape *) this_->coloredCircle, 5);
+    Circle_rotate((Circle *) this_->coloredCircle);
 }
 
 private_fun(Void, polymorphismExample, ())

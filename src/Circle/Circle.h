@@ -13,5 +13,6 @@ class_init_params(
     UInt32 const radius);
 
 set_get(UInt32, radius);
+fun(Void, rotate, ());
 
 #endif // CIRCLE_H

@@ -11,10 +11,18 @@ class_members(
     Color color);
 
 default_set_get(Color, color);
-override_fun(Void, Shape, draw, (UInt8 const a));
+
+override_functions(
+    (Void, Shape, draw, (UInt8 const a)),
+    (Void, Circle, rotate, ()));
 
 class_pool_size(10);
-class_setup({ bind_override_fun(Void, Shape, draw, (UInt8 const a)); });
+
+class_setup({
+    bind_override_functions(
+        (Void, Shape, draw, (UInt8 const a)),
+        (Void, Circle, rotate, ()));
+});
 
 init({
     Circle_init(
@@ -28,8 +36,5 @@ init({
 });
 
 clear({ Circle_clear((Circle *) this_); });
-
-override_fun(Void, Shape, draw, (UInt8 const a))
-{
-    printf("ColoredCircle draw\n");
-}
+override_fun(Void, Shape, draw, (UInt8 const a)) { printf("ColoredCircle draw\n"); }
+override_fun(Void, Circle, rotate, ()) { printf("Rotate counter-clockwise\n"); }

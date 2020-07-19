@@ -21,6 +21,7 @@ override_functions(
 class_pool_size(10);
 
 class_setup({
+    bind_virtual_fun(rotate);
     bind_override_functions(
         (Float, Shape, area, ()),
         (Void, Shape, draw, (UInt8 const a)));
@@ -42,3 +43,4 @@ override_fun(Void, Shape, draw, (UInt8 const a))
 }
 
 override_fun(Float, Shape, area, ()) { return this_->radius * this_->radius * Circle_pi; }
+virtual_fun(Void, rotate, (), ()) { printf("Rotate clockwise\n"); }

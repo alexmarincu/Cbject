@@ -8,7 +8,9 @@
 #undef super_Class_
 #define super_Class_ Shape
 
-class_members(
+virtual_class_members(
     UInt32 radius);
+
+virtual_functions((Void, rotate, ()));
 
 #endif // CIRCLESUPER_H
