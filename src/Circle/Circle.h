@@ -12,8 +12,6 @@ class_init_params(
     Point const origin,
     UInt32 const radius);
 
-class_pool_size(10);
-
 set_get(UInt32, radius);
 
 #endif // CIRCLE_H

@@ -10,8 +10,6 @@ class_init_params(
     UInt32 const width,
     UInt32 const height);
 
-class_pool_size(10);
-
 setters_getters(
     (UInt32, width),
     (UInt32, height));

@@ -361,31 +361,31 @@
     #if CO_useHeap == true
         #include <stdlib.h>
         #define class_setup__(className, superClassName, ...)                                             \
+            static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
+            getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
             getObject_impl(className, __VA_ARGS__);                                                       \
             newObject_impl(className, __VA_ARGS__);                                                       \
-            static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
-            UInt8 className##Class_size() { return sizeof(className); }                                   \
-            getClassInstance_impl(className, superClassName, __VA_ARGS__)
+            UInt8 className##Class_size() { return sizeof(className); }
     #else
         #define class_setup__(className, superClassName, ...)                                             \
-            getObject_impl(className, __VA_ARGS__);                                                       \
             static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
-            UInt8 className##Class_size() { return sizeof(className); }                                   \
-            getClassInstance_impl(className, superClassName, __VA_ARGS__)
+            getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
+            getObject_impl(className, __VA_ARGS__);                                                       \
+            UInt8 className##Class_size() { return sizeof(className); }
     #endif
 #else
     #if CO_useHeap == true
         #include <stdlib.h>
         #define class_setup__(className, superClassName, ...)                                             \
-            newObject_impl(className, __VA_ARGS__);                                                       \
             static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
-            UInt8 className##Class_size() { return sizeof(className); }                                   \
-            getClassInstance_impl(className, superClassName, __VA_ARGS__)
+            getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
+            newObject_impl(className, __VA_ARGS__);                                                       \
+            UInt8 className##Class_size() { return sizeof(className); }
     #else
         #define class_setup__(className, superClassName, ...)                                             \
             static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
-            UInt8 className##Class_size() { return sizeof(className); }                                   \
-            getClassInstance_impl(className, superClassName, __VA_ARGS__)
+            getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
+            UInt8 className##Class_size() { return sizeof(className); }
     #endif
 #endif
 #define class_setup_(className, superClassName, ...) class_setup__(className, superClassName, __VA_ARGS__)

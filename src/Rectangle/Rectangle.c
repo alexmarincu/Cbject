@@ -12,6 +12,7 @@ class_members(
 
 override_fun(Float, Shape, area, ());
 
+class_pool_size(10);
 class_setup({ bind_override_fun(Float, Shape, area, ()); });
 
 init({
