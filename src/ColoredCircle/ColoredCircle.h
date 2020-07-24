@@ -3,7 +3,6 @@
 #include "../Circle/Circle.h"
 #include "Color.h"
 
-#undef Class_
 #define Class_ ColoredCircle
 
 class_init_params(
@@ -13,5 +12,7 @@ class_init_params(
 setters_getters(
     (UInt32, radius),
     (Color, color));
+
+#undef Class_
 
 #endif // COLOREDCIRCLE_H

@@ -3,7 +3,6 @@
 #include "../CO/CO.h"
 #include "Point.h"
 
-#undef Class_
 #define Class_ Shape
 
 abstract_class_init_params(
@@ -14,5 +13,7 @@ set_get(Point, origin);
 functions(
     (Float, area, ()),
     (Void, draw, (UInt8 const a)));
+
+#undef Class_
 
 #endif // SHAPE_H

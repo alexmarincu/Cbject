@@ -1,9 +1,7 @@
 #include "super_Circle.h"
 #include <stdio.h>
 
-#undef Class_
 #define Class_ Circle
-#undef super_Class_
 #define super_Class_ Shape
 
 constants(
@@ -40,3 +38,6 @@ override_fun(Void, Shape, draw, (UInt8 const a))
 
 override_fun(Float, Shape, area, ()) { return this_->radius * this_->radius * Circle_pi; }
 virtual_fun(Void, rotate, (), ()) { printf("Rotate clockwise\n"); }
+
+#undef super_Class_
+#undef Class_

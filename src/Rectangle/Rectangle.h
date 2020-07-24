@@ -2,7 +2,6 @@
 #define RECTANGLE_H
 #include "../Shape/Shape.h"
 
-#undef Class_
 #define Class_ Rectangle
 
 class_init_params(
@@ -15,5 +14,7 @@ setters_getters(
     (UInt32, height));
 
 fun(UInt32, test, (UInt32 const a));
+
+#undef Class_
 
 #endif // RECTANGLE_H
