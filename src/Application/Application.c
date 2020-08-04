@@ -5,9 +5,7 @@
 #include "../Rectangle/Rectangle.h"
 #include <stdio.h>
 
-#undef Class_
 #define Class_ Application
-#undef super_Class_
 #define super_Class_ CO
 
 class_members(
@@ -192,3 +190,6 @@ private_fun(Void, polymorphismExample, ())
         printf("shapes[%d].objectSize() = %d\n", i, CO_objectSize((CO *) shapes[i]));
     }
 }
+
+#undef super_Class_
+#undef Class_

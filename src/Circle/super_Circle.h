@@ -3,9 +3,7 @@
 #include "../Shape/super_Shape.h"
 #include "Circle.h"
 
-#undef Class_
 #define Class_ Circle
-#undef super_Class_
 #define super_Class_ Shape
 
 virtual_class_members(
@@ -16,5 +14,8 @@ virtual_functions((Void, rotate, ()));
 override_functions(
     (Float, Shape, area, ()),
     (Void, Shape, draw, (UInt8 const a)));
+
+#undef super_Class_
+#undef Class_
 
 #endif // CIRCLESUPER_H

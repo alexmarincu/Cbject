@@ -2,9 +2,7 @@
 #include "../Circle/super_Circle.h"
 #include <stdio.h>
 
-#undef Class_
 #define Class_ ColoredCircle
-#undef super_Class_
 #define super_Class_ Circle
 
 class_members(
@@ -49,3 +47,6 @@ override_fun(Void, Circle, rotate, ())
     super_Circle_rotate((Circle *) this_);
     printf("Rotate counter-clockwise\n");
 }
+
+#undef super_Class_
+#undef Class_

@@ -1,9 +1,7 @@
 #include "Rectangle.h"
 #include "../Shape/super_Shape.h"
 
-#undef Class_
 #define Class_ Rectangle
-#undef super_Class_
 #define super_Class_ Shape
 
 class_members(
@@ -29,3 +27,6 @@ default_setters_getters(
 
 fun(UInt32, test, (UInt32 const a)) { return a; }
 override_fun(Float, Shape, area, ()) { return this_->width * this_->height; }
+
+#undef super_Class_
+#undef Class_

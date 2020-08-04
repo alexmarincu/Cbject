@@ -1,9 +1,7 @@
 #include "super_Shape.h"
 #include <stdio.h>
 
-#undef Class_
 #define Class_ Shape
-#undef super_Class_
 #define super_Class_ CO
 
 abstract_class_setup({ bind_virtual_functions(area, draw); });
@@ -28,3 +26,6 @@ fun(Void, dummy, ())
 {
     printf("Shape dummy\n");
 }
+
+#undef super_Class_
+#undef Class_
