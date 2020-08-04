@@ -19,7 +19,7 @@ init({
     this_->height = params->height;
 });
 
-clear({ Shape_clear((Shape *) this_); });
+terminate({ Shape_terminate((Shape *) this_); });
 
 default_setters_getters(
     (UInt32, width),

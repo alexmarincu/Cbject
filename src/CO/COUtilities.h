@@ -67,7 +67,7 @@
                                                                                                 \
     UInt8 className##Class_size();                                                              \
     Void className##_init(className * const this_, className##InitParams const * const params); \
-    Void className##_clear(className * const this_)
+    Void className##_terminate(className * const this_)
 
 #define class_get(className) className * get_##className(className##InitParams const * const params)
 #define class_new(className) className * new_##className(className##InitParams const * const params)
@@ -294,15 +294,15 @@
 #define init_(className, superClassName, ...) init__(className, superClassName, __VA_ARGS__)
 #define init(...) init_(Class_, super_Class_, __VA_ARGS__)
 
-#define clear__(className, ...)                     \
-    Void className##_clear(className * const this_) \
+#define terminate__(className, ...)                     \
+    Void className##_terminate(className * const this_) \
     {                                               \
         do                                          \
             __VA_ARGS__                             \
         while (0);                                  \
     }
-#define clear_(className, ...) clear__(className, __VA_ARGS__)
-#define clear(...) clear_(Class_, __VA_ARGS__)
+#define terminate_(className, ...) terminate__(className, __VA_ARGS__)
+#define terminate(...) terminate_(Class_, __VA_ARGS__)
 
 #define getClassInstance_impl(className, superClassName, ...)                                                      \
     className##Class const * const className##Class_getInstance()                                                  \
@@ -354,7 +354,7 @@
 #define deleteObject_impl(className)                  \
     className * delete_##className(className * this_) \
     {                                                 \
-        className##_clear(this_);                     \
+        className##_terminate(this_);                     \
         free(this_);                                  \
     }
 

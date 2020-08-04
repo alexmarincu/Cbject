@@ -6,7 +6,7 @@
 
 abstract_class_setup({ bind_virtual_functions(area, draw); });
 init({ this_->origin = params->origin; });
-clear({});
+terminate({});
 
 default_set_get(Point, origin);
 
@@ -22,10 +22,7 @@ virtual_fun(Void, draw, (UInt8 const a), (a))
     printf("Shape draw\n");
 }
 
-fun(Void, dummy, ())
-{
-    printf("Shape dummy\n");
-}
+fun(Void, dummy, ()) { printf("Shape dummy\n"); }
 
 #undef super_Class_
 #undef Class_

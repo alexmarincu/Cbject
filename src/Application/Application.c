@@ -16,7 +16,7 @@ class_members(
 
 singleton_class_setup({});
 init({});
-clear({ delete_Rectangle(this_->heapRectangle); });
+terminate({ delete_Rectangle(this_->heapRectangle); });
 
 private_functions(
     (Void, printBeginMessage, ()),

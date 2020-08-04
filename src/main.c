@@ -7,6 +7,6 @@ Int8 main()
     Application_init(application, null);
     printf("application.objectSize() = %d\n", CO_objectSize((CO *) application));
     Application_start(application);
-    Application_clear(application);
+    Application_terminate(application);
     return 0;
 }

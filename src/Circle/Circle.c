@@ -26,7 +26,7 @@ init({
     this_->radius = params->radius;
 });
 
-clear({ Shape_clear((Shape * const) this_); });
+terminate({ Shape_terminate((Shape * const) this_); });
 
 default_set_get(UInt32, radius);
 
