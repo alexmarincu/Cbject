@@ -1,5 +1,5 @@
-#ifndef COUTILITIES_H
-#define COUTILITIES_H
+#ifndef COBJECTUTILITIES_H
+#define COBJECTUTILITIES_H
 #include "CObjectSettings.h"
 #include "Primitives.h"
 #include <assert.h>
@@ -84,38 +84,38 @@
 #define singleton_class_init_params(...) singleton_class_init_params_(Class_, __VA_ARGS__)
 
 #if Obj_useStaticPool == true
-    #if Obj_useHeap == true
-        #define class_init_params__(className, ...) \
-            init_params(className, __VA_ARGS__);    \
-            class_get(className);                   \
-            class_new(className);                   \
-            class_delete(className)
-    #else
-        #define class_init_params__(className, ...) \
-            init_params(className, __VA_ARGS__);    \
-            class_get(className)
-    #endif
+#if Obj_useHeap == true
+#define class_init_params__(className, ...) \
+    init_params(className, __VA_ARGS__);    \
+    class_get(className);                   \
+    class_new(className);                   \
+    class_delete(className)
 #else
-    #if Obj_useHeap == true
-        #define class_init_params__(className, ...) \
-            init_params(className, __VA_ARGS__);    \
-            class_new(className)                    \
-                class_delete(className)
-    #else
-        #define class_init_params__(className, ...) init_params(className, __VA_ARGS__)
-    #endif
+#define class_init_params__(className, ...) \
+    init_params(className, __VA_ARGS__);    \
+    class_get(className)
+#endif
+#else
+#if Obj_useHeap == true
+#define class_init_params__(className, ...) \
+    init_params(className, __VA_ARGS__);    \
+    class_new(className)                    \
+        class_delete(className)
+#else
+#define class_init_params__(className, ...) init_params(className, __VA_ARGS__)
+#endif
 #endif
 #define class_init_params_(className, ...) class_init_params__(className, __VA_ARGS__)
 #define class_init_params(...) class_init_params_(Class_, __VA_ARGS__)
 
 #if Obj_useStaticPool == true
-    #define class_pool_size__(className, poolSize) \
-        enum                                       \
-        {                                          \
-            className##_poolSize = poolSize        \
-        }
-    #define class_pool_size_(className, poolSize) class_pool_size__(className, poolSize)
-    #define class_pool_size(poolSize) class_pool_size_(Class_, poolSize)
+#define class_pool_size__(className, poolSize) \
+    enum                                       \
+    {                                          \
+        className##_poolSize = poolSize        \
+    }
+#define class_pool_size_(className, poolSize) class_pool_size__(className, poolSize)
+#define class_pool_size(poolSize) class_pool_size_(Class_, poolSize)
 #endif
 
 #define class_class(className, superClassName) \
@@ -283,46 +283,46 @@
 #define init__(className, superClassName, ...)                                                 \
     Void className##_init(className * const this_, className##InitParams const * const params) \
     {                                                                                          \
-        if (#superClassName == "Obj") { Obj_init((Obj *) this_); }                                \
+        if (#superClassName == "Obj") { Obj_init((Obj *) this_); }                             \
                                                                                                \
         do                                                                                     \
             __VA_ARGS__                                                                        \
         while (0);                                                                             \
                                                                                                \
-        ((Obj *) this_)->class_ = (ObjClass *) className##Class_getInstance();                   \
+        ((Obj *) this_)->class_ = (ObjClass *) className##Class_getInstance();                 \
     }
 #define init_(className, superClassName, ...) init__(className, superClassName, __VA_ARGS__)
 #define init(...) init_(Class_, super_Class_, __VA_ARGS__)
 
 #define terminate__(className, ...)                     \
     Void className##_terminate(className * const this_) \
-    {                                               \
-        do                                          \
-            __VA_ARGS__                             \
-        while (0);                                  \
+    {                                                   \
+        do                                              \
+            __VA_ARGS__                                 \
+        while (0);                                      \
     }
 #define terminate_(className, ...) terminate__(className, __VA_ARGS__)
 #define terminate(...) terminate_(Class_, __VA_ARGS__)
 
-#define getClassInstance_impl(className, superClassName, ...)                                                      \
-    className##Class const * const className##Class_getInstance()                                                  \
-    {                                                                                                              \
-        static className##Class class_;                                                                            \
-                                                                                                                   \
-        if (((ObjClass *) &class_)->type == null)                                                                   \
-        {                                                                                                          \
-            static char const * const type = #className;                                                           \
-            *((superClassName##Class *) &class_) = *superClassName##Class##_getInstance();                         \
+#define getClassInstance_impl(className, superClassName, ...)                                                   \
+    className##Class const * const className##Class_getInstance()                                               \
+    {                                                                                                           \
+        static className##Class class_;                                                                         \
+                                                                                                                \
+        if (((ObjClass *) &class_)->type == null)                                                               \
+        {                                                                                                       \
+            static char const * const type = #className;                                                        \
+            *((superClassName##Class *) &class_) = *superClassName##Class##_getInstance();                      \
             ((ObjClass *) &class_)->virtFun.objectSize = (UInt8(*)(Obj const * const this_)) override_Obj_size; \
-                                                                                                                   \
-            do                                                                                                     \
-                __VA_ARGS__                                                                                        \
-            while (0);                                                                                             \
-                                                                                                                   \
-            ((ObjClass *) &class_)->type = type;                                                                    \
-        }                                                                                                          \
-                                                                                                                   \
-        return &class_;                                                                                            \
+                                                                                                                \
+            do                                                                                                  \
+                __VA_ARGS__                                                                                     \
+            while (0);                                                                                          \
+                                                                                                                \
+            ((ObjClass *) &class_)->type = type;                                                                \
+        }                                                                                                       \
+                                                                                                                \
+        return &class_;                                                                                         \
     }
 
 #define getObject_impl(className)                                           \
@@ -354,62 +354,62 @@
 #define deleteObject_impl(className)                  \
     className * delete_##className(className * this_) \
     {                                                 \
-        className##_terminate(this_);                     \
+        className##_terminate(this_);                 \
         free(this_);                                  \
     }
 
-#define abstract_class_setup__(className, superClassName, ...)                                    \
+#define abstract_class_setup__(className, superClassName, ...)                               \
     static UInt8 override_Obj_size(className const * const this_) { return sizeof(*this_); } \
-    UInt8 className##Class_size() { return sizeof(className); }                                   \
+    UInt8 className##Class_size() { return sizeof(className); }                              \
     getClassInstance_impl(className, superClassName, __VA_ARGS__)
 #define abstract_class_setup_(className, superClassName, ...) abstract_class_setup__(className, superClassName, __VA_ARGS__)
 #define abstract_class_setup(...) abstract_class_setup_(Class_, super_Class_, __VA_ARGS__)
 
-#define singleton_class_setup__(className, superClassName, ...)                                   \
-    className * className##_getInstance()                                                         \
-    {                                                                                             \
-        static className singleton;                                                               \
-        return &singleton;                                                                        \
-    }                                                                                             \
-                                                                                                  \
+#define singleton_class_setup__(className, superClassName, ...)                              \
+    className * className##_getInstance()                                                    \
+    {                                                                                        \
+        static className singleton;                                                          \
+        return &singleton;                                                                   \
+    }                                                                                        \
+                                                                                             \
     static UInt8 override_Obj_size(className const * const this_) { return sizeof(*this_); } \
-    UInt8 className##Class_size() { return sizeof(className); }                                   \
+    UInt8 className##Class_size() { return sizeof(className); }                              \
     getClassInstance_impl(className, superClassName, __VA_ARGS__)
 #define singleton_class_setup_(className, superClassName, ...) singleton_class_setup__(className, superClassName, __VA_ARGS__)
 #define singleton_class_setup(...) singleton_class_setup_(Class_, super_Class_, __VA_ARGS__)
 
 #if Obj_useStaticPool == true
-    #if Obj_useHeap == true
-        #include <stdlib.h>
-        #define class_setup__(className, superClassName, ...)                                             \
-            static UInt8 override_Obj_size(className const * const this_) { return sizeof(*this_); } \
-            getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
-            getObject_impl(className);                                                                    \
-            newObject_impl(className);                                                                    \
-            deleteObject_impl(className);                                                                 \
-            UInt8 className##Class_size() { return sizeof(className); }
-    #else
-        #define class_setup__(className, superClassName, ...)                                             \
-            static UInt8 override_Obj_size(className const * const this_) { return sizeof(*this_); } \
-            getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
-            getObject_impl(className);                                                                    \
-            UInt8 className##Class_size() { return sizeof(className); }
-    #endif
+#if Obj_useHeap == true
+#include <stdlib.h>
+#define class_setup__(className, superClassName, ...)                                        \
+    static UInt8 override_Obj_size(className const * const this_) { return sizeof(*this_); } \
+    getClassInstance_impl(className, superClassName, __VA_ARGS__);                           \
+    getObject_impl(className);                                                               \
+    newObject_impl(className);                                                               \
+    deleteObject_impl(className);                                                            \
+    UInt8 className##Class_size() { return sizeof(className); }
 #else
-    #if Obj_useHeap == true
-        #include <stdlib.h>
-        #define class_setup__(className, superClassName, ...)                                             \
-            static UInt8 override_Obj_size(className const * const this_) { return sizeof(*this_); } \
-            getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
-            newObject_impl(className);                                                                    \
-            deleteObject_impl(className);                                                                 \
-            UInt8 className##Class_size() { return sizeof(className); }
-    #else
-        #define class_setup__(className, superClassName, ...)                                             \
-            static UInt8 override_Obj_size(className const * const this_) { return sizeof(*this_); } \
-            getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
-            UInt8 className##Class_size() { return sizeof(className); }
-    #endif
+#define class_setup__(className, superClassName, ...)                                        \
+    static UInt8 override_Obj_size(className const * const this_) { return sizeof(*this_); } \
+    getClassInstance_impl(className, superClassName, __VA_ARGS__);                           \
+    getObject_impl(className);                                                               \
+    UInt8 className##Class_size() { return sizeof(className); }
+#endif
+#else
+#if Obj_useHeap == true
+#include <stdlib.h>
+#define class_setup__(className, superClassName, ...)                                        \
+    static UInt8 override_Obj_size(className const * const this_) { return sizeof(*this_); } \
+    getClassInstance_impl(className, superClassName, __VA_ARGS__);                           \
+    newObject_impl(className);                                                               \
+    deleteObject_impl(className);                                                            \
+    UInt8 className##Class_size() { return sizeof(className); }
+#else
+#define class_setup__(className, superClassName, ...)                                        \
+    static UInt8 override_Obj_size(className const * const this_) { return sizeof(*this_); } \
+    getClassInstance_impl(className, superClassName, __VA_ARGS__);                           \
+    UInt8 className##Class_size() { return sizeof(className); }
+#endif
 #endif
 #define class_setup_(className, superClassName, ...) class_setup__(className, superClassName, __VA_ARGS__)
 #define class_setup(...) class_setup_(Class_, super_Class_, __VA_ARGS__)
@@ -428,4 +428,4 @@
 #define strip_parentheses_and_apply_bind_override_fun(funSignature) bind_override_fun funSignature;
 #define bind_override_functions(...) for_each(strip_parentheses_and_apply_bind_override_fun, __VA_ARGS__)
 
-#endif // COUTILITIES_H
+#endif // COBJECTUTILITIES_H
