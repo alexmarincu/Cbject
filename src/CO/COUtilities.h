@@ -2,6 +2,9 @@
 #define COUTILITIES_H
 #include "COSettings.h"
 #include "Primitives.h"
+#include <assert.h>
+
+#define ct_assert(condition, message) typedef char ct_assert_##message[(!!(condition)) * 2 - 1]
 
 #define va_args_(...) , ##__VA_ARGS__
 #define va_args(...) va_args_(__VA_ARGS__)
@@ -54,36 +57,39 @@
 
 #define add_semicolon(x) x;
 
-#define init_params(className, ...)          \
-    typedef struct className className;      \
-                                             \
-    typedef struct className##InitParams     \
-    {                                        \
-        for_each(add_semicolon, __VA_ARGS__) \
-    } className##InitParams;                 \
-                                             \
-    UInt8 className##_classSize();           \
-    Void className##_init(className * const _this, className##InitParams const * const params)
+#define init_params(className, ...)                                                             \
+    typedef struct className className;                                                         \
+                                                                                                \
+    typedef struct className##InitParams                                                        \
+    {                                                                                           \
+        for_each(add_semicolon, __VA_ARGS__)                                                    \
+    } className##InitParams;                                                                    \
+                                                                                                \
+    UInt8 className##Class_size();                                                              \
+    Void className##_init(className * const this_, className##InitParams const * const params); \
+    Void className##_terminate(className * const this_)
 
 #define class_get(className) className * get_##className(className##InitParams const * const params)
 #define class_new(className) className * new_##className(className##InitParams const * const params)
+#define class_delete(className) className * delete_##className(className * this_)
 
 #define abstract_class_init_params__(className, ...) init_params(className, __VA_ARGS__)
 #define abstract_class_init_params_(className, ...) abstract_class_init_params__(className, __VA_ARGS__)
-#define abstract_class_init_params(...) abstract_class_init_params_(Class, __VA_ARGS__)
+#define abstract_class_init_params(...) abstract_class_init_params_(Class_, __VA_ARGS__)
 
 #define singleton_class_init_params__(className, ...) \
     init_params(className, __VA_ARGS__);              \
     className * className##_getInstance()
 #define singleton_class_init_params_(className, ...) singleton_class_init_params__(className, __VA_ARGS__)
-#define singleton_class_init_params(...) singleton_class_init_params_(Class, __VA_ARGS__)
+#define singleton_class_init_params(...) singleton_class_init_params_(Class_, __VA_ARGS__)
 
 #if CO_useStaticPool == true
     #if CO_useHeap == true
         #define class_init_params__(className, ...) \
             init_params(className, __VA_ARGS__);    \
             class_get(className);                   \
-            class_new(className)
+            class_new(className);                   \
+            class_delete(className)
     #else
         #define class_init_params__(className, ...) \
             init_params(className, __VA_ARGS__);    \
@@ -93,13 +99,14 @@
     #if CO_useHeap == true
         #define class_init_params__(className, ...) \
             init_params(className, __VA_ARGS__);    \
-            class_new(className)
+            class_new(className)                    \
+                class_delete(className)
     #else
         #define class_init_params__(className, ...) init_params(className, __VA_ARGS__)
     #endif
 #endif
 #define class_init_params_(className, ...) class_init_params__(className, __VA_ARGS__)
-#define class_init_params(...) class_init_params_(Class, __VA_ARGS__)
+#define class_init_params(...) class_init_params_(Class_, __VA_ARGS__)
 
 #if CO_useStaticPool == true
     #define class_pool_size__(className, poolSize) \
@@ -108,14 +115,16 @@
             className##_poolSize = poolSize        \
         }
     #define class_pool_size_(className, poolSize) class_pool_size__(className, poolSize)
-    #define class_pool_size(poolSize) class_pool_size_(Class, poolSize)
+    #define class_pool_size(poolSize) class_pool_size_(Class_, poolSize)
 #endif
 
 #define class_class(className, superClassName) \
     typedef struct className##Class            \
     {                                          \
         superClassName##Class super;           \
-    } className##Class
+    } className##Class;                        \
+                                               \
+    className##Class const * const className##Class_getInstance()
 
 #define members(className, superClassName, ...) \
     struct className                            \
@@ -128,131 +137,135 @@
     members(className, superClassName, __VA_ARGS__);    \
     class_class(className, superClassName)
 #define class_members_(className, superClassName, ...) class_members__(className, superClassName, __VA_ARGS__)
-#define class_members(...) class_members_(Class, SuperClass, __VA_ARGS__)
+#define class_members(...) class_members_(Class_, super_Class_, __VA_ARGS__)
 
 #define prepend_class_name_and_add_semicolon__(className, constName) className##_##constName;
 #define prepend_class_name_and_add_semicolon_(className, constName) prepend_class_name_and_add_semicolon__(className, constName)
-#define prepend_class_name_and_add_semicolon(constName) prepend_class_name_and_add_semicolon_(Class, constName)
+#define prepend_class_name_and_add_semicolon(constName) prepend_class_name_and_add_semicolon_(Class_, constName)
 
 #define constant__(className, type, ...) type const className##_##__VA_ARGS__
 #define constant_(className, type, ...) constant__(className, type, __VA_ARGS__)
-#define constant(type, ...) constant_(Class, type, __VA_ARGS__)
+#define constant(type, ...) constant_(Class_, type, __VA_ARGS__)
 #define strip_parentheses_and_apply_constant(constSignature) constant constSignature;
 #define constants(...) for_each(strip_parentheses_and_apply_constant, __VA_ARGS__)
 
 #define public_constant__(className, type, constName) extern type const className##_##constName
 #define public_constant_(className, type, constName) public_constant__(className, type, constName)
-#define public_constant(type, constName) public_constant_(Class, type, constName)
+#define public_constant(type, constName) public_constant_(Class_, type, constName)
 #define strip_parentheses_and_apply_public_constant(constSignature) public_constant constSignature;
 #define public_constants(...) for_each(strip_parentheses_and_apply_public_constant, __VA_ARGS__)
 
 #define private_constant__(className, type, ...) static type const className##_##__VA_ARGS__
 #define private_constant_(className, type, ...) private_constant__(className, type, __VA_ARGS__)
-#define private_constant(type, ...) private_constant_(Class, type, __VA_ARGS__)
+#define private_constant(type, ...) private_constant_(Class_, type, __VA_ARGS__)
 #define strip_parentheses_and_apply_private_constant(constSignature) private_constant constSignature;
 #define private_constants(className, ...) for_each(strip_parentheses_and_apply_private_constant, __VA_ARGS__)
 
-#define abstract_class_members__(className, superClassName, ...) members(className, superClassName, __VA_ARGS__)
-#define abstract_class_members_(className, superClassName, ...) abstract_class_members__(className, superClassName, __VA_ARGS__)
-#define abstract_class_members(...) abstract_class_members_(Class, SuperClass, __VA_ARGS__)
+#define virtual_class_members__(className, superClassName, ...) members(className, superClassName, __VA_ARGS__)
+#define virtual_class_members_(className, superClassName, ...) virtual_class_members__(className, superClassName, __VA_ARGS__)
+#define virtual_class_members(...) virtual_class_members_(Class_, super_Class_, __VA_ARGS__)
 
-#define singleton_class_members__(className, superClassName, ...) \
-    members(className, superClassName, __VA_ARGS__);              \
-    class_class(className, superClassName)
-#define singleton_class_members_(className, superClassName, ...) singleton_class_members__(className, superClassName, __VA_ARGS__)
-#define singleton_class_members(...) singleton_class_members_(Class, SuperClass, __VA_ARGS__)
-
-#define data_class_members__(className, ...) \
+#define data_class__(className, ...)         \
     typedef struct className                 \
     {                                        \
         for_each(add_semicolon, __VA_ARGS__) \
     } className
-#define data_class_members_(className, ...) data_class_members__(className, __VA_ARGS__)
-#define data_class_members(...) data_class_members_(Class, __VA_ARGS__)
+#define data_class_(className, ...) data_class__(className, __VA_ARGS__)
+#define data_class(...) data_class_(Class_, __VA_ARGS__)
 
 #define prepend_class_name_and_add_comma__(className, valueName) className##_##valueName,
 #define prepend_class_name_and_add_comma_(className, valueName) prepend_class_name_and_add_comma__(className, valueName)
-#define prepend_class_name_and_add_comma(valueName) prepend_class_name_and_add_comma_(Class, valueName)
+#define prepend_class_name_and_add_comma(valueName) prepend_class_name_and_add_comma_(Class_, valueName)
 
-#define enum_class_values__(className, ...)                     \
+#define enum_class__(className, ...)                            \
     typedef enum className                                      \
     {                                                           \
         for_each(prepend_class_name_and_add_comma, __VA_ARGS__) \
     } className
-#define enum_class_values_(className, ...) enum_class_values__(className, __VA_ARGS__)
-#define enum_class_values(...) enum_class_values_(Class, __VA_ARGS__)
+#define enum_class_(className, ...) enum_class__(className, __VA_ARGS__)
+#define enum_class(...) enum_class_(Class_, __VA_ARGS__)
 
 #define fun__(className, type, functionName, arguments) \
-    type className##_##functionName(className * const _this va_args(strip_parentheses(arguments)))
+    type className##_##functionName(className * const this_ va_args(strip_parentheses(arguments)))
 #define fun_(className, type, functionName, arguments) fun__(className, type, functionName, arguments)
-#define fun(type, functionName, arguments) fun_(Class, type, functionName, arguments)
+#define fun(type, functionName, arguments) fun_(Class_, type, functionName, arguments)
 #define strip_parentheses_and_apply_fun(funSignature) fun funSignature;
 #define functions(...) for_each(strip_parentheses_and_apply_fun, __VA_ARGS__)
 
 #define private_fun__(className, type, functionName, arguments) \
-    static type className##_##functionName(className * const _this va_args(strip_parentheses(arguments)))
+    static type className##_##functionName(className * const this_ va_args(strip_parentheses(arguments)))
 #define private_fun_(className, type, functionName, arguments) private_fun__(className, type, functionName, arguments)
-#define private_fun(type, functionName, arguments) private_fun_(Class, type, functionName, arguments)
+#define private_fun(type, functionName, arguments) private_fun_(Class_, type, functionName, arguments)
 #define strip_parentheses_and_apply_private_fun(funSignature) private_fun funSignature;
 #define private_functions(...) for_each(strip_parentheses_and_apply_private_fun, __VA_ARGS__)
 
-#define virtual_call__(className, functionName, arguments) \
-    return ((className##Class *) ((CO *) _this)->_class)->functionName(_this va_args(strip_parentheses(arguments)))
-#define virtual_call_(className, functionName, arguments) virtual_call__(className, functionName, arguments)
-#define virtual_call(functionName, arguments) virtual_call_(Class, functionName, arguments)
-
 #define virtual_fun_pt__(className, type, functionName, arguments) \
-    type (*functionName)(className * const _this va_args(strip_parentheses(arguments)))
+    type (*functionName)(className * const this_ va_args(strip_parentheses(arguments)))
 #define virtual_fun_pt_(className, type, functionName, arguments) virtual_fun_pt__(className, type, functionName, arguments)
-#define virtual_fun_pt(type, functionName, arguments) virtual_fun_pt_(Class, type, functionName, arguments)
+#define virtual_fun_pt(type, functionName, arguments) virtual_fun_pt_(Class_, type, functionName, arguments)
 #define strip_parentheses_and_apply_virtual_fun_pt(funSignature) virtual_fun_pt funSignature;
 
-#define virtual_fun__(className, type, functionName, arguments) \
-    type super_##className##_##functionName(className * const _this va_args(strip_parentheses(arguments)))
-#define virtual_fun_(className, type, functionName, arguments) virtual_fun__(className, type, functionName, arguments)
-#define virtual_fun(type, functionName, arguments) virtual_fun_(Class, type, functionName, arguments)
-#define strip_parentheses_and_apply_virtual_fun(funSignature) virtual_fun funSignature;
+#define virtual_call__(className, functionName, params) \
+    return ((className##Class *) ((CO *) this_)->class_)->virtFun.functionName(this_ va_args(strip_parentheses(params)))
+#define virtual_call_(className, functionName, params) virtual_call__(className, functionName, params)
+#define virtual_call(functionName, params) virtual_call_(Class_, functionName, params)
 
-#define virtual_functions__(className, superClassName, ...)               \
-    typedef struct className##Class                                       \
-    {                                                                     \
-        superClassName##Class super;                                      \
-        for_each(strip_parentheses_and_apply_virtual_fun_pt, __VA_ARGS__) \
-    } className##Class;                                                   \
-                                                                          \
-    for_each(strip_parentheses_and_apply_virtual_fun, __VA_ARGS__)        \
-        for_each(strip_parentheses_and_apply_fun, __VA_ARGS__)
+#define super_fun__(className, type, functionName, arguments) \
+    type super_##className##_##functionName(className * const this_ va_args(strip_parentheses(arguments)))
+#define super_fun_(className, type, functionName, arguments) super_fun__(className, type, functionName, arguments)
+#define super_fun(type, functionName, arguments) super_fun_(Class_, type, functionName, arguments)
+#define strip_parentheses_and_apply_super_fun(funSignature) super_fun funSignature;
+
+#define virtual_fun__(className, type, functionName, arguments, params)                                  \
+    fun__(className, type, functionName, arguments) { virtual_call__(className, functionName, params); } \
+    super_fun__(className, type, functionName, arguments)
+#define virtual_fun_(className, type, functionName, arguments, params) virtual_fun__(className, type, functionName, arguments, params)
+#define virtual_fun(type, functionName, arguments, params) virtual_fun_(Class_, type, functionName, arguments, params)
+
+#define virtual_functions__(className, superClassName, ...)                   \
+    typedef struct className##Class                                           \
+    {                                                                         \
+        superClassName##Class super;                                          \
+                                                                              \
+        struct                                                                \
+        {                                                                     \
+            for_each(strip_parentheses_and_apply_virtual_fun_pt, __VA_ARGS__) \
+        } virtFun;                                                            \
+    } className##Class;                                                       \
+                                                                              \
+    className##Class const * const className##Class_getInstance();            \
+    for_each(strip_parentheses_and_apply_super_fun, __VA_ARGS__)
 #define virtual_functions_(className, superClassName, ...) virtual_functions__(className, superClassName, __VA_ARGS__)
-#define virtual_functions(...) virtual_functions_(Class, SuperClass, __VA_ARGS__)
+#define virtual_functions(...) virtual_functions_(Class_, super_Class_, __VA_ARGS__)
 
 #define Object(className, varName, ...)                       \
-    Byte const varName##Stack[className##_classSize()];       \
+    Byte const varName##Stack[className##Class_size()];       \
     className * const varName = (className *) varName##Stack; \
     className##_init((className *) varName, __VA_ARGS__)
 
 #define set_get__(className, type, memberName)                                          \
-    Void className##_##memberName##Set(className * const _this, type const memberName); \
-    type className##_##memberName(className const * const _this)
+    Void className##_##memberName##Set(className * const this_, type const memberName); \
+    type className##_##memberName(className const * const this_)
 #define set_get_(className, type, memberName) set_get__(className, type, memberName)
-#define set_get(type, memberName) set_get_(Class, type, memberName)
+#define set_get(type, memberName) set_get_(Class_, type, memberName)
 #define strip_parentheses_and_apply_set_get(memberSignature) set_get memberSignature;
 #define setters_getters(...) for_each(strip_parentheses_and_apply_set_get, __VA_ARGS__)
 
 #define default_set__(className, type, memberName) \
-    Void className##_##memberName##Set(className * const _this, type const memberName) { _this->memberName = memberName; }
+    Void className##_##memberName##Set(className * const this_, type const memberName) { this_->memberName = memberName; }
 #define default_set_(className, type, memberName) default_set__(className, type, memberName)
-#define default_set(type, memberName) default_set_(Class, type, memberName)
+#define default_set(type, memberName) default_set_(Class_, type, memberName)
 
 #define default_get__(className, type, memberName) \
-    type className##_##memberName(className const * const _this) { return _this->memberName; }
+    type className##_##memberName(className const * const this_) { return this_->memberName; }
 #define default_get_(className, type, memberName) default_get__(className, type, memberName)
-#define default_get(type, memberName) default_get_(Class, type, memberName)
+#define default_get(type, memberName) default_get_(Class_, type, memberName)
 
 #define default_set_get__(className, type, memberName)                                                                     \
-    Void className##_##memberName##Set(className * const _this, type const memberName) { _this->memberName = memberName; } \
-    type className##_##memberName(className const * const _this) { return _this->memberName; }
+    Void className##_##memberName##Set(className * const this_, type const memberName) { this_->memberName = memberName; } \
+    type className##_##memberName(className const * const this_) { return this_->memberName; }
 #define default_set_get_(className, type, memberName) default_set_get__(className, type, memberName)
-#define default_set_get(type, memberName) default_set_get_(Class, type, memberName)
+#define default_set_get(type, memberName) default_set_get_(Class_, type, memberName)
 #define strip_parentheses_and_apply_default_set_get(memberSignature) default_set_get memberSignature
 #define default_setters_getters(...) for_each(strip_parentheses_and_apply_default_set_get, __VA_ARGS__)
 
@@ -261,187 +274,158 @@
 #define first(arg1, ...) arg1
 
 #define override_fun__(className, type, superClassName, functionName, arguments) \
-    static type override_##superClassName##_##functionName(className * const _this va_args(strip_parentheses(arguments)))
+    type super_##className##_##functionName(className * const this_ va_args(strip_parentheses(arguments)))
 #define override_fun_(className, type, superClassName, functionName, arguments) override_fun__(className, type, superClassName, functionName, arguments)
-#define override_fun(type, superClassName, functionName, arguments) override_fun_(Class, type, superClassName, functionName, arguments)
+#define override_fun(type, superClassName, functionName, arguments) override_fun_(Class_, type, superClassName, functionName, arguments)
 #define strip_parentheses_and_apply_override_fun(funSignature) override_fun funSignature;
 #define override_functions(...) for_each(strip_parentheses_and_apply_override_fun, __VA_ARGS__)
 
-#define abstract_class_init__(className, superClassName, ...)                                     \
-    static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
-    UInt8 className##_classSize() { return sizeof(className); }                                   \
-                                                                                                  \
-    Void className##_init(className * const _this, className##InitParams const * const params)    \
-    {                                                                                             \
-        if (#superClassName == "CO") { CO_init((CO *) _this); }                                   \
-                                                                                                  \
-        do                                                                                        \
-            __VA_ARGS__                                                                           \
-        while (0);                                                                                \
+#define init__(className, superClassName, ...)                                                 \
+    Void className##_init(className * const this_, className##InitParams const * const params) \
+    {                                                                                          \
+        if (#superClassName == "CO") { CO_init((CO *) this_); }                                \
+                                                                                               \
+        do                                                                                     \
+            __VA_ARGS__                                                                        \
+        while (0);                                                                             \
+                                                                                               \
+        ((CO *) this_)->class_ = (COClass *) className##Class_getInstance();                   \
     }
-#define abstract_class_init_(className, superClassName, ...) abstract_class_init__(className, superClassName, __VA_ARGS__)
-#define abstract_class_init(...) abstract_class_init_(Class, SuperClass, __VA_ARGS__)
+#define init_(className, superClassName, ...) init__(className, superClassName, __VA_ARGS__)
+#define init(...) init_(Class_, super_Class_, __VA_ARGS__)
 
-#define singleton_class_init__(className, superClassName, ...)                                    \
+#define terminate__(className, ...)                     \
+    Void className##_terminate(className * const this_) \
+    {                                               \
+        do                                          \
+            __VA_ARGS__                             \
+        while (0);                                  \
+    }
+#define terminate_(className, ...) terminate__(className, __VA_ARGS__)
+#define terminate(...) terminate_(Class_, __VA_ARGS__)
+
+#define getClassInstance_impl(className, superClassName, ...)                                                      \
+    className##Class const * const className##Class_getInstance()                                                  \
+    {                                                                                                              \
+        static className##Class class_;                                                                            \
+                                                                                                                   \
+        if (((COClass *) &class_)->type == null)                                                                   \
+        {                                                                                                          \
+            static char const * const type = #className;                                                           \
+            *((superClassName##Class *) &class_) = *superClassName##Class##_getInstance();                         \
+            ((COClass *) &class_)->virtFun.objectSize = (UInt8(*)(CO const * const this_)) override_CO_objectSize; \
+                                                                                                                   \
+            do                                                                                                     \
+                __VA_ARGS__                                                                                        \
+            while (0);                                                                                             \
+                                                                                                                   \
+            ((COClass *) &class_)->type = type;                                                                    \
+        }                                                                                                          \
+                                                                                                                   \
+        return &class_;                                                                                            \
+    }
+
+#define getObject_impl(className)                                           \
+    className * get_##className(className##InitParams const * const params) \
+    {                                                                       \
+        static className pool[className##_poolSize];                        \
+        static UInt64 count = 0;                                            \
+        className * this_ = null;                                           \
+                                                                            \
+        if (count < className##_poolSize)                                   \
+        {                                                                   \
+            this_ = &pool[count];                                           \
+            className##_init(this_, params);                                \
+            count++;                                                        \
+        }                                                                   \
+                                                                            \
+        return this_;                                                       \
+    }
+
+#define newObject_impl(className)                                           \
+    className * new_##className(className##InitParams const * const params) \
+    {                                                                       \
+        className * this_ = (className *) malloc(sizeof(className));        \
+        assert((this_ != null) && "Heap memory allocation failed");         \
+        className##_init(this_, params);                                    \
+        return this_;                                                       \
+    }
+
+#define deleteObject_impl(className)                  \
+    className * delete_##className(className * this_) \
+    {                                                 \
+        className##_terminate(this_);                     \
+        free(this_);                                  \
+    }
+
+#define abstract_class_setup__(className, superClassName, ...)                                    \
+    static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
+    UInt8 className##Class_size() { return sizeof(className); }                                   \
+    getClassInstance_impl(className, superClassName, __VA_ARGS__)
+#define abstract_class_setup_(className, superClassName, ...) abstract_class_setup__(className, superClassName, __VA_ARGS__)
+#define abstract_class_setup(...) abstract_class_setup_(Class_, super_Class_, __VA_ARGS__)
+
+#define singleton_class_setup__(className, superClassName, ...)                                   \
     className * className##_getInstance()                                                         \
     {                                                                                             \
         static className singleton;                                                               \
         return &singleton;                                                                        \
     }                                                                                             \
                                                                                                   \
-    static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
-    UInt8 className##_classSize() { return sizeof(className); }                                   \
-                                                                                                  \
-    Void className##_init(className * const _this, className##InitParams const * const params)    \
-    {                                                                                             \
-        if (#superClassName == "CO") { CO_init((CO *) _this); }                                   \
-                                                                                                  \
-        do                                                                                        \
-            __VA_ARGS__                                                                           \
-        while (0);                                                                                \
-    }
-#define singleton_class_init_(className, superClassName, ...) singleton_class_init__(className, superClassName, __VA_ARGS__)
-#define singleton_class_init(...) singleton_class_init_(Class, SuperClass, __VA_ARGS__)
+    static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
+    UInt8 className##Class_size() { return sizeof(className); }                                   \
+    getClassInstance_impl(className, superClassName, __VA_ARGS__)
+#define singleton_class_setup_(className, superClassName, ...) singleton_class_setup__(className, superClassName, __VA_ARGS__)
+#define singleton_class_setup(...) singleton_class_setup_(Class_, super_Class_, __VA_ARGS__)
 
 #if CO_useStaticPool == true
     #if CO_useHeap == true
         #include <stdlib.h>
-        #define class_init__(className, superClassName, ...)                                              \
-            className * get_##className(className##InitParams const * const params)                       \
-            {                                                                                             \
-                static className pool[className##_poolSize];                                              \
-                static UInt64 count = 0;                                                                  \
-                className * _this = null;                                                                 \
-                                                                                                          \
-                if (count < className##_poolSize)                                                         \
-                {                                                                                         \
-                    _this = &pool[count];                                                                 \
-                    className##_init(_this, params);                                                      \
-                    count++;                                                                              \
-                }                                                                                         \
-                                                                                                          \
-                return _this;                                                                             \
-            }                                                                                             \
-                                                                                                          \
-            className * new_##className(className##InitParams const * const params)                       \
-            {                                                                                             \
-                className * _this = (className *) malloc(sizeof(className));                              \
-                className##_init(_this, params);                                                          \
-                return _this;                                                                             \
-            }                                                                                             \
-                                                                                                          \
-            static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
-            UInt8 className##_classSize() { return sizeof(className); }                                   \
-                                                                                                          \
-            Void className##_init(className * const _this, className##InitParams const * const params)    \
-            {                                                                                             \
-                if (#superClassName == "CO") { CO_init((CO *) _this); }                                   \
-                                                                                                          \
-                do                                                                                        \
-                    __VA_ARGS__                                                                           \
-                while (0);                                                                                \
-            }
+        #define class_setup__(className, superClassName, ...)                                             \
+            static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
+            getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
+            getObject_impl(className);                                                                    \
+            newObject_impl(className);                                                                    \
+            deleteObject_impl(className);                                                                 \
+            UInt8 className##Class_size() { return sizeof(className); }
     #else
-        #define class_init__(className, superClassName, ...)                                              \
-            className * get_##className(className##InitParams const * const params)                       \
-            {                                                                                             \
-                static className pool[className##_poolSize];                                              \
-                static UInt64 count = 0;                                                                  \
-                className * _this = null;                                                                 \
-                                                                                                          \
-                if (count < className##_poolSize)                                                         \
-                {                                                                                         \
-                    _this = &pool[count];                                                                 \
-                    className##_init(_this, params);                                                      \
-                    count++;                                                                              \
-                }                                                                                         \
-                                                                                                          \
-                return _this;                                                                             \
-            }                                                                                             \
-                                                                                                          \
-            static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
-            UInt8 className##_classSize() { return sizeof(className); }                                   \
-                                                                                                          \
-            Void className##_init(className * const _this, className##InitParams const * const params)    \
-            {                                                                                             \
-                if (#superClassName == "CO") { CO_init((CO *) _this); }                                   \
-                                                                                                          \
-                do                                                                                        \
-                    __VA_ARGS__                                                                           \
-                while (0);                                                                                \
-            }
+        #define class_setup__(className, superClassName, ...)                                             \
+            static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
+            getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
+            getObject_impl(className);                                                                    \
+            UInt8 className##Class_size() { return sizeof(className); }
     #endif
 #else
     #if CO_useHeap == true
         #include <stdlib.h>
-        #define class_init__(className, superClassName, ...)                                              \
-            className * new_##className(className##InitParams const * const params)                       \
-            {                                                                                             \
-                className * _this = (className *) malloc(sizeof(className));                              \
-                className##_init(_this, params);                                                          \
-                return _this;                                                                             \
-            }                                                                                             \
-                                                                                                          \
-            static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
-            UInt8 className##_classSize() { return sizeof(className); }                                   \
-                                                                                                          \
-            Void className##_init(className * const _this, className##InitParams const * const params)    \
-            {                                                                                             \
-                if (#superClassName == "CO") { CO_init((CO *) _this); }                                   \
-                                                                                                          \
-                do                                                                                        \
-                    __VA_ARGS__                                                                           \
-                while (0);                                                                                \
-            }
+        #define class_setup__(className, superClassName, ...)                                             \
+            static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
+            getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
+            newObject_impl(className);                                                                    \
+            deleteObject_impl(className);                                                                 \
+            UInt8 className##Class_size() { return sizeof(className); }
     #else
-        #define class_init__(className, superClassName, ...)                                              \
-            static UInt8 override_CO_objectSize(className const * const _this) { return sizeof(*_this); } \
-            UInt8 className##_classSize() { return sizeof(className); }                                   \
-                                                                                                          \
-            Void className##_init(className * const _this, className##InitParams const * const params)    \
-            {                                                                                             \
-                if (#superClassName == "CO") { CO_init((CO *) _this); }                                   \
-                                                                                                          \
-                do                                                                                        \
-                    __VA_ARGS__                                                                           \
-                while (0);                                                                                \
-            }
+        #define class_setup__(className, superClassName, ...)                                             \
+            static UInt8 override_CO_objectSize(className const * const this_) { return sizeof(*this_); } \
+            getClassInstance_impl(className, superClassName, __VA_ARGS__);                                \
+            UInt8 className##Class_size() { return sizeof(className); }
     #endif
 #endif
-#define class_init_(className, superClassName, ...) class_init__(className, superClassName, __VA_ARGS__)
-#define class_init(...) class_init_(Class, SuperClass, __VA_ARGS__)
+#define class_setup_(className, superClassName, ...) class_setup__(className, superClassName, __VA_ARGS__)
+#define class_setup(...) class_setup_(Class_, super_Class_, __VA_ARGS__)
 
 #define bind_virtual_fun__(className, functionName) \
-    _class.functionName = super_##className##_##functionName;
+    class_.virtFun.functionName = super_##className##_##functionName;
 #define bind_virtual_fun_(className, functionName) bind_virtual_fun__(className, functionName)
-#define bind_virtual_fun(functionName) bind_virtual_fun_(Class, functionName)
+#define bind_virtual_fun(functionName) bind_virtual_fun_(Class_, functionName)
 #define bind_virtual_functions(...) for_each(bind_virtual_fun, __VA_ARGS__)
 
-#define bind_override_fun(type, superClassName, functionName, arguments) \
-    ((superClassName##Class *) &_class)->functionName = (type(*)(superClassName * const _this va_args(strip_parentheses(arguments)))) override_##superClassName##_##functionName
+#define bind_override_fun__(className, type, superClassName, functionName, arguments) \
+    ((superClassName##Class *) &class_)->virtFun.functionName = (type(*)(superClassName * const this_ va_args(strip_parentheses(arguments)))) super_##className##_##functionName
+#define bind_override_fun_(className, type, superClassName, functionName, arguments) bind_override_fun__(className, type, superClassName, functionName, arguments)
+#define bind_override_fun(type, superClassName, functionName, arguments) bind_override_fun_(Class_, type, superClassName, functionName, arguments)
+
 #define strip_parentheses_and_apply_bind_override_fun(funSignature) bind_override_fun funSignature;
 #define bind_override_functions(...) for_each(strip_parentheses_and_apply_bind_override_fun, __VA_ARGS__)
-
-#define setup_virtual_functions__(className, superClassName, ...)                                          \
-    do                                                                                                     \
-    {                                                                                                      \
-        static className##Class _class;                                                                    \
-        static Boolean isClassSetupDone = false;                                                           \
-                                                                                                           \
-        if (isClassSetupDone == false)                                                                     \
-        {                                                                                                  \
-            isClassSetupDone = true;                                                                       \
-            *((superClassName##Class *) &_class) = *((superClassName##Class *) (((CO *) _this)->_class));  \
-            ((COClass *) &_class)->objectSize = (UInt8(*)(CO const * const _this)) override_CO_objectSize; \
-                                                                                                           \
-            do                                                                                             \
-                __VA_ARGS__                                                                                \
-            while (0);                                                                                     \
-        }                                                                                                  \
-                                                                                                           \
-        ((CO *) _this)->_class = (COClass *) &_class;                                                      \
-    } while (0)
-#define setup_virtual_functions_(className, superClassName, ...) setup_virtual_functions__(className, superClassName, __VA_ARGS__)
-#define setup_virtual_functions(...) setup_virtual_functions_(Class, SuperClass, __VA_ARGS__)
 
 #endif // COUTILITIES_H

@@ -3,16 +3,17 @@
 #include "../CO/super_CO.h"
 #include "Shape.h"
 
-#undef Class
-#define Class Shape
-#undef SuperClass
-#define SuperClass CO
+#define Class_ Shape
+#define super_Class_ CO
 
-abstract_class_members(
+virtual_class_members(
     Point origin);
 
 virtual_functions(
     (Float, area, ()),
     (Void, draw, (UInt8 const a)));
+
+#undef super_Class_
+#undef Class_
 
 #endif // SHAPESUPER_H

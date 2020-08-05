@@ -2,8 +2,7 @@
 #define CIRCLE_H
 #include "../Shape/Shape.h"
 
-#undef Class
-#define Class Circle
+#define Class_ Circle
 
 public_constant(Float, pi);
 public_constants((Float, anotherPi));
@@ -12,8 +11,9 @@ class_init_params(
     Point const origin,
     UInt32 const radius);
 
-class_pool_size(10);
-
 set_get(UInt32, radius);
+fun(Void, rotate, ());
+
+#undef Class_
 
 #endif // CIRCLE_H

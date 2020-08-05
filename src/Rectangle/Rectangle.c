@@ -1,10 +1,8 @@
 #include "Rectangle.h"
-#include "../Shape/ShapeSuper.h"
+#include "../Shape/super_Shape.h"
 
-#undef Class
-#define Class Rectangle
-#undef SuperClass
-#define SuperClass Shape
+#define Class_ Rectangle
+#define super_Class_ Shape
 
 class_members(
     UInt32 width,
@@ -12,16 +10,23 @@ class_members(
 
 override_fun(Float, Shape, area, ());
 
-class_init({
-    Shape_init((Shape *) _this, (ShapeInitParams *) params);
-    setup_virtual_functions({ bind_override_functions((Float, Shape, area, ())); });
-    _this->width = params->width;
-    _this->height = params->height;
+class_pool_size(10);
+class_setup({ bind_override_fun(Float, Shape, area, ()); });
+
+init({
+    Shape_init((Shape *) this_, (ShapeInitParams *) params);
+    this_->width = params->width;
+    this_->height = params->height;
 });
+
+terminate({ Shape_terminate((Shape *) this_); });
 
 default_setters_getters(
     (UInt32, width),
     (UInt32, height));
 
 fun(UInt32, test, (UInt32 const a)) { return a; }
-override_fun(Float, Shape, area, ()) { return _this->width * _this->height; }
+override_fun(Float, Shape, area, ()) { return this_->width * this_->height; }
+
+#undef super_Class_
+#undef Class_

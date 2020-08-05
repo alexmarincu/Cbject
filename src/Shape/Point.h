@@ -2,11 +2,12 @@
 #define POINT_H
 #include "../CO/CO.h"
 
-#undef Class
-#define Class Point
+#define Class_ Point
 
-data_class_members(
+data_class(
     UInt32 x,
     UInt32 y);
+
+#undef Class_
 
 #endif // POINT_H

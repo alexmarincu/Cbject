@@ -2,12 +2,13 @@
 #define COLOR_H
 #include "../CO/CO.h"
 
-#undef Class
-#define Class Color
+#define Class_ Color
 
-enum_class_values(
+enum_class(
     red,
     yellow,
     blue = 6);
+
+#undef Class_
 
 #endif // COLOR_H

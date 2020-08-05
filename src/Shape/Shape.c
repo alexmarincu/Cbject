@@ -1,33 +1,28 @@
-#include "ShapeSuper.h"
+#include "super_Shape.h"
 #include <stdio.h>
 
-#undef Class
-#define Class Shape
-#undef SuperClass
-#define SuperClass CO
+#define Class_ Shape
+#define super_Class_ CO
 
-abstract_class_init({
-    setup_virtual_functions({ bind_virtual_functions(area, draw); });
-    _this->origin = params->origin;
-});
+abstract_class_setup({ bind_virtual_functions(area, draw); });
+init({ this_->origin = params->origin; });
+terminate({});
 
 default_set_get(Point, origin);
 
-fun(Float, area, ()) { virtual_call(area, ()); }
-virtual_fun(Float, area, ())
+virtual_fun(Float, area, (), ())
 {
-    (Void) _this;
+    (Void) this_;
     return 0;
 }
 
-fun(Void, draw, (UInt8 const a)) { virtual_call(draw, (a)); }
-virtual_fun(Void, draw, (UInt8 const a))
+virtual_fun(Void, draw, (UInt8 const a), (a))
 {
-    (Void) _this;
+    (Void) this_;
     printf("Shape draw\n");
 }
 
-fun(Void, dummy, ())
-{
-    printf("Shape dummy\n");
-}
+fun(Void, dummy, ()) { printf("Shape dummy\n"); }
+
+#undef super_Class_
+#undef Class_
