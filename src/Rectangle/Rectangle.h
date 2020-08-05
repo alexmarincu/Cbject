@@ -1,6 +1,6 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
-#include "../Shape/Shape.h"
+#include "../Shape/Point.h"
 
 #define Class_ Rectangle
 

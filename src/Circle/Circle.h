@@ -1,6 +1,6 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
-#include "../Shape/Shape.h"
+#include "../Shape/Point.h"
 
 #define Class_ Circle
 
