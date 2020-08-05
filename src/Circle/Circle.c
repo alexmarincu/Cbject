@@ -12,8 +12,6 @@ private_constants(
     (Float, privatePi = 3.14),
     (Float, anotherPrivatePi = 3.14));
 
-class_pool_size(10);
-
 class_setup({
     bind_virtual_fun(rotate);
     bind_override_functions(

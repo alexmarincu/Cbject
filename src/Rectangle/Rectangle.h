@@ -4,8 +4,6 @@
 
 #define Class_ Rectangle
 
-class_pool_size(10);
-
 class_params(
     Point const origin,
     UInt32 const width,

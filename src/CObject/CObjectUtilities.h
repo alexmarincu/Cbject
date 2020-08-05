@@ -99,8 +99,8 @@
     #if CObject_useHeap == true
         #define z_class_params_(className, ...) \
             z_params(className, __VA_ARGS__);   \
-            z_new_object_decl(className)        \
-                z_delete_object_decl(className)
+            z_new_object_decl(className);       \
+            z_delete_object_decl(className)
     #else
         #define z_class_params_(className, ...) z_params(className, __VA_ARGS__)
     #endif

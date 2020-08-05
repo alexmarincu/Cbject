@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define null NULL
+#define null 0
 typedef void Void;
 typedef bool Boolean;
 typedef uint8_t Byte;
