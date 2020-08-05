@@ -6,8 +6,7 @@
 #define Class_ Shape
 #define super_Class_ Obj
 
-virtual_class_members(
-    Point origin);
+virtual_class_members(Point origin);
 
 virtual_functions(
     (Float, area, ()),
@@ -15,5 +14,4 @@ virtual_functions(
 
 #undef super_Class_
 #undef Class_
-
 #endif // SHAPESUPER_H

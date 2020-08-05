@@ -4,7 +4,9 @@
 
 #define Class_ Rectangle
 
-class_init_params(
+class_pool_size(10);
+
+class_params(
     Point const origin,
     UInt32 const width,
     UInt32 const height);
@@ -16,5 +18,4 @@ setters_getters(
 fun(UInt32, test, (UInt32 const a));
 
 #undef Class_
-
 #endif // RECTANGLE_H

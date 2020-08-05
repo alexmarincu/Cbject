@@ -1,7 +1,7 @@
-#ifndef COSETTINGS_H
-#define COSETTINGS_H
+#ifndef COBJECTSETTINGS_H
+#define COBJECTSETTINGS_H
 
-#define Obj_useHeap true
-#define Obj_useStaticPool true
+#define CObject_useHeap true
+#define CObject_useStaticPool true
 
-#endif // COSETTINGS_H
+#endif // COBJECTSETTINGS_H

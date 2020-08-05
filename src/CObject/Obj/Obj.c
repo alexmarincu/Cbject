@@ -5,7 +5,7 @@ UInt8 Obj_size(Obj const * const this_) { return this_->class_->virtFun.objectSi
 char const * Obj_type(Obj const * const this_) { return this_->class_->type; }
 UInt8 ObjClass_size() { return sizeof(Obj); }
 
-ObjClass const * const ObjClass_getInstance()
+ObjClass const * const ObjClass_instance()
 {
     static ObjClass const class_ = {
         .type = "Obj",
@@ -14,4 +14,4 @@ ObjClass const * const ObjClass_getInstance()
     return &class_;
 }
 
-Void Obj_init(Obj * const this_) { this_->class_ = ObjClass_getInstance(); }
+Void Obj_init(Obj * const this_) { this_->class_ = ObjClass_instance(); }

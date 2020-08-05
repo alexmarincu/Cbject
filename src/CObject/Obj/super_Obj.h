@@ -17,7 +17,7 @@ struct Obj
     ObjClass const * class_;
 };
 
-ObjClass const * const ObjClass_getInstance();
+ObjClass const * const ObjClass_instance();
 UInt8 super_Obj_size(Obj const * const this_);
 
 #endif // SUPER_OBJ_H

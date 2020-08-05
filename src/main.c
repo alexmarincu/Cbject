@@ -3,7 +3,7 @@
 
 Int8 main()
 {
-    Application * const application = Application_getInstance();
+    Application * const application = Application_instance();
     Application_init(application, null);
     printf("application.objectSize() = %d\n", Obj_size((Obj *) application));
     Application_start(application);

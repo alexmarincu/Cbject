@@ -5,7 +5,7 @@
 
 #define Class_ ColoredCircle
 
-class_init_params(
+class_params(
     UInt32 const radius,
     Color const color);
 
@@ -14,5 +14,4 @@ setters_getters(
     (Color, color));
 
 #undef Class_
-
 #endif // COLOREDCIRCLE_H

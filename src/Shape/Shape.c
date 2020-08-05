@@ -5,7 +5,9 @@
 #define super_Class_ Obj
 
 abstract_class_setup({ bind_virtual_functions(area, draw); });
-init({ this_->origin = params->origin; });
+
+init({ this_->origin = params_->origin; });
+
 terminate({});
 
 default_set_get(Point, origin);

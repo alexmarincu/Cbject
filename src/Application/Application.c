@@ -52,7 +52,7 @@ private_fun(Void, circleExample, ())
     printf("Circle_pi = %.2f\n", Circle_pi);
 
     this_->circle = get_Circle(
-        &((CircleInitParams){
+        &((CircleParams){
             .origin.x = 0,
             .origin.y = 1,
             .radius = 1}));
@@ -78,7 +78,7 @@ private_fun(Void, stackCircleExample, ())
     printf("\n= StackCircle example:\n");
 
     Object(Circle, stackCircle,
-           &((CircleInitParams){
+           &((CircleParams){
                .origin.x = 2,
                .origin.y = 3,
                .radius = 3}));
@@ -94,7 +94,7 @@ private_fun(Void, rectangleExample, ())
     printf("\n= Rectangle example:\n");
 
     this_->rectangle = get_Rectangle(
-        &((RectangleInitParams){
+        &((RectangleParams){
             .origin.x = 4,
             .origin.y = 5,
             .width = 1,
@@ -117,7 +117,7 @@ private_fun(Void, stackRectangleExample, ())
     printf("\n= StackRectangle example:\n");
 
     Object(Rectangle, stackRectangle,
-           &((RectangleInitParams){
+           &((RectangleParams){
                .origin.x = 12,
                .origin.y = 23,
                .width = 34,
@@ -137,7 +137,7 @@ private_fun(Void, heapRectangleExample, ())
     printf("\n= HeapRectangle example:\n");
 
     this_->heapRectangle = new_Rectangle(
-        &((RectangleInitParams){
+        &((RectangleParams){
             .origin.x = 12,
             .origin.y = 23,
             .width = 34,
@@ -157,7 +157,7 @@ private_fun(Void, coloredCircleExample, ())
     printf("\n= ColoredCircle example:\n");
 
     this_->coloredCircle = get_ColoredCircle(
-        &((ColoredCircleInitParams){
+        &((ColoredCircleParams){
             .radius = 10,
             .color = Color_red}));
 
