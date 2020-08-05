@@ -1,12 +1,13 @@
 #include "Application.h"
-#include "../CO/super_CO.h"
+#include "../CObject/Obj/super_Obj.h"
 #include "../Circle/Circle.h"
 #include "../ColoredCircle/ColoredCircle.h"
 #include "../Rectangle/Rectangle.h"
+#include "../Shape/Shape.h"
 #include <stdio.h>
 
 #define Class_ Application
-#define super_Class_ CO
+#define super_Class_ Obj
 
 class_members(
     Circle * circle,
@@ -69,7 +70,7 @@ private_fun(Void, circleExample, ())
     printf("circle.origin.y = %d\n", Shape_origin((Shape *) this_->circle).y);
     Shape_draw((Shape *) this_->circle, 5);
     Circle_rotate(this_->circle);
-    printf("circle.class = %s\n", CO_classType((CO *) this_->circle));
+    printf("circle.class = %s\n", Obj_type((Obj *) this_->circle));
 }
 
 private_fun(Void, stackCircleExample, ())
@@ -108,7 +109,7 @@ private_fun(Void, rectangleExample, ())
     printf("rectangle.height = %d\n", Rectangle_height(this_->rectangle));
     printf("rectangle.area() = %.2f\n", Shape_area((Shape *) this_->rectangle));
     Shape_draw((Shape *) this_->rectangle, 6);
-    printf("rectangle.class = %s\n", CO_classType((CO *) this_->rectangle));
+    printf("rectangle.class = %s\n", Obj_type((Obj *) this_->rectangle));
 }
 
 private_fun(Void, stackRectangleExample, ())
@@ -187,7 +188,7 @@ private_fun(Void, polymorphismExample, ())
     for (UInt8 i = 0; i < Array_size(shapes); i++)
     {
         printf("shapes[%d].area() = %.2f\n", i, Shape_area(shapes[i]));
-        printf("shapes[%d].objectSize() = %d\n", i, CO_objectSize((CO *) shapes[i]));
+        printf("shapes[%d].objectSize() = %d\n", i, Obj_size((Obj *) shapes[i]));
     }
 }
 

@@ -1,10 +1,10 @@
 #ifndef SHAPESUPER_H
 #define SHAPESUPER_H
-#include "../CO/super_CO.h"
+#include "../CObject/Obj/super_Obj.h"
 #include "Shape.h"
 
 #define Class_ Shape
-#define super_Class_ CO
+#define super_Class_ Obj
 
 virtual_class_members(
     Point origin);

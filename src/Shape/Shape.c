@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #define Class_ Shape
-#define super_Class_ CO
+#define super_Class_ Obj
 
 abstract_class_setup({ bind_virtual_functions(area, draw); });
 init({ this_->origin = params->origin; });
