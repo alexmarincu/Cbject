@@ -1,5 +1,5 @@
-#ifndef CIRCLESUPER_H
-#define CIRCLESUPER_H
+#ifndef SUPER_CIRCLE_H
+#define SUPER_CIRCLE_H
 #include "../Shape/super_Shape.h"
 #include "Circle.h"
 
@@ -18,4 +18,4 @@ override_functions(
 #undef super_Class_
 #undef Class_
 
-#endif // CIRCLESUPER_H
+#endif // SUPER_CIRCLE_H

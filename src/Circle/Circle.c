@@ -12,8 +12,6 @@ private_constants(
     (Float, privatePi = 3.14),
     (Float, anotherPrivatePi = 3.14));
 
-class_pool_size(10);
-
 class_setup({
     bind_virtual_fun(rotate);
     bind_override_functions(
@@ -22,8 +20,8 @@ class_setup({
 });
 
 init({
-    Shape_init((Shape * const) this_, (ShapeInitParams *) params);
-    this_->radius = params->radius;
+    Shape_init((Shape * const) this_, (ShapeParams *) params_);
+    this_->radius = params_->radius;
 });
 
 terminate({ Shape_terminate((Shape * const) this_); });

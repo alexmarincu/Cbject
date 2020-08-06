@@ -7,7 +7,7 @@
 public_constant(Float, pi);
 public_constants((Float, anotherPi));
 
-class_init_params(
+class_params(
     Point const origin,
     UInt32 const radius);
 

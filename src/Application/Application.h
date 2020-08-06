@@ -3,7 +3,7 @@
 #include "../CObject/Obj/Obj.h"
 
 #define Class_ Application
-singleton_class_init_params();
+singleton_class_params();
 fun(Void, start, ());
 #undef Class_
 

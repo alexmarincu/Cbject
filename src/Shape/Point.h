@@ -9,5 +9,4 @@ data_class(
     UInt32 y);
 
 #undef Class_
-
 #endif // POINT_H

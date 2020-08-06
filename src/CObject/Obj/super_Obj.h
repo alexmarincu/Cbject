@@ -1,5 +1,5 @@
-#ifndef SUPER_Obj_H
-#define SUPER_Obj_H
+#ifndef SUPER_OBJ_H
+#define SUPER_OBJ_H
 #include "Obj.h"
 
 typedef struct ObjClass
@@ -17,7 +17,7 @@ struct Obj
     ObjClass const * class_;
 };
 
-ObjClass const * const ObjClass_getInstance();
+ObjClass const * const ObjClass_instance();
 UInt8 super_Obj_size(Obj const * const this_);
 
-#endif // SUPER_Obj_H
+#endif // SUPER_OBJ_H

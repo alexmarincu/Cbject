@@ -14,8 +14,6 @@ override_functions(
     (Void, Shape, draw, (UInt8 const a)),
     (Void, Circle, rotate, ()));
 
-class_pool_size(10);
-
 class_setup({
     bind_override_functions(
         (Void, Shape, draw, (UInt8 const a)),
@@ -25,12 +23,12 @@ class_setup({
 init({
     Circle_init(
         (Circle *) this_,
-        &((CircleInitParams){
+        &((CircleParams){
             .origin.x = 0,
             .origin.y = 0,
-            .radius = params->radius}));
+            .radius = params_->radius}));
 
-    this_->color = params->color;
+    this_->color = params_->color;
 });
 
 terminate({ Circle_terminate((Circle *) this_); });
