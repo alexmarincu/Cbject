@@ -2,15 +2,14 @@
 #define SHAPE_H
 #include "Point.h"
 
-#define Class_ Shape
-
-abstract_class_params(Point origin);
-
-set_get(Point, origin);
+#define class Shape
+//==>
+abstractClassParams(Point origin);
+setterGetter(Point, origin);
 
 functions(
-    (Float, area, ()),
-    (Void, draw, (UInt8 const a)));
-
-#undef Class_
+    (float, area, ()),
+    (void, draw, (uint8 const a)));
+//<==
+#undef class
 #endif // SHAPE_H

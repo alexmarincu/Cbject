@@ -2,18 +2,18 @@
 #define RECTANGLE_H
 #include "../Shape/Point.h"
 
-#define Class_ Rectangle
-
-class_params(
+#define class Rectangle
+//==>
+classParams(
     Point const origin,
-    UInt32 const width,
-    UInt32 const height);
+    uint32 const width,
+    uint32 const height);
 
-setters_getters(
-    (UInt32, width),
-    (UInt32, height));
+settersGetters(
+    (uint32, width),
+    (uint32, height));
 
-fun(UInt32, test, (UInt32 const a));
-
-#undef Class_
+function(uint32, test, (uint32 const a));
+//<==
+#undef class
 #endif // RECTANGLE_H

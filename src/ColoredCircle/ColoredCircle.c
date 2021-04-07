@@ -1,50 +1,42 @@
 #include "ColoredCircle.h"
-#include "../Circle/super_Circle.h"
+#include "../Circle/superCircle.h"
 #include <stdio.h>
 
-#define Class_ ColoredCircle
-#define super_Class_ Circle
+#define class ColoredCircle
+#define superClass Circle
+//==>
+classPoolSize(10);
 
-class_members(
+classMembers(
     Color color);
 
-default_set_get(Color, color);
+defaultSetterGetter(Color, color);
 
-override_functions(
-    (Void, Shape, draw, (UInt8 const a)),
-    (Void, Circle, rotate, ()));
+overrideFunctions(
+    (void, Shape, draw, (uint8 const a)),
+    (void, Circle, rotate, ()));
 
-class_setup({
-    bind_override_functions(
-        (Void, Shape, draw, (UInt8 const a)),
-        (Void, Circle, rotate, ()));
+classSetup({
+    bindFunctions(
+        (void, Shape, draw, (uint8 const a)),
+        (void, Circle, rotate, ()));
 });
 
-init({
-    Circle_init(
-        (Circle *) this_,
-        &((CircleParams){
-            .origin.x = 0,
-            .origin.y = 0,
-            .radius = params_->radius}));
+init({ me->color = params->color; });
+terminate({});
 
-    this_->color = params_->color;
-});
-
-terminate({ Circle_terminate((Circle *) this_); });
-
-override_fun(Void, Shape, draw, (UInt8 const a))
+overrideFunction(void, Shape, draw, (uint8 const a))
 {
-    super_Shape_draw((Shape *) this_, 5);
-    super_Circle_draw((Circle *) this_, 5);
+    superShape_draw((Shape *) me, 5);
+    superCircle_draw((Circle *) me, 5);
     printf("ColoredCircle draw\n");
 }
 
-override_fun(Void, Circle, rotate, ())
+overrideFunction(void, Circle, rotate, ())
 {
-    super_Circle_rotate((Circle *) this_);
+    superCircle_rotate((Circle *) me);
     printf("Rotate counter-clockwise\n");
 }
-
-#undef super_Class_
-#undef Class_
+//<==
+#undef superClass
+#undef class

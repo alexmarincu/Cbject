@@ -2,18 +2,17 @@
 #define CIRCLE_H
 #include "../Shape/Point.h"
 
-#define Class_ Circle
+#define class Circle
+//==>
+publicConstant(float, pi);
+publicConstants((float, anotherPi));
 
-public_constant(Float, pi);
-public_constants((Float, anotherPi));
-
-class_params(
+classParams(
     Point const origin,
-    UInt32 const radius);
+    uint32 const radius);
 
-set_get(UInt32, radius);
-fun(Void, rotate, ());
-
-#undef Class_
-
+setterGetter(uint32, radius);
+function(void, rotate, ());
+//<==
+#undef class
 #endif // CIRCLE_H

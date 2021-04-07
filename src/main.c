@@ -1,11 +1,11 @@
 #include "Application/Application.h"
 #include <stdio.h>
 
-Int8 main()
+int8 main()
 {
     Application * const application = Application_instance();
     Application_init(application, null);
-    printf("application.objectSize() = %d\n", Obj_size((Obj *) application));
+    printf("application.size() = %d\n", Object_size((Object *) application));
     Application_start(application);
     Application_terminate(application);
     return 0;

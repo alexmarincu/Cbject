@@ -1,10 +1,11 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
-#include "../CObject/Obj/Obj.h"
+#include "../CObject/Object/Object.h"
 
-#define Class_ Application
-singleton_class_params();
-fun(Void, start, ());
-#undef Class_
-
+#define class Application
+//==>
+objectParams();
+function(void, start, ());
+//<==
+#undef class
 #endif // APPLICATION_H
