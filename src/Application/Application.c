@@ -161,6 +161,7 @@ privateFunction(void, coloredCircleExample, ())
             .radius = 10,
             .color = Color_red}));
 
+    (ObjectClass *) me->coloredCircle;
     printf("coloredCircle.radius = %d\n", Circle_radius((Circle *) me->coloredCircle));
     printf("Set radius to 3\n");
     Circle_radiusSet((Circle *) me->coloredCircle, 3);

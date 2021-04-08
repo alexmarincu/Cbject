@@ -1,7 +1,7 @@
 #include "Application/Application.h"
 #include <stdio.h>
 
-int8 main()
+int main()
 {
     Application * const application = Application_instance();
     Application_init(application, null);

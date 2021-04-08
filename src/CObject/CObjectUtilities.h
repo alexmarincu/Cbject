@@ -4,7 +4,7 @@
 #include "Primitives.h"
 #include <assert.h>
 
-#define ct_assert(condition, message) typedef char ct_assert_##message[(!!(condition)) * 2 - 1]
+#define ct_assert(condition, identifier) typedef char identifier[(!!(condition)) * 2 - 1]
 
 #define cou_vaArgs_(...) , ##__VA_ARGS__
 #define cou_vaArgs(...) cou_vaArgs_(__VA_ARGS__)
@@ -125,7 +125,7 @@
 #define cou_class(className, superClassName) \
     typedef struct className##Class          \
     {                                        \
-        superClassName##Class super;         \
+        superClassName##Class super;                                                    \
     } className##Class;                      \
                                              \
     className##Class const * const className##Class_instance()
@@ -133,7 +133,8 @@
 #define cou_members(className, superClassName, ...) \
     struct className                                \
     {                                               \
-        superClassName super;                       \
+        /*superClassName super;*/                       \
+        struct { uint8 _[superClassName##Class_sizes];} super; \
         cou_forEach(cou_addSemicolon, __VA_ARGS__)  \
     }
 
@@ -143,6 +144,21 @@
 #define cou_cm(className, superClassName, ...) cou_cm_(className, superClassName, __VA_ARGS__)
 #define classMembers(...) cou_cm(class, superClass, __VA_ARGS__)
 #define objectMembers(...) cou_cm(class, superClass, __VA_ARGS__)
+
+#define cou_cd_(className, superClassName, ...) \
+enum \
+{ \
+className##Class_sizes = \
+sizeof( \
+struct \
+{ \
+struct { uint8 _[superClassName##Class_sizes];} super; \
+cou_forEach(cou_addSemicolon, __VA_ARGS__) \
+} \
+) \
+}
+#define cou_cd(className, superClassName, ...) cou_cd_(className, superClassName, __VA_ARGS__)
+#define classDeclaration(...) cou_cd(class, superClass, __VA_ARGS__)
 
 #define cou_c_(className, type, ...) type const className##_##__VA_ARGS__
 #define cou_c(className, type, ...) cou_c_(className, type, __VA_ARGS__)
@@ -224,7 +240,7 @@
 #define cou_vfs_(className, superClassName, ...)                                         \
     typedef struct className##Class                                                      \
     {                                                                                    \
-        superClassName##Class super;                                                     \
+        superClassName##Class super;                                                    \
                                                                                          \
         struct                                                                           \
         {                                                                                \

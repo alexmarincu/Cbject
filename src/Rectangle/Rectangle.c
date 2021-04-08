@@ -6,9 +6,7 @@
 //==>
 classPoolSize(10);
 
-classMembers(
-    uint32 width,
-    uint32 height);
+classMembers(RectangleMembers);
 
 defaultSettersGetters(
     (uint32, width),

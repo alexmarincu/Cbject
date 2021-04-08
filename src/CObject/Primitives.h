@@ -14,6 +14,6 @@ typedef int8_t int8;
 typedef int16_t int16;
 typedef int32_t int32;
 typedef int64_t int64;
-#define Array_size(array) (sizeof(array) / sizeof(*(array)))
+#define Array_size(array) (sizeof(array) / sizeof(array[0]))
 
 #endif // PRIMITIVES_H

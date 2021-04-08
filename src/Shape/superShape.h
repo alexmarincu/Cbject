@@ -6,7 +6,7 @@
 #define class Shape
 #define superClass Object
 //==>
-abstractClassMembers(Point origin);
+abstractClassMembers(ShapeMembers);
 
 virtualFunctions(
     (float, area, ()),

@@ -3,7 +3,7 @@
 #include "../CObjectUtilities.h"
 
 typedef struct Object Object;
-
+enum{ObjectClass_sizes = sizeof(struct{void * _;})};
 typedef struct ObjectParams
 {
 } ObjectParams;

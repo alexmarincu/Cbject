@@ -3,6 +3,7 @@
 uint8 superObject_size(Object const * const me) { return sizeof(*me); }
 uint8 Object_size(Object const * const me) { return me->c->vf.size(me); }
 char const * Object_type(Object const * const me) { return me->c->type; }
+ct_assert(ObjectClass_sizes == sizeof(Object), ObjectClassSizeVerification);
 
 ObjectClass const * const ObjectClass_instance()
 {

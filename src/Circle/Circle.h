@@ -1,6 +1,6 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
-#include "../Shape/Point.h"
+#include "../Shape/Shape.h"
 
 #define class Circle
 //==>
@@ -10,6 +10,8 @@ publicConstants((float, anotherPi));
 classParams(
     Point const origin,
     uint32 const radius);
+
+    enum{CircleClass_sizes = sizeof(struct{uint8 _[ShapeClass_sizes]; uint32 radius;})};
 
 setterGetter(uint32, radius);
 function(void, rotate, ());
