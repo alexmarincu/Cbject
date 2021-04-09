@@ -1,6 +1,5 @@
 #ifndef SUPERSHAPE_H
 #define SUPERSHAPE_H
-#include "../CObject/Object/superObject.h"
 #include "Shape.h"
 
 #define class Shape

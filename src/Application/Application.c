@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "../CObject/Object/superObject.h"
 #include "../Circle/Circle.h"
 #include "../ColoredCircle/ColoredCircle.h"
 #include "../Rectangle/Rectangle.h"

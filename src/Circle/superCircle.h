@@ -6,8 +6,7 @@
 #define class Circle
 #define superClass Shape
 //==>
-abstractClassMembers(
-    uint32 radius);
+abstractClassMembers(CircleMembers);
 
 virtualFunctions((void, rotate, ()));
 

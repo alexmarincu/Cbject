@@ -1,6 +1,7 @@
 #ifndef SHAPE_H
 #define SHAPE_H
 #include "Point.h"
+#include "../CObject/Object/Object.h"
 
 #define class Shape
 #define superClass Object

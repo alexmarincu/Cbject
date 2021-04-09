@@ -134,7 +134,8 @@
     struct className                                \
     {                                               \
         /*superClassName super;*/                       \
-        struct { uint8 _[superClassName##Class_sizes];} super; \
+        /*struct { uint8 _[superClassName##Class_sizes];} super;*/ \
+        superClassName##Shell super; \
         cou_forEach(cou_addSemicolon, __VA_ARGS__)  \
     }
 
@@ -156,7 +157,12 @@ struct { uint8 _[superClassName##Class_sizes];} super; \
 cou_forEach(cou_addSemicolon, __VA_ARGS__) \
 } \
 ) \
-}
+}; \
+typedef union className##Shell  \
+{ \
+    char d[sizeof(struct{ superClassName##Shell super; cou_forEach(cou_addSemicolon, __VA_ARGS__) })]; \
+    maxAlign a; \
+} className##Shell
 #define cou_cd(className, superClassName, ...) cou_cd_(className, superClassName, __VA_ARGS__)
 #define classDeclaration(...) cou_cd(class, superClass, __VA_ARGS__)
 
@@ -223,7 +229,7 @@ cou_forEach(cou_addSemicolon, __VA_ARGS__) \
 #define cou_stripParenthesesAndApplyVirtualFunctionPointer(funSignature) cou_vfp funSignature;
 
 #define cou_virtualCall(className, functionName, params) \
-    return ((className##Class *) ((Object *) me)->c)->vf.functionName(me cou_vaArgs(cou_stripParentheses(params)))
+    return ((className##Class *)me->super.d)->vf.functionName(me cou_vaArgs(cou_stripParentheses(params)))
 
 #define cou_superFunctions__(className, type, functionName, arguments) \
     type super##className##_##functionName(className * const me cou_vaArgs(cou_stripParentheses(arguments)))
@@ -300,7 +306,8 @@ cou_forEach(cou_addSemicolon, __VA_ARGS__) \
             __VA_ARGS__                                                                  \
         while (0);                                                                       \
                                                                                          \
-        ((Object *) me)->c = (ObjectClass *) className##Class_instance();                \
+        /*((Object *) me)->c = (ObjectClass *) className##Class_instance(); */               \
+        Object_classSet((Object *) me, (ObjectClass *) className##Class_instance());  \
     }
 #define cou_i(className, superClassName, ...) cou_i_(className, superClassName, __VA_ARGS__)
 #define init(...) cou_i(class, superClass, __VA_ARGS__)
@@ -325,7 +332,7 @@ cou_forEach(cou_addSemicolon, __VA_ARGS__) \
         if (((ObjectClass *) &c)->type == null)                                                       \
         {                                                                                             \
             static char const * const type = #className;                                              \
-            *((superClassName##Class *) &c) = *superClassName##Class##_instance();                    \
+            *((superClassName##Class *) &c) = *superClassName##Class_instance();                    \
             ((ObjectClass *) &c)->vf.size = (uint8(*)(Object const * const me)) override_Object_size; \
                                                                                                       \
             do                                                                                        \
