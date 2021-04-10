@@ -1,6 +1,6 @@
-#ifndef COBJECTUTILITIES_H
-#define COBJECTUTILITIES_H
-#include "CObjectSettings.h"
+#ifndef CbjectUTILITIES_H
+#define CbjectUTILITIES_H
+#include "CbjectSettings.h"
 #include "Primitives.h"
 #include <assert.h>
 
@@ -68,9 +68,9 @@
     void className##_init(className * const me, className##Params const * const params); \
     void className##_terminate(className * const me)
 
-#define cou_getObjectDecl(className) className * get_##className(className##Params const * const params)
-#define cou_newObjectDecl(className) className * new_##className(className##Params const * const params)
-#define cou_deleteObjectDecl(className) className * delete_##className(className * me)
+#define cou_getCbjectDecl(className) className * get_##className(className##Params const * const params)
+#define cou_newCbjectDecl(className) className * new_##className(className##Params const * const params)
+#define cou_deleteCbjectDecl(className) className * delete_##className(className * me)
 
 #define cou_acp_(className, ...) cou_params(className, __VA_ARGS__)
 #define cou_acp(className, ...) cou_acp_(className, __VA_ARGS__)
@@ -82,27 +82,27 @@
 #define cou_op(className, ...) cou_op_(className, __VA_ARGS__)
 #define objectParams(...) cou_op(class, __VA_ARGS__)
 
-#if CObject_useStaticPool == true
-    #if CObject_useHeap == true
+#if Cbject_useStaticPool == true
+    #if Cbject_useHeap == true
         #define cou_cp_(className, ...)         \
             cou_params(className, __VA_ARGS__); \
             uint8 className##Class_size();      \
-            cou_getObjectDecl(className);       \
-            cou_newObjectDecl(className);       \
-            cou_deleteObjectDecl(className)
+            cou_getCbjectDecl(className);       \
+            cou_newCbjectDecl(className);       \
+            cou_deleteCbjectDecl(className)
     #else
         #define cou_cp_(className, ...)         \
             cou_params(className, __VA_ARGS__); \
             uint8 className##Class_size();      \
-            cou_getObjectDecl(className)
+            cou_getCbjectDecl(className)
     #endif
 #else
-    #if CObject_useHeap == true
+    #if Cbject_useHeap == true
         #define cou_cp_(className, ...)         \
             cou_params(className, __VA_ARGS__); \
             uint8 className##Class_size();      \
-            cou_newObjectDecl(className);       \
-            cou_deleteObjectDecl(className)
+            cou_newCbjectDecl(className);       \
+            cou_deleteCbjectDecl(className)
     #else
         #define cou_cp_(className, ...)         \
             cou_params(className, __VA_ARGS__); \
@@ -112,7 +112,7 @@
 #define cou_cp(className, ...) cou_cp_(className, __VA_ARGS__)
 #define classParams(...) cou_cp(class, __VA_ARGS__)
 
-#if CObject_useStaticPool == true
+#if Cbject_useStaticPool == true
     #define cou_cps_(className, poolSize)   \
         enum                                \
         {                                   \
@@ -229,7 +229,7 @@ typedef union className##Shell  \
 #define cou_stripParenthesesAndApplyVirtualFunctionPointer(funSignature) cou_vfp funSignature;
 
 #define cou_virtualCall(className, functionName, params) \
-    return ((className##Class *)me->super.d)->vf.functionName(me cou_vaArgs(cou_stripParentheses(params)))
+    return ((className##Class *)Cbject_class((Cbject *)me))->vf.functionName(me cou_vaArgs(cou_stripParentheses(params)))
 
 #define cou_superFunctions__(className, type, functionName, arguments) \
     type super##className##_##functionName(className * const me cou_vaArgs(cou_stripParentheses(arguments)))
@@ -259,7 +259,7 @@ typedef union className##Shell  \
 #define cou_vfs(className, superClassName, ...) cou_vfs_(className, superClassName, __VA_ARGS__)
 #define virtualFunctions(...) cou_vfs(class, superClass, __VA_ARGS__)
 
-#define stackObject(className, varName, ...)                  \
+#define stackCbject(className, varName, ...)                  \
     uint8 const varName##Stack[className##Class_size()];      \
     className * const varName = (className *) varName##Stack; \
     className##_init((className *) varName, __VA_ARGS__)
@@ -300,14 +300,15 @@ typedef union className##Shell  \
 #define cou_i_(className, superClassName, ...)                                           \
     void className##_init(className * const me, className##Params const * const params)  \
     {                                                                                    \
-        superClassName##_init((superClassName *) me, (superClassName##Params *) params); \
+        /*superClassName##_init((superClassName *) me, (superClassName##Params *) params);*/ \
+        /*if (#superClassName == "Cbject") { Cbject_init((Cbject *) me, null); }*/ \
                                                                                          \
         do                                                                               \
             __VA_ARGS__                                                                  \
         while (0);                                                                       \
                                                                                          \
-        /*((Object *) me)->c = (ObjectClass *) className##Class_instance(); */               \
-        Object_classSet((Object *) me, (ObjectClass *) className##Class_instance());  \
+        /*((Cbject *) me)->c = (CbjectClass *) className##Class_instance(); */               \
+        Cbject_classSet((Cbject *) me, (CbjectClass *) className##Class_instance());  \
     }
 #define cou_i(className, superClassName, ...) cou_i_(className, superClassName, __VA_ARGS__)
 #define init(...) cou_i(class, superClass, __VA_ARGS__)
@@ -329,23 +330,23 @@ typedef union className##Shell  \
     {                                                                                                 \
         static className##Class c;                                                                    \
                                                                                                       \
-        if (((ObjectClass *) &c)->type == null)                                                       \
+        if (((CbjectClass *) &c)->type == null)                                                       \
         {                                                                                             \
             static char const * const type = #className;                                              \
             *((superClassName##Class *) &c) = *superClassName##Class_instance();                    \
-            ((ObjectClass *) &c)->vf.size = (uint8(*)(Object const * const me)) override_Object_size; \
+            ((CbjectClass *) &c)->vf.size = (uint8(*)(Cbject const * const me)) override_Cbject_size; \
                                                                                                       \
             do                                                                                        \
                 __VA_ARGS__                                                                           \
             while (0);                                                                                \
                                                                                                       \
-            ((ObjectClass *) &c)->type = type;                                                        \
+            ((CbjectClass *) &c)->type = type;                                                        \
         }                                                                                             \
                                                                                                       \
         return &c;                                                                                    \
     }
 
-#define cou_getObjectImpl(className)                                    \
+#define cou_getCbjectImpl(className)                                    \
     className * get_##className(className##Params const * const params) \
     {                                                                   \
         static className pool[className##_poolSize];                    \
@@ -362,7 +363,7 @@ typedef union className##Shell  \
         return me;                                                      \
     }
 
-#define cou_newObjectImpl(className)                                    \
+#define cou_newCbjectImpl(className)                                    \
     className * new_##className(className##Params const * const params) \
     {                                                                   \
         className * me = (className *) malloc(sizeof(className));       \
@@ -371,7 +372,7 @@ typedef union className##Shell  \
         return me;                                                      \
     }
 
-#define cou_deleteObjectImpl(className)            \
+#define cou_deleteCbjectImpl(className)            \
     className * delete_##className(className * me) \
     {                                              \
         className##_terminate(me);                 \
@@ -379,7 +380,7 @@ typedef union className##Shell  \
     }
 
 #define cou_acs_(className, superClassName, ...)                                          \
-    static uint8 override_Object_size(className const * const me) { return sizeof(*me); } \
+    static uint8 override_Cbject_size(className const * const me) { return sizeof(*me); } \
     cou_classInstanceImpl(className, superClassName, __VA_ARGS__)
 #define cou_acs(className, superClassName, ...) cou_acs_(className, superClassName, __VA_ARGS__)
 #define abstractClassSetup(...) cou_acs(class, superClass, __VA_ARGS__)
@@ -391,40 +392,40 @@ typedef union className##Shell  \
         return &singleton;                                                                \
     }                                                                                     \
                                                                                           \
-    static uint8 override_Object_size(className const * const me) { return sizeof(*me); } \
+    static uint8 override_Cbject_size(className const * const me) { return sizeof(*me); } \
     cou_classInstanceImpl(className, superClassName, __VA_ARGS__)
 #define cou_os(className, superClassName, ...) cou_os_(className, superClassName, __VA_ARGS__)
 #define objectSetup(...) cou_os(class, superClass, __VA_ARGS__)
 
-#if CObject_useStaticPool == true
-    #if CObject_useHeap == true
+#if Cbject_useStaticPool == true
+    #if Cbject_useHeap == true
         #include <stdlib.h>
         #define cou_cs_(className, superClassName, ...)                                           \
-            static uint8 override_Object_size(className const * const me) { return sizeof(*me); } \
+            static uint8 override_Cbject_size(className const * const me) { return sizeof(*me); } \
             cou_classInstanceImpl(className, superClassName, __VA_ARGS__);                        \
-            cou_getObjectImpl(className);                                                         \
-            cou_newObjectImpl(className);                                                         \
-            cou_deleteObjectImpl(className);                                                      \
+            cou_getCbjectImpl(className);                                                         \
+            cou_newCbjectImpl(className);                                                         \
+            cou_deleteCbjectImpl(className);                                                      \
             uint8 className##Class_size() { return sizeof(className); }
     #else
         #define cou_cs_(className, superClassName, ...)                                           \
-            static uint8 override_Object_size(className const * const me) { return sizeof(*me); } \
+            static uint8 override_Cbject_size(className const * const me) { return sizeof(*me); } \
             cou_classInstanceImpl(className, superClassName, __VA_ARGS__);                        \
-            cou_getObjectImpl(className);                                                         \
+            cou_getCbjectImpl(className);                                                         \
             uint8 className##Class_size() { return sizeof(className); }
     #endif
 #else
-    #if CObject_useHeap == true
+    #if Cbject_useHeap == true
         #include <stdlib.h>
         #define cou_cs_(className, superClassName, ...)                                           \
-            static uint8 override_Object_size(className const * const me) { return sizeof(*me); } \
+            static uint8 override_Cbject_size(className const * const me) { return sizeof(*me); } \
             cou_classInstanceImpl(className, superClassName, __VA_ARGS__);                        \
-            cou_newObjectImpl(className);                                                         \
-            cou_deleteObjectImpl(className);                                                      \
+            cou_newCbjectImpl(className);                                                         \
+            cou_deleteCbjectImpl(className);                                                      \
             uint8 className##Class_size() { return sizeof(className); }
     #else
         #define cou_cs_(className, superClassName, ...)                                           \
-            static uint8 override_Object_size(className const * const me) { return sizeof(*me); } \
+            static uint8 override_Cbject_size(className const * const me) { return sizeof(*me); } \
             cou_classInstanceImpl(className, superClassName, __VA_ARGS__);                        \
             uint8 className##Class_size() { return sizeof(className); }
     #endif
@@ -446,4 +447,4 @@ typedef union className##Shell  \
 #define cou_stripParenthesesAndApplybindFunction(funSignature) bindFunction funSignature;
 #define bindFunctions(...) cou_forEach(cou_stripParenthesesAndApplybindFunction, __VA_ARGS__)
 
-#endif // COBJECTUTILITIES_H
+#endif // CbjectUTILITIES_H

@@ -4,7 +4,7 @@
 
 #define class Rectangle
 #define superClass Shape
-//==>
+
 classParams(
     Point const origin,
     uint32 const width,
@@ -21,7 +21,7 @@ settersGetters(
     (uint32, height));
 
 function(uint32, test, (uint32 const a));
-//<==
+
 #undef superClass
 #undef class
 #endif // RECTANGLE_H

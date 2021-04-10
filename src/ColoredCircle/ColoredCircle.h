@@ -5,7 +5,7 @@
 
 #define class ColoredCircle
 #define superClass Circle
-//==>
+
 classParams(
     uint32 const radius,
     Color const color);
@@ -18,7 +18,7 @@ classDeclaration(ColoredCircleMembers);
 settersGetters(
     (uint32, radius),
     (Color, color));
-//<==
+
 #undef class
 #undef superClass
 #endif // COLOREDCIRCLE_H

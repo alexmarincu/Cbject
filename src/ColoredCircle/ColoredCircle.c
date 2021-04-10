@@ -4,7 +4,7 @@
 
 #define class ColoredCircle
 #define superClass Circle
-//==>
+
 classPoolSize(10);
 
 classMembers(ColoredCircleMembers);
@@ -36,6 +36,6 @@ overrideFunction(void, Circle, rotate, ())
     superCircle_rotate((Circle *) me);
     printf("Rotate counter-clockwise\n");
 }
-//<==
+
 #undef superClass
 #undef class

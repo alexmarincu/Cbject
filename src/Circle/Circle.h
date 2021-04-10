@@ -4,7 +4,7 @@
 
 #define class Circle
 #define superClass Shape
-//==>
+
 publicConstant(float, pi);
 publicConstants((float, anotherPi));
 
@@ -20,7 +20,7 @@ classDeclaration(CircleMembers);
 
 setterGetter(uint32, radius);
 function(void, rotate, ());
-//<==
+
 #undef class
 #undef superClass
 #endif // CIRCLE_H

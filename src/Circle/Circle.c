@@ -3,7 +3,7 @@
 
 #define class Circle
 #define superClass Shape
-//==>
+
 classPoolSize(10);
 
 constants(
@@ -34,6 +34,6 @@ overrideFunction(void, Shape, draw, (uint8 const a))
 
 overrideFunction(float, Shape, area, ()) { return me->radius * me->radius * Circle_pi; }
 virtualFunction(void, rotate, (), ()) { printf("Rotate clockwise\n"); }
-//<==
+
 #undef superClass
 #undef class

@@ -2,8 +2,8 @@
 #include <stdio.h>
 
 #define class Shape
-#define superClass Object
-//==>
+#define superClass Cbject
+
 defaultSetterGetter(Point, origin);
 abstractClassSetup({ bindVirtualFunctions(area, draw); });
 init({ me->origin = params->origin; });
@@ -22,6 +22,6 @@ virtualFunction(void, draw, (uint8 const a), (a))
 }
 
 function(void, dummy, ()) { printf("Shape dummy\n"); }
-//<==
+
 #undef superClass
 #undef class
