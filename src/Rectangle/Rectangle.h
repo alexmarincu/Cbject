@@ -6,7 +6,6 @@
 #define superClass Shape
 
 classParams(
-    Point const origin,
     uint32 const width,
     uint32 const height);
 

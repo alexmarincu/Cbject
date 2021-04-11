@@ -57,11 +57,12 @@
 
 #define cou_addSemicolon(x) x;
 
-#define cou_params(className, ...)                                                       \
+#define cou_params(className, superClassName, ...)                                                      \
     typedef struct className className;                                                  \
                                                                                          \
     typedef struct className##Params                                                     \
-    {                                                                                    \
+    {                        \
+        superClassName##Params super; \
         cou_forEach(cou_addSemicolon, __VA_ARGS__)                                       \
     } className##Params;                                                                 \
                                                                                          \
@@ -72,45 +73,45 @@
 #define cou_newCbjectDecl(className) className * new_##className(className##Params const * const params)
 #define cou_deleteCbjectDecl(className) className * delete_##className(className * me)
 
-#define cou_acp_(className, ...) cou_params(className, __VA_ARGS__)
-#define cou_acp(className, ...) cou_acp_(className, __VA_ARGS__)
-#define abstractClassParams(...) cou_acp(class, __VA_ARGS__)
+#define cou_acp_(className, superClassName, ...)  cou_params(className, superClassName, __VA_ARGS__)
+#define cou_acp(className, superClassName, ...)  cou_acp_(className, superClassName, __VA_ARGS__)
+#define abstractClassParams(...) cou_acp(class, superClass, __VA_ARGS__)
 
-#define cou_op_(className, ...)         \
-    cou_params(className, __VA_ARGS__); \
+#define cou_op_(className, superClassName, ...)         \
+    cou_params(className, superClassName, __VA_ARGS__); \
     className * className##_instance()
-#define cou_op(className, ...) cou_op_(className, __VA_ARGS__)
-#define objectParams(...) cou_op(class, __VA_ARGS__)
+#define cou_op(className, superClassName, ...) cou_op_(className, superClassName, __VA_ARGS__)
+#define objectParams(...) cou_op(class, superClass, __VA_ARGS__)
 
 #if Cbject_useStaticPool == true
     #if Cbject_useHeap == true
-        #define cou_cp_(className, ...)         \
-            cou_params(className, __VA_ARGS__); \
+        #define cou_cp_(className, superClassName, ...)         \
+            cou_params(className, superClassName, __VA_ARGS__); \
             uint8 className##Class_size();      \
             cou_getCbjectDecl(className);       \
             cou_newCbjectDecl(className);       \
             cou_deleteCbjectDecl(className)
     #else
-        #define cou_cp_(className, ...)         \
-            cou_params(className, __VA_ARGS__); \
+        #define cou_cp_(className, superClassName, ...)         \
+            cou_params(className, superClassName, __VA_ARGS__); \
             uint8 className##Class_size();      \
             cou_getCbjectDecl(className)
     #endif
 #else
     #if Cbject_useHeap == true
-        #define cou_cp_(className, ...)         \
-            cou_params(className, __VA_ARGS__); \
+        #define cou_cp_(className, superClassName, ...)         \
+            cou_params(className, superClassName, __VA_ARGS__); \
             uint8 className##Class_size();      \
             cou_newCbjectDecl(className);       \
             cou_deleteCbjectDecl(className)
     #else
-        #define cou_cp_(className, ...)         \
-            cou_params(className, __VA_ARGS__); \
+        #define cou_cp_(className, superClassName, ...)         \
+            cou_params(className, superClassName, __VA_ARGS__); \
             uint8 className##Class_size()
     #endif
 #endif
-#define cou_cp(className, ...) cou_cp_(className, __VA_ARGS__)
-#define classParams(...) cou_cp(class, __VA_ARGS__)
+#define cou_cp(className, superClassName, ...) cou_cp_(className, superClassName, __VA_ARGS__)
+#define classParams(...) cou_cp(class, superClass, __VA_ARGS__)
 
 #if Cbject_useStaticPool == true
     #define cou_cps_(className, poolSize)   \
@@ -259,9 +260,8 @@ typedef union className##Shell  \
 #define cou_vfs(className, superClassName, ...) cou_vfs_(className, superClassName, __VA_ARGS__)
 #define virtualFunctions(...) cou_vfs(class, superClass, __VA_ARGS__)
 
-#define stackCbject(className, varName, ...)                  \
-    uint8 const varName##Stack[className##Class_size()];      \
-    className * const varName = (className *) varName##Stack; \
+#define cbject(className, varName, ...)                  \
+    className * const varName = (className *) &((className##Shell){});  \
     className##_init((className *) varName, __VA_ARGS__)
 
 #define cou_sg_(className, type, memberName)                                         \
@@ -300,7 +300,7 @@ typedef union className##Shell  \
 #define cou_i_(className, superClassName, ...)                                           \
     void className##_init(className * const me, className##Params const * const params)  \
     {                                                                                    \
-        /*superClassName##_init((superClassName *) me, (superClassName##Params *) params);*/ \
+        superClassName##_init((superClassName *) me, (superClassName##Params *) params); \
         /*if (#superClassName == "Cbject") { Cbject_init((Cbject *) me, null); }*/ \
                                                                                          \
         do                                                                               \

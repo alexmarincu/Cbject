@@ -9,7 +9,6 @@ publicConstant(float, pi);
 publicConstants((float, anotherPi));
 
 classParams(
-    Point const origin,
     uint32 const radius);
 
     #define CircleMembers \

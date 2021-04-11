@@ -3,9 +3,11 @@
 #include "../Cbject/Cbject.h"
 
 #define class Application
+#define superClass Cbject
 
 objectParams();
 function(void, start, ());
 
+#undef superClass
 #undef class
 #endif // APPLICATION_H

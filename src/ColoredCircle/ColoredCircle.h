@@ -7,7 +7,6 @@
 #define superClass Circle
 
 classParams(
-    uint32 const radius,
     Color const color);
 
     #define ColoredCircleMembers \

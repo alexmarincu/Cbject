@@ -33,13 +33,13 @@ function(void, start, ())
 {
     Application_printBeginMessage(me);
     Application_circleExample(me);
-    // Application_stackCircleExample(me);
+    Application_stackCircleExample(me);
     Application_rectangleExample(me);
-    // Application_stackRectangleExample(me);
-    // Application_heapRectangleExample(me);
+    Application_stackRectangleExample(me);
+    Application_heapRectangleExample(me);
     Application_coloredCircleExample(me);
-    // Application_polymorphismExample(me);
-    // Application_printEndMessage(me);
+    Application_polymorphismExample(me);
+    Application_printEndMessage(me);
 }
 
 privateFunction(void, printBeginMessage, ()) { printf("\nApplication started ->\n"); }
@@ -49,34 +49,31 @@ privateFunction(void, circleExample, ())
 {
     printf("\n= Circle example:\n");
     printf("Circle_pi = %.2f\n", Circle_pi);
-    Circle * circle = me->circle;
-
-    circle = get_Circle(&((CircleParams){.origin.x = 0, .origin.y = 1, .radius = 1}));
-
-    printf("circle.radius = %d\n", Circle_radius(circle));
+    me->circle = get_Circle(&((CircleParams){.super.origin.x = 0, .super.origin.y = 1, .radius = 1}));
+    printf("circle.radius = %d\n", Circle_radius(me->circle));
     printf("Set radius to 2\n");
-    Circle_radiusSet(circle, 2);
-    printf("circle.radius = %d\n", Circle_radius(circle));
-    printf("circle.area = %.2f\n", Shape_area((Shape *) circle));
-    printf("circle.origin.x = %d\n", Shape_origin((Shape *) circle).x);
-    printf("circle.origin.y = %d\n", Shape_origin((Shape *) circle).y);
+    Circle_radiusSet(me->circle, 2);
+    printf("circle.radius = %d\n", Circle_radius(me->circle));
+    printf("circle.area = %.2f\n", Shape_area((Shape *) me->circle));
+    printf("circle.origin.x = %d\n", Shape_origin((Shape *) me->circle).x);
+    printf("circle.origin.y = %d\n", Shape_origin((Shape *) me->circle).y);
     printf("Set origin to {2, 3}\n");
-    Shape_originSet((Shape *) circle, (Point){2, 3});
-    printf("circle.origin.x = %d\n", Shape_origin((Shape *) circle).x);
-    printf("circle.origin.y = %d\n", Shape_origin((Shape *) circle).y);
-    Shape_draw((Shape *) circle, 5);
-    Circle_rotate(circle);
-    printf("circle.class.type = %s\n", Cbject_type((Cbject *) circle));
+    Shape_originSet((Shape *) me->circle, (Point){2, 3});
+    printf("circle.origin.x = %d\n", Shape_origin((Shape *) me->circle).x);
+    printf("circle.origin.y = %d\n", Shape_origin((Shape *) me->circle).y);
+    Shape_draw((Shape *) me->circle, 5);
+    Circle_rotate(me->circle);
+    printf("circle.class.type = %s\n", Cbject_type((Cbject *) me->circle));
 }
 
 privateFunction(void, stackCircleExample, ())
 {
     printf("\n= StackCircle example:\n");
 
-    stackCbject(Circle, stackCircle,
+    cbject(Circle, stackCircle,
                 &((CircleParams){
-                    .origin.x = 2,
-                    .origin.y = 3,
+                    .super.origin.x = 2,
+                    .super.origin.y = 3,
                     .radius = 3}));
 
     printf("stackCircle.radius = %d\n", Circle_radius(stackCircle));
@@ -88,34 +85,33 @@ privateFunction(void, stackCircleExample, ())
 privateFunction(void, rectangleExample, ())
 {
     printf("\n= Rectangle example:\n");
-    Rectangle * rectangle = me->rectangle;
-    rectangle = get_Rectangle(
+    me->rectangle = get_Rectangle(
         &((RectangleParams){
-            .origin.x = 4,
-            .origin.y = 5,
+            .super.origin.x = 4,
+            .super.origin.y = 5,
             .width = 1,
             .height = 2}));
 
-    printf("rectangle.width = %d\n", Rectangle_width(rectangle));
-    printf("rectangle.height = %d\n", Rectangle_height(rectangle));
+    printf("rectangle.width = %d\n", Rectangle_width(me->rectangle));
+    printf("rectangle.height = %d\n", Rectangle_height(me->rectangle));
     printf("Set width to 2 and height to 3\n");
-    Rectangle_widthSet(rectangle, 2);
-    Rectangle_heightSet(rectangle, 3);
-    printf("rectangle.width = %d\n", Rectangle_width(rectangle));
-    printf("rectangle.height = %d\n", Rectangle_height(rectangle));
-    printf("rectangle.area = %.2f\n", Shape_area((Shape *) rectangle));
-    Shape_draw((Shape *) rectangle, 6);
-    printf("rectangle.class.type = %s\n", Cbject_type((Cbject *) rectangle));
+    Rectangle_widthSet(me->rectangle, 2);
+    Rectangle_heightSet(me->rectangle, 3);
+    printf("rectangle.width = %d\n", Rectangle_width(me->rectangle));
+    printf("rectangle.height = %d\n", Rectangle_height(me->rectangle));
+    printf("rectangle.area = %.2f\n", Shape_area((Shape *) me->rectangle));
+    Shape_draw((Shape *) me->rectangle, 6);
+    printf("rectangle.class.type = %s\n", Cbject_type((Cbject *) me->rectangle));
 }
 
 privateFunction(void, stackRectangleExample, ())
 {
     printf("\n= StackRectangle example:\n");
 
-    stackCbject(Rectangle, stackRectangle,
+    cbject(Rectangle, stackRectangle,
                 &((RectangleParams){
-                    .origin.x = 12,
-                    .origin.y = 23,
+                    .super.origin.x = 12,
+                    .super.origin.y = 23,
                     .width = 34,
                     .height = 2}));
 
@@ -134,8 +130,8 @@ privateFunction(void, heapRectangleExample, ())
 
     me->heapRectangle = new_Rectangle(
         &((RectangleParams){
-            .origin.x = 12,
-            .origin.y = 23,
+            .super.origin.x = 12,
+            .super.origin.y = 23,
             .width = 34,
             .height = 2}));
 
@@ -151,25 +147,26 @@ privateFunction(void, heapRectangleExample, ())
 privateFunction(void, coloredCircleExample, ())
 {
     printf("\n= ColoredCircle example:\n");
-ColoredCircle * coloredCircle = me->coloredCircle;
-    coloredCircle = get_ColoredCircle(
+    me->coloredCircle = get_ColoredCircle(
         &((ColoredCircleParams){
-            .radius = 10,
+            .super.super.origin.x = 12,
+            .super.super.origin.y = 23,
+            .super.radius = 10,
             .color = Color_red}));
 
-    printf("coloredCircle.radius = %d\n", Circle_radius((Circle *) coloredCircle));
+    printf("coloredCircle.radius = %d\n", Circle_radius((Circle *) me->coloredCircle));
     printf("Set radius to 3\n");
-    Circle_radiusSet((Circle *) coloredCircle, 3);
-    printf("coloredCircle.radius = %d\n", Circle_radius((Circle *) coloredCircle));
-    printf("coloredCircle.area = %.2f\n", Shape_area((Shape *) coloredCircle));
-    printf("coloredCircle.origin.x = %d\n", Shape_origin((Shape *) coloredCircle).x);
-    printf("coloredCircle.origin.y = %d\n", Shape_origin((Shape *) coloredCircle).y);
+    Circle_radiusSet((Circle *) me->coloredCircle, 3);
+    printf("coloredCircle.radius = %d\n", Circle_radius((Circle *) me->coloredCircle));
+    printf("coloredCircle.area = %.2f\n", Shape_area((Shape *) me->coloredCircle));
+    printf("coloredCircle.origin.x = %d\n", Shape_origin((Shape *) me->coloredCircle).x);
+    printf("coloredCircle.origin.y = %d\n", Shape_origin((Shape *) me->coloredCircle).y);
     printf("Set origin to {2, 3}\n");
-    Shape_originSet((Shape *) coloredCircle, (Point){2, 3});
-    printf("coloredCircle.origin.x = %d\n", Shape_origin((Shape *) coloredCircle).x);
-    printf("coloredCircle.origin.y = %d\n", Shape_origin((Shape *) coloredCircle).y);
-    Shape_draw((Shape *) coloredCircle, 5);
-    Circle_rotate((Circle *) coloredCircle);
+    Shape_originSet((Shape *) me->coloredCircle, (Point){2, 3});
+    printf("coloredCircle.origin.x = %d\n", Shape_origin((Shape *) me->coloredCircle).x);
+    printf("coloredCircle.origin.y = %d\n", Shape_origin((Shape *) me->coloredCircle).y);
+    Shape_draw((Shape *) me->coloredCircle, 5);
+    Circle_rotate((Circle *) me->coloredCircle);
 }
 
 privateFunction(void, polymorphismExample, ())
@@ -179,6 +176,7 @@ privateFunction(void, polymorphismExample, ())
     Shape * const shapes[] = {
         (Shape *) me->circle,
         (Shape *) me->rectangle,
+        (Shape *) me->heapRectangle,
         (Shape *) me->coloredCircle};
 
     for (uint8 i = 0; i < Array_size(shapes); i++)
