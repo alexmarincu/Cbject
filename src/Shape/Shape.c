@@ -4,13 +4,11 @@
 #define class Shape
 #define superClass Cbject
 
-AbstractClassMembers(ShapeMembe);
-// defaultSetterGetter(Point, origin);
+AbstractClassSetup({ BindVirtualFunctions(area, draw); });
+Init({ me->m.origin = params->origin; });
+Terminate({});
 DefaultSetter(Point, origin);
 DefaultGetter(Point, origin);
-AbstractClassSetup({ BindVirtualFunctions(area, draw); });
-Init({ me->origin = params->origin; });
-Terminate({});
 
 VirtualFunction(float, area, (), ())
 {

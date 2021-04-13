@@ -6,7 +6,7 @@
 
 PoolSize(10);
 
-ClassMembers(RectangleMembe);
+ClassMembers();
 
 DefaultSetters(
     (uint32, width),
@@ -20,13 +20,13 @@ OverrideFunction(float, Shape, area, ());
 ClassSetup({ BindFunction(float, Shape, area, ()); });
 
 Init({
-    me->width = params->width;
-    me->height = params->height;
+    me->m.width = params->width;
+    me->m.height = params->height;
 });
 
 Terminate({});
 Function(uint32, test, (uint32 const a)) { return a; }
-OverrideFunction(float, Shape, area, ()) { return me->width * me->height; }
+OverrideFunction(float, Shape, area, ()) { return me->m.width * me->m.height; }
 
 #undef superClass
 #undef class

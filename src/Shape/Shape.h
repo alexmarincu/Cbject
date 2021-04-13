@@ -6,22 +6,10 @@
 #define class Shape
 #define superClass Cbject
 
-#define ShapeMembe \
-Point origin
-
-Members(Point origin);
-
 InitParams(Point origin);
-DeclareAbstractClass(ShapeMembe);
-
-
-
-
-
-// setterGetter(Point, origin);
-
+Members(Point origin);
+DeclareAbstractClass();
 Setters((Point, origin));
-
 Getters((Point, origin));
 
 Functions(

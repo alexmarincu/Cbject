@@ -7,12 +7,13 @@
 #define superClass Circle
 
 
-
+Members(
+    Color color);
     #define ColoredCircleMembe \
 Color color
 InitParams(
     Color const color);
-DeclareClass(ColoredCircleMembe);
+DeclareClass();
 
 
 

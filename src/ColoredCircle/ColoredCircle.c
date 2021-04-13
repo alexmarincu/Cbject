@@ -7,7 +7,7 @@
 
 PoolSize(10);
 
-ClassMembers(ColoredCircleMembe);
+ClassMembers();
 
 // defaultSetterGetter(Color, color);
 DefaultSetter(Color, color);
@@ -23,7 +23,7 @@ ClassSetup({
         (void, Circle, rotate, ()));
 });
 
-Init({ me->color = params->color; });
+Init({ me->m.color = params->color; });
 Terminate({});
 
 OverrideFunction(void, Shape, draw, (uint8 const a))
