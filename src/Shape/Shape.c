@@ -4,25 +4,27 @@
 #define class Shape
 #define superClass Cbject
 
-abstractClassMembers(ShapeMembers);
-defaultSetterGetter(Point, origin);
-abstractClassSetup({ bindVirtualFunctions(area, draw); });
-init({ me->origin = params->origin; });
-terminate({});
+AbstractClassMembers(ShapeMembers);
+// defaultSetterGetter(Point, origin);
+DefaultSetter(Point, origin);
+DefaultGetter(Point, origin);
+AbstractClassSetup({ BindVirtualFunctions(area, draw); });
+Init({ me->origin = params->origin; });
+Terminate({});
 
-virtualFunction(float, area, (), ())
+VirtualFunction(float, area, (), ())
 {
     (void) me;
     return 0;
 }
 
-virtualFunction(void, draw, (uint8 const a), (a))
+VirtualFunction(void, draw, (uint8 const a), (a))
 {
     (void) me;
     printf("Shape draw\n");
 }
 
-function(void, dummy, ()) { printf("Shape dummy\n"); }
+Function(void, dummy, ()) { printf("Shape dummy\n"); }
 
 #undef superClass
 #undef class

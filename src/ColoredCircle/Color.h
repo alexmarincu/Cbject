@@ -4,7 +4,7 @@
 
 #define class Color
 
-enumClass(
+EnumClassMembers(
     red,
     yellow,
     blue = 6);

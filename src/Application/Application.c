@@ -8,17 +8,17 @@
 #define class Application
 #define superClass Cbject
 
-objectMembers(
+SingletonMembers(
     Circle * circle,
     Rectangle * rectangle,
     Rectangle * heapRectangle,
     ColoredCircle * coloredCircle);
 
-objectSetup({});
-init({});
-terminate({ delete_Rectangle(me->heapRectangle); });
+SingletonSetup({});
+Init({});
+Terminate({ delete_Rectangle(me->heapRectangle); });
 
-privateFunctions(
+PrivateFunctions(
     (void, printBeginMessage, ()),
     (void, printEndMessage, ()),
     (void, circleExample, ()),
@@ -29,7 +29,7 @@ privateFunctions(
     (void, coloredCircleExample, ()),
     (void, polymorphismExample, ()));
 
-function(void, start, ())
+Function(void, start, ())
 {
     Application_printBeginMessage(me);
     Application_circleExample(me);
@@ -42,10 +42,10 @@ function(void, start, ())
     Application_printEndMessage(me);
 }
 
-privateFunction(void, printBeginMessage, ()) { printf("\nApplication started ->\n"); }
-privateFunction(void, printEndMessage, ()) { printf("\nApplication ended <-\n"); }
+PrivateFunction(void, printBeginMessage, ()) { printf("\nApplication started ->\n"); }
+PrivateFunction(void, printEndMessage, ()) { printf("\nApplication ended <-\n"); }
 
-privateFunction(void, circleExample, ())
+PrivateFunction(void, circleExample, ())
 {
     printf("\n= Circle example:\n");
     printf("Circle_pi = %.2f\n", Circle_pi);
@@ -66,7 +66,7 @@ privateFunction(void, circleExample, ())
     printf("circle.class.type = %s\n", Cbject_type((Cbject *) me->circle));
 }
 
-privateFunction(void, stackCircleExample, ())
+PrivateFunction(void, stackCircleExample, ())
 {
     printf("\n= StackCircle example:\n");
 
@@ -82,7 +82,7 @@ privateFunction(void, stackCircleExample, ())
     printf("stackCircle.radius = %d\n", Circle_radius(stackCircle));
 }
 
-privateFunction(void, rectangleExample, ())
+PrivateFunction(void, rectangleExample, ())
 {
     printf("\n= Rectangle example:\n");
     me->rectangle = get_Rectangle(
@@ -104,7 +104,7 @@ privateFunction(void, rectangleExample, ())
     printf("rectangle.class.type = %s\n", Cbject_type((Cbject *) me->rectangle));
 }
 
-privateFunction(void, stackRectangleExample, ())
+PrivateFunction(void, stackRectangleExample, ())
 {
     printf("\n= StackRectangle example:\n");
 
@@ -124,7 +124,7 @@ privateFunction(void, stackRectangleExample, ())
     printf("rectangle.height = %d\n", Rectangle_height(stackRectangle));
 }
 
-privateFunction(void, heapRectangleExample, ())
+PrivateFunction(void, heapRectangleExample, ())
 {
     printf("\n= HeapRectangle example:\n");
 
@@ -144,7 +144,7 @@ privateFunction(void, heapRectangleExample, ())
     printf("rectangle.height = %d\n", Rectangle_height(me->heapRectangle));
 }
 
-privateFunction(void, coloredCircleExample, ())
+PrivateFunction(void, coloredCircleExample, ())
 {
     printf("\n= ColoredCircle example:\n");
     me->coloredCircle = get_ColoredCircle(
@@ -169,7 +169,7 @@ privateFunction(void, coloredCircleExample, ())
     Circle_rotate((Circle *) me->coloredCircle);
 }
 
-privateFunction(void, polymorphismExample, ())
+PrivateFunction(void, polymorphismExample, ())
 {
     printf("\n= Polymorphism example:\n");
 

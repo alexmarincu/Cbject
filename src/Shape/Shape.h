@@ -11,15 +11,19 @@ AbstractClassInitParams(Point origin);
 #define ShapeMembers \
 Point origin
 
-classDeclaration(ShapeMembers);
+DeclareClass(ShapeMembers);
 
-setterGetter(Point, origin);
+// setterGetter(Point, origin);
 
-functions(
+Setters((Point, origin));
+
+Getters((Point, origin));
+
+Functions(
     (float, area, ()),
     (void, draw, (uint8 const a)));
 
-virtualFunctions(
+VirtualFunctions(
     (float, area, ()),
     (void, draw, (uint8 const a)));
 

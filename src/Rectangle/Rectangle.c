@@ -4,25 +4,29 @@
 #define class Rectangle
 #define superClass Shape
 
-classPoolSize(10);
+PoolSize(10);
 
-classMembers(RectangleMembers);
+ClassMembers(RectangleMembers);
 
-defaultSettersGetters(
+DefaultSetters(
     (uint32, width),
     (uint32, height));
 
-overrideFunction(float, Shape, area, ());
-classSetup({ bindFunction(float, Shape, area, ()); });
+DefaultGetters(
+    (uint32, width),
+    (uint32, height));
 
-init({
+OverrideFunction(float, Shape, area, ());
+ClassSetup({ BindFunction(float, Shape, area, ()); });
+
+Init({
     me->width = params->width;
     me->height = params->height;
 });
 
-terminate({});
-function(uint32, test, (uint32 const a)) { return a; }
-overrideFunction(float, Shape, area, ()) { return me->width * me->height; }
+Terminate({});
+Function(uint32, test, (uint32 const a)) { return a; }
+OverrideFunction(float, Shape, area, ()) { return me->width * me->height; }
 
 #undef superClass
 #undef class

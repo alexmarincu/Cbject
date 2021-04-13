@@ -5,33 +5,35 @@
 #define class ColoredCircle
 #define superClass Circle
 
-classPoolSize(10);
+PoolSize(10);
 
-classMembers(ColoredCircleMembers);
+ClassMembers(ColoredCircleMembers);
 
-defaultSetterGetter(Color, color);
+// defaultSetterGetter(Color, color);
+DefaultSetter(Color, color);
+DefaultGetter(Color, color);
 
-overrideFunctions(
+OverrideFunctions(
     (void, Shape, draw, (uint8 const a)),
     (void, Circle, rotate, ()));
 
-classSetup({
-    bindFunctions(
+ClassSetup({
+    BindFunctions(
         (void, Shape, draw, (uint8 const a)),
         (void, Circle, rotate, ()));
 });
 
-init({ me->color = params->color; });
-terminate({});
+Init({ me->color = params->color; });
+Terminate({});
 
-overrideFunction(void, Shape, draw, (uint8 const a))
+OverrideFunction(void, Shape, draw, (uint8 const a))
 {
     superShape_draw((Shape *) me, 5);
     superCircle_draw((Circle *) me, 5);
     printf("ColoredCircle draw\n");
 }
 
-overrideFunction(void, Circle, rotate, ())
+OverrideFunction(void, Circle, rotate, ())
 {
     superCircle_rotate((Circle *) me);
     printf("Rotate counter-clockwise\n");

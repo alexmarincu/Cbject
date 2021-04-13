@@ -12,9 +12,13 @@ ClassInitParams(
     #define ColoredCircleMembers \
 Color color
 
-classDeclaration(ColoredCircleMembers);
+DeclareClass(ColoredCircleMembers);
 
-settersGetters(
+Setters(
+    (uint32, radius),
+    (Color, color));
+
+Getters(
     (uint32, radius),
     (Color, color));
 

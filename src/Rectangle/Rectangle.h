@@ -9,17 +9,21 @@
 uint32 width, \
 uint32 height
 
-classDeclaration(RectangleMembers);
+DeclareClass(RectangleMembers);
 
 ClassInitParams(
     uint32 const width,
     uint32 const height);
 
-settersGetters(
+Setters(
     (uint32, width),
     (uint32, height));
 
-function(uint32, test, (uint32 const a));
+Getters(
+    (uint32, width),
+    (uint32, height));
+
+Function(uint32, test, (uint32 const a));
 
 #undef superClass
 #undef class

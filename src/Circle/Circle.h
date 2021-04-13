@@ -5,8 +5,8 @@
 #define class Circle
 #define superClass Shape
 
-publicConstant(float, pi);
-publicConstants((float, anotherPi));
+PublicConstant(float, pi);
+PublicConstants((float, anotherPi));
 
 ClassInitParams(
     uint32 const radius);
@@ -14,19 +14,21 @@ ClassInitParams(
     #define CircleMembers \
 uint32 radius
 
-classDeclaration(CircleMembers);
+DeclareClass(CircleMembers);
 
 
 
-setterGetter(uint32, radius);
+// setterGetter(uint32, radius);
+Setter(uint32, radius);
+Getter(uint32, radius);
 
-overrideFunctions(
+OverrideFunctions(
     (float, Shape, area, ()),
     (void, Shape, draw, (uint8 const a)));
 
-virtualFunctions((void, rotate, ()));
+VirtualFunctions((void, rotate, ()));
 
-functions((void, rotate, ()));
+Functions((void, rotate, ()));
 
 #undef class
 #undef superClass

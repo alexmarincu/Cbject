@@ -4,7 +4,7 @@
 
 #define class Point
 
-dataClass(
+DataClassMembers(
     uint32 x,
     uint32 y);
 

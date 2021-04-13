@@ -6,7 +6,7 @@
 #define superClass Cbject
 
 SingletonInitParams();
-function(void, start, ());
+Function(void, start, ());
 
 #undef superClass
 #undef class

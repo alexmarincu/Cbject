@@ -94,15 +94,15 @@ typedef union className##Shell  \
 
 #define CbjectPreprocessor_c_(className, type, ...) type const className##_##__VA_ARGS__
 #define CbjectPreprocessor_c(className, type, ...) CbjectPreprocessor_c_(className, type, __VA_ARGS__)
-#define CbjectPreprocessor_stripParenthesesAndApplyConstant(constSignature) constant constSignature;
+#define CbjectPreprocessor_stripParenthesesAndApplyConstant(constSignature) Constant constSignature;
 
 #define CbjectPreprocessor_pbc_(className, type, constName) extern type const className##_##constName
 #define CbjectPreprocessor_pbc(className, type, constName) CbjectPreprocessor_pbc_(className, type, constName)
-#define CbjectPreprocessor_stripParenthesesAndApplyPublicConstant(constSignature) publicConstant constSignature;
+#define CbjectPreprocessor_stripParenthesesAndApplyPublicConstant(constSignature) PublicConstant constSignature;
 
 #define CbjectPreprocessor_pc_(className, type, ...) static type const className##_##__VA_ARGS__
 #define CbjectPreprocessor_pc(className, type, ...) CbjectPreprocessor_pc_(className, type, __VA_ARGS__)
-#define CbjectPreprocessor_stripParenthesesAndApplyPrivateConstant(constSignature) privateConstant constSignature;
+#define CbjectPreprocessor_stripParenthesesAndApplyPrivateConstant(constSignature) PrivateConstant constSignature;
 
 #define CbjectPreprocessor_acm_(className, superClassName, ...) CbjectPreprocessor_members(className, superClassName, __VA_ARGS__)
 #define CbjectPreprocessor_acm(className, superClassName, ...) CbjectPreprocessor_acm_(className, superClassName, __VA_ARGS__)
@@ -128,12 +128,12 @@ typedef union className##Shell  \
 #define CbjectPreprocessor_f_(className, type, functionName, arguments) \
     type className##_##functionName(className * const me CbjectUtilities_vaArgs(CbjectUtilities_stripParentheses(arguments)))
 #define CbjectPreprocessor_f(className, type, functionName, arguments) CbjectPreprocessor_f_(className, type, functionName, arguments)
-#define CbjectPreprocessor_stripParenthesesAndApplyFunction(funSignature) function funSignature;
+#define CbjectPreprocessor_stripParenthesesAndApplyFunction(funSignature) Function funSignature;
 
 #define CbjectPreprocessor_pf_(className, type, functionName, arguments) \
     static type className##_##functionName(className * const me CbjectUtilities_vaArgs(CbjectUtilities_stripParentheses(arguments)))
 #define CbjectPreprocessor_pf(className, type, functionName, arguments) CbjectPreprocessor_pf_(className, type, functionName, arguments)
-#define CbjectPreprocessor_stripParenthesesAndApplyPrivateFunction(funSignature) privateFunction funSignature;
+#define CbjectPreprocessor_stripParenthesesAndApplyPrivateFunction(funSignature) PrivateFunction funSignature;
 
 #define CbjectPreprocessor_vfp__(className, type, functionName, arguments) \
     type (*functionName)(className * const me CbjectUtilities_vaArgs(CbjectUtilities_stripParentheses(arguments)))
@@ -170,30 +170,31 @@ typedef union className##Shell  \
     CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplySuperFunction, __VA_ARGS__)
 #define CbjectPreprocessor_vfs(className, superClassName, ...) CbjectPreprocessor_vfs_(className, superClassName, __VA_ARGS__)
 
-#define CbjectPreprocessor_sg_(className, type, memberName)                                         \
-    void className##_##memberName##Set(className * const me, type const memberName); \
+#define CbjectPreprocessor_expandSetter_(className, type, memberName)                                         \
+    void className##_##memberName##Set(className * const me, type const memberName)
+#define CbjectPreprocessor_expandSetter(className, type, memberName) CbjectPreprocessor_expandSetter_(className, type, memberName)
+#define CbjectPreprocessor_stripParenthesesAndApplySetter(memberSignature) Setter memberSignature;
+
+#define CbjectPreprocessor_expandGetter_(className, type, memberName)                                         \
     type className##_##memberName(className const * const me)
-#define CbjectPreprocessor_sg(className, type, memberName) CbjectPreprocessor_sg_(className, type, memberName)
-#define CbjectPreprocessor_stripParenthesesAndApplySetterGetter(memberSignature) setterGetter memberSignature;
+#define CbjectPreprocessor_expandGetter(className, type, memberName) CbjectPreprocessor_expandGetter_(className, type, memberName)
+#define CbjectPreprocessor_stripParenthesesAndApplyGetter(memberSignature) Getter memberSignature;
 
-#define CbjectPreprocessor_ds_(className, type, memberName) \
+#define CbjectPreprocessor_expandDefaultSetter_(className, type, memberName) \
     void className##_##memberName##Set(className * const me, type const memberName) { me->memberName = memberName; }
-#define CbjectPreprocessor_ds(className, type, memberName) CbjectPreprocessor_ds_(className, type, memberName)
+#define CbjectPreprocessor_expandDefaultSetter(className, type, memberName) CbjectPreprocessor_expandDefaultSetter_(className, type, memberName)
 
-#define CbjectPreprocessor_dg_(className, type, memberName) \
+#define CbjectPreprocessor_expandDefaultGetter_(className, type, memberName) \
     type className##_##memberName(className const * const me) { return me->memberName; }
-#define CbjectPreprocessor_dg(className, type, memberName) CbjectPreprocessor_dg_(className, type, memberName)
+#define CbjectPreprocessor_expandDefaultGetter(className, type, memberName) CbjectPreprocessor_expandDefaultGetter_(className, type, memberName)
 
-#define CbjectPreprocessor_dsg_(className, type, memberName)                                                                        \
-    void className##_##memberName##Set(className * const me, type const memberName) { me->memberName = memberName; } \
-    type className##_##memberName(className const * const me) { return me->memberName; }
-#define CbjectPreprocessor_dsg(className, type, memberName) CbjectPreprocessor_dsg_(className, type, memberName)
-#define CbjectPreprocessor_stripParenthesesAndApplyDefaultSetterGetter(memberSignature) defaultSetterGetter memberSignature
+#define CbjectPreprocessor_stripParenthesesAndApplyDefaultSetter(memberSignature) DefaultSetter memberSignature
+#define CbjectPreprocessor_stripParenthesesAndApplyDefaultGetter(memberSignature) DefaultGetter memberSignature
 
 #define CbjectPreprocessor_of_(className, type, superClassName, functionName, arguments) \
     type super##className##_##functionName(className * const me CbjectUtilities_vaArgs(CbjectUtilities_stripParentheses(arguments)))
 #define CbjectPreprocessor_of(className, type, superClassName, functionName, arguments) CbjectPreprocessor_of_(className, type, superClassName, functionName, arguments)
-#define CbjectPreprocessor_stripParenthesesAndApplyOverrideFunction(funSignature) overrideFunction funSignature;
+#define CbjectPreprocessor_stripParenthesesAndApplyOverrideFunction(funSignature) OverrideFunction funSignature;
 
 #define CbjectPreprocessor_i_(className, superClassName, ...)                                           \
     void className##_init(className * const me, className##Params const * const params)  \
@@ -334,6 +335,6 @@ typedef union className##Shell  \
     ((superClassName##Class *) &c)->vf.functionName = (type(*)(superClassName * const me CbjectUtilities_vaArgs(CbjectUtilities_stripParentheses(arguments)))) super##className##_##functionName
 #define CbjectPreprocessor_bof(className, type, superClassName, functionName, arguments) CbjectPreprocessor_bof_(className, type, superClassName, functionName, arguments)
 
-#define CbjectPreprocessor_stripParenthesesAndApplybindFunction(funSignature) bindFunction funSignature;
+#define CbjectPreprocessor_stripParenthesesAndApplyBindFunction(funSignature) BindFunction funSignature;
 
 #endif // CBJECTPREPROCESSOR_H
