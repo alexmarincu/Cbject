@@ -5,7 +5,7 @@
 #define class Application
 #define superClass Cbject
 
-objectParams();
+SingletonInitParams();
 function(void, start, ());
 
 #undef superClass

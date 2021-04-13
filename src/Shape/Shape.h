@@ -6,7 +6,7 @@
 #define class Shape
 #define superClass Cbject
 
-abstractClassParams(Point origin);
+AbstractClassInitParams(Point origin);
 
 #define ShapeMembers \
 Point origin
@@ -16,6 +16,10 @@ classDeclaration(ShapeMembers);
 setterGetter(Point, origin);
 
 functions(
+    (float, area, ()),
+    (void, draw, (uint8 const a)));
+
+virtualFunctions(
     (float, area, ()),
     (void, draw, (uint8 const a)));
 

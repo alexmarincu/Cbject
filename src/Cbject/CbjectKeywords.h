@@ -2,9 +2,9 @@
 #define CBJECTKEYWORDS_H
 #include "CbjectPreprocessor.h"
 
-#define abstractClassParams(...) CbjectPreprocessor_acp(class, superClass, __VA_ARGS__)
-#define objectParams(...) CbjectPreprocessor_op(class, superClass, __VA_ARGS__)
-#define classParams(...) CbjectPreprocessor_cp(class, superClass, __VA_ARGS__)
+#define AbstractClassInitParams(...) CbjectPreprocessor_acp(class, superClass, __VA_ARGS__)
+#define SingletonInitParams(...) CbjectPreprocessor_op(class, superClass, __VA_ARGS__)
+#define ClassInitParams(...) CbjectPreprocessor_cp(class, superClass, __VA_ARGS__)
 
 #if Cbject_useStaticPool == true
     #define classPoolSize(poolSize) CbjectPreprocessor_cps(class, poolSize)

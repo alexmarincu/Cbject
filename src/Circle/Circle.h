@@ -8,17 +8,25 @@
 publicConstant(float, pi);
 publicConstants((float, anotherPi));
 
-classParams(
+ClassInitParams(
     uint32 const radius);
 
     #define CircleMembers \
 uint32 radius
 
 classDeclaration(CircleMembers);
-    // enum{CircleClass_sizes = sizeof(struct{uint8 _[ShapeClass_sizes]; uint32 radius;})};
+
+
 
 setterGetter(uint32, radius);
-function(void, rotate, ());
+
+overrideFunctions(
+    (float, Shape, area, ()),
+    (void, Shape, draw, (uint8 const a)));
+
+virtualFunctions((void, rotate, ()));
+
+functions((void, rotate, ()));
 
 #undef class
 #undef superClass

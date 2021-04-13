@@ -85,17 +85,6 @@
 #define CbjectPreprocessor_cm(className, superClassName, ...) CbjectPreprocessor_cm_(className, superClassName, __VA_ARGS__)
 
 #define CbjectPreprocessor_cd_(className, superClassName, ...) \
-enum \
-{ \
-className##Class_sizes = \
-sizeof( \
-struct \
-{ \
-struct { uint8 _[superClassName##Class_sizes];} super; \
-CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__) \
-} \
-) \
-}; \
 typedef union className##Shell  \
 { \
     char d[sizeof(struct{ superClassName##Shell super; CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__) })]; \

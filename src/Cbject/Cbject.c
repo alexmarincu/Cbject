@@ -16,7 +16,6 @@ static uint8 superCbject_size(Cbject const * const me) { return sizeof(*me); }
 uint8 Cbject_size(Cbject const * const me) { return me->s.c->vf.size(me); }
 char const * Cbject_type(Cbject const * const me) { return me->s.c->type; }
 
-ct_assert(CbjectClass_sizes == sizeof(Cbject), CbjectClassSizeVerification);
 ct_assert(sizeof(CbjectShell) == sizeof(Cbject), CbjectShellVerification);
 
 CbjectClass const * const CbjectClass_instance()

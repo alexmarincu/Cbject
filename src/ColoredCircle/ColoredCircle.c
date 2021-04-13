@@ -1,5 +1,5 @@
 #include "ColoredCircle.h"
-#include "../Circle/superCircle.h"
+#include "../Circle/Circle.h"
 #include <stdio.h>
 
 #define class ColoredCircle

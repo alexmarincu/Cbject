@@ -21,7 +21,6 @@ typedef union CbjectShell
     maxAlign a;
 } CbjectShell;
 
-enum{CbjectClass_sizes = sizeof(CbjectShell)};
 typedef struct CbjectParams
 {
 } CbjectParams;

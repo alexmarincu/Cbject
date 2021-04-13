@@ -1,8 +1,10 @@
-#include "superCircle.h"
+#include "Circle.h"
 #include <stdio.h>
 
 #define class Circle
 #define superClass Shape
+
+abstractClassMembers(CircleMembers);
 
 classPoolSize(10);
 

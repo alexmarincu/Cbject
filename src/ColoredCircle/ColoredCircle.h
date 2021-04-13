@@ -6,7 +6,7 @@
 #define class ColoredCircle
 #define superClass Circle
 
-classParams(
+ClassInitParams(
     Color const color);
 
     #define ColoredCircleMembers \

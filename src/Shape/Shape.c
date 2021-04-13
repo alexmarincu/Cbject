@@ -1,9 +1,10 @@
-#include "superShape.h"
+#include "Shape.h"
 #include <stdio.h>
 
 #define class Shape
 #define superClass Cbject
 
+abstractClassMembers(ShapeMembers);
 defaultSetterGetter(Point, origin);
 abstractClassSetup({ bindVirtualFunctions(area, draw); });
 init({ me->origin = params->origin; });
