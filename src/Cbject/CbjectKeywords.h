@@ -6,6 +6,7 @@
 #define DeclareAbstractClass(...) CbjectPreprocessor_expandDeclareAbstractClass(class, superClass, __VA_ARGS__)
 #define DeclareSingleton(...) CbjectPreprocessor_expandDeclareSingleton(class, superClass, __VA_ARGS__)
 #define InitParams(...) CbjectPreprocessor_expandInitParams(class, superClass, __VA_ARGS__)
+#define Members(...) CbjectPreprocessor_expandMembers(class, superClass, __VA_ARGS__)
 #define PoolSize(poolSize) CbjectPreprocessor_cps(class, poolSize)
 #define ClassMembers(...) CbjectPreprocessor_cm(class, superClass, __VA_ARGS__)
 #define SingletonMembers(...) CbjectPreprocessor_cm(class, superClass, __VA_ARGS__)

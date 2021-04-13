@@ -9,13 +9,13 @@
 #define class Application
 #define superClass Cbject
 
-    #define ApplicationMembers \
+    #define ApplicationMembe \
     Circle * circle, \
     Rectangle * rectangle, \
     Rectangle * heapRectangle, \
     ColoredCircle * coloredCircle
 InitParams();
-DeclareSingleton(ApplicationMembers);
+DeclareSingleton(ApplicationMembe);
 
 
 

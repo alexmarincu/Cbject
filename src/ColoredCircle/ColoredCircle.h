@@ -8,11 +8,11 @@
 
 
 
-    #define ColoredCircleMembers \
+    #define ColoredCircleMembe \
 Color color
 InitParams(
     Color const color);
-DeclareClass(ColoredCircleMembers);
+DeclareClass(ColoredCircleMembe);
 
 
 

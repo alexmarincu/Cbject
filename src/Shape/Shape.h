@@ -6,11 +6,13 @@
 #define class Shape
 #define superClass Cbject
 
-#define ShapeMembers \
+#define ShapeMembe \
 Point origin
 
+Members(Point origin);
+
 InitParams(Point origin);
-DeclareAbstractClass(ShapeMembers);
+DeclareAbstractClass(ShapeMembe);
 
 
 

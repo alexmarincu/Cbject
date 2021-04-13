@@ -7,7 +7,7 @@
 
 PoolSize(10);
 
-ClassMembers(ColoredCircleMembers);
+ClassMembers(ColoredCircleMembe);
 
 // defaultSetterGetter(Color, color);
 DefaultSetter(Color, color);

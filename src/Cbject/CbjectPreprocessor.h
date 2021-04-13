@@ -10,6 +10,13 @@
         superClassName##Params super; \
         CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__)                                       \
     } className##Params
+
+    #define CbjectPreprocessor_member(className, superClassName, ...)                                                      \
+    typedef struct className##Members                                                    \
+    {                        \
+        CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__)                                       \
+    } className##Members
+
 #define CbjectPreprocessor_getCbjectDecl(className) className * get_##className(className##Params const * const params)
 #define CbjectPreprocessor_newCbjectDecl(className) className * new_##className(className##Params const * const params)
 #define CbjectPreprocessor_deleteCbjectDecl(className) className * delete_##className(className * me)
@@ -106,6 +113,10 @@ typedef union className##Shell  \
 #define CbjectPreprocessor_expandInitParams_(className, superClassName, ...)  \
     CbjectPreprocessor_params(className, superClassName, __VA_ARGS__)
 #define CbjectPreprocessor_expandInitParams(className, superClassName, ...)  CbjectPreprocessor_expandInitParams_(className, superClassName, __VA_ARGS__)
+
+#define CbjectPreprocessor_expandMembers_(className, superClassName, ...)  \
+    CbjectPreprocessor_member(className, superClassName, __VA_ARGS__)
+#define CbjectPreprocessor_expandMembers(className, superClassName, ...)  CbjectPreprocessor_expandMembers_(className, superClassName, __VA_ARGS__)
 
 #define CbjectPreprocessor_cps_(className, poolSize)   \
     enum                                \

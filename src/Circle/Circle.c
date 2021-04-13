@@ -4,7 +4,7 @@
 #define class Circle
 #define superClass Shape
 
-AbstractClassMembers(CircleMembers);
+AbstractClassMembers(CircleMembe);
 
 PoolSize(10);
 

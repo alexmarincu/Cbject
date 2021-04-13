@@ -4,7 +4,7 @@
 #define class Shape
 #define superClass Cbject
 
-AbstractClassMembers(ShapeMembers);
+AbstractClassMembers(ShapeMembe);
 // defaultSetterGetter(Point, origin);
 DefaultSetter(Point, origin);
 DefaultGetter(Point, origin);

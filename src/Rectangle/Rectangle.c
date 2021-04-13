@@ -6,7 +6,7 @@
 
 PoolSize(10);
 
-ClassMembers(RectangleMembers);
+ClassMembers(RectangleMembe);
 
 DefaultSetters(
     (uint32, width),

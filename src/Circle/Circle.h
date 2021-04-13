@@ -10,11 +10,11 @@ PublicConstants((float, anotherPi));
 
 
 
-    #define CircleMembers \
+    #define CircleMembe \
 uint32 radius
 InitParams(
     uint32 const radius);
-DeclareClass(CircleMembers);
+DeclareClass(CircleMembe);
 
 
 
