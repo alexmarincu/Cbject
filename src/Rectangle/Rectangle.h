@@ -9,11 +9,13 @@
 uint32 width, \
 uint32 height
 
-DeclareClass(RectangleMembers);
-
-ClassInitParams(
+InitParams(
     uint32 const width,
     uint32 const height);
+    
+DeclareClass(RectangleMembers);
+
+
 
 Setters(
     (uint32, width),

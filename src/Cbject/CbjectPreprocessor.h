@@ -5,57 +5,107 @@
 #include "Primitives.h"
 
 #define CbjectPreprocessor_params(className, superClassName, ...)                                                      \
-    typedef struct className className;                                                  \
-                                                                                         \
     typedef struct className##Params                                                     \
     {                        \
         superClassName##Params super; \
         CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__)                                       \
-    } className##Params;                                                                 \
-                                                                                         \
-    void className##_init(className * const me, className##Params const * const params); \
-    void className##_terminate(className * const me)
-
+    } className##Params
 #define CbjectPreprocessor_getCbjectDecl(className) className * get_##className(className##Params const * const params)
 #define CbjectPreprocessor_newCbjectDecl(className) className * new_##className(className##Params const * const params)
 #define CbjectPreprocessor_deleteCbjectDecl(className) className * delete_##className(className * me)
 
-#define CbjectPreprocessor_acp_(className, superClassName, ...)  CbjectPreprocessor_params(className, superClassName, __VA_ARGS__)
-#define CbjectPreprocessor_acp(className, superClassName, ...)  CbjectPreprocessor_acp_(className, superClassName, __VA_ARGS__)
-
-#define CbjectPreprocessor_op_(className, superClassName, ...)         \
-    CbjectPreprocessor_params(className, superClassName, __VA_ARGS__); \
-    className * className##_instance()
-#define CbjectPreprocessor_op(className, superClassName, ...) CbjectPreprocessor_op_(className, superClassName, __VA_ARGS__)
-
 #if Cbject_useStaticPool == true
     #if Cbject_useHeap == true
-        #define CbjectPreprocessor_cp_(className, superClassName, ...)         \
-            CbjectPreprocessor_params(className, superClassName, __VA_ARGS__); \
+        #define CbjectPreprocessor_expandDeclareClass_(className, superClassName, ...)         \
+            typedef struct className className; \
+ \
+typedef union className##Shell  \
+{ \
+    char d[sizeof(struct{ superClassName##Shell super; CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__) })]; \
+    maxAlign a; \
+} className##Shell; \
+ \
+ void className##_init(className * const me, className##Params const * const params); \
+    void className##_terminate(className * const me); \
             uint8 className##Class_size();      \
             CbjectPreprocessor_getCbjectDecl(className);       \
             CbjectPreprocessor_newCbjectDecl(className);       \
             CbjectPreprocessor_deleteCbjectDecl(className)
     #else
-        #define CbjectPreprocessor_cp_(className, superClassName, ...)         \
-            CbjectPreprocessor_params(className, superClassName, __VA_ARGS__); \
+        #define CbjectPreprocessor_expandDeclareClass_(className, superClassName, ...)         \
+            typedef struct className className; \
+ \
+typedef union className##Shell  \
+{ \
+    char d[sizeof(struct{ superClassName##Shell super; CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__) })]; \
+    maxAlign a; \
+} className##Shell; \
+ void className##_init(className * const me, className##Params const * const params); \
+    void className##_terminate(className * const me); \
             uint8 className##Class_size();      \
             CbjectPreprocessor_getCbjectDecl(className)
     #endif
 #else
     #if Cbject_useHeap == true
-        #define CbjectPreprocessor_cp_(className, superClassName, ...)         \
-            CbjectPreprocessor_params(className, superClassName, __VA_ARGS__); \
+        #define CbjectPreprocessor_expandDeclareClass_(className, superClassName, ...)         \
+            typedef struct className className; \
+ \
+typedef union className##Shell  \
+{ \
+    char d[sizeof(struct{ superClassName##Shell super; CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__) })]; \
+    maxAlign a; \
+} className##Shell; \
+ void className##_init(className * const me, className##Params const * const params); \
+    void className##_terminate(className * const me); \
             uint8 className##Class_size();      \
             CbjectPreprocessor_newCbjectDecl(className);       \
             CbjectPreprocessor_deleteCbjectDecl(className)
     #else
-        #define CbjectPreprocessor_cp_(className, superClassName, ...)         \
-            CbjectPreprocessor_params(className, superClassName, __VA_ARGS__); \
+        #define CbjectPreprocessor_expandDeclareClass_(className, superClassName, ...)         \
+            typedef struct className className; \
+ \
+typedef union className##Shell  \
+{ \
+    char d[sizeof(struct{ superClassName##Shell super; CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__) })]; \
+    maxAlign a; \
+} className##Shell; \
+ void className##_init(className * const me, className##Params const * const params); \
+    void className##_terminate(className * const me); \
             uint8 className##Class_size()
     #endif
 #endif
-#define CbjectPreprocessor_cp(className, superClassName, ...) CbjectPreprocessor_cp_(className, superClassName, __VA_ARGS__)
+#define CbjectPreprocessor_expandDeclareClass(className, superClassName, ...) CbjectPreprocessor_expandDeclareClass_(className, superClassName, __VA_ARGS__)
+
+        #define CbjectPreprocessor_expandDeclareAbstractClass_(className, superClassName, ...)         \
+            typedef struct className className; \
+ \
+typedef union className##Shell  \
+{ \
+    char d[sizeof(struct{ superClassName##Shell super; CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__) })]; \
+    maxAlign a; \
+} className##Shell; \
+ \
+ void className##_init(className * const me, className##Params const * const params); \
+    void className##_terminate(className * const me)
+#define CbjectPreprocessor_expandDeclareAbstractClass(className, superClassName, ...) CbjectPreprocessor_expandDeclareAbstractClass_(className, superClassName, __VA_ARGS__)
+
+        #define CbjectPreprocessor_expandDeclareSingleton_(className, superClassName, ...)         \
+            typedef struct className className; \
+ \
+typedef union className##Shell  \
+{ \
+    char d[sizeof(struct{ superClassName##Shell super; CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__) })]; \
+    maxAlign a; \
+} className##Shell; \
+ \
+ void className##_init(className * const me, className##Params const * const params); \
+    void className##_terminate(className * const me); \
+    className * className##_instance()
+#define CbjectPreprocessor_expandDeclareSingleton(className, superClassName, ...) CbjectPreprocessor_expandDeclareSingleton_(className, superClassName, __VA_ARGS__)
+
+#define CbjectPreprocessor_expandInitParams_(className, superClassName, ...)  \
+    CbjectPreprocessor_params(className, superClassName, __VA_ARGS__)
+#define CbjectPreprocessor_expandInitParams(className, superClassName, ...)  CbjectPreprocessor_expandInitParams_(className, superClassName, __VA_ARGS__)
 
 #define CbjectPreprocessor_cps_(className, poolSize)   \
     enum                                \
@@ -83,14 +133,6 @@
     CbjectPreprocessor_members(className, superClassName, __VA_ARGS__); \
     CbjectPreprocessor_class(className, superClassName)
 #define CbjectPreprocessor_cm(className, superClassName, ...) CbjectPreprocessor_cm_(className, superClassName, __VA_ARGS__)
-
-#define CbjectPreprocessor_cd_(className, superClassName, ...) \
-typedef union className##Shell  \
-{ \
-    char d[sizeof(struct{ superClassName##Shell super; CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__) })]; \
-    maxAlign a; \
-} className##Shell
-#define CbjectPreprocessor_cd(className, superClassName, ...) CbjectPreprocessor_cd_(className, superClassName, __VA_ARGS__)
 
 #define CbjectPreprocessor_c_(className, type, ...) type const className##_##__VA_ARGS__
 #define CbjectPreprocessor_c(className, type, ...) CbjectPreprocessor_c_(className, type, __VA_ARGS__)

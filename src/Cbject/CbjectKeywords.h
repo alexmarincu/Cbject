@@ -2,14 +2,14 @@
 #define CBJECTKEYWORDS_H
 #include "CbjectPreprocessor.h"
 
-#define AbstractClassInitParams(...) CbjectPreprocessor_acp(class, superClass, __VA_ARGS__)
-#define SingletonInitParams(...) CbjectPreprocessor_op(class, superClass, __VA_ARGS__)
-#define ClassInitParams(...) CbjectPreprocessor_cp(class, superClass, __VA_ARGS__)
+#define DeclareClass(...) CbjectPreprocessor_expandDeclareClass(class, superClass, __VA_ARGS__)
+#define DeclareAbstractClass(...) CbjectPreprocessor_expandDeclareAbstractClass(class, superClass, __VA_ARGS__)
+#define DeclareSingleton(...) CbjectPreprocessor_expandDeclareSingleton(class, superClass, __VA_ARGS__)
+#define InitParams(...) CbjectPreprocessor_expandInitParams(class, superClass, __VA_ARGS__)
 #define PoolSize(poolSize) CbjectPreprocessor_cps(class, poolSize)
 #define ClassMembers(...) CbjectPreprocessor_cm(class, superClass, __VA_ARGS__)
 #define SingletonMembers(...) CbjectPreprocessor_cm(class, superClass, __VA_ARGS__)
 #define AbstractClassMembers(...) CbjectPreprocessor_acm(class, superClass, __VA_ARGS__)
-#define DeclareClass(...) CbjectPreprocessor_cd(class, superClass, __VA_ARGS__)
 #define Constant(type, ...) CbjectPreprocessor_c(class, type, __VA_ARGS__)
 #define Constants(...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyConstant, __VA_ARGS__)
 #define PublicConstant(type, constName) CbjectPreprocessor_pbc(class, type, constName)

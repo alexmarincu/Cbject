@@ -1,8 +1,4 @@
 #include "Application.h"
-#include "../Circle/Circle.h"
-#include "../ColoredCircle/ColoredCircle.h"
-#include "../Rectangle/Rectangle.h"
-#include "../Shape/Shape.h"
 #include <stdio.h>
 
 #define class Application

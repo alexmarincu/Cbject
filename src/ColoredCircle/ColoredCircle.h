@@ -6,13 +6,15 @@
 #define class ColoredCircle
 #define superClass Circle
 
-ClassInitParams(
-    Color const color);
+
 
     #define ColoredCircleMembers \
 Color color
-
+InitParams(
+    Color const color);
 DeclareClass(ColoredCircleMembers);
+
+
 
 Setters(
     (uint32, radius),
