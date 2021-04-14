@@ -82,34 +82,43 @@ CbjectPreprocessor_expandShellStruct(className, superClassName); \
 #endif
 #define CbjectPreprocessor_expandDeclareClass(className, superClassName, ...) CbjectPreprocessor_expandDeclareClass_(className, superClassName, __VA_ARGS__)
 
-        #define CbjectPreprocessor_expandDeclareAbstractClass_(className, superClassName, ...)         \
-        CbjectPreprocessor_MembersTypeDefinition(className, __VA_ARGS__); \
-            typedef struct className className; \
- \
-CbjectPreprocessor_expandShellStruct(className, superClassName); \
- \
- void className##_init(className * const me, className##Params const * const params); \
-    void className##_terminate(className * const me)
+#define CbjectPreprocessor_expandDeclareAbstractClass_(className, superClassName, ...)    \
+  CbjectPreprocessor_MembersTypeDefinition(className, __VA_ARGS__);            \
+  typedef struct className className;                                          \
+                                                                               \
+  CbjectPreprocessor_expandShellStruct(className, superClassName);             \
+                                                                               \
+  void className##_init(className *const me, className##Params const *const params);                \
+  void className##_terminate(className *const me)
 #define CbjectPreprocessor_expandDeclareAbstractClass(className, superClassName, ...) CbjectPreprocessor_expandDeclareAbstractClass_(className, superClassName, __VA_ARGS__)
 
-        #define CbjectPreprocessor_expandDeclareSingleton_(className, superClassName, ...)         \
-        CbjectPreprocessor_MembersTypeDefinition(className, __VA_ARGS__); \
-            typedef struct className className; \
- \
-CbjectPreprocessor_expandShellStruct(className, superClassName); \
- \
- void className##_init(className * const me, className##Params const * const params); \
-    void className##_terminate(className * const me); \
-    className * className##_instance()
+#define CbjectPreprocessor_expandAbstractClass_(className, superClassName, initParams, members)    \
+CbjectPreprocessor_InitParamsTypeDefinition(className, superClassName, CbjectUtilities_stripParentheses(initParams)); \
+  CbjectPreprocessor_MembersTypeDefinition(className, CbjectUtilities_stripParentheses(members));            \
+  typedef struct className className;                                          \
+                                                                               \
+  CbjectPreprocessor_expandShellStruct(className, superClassName);             \
+                                                                               \
+  void className##_init(className *const me, className##Params const *const params);                \
+  void className##_terminate(className *const me)
+#define CbjectPreprocessor_expandAbstractClass(className, superClassName, initParams, members) CbjectPreprocessor_expandAbstractClass_(className, superClassName, initParams, members)
+
+#define CbjectPreprocessor_expandDeclareSingleton_(className, superClassName,                                                                                                                    \
+                                                   ...)                                                                                                                                          \
+  CbjectPreprocessor_MembersTypeDefinition(className, __VA_ARGS__);                                                                                                                              \
+  typedef struct className className;                                                                                                                                                            \
+                                                                                                                                                                                                 \
+  CbjectPreprocessor_expandShellStruct(className, superClassName);                                                                                                                               \
+                                                                                                                                                                                                 \
+  void className##_init(className *const me,                                                                                                                                                     \
+                        className##Params const *const params);                                                                                                                                  \
+  void className##_terminate(className *const me);                                                                                                                                               \
+  className *className##_instance()
 #define CbjectPreprocessor_expandDeclareSingleton(className, superClassName, ...) CbjectPreprocessor_expandDeclareSingleton_(className, superClassName, __VA_ARGS__)
 
 #define CbjectPreprocessor_expandInitParams_(className, superClassName, ...)  \
     CbjectPreprocessor_InitParamsTypeDefinition(className, superClassName, __VA_ARGS__)
 #define CbjectPreprocessor_expandInitParams(className, superClassName, ...)  CbjectPreprocessor_expandInitParams_(className, superClassName, __VA_ARGS__)
-
-#define CbjectPreprocessor_expandMembers_(className, ...)  \
-    CbjectPreprocessor_MembersTypeDefinition(className, __VA_ARGS__)
-#define CbjectPreprocessor_expandMembers(className, ...)  CbjectPreprocessor_expandMembers_(className, __VA_ARGS__)
 
 #define CbjectPreprocessor_cps_(className, poolSize)   \
     enum                                \

@@ -6,13 +6,8 @@
 #define class ColoredCircle
 #define superClass Circle
 
-
-
-InitParams(
-    Color const color);
+InitParams(Color color);
 DeclareClass(Color color);
-
-
 
 Setters(
     (uint32, radius),

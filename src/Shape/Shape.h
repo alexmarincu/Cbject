@@ -6,8 +6,10 @@
 #define class Shape
 #define superClass Cbject
 
-InitParams(Point origin);
-DeclareAbstractClass(Point origin);
+AbstractClass(
+    (Point origin),
+    (Point origin));
+
 Setters((Point, origin));
 Getters((Point, origin));
 
