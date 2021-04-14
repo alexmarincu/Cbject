@@ -7,8 +7,7 @@
 #define superClass Cbject
 
 InitParams(Point origin);
-Members(Point origin);
-DeclareAbstractClass();
+DeclareAbstractClass(Point origin);
 Setters((Point, origin));
 Getters((Point, origin));
 

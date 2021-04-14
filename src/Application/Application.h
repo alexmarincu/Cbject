@@ -10,13 +10,11 @@
 #define superClass Cbject
 
 InitParams();
-Members(
+DeclareSingleton(
     Circle * circle, 
     Rectangle * rectangle, 
     Rectangle * heapRectangle, 
     ColoredCircle * coloredCircle);
-
-DeclareSingleton();
 
 Function(void, start, ());
 

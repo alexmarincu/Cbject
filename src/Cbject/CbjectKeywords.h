@@ -2,9 +2,9 @@
 #define CBJECTKEYWORDS_H
 #include "CbjectPreprocessor.h"
 
-#define DeclareClass() CbjectPreprocessor_expandDeclareClass(class, superClass)
-#define DeclareAbstractClass() CbjectPreprocessor_expandDeclareAbstractClass(class, superClass)
-#define DeclareSingleton() CbjectPreprocessor_expandDeclareSingleton(class, superClass)
+#define DeclareClass(...) CbjectPreprocessor_expandDeclareClass(class, superClass, __VA_ARGS__)
+#define DeclareAbstractClass(...) CbjectPreprocessor_expandDeclareAbstractClass(class, superClass, __VA_ARGS__)
+#define DeclareSingleton(...) CbjectPreprocessor_expandDeclareSingleton(class, superClass, __VA_ARGS__)
 #define InitParams(...) CbjectPreprocessor_expandInitParams(class, superClass, __VA_ARGS__)
 #define Members(...) CbjectPreprocessor_expandMembers(class, __VA_ARGS__)
 #define PoolSize(poolSize) CbjectPreprocessor_cps(class, poolSize)
