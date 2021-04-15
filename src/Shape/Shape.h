@@ -1,14 +1,13 @@
 #ifndef SHAPE_H
 #define SHAPE_H
-#include "Point.h"
 #include "../Cbject/Cbject.h"
+#include "Point.h"
 
 #define class Shape
 #define superClass Cbject
 
-AbstractClass(
-    (Point origin),
-    (Point origin));
+AbstractClass((Point origin),
+              (Point origin));
 
 Setters((Point, origin));
 Getters((Point, origin));

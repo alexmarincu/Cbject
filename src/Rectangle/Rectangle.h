@@ -5,11 +5,9 @@
 #define class Rectangle
 #define superClass Shape
 
-InitParams(uint32 const width, uint32 const height);
-
-DeclareClass(
-    uint32 width,
-    uint32 height);
+Class((uint32 const width, uint32 const height),
+      (uint32 width,
+       uint32 height));
 
 Setters(
     (uint32, width),

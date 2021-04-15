@@ -39,7 +39,7 @@ PrivateFunction(void, circleExample, ())
 {
     printf("\n= Circle example:\n");
     printf("Circle_pi = %.2f\n", Circle_pi);
-    me->m.circle = get_Circle(&((CircleParams){.super.origin.x = 0, .super.origin.y = 1, .radius = 1}));
+    me->m.circle = get_Circle(&((CircleInitParams){.super.origin.x = 0, .super.origin.y = 1, .radius = 1}));
     printf("circle.radius = %d\n", Circle_radius(me->m.circle));
     printf("Set radius to 2\n");
     Circle_radiusSet(me->m.circle, 2);
@@ -61,7 +61,7 @@ PrivateFunction(void, stackCircleExample, ())
     printf("\n= StackCircle example:\n");
 
     cbject(Circle, stackCircle,
-                &((CircleParams){
+                &((CircleInitParams){
                     .super.origin.x = 2,
                     .super.origin.y = 3,
                     .radius = 3}));
@@ -76,7 +76,7 @@ PrivateFunction(void, rectangleExample, ())
 {
     printf("\n= Rectangle example:\n");
     me->m.rectangle = get_Rectangle(
-        &((RectangleParams){
+        &((RectangleInitParams){
             .super.origin.x = 4,
             .super.origin.y = 5,
             .width = 1,
@@ -99,7 +99,7 @@ PrivateFunction(void, stackRectangleExample, ())
     printf("\n= StackRectangle example:\n");
 
     cbject(Rectangle, stackRectangle,
-                &((RectangleParams){
+                &((RectangleInitParams){
                     .super.origin.x = 12,
                     .super.origin.y = 23,
                     .width = 34,
@@ -119,7 +119,7 @@ PrivateFunction(void, heapRectangleExample, ())
     printf("\n= HeapRectangle example:\n");
 
     me->m.heapRectangle = new_Rectangle(
-        &((RectangleParams){
+        &((RectangleInitParams){
             .super.origin.x = 12,
             .super.origin.y = 23,
             .width = 34,
@@ -138,7 +138,7 @@ PrivateFunction(void, coloredCircleExample, ())
 {
     printf("\n= ColoredCircle example:\n");
     me->m.coloredCircle = get_ColoredCircle(
-        &((ColoredCircleParams){
+        &((ColoredCircleInitParams){
             .super.super.origin.x = 12,
             .super.super.origin.y = 23,
             .super.radius = 10,

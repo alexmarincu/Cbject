@@ -9,12 +9,11 @@
 #define class Application
 #define superClass Cbject
 
-InitParams();
-DeclareSingleton(
-    Circle * circle, 
-    Rectangle * rectangle, 
-    Rectangle * heapRectangle, 
-    ColoredCircle * coloredCircle);
+Singleton((),
+          (Circle * circle,
+           Rectangle * rectangle,
+           Rectangle * heapRectangle,
+           ColoredCircle * coloredCircle));
 
 Function(void, start, ());
 

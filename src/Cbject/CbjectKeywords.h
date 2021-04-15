@@ -2,10 +2,9 @@
 #define CBJECTKEYWORDS_H
 #include "CbjectPreprocessor.h"
 
-#define DeclareClass(...) CbjectPreprocessor_expandDeclareClass(class, superClass, __VA_ARGS__)
-#define DeclareAbstractClass(...) CbjectPreprocessor_expandDeclareAbstractClass(class, superClass, __VA_ARGS__)
+#define Class(initParams, members) CbjectPreprocessor_expandClass(class, superClass, initParams, members)
 #define AbstractClass(initParams, members) CbjectPreprocessor_expandAbstractClass(class, superClass, initParams, members)
-#define DeclareSingleton(...) CbjectPreprocessor_expandDeclareSingleton(class, superClass, __VA_ARGS__)
+#define Singleton(initParams, members) CbjectPreprocessor_expandSingleton(class, superClass, initParams, members)
 #define InitParams(...) CbjectPreprocessor_expandInitParams(class, superClass, __VA_ARGS__)
 #define PoolSize(poolSize) CbjectPreprocessor_cps(class, poolSize)
 #define ClassMembers() CbjectPreprocessor_cm(class, superClass)
@@ -18,17 +17,17 @@
 #define PrivateConstants(className, ...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyPrivateConstant, __VA_ARGS__)
 #define DataClassMembers(...) CbjectPreprocessor_dc(class, __VA_ARGS__)
 #define EnumClassMembers(...) CbjectPreprocessor_ec(class, __VA_ARGS__)
-#define Function(type, functionName, arguments) CbjectPreprocessor_f(class, type, functionName, arguments)
-#define Functions(...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyFunction, __VA_ARGS__)
-#define PrivateFunction(type, functionName, arguments) CbjectPreprocessor_pf(class, type, functionName, arguments)
-#define PrivateFunctions(...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyPrivateFunction, __VA_ARGS__)
-#define VirtualFunction(type, functionName, arguments, params) CbjectPreprocessor_vf(class, type, functionName, arguments, params)
+#define Function(returnType, functionName, arguments) CbjectPreprocessor_expandFunction(class, returnType, functionName, arguments)
+#define Functions(...) CbjectPreprocessor_expandFunctions(__VA_ARGS__)
+#define PrivateFunction(returnType, functionName, arguments) CbjectPreprocessor_expandPrivateFunction(class, returnType, functionName, arguments)
+#define PrivateFunctions(...) CbjectPreprocessor_expandPrivateFunctions(__VA_ARGS__)
+#define VirtualFunction(returnType, functionName, arguments, params) CbjectPreprocessor_expandVirtualFunction(class, returnType, functionName, arguments, params)
 #define VirtualFunctions(...) CbjectPreprocessor_vfs(class, superClass, __VA_ARGS__)
 
-#define cbject(className, varName, ...)                  \
-    className * const varName = (className *) &((className##Shell){});  \
+#define cbject(className, varName, ...)                                \
+    className * const varName = (className *) &((className##Shell){}); \
     className##_init((className *) varName, __VA_ARGS__)
-    
+
 #define Setter(type, memberName) CbjectPreprocessor_expandSetter(class, type, memberName)
 #define Getter(type, memberName) CbjectPreprocessor_expandGetter(class, type, memberName)
 #define Setters(...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplySetter, __VA_ARGS__)

@@ -5,15 +5,11 @@
 #define class Circle
 #define superClass Shape
 
+Class((uint32 const radius),
+      (int32 radius));
+
 PublicConstant(float, pi);
 PublicConstants((float, anotherPi));
-
-InitParams(
-    uint32 const radius);
-    
-DeclareClass(int32 radius);
-
-
 
 // setterGetter(uint32, radius);
 Setter(uint32, radius);

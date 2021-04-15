@@ -14,19 +14,18 @@ typedef struct CbjectClass
     } vf;
 } CbjectClass;
 
-
-typedef union CbjectShell 
+typedef union CbjectShell
 {
-    char d[sizeof(struct{CbjectClass * c;})];
+    char d[sizeof(struct { CbjectClass * c; })];
     maxAlign a;
 } CbjectShell;
 
-typedef struct CbjectParams
+typedef struct CbjectInitParams
 {
-} CbjectParams;
+} CbjectInitParams;
 
 CbjectClass const * const CbjectClass_instance();
-void Cbject_init(Cbject * const me, CbjectParams const * const params);
+void Cbject_init(Cbject * const me, CbjectInitParams const * const params);
 void Cbject_terminate(Cbject * const me);
 uint8 Cbject_size(Cbject const * const me);
 char const * Cbject_type(Cbject const * const me);
