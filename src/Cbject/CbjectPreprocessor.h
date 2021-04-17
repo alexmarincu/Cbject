@@ -4,31 +4,50 @@
 #include "CbjectUtilities.h"
 #include "Primitives.h"
 
-#define CbjectPreprocessor_InitParamsStructDefinition(className, superClassName, ...) \
+#define CbjectPreprocessor_initParamsStructDefinition(className, superClassName, ...) \
     struct className##InitParams                                                      \
     {                                                                                 \
         superClassName##InitParams super;                                             \
-        CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__)            \
+        CbjectUtilities_forEach(CbjectUtilities_addSemicolon, ##__VA_ARGS__)          \
     }
 
-#define CbjectPreprocessor_InitParamsTypeDefinition(className, superClassName, ...) \
-    typedef CbjectPreprocessor_InitParamsStructDefinition(className, superClassName, __VA_ARGS__) className##InitParams
+#define CbjectPreprocessor_initParamsTypeDefinition(className, superClassName, ...) \
+    typedef CbjectPreprocessor_initParamsStructDefinition(className, superClassName, ##__VA_ARGS__) className##InitParams
 
-#define CbjectPreprocessor_MembersStructDefinition(className, ...)         \
+#define CbjectPreprocessor_membersStructDefinition(className, ...)         \
     struct className##Members                                              \
     {                                                                      \
         CbjectUtilities_forEach(CbjectUtilities_addSemicolon, __VA_ARGS__) \
     }
 
-#define CbjectPreprocessor_MembersTypeDefinition(className, ...) \
-    typedef CbjectPreprocessor_MembersStructDefinition(className, __VA_ARGS__) className##Members
+#define CbjectPreprocessor_membersTypeDefinition(className, ...) \
+    typedef CbjectPreprocessor_membersStructDefinition(className, __VA_ARGS__) className##Members
 
-#define CbjectPreprocessor_expandShellStruct(className, superClassName) \
-    typedef union className##Shell                                      \
-    {                                                                   \
-        char d[sizeof(struct { superClassName##Shell super; className##Members m; })];                                     \
-        maxAlign a;                                                     \
-    } className##Shell
+#define CbjectPreprocessor_shellStructDefinition(className, superClassName) \
+    union className##Shell                                                  \
+    {                                                                       \
+        char d[sizeof(struct { superClassName##Shell super; className##Members m; })];                                         \
+        maxAlign a;                                                         \
+    }
+
+#define CbjectPreprocessor_shellTypeDefinition(className, superClassName) \
+    typedef CbjectPreprocessor_shellStructDefinition(className, superClassName) className##Shell
+
+#define CbjectPreprocessor_virtualFunctionsStructDefinition(className, ...)                                     \
+    struct className##ClassVirtualFunctions                                                                     \
+    {                                                                                                           \
+        CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyVirtualFunctionPointer, __VA_ARGS__) \
+    }
+
+#define CbjectPreprocessor_virtualFunctionsTypeDefinition(className, ...) \
+    typedef CbjectPreprocessor_virtualFunctionsStructDefinition(className, ##__VA_ARGS__) className##ClassVirtualFunctions
+
+#define CbjectPreprocessor_classTypeDefinition(className, superClassName) \
+    typedef struct className##Class                                       \
+    {                                                                     \
+        superClassName##Class super;                                      \
+        className##ClassVirtualFunctions vf;                              \
+    } className##Class
 
 #define CbjectPreprocessor_getCbjectDecl(className) className * get_##className(className##InitParams const * const params)
 #define CbjectPreprocessor_newCbjectDecl(className) className * new_##className(className##InitParams const * const params)
@@ -36,23 +55,28 @@
 
 #if Cbject_useStaticPool == true
     #if Cbject_useHeap == true
-        #define CbjectPreprocessor_expandClass_(className, superClassName, initParams, members)                                   \
-            CbjectPreprocessor_InitParamsTypeDefinition(className, superClassName, CbjectUtilities_stripParentheses(initParams)); \
-            CbjectPreprocessor_MembersTypeDefinition(className, CbjectUtilities_stripParentheses(members));                       \
-            typedef struct className className;                                                                                   \
-            CbjectPreprocessor_expandShellStruct(className, superClassName);                                                      \
-            void className##_init(className * const me, className##InitParams const * const params);                              \
-            void className##_terminate(className * const me);                                                                     \
-            uint8 className##Class_size();                                                                                        \
-            CbjectPreprocessor_getCbjectDecl(className);                                                                          \
-            CbjectPreprocessor_newCbjectDecl(className);                                                                          \
+        #define CbjectPreprocessor_expandClass_(className, superClassName, initParams, members, virtualFunctions)                                        \
+            CbjectPreprocessor_initParamsTypeDefinition(className, superClassName CbjectUtilities_vaArgs(CbjectUtilities_stripParentheses(initParams))); \
+            CbjectPreprocessor_membersTypeDefinition(className, CbjectUtilities_stripParentheses(members));                                              \
+            typedef struct className className;                                                                                                          \
+            CbjectPreprocessor_shellTypeDefinition(className, superClassName);                                                                           \
+            void className##_init(className * const me, className##InitParams const * const params);                                                     \
+            void className##_terminate(className * const me);                                                                                            \
+            CbjectPreprocessor_virtualFunctionsTypeDefinition(className, CbjectUtilities_stripParentheses(virtualFunctions));                            \
+            CbjectPreprocessor_classTypeDefinition(className, superClassName);                                                                           \
+            className##Class const * const className##Class_instance();                                                                                  \
+            SuperFunctions(CbjectUtilities_stripParentheses(virtualFunctions));                                                                          \
+            Functions(CbjectUtilities_stripParentheses(virtualFunctions));                                                                               \
+            uint8 className##Class_size();                                                                                                               \
+            CbjectPreprocessor_getCbjectDecl(className);                                                                                                 \
+            CbjectPreprocessor_newCbjectDecl(className);                                                                                                 \
             CbjectPreprocessor_deleteCbjectDecl(className)
     #else
         #define CbjectPreprocessor_expandClass_(className, superClassName, initParams, members)                                   \
-            CbjectPreprocessor_InitParamsTypeDefinition(className, superClassName, CbjectUtilities_stripParentheses(initParams)); \
-            CbjectPreprocessor_MembersTypeDefinition(className, CbjectUtilities_stripParentheses(members));                       \
+            CbjectPreprocessor_initParamsTypeDefinition(className, superClassName, CbjectUtilities_stripParentheses(initParams)); \
+            CbjectPreprocessor_membersTypeDefinition(className, CbjectUtilities_stripParentheses(members));                       \
             typedef struct className className;                                                                                   \
-            CbjectPreprocessor_expandShellStruct(className, superClassName);                                                      \
+            CbjectPreprocessor_shellTypeDefinition(className, superClassName);                                                    \
             void className##_init(className * const me, className##InitParams const * const params);                              \
             void className##_terminate(className * const me);                                                                     \
             uint8 className##Class_size();                                                                                        \
@@ -61,10 +85,10 @@
 #else
     #if Cbject_useHeap == true
         #define CbjectPreprocessor_expandClass_(className, superClassName, initParams, members)                                   \
-            CbjectPreprocessor_InitParamsTypeDefinition(className, superClassName, CbjectUtilities_stripParentheses(initParams)); \
-            CbjectPreprocessor_MembersTypeDefinition(className, CbjectUtilities_stripParentheses(members));                       \
+            CbjectPreprocessor_initParamsTypeDefinition(className, superClassName, CbjectUtilities_stripParentheses(initParams)); \
+            CbjectPreprocessor_membersTypeDefinition(className, CbjectUtilities_stripParentheses(members));                       \
             typedef struct className className;                                                                                   \
-            CbjectPreprocessor_expandShellStruct(className, superClassName);                                                      \
+            CbjectPreprocessor_shellTypeDefinition(className, superClassName);                                                    \
             void className##_init(className * const me, className##InitParams const * const params);                              \
             void className##_terminate(className * const me);                                                                     \
             uint8 className##Class_size();                                                                                        \
@@ -72,40 +96,44 @@
             CbjectPreprocessor_deleteCbjectDecl(className)
     #else
         #define CbjectPreprocessor_expandClass_(className, superClassName, initParams, members)                                   \
-            CbjectPreprocessor_InitParamsTypeDefinition(className, superClassName, CbjectUtilities_stripParentheses(initParams)); \
-            CbjectPreprocessor_MembersTypeDefinition(className, CbjectUtilities_stripParentheses(members));                       \
+            CbjectPreprocessor_initParamsTypeDefinition(className, superClassName, CbjectUtilities_stripParentheses(initParams)); \
+            CbjectPreprocessor_membersTypeDefinition(className, CbjectUtilities_stripParentheses(members));                       \
             typedef struct className className;                                                                                   \
-            CbjectPreprocessor_expandShellStruct(className, superClassName);                                                      \
+            CbjectPreprocessor_shellTypeDefinition(className, superClassName);                                                    \
             void className##_init(className * const me, className##InitParams const * const params);                              \
             void className##_terminate(className * const me);                                                                     \
             uint8 className##Class_size()
     #endif
 #endif
-#define CbjectPreprocessor_expandClass(className, superClassName, initParams, members) CbjectPreprocessor_expandClass_(className, superClassName, initParams, members)
+#define CbjectPreprocessor_expandClass(className, superClassName, initParams, members, virtualFunctions) \
+    CbjectPreprocessor_expandClass_(className, superClassName, initParams, members, virtualFunctions)
 
-#define CbjectPreprocessor_expandAbstractClass_(className, superClassName, initParams, members)                           \
-    CbjectPreprocessor_InitParamsTypeDefinition(className, superClassName, CbjectUtilities_stripParentheses(initParams)); \
-    CbjectPreprocessor_MembersTypeDefinition(className, CbjectUtilities_stripParentheses(members));                       \
-    typedef struct className className;                                                                                   \
-                                                                                                                          \
-    CbjectPreprocessor_expandShellStruct(className, superClassName);                                                      \
-                                                                                                                          \
-    void className##_init(className * const me, className##InitParams const * const params);                              \
-    void className##_terminate(className * const me)
-#define CbjectPreprocessor_expandAbstractClass(className, superClassName, initParams, members) CbjectPreprocessor_expandAbstractClass_(className, superClassName, initParams, members)
+#define CbjectPreprocessor_expandAbstractClass_(className, superClassName, initParams, members, virtualFunctions)                                \
+    CbjectPreprocessor_initParamsTypeDefinition(className, superClassName CbjectUtilities_vaArgs(CbjectUtilities_stripParentheses(initParams))); \
+    CbjectPreprocessor_membersTypeDefinition(className, CbjectUtilities_stripParentheses(members));                                              \
+    typedef struct className className;                                                                                                          \
+    CbjectPreprocessor_shellTypeDefinition(className, superClassName);                                                                           \
+    void className##_init(className * const me, className##InitParams const * const params);                                                     \
+    void className##_terminate(className * const me);                                                                                            \
+    CbjectPreprocessor_virtualFunctionsTypeDefinition(className, CbjectUtilities_stripParentheses(virtualFunctions));                            \
+    CbjectPreprocessor_classTypeDefinition(className, superClassName);                                                                           \
+    className##Class const * const className##Class_instance();                                                                                  \
+    SuperFunctions(CbjectUtilities_stripParentheses(virtualFunctions));                                                                          \
+    Functions(CbjectUtilities_stripParentheses(virtualFunctions))
+#define CbjectPreprocessor_expandAbstractClass(className, superClassName, initParams, members, virtualFunctions) CbjectPreprocessor_expandAbstractClass_(className, superClassName, initParams, members, virtualFunctions)
 
-#define CbjectPreprocessor_expandSingleton_(className, superClassName, initParams, members)                               \
-    CbjectPreprocessor_InitParamsTypeDefinition(className, superClassName, CbjectUtilities_stripParentheses(initParams)); \
-    CbjectPreprocessor_MembersTypeDefinition(className, CbjectUtilities_stripParentheses(members));                       \
-    typedef struct className className;                                                                                   \
-    CbjectPreprocessor_expandShellStruct(className, superClassName);                                                      \
-    void className##_init(className * const me, className##InitParams const * const params);                              \
-    void className##_terminate(className * const me);                                                                     \
+#define CbjectPreprocessor_expandSingleton_(className, superClassName, initParams, members)                                                      \
+    CbjectPreprocessor_initParamsTypeDefinition(className, superClassName CbjectUtilities_vaArgs(CbjectUtilities_stripParentheses(initParams))); \
+    CbjectPreprocessor_membersTypeDefinition(className, CbjectUtilities_stripParentheses(members));                                              \
+    typedef struct className className;                                                                                                          \
+    CbjectPreprocessor_shellTypeDefinition(className, superClassName);                                                                           \
+    void className##_init(className * const me, className##InitParams const * const params);                                                     \
+    void className##_terminate(className * const me);                                                                                            \
     className * className##_instance()
 #define CbjectPreprocessor_expandSingleton(className, superClassName, initParams, members) CbjectPreprocessor_expandSingleton_(className, superClassName, initParams, members)
 
 #define CbjectPreprocessor_expandInitParams_(className, superClassName, ...) \
-    CbjectPreprocessor_InitParamsTypeDefinition(className, superClassName, __VA_ARGS__)
+    CbjectPreprocessor_initParamsTypeDefinition(className, superClassName, __VA_ARGS__)
 #define CbjectPreprocessor_expandInitParams(className, superClassName, ...) CbjectPreprocessor_expandInitParams_(className, superClassName, __VA_ARGS__)
 
 #define CbjectPreprocessor_cps_(className, poolSize) \
@@ -132,7 +160,7 @@
 
 #define CbjectPreprocessor_cm_(className, superClassName)  \
     CbjectPreprocessor_members(className, superClassName); \
-    CbjectPreprocessor_class(className, superClassName)
+    // CbjectPreprocessor_class(className, superClassName)
 #define CbjectPreprocessor_cm(className, superClassName) CbjectPreprocessor_cm_(className, superClassName)
 
 #define CbjectPreprocessor_c_(className, type, ...) type const className##_##__VA_ARGS__
@@ -183,50 +211,61 @@
 #define CbjectPreprocessor_stripParenthesesAndApplyPrivateFunction(functionPrototype) PrivateFunction functionPrototype;
 #define CbjectPreprocessor_expandPrivateFunctions(...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyPrivateFunction, __VA_ARGS__)
 
-#define CbjectPreprocessor_vfp__(className, type, functionName, arguments) \
+#define CbjectPreprocessor_virtualFunctionPointer(className, type, functionName, arguments) \
     type (*functionName)(className * const me CbjectUtilities_vaArgs(CbjectUtilities_stripParentheses(arguments)))
-#define CbjectPreprocessor_vfp_(className, type, functionName, arguments) CbjectPreprocessor_vfp__(className, type, functionName, arguments)
-#define CbjectPreprocessor_vfp(type, functionName, arguments) CbjectPreprocessor_vfp_(class, type, functionName, arguments)
-#define CbjectPreprocessor_stripParenthesesAndApplyVirtualFunctionPointer(functionPrototype) CbjectPreprocessor_vfp functionPrototype;
+
+#define CbjectPreprocessor_expandVirtualFunctionPointer(type, functionName, arguments) \
+    CbjectPreprocessor_virtualFunctionPointer(class, type, functionName, arguments)
+
+#define CbjectPreprocessor_stripParenthesesAndApplyVirtualFunctionPointer(functionPrototype) \
+    CbjectPreprocessor_expandVirtualFunctionPointer functionPrototype;
 
 #define CbjectPreprocessor_virtualCall(className, functionName, params) \
     return ((className##Class *) Cbject_class((Cbject *) me))->vf.functionName(me CbjectUtilities_vaArgs(CbjectUtilities_stripParentheses(params)))
 
 #define CbjectPreprocessor_superFunctionPrototype(className, type, functionName, arguments) \
     type super##className##_##functionName(className * const me CbjectUtilities_vaArgs(CbjectUtilities_stripParentheses(arguments)))
-#define CbjectPreprocessor_superFunctions_(className, type, functionName, arguments) CbjectPreprocessor_superFunctionPrototype(className, type, functionName, arguments)
-#define CbjectPreprocessor_superFunctions(type, functionName, arguments) CbjectPreprocessor_superFunctions_(class, type, functionName, arguments)
-#define CbjectPreprocessor_stripParenthesesAndApplySuperFunction(functionPrototype) CbjectPreprocessor_superFunctions functionPrototype;
+
+#define CbjectPreprocessor_superFunctions_(className, type, functionName, arguments) \
+    CbjectPreprocessor_superFunctionPrototype(className, type, functionName, arguments)
+
+#define CbjectPreprocessor_superFunctions(type, functionName, arguments) \
+    CbjectPreprocessor_superFunctions_(class, type, functionName, arguments)
+// #define CbjectPreprocessor_stripParenthesesAndApplySuperFunction(functionPrototype) CbjectPreprocessor_superFunctions functionPrototype;
+
+#define CbjectPreprocessor_expandSuperFunction(className, returnType, functionName, arguments) \
+    CbjectPreprocessor_superFunctionPrototype(className, returnType, functionName, arguments)
+
+#define CbjectPreprocessor_stripParenthesesAndApplySuperFunction(functionPrototype) SuperFunction functionPrototype;
+#define CbjectPreprocessor_expandSuperFunctions(...) \
+    CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplySuperFunction, __VA_ARGS__)
 
 #define CbjectPreprocessor_virtualFunctionPrototype(className, returnType, functionName, arguments, params)                                                   \
     CbjectPreprocessor_functionPrototype(className, returnType, functionName, arguments) { CbjectPreprocessor_virtualCall(className, functionName, params); } \
     CbjectPreprocessor_superFunctionPrototype(className, returnType, functionName, arguments)
 #define CbjectPreprocessor_expandVirtualFunction(className, returnType, functionName, arguments, params) CbjectPreprocessor_virtualFunctionPrototype(className, returnType, functionName, arguments, params)
 
-#define CbjectPreprocessor_vfs_(className, superClassName, ...)                                                     \
-    typedef struct className##Class                                                                                 \
-    {                                                                                                               \
-        superClassName##Class super;                                                                                \
-                                                                                                                    \
-        struct                                                                                                      \
-        {                                                                                                           \
-            CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyVirtualFunctionPointer, __VA_ARGS__) \
-        } vf;                                                                                                       \
-    } className##Class;                                                                                             \
-                                                                                                                    \
-    className##Class const * const className##Class_instance();                                                     \
-    CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplySuperFunction, __VA_ARGS__)
-#define CbjectPreprocessor_vfs(className, superClassName, ...) CbjectPreprocessor_vfs_(className, superClassName, __VA_ARGS__)
+#define CbjectPreprocessor_expandVirtualFunctions_(className, superClassName, ...) \
+    CbjectPreprocessor_virtualFunctionsTypeDefinition(className, ##__VA_ARGS__);   \
+    CbjectPreprocessor_classTypeDefinition(className, superClassName);             \
+    className##Class const * const className##Class_instance();                    \
+    SuperFunctions(__VA_ARGS__);                                                   \
+    Functions(__VA_ARGS__)
+#define CbjectPreprocessor_expandVirtualFunctions(className, superClassName, ...) CbjectPreprocessor_expandVirtualFunctions_(className, superClassName, __VA_ARGS__)
 
-#define CbjectPreprocessor_expandSetter_(className, type, memberName) \
+#define CbjectPreprocessor_setterFunctionPrototype(className, type, memberName) \
     void className##_##memberName##Set(className * const me, type const memberName)
-#define CbjectPreprocessor_expandSetter(className, type, memberName) CbjectPreprocessor_expandSetter_(className, type, memberName)
-#define CbjectPreprocessor_stripParenthesesAndApplySetter(memberPrototype) Setter memberPrototype;
+#define CbjectPreprocessor_expandSetter(className, type, memberName) CbjectPreprocessor_setterFunctionPrototype(className, type, memberName)
 
-#define CbjectPreprocessor_expandGetter_(className, type, memberName) \
+#define CbjectPreprocessor_stripParenthesesAndApplySetter(memberPrototype) Setter memberPrototype;
+#define CbjectPreprocessor_expandSetters(...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplySetter, __VA_ARGS__)
+
+#define CbjectPreprocessor_getterFunctionPrototype(className, type, memberName) \
     type className##_##memberName(className const * const me)
-#define CbjectPreprocessor_expandGetter(className, type, memberName) CbjectPreprocessor_expandGetter_(className, type, memberName)
+#define CbjectPreprocessor_expandGetter(className, type, memberName) CbjectPreprocessor_getterFunctionPrototype(className, type, memberName)
+
 #define CbjectPreprocessor_stripParenthesesAndApplyGetter(memberPrototype) Getter memberPrototype;
+#define CbjectPreprocessor_expandGetters(...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyGetter, __VA_ARGS__)
 
 #define CbjectPreprocessor_expandDefaultSetter_(className, type, memberName) \
     void className##_##memberName##Set(className * const me, type const memberName) { me->m.memberName = memberName; }

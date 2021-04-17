@@ -1,28 +1,35 @@
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef CBJECT_H
+#define CBJECT_H
 #include "CbjectKeywords.h"
 // #include <stddef.h>
 
-typedef union Cbject Cbject;
+typedef struct Cbject Cbject;
+
+typedef struct CbjectClassVirtualFunctions
+{
+    uint8 (*size)(Cbject const * const me);
+} CbjectClassVirtualFunctions;
+
 typedef struct CbjectClass
 {
     char const * type;
-
-    struct
-    {
-        uint8 (*size)(Cbject const * const me);
-    } vf;
+    CbjectClassVirtualFunctions vf;
 } CbjectClass;
-
-typedef union CbjectShell
-{
-    char d[sizeof(struct { CbjectClass * c; })];
-    maxAlign a;
-} CbjectShell;
 
 typedef struct CbjectInitParams
 {
 } CbjectInitParams;
+
+typedef struct CbjectMembers
+{
+    maxAlign a;
+} CbjectMembers;
+
+typedef union CbjectShell
+{
+    char d[sizeof(struct { CbjectClass * c; CbjectMembers m; })];
+    maxAlign a;
+} CbjectShell;
 
 CbjectClass const * const CbjectClass_instance();
 void Cbject_init(Cbject * const me, CbjectInitParams const * const params);
@@ -32,4 +39,4 @@ char const * Cbject_type(Cbject const * const me);
 void Cbject_classSet(Cbject * const me, CbjectClass const * const c);
 CbjectClass const * Cbject_class(Cbject * const me);
 
-#endif // OBJECT_H
+#endif // CBJECT_H

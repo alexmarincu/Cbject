@@ -22,7 +22,7 @@ VirtualFunction(void, draw, (uint8 const a), (a))
     printf("Shape draw\n");
 }
 
-Function(void, dummy, ()) { printf("Shape dummy\n"); }
+Function(void, CbjectUtilities_feN, ()) { printf("Shape CbjectUtilities_feN\n"); }
 
 #undef superClass
 #undef class

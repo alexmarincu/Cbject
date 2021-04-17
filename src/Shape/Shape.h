@@ -6,19 +6,19 @@
 #define class Shape
 #define superClass Cbject
 
-AbstractClass((Point origin),
-              (Point origin));
+AbstractClass(
+    InitParams(Point origin),
+    Members(Point origin),
+    VirtualFunctions(
+        (float, area, ()),
+        (void, draw, (uint8 const a))));
 
 Setters((Point, origin));
 Getters((Point, origin));
 
-Functions(
-    (float, area, ()),
-    (void, draw, (uint8 const a)));
+#define x(...) int a(int s, ##__VA_ARGS__, int b, int c)
 
-VirtualFunctions(
-    (float, area, ()),
-    (void, draw, (uint8 const a)));
+x();
 
 #undef superClass
 #undef class

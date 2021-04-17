@@ -6,8 +6,10 @@
 #define class ColoredCircle
 #define superClass Circle
 
-Class((Color color),
-      (Color color));
+Class(
+    InitParams(Color color),
+    Members(Color color),
+    VirtualFunctions((void, rotate, ())));
 
 Setters(
     (uint32, radius),

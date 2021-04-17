@@ -54,6 +54,7 @@ PrivateFunction(void, circleExample, ())
     Shape_draw((Shape *) me->m.circle, 5);
     Circle_rotate(me->m.circle);
     printf("circle.class.type = %s\n", Cbject_type((Cbject *) me->m.circle));
+    printf("circle.class.type = %s\n", (*((CbjectClass **) me->m.circle))->type);
 }
 
 PrivateFunction(void, stackCircleExample, ())
@@ -61,10 +62,10 @@ PrivateFunction(void, stackCircleExample, ())
     printf("\n= StackCircle example:\n");
 
     cbject(Circle, stackCircle,
-                &((CircleInitParams){
-                    .super.origin.x = 2,
-                    .super.origin.y = 3,
-                    .radius = 3}));
+           &((CircleInitParams){
+               .super.origin.x = 2,
+               .super.origin.y = 3,
+               .radius = 3}));
 
     printf("stackCircle.radius = %d\n", Circle_radius(stackCircle));
     printf("Set radius to 4\n");
@@ -99,11 +100,11 @@ PrivateFunction(void, stackRectangleExample, ())
     printf("\n= StackRectangle example:\n");
 
     cbject(Rectangle, stackRectangle,
-                &((RectangleInitParams){
-                    .super.origin.x = 12,
-                    .super.origin.y = 23,
-                    .width = 34,
-                    .height = 2}));
+           &((RectangleInitParams){
+               .super.origin.x = 12,
+               .super.origin.y = 23,
+               .width = 34,
+               .height = 2}));
 
     printf("stackRectangle.width = %d\n", Rectangle_width(stackRectangle));
     printf("rectangle.height = %d\n", Rectangle_height(stackRectangle));

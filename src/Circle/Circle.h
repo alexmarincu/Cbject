@@ -5,8 +5,10 @@
 #define class Circle
 #define superClass Shape
 
-Class((uint32 const radius),
-      (int32 radius));
+Class(
+    InitParams(uint32 const radius),
+    Members(int32 radius),
+    VirtualFunctions((void, rotate, ())));
 
 PublicConstant(float, pi);
 PublicConstants((float, anotherPi));
@@ -19,7 +21,7 @@ OverrideFunctions(
     (float, Shape, area, ()),
     (void, Shape, draw, (uint8 const a)));
 
-VirtualFunctions((void, rotate, ()));
+// VirtualFunctionsOld((void, rotate, ()));
 
 Functions((void, rotate, ()));
 

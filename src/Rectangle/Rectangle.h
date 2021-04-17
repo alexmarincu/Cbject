@@ -5,9 +5,16 @@
 #define class Rectangle
 #define superClass Shape
 
-Class((uint32 const width, uint32 const height),
-      (uint32 width,
-       uint32 height));
+Class(
+    InitParams(
+        uint32 const width,
+        uint32 const height),
+    Members(
+        uint32 width,
+        uint32 height),
+    VirtualFunctions((void, rotate, ())));
+
+// CbjectPreprocessor_virtualFunctionsTypeDefinition(ccc);
 
 Setters(
     (uint32, width),

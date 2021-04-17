@@ -2,10 +2,13 @@
 #define CBJECTKEYWORDS_H
 #include "CbjectPreprocessor.h"
 
-#define Class(initParams, members) CbjectPreprocessor_expandClass(class, superClass, initParams, members)
-#define AbstractClass(initParams, members) CbjectPreprocessor_expandAbstractClass(class, superClass, initParams, members)
+#define Class(initParams, members, virtualFunctions) \
+    CbjectPreprocessor_expandClass(class, superClass, initParams, members, virtualFunctions)
+
+#define AbstractClass(initParams, members, virtualFunctions) CbjectPreprocessor_expandAbstractClass(class, superClass, initParams, members, virtualFunctions)
 #define Singleton(initParams, members) CbjectPreprocessor_expandSingleton(class, superClass, initParams, members)
-#define InitParams(...) CbjectPreprocessor_expandInitParams(class, superClass, __VA_ARGS__)
+#define InitParams(...) (__VA_ARGS__)
+#define Members(...) (__VA_ARGS__)
 #define PoolSize(poolSize) CbjectPreprocessor_cps(class, poolSize)
 #define ClassMembers() CbjectPreprocessor_cm(class, superClass)
 #define AbstractClassMembers() CbjectPreprocessor_expandAbstractClassMembers(class, superClass)
@@ -22,7 +25,10 @@
 #define PrivateFunction(returnType, functionName, arguments) CbjectPreprocessor_expandPrivateFunction(class, returnType, functionName, arguments)
 #define PrivateFunctions(...) CbjectPreprocessor_expandPrivateFunctions(__VA_ARGS__)
 #define VirtualFunction(returnType, functionName, arguments, params) CbjectPreprocessor_expandVirtualFunction(class, returnType, functionName, arguments, params)
-#define VirtualFunctions(...) CbjectPreprocessor_vfs(class, superClass, __VA_ARGS__)
+#define VirtualFunctionsOld(...) CbjectPreprocessor_expandVirtualFunctions(class, superClass, __VA_ARGS__)
+#define VirtualFunctions(...) (__VA_ARGS__)
+#define SuperFunction(returnType, functionName, arguments) CbjectPreprocessor_expandSuperFunction(class, returnType, functionName, arguments)
+#define SuperFunctions(...) CbjectPreprocessor_expandSuperFunctions(__VA_ARGS__)
 
 #define cbject(className, varName, ...)                                \
     className * const varName = (className *) &((className##Shell){}); \
@@ -30,8 +36,8 @@
 
 #define Setter(type, memberName) CbjectPreprocessor_expandSetter(class, type, memberName)
 #define Getter(type, memberName) CbjectPreprocessor_expandGetter(class, type, memberName)
-#define Setters(...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplySetter, __VA_ARGS__)
-#define Getters(...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyGetter, __VA_ARGS__)
+#define Setters(...) CbjectPreprocessor_expandSetters(__VA_ARGS__)
+#define Getters(...) CbjectPreprocessor_expandGetters(__VA_ARGS__)
 #define DefaultSetter(type, memberName) CbjectPreprocessor_expandDefaultSetter(class, type, memberName)
 #define DefaultGetter(type, memberName) CbjectPreprocessor_expandDefaultGetter(class, type, memberName)
 #define DefaultSetters(...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyDefaultSetter, __VA_ARGS__)
