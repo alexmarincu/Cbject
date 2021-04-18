@@ -7,12 +7,6 @@
 
 PoolSize(10);
 
-ClassMembers();
-
-// defaultSetterGetter(Color, color);
-DefaultSetter(Color, color);
-DefaultGetter(Color, color);
-
 OverrideFunctions(
     (void, Shape, draw, (uint8 const a)),
     (void, Circle, rotate, ()));
@@ -23,17 +17,20 @@ ClassSetup({
         (void, Circle, rotate, ()));
 });
 
+DefaultSetter(Color, color);
+DefaultGetter(Color, color);
+
 Init({ me->m.color = params->color; });
 Terminate({});
 
-OverrideFunction(void, Shape, draw, (uint8 const a))
+OverrideFunctionNew(Shape, (void, draw, (uint8 const a)))
 {
     superShape_draw((Shape *) me, 5);
     superCircle_draw((Circle *) me, 5);
     printf("ColoredCircle draw\n");
 }
 
-OverrideFunction(void, Circle, rotate, ())
+OverrideFunctionNew(Circle, (void, rotate, ()))
 {
     superCircle_rotate((Circle *) me);
     printf("Rotate counter-clockwise\n");

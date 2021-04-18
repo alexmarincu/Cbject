@@ -21,8 +21,6 @@ OverrideFunctions(
     (float, Shape, area, ()),
     (void, Shape, draw, (uint8 const a)));
 
-// VirtualFunctionsOld((void, rotate, ()));
-
 Functions((void, rotate, ()));
 
 #undef class

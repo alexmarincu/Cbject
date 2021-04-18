@@ -16,10 +16,6 @@ AbstractClass(
 Setters((Point, origin));
 Getters((Point, origin));
 
-#define x(...) int a(int s, ##__VA_ARGS__, int b, int c)
-
-x();
-
 #undef superClass
 #undef class
 #endif // SHAPE_H

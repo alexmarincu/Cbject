@@ -10,11 +10,11 @@
 #define CbjectUtilities_vaArgs(...) CbjectUtilities_prependComma(__VA_ARGS__)
 
 #define CbjectUtilities_stripParentheses__(...) __VA_ARGS__
-// #define CbjectUtilities_stripParentheses_(x) x
-// #define CbjectUtilities_stripParentheses(arguments) \
-//     CbjectUtilities_stripParentheses_(CbjectUtilities_stripParentheses__ arguments)
+#define CbjectUtilities_stripParentheses_(x) x
 #define CbjectUtilities_stripParentheses(arguments) \
-    CbjectUtilities_stripParentheses__ arguments
+    CbjectUtilities_stripParentheses_(CbjectUtilities_stripParentheses__ arguments)
+// #define CbjectUtilities_stripParentheses(arguments) \
+//     CbjectUtilities_stripParentheses__ arguments
 
 #define CbjectUtilities_feN
 #define CbjectUtilities_fe0(macro)

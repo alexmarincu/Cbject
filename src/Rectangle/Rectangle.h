@@ -12,9 +12,7 @@ Class(
     Members(
         uint32 width,
         uint32 height),
-    VirtualFunctions((void, rotate, ())));
-
-// CbjectPreprocessor_virtualFunctionsTypeDefinition(ccc);
+    VirtualFunctions());
 
 Setters(
     (uint32, width),

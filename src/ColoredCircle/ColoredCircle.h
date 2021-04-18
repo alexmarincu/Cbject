@@ -9,7 +9,7 @@
 Class(
     InitParams(Color color),
     Members(Color color),
-    VirtualFunctions((void, rotate, ())));
+    VirtualFunctions());
 
 Setters(
     (uint32, radius),

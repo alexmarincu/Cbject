@@ -4,8 +4,6 @@
 #define class Circle
 #define superClass Shape
 
-AbstractClassMembers();
-
 PoolSize(10);
 
 Constants(
@@ -30,13 +28,13 @@ Terminate({});
 DefaultSetter(uint32, radius);
 DefaultGetter(uint32, radius);
 
-OverrideFunction(void, Shape, draw, (uint8 const a))
+OverrideFunctionNew(Shape, (void, draw, (uint8 const a)))
 {
     superShape_draw((Shape *) me, a);
     printf("Circle draw\n");
 }
 
-OverrideFunction(float, Shape, area, ()) { return me->m.radius * me->m.radius * Circle_pi; }
+OverrideFunctionNew(Shape, (float, area, ())) { return me->m.radius * me->m.radius * Circle_pi; }
 VirtualFunction(void, rotate, (), ()) { printf("Rotate clockwise\n"); }
 
 #undef superClass

@@ -45,6 +45,7 @@ PrivateFunction(void, circleExample, ())
     Circle_radiusSet(me->m.circle, 2);
     printf("circle.radius = %d\n", Circle_radius(me->m.circle));
     printf("circle.area = %.2f\n", Shape_area((Shape *) me->m.circle));
+    printf("circle.area = %.2f\n", superCircle_area(me->m.circle));
     printf("circle.origin.x = %d\n", Shape_origin((Shape *) me->m.circle).x);
     printf("circle.origin.y = %d\n", Shape_origin((Shape *) me->m.circle).y);
     printf("Set origin to {2, 3}\n");
