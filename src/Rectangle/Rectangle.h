@@ -6,13 +6,14 @@
 #define superClass Shape
 
 Class(
-    InitParams(
-        uint32 const width,
-        uint32 const height),
-    Members(
-        uint32 width,
-        uint32 height),
-    VirtualFunctions());
+    InitParams(_,
+               Point origin,
+               uint32 width,
+               uint32 height),
+    Members(_,
+            uint32 width,
+            uint32 height),
+    VirtualFunctions(0));
 
 Setters(
     (uint32, width),

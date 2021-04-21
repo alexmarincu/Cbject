@@ -10,12 +10,12 @@
 #define superClass Cbject
 
 Singleton(
-    InitParams(),
-    Members(
-        Circle * circle,
-        Rectangle * rectangle,
-        Rectangle * heapRectangle,
-        ColoredCircle * coloredCircle));
+    InitParams(0),
+    Members(_,
+            Circle * circle,
+            Rectangle * rectangle,
+            Rectangle * heapRectangle,
+            ColoredCircle * coloredCircle));
 
 Function(void, start, ());
 

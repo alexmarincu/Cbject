@@ -6,9 +6,13 @@
 #define superClass Shape
 
 Class(
-    InitParams(uint32 const radius),
-    Members(int32 radius),
-    VirtualFunctions((void, rotate, ())));
+    InitParams(_,
+               Point origin,
+               uint32 radius),
+    Members(_,
+            int32 radius),
+    VirtualFunctions(_,
+                     (void, rotate, ())));
 
 PublicConstant(float, pi);
 PublicConstants((float, anotherPi));
@@ -21,7 +25,8 @@ OverrideFunctions(
     (float, Shape, area, ()),
     (void, Shape, draw, (uint8 const a)));
 
-Functions((void, rotate, ()));
+Functions(_,
+          (void, rotate, ()));
 
 #undef class
 #undef superClass

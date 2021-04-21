@@ -39,7 +39,7 @@ PrivateFunction(void, circleExample, ())
 {
     printf("\n= Circle example:\n");
     printf("Circle_pi = %.2f\n", Circle_pi);
-    me->m.circle = get_Circle(&((CircleInitParams){.super.origin.x = 0, .super.origin.y = 1, .radius = 1}));
+    me->m.circle = get_Circle(&((CircleInitParams){.origin.x = 0, .origin.y = 1, .radius = 1}));
     printf("circle.radius = %d\n", Circle_radius(me->m.circle));
     printf("Set radius to 2\n");
     Circle_radiusSet(me->m.circle, 2);
@@ -64,8 +64,8 @@ PrivateFunction(void, stackCircleExample, ())
 
     cbject(Circle, stackCircle,
            &((CircleInitParams){
-               .super.origin.x = 2,
-               .super.origin.y = 3,
+               .origin.x = 2,
+               .origin.y = 3,
                .radius = 3}));
 
     printf("stackCircle.radius = %d\n", Circle_radius(stackCircle));
@@ -79,8 +79,8 @@ PrivateFunction(void, rectangleExample, ())
     printf("\n= Rectangle example:\n");
     me->m.rectangle = get_Rectangle(
         &((RectangleInitParams){
-            .super.origin.x = 4,
-            .super.origin.y = 5,
+            .origin.x = 4,
+            .origin.y = 5,
             .width = 1,
             .height = 2}));
 
@@ -102,8 +102,8 @@ PrivateFunction(void, stackRectangleExample, ())
 
     cbject(Rectangle, stackRectangle,
            &((RectangleInitParams){
-               .super.origin.x = 12,
-               .super.origin.y = 23,
+               .origin.x = 12,
+               .origin.y = 23,
                .width = 34,
                .height = 2}));
 
@@ -122,8 +122,8 @@ PrivateFunction(void, heapRectangleExample, ())
 
     me->m.heapRectangle = new_Rectangle(
         &((RectangleInitParams){
-            .super.origin.x = 12,
-            .super.origin.y = 23,
+            .origin.x = 12,
+            .origin.y = 23,
             .width = 34,
             .height = 2}));
 
@@ -141,9 +141,9 @@ PrivateFunction(void, coloredCircleExample, ())
     printf("\n= ColoredCircle example:\n");
     me->m.coloredCircle = get_ColoredCircle(
         &((ColoredCircleInitParams){
-            .super.super.origin.x = 12,
-            .super.super.origin.y = 23,
-            .super.radius = 10,
+            .origin.x = 12,
+            .origin.y = 23,
+            .radius = 10,
             .color = Color_red}));
 
     printf("coloredCircle.radius = %d\n", Circle_radius((Circle *) me->m.coloredCircle));

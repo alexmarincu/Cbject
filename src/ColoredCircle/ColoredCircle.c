@@ -20,7 +20,17 @@ ClassSetup({
 DefaultSetter(Color, color);
 DefaultGetter(Color, color);
 
-Init({ me->m.color = params->color; });
+Init({
+    Circle_init(
+        (Circle *) me,
+        &((CircleInitParams){
+            .origin.x = params->origin.x,
+            .origin.y = params->origin.y,
+            .radius = params->radius}));
+
+    me->m.color = params->color;
+});
+
 Terminate({});
 
 OverrideFunctionNew(Shape, (void, draw, (uint8 const a)))

@@ -7,11 +7,13 @@
 #define superClass Cbject
 
 AbstractClass(
-    InitParams(Point origin),
-    Members(Point origin),
-    VirtualFunctions(
-        (float, area, ()),
-        (void, draw, (uint8 const a))));
+    InitParams(_,
+               Point origin),
+    Members(_,
+            Point origin),
+    VirtualFunctions(_,
+                     (float, area, ()),
+                     (void, draw, (uint8 const a))));
 
 Setters((Point, origin));
 Getters((Point, origin));

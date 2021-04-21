@@ -17,6 +17,12 @@ DefaultGetters(
     (uint32, height));
 
 Init({
+    Shape_init(
+        (Shape *) me,
+        &((ShapeInitParams){
+            .origin.x = params->origin.x,
+            .origin.y = params->origin.y}));
+
     me->m.width = params->width;
     me->m.height = params->height;
 });

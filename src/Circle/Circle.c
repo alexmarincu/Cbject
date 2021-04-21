@@ -21,7 +21,16 @@ ClassSetup({
         (void, Shape, draw, (uint8 const a)));
 });
 
-Init({ me->m.radius = params->radius; });
+Init({
+    Shape_init(
+        (Shape *) me,
+        &((ShapeInitParams){
+            .origin.x = params->origin.x,
+            .origin.y = params->origin.y}));
+
+    me->m.radius = params->radius;
+});
+
 Terminate({});
 
 // defaultSetterGetter(uint32, radius);

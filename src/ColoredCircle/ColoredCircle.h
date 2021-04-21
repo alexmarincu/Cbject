@@ -7,9 +7,13 @@
 #define superClass Circle
 
 Class(
-    InitParams(Color color),
-    Members(Color color),
-    VirtualFunctions());
+    InitParams(_,
+               Point origin,
+               uint32 radius,
+               Color color),
+    Members(_,
+            Color color),
+    VirtualFunctions(0));
 
 Setters(
     (uint32, radius),
