@@ -5,16 +5,16 @@
 
 typedef struct Cbject Cbject;
 
-typedef struct CbjectClassVirtualFunctions
+typedef struct CbjectKlassVirtualFunctions
 {
     uint8 (*size)(Cbject const * const me);
-} CbjectClassVirtualFunctions;
+} CbjectKlassVirtualFunctions;
 
-typedef struct CbjectClass
+typedef struct CbjectKlass
 {
     char const * type;
-    CbjectClassVirtualFunctions vf;
-} CbjectClass;
+    CbjectKlassVirtualFunctions vf;
+} CbjectKlass;
 
 typedef struct CbjectInitParams
 {
@@ -27,16 +27,16 @@ typedef struct CbjectMembers
 
 typedef union CbjectShell
 {
-    char d[sizeof(struct { CbjectClass * c; CbjectMembers m; })];
+    char d[sizeof(struct { CbjectKlass * c; CbjectMembers m; })];
     maxAlign a;
 } CbjectShell;
 
-CbjectClass const * const CbjectClass_instance();
+CbjectKlass const * const CbjectKlass_instance();
 void Cbject_init(Cbject * const me, CbjectInitParams const * const params);
 void Cbject_terminate(Cbject * const me);
 uint8 Cbject_size(Cbject const * const me);
 char const * Cbject_type(Cbject const * const me);
-void Cbject_classSet(Cbject * const me, CbjectClass const * const c);
-CbjectClass const * Cbject_class(Cbject * const me);
+void Cbject_klassSet(Cbject * const me, CbjectKlass const * const c);
+CbjectKlass const * Cbject_klass(Cbject * const me);
 
 #endif // CBJECT_H

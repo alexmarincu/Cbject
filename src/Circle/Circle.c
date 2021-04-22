@@ -1,8 +1,8 @@
 #include "Circle.h"
 #include <stdio.h>
 
-#define class Circle
-#define superClass Shape
+#define klass Circle
+#define superKlass Shape
 
 PoolSize(10);
 
@@ -14,7 +14,7 @@ PrivateConstants(
     (float, privatePi = 3.14),
     (float, anotherPrivatePi = 3.14));
 
-ClassSetup({
+KlassSetup({
     BindVirtualFunction(rotate);
     BindFunctions(
         (float, Shape, area, ()),
@@ -46,5 +46,5 @@ OverrideFunctionNew(Shape, (void, draw, (uint8 const a)))
 OverrideFunctionNew(Shape, (float, area, ())) { return me->m.radius * me->m.radius * Circle_pi; }
 VirtualFunction(void, rotate, (), ()) { printf("Rotate clockwise\n"); }
 
-#undef superClass
-#undef class
+#undef superKlass
+#undef klass

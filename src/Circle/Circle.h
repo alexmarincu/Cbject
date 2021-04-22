@@ -2,10 +2,10 @@
 #define CIRCLE_H
 #include "../Shape/Shape.h"
 
-#define class Circle
-#define superClass Shape
+#define klass Circle
+#define superKlass Shape
 
-Class(
+Klass(
     InitParams(_,
                Point origin,
                uint32 radius),
@@ -28,6 +28,6 @@ OverrideFunctions(
 Functions(_,
           (void, rotate, ()));
 
-#undef class
-#undef superClass
+#undef klass
+#undef superKlass
 #endif // CIRCLE_H

@@ -3,10 +3,10 @@
 #include "../Cbject/Cbject.h"
 #include "Point.h"
 
-#define class Shape
-#define superClass Cbject
+#define klass Shape
+#define superKlass Cbject
 
-AbstractClass(
+AbstractKlass(
     InitParams(_,
                Point origin),
     Members(_,
@@ -18,6 +18,6 @@ AbstractClass(
 Setters((Point, origin));
 Getters((Point, origin));
 
-#undef superClass
-#undef class
+#undef superKlass
+#undef klass
 #endif // SHAPE_H

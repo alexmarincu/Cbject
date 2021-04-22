@@ -2,11 +2,11 @@
 #define POINT_H
 #include "../Cbject/Cbject.h"
 
-#define class Point
+#define klass Point
 
-DataClassMembers(
+DataKlassMembers(
     uint32 x,
     uint32 y);
 
-#undef class
+#undef klass
 #endif // POINT_H

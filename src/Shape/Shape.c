@@ -1,10 +1,10 @@
 #include "Shape.h"
 #include <stdio.h>
 
-#define class Shape
-#define superClass Cbject
+#define klass Shape
+#define superKlass Cbject
 
-AbstractClassSetup({ BindVirtualFunctions(area, draw); });
+AbstractKlassSetup({ BindVirtualFunctions(area, draw); });
 Init({ me->m.origin = params->origin; });
 Terminate({});
 DefaultSetter(Point, origin);
@@ -24,5 +24,5 @@ VirtualFunction(void, draw, (uint8 const a), (a))
 
 Function(void, CbjectUtilities_feN, ()) { printf("Shape CbjectUtilities_feN\n"); }
 
-#undef superClass
-#undef class
+#undef superKlass
+#undef klass

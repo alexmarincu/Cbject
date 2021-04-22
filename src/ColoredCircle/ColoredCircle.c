@@ -2,8 +2,8 @@
 #include "../Circle/Circle.h"
 #include <stdio.h>
 
-#define class ColoredCircle
-#define superClass Circle
+#define klass ColoredCircle
+#define superKlass Circle
 
 PoolSize(10);
 
@@ -11,7 +11,7 @@ OverrideFunctions(
     (void, Shape, draw, (uint8 const a)),
     (void, Circle, rotate, ()));
 
-ClassSetup({
+KlassSetup({
     BindFunctions(
         (void, Shape, draw, (uint8 const a)),
         (void, Circle, rotate, ()));
@@ -46,5 +46,5 @@ OverrideFunctionNew(Circle, (void, rotate, ()))
     printf("Rotate counter-clockwise\n");
 }
 
-#undef superClass
-#undef class
+#undef superKlass
+#undef klass

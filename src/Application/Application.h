@@ -6,8 +6,8 @@
 #include "../Rectangle/Rectangle.h"
 #include "../Shape/Shape.h"
 
-#define class Application
-#define superClass Cbject
+#define klass Application
+#define superKlass Cbject
 
 Singleton(
     InitParams(0),
@@ -19,6 +19,6 @@ Singleton(
 
 Function(void, start, ());
 
-#undef superClass
-#undef class
+#undef superKlass
+#undef klass
 #endif // APPLICATION_H

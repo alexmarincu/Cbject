@@ -1,8 +1,8 @@
 #include "Application.h"
 #include <stdio.h>
 
-#define class Application
-#define superClass Cbject
+#define klass Application
+#define superKlass Cbject
 
 SingletonSetup({});
 Init({});
@@ -54,8 +54,8 @@ PrivateFunction(void, circleExample, ())
     printf("circle.origin.y = %d\n", Shape_origin((Shape *) me->m.circle).y);
     Shape_draw((Shape *) me->m.circle, 5);
     Circle_rotate(me->m.circle);
-    printf("circle.class.type = %s\n", Cbject_type((Cbject *) me->m.circle));
-    printf("circle.class.type = %s\n", (*((CbjectClass **) me->m.circle))->type);
+    printf("circle.klass.type = %s\n", Cbject_type((Cbject *) me->m.circle));
+    printf("circle.klass.type = %s\n", (*((CbjectKlass **) me->m.circle))->type);
 }
 
 PrivateFunction(void, stackCircleExample, ())
@@ -93,7 +93,7 @@ PrivateFunction(void, rectangleExample, ())
     printf("rectangle.height = %d\n", Rectangle_height(me->m.rectangle));
     printf("rectangle.area = %.2f\n", Shape_area((Shape *) me->m.rectangle));
     Shape_draw((Shape *) me->m.rectangle, 6);
-    printf("rectangle.class.type = %s\n", Cbject_type((Cbject *) me->m.rectangle));
+    printf("rectangle.klass.type = %s\n", Cbject_type((Cbject *) me->m.rectangle));
 }
 
 PrivateFunction(void, stackRectangleExample, ())
@@ -178,5 +178,5 @@ PrivateFunction(void, polymorphismExample, ())
     }
 }
 
-#undef superClass
-#undef class
+#undef superKlass
+#undef klass

@@ -2,10 +2,10 @@
 #define RECTANGLE_H
 #include "../Shape/Shape.h"
 
-#define class Rectangle
-#define superClass Shape
+#define klass Rectangle
+#define superKlass Shape
 
-Class(
+Klass(
     InitParams(_,
                Point origin,
                uint32 width,
@@ -25,6 +25,6 @@ Getters(
 
 Function(uint32, test, (uint32 const a));
 
-#undef superClass
-#undef class
+#undef superKlass
+#undef klass
 #endif // RECTANGLE_H
