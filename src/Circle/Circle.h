@@ -7,12 +7,10 @@
 
 Klass(
     InitParams(_,
-               Point origin,
-               uint32 radius),
-    Members(_,
-            int32 radius),
-    VirtualFunctions(_,
-                     (void, rotate, ())));
+        Point origin,
+        uint32 radius),
+    Members(_, int32 radius),
+    VirtualFunctions(_, (void, rotate, (0))));
 
 PublicConstant(float, pi);
 PublicConstants((float, anotherPi));
@@ -21,12 +19,11 @@ PublicConstants((float, anotherPi));
 Setter(uint32, radius);
 Getter(uint32, radius);
 
-OverrideFunctions(
-    (float, Shape, area, ()),
-    (void, Shape, draw, (uint8 const a)));
+SuperFunctions(_,
+    (float, area, (0)),
+    (void, draw, (_, uint8 const a)));
 
-Functions(_,
-          (void, rotate, ()));
+Functions(_, (void, rotate, (0)));
 
 #undef klass
 #undef superKlass

@@ -22,29 +22,27 @@ KlassSetup({
 });
 
 Init({
-    Shape_init(
-        (Shape *) me,
-        &((ShapeInitParams){
+    superInitParams =
+        (ShapeInitParams){
             .origin.x = params->origin.x,
-            .origin.y = params->origin.y}));
+            .origin.y = params->origin.y};
 
     me->m.radius = params->radius;
 });
 
 Terminate({});
 
-// defaultSetterGetter(uint32, radius);
 DefaultSetter(uint32, radius);
 DefaultGetter(uint32, radius);
 
-OverrideFunctionNew(Shape, (void, draw, (uint8 const a)))
+SuperFunction(void, draw, (_, uint8 const a))
 {
     superShape_draw((Shape *) me, a);
     printf("Circle draw\n");
 }
 
-OverrideFunctionNew(Shape, (float, area, ())) { return me->m.radius * me->m.radius * Circle_pi; }
-VirtualFunction(void, rotate, (), ()) { printf("Rotate clockwise\n"); }
+SuperFunction(float, area, (0)) { return me->m.radius * me->m.radius * Circle_pi; }
+VirtualFunction(void, rotate, (0), (0)) { printf("Rotate clockwise\n"); }
 
 #undef superKlass
 #undef klass

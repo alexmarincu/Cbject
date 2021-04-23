@@ -7,12 +7,12 @@
 
 Klass(
     InitParams(_,
-               Point origin,
-               uint32 width,
-               uint32 height),
+        Point origin,
+        uint32 width,
+        uint32 height),
     Members(_,
-            uint32 width,
-            uint32 height),
+        uint32 width,
+        uint32 height),
     VirtualFunctions(0));
 
 Setters(
@@ -23,7 +23,7 @@ Getters(
     (uint32, width),
     (uint32, height));
 
-Function(uint32, test, (uint32 const a));
+Function(uint32, test, (_, uint32 const a));
 
 #undef superKlass
 #undef klass

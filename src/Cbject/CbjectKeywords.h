@@ -38,24 +38,31 @@
     CbjectPreprocessor_expandEnumKlassMembers(klass, __VA_ARGS__)
 
 #define Function(returnType, functionName, arguments) \
-    CbjectPreprocessor_expandFunction(klass, returnType, functionName, arguments)
+    CbjectKeywordFunction_expand(klass, returnType, functionName, CbjectUtilities_stripParentheses(arguments))
 
-#define Functions(...) CbjectPreprocessor_expandFunctions(__VA_ARGS__)
+#define Functions(...) \
+CbjectPreprocessor_expandFunctions(__VA_ARGS__)
 
 #define PrivateFunction(returnType, functionName, arguments) \
-    CbjectPreprocessor_expandPrivateFunction(klass, returnType, functionName, arguments)
+    static Function(returnType, functionName, arguments)
 
 #define PrivateFunctions(...) \
     CbjectPreprocessor_expandPrivateFunctions(__VA_ARGS__)
 
 #define VirtualFunction(returnType, functionName, arguments, params) \
-    CbjectPreprocessor_expandVirtualFunction(klass, returnType, functionName, arguments, params)
+    CbjectPreprocessor_expandVirtualFunction(klass, returnType, functionName, arguments, params) \
 
 #define SuperFunction(returnType, functionName, arguments) \
-    CbjectPreprocessor_expandSuperFunction(klass, returnType, functionName, arguments)
+    CbjectPreprocessor_expandSuperFunction(klass, returnType, functionName, CbjectUtilities_stripParentheses(arguments))
 
 #define SuperFunctions(...) \
     CbjectPreprocessor_expandSuperFunctions(__VA_ARGS__)
+
+#define SuperFunctionOld(returnType, functionName, arguments) \
+    CbjectPreprocessor_expandSuperFunctionOld(klass, returnType, functionName, arguments)
+
+#define SuperFunctionOldsOld(...) \
+    CbjectPreprocessor_expandSuperFunctionOldsOld(__VA_ARGS__)
 
 #define cbject(klassName, varName, ...)                                \
     klassName * const varName = (klassName *) &((klassName##Shell){}); \
@@ -85,14 +92,7 @@
 #define DefaultGetters(...) \
     CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyDefaultGetter, __VA_ARGS__)
 
-#define OverrideFunction(type, superKlassName, functionName, arguments) \
-    CbjectPreprocessor_of(klass, type, superKlassName, functionName, arguments)
-
-#define OverrideFunctionNew(superKlassName, functionPrototype) \
-    CbjectPreprocessor_expandOverrideFunctionNew(klass, superKlassName, CbjectUtilities_stripParentheses(functionPrototype))
-
-#define OverrideFunctions(...) \
-    CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyOverrideFunction, __VA_ARGS__)
+    
 
 #define Init(...) \
     CbjectPreprocessor_i(klass, superKlass, __VA_ARGS__)

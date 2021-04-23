@@ -8,11 +8,10 @@
 
 Klass(
     InitParams(_,
-               Point origin,
-               uint32 radius,
-               Color color),
-    Members(_,
-            Color color),
+        Point origin,
+        uint32 radius,
+        Color color),
+    Members(_, Color color),
     VirtualFunctions(0));
 
 Setters(

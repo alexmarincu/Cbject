@@ -12,12 +12,12 @@
 Singleton(
     InitParams(0),
     Members(_,
-            Circle * circle,
-            Rectangle * rectangle,
-            Rectangle * heapRectangle,
-            ColoredCircle * coloredCircle));
+        Circle * circle,
+        Rectangle * rectangle,
+        Rectangle * heapRectangle,
+        ColoredCircle * coloredCircle));
 
-Function(void, start, ());
+Function(void, start, (0));
 
 #undef superKlass
 #undef klass

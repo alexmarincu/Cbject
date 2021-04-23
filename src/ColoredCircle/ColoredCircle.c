@@ -7,9 +7,9 @@
 
 PoolSize(10);
 
-OverrideFunctions(
-    (void, Shape, draw, (uint8 const a)),
-    (void, Circle, rotate, ()));
+SuperFunctions(_,
+    (void, draw, (_, uint8 const a)),
+    (void, rotate, (0)));
 
 KlassSetup({
     BindFunctions(
@@ -21,26 +21,25 @@ DefaultSetter(Color, color);
 DefaultGetter(Color, color);
 
 Init({
-    Circle_init(
-        (Circle *) me,
-        &((CircleInitParams){
+    superInitParams =
+        (CircleInitParams){
             .origin.x = params->origin.x,
             .origin.y = params->origin.y,
-            .radius = params->radius}));
+            .radius = params->radius};
 
     me->m.color = params->color;
 });
 
 Terminate({});
 
-OverrideFunctionNew(Shape, (void, draw, (uint8 const a)))
+SuperFunction(void, draw, (_, uint8 const a))
 {
     superShape_draw((Shape *) me, 5);
     superCircle_draw((Circle *) me, 5);
     printf("ColoredCircle draw\n");
 }
 
-OverrideFunctionNew(Circle, (void, rotate, ()))
+SuperFunction(void, rotate, (0))
 {
     superCircle_rotate((Circle *) me);
     printf("Rotate counter-clockwise\n");
