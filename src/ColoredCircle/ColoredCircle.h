@@ -3,15 +3,25 @@
 #include "../Circle/Circle.h"
 #include "Color.h"
 
-#define class ColoredCircle
-//==>
-classParams(
-    uint32 const radius,
-    Color const color);
+#define klass ColoredCircle
+#define superKlass Circle
 
-settersGetters(
+Klass(
+    InitParams(_,
+        Point origin,
+        uint32 radius,
+        Color color),
+    Members(_, Color color),
+    VirtualFunctions(0));
+
+Setters(
     (uint32, radius),
     (Color, color));
-//<==
-#undef class
+
+Getters(
+    (uint32, radius),
+    (Color, color));
+
+#undef klass
+#undef superKlass
 #endif // COLOREDCIRCLE_H

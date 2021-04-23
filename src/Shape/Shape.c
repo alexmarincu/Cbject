@@ -1,27 +1,30 @@
-#include "superShape.h"
+#include "Shape.h"
 #include <stdio.h>
 
-#define class Shape
-#define superClass Object
-//==>
-defaultSetterGetter(Point, origin);
-abstractClassSetup({ bindVirtualFunctions(area, draw); });
-init({ me->origin = params->origin; });
-terminate({});
+#define klass Shape
+#define superKlass Cbject
 
-virtualFunction(float, area, (), ())
+AbstractKlassSetup({ BindVirtualFunctions(area, draw); });
+
+Init({ me->m.origin = params->origin; });
+
+Terminate({});
+DefaultSetter(Point, origin);
+DefaultGetter(Point, origin);
+
+VirtualFunction(float, area, (0), (0))
 {
     (void) me;
     return 0;
 }
 
-virtualFunction(void, draw, (uint8 const a), (a))
+VirtualFunction(void, draw, (_, uint8 const a), (_, a))
 {
     (void) me;
     printf("Shape draw\n");
 }
 
-function(void, dummy, ()) { printf("Shape dummy\n"); }
-//<==
-#undef superClass
-#undef class
+Function(void, dummy, (0)) { printf("Shape dummy\n"); }
+
+#undef superKlass
+#undef klass

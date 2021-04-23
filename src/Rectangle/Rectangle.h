@@ -1,19 +1,30 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
-#include "../Shape/Point.h"
+#include "../Shape/Shape.h"
 
-#define class Rectangle
-//==>
-classParams(
-    Point const origin,
-    uint32 const width,
-    uint32 const height);
+#define klass Rectangle
+#define superKlass Shape
 
-settersGetters(
+Klass(
+    InitParams(_,
+        Point origin,
+        uint32 width,
+        uint32 height),
+    Members(_,
+        uint32 width,
+        uint32 height),
+    VirtualFunctions(0));
+
+Setters(
     (uint32, width),
     (uint32, height));
 
-function(uint32, test, (uint32 const a));
-//<==
-#undef class
+Getters(
+    (uint32, width),
+    (uint32, height));
+
+Function(uint32, test, (_, uint32 const a));
+
+#undef superKlass
+#undef klass
 #endif // RECTANGLE_H

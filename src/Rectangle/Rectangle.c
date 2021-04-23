@@ -1,30 +1,34 @@
 #include "Rectangle.h"
-#include "../Shape/superShape.h"
+#include "../Shape/Shape.h"
 
-#define class Rectangle
-#define superClass Shape
-//==>
-classPoolSize(10);
+#define klass Rectangle
+#define superKlass Shape
 
-classMembers(
-    uint32 width,
-    uint32 height);
+PoolSize(10);
 
-defaultSettersGetters(
+SuperFunction(float, area, (0));
+KlassSetup({ BindFunction(float, Shape, area, ()); });
+DefaultSetters(
     (uint32, width),
     (uint32, height));
 
-overrideFunction(float, Shape, area, ());
-classSetup({ bindFunction(float, Shape, area, ()); });
+DefaultGetters(
+    (uint32, width),
+    (uint32, height));
 
-init({
-    me->width = params->width;
-    me->height = params->height;
+Init({
+    superInitParams =
+        (ShapeInitParams){
+            .origin.x = params->origin.x,
+            .origin.y = params->origin.y};
+
+    me->m.width = params->width;
+    me->m.height = params->height;
 });
 
-terminate({});
-function(uint32, test, (uint32 const a)) { return a; }
-overrideFunction(float, Shape, area, ()) { return me->width * me->height; }
-//<==
-#undef superClass
-#undef class
+Terminate({});
+Function(uint32, test, (_, uint32 const a)) { return a; }
+SuperFunction(float, area, (0)) { return me->m.width * me->m.height; }
+
+#undef superKlass
+#undef klass

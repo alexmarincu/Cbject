@@ -1,13 +1,13 @@
 #ifndef COLOR_H
 #define COLOR_H
-#include "../CObject/Object/Object.h"
+#include "../Cbject/Cbject.h"
 
-#define class Color
-//==>
-enumClass(
+#define klass Color
+
+EnumKlassMembers(
     red,
     yellow,
     blue = 6);
-//<==
-#undef class
+
+#undef klass
 #endif // COLOR_H

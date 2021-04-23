@@ -1,18 +1,30 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
-#include "../Shape/Point.h"
+#include "../Shape/Shape.h"
 
-#define class Circle
-//==>
-publicConstant(float, pi);
-publicConstants((float, anotherPi));
+#define klass Circle
+#define superKlass Shape
 
-classParams(
-    Point const origin,
-    uint32 const radius);
+Klass(
+    InitParams(_,
+        Point origin,
+        uint32 radius),
+    Members(_, int32 radius),
+    VirtualFunctions(_, (void, rotate, (0))));
 
-setterGetter(uint32, radius);
-function(void, rotate, ());
-//<==
-#undef class
+PublicConstant(float, pi);
+PublicConstants((float, anotherPi));
+
+// setterGetter(uint32, radius);
+Setter(uint32, radius);
+Getter(uint32, radius);
+
+SuperFunctions(_,
+    (float, area, (0)),
+    (void, draw, (_, uint8 const a)));
+
+Functions(_, (void, rotate, (0)));
+
+#undef klass
+#undef superKlass
 #endif // CIRCLE_H
