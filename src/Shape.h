@@ -1,6 +1,6 @@
 #ifndef SHAPE_H
 #define SHAPE_H
-#include "../Cbject/Cbject.h"
+#include "Cbject/Cbject.h"
 #include "Point.h"
 
 #define klass Shape
@@ -13,8 +13,8 @@ AbstractKlass(
         (float, area, (0)),
         (void, draw, (_, uint8 const a))));
 
-Setters((Point, origin));
-Getters((Point, origin));
+Setters(_, (Point, origin));
+Getters(_, (Point, origin));
 
 #undef superKlass
 #undef klass

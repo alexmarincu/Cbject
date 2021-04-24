@@ -1,5 +1,5 @@
 #include "Rectangle.h"
-#include "../Shape/Shape.h"
+#include "Shape.h"
 
 #define klass Rectangle
 #define superKlass Shape

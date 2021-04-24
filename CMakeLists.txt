@@ -7,11 +7,11 @@ enable_testing()
 set(SOURCE
 src/Cbject/Cbject.c
 src/main.c
-src/Application/Application.c
-src/Shape/Shape.c
-src/Circle/Circle.c
-src/Rectangle/Rectangle.c
-src/ColoredCircle/ColoredCircle.c)
+src/Application.c
+src/Shape.c
+src/Circle.c
+src/Rectangle.c
+src/ColoredCircle.c)
 
 add_executable(Cbject ${SOURCE})
 

@@ -8,7 +8,7 @@ SingletonSetup({});
 Init({});
 Terminate({ delete_Rectangle(me->m.heapRectangle); });
 
-PrivateFunctions(
+PrivateFunctions(_,
     (void, printBeginMessage, (0)),
     (void, printEndMessage, (0)),
     (void, circleExample, (0)),

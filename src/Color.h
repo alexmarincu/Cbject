@@ -1,6 +1,6 @@
 #ifndef COLOR_H
 #define COLOR_H
-#include "../Cbject/Cbject.h"
+#include "Cbject/Cbject.h"
 
 #define klass Color
 

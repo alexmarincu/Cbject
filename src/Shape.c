@@ -12,13 +12,15 @@ Terminate({});
 DefaultSetter(Point, origin);
 DefaultGetter(Point, origin);
 
-VirtualFunction(float, area, (0), (0))
+VirtualFunction(float, area, (0), (0));
+SuperFunction(float, area, (0))
 {
     (void) me;
     return 0;
 }
 
-VirtualFunction(void, draw, (_, uint8 const a), (_, a))
+VirtualFunction(void, draw, (_, uint8 const a), (_, a));
+SuperFunction(void, draw, (_, uint8 const a))
 {
     (void) me;
     printf("Shape draw\n");

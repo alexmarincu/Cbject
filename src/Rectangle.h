@@ -1,6 +1,6 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
-#include "../Shape/Shape.h"
+#include "Shape.h"
 
 #define klass Rectangle
 #define superKlass Shape
@@ -15,11 +15,11 @@ Klass(
         uint32 height),
     VirtualFunctions(0));
 
-Setters(
+Setters(_,
     (uint32, width),
     (uint32, height));
 
-Getters(
+Getters(_,
     (uint32, width),
     (uint32, height));
 

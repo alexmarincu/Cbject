@@ -1,10 +1,10 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
-#include "../Cbject/Cbject.h"
-#include "../Circle/Circle.h"
-#include "../ColoredCircle/ColoredCircle.h"
-#include "../Rectangle/Rectangle.h"
-#include "../Shape/Shape.h"
+#include "Cbject/Cbject.h"
+#include "Circle.h"
+#include "ColoredCircle.h"
+#include "Rectangle.h"
+#include "Shape.h"
 
 #define klass Application
 #define superKlass Cbject

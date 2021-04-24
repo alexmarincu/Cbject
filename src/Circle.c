@@ -42,7 +42,8 @@ SuperFunction(void, draw, (_, uint8 const a))
 }
 
 SuperFunction(float, area, (0)) { return me->m.radius * me->m.radius * Circle_pi; }
-VirtualFunction(void, rotate, (0), (0)) { printf("Rotate clockwise\n"); }
+VirtualFunction(void, rotate, (0), (0))
+SuperFunction(void, rotate, (0)) { printf("Rotate clockwise\n"); }
 
 #undef superKlass
 #undef klass

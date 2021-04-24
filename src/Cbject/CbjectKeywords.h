@@ -1,6 +1,16 @@
 #ifndef CBJECTKEYWORDS_H
 #define CBJECTKEYWORDS_H
+#include "CbjectFunction.h"
+#include "CbjectFunctions.h"
+#include "CbjectGetter.h"
+#include "CbjectGetters.h"
 #include "CbjectPreprocessor.h"
+#include "CbjectPrivateFunctions.h"
+#include "CbjectSetter.h"
+#include "CbjectSetters.h"
+#include "CbjectSuperFunction.h"
+#include "CbjectSuperFunctions.h"
+#include "CbjectVirtualFunction.h"
 
 #define Klass(initParams, members, virtualFunctions) \
     CbjectPreprocessor_expandKlass(klass, superKlass, initParams, members, virtualFunctions)
@@ -38,47 +48,41 @@
     CbjectPreprocessor_expandEnumKlassMembers(klass, __VA_ARGS__)
 
 #define Function(returnType, functionName, arguments) \
-    CbjectKeywordFunction_expand(klass, returnType, functionName, CbjectUtilities_stripParentheses(arguments))
+    CbjectFunction(klass, returnType, functionName, CbjectUtilities_stripParentheses(arguments))
 
 #define Functions(...) \
-CbjectPreprocessor_expandFunctions(__VA_ARGS__)
+    CbjectFunctions(__VA_ARGS__)
 
 #define PrivateFunction(returnType, functionName, arguments) \
     static Function(returnType, functionName, arguments)
 
 #define PrivateFunctions(...) \
-    CbjectPreprocessor_expandPrivateFunctions(__VA_ARGS__)
+    CbjectPrivateFunctions(__VA_ARGS__)
 
 #define VirtualFunction(returnType, functionName, arguments, params) \
-    CbjectPreprocessor_expandVirtualFunction(klass, returnType, functionName, arguments, params) \
+    CbjectVirtualFunction(klass, returnType, functionName, arguments, params)
 
 #define SuperFunction(returnType, functionName, arguments) \
-    CbjectPreprocessor_expandSuperFunction(klass, returnType, functionName, CbjectUtilities_stripParentheses(arguments))
+    CbjectSuperFunction(klass, returnType, functionName, CbjectUtilities_stripParentheses(arguments))
 
 #define SuperFunctions(...) \
-    CbjectPreprocessor_expandSuperFunctions(__VA_ARGS__)
-
-#define SuperFunctionOld(returnType, functionName, arguments) \
-    CbjectPreprocessor_expandSuperFunctionOld(klass, returnType, functionName, arguments)
-
-#define SuperFunctionOldsOld(...) \
-    CbjectPreprocessor_expandSuperFunctionOldsOld(__VA_ARGS__)
+    CbjectSuperFunctions(__VA_ARGS__)
 
 #define cbject(klassName, varName, ...)                                \
     klassName * const varName = (klassName *) &((klassName##Shell){}); \
     klassName##_init((klassName *) varName, __VA_ARGS__)
 
 #define Setter(type, memberName) \
-    CbjectPreprocessor_expandSetter(klass, type, memberName)
+    CbjectSetter(klass, type, memberName)
 
 #define Getter(type, memberName) \
-    CbjectPreprocessor_expandGetter(klass, type, memberName)
+    CbjectGetter(klass, type, memberName)
 
 #define Setters(...) \
-    CbjectPreprocessor_expandSetters(__VA_ARGS__)
+    CbjectSetters(__VA_ARGS__)
 
 #define Getters(...) \
-    CbjectPreprocessor_expandGetters(__VA_ARGS__)
+    CbjectGetters(__VA_ARGS__)
 
 #define DefaultSetter(type, memberName) \
     CbjectPreprocessor_expandDefaultSetter(klass, type, memberName)
@@ -91,8 +95,6 @@ CbjectPreprocessor_expandFunctions(__VA_ARGS__)
 
 #define DefaultGetters(...) \
     CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyDefaultGetter, __VA_ARGS__)
-
-    
 
 #define Init(...) \
     CbjectPreprocessor_i(klass, superKlass, __VA_ARGS__)

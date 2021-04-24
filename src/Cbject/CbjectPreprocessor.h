@@ -1,6 +1,6 @@
 #ifndef CBJECTPREPROCESSOR_H
 #define CBJECTPREPROCESSOR_H
-#include "CbjectPreprocessorFunction.h"
+#include "CbjectFunction.h"
 #include "CbjectSettings.h"
 #include "CbjectUtilities.h"
 #include "Primitives.h"
@@ -55,11 +55,11 @@
     returnType (*functionName)(klassName * const me, __VA_ARGS__)
 #define CbjectPreprocessor_virtualFunctionPointer(klassName, returnType, functionName, case, ...) \
     CbjectPreprocessor_virtualFunctionPointer##case (klassName, returnType, functionName, __VA_ARGS__)
-#define CbjectPreprocessor_expandVirtualFunctionPointer(klassName, type, functionName, ...) \
+#define CbjectVirtualFunctionPointer(klassName, type, functionName, ...) \
     CbjectPreprocessor_virtualFunctionPointer(klassName, type, functionName, __VA_ARGS__)
 
 #define CbjectPreprocessor_VirtualFunctionPointer(returnType, functionName, arguments) \
-    CbjectPreprocessor_expandVirtualFunctionPointer(klass, returnType, functionName, CbjectUtilities_stripParentheses(arguments))
+    CbjectVirtualFunctionPointer(klass, returnType, functionName, CbjectUtilities_stripParentheses(arguments))
 
 #define CbjectPreprocessor_stripParenthesesAndApplyVirtualFunctionPointer(functionPrototype) \
     CbjectPreprocessor_VirtualFunctionPointer functionPrototype;
@@ -87,28 +87,6 @@
         superKlassName##Klass super;                                      \
         klassName##KlassVirtualFunctions vf;                              \
     } klassName##Klass
-
-#define CbjectPreprocessor_stripParenthesesAndApplyFunction(functionPrototype) Function functionPrototype;
-#define CbjectPreprocessor_expandFunctions0(...)
-#define CbjectPreprocessor_expandFunctions_(...) \
-    CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyFunction, __VA_ARGS__)
-#define CbjectPreprocessor_expandFunctions(case, ...) \
-    CbjectPreprocessor_expandFunctions##case (__VA_ARGS__)
-
-#define CbjectPreprocessor_stripParenthesesAndApplySuperFunction(functionPrototype) SuperFunction functionPrototype;
-#define CbjectPreprocessor_expandSuperFunctions0(...)
-#define CbjectPreprocessor_expandSuperFunctions_(...) \
-    CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplySuperFunction, __VA_ARGS__)
-#define CbjectPreprocessor_expandSuperFunctions(case, ...) \
-    CbjectPreprocessor_expandSuperFunctions##case (__VA_ARGS__)
-
-#define CbjectPreprocessor_stripParenthesesAndApplySuperFunctionOld(functionPrototype) SuperFunctionOld functionPrototype;
-#define CbjectPreprocessor_expandSuperFunctionOldsOld0(...)
-#define CbjectPreprocessor_expandSuperFunctionOldsOld_(...) \
-    CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplySuperFunctionOld, __VA_ARGS__)
-
-#define CbjectPreprocessor_expandSuperFunctionOldsOld(case, ...) \
-    CbjectPreprocessor_expandSuperFunctionOldsOld##case (__VA_ARGS__)
 
 #define CbjectPreprocessor_getCbjectDecl(klassName) klassName * get_##klassName(klassName##InitParams const * const params)
 #define CbjectPreprocessor_newCbjectDecl(klassName) klassName * new_##klassName(klassName##InitParams const * const params)
@@ -261,7 +239,7 @@
 #define CbjectPreprocessor_expandEnumKlassMembers(klassName, ...) CbjectPreprocessor_expandEnumKlassMembers_(klassName, __VA_ARGS__)
 
 #define CbjectPreprocessor_privateFunctionPrototype(klassName, returnType, functionName, arguments) \
-    static CbjectPreprocessor_functionPrototype(klassName, returnType, functionName, arguments)
+    static CbjectFunctionPrototype(klassName, returnType, functionName, arguments)
 #define CbjectPreprocessor_expandPrivateFunction(klassName, returnType, functionName, arguments) CbjectPreprocessor_privateFunctionPrototype(klassName, returnType, functionName, arguments)
 
 #define CbjectPreprocessor_stripParenthesesAndApplyPrivateFunction(functionPrototype) PrivateFunction functionPrototype;
@@ -275,45 +253,6 @@
 
 #define CbjectPreprocessor_superFunctions(type, functionName, arguments) \
     CbjectPreprocessor_superFunctions_(klass, type, functionName, arguments)
-// #define CbjectPreprocessor_stripParenthesesAndApplySuperFunctionOld(functionPrototype) CbjectPreprocessor_superFunctions functionPrototype;
-
-#define CbjectPreprocessor_expandSuperFunctionOld(klassName, returnType, functionName, arguments) \
-    CbjectPreprocessor_superFunctionPrototypeOld(klassName, returnType, functionName, arguments)
-
-#define CbjectPreprocessor_virtualCall0(klassName, functionName, ...) \
-    return ((klassName##Klass *) Cbject_klass((Cbject *) me))->vf.functionName(me)
-#define CbjectPreprocessor_virtualCall_(klassName, functionName, ...) \
-    return ((klassName##Klass *) Cbject_klass((Cbject *) me))->vf.functionName(me, __VA_ARGS__)
-#define CbjectPreprocessor_virtualCall(klassName, functionName, case, ...) \
-    CbjectPreprocessor_virtualCall##case (klassName, functionName, __VA_ARGS__)
-#define CbjectPreprocessor_expandVirtualCall(klassName, functionName, ...) \
-    CbjectPreprocessor_virtualCall(klassName, functionName, __VA_ARGS__)
-
-#define CbjectPreprocessor_VirtualCall(functionName, params) \
-    CbjectPreprocessor_expandVirtualCall(klass, functionName, CbjectUtilities_stripParentheses(params))
-
-#define CbjectPreprocessor_virtualFunctionPrototype(klassName, returnType, functionName, arguments, params) \
-    Function(returnType, functionName, arguments)                                                           \
-    {                                                                                                       \
-        CbjectPreprocessor_VirtualCall(functionName, params);                                               \
-    }                                                                                                       \
-    SuperFunction(returnType, functionName, arguments)
-#define CbjectPreprocessor_expandVirtualFunction(klassName, returnType, functionName, arguments, params) \
-    CbjectPreprocessor_virtualFunctionPrototype(klassName, returnType, functionName, arguments, params)
-
-#define CbjectPreprocessor_setterFunctionPrototype(klassName, type, memberName) \
-    void klassName##_##memberName##Set(klassName * const me, type const memberName)
-#define CbjectPreprocessor_expandSetter(klassName, type, memberName) CbjectPreprocessor_setterFunctionPrototype(klassName, type, memberName)
-
-#define CbjectPreprocessor_stripParenthesesAndApplySetter(memberPrototype) Setter memberPrototype;
-#define CbjectPreprocessor_expandSetters(...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplySetter, __VA_ARGS__)
-
-#define CbjectPreprocessor_getterFunctionPrototype(klassName, type, memberName) \
-    type klassName##_##memberName(klassName const * const me)
-#define CbjectPreprocessor_expandGetter(klassName, type, memberName) CbjectPreprocessor_getterFunctionPrototype(klassName, type, memberName)
-
-#define CbjectPreprocessor_stripParenthesesAndApplyGetter(memberPrototype) Getter memberPrototype;
-#define CbjectPreprocessor_expandGetters(...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyGetter, __VA_ARGS__)
 
 #define CbjectPreprocessor_expandDefaultSetter_(klassName, type, memberName) \
     void klassName##_##memberName##Set(klassName * const me, type const memberName) { me->m.memberName = memberName; }
@@ -325,18 +264,6 @@
 
 #define CbjectPreprocessor_stripParenthesesAndApplyDefaultSetter(memberPrototype) DefaultSetter memberPrototype
 #define CbjectPreprocessor_stripParenthesesAndApplyDefaultGetter(memberPrototype) DefaultGetter memberPrototype
-
-#define CbjectPreprocessor_overrideFunctionPrototype0(klassName, returnType, functionName, ...) \
-    returnType super##klassName##_##functionName(klassName * const me)
-
-#define CbjectPreprocessor_overrideFunctionPrototype_(klassName, returnType, functionName, ...) \
-    returnType super##klassName##_##functionName(klassName * const me, __VA_ARGS__)
-
-#define CbjectPreprocessor_overrideFunctionPrototype(klassName, returnType, functionName, case, ...) \
-    CbjectPreprocessor_overrideFunctionPrototype##case (klassName, returnType, functionName, __VA_ARGS__)
-
-#define CbjectPreprocessor_expandSuperFunction(klassName, returnType, functionName, ...) \
-    CbjectPreprocessor_overrideFunctionPrototype(klassName, returnType, functionName, __VA_ARGS__)
 
 #define CbjectPreprocessor_i_(klassName, superKlassName, ...)                               \
     void klassName##_init(klassName * const me, klassName##InitParams const * const params) \

@@ -1,6 +1,6 @@
 #ifndef COLOREDCIRCLE_H
 #define COLOREDCIRCLE_H
-#include "../Circle/Circle.h"
+#include "Circle.h"
 #include "Color.h"
 
 #define klass ColoredCircle
@@ -14,11 +14,11 @@ Klass(
     Members(_, Color color),
     VirtualFunctions(0));
 
-Setters(
+Setters(_,
     (uint32, radius),
     (Color, color));
 
-Getters(
+Getters(_,
     (uint32, radius),
     (Color, color));
 
