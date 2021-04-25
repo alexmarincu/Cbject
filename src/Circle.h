@@ -9,7 +9,7 @@ Klass(
     InitParams(_,
         Point origin,
         uint32 radius),
-    Members(_, int32 radius),
+    Properties(_, int32 radius),
     VirtualFunctions(_, (void, rotate, (0))));
 
 PublicConstant(float, pi);

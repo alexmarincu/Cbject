@@ -11,7 +11,7 @@ Klass(
         Point origin,
         uint32 radius,
         Color color),
-    Members(_, Color color),
+    Properties(_, Color color),
     VirtualFunctions(0));
 
 Setters(_,

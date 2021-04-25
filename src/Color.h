@@ -4,7 +4,7 @@
 
 #define klass Color
 
-EnumKlassMembers(
+EnumKlass(
     red,
     yellow,
     blue = 6);

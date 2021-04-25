@@ -8,7 +8,7 @@
 
 AbstractKlass(
     InitParams(_, Point origin),
-    Members(_, Point origin),
+    Properties(_, Point origin),
     VirtualFunctions(_,
         (float, area, (0)),
         (void, draw, (_, uint8 const a))));

@@ -16,19 +16,17 @@ typedef struct CbjectKlass
     CbjectKlassVirtualFunctions vf;
 } CbjectKlass;
 
-typedef struct CbjectInitParams
-{
-} CbjectInitParams;
+typedef char CbjectInitParams;
 
-typedef struct CbjectMembers
+typedef struct CbjectProperties
 {
-    maxAlign a;
-} CbjectMembers;
+    CbjectSettings_maxAlign a;
+} CbjectProperties;
 
 typedef union CbjectShell
 {
-    char d[sizeof(struct { CbjectKlass * c; CbjectMembers m; })];
-    maxAlign a;
+    char d[sizeof(struct { CbjectKlass * c; CbjectProperties m; })];
+    CbjectSettings_maxAlign a;
 } CbjectShell;
 
 CbjectKlass const * const CbjectKlass_instance();

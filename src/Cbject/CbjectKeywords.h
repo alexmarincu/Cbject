@@ -1,9 +1,15 @@
 #ifndef CBJECTKEYWORDS_H
 #define CBJECTKEYWORDS_H
+#include "CbjectDefaultGetter.h"
+#include "CbjectDefaultGetters.h"
+#include "CbjectAbstractKlass.h"
+#include "CbjectDefaultSetter.h"
+#include "CbjectDefaultSetters.h"
 #include "CbjectFunction.h"
 #include "CbjectFunctions.h"
 #include "CbjectGetter.h"
 #include "CbjectGetters.h"
+#include "CbjectPoolSize.h"
 #include "CbjectPreprocessor.h"
 #include "CbjectPrivateFunctions.h"
 #include "CbjectSetter.h"
@@ -12,26 +18,26 @@
 #include "CbjectSuperFunctions.h"
 #include "CbjectVirtualFunction.h"
 
-#define Klass(initParams, members, virtualFunctions) \
-    CbjectPreprocessor_expandKlass(klass, superKlass, initParams, members, virtualFunctions)
+#define Klass(initParams, properties, virtualFunctions) \
+    CbjectPreprocessor_expandKlass(klass, superKlass, initParams, properties, virtualFunctions)
 
-#define AbstractKlass(initParams, members, virtualFunctions) \
-    CbjectPreprocessor_expandAbstractKlass(klass, superKlass, initParams, members, virtualFunctions)
+#define AbstractKlass(initParams, properties, virtualFunctions) \
+    CbjectAbstractKlass(klass, superKlass, initParams, properties, virtualFunctions)
 
-#define Singleton(initParams, members) \
-    CbjectPreprocessor_expandSingleton(klass, superKlass, initParams, members)
+#define Singleton(initParams, properties) \
+    CbjectPreprocessor_expandSingleton(klass, superKlass, initParams, properties)
 
 #define InitParams(...) \
     (__VA_ARGS__)
 
-#define Members(...) \
+#define Properties(...) \
     (__VA_ARGS__)
 
 #define VirtualFunctions(...) \
     (__VA_ARGS__)
 
 #define PoolSize(poolSize) \
-    CbjectPreprocessor_expandPoolSize(klass, poolSize)
+    CbjectPoolSize(klass, poolSize)
 
 #define Constant(type, ...) CbjectPreprocessor_c(klass, type, __VA_ARGS__)
 #define Constants(...) CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyConstant, __VA_ARGS__)
@@ -41,11 +47,11 @@
 #define PrivateConstants(klassName, ...) \
     CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyPrivateConstant, __VA_ARGS__)
 
-#define DataKlassMembers(...) \
-    CbjectPreprocessor_expandDataKlassMembers(klass, __VA_ARGS__)
+#define DataKlass(...) \
+    CbjectPreprocessor_expandDataKlass(klass, __VA_ARGS__)
 
-#define EnumKlassMembers(...) \
-    CbjectPreprocessor_expandEnumKlassMembers(klass, __VA_ARGS__)
+#define EnumKlass(...) \
+    CbjectPreprocessor_expandEnumKlass(klass, __VA_ARGS__)
 
 #define Function(returnType, functionName, arguments) \
     CbjectFunction(klass, returnType, functionName, CbjectUtilities_stripParentheses(arguments))
@@ -85,23 +91,23 @@
     CbjectGetters(__VA_ARGS__)
 
 #define DefaultSetter(type, memberName) \
-    CbjectPreprocessor_expandDefaultSetter(klass, type, memberName)
+    CbjectDefaultSetter(klass, type, memberName)
 
 #define DefaultGetter(type, memberName) \
-    CbjectPreprocessor_expandDefaultGetter(klass, type, memberName)
+    CbjectDefaultGetter(klass, type, memberName)
 
 #define DefaultSetters(...) \
-    CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyDefaultSetter, __VA_ARGS__)
+    CbjectDefaultSetters(__VA_ARGS__)
 
 #define DefaultGetters(...) \
-    CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyDefaultGetter, __VA_ARGS__)
+    CbjectDefaultGetters(__VA_ARGS__)
 
 #define Init(...) \
     CbjectPreprocessor_i(klass, superKlass, __VA_ARGS__)
 #define Terminate(...) \
     CbjectPreprocessor_t(klass, superKlass, __VA_ARGS__)
 #define AbstractKlassSetup(...) \
-    CbjectPreprocessor_expandAbstractKlassSetup(klass, superKlass, __VA_ARGS__)
+    CbjectAbstractKlassSetup(klass, superKlass, __VA_ARGS__)
 #define SingletonSetup(...) \
     CbjectPreprocessor_expandSingletonSetup(klass, superKlass, __VA_ARGS__)
 #define KlassSetup(...) \

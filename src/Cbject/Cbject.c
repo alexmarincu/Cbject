@@ -5,7 +5,7 @@ static uint8 superCbject_size(Cbject const * const me);
 struct Cbject
 {
     CbjectKlass const * c;
-    CbjectMembers m;
+    CbjectProperties m;
 };
 
 static uint8 superCbject_size(Cbject const * const me) { return sizeof(*me); }

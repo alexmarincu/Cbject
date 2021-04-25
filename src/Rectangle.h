@@ -10,7 +10,7 @@ Klass(
         Point origin,
         uint32 width,
         uint32 height),
-    Members(_,
+    Properties(_,
         uint32 width,
         uint32 height),
     VirtualFunctions(0));

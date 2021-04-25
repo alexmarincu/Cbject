@@ -1,8 +1,8 @@
-#ifndef CbjectSETTINGS_H
-#define CbjectSETTINGS_H
+#ifndef CBJECTSETTINGS_H
+#define CBJECTSETTINGS_H
 
-#define Cbject_useHeap true
-#define Cbject_useStaticPool true
-#define maxAlign max_align_t
+#define CbjectSettings_useHeap true
+#define CbjectSettings_useStaticPool true
+#define CbjectSettings_maxAlign max_align_t
 
-#endif // CbjectSETTINGS_H
+#endif // CBJECTSETTINGS_H

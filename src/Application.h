@@ -11,7 +11,7 @@
 
 Singleton(
     InitParams(0),
-    Members(_,
+    Properties(_,
         Circle * circle,
         Rectangle * rectangle,
         Rectangle * heapRectangle,

@@ -8,11 +8,11 @@ PoolSize(10);
 
 SuperFunction(float, area, (0));
 KlassSetup({ BindFunction(float, Shape, area, ()); });
-DefaultSetters(
+DefaultSetters(_,
     (uint32, width),
     (uint32, height));
 
-DefaultGetters(
+DefaultGetters(_,
     (uint32, width),
     (uint32, height));
 
