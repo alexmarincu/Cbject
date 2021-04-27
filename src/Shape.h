@@ -7,7 +7,7 @@
 #define superKlass Cbject
 
 AbstractKlass(
-    InitParams(_, Point origin),
+    Params(_, Point origin),
     Properties(_, Point origin),
     VirtualFunctions(_,
         (float, area, (0)),

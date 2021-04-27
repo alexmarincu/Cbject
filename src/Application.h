@@ -10,7 +10,7 @@
 #define superKlass Cbject
 
 Singleton(
-    InitParams(0),
+    Params(0),
     Properties(_,
         Circle * circle,
         Rectangle * rectangle,

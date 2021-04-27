@@ -21,8 +21,8 @@ DefaultSetter(Color, color);
 DefaultGetter(Color, color);
 
 Init({
-    superInitParams =
-        (CircleInitParams){
+    superParams =
+        (CircleParams){
             .origin.x = params->origin.x,
             .origin.y = params->origin.y,
             .radius = params->radius};

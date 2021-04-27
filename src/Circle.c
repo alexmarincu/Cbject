@@ -22,8 +22,8 @@ KlassSetup({
 });
 
 Init({
-    superInitParams =
-        (ShapeInitParams){
+    superParams =
+        (ShapeParams){
             .origin.x = params->origin.x,
             .origin.y = params->origin.y};
 

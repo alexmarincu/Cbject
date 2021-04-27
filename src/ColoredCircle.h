@@ -7,7 +7,7 @@
 #define superKlass Circle
 
 Klass(
-    InitParams(_,
+    Params(_,
         Point origin,
         uint32 radius,
         Color color),

@@ -6,7 +6,7 @@
 #define superKlass Shape
 
 Klass(
-    InitParams(_,
+    Params(_,
         Point origin,
         uint32 radius),
     Properties(_, int32 radius),

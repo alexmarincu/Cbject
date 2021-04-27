@@ -3,11 +3,10 @@
 
 #define klass Rectangle
 #define superKlass Shape
-
 PoolSize(10);
-
 SuperFunction(float, area, (0));
 KlassSetup({ BindFunction(float, Shape, area, ()); });
+
 DefaultSetters(_,
     (uint32, width),
     (uint32, height));
@@ -17,8 +16,8 @@ DefaultGetters(_,
     (uint32, height));
 
 Init({
-    superInitParams =
-        (ShapeInitParams){
+    superParams =
+        (ShapeParams){
             .origin.x = params->origin.x,
             .origin.y = params->origin.y};
 
