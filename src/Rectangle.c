@@ -21,13 +21,13 @@ Init({
             .origin.x = params->origin.x,
             .origin.y = params->origin.y};
 
-    me->m.width = params->width;
-    me->m.height = params->height;
+    me->p.width = params->width;
+    me->p.height = params->height;
 });
 
 Terminate({});
 Function(uint32, test, (_, uint32 const a)) { return a; }
-SuperFunction(float, area, (0)) { return me->m.width * me->m.height; }
+SuperFunction(float, area, (0)) { return me->p.width * me->p.height; }
 
 #undef superKlass
 #undef klass

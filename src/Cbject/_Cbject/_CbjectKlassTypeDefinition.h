@@ -4,7 +4,7 @@
 #define _CbjectKlassTypeDefinition(klassName, superKlassName) \
     typedef struct klassName##Klass                           \
     {                                                         \
-        superKlassName##Klass super;                          \
+        superKlassName##Klass s;                          \
         klassName##KlassVirtualFunctions vf;                  \
     } klassName##Klass
 

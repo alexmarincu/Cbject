@@ -12,7 +12,7 @@
             __VA_ARGS__                                                               \
         while (0);                                                                    \
                                                                                       \
-        /*((Cbject *) me)->c = (CbjectKlass *) klassName##Klass_instance(); */        \
+        /*((Cbject *) me)->k = (CbjectKlass *) klassName##Klass_instance(); */        \
         superKlassName##_init((superKlassName *) me, &superParams);                   \
         Cbject_klassSet((Cbject *) me, (CbjectKlass *) klassName##Klass_instance());  \
     }

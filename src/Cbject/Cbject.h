@@ -1,6 +1,6 @@
 #ifndef CBJECT_H
 #define CBJECT_H
-#include "CbjectKeywords.h"
+#include "_Cbject/_CbjectKeywords.h"
 // #include <stddef.h>
 
 typedef struct Cbject Cbject;
@@ -25,7 +25,7 @@ typedef struct CbjectProperties
 
 typedef union _Cbject
 {
-    char d[sizeof(struct { CbjectKlass * c; CbjectProperties m; })];
+    char d[sizeof(struct { CbjectKlass * k; CbjectProperties p; })];
     CbjectSettings_maxAlign a;
 } _Cbject;
 
@@ -34,7 +34,7 @@ void Cbject_init(Cbject * const me, CbjectParams const * const params);
 void Cbject_terminate(Cbject * const me);
 uint8 Cbject_size(Cbject const * const me);
 char const * Cbject_type(Cbject const * const me);
-void Cbject_klassSet(Cbject * const me, CbjectKlass const * const c);
+void Cbject_klassSet(Cbject * const me, CbjectKlass const * const k);
 CbjectKlass const * Cbject_klass(Cbject * const me);
 
 #endif // CBJECT_H

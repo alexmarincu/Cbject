@@ -8,9 +8,9 @@
 #include "_CbjectTerminateFunctionPrototype.h"
 #include "_CbjectTypeDeclaration.h"
 
-#define _CbjectSingletonDeclaration(klassName, superKlassName, params, properties)         \
+#define _CbjectSingletonDeclaration(klassName, superKlassName, properties)         \
     _CbjectPropertiesTypeDefinition(klassName, _CbjectUtilities_stripParentheses(properties)); \
-    _CbjectParamsTypeDefinition(klassName, _CbjectUtilities_stripParentheses(params)); \
+    _CbjectParamsTypeDefinition(klassName, 0); \
     _CbjectTypeDeclaration(klassName);                                                         \
     _CbjectContainerTypeDefinition(klassName, superKlassName);                                 \
     _CbjectInitFunctionPrototype(klassName);                                                   \

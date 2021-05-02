@@ -4,7 +4,7 @@
 #define _CbjectContainerTypeDefinition(klassName, superKlassName) \
     typedef union _##klassName                                    \
     {                                                             \
-        char d[sizeof(struct { _##superKlassName super; klassName##Properties m; })];                               \
+        char d[sizeof(struct { _##superKlassName s; klassName##Properties p; })];                               \
         CbjectSettings_maxAlign a;                                \
     } _##klassName
 

@@ -1,27 +1,28 @@
-#ifndef CBJECTKEYWORDS_H
-#define CBJECTKEYWORDS_H
-#include "CbjectPreprocessor.h"
-#include "_Cbject/_CbjectAbstractKlass.h"
-#include "_Cbject/_CbjectDefaultGetter.h"
-#include "_Cbject/_CbjectDefaultGetters.h"
-#include "_Cbject/_CbjectDefaultSetter.h"
-#include "_Cbject/_CbjectDefaultSetters.h"
-#include "_Cbject/_CbjectFunction.h"
-#include "_Cbject/_CbjectFunctions.h"
-#include "_Cbject/_CbjectGetter.h"
-#include "_Cbject/_CbjectGetters.h"
-#include "_Cbject/_CbjectInit.h"
-#include "_Cbject/_CbjectKlass.h"
-#include "_Cbject/_CbjectNewOnStack.h"
-#include "_Cbject/_CbjectPoolSize.h"
-#include "_Cbject/_CbjectPrivateFunctions.h"
-#include "_Cbject/_CbjectSetter.h"
-#include "_Cbject/_CbjectSetters.h"
-#include "_Cbject/_CbjectSingleton.h"
-#include "_Cbject/_CbjectSuperFunction.h"
-#include "_Cbject/_CbjectSuperFunctions.h"
-#include "_Cbject/_CbjectTerminate.h"
-#include "_Cbject/_CbjectVirtualFunction.h"
+#ifndef _CBJECTKEYWORDS_H
+#define _CBJECTKEYWORDS_H
+#include "../CbjectPreprocessor.h"
+#include "_CbjectAbstractKlass.h"
+#include "_CbjectAbstractKlassSetup.h"
+#include "_CbjectDefaultGetter.h"
+#include "_CbjectDefaultGetters.h"
+#include "_CbjectDefaultSetter.h"
+#include "_CbjectDefaultSetters.h"
+#include "_CbjectFunction.h"
+#include "_CbjectFunctions.h"
+#include "_CbjectGetter.h"
+#include "_CbjectGetters.h"
+#include "_CbjectInit.h"
+#include "_CbjectKlass.h"
+#include "_CbjectNewOnStack.h"
+#include "_CbjectPoolSize.h"
+#include "_CbjectPrivateFunctions.h"
+#include "_CbjectSetter.h"
+#include "_CbjectSetters.h"
+#include "_CbjectSingleton.h"
+#include "_CbjectSuperFunction.h"
+#include "_CbjectSuperFunctions.h"
+#include "_CbjectTerminate.h"
+#include "_CbjectVirtualFunction.h"
 
 #define Klass(params, properties, virtualFunctions) \
     _CbjectKlass(klass, superKlass, params, properties, virtualFunctions)
@@ -29,8 +30,8 @@
 #define AbstractKlass(params, properties, virtualFunctions) \
     _CbjectAbstractKlass(klass, superKlass, params, properties, virtualFunctions)
 
-#define Singleton(params, properties) \
-    _CbjectSingleton(klass, superKlass, params, properties)
+#define Singleton(properties) \
+    _CbjectSingleton(klass, superKlass, properties)
 
 #define Params(...) \
     (__VA_ARGS__)
@@ -113,7 +114,8 @@
     _CbjectTerminate(klass, superKlass, __VA_ARGS__)
 
 #define AbstractKlassSetup(...) \
-    CbjectAbstractKlassSetup(klass, superKlass, __VA_ARGS__)
+    _CbjectAbstractKlassSetup(klass, superKlass, __VA_ARGS__)
+
 #define SingletonSetup(...) \
     CbjectPreprocessor_expandSingletonSetup(klass, superKlass, __VA_ARGS__)
 #define KlassSetup(...) \
@@ -127,4 +129,4 @@
 #define BindFunctions(...) \
     _CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyBindFunction, __VA_ARGS__)
 
-#endif // CBJECTKEYWORDS_H
+#endif // _CBJECTKEYWORDS_H

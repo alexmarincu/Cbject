@@ -9,6 +9,8 @@
 #include "_Cbject/_CbjectPropertiesTypeDefinition.h"
 #include "_Cbject/_CbjectUtilities.h"
 #include "_Cbject/_CbjectVirtualFunctionsTypeDefinition.h"
+#include "_Cbject/_CbjectTypeDefinition.h"
+
 
 #define CbjectPreprocessor_virtualFunctionPointer0(klassName, returnType, functionName, ...) \
     returnType (*functionName)(klassName * const me)
@@ -31,20 +33,13 @@
 #define CbjectPreprocessor_klass(klassName, superKlassName) \
     typedef struct klassName##Klass                         \
     {                                                       \
-        superKlassName##Klass super;                        \
+        superKlassName##Klass s;                        \
     } klassName##Klass;                                     \
                                                             \
     klassName##Klass const * const klassName##Klass_instance()
 
-#define CbjectPreprocessor_properties(klassName, superKlassName) \
-    struct klassName                                             \
-    {                                                            \
-        _##superKlassName super;                                 \
-        klassName##Properties m;                                 \
-    }
-
 #define CbjectPreprocessor_cm_(klassName, superKlassName)     \
-    CbjectPreprocessor_properties(klassName, superKlassName); \
+    _CbjectTypeDefinition(klassName, superKlassName); \
     // CbjectPreprocessor_klass(klassName, superKlassName)
 #define CbjectPreprocessor_cm(klassName, superKlassName) CbjectPreprocessor_cm_(klassName, superKlassName)
 
@@ -61,7 +56,7 @@
 #define CbjectPreprocessor_stripParenthesesAndApplyPrivateConstant(constPrototype) PrivateConstant constPrototype;
 
 #define CbjectAbstractKlassProperties_(klassName, superKlassName) \
-    CbjectPreprocessor_properties(klassName, superKlassName)
+    _CbjectTypeDefinition(klassName, superKlassName)
 #define CbjectAbstractKlassProperties(klassName, superKlassName) CbjectAbstractKlassProperties_(klassName, superKlassName)
 
 #define CbjectPreprocessor_expandDataKlass_(klassName, ...)                  \
@@ -91,7 +86,7 @@
 #define CbjectPreprocessor_expandPrivateFunctions(...) _CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyPrivateFunction, __VA_ARGS__)
 
 #define CbjectPreprocessor_superFunctionPrototypeOld(klassName, type, functionName, arguments) \
-    type super##klassName##_##functionName(klassName * const me _CbjectUtilities_vaArgs(_CbjectUtilities_stripParentheses(arguments)))
+    type s##klassName##_##functionName(klassName * const me _CbjectUtilities_vaArgs(_CbjectUtilities_stripParentheses(arguments)))
 
 #define CbjectPreprocessor_superFunctions_(klassName, type, functionName, arguments) \
     CbjectPreprocessor_superFunctionPrototypeOld(klassName, type, functionName, arguments)
@@ -99,27 +94,25 @@
 #define CbjectPreprocessor_superFunctions(type, functionName, arguments) \
     CbjectPreprocessor_superFunctions_(klass, type, functionName, arguments)
 
-
-
 #define CbjectPreprocessor_klassInstanceImpl(klassName, superKlassName, ...)                          \
     klassName##Klass const * const klassName##Klass_instance()                                        \
     {                                                                                                 \
-        static klassName##Klass c;                                                                    \
+        static klassName##Klass k;                                                                    \
                                                                                                       \
-        if (((CbjectKlass *) &c)->type == null)                                                       \
+        if (((CbjectKlass *) &k)->type == null)                                                       \
         {                                                                                             \
             static char const * const type = #klassName;                                              \
-            *((superKlassName##Klass *) &c) = *superKlassName##Klass_instance();                      \
-            ((CbjectKlass *) &c)->vf.size = (uint8(*)(Cbject const * const me)) override_Cbject_size; \
+            *((superKlassName##Klass *) &k) = *superKlassName##Klass_instance();                      \
+            ((CbjectKlass *) &k)->vf.size = (uint8(*)(Cbject const * const me)) override_Cbject_size; \
                                                                                                       \
             do                                                                                        \
                 __VA_ARGS__                                                                           \
             while (0);                                                                                \
                                                                                                       \
-            ((CbjectKlass *) &c)->type = type;                                                        \
+            ((CbjectKlass *) &k)->type = type;                                                        \
         }                                                                                             \
                                                                                                       \
-        return &c;                                                                                    \
+        return &k;                                                                                    \
     }
 
 #define CbjectPreprocessor_getCbjectImpl(klassName)                     \
@@ -155,19 +148,15 @@
         free(me);                                      \
     }
 
-#define CbjectAbstractKlassSetup_(klassName, superKlassName, ...)                         \
-    CbjectPreprocessor_properties(klassName, superKlassName);                             \
-    static uint8 override_Cbject_size(klassName const * const me) { return sizeof(*me); } \
-    CbjectPreprocessor_klassInstanceImpl(klassName, superKlassName, __VA_ARGS__)
-#define CbjectAbstractKlassSetup(klassName, superKlassName, ...) CbjectAbstractKlassSetup_(klassName, superKlassName, __VA_ARGS__)
 
 #define CbjectPreprocessor_expandSingletonSetup_(klassName, superKlassName, ...)          \
-    CbjectPreprocessor_properties(klassName, superKlassName);                             \
+    _CbjectTypeDefinition(klassName, superKlassName);                             \
     CbjectPreprocessor_klass(klassName, superKlassName);                                  \
     klassName * klassName##_instance()                                                    \
     {                                                                                     \
-        static klassName singleton;                                                       \
-        return &singleton;                                                                \
+        static klassName me;                                                              \
+        if (Cbject_klass((Cbject *) &me) == null) { klassName##_init(&me, null); }        \
+        return &me;                                                                       \
     }                                                                                     \
                                                                                           \
     static uint8 override_Cbject_size(klassName const * const me) { return sizeof(*me); } \
@@ -178,7 +167,7 @@
     #if CbjectSettings_useHeap == true
         #include <stdlib.h>
         #define CbjectPreprocessor_expandKlassSetup_(klassName, superKlassName, ...)              \
-            CbjectPreprocessor_properties(klassName, superKlassName);                             \
+            _CbjectTypeDefinition(klassName, superKlassName);                             \
             static uint8 override_Cbject_size(klassName const * const me) { return sizeof(*me); } \
             CbjectPreprocessor_klassInstanceImpl(klassName, superKlassName, __VA_ARGS__);         \
             CbjectPreprocessor_getCbjectImpl(klassName);                                          \
@@ -211,11 +200,11 @@
 #define CbjectPreprocessor_expandKlassSetup(klassName, superKlassName, ...) CbjectPreprocessor_expandKlassSetup_(klassName, superKlassName, __VA_ARGS__)
 
 #define CbjectPreprocessor_bvf_(klassName, functionName) \
-    c.vf.functionName = super##klassName##_##functionName;
+    k.vf.functionName = s##klassName##_##functionName;
 #define CbjectPreprocessor_bvf(klassName, functionName) CbjectPreprocessor_bvf_(klassName, functionName)
 
 #define CbjectPreprocessor_bof_(klassName, type, superKlassName, functionName, arguments) \
-    ((superKlassName##Klass *) &c)->vf.functionName = (type(*)(superKlassName * const me _CbjectUtilities_vaArgs(_CbjectUtilities_stripParentheses(arguments)))) super##klassName##_##functionName
+    ((superKlassName##Klass *) &k)->vf.functionName = (type(*)(superKlassName * const me _CbjectUtilities_vaArgs(_CbjectUtilities_stripParentheses(arguments)))) s##klassName##_##functionName
 #define CbjectPreprocessor_bof(klassName, type, superKlassName, functionName, arguments) CbjectPreprocessor_bof_(klassName, type, superKlassName, functionName, arguments)
 
 #define CbjectPreprocessor_stripParenthesesAndApplyBindFunction(functionPrototype) BindFunction functionPrototype;

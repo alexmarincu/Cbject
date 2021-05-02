@@ -27,21 +27,21 @@ Init({
             .origin.y = params->origin.y,
             .radius = params->radius};
 
-    me->m.color = params->color;
+    me->p.color = params->color;
 });
 
 Terminate({});
 
 SuperFunction(void, draw, (_, uint8 const a))
 {
-    superShape_draw((Shape *) me, 5);
-    superCircle_draw((Circle *) me, 5);
+    sShape_draw((Shape *) me, 5);
+    sCircle_draw((Circle *) me, 5);
     printf("ColoredCircle draw\n");
 }
 
 SuperFunction(void, rotate, (0))
 {
-    superCircle_rotate((Circle *) me);
+    sCircle_rotate((Circle *) me);
     printf("Rotate counter-clockwise\n");
 }
 

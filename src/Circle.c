@@ -27,7 +27,7 @@ Init({
             .origin.x = params->origin.x,
             .origin.y = params->origin.y};
 
-    me->m.radius = params->radius;
+    me->p.radius = params->radius;
 });
 
 Terminate({});
@@ -37,11 +37,11 @@ DefaultGetter(uint32, radius);
 
 SuperFunction(void, draw, (_, uint8 const a))
 {
-    superShape_draw((Shape *) me, a);
+    sShape_draw((Shape *) me, a);
     printf("Circle draw\n");
 }
 
-SuperFunction(float, area, (0)) { return me->m.radius * me->m.radius * Circle_pi; }
+SuperFunction(float, area, (0)) { return me->p.radius * me->p.radius * Circle_pi; }
 VirtualFunction(void, rotate, (0), (0))
 SuperFunction(void, rotate, (0)) { printf("Rotate clockwise\n"); }
 
