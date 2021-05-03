@@ -23,5 +23,5 @@ CbjectKlass const * const CbjectKlass_instance()
 
 void Cbject_klassSet(Cbject * const me, CbjectKlass const * const k) { me->k = k; }
 CbjectKlass const * Cbject_klass(Cbject * const me) { return me->k; }
-void Cbject_init(Cbject * const me, CbjectParams const * const params) { Cbject_klassSet(me, CbjectKlass_instance()); }
-void Cbject_terminate(Cbject * const me) {}
+void Cbject_ctor(Cbject * const me, CbjectParams const * const params) { Cbject_klassSet(me, CbjectKlass_instance()); }
+void Cbject_dtor(Cbject * const me) {}

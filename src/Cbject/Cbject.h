@@ -30,8 +30,8 @@ typedef union _Cbject
 } _Cbject;
 
 CbjectKlass const * const CbjectKlass_instance();
-void Cbject_init(Cbject * const me, CbjectParams const * const params);
-void Cbject_terminate(Cbject * const me);
+void Cbject_ctor(Cbject * const me, CbjectParams const * const params);
+void Cbject_dtor(Cbject * const me);
 uint8 Cbject_size(Cbject const * const me);
 char const * Cbject_type(Cbject const * const me);
 void Cbject_klassSet(Cbject * const me, CbjectKlass const * const k);

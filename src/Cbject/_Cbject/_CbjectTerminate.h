@@ -1,8 +1,8 @@
 #ifndef _CBJECTTERMINATE_H
 #define _CBJECTTERMINATE_H
-#include "_CbjectTerminateFunctionImpl.h"
+#include "_CbjectDtorFunImpl.h"
 
-#define _CbjectTerminate(klassName, superKlassName, ...) \
-    _CbjectTerminateFunctionImpl(klassName, superKlassName, __VA_ARGS__)
+#define _CbjectTerminate(klassName, superKlassName) \
+    _CbjectDtorFunImpl(klassName, superKlassName)
 
 #endif // _CBJECTTERMINATE_H

@@ -21,16 +21,17 @@ KlassSetup({
         (void, Shape, draw, (uint8 const a)));
 });
 
-Init({
-    superParams =
+Init
+{
+    *s_params =
         (ShapeParams){
             .origin.x = params->origin.x,
             .origin.y = params->origin.y};
 
     me->p.radius = params->radius;
-});
+}
 
-Terminate({});
+Terminate {}
 
 DefaultSetter(uint32, radius);
 DefaultGetter(uint32, radius);
@@ -43,7 +44,7 @@ SuperFunction(void, draw, (_, uint8 const a))
 
 SuperFunction(float, area, (0)) { return me->p.radius * me->p.radius * Circle_pi; }
 VirtualFunction(void, rotate, (0), (0))
-SuperFunction(void, rotate, (0)) { printf("Rotate clockwise\n"); }
+    SuperFunction(void, rotate, (0)) { printf("Rotate clockwise\n"); }
 
 #undef superKlass
 #undef klass

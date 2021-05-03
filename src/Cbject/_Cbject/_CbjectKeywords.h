@@ -111,11 +111,11 @@
 #define DefaultGetters(...) \
     _CbjectDefaultGetters(__VA_ARGS__)
 
-#define Init(...) \
-    _CbjectInit(klass, superKlass, __VA_ARGS__)
+#define Init \
+    _CbjectInit(klass, superKlass)
 
-#define Terminate(...) \
-    _CbjectTerminate(klass, superKlass, __VA_ARGS__)
+#define Terminate \
+    _CbjectTerminate(klass, superKlass)
 
 #define AbstractKlassSetup(...) \
     _CbjectAbstractKlassSetup(klass, superKlass, __VA_ARGS__)

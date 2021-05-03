@@ -12,7 +12,7 @@
         if (count < klassName##_poolSize)            \
         {                                            \
             me = &pool[count];                       \
-            klassName##_init(me, params);            \
+            klassName##_ctor(me, params);            \
             count++;                                 \
         }                                            \
                                                      \

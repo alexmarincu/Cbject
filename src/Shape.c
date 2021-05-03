@@ -6,9 +6,9 @@
 
 AbstractKlassSetup({ BindVirtualFunctions(area, draw); });
 
-Init({ me->p.origin = params->origin; });
+Init { me->p.origin = params->origin; }
 
-Terminate({});
+Terminate {}
 DefaultSetter(Point, origin);
 DefaultGetter(Point, origin);
 

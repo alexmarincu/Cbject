@@ -5,7 +5,7 @@
 #define _CbjectDeleteImpl(klassName)          \
     _CbjectDeleteFunctionPrototype(klassName) \
     {                                         \
-        klassName##_terminate(me);            \
+        klassName##_dtor(me);            \
         free(me);                             \
     }
 

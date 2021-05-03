@@ -5,8 +5,8 @@
 #define superKlass Cbject
 
 SingletonSetup({});
-Init({});
-Terminate({ Delete_Rectangle(me->p.heapRectangle); });
+Init {}
+Terminate { Delete_Rectangle(me->p.heapRectangle); }
 
 PrivateFunctions(_,
     (void, printBeginMessage, (0)),

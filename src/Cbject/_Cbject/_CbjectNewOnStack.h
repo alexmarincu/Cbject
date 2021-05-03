@@ -3,6 +3,6 @@
 
 #define _CbjectNewOnStack(klassName, varName, ...)                 \
     klassName * const varName = (klassName *) &((_##klassName){}); \
-    klassName##_init((klassName *) varName, __VA_ARGS__)
+    klassName##_ctor((klassName *) varName, __VA_ARGS__)
 
 #endif // _CBJECTNEWONSTACK_H

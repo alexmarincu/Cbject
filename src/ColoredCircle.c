@@ -20,17 +20,18 @@ KlassSetup({
 DefaultSetter(Color, color);
 DefaultGetter(Color, color);
 
-Init({
-    superParams =
+Init
+{
+    *s_params =
         (CircleParams){
             .origin.x = params->origin.x,
             .origin.y = params->origin.y,
             .radius = params->radius};
 
     me->p.color = params->color;
-});
+}
 
-Terminate({});
+Terminate {}
 
 SuperFunction(void, draw, (_, uint8 const a))
 {
