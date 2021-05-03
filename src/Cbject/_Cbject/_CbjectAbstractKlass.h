@@ -1,5 +1,7 @@
 #ifndef _CBJECTABSTRACTKLASS_H
 #define _CBJECTABSTRACTKLASS_H
+#include "_CbjectCastToSubFunPrototype.h"
+#include "_CbjectCastToSuperFunPrototype.h"
 #include "_CbjectContainerTypeDefinition.h"
 #include "_CbjectInitFunPrototype.h"
 #include "_CbjectKlassInstanceFunctionPrototype.h"
@@ -15,12 +17,14 @@
     _CbjectParamsTypeDefinition(klassName, _CbjectUtilities_stripParentheses(params));                     \
     _CbjectTypeDeclaration(klassName);                                                                     \
     _CbjectContainerTypeDefinition(klassName, superKlassName);                                             \
-    _CbjectInitFunPrototype(klassName);                                                               \
-    _CbjectTerminateFunPrototype(klassName);                                                          \
+    _CbjectInitFunPrototype(klassName);                                                                    \
+    _CbjectTerminateFunPrototype(klassName);                                                               \
     _CbjectVirtualFunctionsTypeDefinition(klassName, _CbjectUtilities_stripParentheses(virtualFunctions)); \
     _CbjectKlassTypeDefinition(klassName, superKlassName, vf);                                             \
     _CbjectKlassInstanceFunctionPrototype(klassName);                                                      \
     SuperFunctions(_CbjectUtilities_stripParentheses(virtualFunctions));                                   \
-    Functions(_CbjectUtilities_stripParentheses(virtualFunctions))
+    Functions(_CbjectUtilities_stripParentheses(virtualFunctions));                                        \
+    _CbjectCastToSuperFunPrototype(klassName, superKlassName);                                             \
+    _CbjectCastToSubFunPrototype(klassName, superKlassName)
 
 #endif // _CBJECTABSTRACTKLASS_H

@@ -44,13 +44,13 @@ PrivateFunction(void, circleExample, (0))
     printf("Set radius to 2\n");
     Circle_radiusSet(me->p.circle, 2);
     printf("circle.radius = %d\n", Circle_radius(me->p.circle));
-    printf("circle.area = %.2f\n", Shape_area((Shape *) me->p.circle));
+    printf("circle.area = %.2f\n", Shape_area(Circle_toShape(me->p.circle)));
     printf("circle.area = %.2f\n", sCircle_area(me->p.circle));
-    printf("circle.origin.x = %d\n", Shape_origin((Shape *) me->p.circle).x);
-    printf("circle.origin.y = %d\n", Shape_origin((Shape *) me->p.circle).y);
+    printf("circle.origin.x = %d\n", Shape_origin(Circle_toShape(me->p.circle)).x);
+    printf("circle.origin.y = %d\n", Shape_origin(Circle_toShape(me->p.circle)).y);
     printf("Set origin to {2, 3}\n");
     Shape_originSet((Shape *) me->p.circle, (Point){2, 3});
-    printf("circle.origin.x = %d\n", Shape_origin((Shape *) me->p.circle).x);
+    printf("circle.origin.x = %d\n", Shape_origin(Circle_toShape(me->p.circle)).x);
     printf("circle.origin.y = %d\n", Shape_origin((Shape *) me->p.circle).y);
     Shape_draw((Shape *) me->p.circle, 5);
     Circle_rotate(me->p.circle);
@@ -149,7 +149,7 @@ PrivateFunction(void, coloredCircleExample, (0))
     printf("coloredCircle.radius = %d\n", Circle_radius((Circle *) me->p.coloredCircle));
     printf("Set radius to 3\n");
     Circle_radiusSet((Circle *) me->p.coloredCircle, 3);
-    printf("coloredCircle.radius = %d\n", Circle_radius((Circle *) me->p.coloredCircle));
+    printf("coloredCircle.radius = %d\n", Circle_radius(ColoredCircle_toCircle(me->p.coloredCircle)));
     printf("coloredCircle.area = %.2f\n", Shape_area((Shape *) me->p.coloredCircle));
     printf("coloredCircle.origin.x = %d\n", Shape_origin((Shape *) me->p.coloredCircle).x);
     printf("coloredCircle.origin.y = %d\n", Shape_origin((Shape *) me->p.coloredCircle).y);
