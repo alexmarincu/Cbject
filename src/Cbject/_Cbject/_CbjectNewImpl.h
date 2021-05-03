@@ -7,7 +7,7 @@
     {                                                             \
         klassName * me = (klassName *) malloc(sizeof(klassName)); \
         assert((me != null) && "Heap memory allocation failed");  \
-        klassName##_ctor(me, params);                             \
+        klassName##_init(me, params);                             \
         return me;                                                \
     }
 

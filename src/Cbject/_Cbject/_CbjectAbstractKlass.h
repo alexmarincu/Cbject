@@ -1,12 +1,12 @@
 #ifndef _CBJECTABSTRACTKLASS_H
 #define _CBJECTABSTRACTKLASS_H
 #include "_CbjectContainerTypeDefinition.h"
-#include "_CbjectCtorFunPrototype.h"
+#include "_CbjectInitFunPrototype.h"
 #include "_CbjectKlassInstanceFunctionPrototype.h"
 #include "_CbjectKlassTypeDefinition.h"
 #include "_CbjectParamsTypeDefinition.h"
 #include "_CbjectPropertiesTypeDefinition.h"
-#include "_CbjectDtorFunPrototype.h"
+#include "_CbjectTerminateFunPrototype.h"
 #include "_CbjectTypeDeclaration.h"
 #include "_CbjectVirtualFunctionsTypeDefinition.h"
 
@@ -15,8 +15,8 @@
     _CbjectParamsTypeDefinition(klassName, _CbjectUtilities_stripParentheses(params));                     \
     _CbjectTypeDeclaration(klassName);                                                                     \
     _CbjectContainerTypeDefinition(klassName, superKlassName);                                             \
-    _CbjectCtorFunPrototype(klassName);                                                               \
-    _CbjectDtorFunPrototype(klassName);                                                          \
+    _CbjectInitFunPrototype(klassName);                                                               \
+    _CbjectTerminateFunPrototype(klassName);                                                          \
     _CbjectVirtualFunctionsTypeDefinition(klassName, _CbjectUtilities_stripParentheses(virtualFunctions)); \
     _CbjectKlassTypeDefinition(klassName, superKlassName, vf);                                             \
     _CbjectKlassInstanceFunctionPrototype(klassName);                                                      \

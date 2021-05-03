@@ -6,7 +6,7 @@
     _CbjectInstanceFunctionPrototype(klassName)                                    \
     {                                                                              \
         static klassName me;                                                       \
-        if (Cbject_klass((Cbject *) &me) == null) { klassName##_ctor(&me, null); } \
+        if (Cbject_klass((Cbject *) &me) == null) { klassName##_init(&me, null); } \
         return &me;                                                                \
     }
 
