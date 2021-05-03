@@ -3,22 +3,26 @@
 #include "../CbjectPreprocessor.h"
 #include "_CbjectAbstractKlass.h"
 #include "_CbjectAbstractKlassSetup.h"
+#include "_CbjectDataKlass.h"
 #include "_CbjectDefaultGetter.h"
 #include "_CbjectDefaultGetters.h"
 #include "_CbjectDefaultSetter.h"
 #include "_CbjectDefaultSetters.h"
+#include "_CbjectEnumKlass.h"
 #include "_CbjectFunction.h"
 #include "_CbjectFunctions.h"
 #include "_CbjectGetter.h"
 #include "_CbjectGetters.h"
 #include "_CbjectInit.h"
 #include "_CbjectKlass.h"
+#include "_CbjectKlassSetup.h"
 #include "_CbjectNewOnStack.h"
 #include "_CbjectPoolSize.h"
 #include "_CbjectPrivateFunctions.h"
 #include "_CbjectSetter.h"
 #include "_CbjectSetters.h"
 #include "_CbjectSingleton.h"
+#include "_CbjectSingletonSetup.h"
 #include "_CbjectSuperFunction.h"
 #include "_CbjectSuperFunctions.h"
 #include "_CbjectTerminate.h"
@@ -54,10 +58,10 @@
     _CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyPrivateConstant, __VA_ARGS__)
 
 #define DataKlass(...) \
-    CbjectPreprocessor_expandDataKlass(klass, __VA_ARGS__)
+    _CbjectDataKlass(klass, __VA_ARGS__)
 
 #define EnumKlass(...) \
-    CbjectPreprocessor_expandEnumKlass(klass, __VA_ARGS__)
+    _CbjectEnumKlass(klass, __VA_ARGS__)
 
 #define Function(returnType, functionName, arguments) \
     _CbjectFunction(klass, returnType, functionName, _CbjectUtilities_stripParentheses(arguments))
@@ -117,9 +121,11 @@
     _CbjectAbstractKlassSetup(klass, superKlass, __VA_ARGS__)
 
 #define SingletonSetup(...) \
-    CbjectPreprocessor_expandSingletonSetup(klass, superKlass, __VA_ARGS__)
+    _CbjectSingletonSetup(klass, superKlass, __VA_ARGS__)
+
 #define KlassSetup(...) \
-    CbjectPreprocessor_expandKlassSetup(klass, superKlass, __VA_ARGS__)
+    _CbjectKlassSetup(klass, superKlass, __VA_ARGS__)
+
 #define BindVirtualFunction(functionName) \
     CbjectPreprocessor_bvf(klass, functionName)
 #define BindVirtualFunctions(...) \

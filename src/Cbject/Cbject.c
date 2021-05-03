@@ -1,6 +1,6 @@
 #include "Cbject.h"
 
-static uint8 superCbject_size(Cbject const * const me);
+static uint8 sCbject_size(Cbject const * const me);
 
 struct Cbject
 {
@@ -8,7 +8,7 @@ struct Cbject
     CbjectProperties p;
 };
 
-static uint8 superCbject_size(Cbject const * const me) { return sizeof(*me); }
+static uint8 sCbject_size(Cbject const * const me) { return sizeof(*me); }
 uint8 Cbject_size(Cbject const * const me) { return me->k->vf.size(me); }
 char const * Cbject_type(Cbject const * const me) { return me->k->type; }
 
@@ -16,7 +16,7 @@ CbjectKlass const * const CbjectKlass_instance()
 {
     static CbjectKlass const k = {
         .type = "Cbject",
-        .vf = {.size = superCbject_size}};
+        .vf = {.size = sCbject_size}};
 
     return &k;
 }
