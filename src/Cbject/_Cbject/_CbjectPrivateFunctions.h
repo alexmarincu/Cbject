@@ -5,12 +5,12 @@
 #define _CbjectPrivateFunctions_stripParenthesesAndApplyPrivateFunction(functionPrototype) \
     PrivateFunction functionPrototype;
 
-#define _CbjectPrivateFunctions0(...)
+#define _CbjectPrivateFunctions_0(...)
 
-#define _CbjectPrivateFunctions_(...) \
+#define _CbjectPrivateFunctions__(...) \
     _CbjectUtilities_forEach(_CbjectPrivateFunctions_stripParenthesesAndApplyPrivateFunction, __VA_ARGS__)
 
 #define _CbjectPrivateFunctions(case, ...) \
-    _CbjectPrivateFunctions##case (__VA_ARGS__)
+    _CbjectPrivateFunctions_##case (__VA_ARGS__)
 
 #endif // _CBJECTPRIVATEFUNCTIONS_H

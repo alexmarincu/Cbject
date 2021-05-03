@@ -5,12 +5,12 @@
 #define _CbjectFunctions_stripParenthesesAndApplyFunction(functionPrototype) \
     Function functionPrototype;
 
-#define _CbjectFunctions0(...)
+#define _CbjectFunctions_0(...)
 
-#define _CbjectFunctions_(...) \
+#define _CbjectFunctions__(...) \
     _CbjectUtilities_forEach(_CbjectFunctions_stripParenthesesAndApplyFunction, __VA_ARGS__)
 
 #define _CbjectFunctions(case, ...) \
-    _CbjectFunctions##case (__VA_ARGS__)
+    _CbjectFunctions_##case (__VA_ARGS__)
 
 #endif // _CBJECTFUNCTIONS_H
