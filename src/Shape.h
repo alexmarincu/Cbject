@@ -3,19 +3,19 @@
 #include "Cbject/Cbject.h"
 #include "Point.h"
 
-#define klass Shape
-#define superKlass Cbject
+#define CbjectType Shape
+#define parent Cbject
 
-AbstractKlass(
+AbstractClass(
     Params(_, Point origin),
-    Properties(_, Point origin),
-    VirtualFunctions(_,
+    Props(_, Point origin),
+    VirtualFuns(_,
         (float, area, (0)),
         (void, draw, (_, uint8 const a))));
 
 Setters(_, (Point, origin));
 Getters(_, (Point, origin));
 
-#undef superKlass
-#undef klass
+#undef parent
+#undef CbjectType
 #endif // SHAPE_H

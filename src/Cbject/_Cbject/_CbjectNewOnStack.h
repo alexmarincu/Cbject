@@ -1,8 +1,8 @@
 #ifndef _CBJECTNEWONSTACK_H
 #define _CBJECTNEWONSTACK_H
 
-#define _CbjectNewOnStack(klassName, varName, ...)                 \
-    klassName * const varName = (klassName *) &((_##klassName){}); \
-    klassName##_init((klassName *) varName, __VA_ARGS__)
+#define _CbjectNewOnStack(cbjectTypeName, varName, ...)                 \
+    cbjectTypeName * const varName = (cbjectTypeName *) &((_##cbjectTypeName){}); \
+    cbjectTypeName##_init((cbjectTypeName *) varName, __VA_ARGS__)
 
 #endif // _CBJECTNEWONSTACK_H

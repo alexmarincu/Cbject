@@ -1,32 +1,29 @@
 #include "Shape.h"
 #include <stdio.h>
 
-#define klass Shape
-#define superKlass Cbject
+#define CbjectType Shape
+#define parent Cbject
 
-AbstractKlassSetup({ BindVirtualFunctions(area, draw); });
+AbstractClassSetup(
+    VirtualFunCalls(_,
+        (float, area, (0), (0)),
+        (void, draw, (_, uint8 const a), (_, a))),
+    BindFuns(_,
+        (void, Shape, draw, (_, uint8 const a))));
 
 Init { me->p.origin = params->origin; }
-
 Terminate {}
-DefaultSetter(Point, origin);
-DefaultGetter(Point, origin);
 
-VirtualFunction(float, area, (0), (0));
-SuperFunction(float, area, (0))
-{
-    (void) me;
-    return 0;
-}
+DefaultSet(Point, origin);
+DefaultGet(Point, origin);
 
-VirtualFunction(void, draw, (_, uint8 const a), (_, a));
-SuperFunction(void, draw, (_, uint8 const a))
+OverrideFun(void, draw, (_, uint8 const a))
 {
     (void) me;
     printf("Shape draw\n");
 }
 
-Function(void, dummy, (0)) { printf("Shape dummy\n"); }
+Fun(void, dummy, (0)) { printf("Shape dummy\n"); }
 
-#undef superKlass
-#undef klass
+#undef parent
+#undef CbjectType

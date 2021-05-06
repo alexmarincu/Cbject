@@ -1,11 +1,11 @@
 #ifndef _CBJECTTYPEDEFINITION_H
 #define _CBJECTTYPEDEFINITION_H
 
-#define _CbjectTypeDefinition(klassName, superKlassName) \
-    struct klassName                                     \
+#define _CbjectTypeDefinition(cbjectTypeName, parentName) \
+    struct cbjectTypeName                                     \
     {                                                    \
-        _##superKlassName s;                             \
-        klassName##Properties p;                         \
+        _##parentName s;                             \
+        cbjectTypeName##Props p;                         \
     }
 
 #endif // _CBJECTTYPEDEFINITION_H

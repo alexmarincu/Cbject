@@ -2,18 +2,18 @@
 #define RECTANGLE_H
 #include "Shape.h"
 
-#define klass Rectangle
-#define superKlass Shape
+#define CbjectType Rectangle
+#define parent Shape
 
-Klass(
+Class(
     Params(_,
         Point origin,
         uint32 width,
         uint32 height),
-    Properties(_,
+    Props(_,
         uint32 width,
         uint32 height),
-    VirtualFunctions(0));
+    VirtualFuns(0));
 
 Setters(_,
     (uint32, width),
@@ -23,8 +23,9 @@ Getters(_,
     (uint32, width),
     (uint32, height));
 
-Function(uint32, test, (_, uint32 const a));
+Fun(uint32, test, (_, uint32 const a));
+OverrideFun(float, area, (0));
 
-#undef superKlass
-#undef klass
+#undef parent
+#undef CbjectType
 #endif // RECTANGLE_H

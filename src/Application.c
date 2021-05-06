@@ -1,14 +1,14 @@
 #include "Application.h"
 #include <stdio.h>
 
-#define klass Application
-#define superKlass Cbject
+#define CbjectType Application
+#define parent Cbject
 
-SingletonSetup({});
+ObjectSetup(BindFuns(0));
 Init {}
 Terminate { Delete_Rectangle(me->p.heapRectangle); }
 
-PrivateFunctions(_,
+PrivateFuns(_,
     (void, printBeginMessage, (0)),
     (void, printEndMessage, (0)),
     (void, circleExample, (0)),
@@ -19,7 +19,7 @@ PrivateFunctions(_,
     (void, coloredCircleExample, (0)),
     (void, polymorphismExample, (0)));
 
-Function(void, start, (0))
+Fun(void, start, (0))
 {
     Application_printBeginMessage(me);
     Application_circleExample(me);
@@ -32,10 +32,10 @@ Function(void, start, (0))
     Application_printEndMessage(me);
 }
 
-PrivateFunction(void, printBeginMessage, (0)) { printf("\nApplication started ->\n"); }
-PrivateFunction(void, printEndMessage, (0)) { printf("\nApplication ended <-\n"); }
+PrivateFun(void, printBeginMessage, (0)) { printf("\nApplication started ->\n"); }
+PrivateFun(void, printEndMessage, (0)) { printf("\nApplication ended <-\n"); }
 
-PrivateFunction(void, circleExample, (0))
+PrivateFun(void, circleExample, (0))
 {
     printf("\n= Circle example:\n");
     printf("Circle_pi = %.2f\n", Circle_pi);
@@ -45,7 +45,7 @@ PrivateFunction(void, circleExample, (0))
     Circle_radiusSet(me->p.circle, 2);
     printf("circle.radius = %d\n", Circle_radius(me->p.circle));
     printf("circle.area = %.2f\n", Shape_area(Circle_toShape(me->p.circle)));
-    printf("circle.area = %.2f\n", sCircle_area(me->p.circle));
+    printf("circle.area = %.2f\n", s_Circle_area(me->p.circle));
     printf("circle.origin.x = %d\n", Shape_origin(Circle_toShape(me->p.circle)).x);
     printf("circle.origin.y = %d\n", Shape_origin(Circle_toShape(me->p.circle)).y);
     printf("Set origin to {2, 3}\n");
@@ -54,11 +54,11 @@ PrivateFunction(void, circleExample, (0))
     printf("circle.origin.y = %d\n", Shape_origin((Shape *) me->p.circle).y);
     Shape_draw((Shape *) me->p.circle, 5);
     Circle_rotate(me->p.circle);
-    printf("circle.klass.type = %s\n", Cbject_type((Cbject *) me->p.circle));
-    printf("circle.klass.type = %s\n", (*((CbjectKlass **) me->p.circle))->type);
+    printf("circle.class.type = %s\n", Cbject_type((Cbject *) me->p.circle));
+    printf("circle.class.type = %s\n", (*((CbjectClass **) me->p.circle))->type);
 }
 
-PrivateFunction(void, stackCircleExample, (0))
+PrivateFun(void, stackCircleExample, (0))
 {
     printf("\n= StackCircle example:\n");
 
@@ -74,7 +74,7 @@ PrivateFunction(void, stackCircleExample, (0))
     printf("stackCircle.radius = %d\n", Circle_radius(stackCircle));
 }
 
-PrivateFunction(void, rectangleExample, (0))
+PrivateFun(void, rectangleExample, (0))
 {
     printf("\n= Rectangle example:\n");
     me->p.rectangle = Get_Rectangle(
@@ -93,10 +93,10 @@ PrivateFunction(void, rectangleExample, (0))
     printf("rectangle.height = %d\n", Rectangle_height(me->p.rectangle));
     printf("rectangle.area = %.2f\n", Shape_area((Shape *) me->p.rectangle));
     Shape_draw((Shape *) me->p.rectangle, 6);
-    printf("rectangle.klass.type = %s\n", Cbject_type((Cbject *) me->p.rectangle));
+    printf("rectangle.class.type = %s\n", Cbject_type((Cbject *) me->p.rectangle));
 }
 
-PrivateFunction(void, stackRectangleExample, (0))
+PrivateFun(void, stackRectangleExample, (0))
 {
     printf("\n= StackRectangle example:\n");
 
@@ -116,7 +116,7 @@ PrivateFunction(void, stackRectangleExample, (0))
     printf("rectangle.height = %d\n", Rectangle_height(stackRectangle));
 }
 
-PrivateFunction(void, heapRectangleExample, (0))
+PrivateFun(void, heapRectangleExample, (0))
 {
     printf("\n= HeapRectangle example:\n");
 
@@ -136,7 +136,7 @@ PrivateFunction(void, heapRectangleExample, (0))
     printf("rectangle.height = %d\n", Rectangle_height(me->p.heapRectangle));
 }
 
-PrivateFunction(void, coloredCircleExample, (0))
+PrivateFun(void, coloredCircleExample, (0))
 {
     printf("\n= ColoredCircle example:\n");
     me->p.coloredCircle = Get_ColoredCircle(
@@ -150,7 +150,7 @@ PrivateFunction(void, coloredCircleExample, (0))
     printf("Set radius to 3\n");
     Circle_radiusSet((Circle *) me->p.coloredCircle, 3);
     printf("coloredCircle.radius = %d\n", Circle_radius(ColoredCircle_toCircle(me->p.coloredCircle)));
-    printf("coloredCircle.area = %.2f\n", Shape_area((Shape *) me->p.coloredCircle));
+    printf("coloredCircle.area = %.2f\n", Shape_area(Circle_toShape(ColoredCircle_toCircle(me->p.coloredCircle))));
     printf("coloredCircle.origin.x = %d\n", Shape_origin((Shape *) me->p.coloredCircle).x);
     printf("coloredCircle.origin.y = %d\n", Shape_origin((Shape *) me->p.coloredCircle).y);
     printf("Set origin to {2, 3}\n");
@@ -161,7 +161,7 @@ PrivateFunction(void, coloredCircleExample, (0))
     Circle_rotate((Circle *) me->p.coloredCircle);
 }
 
-PrivateFunction(void, polymorphismExample, (0))
+PrivateFun(void, polymorphismExample, (0))
 {
     printf("\n= Polymorphism example:\n");
 
@@ -178,5 +178,5 @@ PrivateFunction(void, polymorphismExample, (0))
     }
 }
 
-#undef superKlass
-#undef klass
+#undef parent
+#undef CbjectType

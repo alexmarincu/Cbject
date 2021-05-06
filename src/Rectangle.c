@@ -1,11 +1,13 @@
 #include "Rectangle.h"
 #include "Shape.h"
 
-#define klass Rectangle
-#define superKlass Shape
+#define CbjectType Rectangle
+#define parent Shape
 PoolSize(10);
-SuperFunction(float, area, (0));
-KlassSetup({ BindFunction(float, Shape, area, ()); });
+
+ClassSetup(
+    VirtualFunCalls(0),
+    BindFuns(_, (float, Shape, area, (0))));
 
 DefaultSetters(_,
     (uint32, width),
@@ -17,18 +19,17 @@ DefaultGetters(_,
 
 Init
 {
-    *s_params =
-        (ShapeParams){
-            .origin.x = params->origin.x,
-            .origin.y = params->origin.y};
+    *s_params = (ShapeParams){
+        .origin.x = params->origin.x,
+        .origin.y = params->origin.y};
 
     me->p.width = params->width;
     me->p.height = params->height;
 }
 
 Terminate {}
-Function(uint32, test, (_, uint32 const a)) { return a; }
-SuperFunction(float, area, (0)) { return me->p.width * me->p.height; }
+Fun(uint32, test, (_, uint32 const a)) { return a; }
+OverrideFun(float, area, (0)) { return me->p.width * me->p.height; }
 
-#undef superKlass
-#undef klass
+#undef parent
+#undef CbjectType

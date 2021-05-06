@@ -1,97 +1,113 @@
 #ifndef _CBJECTKEYWORDS_H
 #define _CBJECTKEYWORDS_H
 #include "../CbjectPreprocessor.h"
-#include "_CbjectAbstractKlass.h"
-#include "_CbjectAbstractKlassSetup.h"
-#include "_CbjectDataKlass.h"
-#include "_CbjectDefaultGetter.h"
+#include "_CbjectAbstractClass.h"
+#include "_CbjectAbstractClassSetup.h"
+#include "_CbjectBindFun.h"
+#include "_CbjectClass.h"
+#include "_CbjectClassSetup.h"
+#include "_CbjectDataClass.h"
+#include "_CbjectDefaultGet.h"
 #include "_CbjectDefaultGetters.h"
-#include "_CbjectDefaultSetter.h"
+#include "_CbjectDefaultSet.h"
 #include "_CbjectDefaultSetters.h"
-#include "_CbjectEnumKlass.h"
-#include "_CbjectFunction.h"
-#include "_CbjectFunctions.h"
-#include "_CbjectGetter.h"
+#include "_CbjectEnumClass.h"
+#include "_CbjectFun.h"
+#include "_CbjectFuns.h"
+#include "_CbjectGet.h"
 #include "_CbjectGetters.h"
 #include "_CbjectInit.h"
-#include "_CbjectKlass.h"
-#include "_CbjectKlassSetup.h"
 #include "_CbjectNewOnStack.h"
+#include "_CbjectObject.h"
+#include "_CbjectObjectSetup.h"
+#include "_CbjectOverrideFun.h"
+#include "_CbjectOverrideFuns.h"
 #include "_CbjectPoolSize.h"
-#include "_CbjectPrivateFunctions.h"
-#include "_CbjectSetter.h"
+#include "_CbjectPrivateFuns.h"
+#include "_CbjectSet.h"
 #include "_CbjectSetters.h"
-#include "_CbjectSingleton.h"
-#include "_CbjectSingletonSetup.h"
-#include "_CbjectSuperFunction.h"
-#include "_CbjectSuperFunctions.h"
 #include "_CbjectTerminate.h"
-#include "_CbjectVirtualFunction.h"
+#include "_CbjectVirtualFun.h"
 
-#define Klass(params, properties, virtualFunctions) \
-    _CbjectKlass(klass, superKlass, params, properties, virtualFunctions)
+#define Class(params, props, virtualFuns) \
+    _CbjectClass(CbjectType, parent, params, props, virtualFuns)
 
-#define AbstractKlass(params, properties, virtualFunctions) \
-    _CbjectAbstractKlass(klass, superKlass, params, properties, virtualFunctions)
+#define ClassSetup(virtualFunCalls, bindFuns) \
+    _CbjectClassSetup(CbjectType, parent, virtualFunCalls, bindFuns)
 
-#define Singleton(properties) \
-    _CbjectSingleton(klass, superKlass, properties)
+#define AbstractClass(params, props, virtualFuns) \
+    _CbjectAbstractClass(CbjectType, parent, params, props, virtualFuns)
+
+#define AbstractClassSetup(virtualFunCalls, bindFuns) \
+    _CbjectAbstractClassSetup(CbjectType, parent, virtualFunCalls, bindFuns)
+
+#define Object(props) \
+    _CbjectObject(CbjectType, parent, props)
+
+#define ObjectSetup(bindFuns) \
+    _CbjectObjectSetup(CbjectType, parent, bindFuns)
 
 #define Params(...) \
     (__VA_ARGS__)
 
-#define Properties(...) \
+#define Props(...) \
     (__VA_ARGS__)
 
-#define VirtualFunctions(...) \
+#define VirtualFuns(...) \
+    (__VA_ARGS__)
+
+#define VirtualFunCalls(...) \
+    (__VA_ARGS__)
+
+#define BindFuns(...) \
     (__VA_ARGS__)
 
 #define PoolSize(poolSize) \
-    _CbjectPoolSize(klass, poolSize)
+    _CbjectPoolSize(CbjectType, poolSize)
 
-#define Constant(type, ...) CbjectPreprocessor_c(klass, type, __VA_ARGS__)
-#define Constants(...) _CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyConstant, __VA_ARGS__)
-#define PublicConstant(type, constName) CbjectPreprocessor_pbc(klass, type, constName)
-#define PublicConstants(...) _CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyPublicConstant, __VA_ARGS__)
-#define PrivateConstant(type, ...) CbjectPreprocessor_pc(klass, type, __VA_ARGS__)
-#define PrivateConstants(klassName, ...) \
-    _CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyPrivateConstant, __VA_ARGS__)
+#define Const(type, ...) CbjectPreprocessor_c(CbjectType, type, __VA_ARGS__)
+#define Consts(...) _CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyConst, __VA_ARGS__)
+#define PublicConst(type, constName) CbjectPreprocessor_pbc(CbjectType, type, constName)
+#define PublicConsts(...) _CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyPublicConst, __VA_ARGS__)
+#define PrivateConst(type, ...) CbjectPreprocessor_pc(CbjectType, type, __VA_ARGS__)
+#define PrivateConsts(cbjectTypeName, ...) \
+    _CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyPrivateConst, __VA_ARGS__)
 
-#define DataKlass(...) \
-    _CbjectDataKlass(klass, __VA_ARGS__)
+#define DataClass(...) \
+    _CbjectDataClass(CbjectType, __VA_ARGS__)
 
-#define EnumKlass(...) \
-    _CbjectEnumKlass(klass, __VA_ARGS__)
+#define EnumClass(...) \
+    _CbjectEnumClass(CbjectType, __VA_ARGS__)
 
-#define Function(returnType, functionName, arguments) \
-    _CbjectFunction(klass, returnType, functionName, _CbjectUtilities_stripParentheses(arguments))
+#define Fun(returnType, funName, args) \
+    _CbjectFun(CbjectType, returnType, funName, _CbjectUtilities_stripParentheses(args))
 
-#define Functions(...) \
-    _CbjectFunctions(__VA_ARGS__)
+#define Funs(...) \
+    _CbjectFuns(__VA_ARGS__)
 
-#define PrivateFunction(returnType, functionName, arguments) \
-    static Function(returnType, functionName, arguments)
+#define PrivateFun(returnType, funName, args) \
+    static Fun(returnType, funName, args)
 
-#define PrivateFunctions(...) \
-    _CbjectPrivateFunctions(__VA_ARGS__)
+#define PrivateFuns(...) \
+    _CbjectPrivateFuns(__VA_ARGS__)
 
-#define VirtualFunction(returnType, functionName, arguments, params) \
-    _CbjectVirtualFunction(klass, returnType, functionName, arguments, params)
+#define VirtualFun(returnType, funName, args, params) \
+    _CbjectVirtualFun(CbjectType, returnType, funName, args, params)
 
-#define SuperFunction(returnType, functionName, arguments) \
-    _CbjectSuperFunction(klass, returnType, functionName, _CbjectUtilities_stripParentheses(arguments))
+#define OverrideFun(returnType, funName, args) \
+    _CbjectOverrideFun(CbjectType, returnType, funName, _CbjectUtilities_stripParentheses(args))
 
-#define SuperFunctions(...) \
-    _CbjectSuperFunctions(__VA_ARGS__)
+#define OverrideFuns(...) \
+    _CbjectOverrideFuns(__VA_ARGS__)
 
-#define NewOnStack(klassName, varName, ...) \
-    _CbjectNewOnStack(klassName, varName, __VA_ARGS__)
+#define NewOnStack(cbjectTypeName, varName, ...) \
+    _CbjectNewOnStack(cbjectTypeName, varName, __VA_ARGS__)
 
-#define Setter(type, memberName) \
-    _CbjectSetter(klass, type, memberName)
+#define Set(type, memberName) \
+    _CbjectSet(CbjectType, type, memberName)
 
-#define Getter(type, memberName) \
-    _CbjectGetter(klass, type, memberName)
+#define Get(type, memberName) \
+    _CbjectGet(CbjectType, type, memberName)
 
 #define Setters(...) \
     _CbjectSetters(__VA_ARGS__)
@@ -99,11 +115,11 @@
 #define Getters(...) \
     _CbjectGetters(__VA_ARGS__)
 
-#define DefaultSetter(type, memberName) \
-    _CbjectDefaultSetter(klass, type, memberName)
+#define DefaultSet(type, memberName) \
+    _CbjectDefaultSet(CbjectType, type, memberName)
 
-#define DefaultGetter(type, memberName) \
-    _CbjectDefaultGetter(klass, type, memberName)
+#define DefaultGet(type, memberName) \
+    _CbjectDefaultGet(CbjectType, type, memberName)
 
 #define DefaultSetters(...) \
     _CbjectDefaultSetters(__VA_ARGS__)
@@ -112,27 +128,15 @@
     _CbjectDefaultGetters(__VA_ARGS__)
 
 #define Init \
-    _CbjectInit(klass, superKlass)
+    _CbjectInit(CbjectType, parent)
 
 #define Terminate \
-    _CbjectTerminate(klass, superKlass)
+    _CbjectTerminate(CbjectType, parent)
 
-#define AbstractKlassSetup(...) \
-    _CbjectAbstractKlassSetup(klass, superKlass, __VA_ARGS__)
+#define BindVirtualFuns(...) \
+    _CbjectUtilities_forEach(BindVirtualFun, __VA_ARGS__)
 
-#define SingletonSetup(...) \
-    _CbjectSingletonSetup(klass, superKlass, __VA_ARGS__)
-
-#define KlassSetup(...) \
-    _CbjectKlassSetup(klass, superKlass, __VA_ARGS__)
-
-#define BindVirtualFunction(functionName) \
-    CbjectPreprocessor_bvf(klass, functionName)
-#define BindVirtualFunctions(...) \
-    _CbjectUtilities_forEach(BindVirtualFunction, __VA_ARGS__)
-#define BindFunction(type, superKlassName, functionName, arguments) \
-    CbjectPreprocessor_bof(klass, type, superKlassName, functionName, arguments)
-#define BindFunctions(...) \
-    _CbjectUtilities_forEach(CbjectPreprocessor_stripParenthesesAndApplyBindFunction, __VA_ARGS__)
+#define BindFun(type, parentName, funName, args) \
+    _CbjectBindFun(CbjectType, type, parentName, funName, args)
 
 #endif // _CBJECTKEYWORDS_H

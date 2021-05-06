@@ -2,29 +2,28 @@
 #define CIRCLE_H
 #include "Shape.h"
 
-#define klass Circle
-#define superKlass Shape
+#define CbjectType Circle
+#define parent Shape
 
-Klass(
+Class(
     Params(_,
         Point origin,
         uint32 radius),
-    Properties(_, int32 radius),
-    VirtualFunctions(_, (void, rotate, (0))));
+    Props(_, int32 radius),
+    VirtualFuns(_, (void, rotate, (0))));
 
-PublicConstant(float, pi);
-PublicConstants((float, anotherPi));
+PublicConst(float, pi);
+PublicConsts((float, anotherPi));
 
-// setterGetter(uint32, radius);
-Setter(uint32, radius);
-Getter(uint32, radius);
+Set(uint32, radius);
+Get(uint32, radius);
 
-SuperFunctions(_,
+OverrideFuns(_,
     (float, area, (0)),
     (void, draw, (_, uint8 const a)));
 
-Functions(_, (void, rotate, (0)));
+Funs(_, (void, rotate, (0)));
 
-#undef klass
-#undef superKlass
+#undef CbjectType
+#undef parent
 #endif // CIRCLE_H

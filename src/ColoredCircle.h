@@ -3,16 +3,16 @@
 #include "Circle.h"
 #include "Color.h"
 
-#define klass ColoredCircle
-#define superKlass Circle
+#define CbjectType ColoredCircle
+#define parent Circle
 
-Klass(
+Class(
     Params(_,
         Point origin,
         uint32 radius,
         Color color),
-    Properties(_, Color color),
-    VirtualFunctions(0));
+    Props(_, Color color),
+    VirtualFuns(0));
 
 Setters(_,
     (uint32, radius),
@@ -22,6 +22,10 @@ Getters(_,
     (uint32, radius),
     (Color, color));
 
-#undef klass
-#undef superKlass
+OverrideFuns(_,
+    (void, draw, (_, uint8 const a)),
+    (void, rotate, (0)));
+
+#undef CbjectType
+#undef parent
 #endif // COLOREDCIRCLE_H

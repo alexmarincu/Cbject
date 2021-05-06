@@ -6,18 +6,18 @@
 #include "Rectangle.h"
 #include "Shape.h"
 
-#define klass Application
-#define superKlass Cbject
+#define CbjectType Application
+#define parent Cbject
 
-Singleton(
-    Properties(_,
+Object(
+    Props(_,
         Circle * circle,
         Rectangle * rectangle,
         Rectangle * heapRectangle,
         ColoredCircle * coloredCircle));
 
-Function(void, start, (0));
+Fun(void, start, (0));
 
-#undef superKlass
-#undef klass
+#undef parent
+#undef CbjectType
 #endif // APPLICATION_H

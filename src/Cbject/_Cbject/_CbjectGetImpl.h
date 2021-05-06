@@ -1,18 +1,18 @@
 #ifndef _CBJECTGETIMPL_H
 #define _CBJECTGETIMPL_H
-#include "_CbjectGetFunctionPrototype.h"
+#include "_CbjectGetObjectFunPrototype.h"
 
-#define _CbjectGetImpl(klassName)                    \
-    _CbjectGetFunctionPrototype(klassName)           \
+#define _CbjectGetImpl(cbjectTypeName)                    \
+    _CbjectGetObjectFunPrototype(cbjectTypeName)           \
     {                                                \
-        static klassName pool[klassName##_poolSize]; \
+        static cbjectTypeName pool[cbjectTypeName##_poolSize]; \
         static uint64 count = 0;                     \
-        klassName * me = null;                       \
+        cbjectTypeName * me = NULL;                       \
                                                      \
-        if (count < klassName##_poolSize)            \
+        if (count < cbjectTypeName##_poolSize)            \
         {                                            \
             me = &pool[count];                       \
-            klassName##_init(me, params);            \
+            cbjectTypeName##_init(me, params);            \
             count++;                                 \
         }                                            \
                                                      \

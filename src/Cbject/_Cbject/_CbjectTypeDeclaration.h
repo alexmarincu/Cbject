@@ -1,7 +1,7 @@
 #ifndef _CBJECTTYPEDECLARATION_H
 #define _CBJECTTYPEDECLARATION_H
 
-#define _CbjectTypeDeclaration(klassName) \
-    typedef struct klassName klassName
+#define _CbjectTypeDeclaration(cbjectTypeName) \
+    typedef struct cbjectTypeName cbjectTypeName
 
 #endif // _CBJECTTYPEDECLARATION_H

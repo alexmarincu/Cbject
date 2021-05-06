@@ -1,11 +1,11 @@
 #ifndef _CBJECTDELETEIMPL_H
 #define _CBJECTDELETEIMPL_H
-#include "_CbjectDeleteFunctionPrototype.h"
+#include "_CbjectDeleteFunPrototype.h"
 
-#define _CbjectDeleteImpl(klassName)          \
-    _CbjectDeleteFunctionPrototype(klassName) \
+#define _CbjectDeleteImpl(cbjectTypeName)          \
+    _CbjectDeleteFunPrototype(cbjectTypeName) \
     {                                         \
-        klassName##_terminate(me);            \
+        cbjectTypeName##_terminate(me);            \
         free(me);                             \
     }
 

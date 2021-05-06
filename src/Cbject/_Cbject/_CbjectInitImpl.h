@@ -3,22 +3,22 @@
 #include "_CbjectInitFunPrototype.h"
 #include "_CbjectOnInitFunPrototype.h"
 
-#define _CbjectInitImpl(klassName, superKlassName)                                    \
-    _CbjectOnInitFunPrototype(klassName, superKlassName);                               \
-    _CbjectInitFunPrototype(klassName)                                           \
+#define _CbjectInitImpl(cbjectTypeName, parentName)                                    \
+    _CbjectOnInitFunPrototype(cbjectTypeName, parentName);                               \
+    _CbjectInitFunPrototype(cbjectTypeName)                                           \
     {                                                                                 \
-        /*if (#superKlassName == "Cbject") { Cbject_init((Cbject *) me, null); }   */ \
-        superKlassName##Params s_params;                                              \
+        /*if (#parentName == "Cbject") { Cbject_init((Cbject *) me, NULL); }   */ \
+        parentName##Params s_params;                                              \
                                                                                       \
         /* do                                                                         \
              __VA_ARGS__                                                              \
          while (0);     */                                                            \
-        _##klassName##_onInit(me, params, &s_params);                                   \
-        /*((Cbject *) me)->k = (CbjectKlass *) klassName##Klass_instance(); */        \
-        superKlassName##_init((superKlassName *) me, &s_params);                      \
-        Cbject_klassSet((Cbject *) me, (CbjectKlass *) klassName##Klass_instance());  \
+        _##cbjectTypeName##_onInit(me, params, &s_params);                                   \
+        /*((Cbject *) me)->k = (CbjectClass *) cbjectTypeName##Class_instance(); */        \
+        parentName##_init((parentName *) me, &s_params);                      \
+        Cbject_CbjectTypeSet((Cbject *) me, (CbjectClass *) cbjectTypeName##Class_instance());  \
     }                                                                                 \
                                                                                       \
-    _CbjectOnInitFunPrototype(klassName, superKlassName)
+    _CbjectOnInitFunPrototype(cbjectTypeName, parentName)
 
 #endif // _CBJECTINITIMPL_H

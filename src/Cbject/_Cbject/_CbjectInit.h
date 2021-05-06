@@ -2,7 +2,7 @@
 #define _CBJECTINIT_H
 #include "_CbjectInitImpl.h"
 
-#define _CbjectInit(klassName, superKlassName) \
-    _CbjectInitImpl(klassName, superKlassName)
+#define _CbjectInit(cbjectTypeName, parentName) \
+    _CbjectInitImpl(cbjectTypeName, parentName)
 
 #endif // _CBJECTINIT_H

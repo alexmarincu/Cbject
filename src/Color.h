@@ -2,12 +2,12 @@
 #define COLOR_H
 #include "Cbject/Cbject.h"
 
-#define klass Color
+#define CbjectType Color
 
-EnumKlass(
+EnumClass(
     red,
     yellow,
     blue = 6);
 
-#undef klass
+#undef CbjectType
 #endif // COLOR_H

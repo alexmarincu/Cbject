@@ -2,7 +2,7 @@
 #define _CBJECTCASTTOSUBIMPL_H
 #include "_CbjectCastToSubFunPrototype.h"
 
-#define _CbjectCastToSubImpl(klassName, superKlassName) \
-    _CbjectCastToSubFunPrototype(klassName, superKlassName) { return (klassName *) me; }
+#define _CbjectCastToSubImpl(cbjectTypeName, parentName) \
+    _CbjectCastToSubFunPrototype(cbjectTypeName, parentName) { return (cbjectTypeName *) me; }
 
 #endif // _CBJECTCASTTOSUBIMPL_H

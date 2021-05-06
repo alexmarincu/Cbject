@@ -1,13 +1,13 @@
 #ifndef _CBJECTNEWIMPL_H
 #define _CBJECTNEWIMPL_H
-#include "_CbjectNewFunctionPrototype.h"
+#include "_CbjectNewFunPrototype.h"
 
-#define _CbjectNewImpl(klassName)                                 \
-    _CbjectNewFunctionPrototype(klassName)                        \
+#define _CbjectNewImpl(cbjectTypeName)                                 \
+    _CbjectNewFunPrototype(cbjectTypeName)                        \
     {                                                             \
-        klassName * me = (klassName *) malloc(sizeof(klassName)); \
-        assert((me != null) && "Heap memory allocation failed");  \
-        klassName##_init(me, params);                             \
+        cbjectTypeName * me = (cbjectTypeName *) malloc(sizeof(cbjectTypeName)); \
+        assert((me != NULL) && "Heap memory allocation failed");  \
+        cbjectTypeName##_init(me, params);                             \
         return me;                                                \
     }
 

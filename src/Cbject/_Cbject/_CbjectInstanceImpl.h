@@ -1,12 +1,12 @@
 #ifndef _CBJECTINSTANCEIMPL_H
 #define _CBJECTINSTANCEIMPL_H
-#include "_CbjectInstanceFunctionPrototype.h"
+#include "_CbjectInstanceFunPrototype.h"
 
-#define _CbjectInstanceImpl(klassName)                                             \
-    _CbjectInstanceFunctionPrototype(klassName)                                    \
+#define _CbjectInstanceImpl(cbjectTypeName)                                             \
+    _CbjectInstanceFunPrototype(cbjectTypeName)                                    \
     {                                                                              \
-        static klassName me;                                                       \
-        if (Cbject_klass((Cbject *) &me) == null) { klassName##_init(&me, null); } \
+        static cbjectTypeName me;                                                       \
+        if (Cbject_CbjectType((Cbject *) &me) == NULL) { cbjectTypeName##_init(&me, NULL); } \
         return &me;                                                                \
     }
 

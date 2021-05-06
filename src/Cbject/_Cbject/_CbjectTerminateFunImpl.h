@@ -3,14 +3,14 @@
 #include "_CbjectTerminateFunPrototype.h"
 #include "_CbjectOnTerminateFunPrototype.h"
 
-#define _CbjectTerminateFunImpl(klassName, superKlassName) \
-    _CbjectOnTerminateFunPrototype(klassName);          \
-    _CbjectTerminateFunPrototype(klassName)                \
+#define _CbjectTerminateFunImpl(cbjectTypeName, parentName) \
+    _CbjectOnTerminateFunPrototype(cbjectTypeName);          \
+    _CbjectTerminateFunPrototype(cbjectTypeName)                \
     {                                                 \
-        _##klassName##_onTerminate(me);                 \
-        superKlassName##_terminate((superKlassName *) me); \
+        _##cbjectTypeName##_onTerminate(me);                 \
+        parentName##_terminate((parentName *) me); \
     }                                                 \
                                                       \
-    _CbjectOnTerminateFunPrototype(klassName)
+    _CbjectOnTerminateFunPrototype(cbjectTypeName)
 
 #endif // _CBJECTTERMINATEFUNIMPL_H

@@ -1,50 +1,48 @@
 #include "Circle.h"
 #include <stdio.h>
 
-#define klass Circle
-#define superKlass Shape
+#define CbjectType Circle
+#define parent Shape
 
 PoolSize(10);
 
-Constants(
+Consts(
     (float, pi = 3.14),
     (float, anotherPi = 3.14));
 
-PrivateConstants(
+PrivateConsts(
     (float, privatePi = 3.14),
     (float, anotherPrivatePi = 3.14));
 
-KlassSetup({
-    BindVirtualFunction(rotate);
-    BindFunctions(
-        (float, Shape, area, ()),
-        (void, Shape, draw, (uint8 const a)));
-});
+ClassSetup(
+    VirtualFunCalls(_, (void, rotate, (0), (0))),
+    BindFuns(_,
+        (float, Shape, area, (0)),
+        (void, Shape, draw, (_, uint8 const a)),
+        (void, Circle, rotate, (0))));
 
 Init
 {
-    *s_params =
-        (ShapeParams){
-            .origin.x = params->origin.x,
-            .origin.y = params->origin.y};
+    *s_params = (ShapeParams){
+        .origin.x = params->origin.x,
+        .origin.y = params->origin.y};
 
     me->p.radius = params->radius;
 }
 
 Terminate {}
 
-DefaultSetter(uint32, radius);
-DefaultGetter(uint32, radius);
+DefaultSet(uint32, radius);
+DefaultGet(uint32, radius);
 
-SuperFunction(void, draw, (_, uint8 const a))
+OverrideFun(void, draw, (_, uint8 const a))
 {
-    sShape_draw((Shape *) me, a);
+    s_Shape_draw((Shape *) me, a);
     printf("Circle draw\n");
 }
 
-SuperFunction(float, area, (0)) { return me->p.radius * me->p.radius * Circle_pi; }
-VirtualFunction(void, rotate, (0), (0))
-    SuperFunction(void, rotate, (0)) { printf("Rotate clockwise\n"); }
+OverrideFun(float, area, (0)) { return me->p.radius * me->p.radius * Circle_pi; }
+OverrideFun(void, rotate, (0)) { printf("Rotate clockwise\n"); }
 
-#undef superKlass
-#undef klass
+#undef parent
+#undef CbjectType
