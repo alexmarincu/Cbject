@@ -15,6 +15,7 @@ AbstractClass(
 
 Setters(_, (Point, origin));
 Getters(_, (Point, origin));
+OverrideFun(void, draw, (_, uint8 const a));
 
 #undef parent
 #undef CbjectType

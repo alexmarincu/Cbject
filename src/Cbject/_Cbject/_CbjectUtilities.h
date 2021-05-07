@@ -1,20 +1,12 @@
 #ifndef _CBJECTUTILITIES_H
 #define _CBJECTUTILITIES_H
-#include "../CbjectSettings.h"
-#include "../Primitives.h"
-#include <assert.h>
-
-#define ct_assert(condition, identifier) typedef char identifier[(!!(condition)) * 2 - 1]
-
-#define _CbjectUtilities_prependComma(...) , ##__VA_ARGS__
-#define _CbjectUtilities_vaArgs(...) _CbjectUtilities_prependComma(__VA_ARGS__)
 
 #define _CbjectUtilities_stripParentheses__(...) __VA_ARGS__
+
 #define _CbjectUtilities_stripParentheses_(x) x
+
 #define _CbjectUtilities_stripParentheses(args) \
     _CbjectUtilities_stripParentheses_(_CbjectUtilities_stripParentheses__ args)
-// #define _CbjectUtilities_stripParentheses(args) \
-//     _CbjectUtilities_stripParentheses__ args
 
 #define _CbjectUtilities_feN
 #define _CbjectUtilities_fe0(macro)

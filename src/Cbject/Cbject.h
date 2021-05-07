@@ -1,7 +1,8 @@
 #ifndef CBJECT_H
 #define CBJECT_H
+#include "Primitives.h"
 #include "_Cbject/_CbjectKeywords.h"
-// #include <stddef.h>
+#include <assert.h>
 
 typedef struct Cbject Cbject;
 

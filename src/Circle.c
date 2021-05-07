@@ -6,20 +6,20 @@
 
 PoolSize(10);
 
-Consts(
-    (float, pi = 3.14),
-    (float, anotherPi = 3.14));
-
-PrivateConsts(
-    (float, privatePi = 3.14),
-    (float, anotherPrivatePi = 3.14));
-
 ClassSetup(
     VirtualFunCalls(_, (void, rotate, (0), (0))),
     BindFuns(_,
         (float, Shape, area, (0)),
         (void, Shape, draw, (_, uint8 const a)),
         (void, Circle, rotate, (0))));
+
+Consts(_,
+    (float, pi = 3.14),
+    (float, anotherPi = 3.14));
+
+PrivateConsts(_,
+    (float, privatePi = 3.14),
+    (float, anotherPrivatePi = 3.14));
 
 Init
 {
