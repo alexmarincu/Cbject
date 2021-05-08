@@ -1,12 +1,12 @@
 #ifndef POINT_H
 #define POINT_H
-#include "Cbject/Cbject.h"
+#include "Cbj/Cbj.h"
 
-#define CbjectType Point
+#define Cbj_Type Point
 
 DataClass(
     uint32 x,
     uint32 y);
 
-#undef CbjectType
+#undef Cbj_Type
 #endif // POINT_H

@@ -1,8 +1,8 @@
 #include "Application.h"
 #include <stdio.h>
 
-#define CbjectType Application
-#define parent Cbject
+#define Cbj_Type Application
+#define Cbj_Parent Cbj_Base
 
 ObjectSetup(BindFuns(0));
 Init {}
@@ -54,8 +54,8 @@ PrivateFun(void, circleExample, (0))
     printf("circle.origin.y = %d\n", Shape_origin((Shape *) me->p.circle).y);
     Shape_draw((Shape *) me->p.circle, 5);
     Circle_rotate(me->p.circle);
-    printf("circle.class.type = %s\n", Cbject_type((Cbject *) me->p.circle));
-    printf("circle.class.type = %s\n", (*((CbjectClass **) me->p.circle))->type);
+    printf("circle.class.type = %s\n", Cbj_Base_type((Cbj_Base *) me->p.circle));
+    printf("circle.class.type = %s\n", (*((Cbj_BaseClass **) me->p.circle))->type);
 }
 
 PrivateFun(void, stackCircleExample, (0))
@@ -93,7 +93,7 @@ PrivateFun(void, rectangleExample, (0))
     printf("rectangle.height = %d\n", Rectangle_height(me->p.rectangle));
     printf("rectangle.area = %.2f\n", Shape_area((Shape *) me->p.rectangle));
     Shape_draw((Shape *) me->p.rectangle, 6);
-    printf("rectangle.class.type = %s\n", Cbject_type((Cbject *) me->p.rectangle));
+    printf("rectangle.class.type = %s\n", Cbj_Base_type((Cbj_Base *) me->p.rectangle));
 }
 
 PrivateFun(void, stackRectangleExample, (0))
@@ -174,9 +174,9 @@ PrivateFun(void, polymorphismExample, (0))
     for (uint8 i = 0; i < Array_size(shapes); i++)
     {
         printf("shapes[%d].area() = %.2f\n", i, Shape_area(shapes[i]));
-        printf("shapes[%d].size() = %d\n", i, Cbject_size((Cbject *) shapes[i]));
+        printf("shapes[%d].size() = %d\n", i, Cbj_Base_size((Cbj_Base *) shapes[i]));
     }
 }
 
-#undef parent
-#undef CbjectType
+#undef Cbj_Parent
+#undef Cbj_Type

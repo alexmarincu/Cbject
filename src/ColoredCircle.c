@@ -2,13 +2,13 @@
 #include "Circle.h"
 #include <stdio.h>
 
-#define CbjectType ColoredCircle
-#define parent Circle
+#define Cbj_Type ColoredCircle
+#define Cbj_Parent Circle
 
 PoolSize(10);
 
 ClassSetup(
-    VirtualFunCalls(0),
+    VirtFunCalls(0),
     BindFuns(_,
         (void, Shape, draw, (_, uint8 const a)),
         (void, Circle, rotate, (0))));
@@ -41,5 +41,5 @@ OverrideFun(void, rotate, (0))
     printf("Rotate counter-clockwise\n");
 }
 
-#undef parent
-#undef CbjectType
+#undef Cbj_Parent
+#undef Cbj_Type

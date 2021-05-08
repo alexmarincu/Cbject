@@ -2,15 +2,15 @@
 #define CIRCLE_H
 #include "Shape.h"
 
-#define CbjectType Circle
-#define parent Shape
+#define Cbj_Type Circle
+#define Cbj_Parent Shape
 
 Class(
     Params(_,
         Point origin,
         uint32 radius),
     Props(_, int32 radius),
-    VirtualFuns(_, (void, rotate, (0))));
+    VirtFuns(_, (void, rotate, (0))));
 
 PublicConst(float, pi);
 PublicConsts(_, (float, anotherPi));
@@ -23,6 +23,6 @@ OverrideFuns(_,
     (void, draw, (_, uint8 const a)),
     (void, rotate, (0)));
 
-#undef CbjectType
-#undef parent
+#undef Cbj_Type
+#undef Cbj_Parent
 #endif // CIRCLE_H

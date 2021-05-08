@@ -1,11 +1,11 @@
 #include "Shape.h"
 #include <stdio.h>
 
-#define CbjectType Shape
-#define parent Cbject
+#define Cbj_Type Shape
+#define Cbj_Parent Cbj_Base
 
 AbstractClassSetup(
-    VirtualFunCalls(_,
+    VirtFunCalls(_,
         (float, area, (0), (0)),
         (void, draw, (_, uint8 const a), (_, a))),
     BindFuns(_,
@@ -25,5 +25,5 @@ OverrideFun(void, draw, (_, uint8 const a))
 
 Fun(void, dummy, (0)) { printf("Shape dummy\n"); }
 
-#undef parent
-#undef CbjectType
+#undef Cbj_Parent
+#undef Cbj_Type

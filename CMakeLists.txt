@@ -5,7 +5,7 @@ include(CTest)
 enable_testing()
 
 set(SOURCE
-src/Cbject/Cbject.c
+src/Cbj/Cbj_Base.c
 src/main.c
 src/Application.c
 src/Shape.c

@@ -3,8 +3,8 @@
 #include "Circle.h"
 #include "Color.h"
 
-#define CbjectType ColoredCircle
-#define parent Circle
+#define Cbj_Type ColoredCircle
+#define Cbj_Parent Circle
 
 Class(
     Params(_,
@@ -12,7 +12,7 @@ Class(
         uint32 radius,
         Color color),
     Props(_, Color color),
-    VirtualFuns(0));
+    VirtFuns(0));
 
 Setters(_,
     (uint32, radius),
@@ -26,6 +26,6 @@ OverrideFuns(_,
     (void, draw, (_, uint8 const a)),
     (void, rotate, (0)));
 
-#undef CbjectType
-#undef parent
+#undef Cbj_Type
+#undef Cbj_Parent
 #endif // COLOREDCIRCLE_H

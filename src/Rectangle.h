@@ -2,8 +2,8 @@
 #define RECTANGLE_H
 #include "Shape.h"
 
-#define CbjectType Rectangle
-#define parent Shape
+#define Cbj_Type Rectangle
+#define Cbj_Parent Shape
 
 Class(
     Params(_,
@@ -13,7 +13,7 @@ Class(
     Props(_,
         uint32 width,
         uint32 height),
-    VirtualFuns(0));
+    VirtFuns(0));
 
 Setters(_,
     (uint32, width),
@@ -26,6 +26,6 @@ Getters(_,
 Fun(uint32, test, (_, uint32 const a));
 OverrideFun(float, area, (0));
 
-#undef parent
-#undef CbjectType
+#undef Cbj_Parent
+#undef Cbj_Type
 #endif // RECTANGLE_H

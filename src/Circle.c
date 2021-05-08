@@ -1,13 +1,13 @@
 #include "Circle.h"
 #include <stdio.h>
 
-#define CbjectType Circle
-#define parent Shape
+#define Cbj_Type Circle
+#define Cbj_Parent Shape
 
 PoolSize(10);
 
 ClassSetup(
-    VirtualFunCalls(_, (void, rotate, (0), (0))),
+    VirtFunCalls(_, (void, rotate, (0), (0))),
     BindFuns(_,
         (float, Shape, area, (0)),
         (void, Shape, draw, (_, uint8 const a)),
@@ -44,5 +44,5 @@ OverrideFun(void, draw, (_, uint8 const a))
 OverrideFun(float, area, (0)) { return me->p.radius * me->p.radius * Circle_pi; }
 OverrideFun(void, rotate, (0)) { printf("Rotate clockwise\n"); }
 
-#undef parent
-#undef CbjectType
+#undef Cbj_Parent
+#undef Cbj_Type
