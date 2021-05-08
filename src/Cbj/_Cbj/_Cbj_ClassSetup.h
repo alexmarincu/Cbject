@@ -8,24 +8,24 @@
 #if Cbj_Settings_useHeap == true
     #include <stdlib.h>
     #if Cbj_Settings_useStaticPool == true
-        #define _Cbj_ClassSetup(typeName, Cbj_ParentName, virtFunCalls, bindFuns) \
-            AbstractClassSetup(virtFunCalls, bindFuns);                              \
-            _Cbj_GetObjectImpl(typeName);                                                     \
-            _Cbj_NewObjectImpl(typeName);                                                     \
-            _Cbj_DeleteObjectImpl(typeName)
+        #define _Cbj_ClassSetup(cbjType, parent, virtFunCalls, bindFuns) \
+            AbstractClassSetup(virtFunCalls, bindFuns);                  \
+            _Cbj_GetObjectImpl(cbjType);                                 \
+            _Cbj_NewObjectImpl(cbjType);                                 \
+            _Cbj_DeleteObjectImpl(cbjType)
     #else
-        #define _Cbj_ClassSetup(typeName, Cbj_ParentName, virtFunCalls, bindFuns) \
-            AbstractClassSetup(virtFunCalls, bindFuns);                              \
-            _Cbj_NewObjectImpl(typeName);                                                     \
-            _Cbj_DeleteObjectImpl(typeName)
+        #define _Cbj_ClassSetup(cbjType, parent, virtFunCalls, bindFuns) \
+            AbstractClassSetup(virtFunCalls, bindFuns);                  \
+            _Cbj_NewObjectImpl(cbjType);                                 \
+            _Cbj_DeleteObjectImpl(cbjType)
     #endif
 #else
     #if Cbj_Settings_useStaticPool == true
-        #define _Cbj_ClassSetup(typeName, Cbj_ParentName, virtFunCalls, bindFuns) \
-            AbstractClassSetup(virtFunCalls, bindFuns);                              \
-            _Cbj_GetObjectImpl(typeName)
+        #define _Cbj_ClassSetup(cbjType, parent, virtFunCalls, bindFuns) \
+            AbstractClassSetup(virtFunCalls, bindFuns);                  \
+            _Cbj_GetObjectImpl(cbjType)
     #else
-        #define _Cbj_ClassSetup(typeName, Cbj_ParentName, virtFunCalls, bindFuns) \
+        #define _Cbj_ClassSetup(cbjType, parent, virtFunCalls, bindFuns) \
             AbstractClassSetup(virtFunCalls, bindFuns);
     #endif
 #endif

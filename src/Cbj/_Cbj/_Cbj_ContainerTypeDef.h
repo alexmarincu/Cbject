@@ -2,11 +2,11 @@
 #define _CBJ_CONTAINERTYPEDEF_H
 #include "../Cbj_Settings.h"
 
-#define _Cbj_ContainerTypeDef(typeName, Cbj_ParentName) \
-    typedef union _##typeName                       \
-    {                                               \
-        char d[sizeof(struct { _##Cbj_ParentName s; typeName##Props p; })];                 \
-        Cbj_Settings_maxAlign a;                    \
-    } _##typeName
+#define _Cbj_ContainerTypeDef(cbjType, parent) \
+    typedef union _##cbjType                   \
+    {                                          \
+        char d[sizeof(struct { _##parent s; cbjType##Props p; })];            \
+        Cbj_Settings_maxAlign a;               \
+    } _##cbjType
 
 #endif // _CBJ_CONTAINERTYPEDEF_H

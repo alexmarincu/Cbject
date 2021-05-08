@@ -2,7 +2,7 @@
 #define _CBJ_DEFAULTSET_H
 #include "_Cbj_DefaultSetImpl.h"
 
-#define _Cbj_DefaultSet(typeName, type, propName) \
-    _Cbj_DefaultSetImpl(typeName, type, propName)
+#define _Cbj_DefaultSet(cbjType, propType, propName) \
+    _Cbj_DefaultSetImpl(cbjType, propType, propName)
 
 #endif // _CBJ_DEFAULTSET_H

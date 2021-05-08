@@ -21,8 +21,6 @@
 #include "_Cbj_NewOnStack.h"
 #include "_Cbj_Object.h"
 #include "_Cbj_ObjectSetup.h"
-#include "_Cbj_OverrideFun.h"
-#include "_Cbj_OverrideFuns.h"
 #include "_Cbj_PoolSize.h"
 #include "_Cbj_PrivateConst.h"
 #include "_Cbj_PrivateConsts.h"
@@ -31,62 +29,64 @@
 #include "_Cbj_PublicConsts.h"
 #include "_Cbj_Set.h"
 #include "_Cbj_Setters.h"
+#include "_Cbj_SuperFun.h"
+#include "_Cbj_SuperFuns.h"
 #include "_Cbj_Terminate.h"
 #include "_Cbj_VirtFun.h"
 
 #define AbstractClass(params, props, virtFuns) \
-    _Cbj_AbstractClass(Cbj_Type, Cbj_Parent, params, props, virtFuns)
+    _Cbj_AbstractClass(Type, Parent, params, props, virtFuns)
 
 #define AbstractClassSetup(virtFunCalls, bindFuns) \
-    _Cbj_AbstractClassSetup(Cbj_Type, Cbj_Parent, virtFunCalls, bindFuns)
+    _Cbj_AbstractClassSetup(Type, Parent, virtFunCalls, bindFuns)
 
 #define BindFuns(...) \
     (__VA_ARGS__)
 
 #define Class(params, props, virtFuns) \
-    _Cbj_Class(Cbj_Type, Cbj_Parent, params, props, virtFuns)
+    _Cbj_Class(Type, Parent, params, props, virtFuns)
 
 #define ClassSetup(virtFunCalls, bindFuns) \
-    _Cbj_ClassSetup(Cbj_Type, Cbj_Parent, virtFunCalls, bindFuns)
+    _Cbj_ClassSetup(Type, Parent, virtFunCalls, bindFuns)
 
-#define Const(type, constNameAndValue) \
-    _Cbj_Const(Cbj_Type, type, constNameAndValue)
+#define Const(constType, constNameAndValue) \
+    _Cbj_Const(Type, constType, constNameAndValue)
 
 #define Consts(...) \
     _Cbj_Consts(__VA_ARGS__)
 
 #define DataClass(...) \
-    _Cbj_DataClass(Cbj_Type, __VA_ARGS__)
+    _Cbj_DataClass(Type, __VA_ARGS__)
 
 #define EnumClass(...) \
-    _Cbj_EnumClass(Cbj_Type, __VA_ARGS__)
+    _Cbj_EnumClass(Type, __VA_ARGS__)
 
 #define Fun(returnType, funName, args) \
-    _Cbj_Fun(Cbj_Type, returnType, funName, _Cbj_Utils_stripParentheses(args))
+    _Cbj_Fun(Type, returnType, funName, _Cbj_Utils_stripParentheses(args))
 
 #define Funs(...) \
     _Cbj_Funs(__VA_ARGS__)
 
 #define Object(props) \
-    _Cbj_Object(Cbj_Type, Cbj_Parent, props)
+    _Cbj_Object(Type, Parent, props)
 
 #define ObjectSetup(bindFuns) \
-    _Cbj_ObjectSetup(Cbj_Type, Cbj_Parent, bindFuns)
+    _Cbj_ObjectSetup(Type, Parent, bindFuns)
 
-#define OverrideFun(returnType, funName, args) \
-    _Cbj_OverrideFun(Cbj_Type, returnType, funName, _Cbj_Utils_stripParentheses(args))
+#define SuperFun(returnType, funName, args) \
+    _Cbj_SuperFun(Type, returnType, funName, _Cbj_Utils_stripParentheses(args))
 
-#define OverrideFuns(...) \
-    _Cbj_OverrideFuns(__VA_ARGS__)
+#define SuperFuns(...) \
+    _Cbj_SuperFuns(__VA_ARGS__)
 
 #define Params(...) \
     (__VA_ARGS__)
 
 #define PoolSize(poolSize) \
-    _Cbj_PoolSize(Cbj_Type, poolSize)
+    _Cbj_PoolSize(Type, poolSize)
 
-#define PrivateConst(type, constNameAndValue) \
-    _Cbj_PrivateConst(Cbj_Type, type, constNameAndValue)
+#define PrivateConst(constType, constNameAndValue) \
+    _Cbj_PrivateConst(Type, constType, constNameAndValue)
 
 #define PrivateConsts(...) \
     _Cbj_PrivateConsts(__VA_ARGS__)
@@ -100,14 +100,14 @@
 #define Props(...) \
     (__VA_ARGS__)
 
-#define PublicConst(type, constName) \
-    _Cbj_PublicConst(Cbj_Type, type, constName)
+#define PublicConst(constType, constName) \
+    _Cbj_PublicConst(Type, constType, constName)
 
 #define PublicConsts(...) \
     _Cbj_PublicConsts(__VA_ARGS__)
 
 #define VirtFun(returnType, funName, args, params) \
-    _Cbj_VirtFun(Cbj_Type, returnType, funName, args, params)
+    _Cbj_VirtFun(Type, returnType, funName, args, params)
 
 #define VirtFunCalls(...) \
     (__VA_ARGS__)
@@ -115,14 +115,14 @@
 #define VirtFuns(...) \
     (__VA_ARGS__)
 
-#define NewOnStack(typeName, varName, ...) \
-    _Cbj_NewOnStack(typeName, varName, __VA_ARGS__)
+#define NewOnStack(cbjType, varName, ...) \
+    _Cbj_NewOnStack(cbjType, varName, __VA_ARGS__)
 
-#define Set(type, propName) \
-    _Cbj_Set(Cbj_Type, type, propName)
+#define Set(propType, propName) \
+    _Cbj_Set(Type, propType, propName)
 
-#define Get(type, propName) \
-    _Cbj_Get(Cbj_Type, type, propName)
+#define Get(propType, propName) \
+    _Cbj_Get(Type, propType, propName)
 
 #define Setters(...) \
     _Cbj_Setters(__VA_ARGS__)
@@ -130,11 +130,11 @@
 #define Getters(...) \
     _Cbj_Getters(__VA_ARGS__)
 
-#define DefaultSet(type, propName) \
-    _Cbj_DefaultSet(Cbj_Type, type, propName)
+#define DefaultSet(propType, propName) \
+    _Cbj_DefaultSet(Type, propType, propName)
 
-#define DefaultGet(type, propName) \
-    _Cbj_DefaultGet(Cbj_Type, type, propName)
+#define DefaultGet(propType, propName) \
+    _Cbj_DefaultGet(Type, propType, propName)
 
 #define DefaultSetters(...) \
     _Cbj_DefaultSetters(__VA_ARGS__)
@@ -143,15 +143,15 @@
     _Cbj_DefaultGetters(__VA_ARGS__)
 
 #define Init \
-    _Cbj_Init(Cbj_Type, Cbj_Parent)
+    _Cbj_Init(Type, Parent)
 
 #define Terminate \
-    _Cbj_Terminate(Cbj_Type, Cbj_Parent)
+    _Cbj_Terminate(Type, Parent)
 
 #define BindVirtFuns(...) \
     _Cbj_Utils_forEach(BindVirtFun, __VA_ARGS__)
 
-#define BindFun(type, Cbj_ParentName, funName, args) \
-    _Cbj_BindFun(Cbj_Type, type, Cbj_ParentName, funName, args)
+#define BindFun(returnType, parent, funName, args) \
+    _Cbj_BindFun(Type, returnType, parent, funName, args)
 
 #endif // _CBJ_KEYWORDS_H

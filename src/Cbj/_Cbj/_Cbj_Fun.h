@@ -2,7 +2,7 @@
 #define _CBJ_FUN_H
 #include "_Cbj_FunPrototype.h"
 
-#define _Cbj_Fun(typeName, returnType, funName, ...) \
-    _Cbj_FunPrototype(typeName, returnType, funName, __VA_ARGS__)
+#define _Cbj_Fun(cbjType, returnType, funName, ...) \
+    _Cbj_FunPrototype(cbjType, returnType, funName, __VA_ARGS__)
 
 #endif // _CBJ_FUN_H

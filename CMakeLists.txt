@@ -5,13 +5,13 @@ include(CTest)
 enable_testing()
 
 set(SOURCE
-src/Cbj/Cbj_Base.c
+src/Cbj/Cbject.c
 src/main.c
-src/Application.c
-src/Shape.c
-src/Circle.c
-src/Rectangle.c
-src/ColoredCircle.c)
+src/Application/Application.c
+src/Application/Shape.c
+src/Application/Circle.c
+src/Application/Rectangle.c
+src/Application/ColoredCircle.c)
 
 add_executable(Cbject ${SOURCE})
 

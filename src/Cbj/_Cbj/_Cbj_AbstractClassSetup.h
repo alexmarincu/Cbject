@@ -8,12 +8,12 @@
 #include "_Cbj_Utils.h"
 #include "_Cbj_VirtFunCalls.h"
 
-#define _Cbj_AbstractClassSetup(typeName, Cbj_ParentName, virtFunCalls, bindFuns)            \
-    _Cbj_TypeDef(typeName, Cbj_ParentName);                                                  \
-    _Cbj_SizeImpl(typeName);                                                             \
-    _Cbj_ClassInstanceImpl(typeName, Cbj_ParentName, _Cbj_Utils_stripParentheses(bindFuns)); \
-    _Cbj_CastToSuperImpl(typeName, Cbj_ParentName);                                          \
-    _Cbj_CastToSubImpl(typeName, Cbj_ParentName);                                            \
+#define _Cbj_AbstractClassSetup(cbjType, parent, virtFunCalls, bindFuns)            \
+    _Cbj_TypeDef(cbjType, parent);                                                  \
+    _Cbj_SizeImpl(cbjType);                                                         \
+    _Cbj_ClassInstanceImpl(cbjType, parent, _Cbj_Utils_stripParentheses(bindFuns)); \
+    _Cbj_CastToSuperImpl(cbjType, parent);                                          \
+    _Cbj_CastToSubImpl(cbjType, parent);                                            \
     _Cbj_VirtFunCalls(_Cbj_Utils_stripParentheses(virtFunCalls))
 
 #endif // _CBJ_ABSTRACTCLASSSETUP_H

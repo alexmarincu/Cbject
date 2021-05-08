@@ -9,13 +9,13 @@
 #include "_Cbj_TypeDecl.h"
 #include "_Cbj_Utils.h"
 
-#define _Cbj_Object(typeName, Cbj_ParentName, props)                     \
-    _Cbj_PropsTypeDef(typeName, _Cbj_Utils_stripParentheses(props)); \
-    _Cbj_ParamsTypeDef(typeName, 0);                                 \
-    _Cbj_TypeDecl(typeName);                                         \
-    _Cbj_ContainerTypeDef(typeName, Cbj_ParentName);                     \
-    _Cbj_InitFunPrototype(typeName);                                 \
-    _Cbj_TerminateFunPrototype(typeName);                            \
-    _Cbj_ObjectInstanceFunPrototype(typeName)
+#define _Cbj_Object(cbjType, parent, props)                         \
+    _Cbj_PropsTypeDef(cbjType, _Cbj_Utils_stripParentheses(props)); \
+    _Cbj_ParamsTypeDef(cbjType, 0);                                 \
+    _Cbj_TypeDecl(cbjType);                                         \
+    _Cbj_ContainerTypeDef(cbjType, parent);                         \
+    _Cbj_InitFunPrototype(cbjType);                                 \
+    _Cbj_TerminateFunPrototype(cbjType);                            \
+    _Cbj_ObjectInstanceFunPrototype(cbjType)
 
 #endif // _CBJ_OBJECT_H

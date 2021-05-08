@@ -10,20 +10,21 @@
 #include "_Cbj_PropsTypeDef.h"
 #include "_Cbj_TerminateFunPrototype.h"
 #include "_Cbj_TypeDecl.h"
+#include "_Cbj_Utils.h"
 #include "_Cbj_VirtFunsTypeDef.h"
 
-#define _Cbj_AbstractClass(typeName, Cbj_ParentName, params, props, virtFuns)           \
-    _Cbj_PropsTypeDef(typeName, _Cbj_Utils_stripParentheses(props));             \
-    _Cbj_ParamsTypeDef(typeName, _Cbj_Utils_stripParentheses(params));    \
-    _Cbj_TypeDecl(typeName);                                                    \
-    _Cbj_ContainerTypeDef(typeName, Cbj_ParentName);                                \
-    _Cbj_InitFunPrototype(typeName);                                                   \
-    _Cbj_TerminateFunPrototype(typeName);                                              \
-    _Cbj_VirtFunsTypeDef(typeName, _Cbj_Utils_stripParentheses(virtFuns)); \
-    _Cbj_ClassTypeDef(typeName, Cbj_ParentName, vf);                                \
-    _Cbj_ClassInstanceFunPrototype(typeName);                                          \
-    Funs(_Cbj_Utils_stripParentheses(virtFuns));                                      \
-    _Cbj_CastToSuperFunPrototype(typeName, Cbj_ParentName);                                \
-    _Cbj_CastToSubFunPrototype(typeName, Cbj_ParentName)
+#define _Cbj_AbstractClass(cbjType, parent, params, props, virtFuns)      \
+    _Cbj_PropsTypeDef(cbjType, _Cbj_Utils_stripParentheses(props));       \
+    _Cbj_ParamsTypeDef(cbjType, _Cbj_Utils_stripParentheses(params));     \
+    _Cbj_TypeDecl(cbjType);                                               \
+    _Cbj_ContainerTypeDef(cbjType, parent);                               \
+    _Cbj_InitFunPrototype(cbjType);                                       \
+    _Cbj_TerminateFunPrototype(cbjType);                                  \
+    _Cbj_VirtFunsTypeDef(cbjType, _Cbj_Utils_stripParentheses(virtFuns)); \
+    _Cbj_ClassTypeDef(cbjType, parent, vf);                               \
+    _Cbj_ClassInstanceFunPrototype(cbjType);                              \
+    Funs(_Cbj_Utils_stripParentheses(virtFuns));                          \
+    _Cbj_CastToSuperFunPrototype(cbjType, parent);                        \
+    _Cbj_CastToSubFunPrototype(cbjType, parent)
 
 #endif // _CBJ_ABSTRACTCLASS_H

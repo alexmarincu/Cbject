@@ -7,24 +7,24 @@
 
 #if Cbj_Settings_useHeap == true
     #if Cbj_Settings_useStaticPool == true
-        #define _Cbj_Class(typeName, Cbj_ParentName, params, props, virtFuns) \
-            AbstractClass(params, props, virtFuns);                              \
-            _Cbj_GetObjectFunPrototype(typeName);                                           \
-            _Cbj_NewObjectFunPrototype(typeName);                                           \
-            _Cbj_DeleteObjectFunPrototype(typeName)
+        #define _Cbj_Class(cbjType, parent, params, props, virtFuns) \
+            AbstractClass(params, props, virtFuns);                  \
+            _Cbj_GetObjectFunPrototype(cbjType);                     \
+            _Cbj_NewObjectFunPrototype(cbjType);                     \
+            _Cbj_DeleteObjectFunPrototype(cbjType)
     #else
-        #define _Cbj_Class(typeName, Cbj_ParentName, params, props, virtFuns) \
-            AbstractClass(params, props, virtFuns);                              \
-            _Cbj_NewObjectFunPrototype(typeName);                                           \
-            _Cbj_DeleteObjectFunPrototype(typeName)
+        #define _Cbj_Class(cbjType, parent, params, props, virtFuns) \
+            AbstractClass(params, props, virtFuns);                  \
+            _Cbj_NewObjectFunPrototype(cbjType);                     \
+            _Cbj_DeleteObjectFunPrototype(cbjType)
     #endif
 #else
     #if Cbj_Settings_useStaticPool == true
-        #define _Cbj_Class(typeName, Cbj_ParentName, params, props, virtFuns) \
-            AbstractClass(params, props, virtFuns);                              \
-            _Cbj_GetObjectFunPrototype(typeName)
+        #define _Cbj_Class(cbjType, parent, params, props, virtFuns) \
+            AbstractClass(params, props, virtFuns);                  \
+            _Cbj_GetObjectFunPrototype(cbjType)
     #else
-        #define _Cbj_Class(typeName, Cbj_ParentName, params, props, virtFuns) \
+        #define _Cbj_Class(cbjType, parent, params, props, virtFuns) \
             AbstractClass(params, props, virtFuns)
     #endif
 #endif

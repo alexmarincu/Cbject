@@ -1,8 +1,8 @@
 #include "Circle.h"
 #include <stdio.h>
 
-#define Cbj_Type Circle
-#define Cbj_Parent Shape
+#define Type Circle
+#define Parent Shape
 
 PoolSize(10);
 
@@ -35,14 +35,14 @@ Terminate {}
 DefaultSet(uint32, radius);
 DefaultGet(uint32, radius);
 
-OverrideFun(void, draw, (_, uint8 const a))
+SuperFun(void, draw, (_, uint8 const a))
 {
     s_Shape_draw((Shape *) me, a);
     printf("Circle draw\n");
 }
 
-OverrideFun(float, area, (0)) { return me->p.radius * me->p.radius * Circle_pi; }
-OverrideFun(void, rotate, (0)) { printf("Rotate clockwise\n"); }
+SuperFun(float, area, (0)) { return me->p.radius * me->p.radius * Circle_pi; }
+SuperFun(void, rotate, (0)) { printf("Rotate clockwise\n"); }
 
-#undef Cbj_Parent
-#undef Cbj_Type
+#undef Parent
+#undef Type

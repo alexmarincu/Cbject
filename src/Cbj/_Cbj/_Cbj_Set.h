@@ -2,7 +2,7 @@
 #define _CBJ_SET_H
 #include "_Cbj_SetFunPrototype.h"
 
-#define _Cbj_Set(typeName, type, propName) \
-    _Cbj_SetFunPrototype(typeName, type, propName)
+#define _Cbj_Set(cbjType, propType, propName) \
+    _Cbj_SetFunPrototype(cbjType, propType, propName)
 
 #endif // _CBJ_SET_H

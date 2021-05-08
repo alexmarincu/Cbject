@@ -3,13 +3,13 @@
 #include "_Cbj_OnTerminateFunPrototype.h"
 #include "_Cbj_TerminateFunPrototype.h"
 
-#define _Cbj_TerminateFunImpl(typeName, Cbj_ParentName) \
-    _Cbj_OnTerminateFunPrototype(typeName);         \
-    _Cbj_TerminateFunPrototype(typeName)            \
-    {                                               \
-        _##typeName##_onTerminate(me);              \
-        Cbj_ParentName##_terminate((Cbj_ParentName *) me);  \
-    }                                               \
-    _Cbj_OnTerminateFunPrototype(typeName)
+#define _Cbj_TerminateFunImpl(cbjType, parent) \
+    _Cbj_OnTerminateFunPrototype(cbjType);     \
+    _Cbj_TerminateFunPrototype(cbjType)        \
+    {                                          \
+        _##cbjType##_onTerminate(me);          \
+        parent##_terminate((parent *) me);     \
+    }                                          \
+    _Cbj_OnTerminateFunPrototype(cbjType)
 
 #endif // _CBJ_TERMINATEFUNIMPL_H

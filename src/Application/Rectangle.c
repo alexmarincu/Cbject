@@ -1,8 +1,8 @@
 #include "Rectangle.h"
 #include "Shape.h"
 
-#define Cbj_Type Rectangle
-#define Cbj_Parent Shape
+#define Type Rectangle
+#define Parent Shape
 PoolSize(10);
 
 ClassSetup(
@@ -29,7 +29,7 @@ Init
 
 Terminate {}
 Fun(uint32, test, (_, uint32 const a)) { return a; }
-OverrideFun(float, area, (0)) { return me->p.width * me->p.height; }
+SuperFun(float, area, (0)) { return me->p.width * me->p.height; }
 
-#undef Cbj_Parent
-#undef Cbj_Type
+#undef Parent
+#undef Type

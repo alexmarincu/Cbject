@@ -1,10 +1,10 @@
 #ifndef SHAPE_H
 #define SHAPE_H
-#include "Cbj/Cbj.h"
+#include "../Cbj/Cbj.h"
 #include "Point.h"
 
-#define Cbj_Type Shape
-#define Cbj_Parent Cbj_Base
+#define Type Shape
+#define Parent Cbject
 
 AbstractClass(
     Params(_, Point origin),
@@ -15,8 +15,8 @@ AbstractClass(
 
 Setters(_, (Point, origin));
 Getters(_, (Point, origin));
-OverrideFun(void, draw, (_, uint8 const a));
+SuperFun(void, draw, (_, uint8 const a));
 
-#undef Cbj_Parent
-#undef Cbj_Type
+#undef Parent
+#undef Type
 #endif // SHAPE_H

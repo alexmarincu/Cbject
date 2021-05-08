@@ -2,7 +2,7 @@
 #define _CBJ_CONST_H
 #include "_Cbj_ConstDef.h"
 
-#define _Cbj_Const(typeName, type, constNameAndValue) \
-    _Cbj_ConstDef(typeName, type, constNameAndValue)
+#define _Cbj_Const(cbjType, constType, constNameAndValue) \
+    _Cbj_ConstDef(cbjType, constType, constNameAndValue)
 
 #endif // _CBJ_CONST_H

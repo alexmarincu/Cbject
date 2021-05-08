@@ -2,7 +2,7 @@
 #define _CBJ_DEFAULTGET_H
 #include "_Cbj_DefaultGetImpl.h"
 
-#define _Cbj_DefaultGet(typeName, type, propName) \
-    _Cbj_DefaultGetImpl(typeName, type, propName)
+#define _Cbj_DefaultGet(cbjType, propType, propName) \
+    _Cbj_DefaultGetImpl(cbjType, propType, propName)
 
 #endif // _CBJ_DEFAULTGET_H

@@ -1,13 +1,13 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
-#include "Cbj/Cbj.h"
+#include "../Cbj/Cbj.h"
 #include "Circle.h"
 #include "ColoredCircle.h"
 #include "Rectangle.h"
 #include "Shape.h"
 
-#define Cbj_Type Application
-#define Cbj_Parent Cbj_Base
+#define Type Application
+#define Parent Cbject
 
 Object(
     Props(_,
@@ -18,6 +18,6 @@ Object(
 
 Fun(void, start, (0));
 
-#undef Cbj_Parent
-#undef Cbj_Type
+#undef Parent
+#undef Type
 #endif // APPLICATION_H
