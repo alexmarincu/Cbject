@@ -4,24 +4,27 @@ static uint8 s_Cbject_size(Cbject const * const me);
 
 struct Cbject
 {
-    CbjectClass const * c;
+    CbjectType const * t;
     CbjectProps p;
 };
 
 static uint8 s_Cbject_size(Cbject const * const me) { return sizeof(*me); }
-uint8 Cbject_size(Cbject const * const me) { return me->c->vf.size(me); }
-char const * Cbject_type(Cbject const * const me) { return me->c->type; }
+uint8 Cbject_size(Cbject const * const me) { return me->t->vf.size(me); }
 
-CbjectClass const * const CbjectClass_instance()
+CbjectType const * const CbjectType_instance()
 {
-    static CbjectClass const c = {
-        .type = "Cbject",
+    static CbjectType const t = {
+        .name = "Cbject",
         .vf = {.size = s_Cbject_size}};
 
-    return &c;
+    return &t;
 }
 
-void Cbject_classSet(Cbject * const me, CbjectClass const * const c) { me->c = c; }
-CbjectClass const * Cbject_class(Cbject * const me) { return me->c; }
-void Cbject_init(Cbject * const me, CbjectParams const * const params) { Cbject_classSet(me, CbjectClass_instance()); }
+void Cbject_typeSet(Cbject * const me, CbjectType const * const t)
+{
+    if (me->t == NULL) { me->t = t; }
+}
+
+CbjectType const * Cbject_type(Cbject * const me) { return me->t; }
+void Cbject_init(Cbject * const me, CbjectParams const * const params) {}
 void Cbject_terminate(Cbject * const me) {}

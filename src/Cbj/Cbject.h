@@ -10,11 +10,11 @@ typedef struct CbjectVirtFuns
     uint8 (*size)(Cbject const * const me);
 } CbjectVirtFuns;
 
-typedef struct CbjectClass
+typedef struct CbjectType
 {
-    char const * type;
+    char const * name;
     CbjectVirtFuns vf;
-} CbjectClass;
+} CbjectType;
 
 typedef char CbjectParams;
 
@@ -25,16 +25,15 @@ typedef struct CbjectProps
 
 typedef union _Cbject
 {
-    char d[sizeof(struct { CbjectClass * c; CbjectProps p; })];
     Cbj_Settings_maxAlign a;
+    char d[sizeof(struct { CbjectType * t; CbjectProps p; })];
 } _Cbject;
 
-CbjectClass const * const CbjectClass_instance();
+CbjectType const * const CbjectType_instance();
 void Cbject_init(Cbject * const me, CbjectParams const * const params);
 void Cbject_terminate(Cbject * const me);
 uint8 Cbject_size(Cbject const * const me);
-char const * Cbject_type(Cbject const * const me);
-void Cbject_classSet(Cbject * const me, CbjectClass const * const c);
-CbjectClass const * Cbject_class(Cbject * const me);
+void Cbject_typeSet(Cbject * const me, CbjectType const * const t);
+CbjectType const * Cbject_type(Cbject * const me);
 
 #endif // CBJECT_H

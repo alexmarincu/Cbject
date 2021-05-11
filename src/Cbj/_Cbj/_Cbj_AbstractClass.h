@@ -2,14 +2,14 @@
 #define _CBJ_ABSTRACTCLASS_H
 #include "_Cbj_CastToSubFunPrototype.h"
 #include "_Cbj_CastToSuperFunPrototype.h"
-#include "_Cbj_ClassInstanceFunPrototype.h"
-#include "_Cbj_ClassTypeDef.h"
 #include "_Cbj_ContainerTypeDef.h"
 #include "_Cbj_InitFunPrototype.h"
 #include "_Cbj_ParamsTypeDef.h"
 #include "_Cbj_PropsTypeDef.h"
 #include "_Cbj_TerminateFunPrototype.h"
 #include "_Cbj_TypeDecl.h"
+#include "_Cbj_TypeInstanceFunPrototype.h"
+#include "_Cbj_TypeTypeDef.h"
 #include "_Cbj_Utils.h"
 #include "_Cbj_VirtFunsTypeDef.h"
 
@@ -21,8 +21,8 @@
     _Cbj_InitFunPrototype(cbjType);                                       \
     _Cbj_TerminateFunPrototype(cbjType);                                  \
     _Cbj_VirtFunsTypeDef(cbjType, _Cbj_Utils_stripParentheses(virtFuns)); \
-    _Cbj_ClassTypeDef(cbjType, parent, vf);                               \
-    _Cbj_ClassInstanceFunPrototype(cbjType);                              \
+    _Cbj_TypeTypeDef(cbjType, parent, vf);                                \
+    _Cbj_TypeInstanceFunPrototype(cbjType);                               \
     Funs(_Cbj_Utils_stripParentheses(virtFuns));                          \
     _Cbj_CastToSuperFunPrototype(cbjType, parent);                        \
     _Cbj_CastToSubFunPrototype(cbjType, parent)

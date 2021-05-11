@@ -5,8 +5,8 @@
 #define _Cbj_ContainerTypeDef(cbjType, parent) \
     typedef union _##cbjType                   \
     {                                          \
-        char d[sizeof(struct { _##parent s; cbjType##Props p; })];            \
         Cbj_Settings_maxAlign a;               \
+        char d[sizeof(struct { _##parent s; cbjType##Props p; })];            \
     } _##cbjType
 
 #endif // _CBJ_CONTAINERTYPEDEF_H

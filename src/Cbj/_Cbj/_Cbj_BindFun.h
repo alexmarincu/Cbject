@@ -2,10 +2,10 @@
 #define _CBJ_BINDFUN_H
 
 #define _Cbj_BindFun_0(cbjType, returnType, parent, funName, ...) \
-    ((parent##Class *) &c)->vf.funName = (returnType(*)(parent * const me)) s_##cbjType##_##funName
+    ((parent##Type *) &t)->vf.funName = (returnType(*)(parent * const me)) s_##cbjType##_##funName
 
 #define _Cbj_BindFun__(cbjType, returnType, parent, funName, ...) \
-    ((parent##Class *) &c)->vf.funName = (returnType(*)(parent * const me, __VA_ARGS__)) s_##cbjType##_##funName
+    ((parent##Type *) &t)->vf.funName = (returnType(*)(parent * const me, __VA_ARGS__)) s_##cbjType##_##funName
 
 #define _Cbj_BindFun_case(cbjType, returnType, parent, funName, case, ...) \
     _Cbj_BindFun_##case (cbjType, returnType, parent, funName, __VA_ARGS__)

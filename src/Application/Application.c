@@ -47,7 +47,7 @@ PrivateFun(void, circleExample, (0))
     printf("origin.y = %d\n", Shape_origin((Shape *) me->p.circle).y);
     Shape_draw((Shape *) me->p.circle, 5);
     Circle_rotate(me->p.circle);
-    printf("type = %s\n", Cbject_type((Cbject *) me->p.circle));
+    printf("type name = %s\n", Cbject_type((Cbject *) me->p.circle)->name);
 }
 
 PrivateFun(void, stackCircleExample, (0))
@@ -87,7 +87,7 @@ PrivateFun(void, rectangleExample, (0))
     printf("height = %d\n", Rectangle_height(me->p.rectangle));
     printf("area = %.2f\n", Shape_area((Shape *) me->p.rectangle));
     Shape_draw((Shape *) me->p.rectangle, 6);
-    printf("type = %s\n", Cbject_type((Cbject *) me->p.rectangle));
+    printf("type name = %s\n", Cbject_type((Cbject *) me->p.rectangle)->name);
 }
 
 PrivateFun(void, stackRectangleExample, (0))
