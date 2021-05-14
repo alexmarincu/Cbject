@@ -8,10 +8,10 @@ PoolSize(10);
 
 ClassSetup(
     VirtFunCalls(_, (void, rotate, (0), (0))),
-    BindFuns(_,
-        (float, Shape, area, (0)),
-        (void, Shape, draw, (_, uint8 const a)),
-        (void, Circle, rotate, (0))));
+    BindSuperFuns(_,
+        (Shape, float, area, (0)),
+        (Shape, void, draw, (0)),
+        (Circle, void, rotate, (0))));
 
 Consts(_,
     (float, pi = 3.14),
@@ -27,7 +27,7 @@ Init
         .origin.x = params->origin.x,
         .origin.y = params->origin.y};
 
-    me->p.radius = params->radius;
+    me->props.radius = params->radius;
 }
 
 Terminate {}
@@ -35,13 +35,13 @@ Terminate {}
 DefaultSet(uint32, radius);
 DefaultGet(uint32, radius);
 
-SuperFun(void, draw, (_, uint8 const a))
+SuperFun(void, draw, (0))
 {
-    s_Shape_draw((Shape *) me, a);
+    s_Shape_draw((Shape *) me);
     printf("Circle draw\n");
 }
 
-SuperFun(float, area, (0)) { return me->p.radius * me->p.radius * Circle_pi; }
+SuperFun(float, area, (0)) { return me->props.radius * me->props.radius * Circle_pi; }
 SuperFun(void, rotate, (0)) { printf("Rotate clockwise\n"); }
 
 #undef Parent

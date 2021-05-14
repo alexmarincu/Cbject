@@ -20,7 +20,7 @@ Get(uint32, radius);
 
 SuperFuns(_,
     (float, area, (0)),
-    (void, draw, (_, uint8 const a)),
+    (void, draw, (0)),
     (void, rotate, (0)));
 
 #undef Type

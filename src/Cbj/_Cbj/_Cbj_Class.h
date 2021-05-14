@@ -7,25 +7,25 @@
 
 #if Cbj_Settings_useHeap == true
     #if Cbj_Settings_useStaticPool == true
-        #define _Cbj_Class(cbjType, parent, params, props, virtFuns) \
-            AbstractClass(params, props, virtFuns);                  \
-            _Cbj_GetObjectFunPrototype(cbjType);                     \
-            _Cbj_NewObjectFunPrototype(cbjType);                     \
-            _Cbj_DeleteObjectFunPrototype(cbjType)
+        #define _Cbj_Class(m_cbjType, mParent, mParams, mProps, mVirtFuns) \
+            AbstractClass(mParams, mProps, mVirtFuns);                  \
+            _Cbj_GetObjectFunPrototype(m_cbjType);                     \
+            _Cbj_NewObjectFunPrototype(m_cbjType);                     \
+            _Cbj_DeleteObjectFunPrototype(m_cbjType)
     #else
-        #define _Cbj_Class(cbjType, parent, params, props, virtFuns) \
-            AbstractClass(params, props, virtFuns);                  \
-            _Cbj_NewObjectFunPrototype(cbjType);                     \
-            _Cbj_DeleteObjectFunPrototype(cbjType)
+        #define _Cbj_Class(m_cbjType, mParent, mParams, mProps, mVirtFuns) \
+            AbstractClass(mParams, mProps, mVirtFuns);                  \
+            _Cbj_NewObjectFunPrototype(m_cbjType);                     \
+            _Cbj_DeleteObjectFunPrototype(m_cbjType)
     #endif
 #else
     #if Cbj_Settings_useStaticPool == true
-        #define _Cbj_Class(cbjType, parent, params, props, virtFuns) \
-            AbstractClass(params, props, virtFuns);                  \
-            _Cbj_GetObjectFunPrototype(cbjType)
+        #define _Cbj_Class(m_cbjType, mParent, mParams, mProps, mVirtFuns) \
+            AbstractClass(mParams, mProps, mVirtFuns);                  \
+            _Cbj_GetObjectFunPrototype(m_cbjType)
     #else
-        #define _Cbj_Class(cbjType, parent, params, props, virtFuns) \
-            AbstractClass(params, props, virtFuns)
+        #define _Cbj_Class(m_cbjType, mParent, mParams, mProps, mVirtFuns) \
+            AbstractClass(mParams, mProps, mVirtFuns)
     #endif
 #endif
 

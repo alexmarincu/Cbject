@@ -9,9 +9,9 @@ PoolSize(10);
 
 ClassSetup(
     VirtFunCalls(0),
-    BindFuns(_,
-        (void, Shape, draw, (_, uint8 const a)),
-        (void, Circle, rotate, (0))));
+    BindSuperFuns(_,
+        (Shape, void, draw, (0)),
+        (Circle, void, rotate, (0))));
 
 DefaultSet(Color, color);
 DefaultGet(Color, color);
@@ -23,15 +23,15 @@ Init
         .origin.y = params->origin.y,
         .radius = params->radius};
 
-    me->p.color = params->color;
+    me->props.color = params->color;
 }
 
 Terminate {}
 
-SuperFun(void, draw, (_, uint8 const a))
+SuperFun(void, draw, (0))
 {
-    s_Shape_draw((Shape *) me, 5);
-    s_Circle_draw((Circle *) me, 5);
+    s_Shape_draw((Shape *) me);
+    s_Circle_draw((Circle *) me);
     printf("ColoredCircle draw\n");
 }
 

@@ -5,8 +5,8 @@
 
 #define _Cbj_Utils_stripParentheses_(x) x
 
-#define _Cbj_Utils_stripParentheses(args) \
-    _Cbj_Utils_stripParentheses_(_Cbj_Utils_stripParentheses__ args)
+#define _Cbj_Utils_stripParentheses(mArgs) \
+    _Cbj_Utils_stripParentheses_(_Cbj_Utils_stripParentheses__ mArgs)
 
 #define _Cbj_Utils_fe1(macro, x) macro(x)
 #define _Cbj_Utils_fe2(macro, x, ...) macro(x) _Cbj_Utils_fe1(macro, __VA_ARGS__)

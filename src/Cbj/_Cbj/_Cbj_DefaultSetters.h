@@ -10,7 +10,7 @@
 #define _Cbj_DefaultSetters__(...) \
     _Cbj_Utils_forEach(_Cbj_DefaultSetters_stripParenthesesAndApplyDefaultSet, __VA_ARGS__)
 
-#define _Cbj_DefaultSetters(case, ...) \
-    _Cbj_DefaultSetters_##case (__VA_ARGS__)
+#define _Cbj_DefaultSetters(mCase, ...) \
+    _Cbj_DefaultSetters_##mCase (__VA_ARGS__)
 
 #endif // _CBJ_DEFAULTSETTERS_H

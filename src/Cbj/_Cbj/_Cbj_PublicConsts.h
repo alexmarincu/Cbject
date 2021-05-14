@@ -10,7 +10,7 @@
 #define _Cbj_PublicConsts__(...) \
     _Cbj_Utils_forEach(_Cbj_PublicConsts_stripParenthesesAndApplyPublicConst, __VA_ARGS__)
 
-#define _Cbj_PublicConsts(case, ...) \
-    _Cbj_PublicConsts_##case (__VA_ARGS__)
+#define _Cbj_PublicConsts(mCase, ...) \
+    _Cbj_PublicConsts_##mCase (__VA_ARGS__)
 
 #endif // _CBJ_PUBLICCONSTS_H

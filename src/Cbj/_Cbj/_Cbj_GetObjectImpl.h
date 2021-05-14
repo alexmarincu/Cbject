@@ -2,17 +2,17 @@
 #define _CBJ_GETOBJECTIMPL_H
 #include "_Cbj_GetObjectFunPrototype.h"
 
-#define _Cbj_GetObjectImpl(cbjType)              \
-    _Cbj_GetObjectFunPrototype(cbjType)          \
+#define _Cbj_GetObjectImpl(m_cbjType)              \
+    _Cbj_GetObjectFunPrototype(m_cbjType)          \
     {                                            \
-        static cbjType pool[cbjType##_poolSize]; \
+        static m_cbjType pool[m_cbjType##_poolSize]; \
         static uint64 count = 0;                 \
-        cbjType * me = NULL;                     \
+        m_cbjType * me = NULL;                     \
                                                  \
-        if (count < cbjType##_poolSize)          \
+        if (count < m_cbjType##_poolSize)          \
         {                                        \
             me = &pool[count];                   \
-            cbjType##_init(me, params);          \
+            m_cbjType##_init(me, params);          \
             count++;                             \
         }                                        \
                                                  \

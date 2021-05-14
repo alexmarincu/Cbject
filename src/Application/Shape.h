@@ -11,11 +11,11 @@ AbstractClass(
     Props(_, Point origin),
     VirtFuns(_,
         (float, area, (0)),
-        (void, draw, (_, uint8 const a))));
+        (void, draw, (0))));
 
 Setters(_, (Point, origin));
 Getters(_, (Point, origin));
-SuperFun(void, draw, (_, uint8 const a));
+SuperFun(void, draw, (0));
 
 #undef Parent
 #undef Type

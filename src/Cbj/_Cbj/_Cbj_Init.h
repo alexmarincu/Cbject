@@ -2,7 +2,7 @@
 #define _CBJ_INIT_H
 #include "_Cbj_InitImpl.h"
 
-#define _Cbj_Init(cbjType, parent) \
-    _Cbj_InitImpl(cbjType, parent)
+#define _Cbj_Init(m_cbjType, mParent) \
+    _Cbj_InitImpl(m_cbjType, mParent)
 
 #endif // _CBJ_INIT_H

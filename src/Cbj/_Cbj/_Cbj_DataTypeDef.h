@@ -2,10 +2,10 @@
 #define _CBJ_DATATYPEDEF_H
 #include "_Cbj_Utils.h"
 
-#define _Cbj_DataTypeDef(cbjType, ...)                           \
-    typedef struct cbjType                                       \
+#define _Cbj_DataTypeDef(m_cbjType, ...)                           \
+    typedef struct m_cbjType                                       \
     {                                                            \
         _Cbj_Utils_forEach(_Cbj_Utils_addSemicolon, __VA_ARGS__) \
-    } cbjType
+    } m_cbjType
 
 #endif // _CBJ_DATATYPEDEF_H

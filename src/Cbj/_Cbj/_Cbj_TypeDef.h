@@ -1,11 +1,11 @@
 #ifndef _CBJ_TYPEDEF_H
 #define _CBJ_TYPEDEF_H
 
-#define _Cbj_TypeDef(cbjType, parent) \
-    struct cbjType                    \
+#define _Cbj_TypeDef(m_cbjType, mParent) \
+    struct m_cbjType                    \
     {                                 \
-        _##parent s;                  \
-        cbjType##Props p;             \
+        _##mParent s;                  \
+        m_cbjType##Props props;             \
     }
 
 #endif // _CBJ_TYPEDEF_H

@@ -10,7 +10,7 @@
 #define _Cbj_PrivateConsts__(...) \
     _Cbj_Utils_forEach(_Cbj_PrivateConsts_stripParenthesesAndApplyPrivateConst, __VA_ARGS__)
 
-#define _Cbj_PrivateConsts(case, ...) \
-    _Cbj_PrivateConsts_##case (__VA_ARGS__)
+#define _Cbj_PrivateConsts(mCase, ...) \
+    _Cbj_PrivateConsts_##mCase (__VA_ARGS__)
 
 #endif // _CBJ_PRIVATECONSTS_H

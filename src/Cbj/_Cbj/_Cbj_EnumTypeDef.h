@@ -2,19 +2,19 @@
 #define _CBJ_ENUMTYPEDEF_H
 #include "_Cbj_Utils.h"
 
-#define _Cbj_EnumTypeDef_prependTypeNameAndAddComma__(cbjType, valueName) \
-    cbjType##_##valueName,
+#define _Cbj_EnumTypeDef_prependTypeNameAndAddComma__(m_cbjType, valueName) \
+    m_cbjType##_##valueName,
 
-#define _Cbj_EnumTypeDef_prependTypeNameAndAddComma_(cbjType, valueName) \
-    _Cbj_EnumTypeDef_prependTypeNameAndAddComma__(cbjType, valueName)
+#define _Cbj_EnumTypeDef_prependTypeNameAndAddComma_(m_cbjType, valueName) \
+    _Cbj_EnumTypeDef_prependTypeNameAndAddComma__(m_cbjType, valueName)
 
 #define _Cbj_EnumTypeDef_prependTypeNameAndAddComma(valueName) \
     _Cbj_EnumTypeDef_prependTypeNameAndAddComma_(Type, valueName)
 
-#define _Cbj_EnumTypeDef(cbjType, ...)                                               \
-    typedef enum cbjType                                                             \
+#define _Cbj_EnumTypeDef(m_cbjType, ...)                                               \
+    typedef enum m_cbjType                                                             \
     {                                                                                \
         _Cbj_Utils_forEach(_Cbj_EnumTypeDef_prependTypeNameAndAddComma, __VA_ARGS__) \
-    } cbjType
+    } m_cbjType
 
 #endif // _CBJ_ENUMTYPEDEF_H

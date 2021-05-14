@@ -7,17 +7,17 @@
 AbstractClassSetup(
     VirtFunCalls(_,
         (float, area, (0), (0)),
-        (void, draw, (_, uint8 const a), (_, a))),
-    BindFuns(_,
-        (void, Shape, draw, (_, uint8 const a))));
+        (void, draw, (0), (0))),
+    BindSuperFuns(_,
+        (Shape, void, draw, (0))));
 
-Init { me->p.origin = params->origin; }
+Init { me->props.origin = params->origin; }
 Terminate {}
 
 DefaultSet(Point, origin);
 DefaultGet(Point, origin);
 
-SuperFun(void, draw, (_, uint8 const a))
+SuperFun(void, draw, (0))
 {
     (void) me;
     printf("Shape draw\n");
