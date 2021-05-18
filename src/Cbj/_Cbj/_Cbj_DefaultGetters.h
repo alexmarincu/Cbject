@@ -10,7 +10,7 @@
 #define _Cbj_DefaultGetters__(...) \
     _Cbj_Utils_forEach(_Cbj_DefaultGetters_stripParenthesesAndApplyDefaultGet, __VA_ARGS__)
 
-#define _Cbj_DefaultGetters(mCase, ...) \
-    _Cbj_DefaultGetters_##mCase (__VA_ARGS__)
+#define _Cbj_DefaultGetters(case, ...) \
+    _Cbj_DefaultGetters_##case (__VA_ARGS__)
 
 #endif // _CBJ_DEFAULTGETTERS_H

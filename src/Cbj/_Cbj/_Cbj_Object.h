@@ -10,14 +10,14 @@
 #include "_Cbj_TypeTypeDecl.h"
 #include "_Cbj_Utils.h"
 
-#define _Cbj_Object(m_cbjType, mParent, mProps)                         \
-    _Cbj_TypeTypeDecl(m_cbjType);                                     \
-    _Cbj_TypeDecl(m_cbjType);                                         \
-    _Cbj_ParamsTypeDef(m_cbjType, 0);                                 \
-    _Cbj_PropsTypeDef(m_cbjType, _Cbj_Utils_stripParentheses(mProps)); \
-    _Cbj_ContainerTypeDef(m_cbjType, mParent);                         \
-    _Cbj_InitFunPrototype(m_cbjType);                                 \
-    _Cbj_TerminateFunPrototype(m_cbjType);                            \
-    _Cbj_ObjectInstanceFunPrototype(m_cbjType)
+#define _Cbj_Object(cbjType, parent, props)                         \
+    _Cbj_TypeTypeDecl(cbjType);                                     \
+    _Cbj_TypeDecl(cbjType);                                         \
+    _Cbj_ParamsTypeDef(cbjType, 0);                                 \
+    _Cbj_PropsTypeDef(cbjType, _Cbj_Utils_stripParentheses(props)); \
+    _Cbj_ContainerTypeDef(cbjType, parent);                         \
+    _Cbj_InitFunPrototype(cbjType);                                 \
+    _Cbj_TerminateFunPrototype(cbjType);                            \
+    _Cbj_ObjectInstanceFunPrototype(cbjType)
 
 #endif // _CBJ_OBJECT_H

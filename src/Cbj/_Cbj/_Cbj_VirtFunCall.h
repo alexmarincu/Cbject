@@ -2,30 +2,30 @@
 #define _CBJ_VIRTFUNCALL_H
 #include "_Cbj_Utils.h"
 
-#define _Cbj_VirtFunCall_0(m_cbjType, mFunName, ...) \
+#define _Cbj_VirtFunCall_0(cbjType, funName, ...) \
     typedef struct _Cbject                        \
     {                                             \
-        Cbj_Settings_maxAlign x_align;                  \
+        Cbj_Settings_maxAlign xalign;                  \
         CbjectType * type;                           \
         CbjectProps props;                            \
     } _Cbject;                                    \
                                                   \
-    return ((m_cbjType##Type *) ((_Cbject *) me)->type)->virtFuns.mFunName(me)
+    return ((cbjType##Type *) ((_Cbject *) me)->type)->virtFuns.funName(me)
 
-#define _Cbj_VirtFunCall__(m_cbjType, mFunName, ...) \
+#define _Cbj_VirtFunCall__(cbjType, funName, ...) \
     typedef struct _Cbject                        \
     {                                             \
-        Cbj_Settings_maxAlign x_align;                  \
+        Cbj_Settings_maxAlign xalign;                  \
         CbjectType * type;                           \
         CbjectProps props;                            \
     } _Cbject;                                    \
                                                   \
-    return ((m_cbjType##Type *) ((_Cbject *) me)->type)->virtFuns.mFunName(me, __VA_ARGS__)
+    return ((cbjType##Type *) ((_Cbject *) me)->type)->virtFuns.funName(me, __VA_ARGS__)
 
-#define _Cbj_VirtFunCall_case(m_cbjType, mFunName, mCase, ...) \
-    _Cbj_VirtFunCall_##mCase (m_cbjType, mFunName, __VA_ARGS__)
+#define _Cbj_VirtFunCall_case(cbjType, funName, case, ...) \
+    _Cbj_VirtFunCall_##case (cbjType, funName, __VA_ARGS__)
 
-#define _Cbj_VirtFunCall(m_cbjType, mFunName, ...) \
-    _Cbj_VirtFunCall_case(m_cbjType, mFunName, __VA_ARGS__)
+#define _Cbj_VirtFunCall(cbjType, funName, ...) \
+    _Cbj_VirtFunCall_case(cbjType, funName, __VA_ARGS__)
 
 #endif // _CBJ_VIRTFUNCALL_H

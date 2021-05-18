@@ -2,14 +2,14 @@
 #define _CBJ_CBJECTTYPEVIRTFUNSGETIMPL_H
 #include "_Cbj_CbjectTypeVirtFunsGetFunPrototype.h"
 
-#define _Cbj_CbjectTypeVirtFunsGetImpl(m_cbjType)     \
-    _Cbj_CbjectTypeVirtFunsGetFunPrototype(m_cbjType) \
+#define _Cbj_CbjectTypeVirtFunsGetImpl(cbjType)     \
+    _Cbj_CbjectTypeVirtFunsGetFunPrototype(cbjType) \
     {                                                 \
-        m_cbjType##VirtFuns * virtFuns = NULL;        \
+        cbjType##VirtFuns * virtFuns = NULL;        \
                                                       \
         typedef struct _CbjectType                    \
         {                                             \
-            Cbj_Settings_maxAlign x_align;            \
+            Cbj_Settings_maxAlign xalign;            \
             char const * name;                        \
             CbjectVirtFuns virtFuns;                  \
         } _CbjectType;                                \

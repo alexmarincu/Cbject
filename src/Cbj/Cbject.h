@@ -15,14 +15,14 @@ typedef struct CbjectVirtFuns
 
 typedef union _CbjectType
 {
-    Cbj_Settings_maxAlign x_align;
-    char x_data[sizeof(struct { Cbj_Settings_maxAlign x_align; char const * name; CbjectVirtFuns virtFuns; })];
+    Cbj_Settings_maxAlign xalign;
+    char xdata[sizeof(struct { Cbj_Settings_maxAlign xalign; char const * name; CbjectVirtFuns virtFuns; })];
 } _CbjectType;
 
 typedef union _Cbject
 {
-    Cbj_Settings_maxAlign x_align;
-    char x_data[sizeof(struct { Cbj_Settings_maxAlign x_align; CbjectType * type; CbjectProps props; })];
+    Cbj_Settings_maxAlign xalign;
+    char xdata[sizeof(struct { Cbj_Settings_maxAlign xalign; CbjectType * type; CbjectProps props; })];
 } _Cbject;
 
 CbjectType const * const CbjectType_instance();

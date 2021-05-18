@@ -8,12 +8,12 @@
 #include "_Cbj_TypeTypeDef.h"
 #include "_Cbj_Utils.h"
 
-#define _Cbj_ObjectSetup(m_cbjType, mParent, mBindSuperFuns) \
-    _Cbj_TypeTypeDef(m_cbjType, mParent, withoutVirtFuns);           \
-    _Cbj_TypeDef(m_cbjType, mParent);                  \
-    _Cbj_TypeInstanceFunPrototype(m_cbjType);         \
-    _Cbj_ObjectInstanceImpl(m_cbjType);               \
-    _Cbj_SizeImpl(m_cbjType);                         \
-    _Cbj_TypeInstanceImpl(m_cbjType, mParent, _Cbj_Utils_stripParentheses(mBindSuperFuns))
+#define _Cbj_ObjectSetup(cbjType, parent, bindSuperFuns) \
+    _Cbj_TypeTypeDef(cbjType, parent, withoutVirtFuns);           \
+    _Cbj_TypeDef(cbjType, parent);                  \
+    _Cbj_TypeInstanceFunPrototype(cbjType);         \
+    _Cbj_ObjectInstanceImpl(cbjType);               \
+    _Cbj_SizeImpl(cbjType);                         \
+    _Cbj_TypeInstanceImpl(cbjType, parent, _Cbj_Utils_stripParentheses(bindSuperFuns))
 
 #endif // _CBJ_OBJECTSETUP_H

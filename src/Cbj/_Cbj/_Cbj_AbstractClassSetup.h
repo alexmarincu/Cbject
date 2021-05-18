@@ -10,14 +10,14 @@
 #include "_Cbj_Utils.h"
 #include "_Cbj_VirtFunCalls.h"
 
-#define _Cbj_AbstractClassSetup(m_cbjType, mParent, mVirtFunCalls, mBindSuperFuns)          \
-    _Cbj_TypeTypeDef(m_cbjType, mParent, withVirtFuns);                               \
-    _Cbj_TypeDef(m_cbjType, mParent);                                                 \
-    _Cbj_SizeImpl(m_cbjType);                                                         \
-    _Cbj_TypeInstanceImpl(m_cbjType, mParent, _Cbj_Utils_stripParentheses(mBindSuperFuns)); \
-    _Cbj_CastToSuperImpl(m_cbjType, mParent);                                         \
-    _Cbj_CastToSubImpl(m_cbjType, mParent);                                           \
-    _Cbj_CbjectTypeVirtFunsGetImpl(m_cbjType);                                        \
-    _Cbj_VirtFunCalls(_Cbj_Utils_stripParentheses(mVirtFunCalls))
+#define _Cbj_AbstractClassSetup(cbjType, parent, virtFunCalls, bindSuperFuns)          \
+    _Cbj_TypeTypeDef(cbjType, parent, withVirtFuns);                               \
+    _Cbj_TypeDef(cbjType, parent);                                                 \
+    _Cbj_SizeImpl(cbjType);                                                         \
+    _Cbj_TypeInstanceImpl(cbjType, parent, _Cbj_Utils_stripParentheses(bindSuperFuns)); \
+    _Cbj_CastToSuperImpl(cbjType, parent);                                         \
+    _Cbj_CastToSubImpl(cbjType, parent);                                           \
+    _Cbj_CbjectTypeVirtFunsGetImpl(cbjType);                                        \
+    _Cbj_VirtFunCalls(_Cbj_Utils_stripParentheses(virtFunCalls))
 
 #endif // _CBJ_ABSTRACTCLASSSETUP_H

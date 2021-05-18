@@ -4,14 +4,14 @@ static uint8 s_Cbject_size(Cbject const * const me);
 
 struct CbjectType
 {
-    Cbj_Settings_maxAlign x_align;
+    Cbj_Settings_maxAlign xalign;
     char const * name;
     CbjectVirtFuns virtFuns;
 };
 
 struct Cbject
 {
-    Cbj_Settings_maxAlign x_align;
+    Cbj_Settings_maxAlign xalign;
     CbjectType * type;
     CbjectProps props;
 };
