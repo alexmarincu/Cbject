@@ -3,6 +3,9 @@
 #include "Cbj_PrimitiveTypes.h"
 #include "Cbj_Settings.h"
 
+#define Cbject_isTypeOf(me, cbjType) \
+    (Cbject_type((Cbject *) (me)) == (CbjectType *) cbjType##Type_())
+
 typedef struct CbjectType CbjectType;
 typedef struct Cbject Cbject;
 typedef char CbjectParams;
@@ -13,26 +16,22 @@ typedef struct CbjectVirtFuns
     uint8 (*size)(Cbject const * const me);
 } CbjectVirtFuns;
 
-typedef union _CbjectType
+typedef union ___CbjectType
 {
-    Cbj_Settings_maxAlign xalign;
-    char xdata[sizeof(struct { Cbj_Settings_maxAlign xalign; char const * name; CbjectVirtFuns virtFuns; })];
-} _CbjectType;
+    Cbj_Settings_maxAlign ___align;
+    char ___data[sizeof(struct { Cbj_Settings_maxAlign ___align; char const * name; CbjectVirtFuns virtFuns; })];
+} ___CbjectType;
 
-typedef union _Cbject
+typedef union ___Cbject
 {
-    Cbj_Settings_maxAlign xalign;
-    char xdata[sizeof(struct { Cbj_Settings_maxAlign xalign; CbjectType * type; CbjectProps props; })];
-} _Cbject;
+    Cbj_Settings_maxAlign ___align;
+    char ___data[sizeof(struct { Cbj_Settings_maxAlign ___align; CbjectType * type; CbjectProps props; })];
+} ___Cbject;
 
-CbjectType const * const CbjectType_instance();
+CbjectType const * const CbjectType_();
 void Cbject_init(Cbject * const me, CbjectParams const * const params);
 void Cbject_terminate(Cbject * const me);
 uint8 Cbject_size(Cbject const * const me);
-// void Cbject_typeSet(Cbject * const me, CbjectType * const type);
 CbjectType const * Cbject_type(Cbject * const me);
-// CbjectVirtFuns * CbjectType_virtFuns(CbjectType * meType);
-// void CbjectType_nameSet(CbjectType * const meType, char const * const name);
-// char const * const CbjectType_name(CbjectType const * const meType);
 
 #endif // CBJECT_H

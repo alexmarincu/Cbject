@@ -6,7 +6,7 @@
 
 ObjectSetup(BindSuperFuns(0));
 Init {}
-Terminate { Delete_Rectangle(me->props.heapRectangle); }
+Terminate { Rectangle_delete(me->props.heapRectangle); }
 
 PrivateFuns(_,
     (void, printBeginMessage, (0)),
@@ -47,6 +47,12 @@ PrivateFun(void, circleExample, (0))
     printf("origin.y = %d\n", Shape_origin((Shape *) me->props.circle).y);
     Shape_draw((Shape *) me->props.circle);
     Circle_rotate(me->props.circle);
+
+    if (Cbject_isTypeOf(me->props.circle, Circle))
+    {
+        printf("is circle\n");
+    }
+
     // printf("type name = %s\n", Cbject_type((Cbject *) me->props.circle)->name);
 }
 
@@ -115,7 +121,7 @@ PrivateFun(void, heapRectangleExample, (0))
     printf("\n= HeapRectangle example:\n");
 
     me->props.heapRectangle =
-        New_Rectangle(
+        Rectangle_new(
             &((RectangleParams){
                 .origin.x = 12,
                 .origin.y = 23,
