@@ -10,17 +10,17 @@ ClassSetup(
     BindSuperFuns(_,
         (Shape, float, area, (0))));
 
-DefaultSetters(_,
+DefaultSetProps(_,
     (uint32, width),
     (uint32, height));
 
-DefaultGetters(_,
+DefaultGetProps(_,
     (uint32, width),
     (uint32, height));
 
 Init
 {
-    *s_params = (ShapeParams){
+    *super_params = (ShapeParams){
         .origin.x = params->origin.x,
         .origin.y = params->origin.y};
 

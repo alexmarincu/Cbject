@@ -1,6 +1,7 @@
 #ifndef ___CBJ_GETOBJECTIMPL_H
 #define ___CBJ_GETOBJECTIMPL_H
 #include "___Cbj_GetObjectFunPrototype.h"
+#include "string.h"
 
 #define ___Cbj_GetObjectImpl(cbjType)            \
     ___Cbj_GetObjectFunPrototype(cbjType)        \
@@ -12,7 +13,8 @@
         if (count < cbjType##_poolSize)          \
         {                                        \
             me = &pool[count];                   \
-            cbjType##_init(me, params);          \
+            memset(me, 0, sizeof(cbjType));      \
+            ___##cbjType##_init(me, params);     \
             count++;                             \
         }                                        \
                                                  \

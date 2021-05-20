@@ -13,12 +13,12 @@ ClassSetup(
         (Shape, void, draw, (0)),
         (Circle, void, rotate, (0))));
 
-DefaultSet(Color, color);
-DefaultGet(Color, color);
+DefaultSetProp(Color, color);
+DefaultGetProp(Color, color);
 
 Init
 {
-    *s_params = (CircleParams){
+    *super_params = (CircleParams){
         .origin.x = params->origin.x,
         .origin.y = params->origin.y,
         .radius = params->radius};
@@ -30,14 +30,14 @@ Terminate {}
 
 SuperFun(void, draw, (0))
 {
-    s_Shape_draw((Shape *) me);
-    s_Circle_draw((Circle *) me);
+    super_Shape_draw((Shape *) me);
+    super_Circle_draw((Circle *) me);
     printf("ColoredCircle draw\n");
 }
 
 SuperFun(void, rotate, (0))
 {
-    s_Circle_rotate((Circle *) me);
+    super_Circle_rotate((Circle *) me);
     printf("Rotate counter-clockwise\n");
 }
 

@@ -15,11 +15,11 @@ Class(
         uint32 height),
     VirtFuns(0));
 
-Setters(_,
+SetProps(_,
     (uint32, width),
     (uint32, height));
 
-Getters(_,
+GetProps(_,
     (uint32, width),
     (uint32, height));
 

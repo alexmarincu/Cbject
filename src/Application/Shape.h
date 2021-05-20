@@ -13,8 +13,8 @@ AbstractClass(
         (float, area, (0)),
         (void, draw, (0))));
 
-Setters(_, (Point, origin));
-Getters(_, (Point, origin));
+SetProps(_, (Point, origin));
+GetProps(_, (Point, origin));
 SuperFun(void, draw, (0));
 
 #undef Parent

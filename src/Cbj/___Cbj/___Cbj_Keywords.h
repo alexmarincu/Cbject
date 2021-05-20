@@ -8,16 +8,18 @@
 #include "___Cbj_Const.h"
 #include "___Cbj_Consts.h"
 #include "___Cbj_DataClass.h"
-#include "___Cbj_DefaultGet.h"
-#include "___Cbj_DefaultGetters.h"
-#include "___Cbj_DefaultSet.h"
-#include "___Cbj_DefaultSetters.h"
+#include "___Cbj_DefaultGetProp.h"
+#include "___Cbj_DefaultGetProps.h"
+#include "___Cbj_DefaultSetProp.h"
+#include "___Cbj_DefaultSetProps.h"
 #include "___Cbj_EnumClass.h"
 #include "___Cbj_Fun.h"
 #include "___Cbj_Funs.h"
 #include "___Cbj_Get.h"
-#include "___Cbj_Getters.h"
+#include "___Cbj_GetProp.h"
+#include "___Cbj_GetProps.h"
 #include "___Cbj_Init.h"
+#include "___Cbj_New.h"
 #include "___Cbj_NewOnStack.h"
 #include "___Cbj_Object.h"
 #include "___Cbj_ObjectSetup.h"
@@ -27,8 +29,8 @@
 #include "___Cbj_PrivateFuns.h"
 #include "___Cbj_PublicConst.h"
 #include "___Cbj_PublicConsts.h"
-#include "___Cbj_Set.h"
-#include "___Cbj_Setters.h"
+#include "___Cbj_SetProp.h"
+#include "___Cbj_SetProps.h"
 #include "___Cbj_SuperFun.h"
 #include "___Cbj_SuperFuns.h"
 #include "___Cbj_Terminate.h"
@@ -115,32 +117,38 @@
 #define VirtFuns(...) \
     (__VA_ARGS__)
 
-#define NewOnStack(cbjType, varName, ...) \
-    ___Cbj_NewOnStack(cbjType, varName, __VA_ARGS__)
+#define NewOnStack(cbjType, ...) \
+    ___Cbj_NewOnStack(cbjType, __VA_ARGS__)
 
-#define Set(propType, propName) \
-    ___Cbj_Set(Type, propType, propName)
+#define New(cbjType, ...) \
+    ___Cbj_New(cbjType, __VA_ARGS__)
 
-#define Get(propType, propName) \
-    ___Cbj_Get(Type, propType, propName)
+#define Get(cbjType, ...) \
+    ___Cbj_Get(cbjType, __VA_ARGS__)
 
-#define Setters(...) \
-    ___Cbj_Setters(__VA_ARGS__)
+#define SetProp(propType, propName) \
+    ___Cbj_SetProp(Type, propType, propName)
 
-#define Getters(...) \
-    ___Cbj_Getters(__VA_ARGS__)
+#define GetProp(propType, propName) \
+    ___Cbj_GetProp(Type, propType, propName)
 
-#define DefaultSet(propType, propName) \
-    ___Cbj_DefaultSet(Type, propType, propName)
+#define SetProps(...) \
+    ___Cbj_SetProps(__VA_ARGS__)
 
-#define DefaultGet(propType, propName) \
-    ___Cbj_DefaultGet(Type, propType, propName)
+#define GetProps(...) \
+    ___Cbj_GetProps(__VA_ARGS__)
 
-#define DefaultSetters(...) \
-    ___Cbj_DefaultSetters(__VA_ARGS__)
+#define DefaultSetProp(propType, propName) \
+    ___Cbj_DefaultSetProp(Type, propType, propName)
 
-#define DefaultGetters(...) \
-    ___Cbj_DefaultGetters(__VA_ARGS__)
+#define DefaultGetProp(propType, propName) \
+    ___Cbj_DefaultGetProp(Type, propType, propName)
+
+#define DefaultSetProps(...) \
+    ___Cbj_DefaultSetProps(__VA_ARGS__)
+
+#define DefaultGetProps(...) \
+    ___Cbj_DefaultGetProps(__VA_ARGS__)
 
 #define Init \
     ___Cbj_Init(Type, Parent)

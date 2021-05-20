@@ -1,8 +1,7 @@
-#ifndef ___CBJ_GET_H
-#define ___CBJ_GET_H
-#include "___Cbj_GetFunPrototype.h"
+#ifndef _CBJ_GET_H
+#define _CBJ_GET_H
 
-#define ___Cbj_Get(cbjType, propType, propName) \
-    ___Cbj_GetFunPrototype(cbjType, propType, propName)
+#define ___Cbj_Get(cbjType, ...) \
+    ___##cbjType##_get(__VA_ARGS__)
 
-#endif // ___CBJ_GET_H
+#endif // _CBJ_GET_H

@@ -4,13 +4,13 @@
 #define ___Cbj_TypeTypeDef_withoutVirtFuns(cbjType, parent) \
     struct cbjType##Type                                    \
     {                                                       \
-        ___##parent##Type s;                                \
+        ___##parent##Type super;                            \
     }
 
 #define ___Cbj_TypeTypeDef_withVirtFuns(cbjType, parent) \
     struct cbjType##Type                                 \
     {                                                    \
-        ___##parent##Type s;                             \
+        ___##parent##Type super;                         \
         cbjType##VirtFuns virtFuns;                      \
     }
 

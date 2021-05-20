@@ -14,11 +14,11 @@ Class(
     Props(_, Color color),
     VirtFuns(0));
 
-Setters(_,
+SetProps(_,
     (uint32, radius),
     (Color, color));
 
-Getters(_,
+GetProps(_,
     (uint32, radius),
     (Color, color));
 

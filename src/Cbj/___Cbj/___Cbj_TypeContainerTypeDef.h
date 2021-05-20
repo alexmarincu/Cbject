@@ -6,14 +6,14 @@
     typedef union ___##cbjType##Type                                 \
     {                                                                \
         Cbj_Settings_maxAlign ___align;                              \
-        char ___data[sizeof(struct { ___##parent##Type s; })];       \
+        char ___data[sizeof(struct { ___##parent##Type super; })];   \
     } ___##cbjType##Type
 
 #define ___Cbj_TypeContainerTypeDef_withVirtFuns(cbjType, parent) \
     typedef union ___##cbjType##Type                              \
     {                                                             \
         Cbj_Settings_maxAlign ___align;                           \
-        char ___data[sizeof(struct { ___##parent##Type s; cbjType##VirtFuns virtFuns; })];                         \
+        char ___data[sizeof(struct { ___##parent##Type super; cbjType##VirtFuns virtFuns; })];                         \
     } ___##cbjType##Type
 
 #define ___Cbj_TypeContainerTypeDef(cbjType, parent, case) \

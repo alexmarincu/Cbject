@@ -23,7 +23,7 @@ PrivateConsts(_,
 
 Init
 {
-    *s_params = (ShapeParams){
+    *super_params = (ShapeParams){
         .origin.x = params->origin.x,
         .origin.y = params->origin.y};
 
@@ -32,12 +32,12 @@ Init
 
 Terminate {}
 
-DefaultSet(uint32, radius);
-DefaultGet(uint32, radius);
+DefaultSetProp(uint32, radius);
+DefaultGetProp(uint32, radius);
 
 SuperFun(void, draw, (0))
 {
-    s_Shape_draw((Shape *) me);
+    super_Shape_draw((Shape *) me);
     printf("Circle draw\n");
 }
 

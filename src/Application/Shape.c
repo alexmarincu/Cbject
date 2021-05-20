@@ -14,8 +14,8 @@ AbstractClassSetup(
 Init { me->props.origin = params->origin; }
 Terminate {}
 
-DefaultSet(Point, origin);
-DefaultGet(Point, origin);
+DefaultSetProp(Point, origin);
+DefaultGetProp(Point, origin);
 
 SuperFun(void, draw, (0))
 {

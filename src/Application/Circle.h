@@ -15,8 +15,8 @@ Class(
 PublicConst(float, pi);
 PublicConsts(_, (float, anotherPi));
 
-Set(uint32, radius);
-Get(uint32, radius);
+SetProp(uint32, radius);
+GetProp(uint32, radius);
 
 SuperFuns(_,
     (float, area, (0)),

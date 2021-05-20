@@ -2,6 +2,6 @@
 #define ___CBJ_GETOBJECTFUNPROTOTYPE_H
 
 #define ___Cbj_GetObjectFunPrototype(cbjType) \
-    cbjType * Get_##cbjType(cbjType##Params const * const params)
+    cbjType * ___##cbjType##_get(cbjType##Params const * const params)
 
 #endif // ___CBJ_GETOBJECTFUNPROTOTYPE_H

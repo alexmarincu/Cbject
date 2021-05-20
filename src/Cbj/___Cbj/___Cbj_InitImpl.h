@@ -14,9 +14,9 @@
             CbjectProps props;                                      \
         } ___Cbject;                                                \
                                                                     \
-        parent##Params s_params;                                    \
-        ___##cbjType##_onInit(me, params, &s_params);               \
-        parent##_init((parent *) me, &s_params);                    \
+        parent##Params super_params;                                \
+        ___##cbjType##_onInit(me, params, &super_params);           \
+        ___##parent##_init((parent *) me, &super_params);           \
         ((___Cbject *) me)->type = (CbjectType *) cbjType##Type_(); \
     }                                                               \
     ___Cbj_OnInitFunPrototype(cbjType, parent)

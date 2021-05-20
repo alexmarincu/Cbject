@@ -29,8 +29,8 @@ typedef union ___Cbject
 } ___Cbject;
 
 CbjectType const * const CbjectType_();
-void Cbject_init(Cbject * const me, CbjectParams const * const params);
-void Cbject_terminate(Cbject * const me);
+void ___Cbject_init(Cbject * const me, CbjectParams const * const params);
+void ___Cbject_terminate(Cbject * const me);
 uint8 Cbject_size(Cbject const * const me);
 CbjectType const * Cbject_type(Cbject * const me);
 

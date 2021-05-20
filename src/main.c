@@ -6,6 +6,6 @@ int main()
     Application * const application = Application_();
     printf("application.size() = %d\n", Cbject_size((Cbject *) application));
     Application_start(application);
-    Application_terminate(application);
+    ___Application_terminate(application);
     return 0;
 }
