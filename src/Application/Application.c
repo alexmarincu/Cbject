@@ -171,10 +171,10 @@ PrivateFun(void, polymorphismExample, (0))
     printf("\n= Polymorphism example:\n");
 
     Shape * const shapes[] = {
-        (Shape *) me->props.circle,
-        (Shape *) me->props.rectangle,
-        (Shape *) me->props.heapRectangle,
-        (Shape *) me->props.coloredCircle};
+        Circle_toShape(me->props.circle),
+        Rectangle_toShape(me->props.rectangle),
+        Rectangle_toShape(me->props.heapRectangle),
+        Circle_toShape(ColoredCircle_toCircle(me->props.coloredCircle))};
 
     for (uint8 i = 0; i < Array_size(shapes); i++)
     {

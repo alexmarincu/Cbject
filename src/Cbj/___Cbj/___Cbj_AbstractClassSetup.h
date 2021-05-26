@@ -1,6 +1,5 @@
 #ifndef _CBJ_ABSTRACTCLASSSETUP_H
 #define _CBJ_ABSTRACTCLASSSETUP_H
-#include "___Cbj_CastToSubImpl.h"
 #include "___Cbj_CastToSuperImpl.h"
 #include "___Cbj_CbjectTypeVirtFunsGetImpl.h"
 #include "___Cbj_SizeImpl.h"
@@ -16,7 +15,6 @@
     ___Cbj_SizeImpl(cbjType);                                                               \
     ___Cbj_TypeInstanceImpl(cbjType, parent, ___Cbj_Utils_stripParentheses(bindSuperFuns)); \
     ___Cbj_CastToSuperImpl(cbjType, parent);                                                \
-    ___Cbj_CastToSubImpl(cbjType, parent);                                                  \
     ___Cbj_CbjectTypeVirtFunsGetImpl(cbjType);                                              \
     ___Cbj_VirtFunCalls(___Cbj_Utils_stripParentheses(virtFunCalls))
 
