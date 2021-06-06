@@ -5,7 +5,6 @@
 #include "___Cbj_ObjectInstanceFunPrototype.h"
 #include "___Cbj_ParamsTypeDef.h"
 #include "___Cbj_PropsTypeDef.h"
-#include "___Cbj_TerminateFunPrototype.h"
 #include "___Cbj_TypeDecl.h"
 #include "___Cbj_TypeTypeDecl.h"
 #include "___Cbj_Utils.h"
@@ -17,7 +16,6 @@
     ___Cbj_PropsTypeDef(cbjType, ___Cbj_Utils_stripParentheses(props)); \
     ___Cbj_ContainerTypeDef(cbjType, parent);                           \
     ___Cbj_InitFunPrototype(cbjType);                                   \
-    ___Cbj_TerminateFunPrototype(cbjType);                              \
     ___Cbj_ObjectInstanceFunPrototype(cbjType)
 
 #endif // ___CBJ_OBJECT_H

@@ -3,7 +3,9 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/src/**"
+                "${workspaceFolder}/src/**",
+                "${workspaceFolder}/test/**",
+                "/home/alex/.gem/ruby/2.7.0/gems/ceedling-0.31.0/vendor/unity/src/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

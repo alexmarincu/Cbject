@@ -1,7 +1,6 @@
 #ifndef ___CBJ_CLASS_H
 #define ___CBJ_CLASS_H
 #include "../Cbj_Settings.h"
-#include "___Cbj_DeleteObjectFunPrototype.h"
 #include "___Cbj_GetObjectFunPrototype.h"
 #include "___Cbj_NewObjectFunPrototype.h"
 #include "___Cbj_NewOnStackFunPrototype.h"
@@ -12,14 +11,12 @@
             AbstractClass(params, props, virtFuns);                    \
             ___Cbj_NewOnStackFunPrototype(cbjType);                    \
             ___Cbj_GetObjectFunPrototype(cbjType);                     \
-            ___Cbj_NewObjectFunPrototype(cbjType);                     \
-            ___Cbj_DeleteObjectFunPrototype(cbjType)
+            ___Cbj_NewObjectFunPrototype(cbjType)
     #else
         #define ___Cbj_Class(cbjType, parent, params, props, virtFuns) \
             AbstractClass(params, props, virtFuns);                    \
             ___Cbj_NewOnStackFunPrototype(cbjType);                    \
-            ___Cbj_NewObjectFunPrototype(cbjType);                     \
-            ___Cbj_DeleteObjectFunPrototype(cbjType)
+            ___Cbj_NewObjectFunPrototype(cbjType)
     #endif
 #else
     #if Cbj_Settings_useStaticPool == true

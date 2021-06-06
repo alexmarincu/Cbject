@@ -28,7 +28,6 @@ Init
     me->props.height = params->height;
 }
 
-Terminate {}
 Fun(uint32, test, (_, uint32 const ab)) { return ab; }
 SuperFun(float, area, (0)) { return me->props.width * me->props.height; }
 

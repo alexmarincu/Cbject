@@ -33,7 +33,6 @@
 #include "___Cbj_SetProps.h"
 #include "___Cbj_SuperFun.h"
 #include "___Cbj_SuperFuns.h"
-#include "___Cbj_Terminate.h"
 #include "___Cbj_VirtFun.h"
 
 #define AbstractClass(params, props, virtFuns) \
@@ -152,8 +151,5 @@
 
 #define Init \
     ___Cbj_Init(Type, Parent)
-
-#define Terminate \
-    ___Cbj_Terminate(Type, Parent)
 
 #endif // _CBJ_KEYWORDS_H

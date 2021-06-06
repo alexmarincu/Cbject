@@ -12,7 +12,6 @@ AbstractClassSetup(
         (Shape, void, draw, (0))));
 
 Init { me->props.origin = params->origin; }
-Terminate {}
 
 DefaultSetProp(Point, origin);
 DefaultGetProp(Point, origin);

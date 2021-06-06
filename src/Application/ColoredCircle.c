@@ -26,8 +26,6 @@ Init
     me->props.color = params->color;
 }
 
-Terminate {}
-
 SuperFun(void, draw, (0))
 {
     super_Shape_draw((Shape *) me);

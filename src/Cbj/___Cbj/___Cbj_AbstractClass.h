@@ -6,7 +6,6 @@
 #include "___Cbj_InitFunPrototype.h"
 #include "___Cbj_ParamsTypeDef.h"
 #include "___Cbj_PropsTypeDef.h"
-#include "___Cbj_TerminateFunPrototype.h"
 #include "___Cbj_TypeContainerTypeDef.h"
 #include "___Cbj_TypeDecl.h"
 #include "___Cbj_TypeInstanceFunPrototype.h"
@@ -23,7 +22,6 @@
     ___Cbj_TypeContainerTypeDef(cbjType, parent, withVirtFuns);               \
     ___Cbj_ContainerTypeDef(cbjType, parent);                                 \
     ___Cbj_InitFunPrototype(cbjType);                                         \
-    ___Cbj_TerminateFunPrototype(cbjType);                                    \
     ___Cbj_TypeInstanceFunPrototype(cbjType);                                 \
     Funs(___Cbj_Utils_stripParentheses(virtFuns));                            \
     ___Cbj_CastToSuperFunPrototype(cbjType, parent);                          \
