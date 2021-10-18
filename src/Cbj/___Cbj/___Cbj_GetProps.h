@@ -7,7 +7,7 @@
 
 #define ___Cbj_GetProps_0(...)
 
-#define ___Cbj_GetProps__(...) \
+#define ___Cbj_GetProps_(...) \
     ___Cbj_Utils_forEach(___Cbj_GetProps_stripParenthesesAndApplyGetProp, __VA_ARGS__)
 
 #define ___Cbj_GetProps(case, ...) \

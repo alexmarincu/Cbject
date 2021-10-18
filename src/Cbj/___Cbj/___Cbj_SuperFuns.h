@@ -7,7 +7,7 @@
 
 #define ___Cbj_SuperFuns_0(...)
 
-#define ___Cbj_SuperFuns__(...) \
+#define ___Cbj_SuperFuns_(...) \
     ___Cbj_Utils_forEach(___Cbj_SuperFuns_stripParenthesesAndApplySuperFun, __VA_ARGS__)
 
 #define ___Cbj_SuperFuns(case, ...) \

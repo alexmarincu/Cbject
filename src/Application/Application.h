@@ -10,7 +10,7 @@
 #define Parent Cbject
 
 Object(
-    Props(_,
+    Props(,
         Circle * circle,
         Rectangle * rectangle,
         Rectangle * heapRectangle,

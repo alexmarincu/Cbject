@@ -30,7 +30,7 @@
         return &type;                                                                                              \
     }
 
-#define ___Cbj_TypeInstanceImpl__(cbjType, parent, ...)                                                            \
+#define ___Cbj_TypeInstanceImpl_(cbjType, parent, ...)                                                            \
     ___Cbj_TypeInstanceFunPrototype(cbjType)                                                                       \
     {                                                                                                              \
         static cbjType##Type type;                                                                                 \

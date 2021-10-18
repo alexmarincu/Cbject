@@ -7,14 +7,14 @@
 #define Parent Cbject
 
 AbstractClass(
-    Params(_, Point origin),
-    Props(_, Point origin),
-    VirtFuns(_,
+    Params(, Point origin),
+    Props(, Point origin),
+    VirtFuns(,
         (float, area, (0)),
         (void, draw, (0))));
 
-SetProps(_, (Point, origin));
-GetProps(_, (Point, origin));
+SetProps(, (Point, origin));
+GetProps(, (Point, origin));
 SuperFun(void, draw, (0));
 
 #undef Parent

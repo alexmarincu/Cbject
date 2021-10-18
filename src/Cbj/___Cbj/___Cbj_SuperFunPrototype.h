@@ -4,7 +4,7 @@
 #define ___Cbj_SuperFunPrototype_0(cbjType, returnType, funName, ...) \
     returnType super_##cbjType##_##funName(cbjType * const me)
 
-#define ___Cbj_SuperFunPrototype__(cbjType, returnType, funName, ...) \
+#define ___Cbj_SuperFunPrototype_(cbjType, returnType, funName, ...) \
     returnType super_##cbjType##_##funName(cbjType * const me, __VA_ARGS__)
 
 #define ___Cbj_SuperFunPrototype(cbjType, returnType, funName, case, ...) \

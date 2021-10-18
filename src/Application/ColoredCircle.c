@@ -9,7 +9,7 @@ PoolSize(10);
 
 ClassSetup(
     VirtFunCalls(0),
-    BindSuperFuns(_,
+    BindSuperFuns(,
         (Shape, void, draw, (0)),
         (Circle, void, rotate, (0))));
 

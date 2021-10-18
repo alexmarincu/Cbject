@@ -5,7 +5,7 @@
 #define ___Cbj_ParamsTypeDef_0(cbjType, ...) \
     typedef char cbjType##Params
 
-#define ___Cbj_ParamsTypeDef__(cbjType, ...)                         \
+#define ___Cbj_ParamsTypeDef_(cbjType, ...)                         \
     typedef struct cbjType##Params                                   \
     {                                                                \
         ___Cbj_Utils_forEach(___Cbj_Utils_addSemicolon, __VA_ARGS__) \

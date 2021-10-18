@@ -7,7 +7,7 @@
 
 #define ___Cbj_DefaultGetProps_0(...)
 
-#define ___Cbj_DefaultGetProps__(...) \
+#define ___Cbj_DefaultGetProps_(...) \
     ___Cbj_Utils_forEach(___Cbj_DefaultGetProps_stripParenthesesAndApplyDefaultGet, __VA_ARGS__)
 
 #define ___Cbj_DefaultGetProps(case, ...) \

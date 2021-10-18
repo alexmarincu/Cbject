@@ -7,7 +7,7 @@
 ObjectSetup(BindSuperFuns(0));
 Init {}
 
-PrivateFuns(_,
+PrivateFuns(,
     (void, printBeginMessage, (0)),
     (void, printEndMessage, (0)),
     (void, circleExample, (0)),

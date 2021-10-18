@@ -5,10 +5,10 @@
 #define Parent Cbject
 
 AbstractClassSetup(
-    VirtFunCalls(_,
+    VirtFunCalls(,
         (float, area, (0), (0)),
         (void, draw, (0), (0))),
-    BindSuperFuns(_,
+    BindSuperFuns(,
         (Shape, void, draw, (0))));
 
 Init { me->props.origin = params->origin; }

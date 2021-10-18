@@ -7,17 +7,17 @@
 PoolSize(10);
 
 ClassSetup(
-    VirtFunCalls(_, (void, rotate, (0), (0))),
-    BindSuperFuns(_,
+    VirtFunCalls(, (void, rotate, (0), (0))),
+    BindSuperFuns(,
         (Shape, float, area, (0)),
         (Shape, void, draw, (0)),
         (Circle, void, rotate, (0))));
 
-Consts(_,
+Consts(,
     (float, pi = 3.14),
     (float, anotherPi = 3.14));
 
-PrivateConsts(_,
+PrivateConsts(,
     (float, privatePi = 3.14),
     (float, anotherPrivatePi = 3.14));
 

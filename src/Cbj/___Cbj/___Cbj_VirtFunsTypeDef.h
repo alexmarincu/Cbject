@@ -8,7 +8,7 @@
 #define ___Cbj_VirtFunsTypeDef_0(cbjType, ...) \
     typedef char cbjType##VirtFuns
 
-#define ___Cbj_VirtFunsTypeDef__(cbjType, ...)                                                       \
+#define ___Cbj_VirtFunsTypeDef_(cbjType, ...)                                                       \
     typedef struct cbjType##VirtFuns                                                                 \
     {                                                                                                \
         ___Cbj_Utils_forEach(___Cbj_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr, __VA_ARGS__) \

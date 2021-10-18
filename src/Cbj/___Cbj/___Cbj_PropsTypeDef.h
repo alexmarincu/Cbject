@@ -5,7 +5,7 @@
 #define ___Cbj_PropsTypeDef_0(cbjType, ...) \
     typedef char cbjType##Props
 
-#define ___Cbj_PropsTypeDef__(cbjType, ...)                          \
+#define ___Cbj_PropsTypeDef_(cbjType, ...)                          \
     typedef struct cbjType##Props                                    \
     {                                                                \
         ___Cbj_Utils_forEach(___Cbj_Utils_addSemicolon, __VA_ARGS__) \

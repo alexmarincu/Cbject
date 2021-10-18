@@ -7,7 +7,7 @@
 
 #define ___Cbj_PublicConsts_0(...)
 
-#define ___Cbj_PublicConsts__(...) \
+#define ___Cbj_PublicConsts_(...) \
     ___Cbj_Utils_forEach(___Cbj_PublicConsts_stripParenthesesAndApplyPublicConst, __VA_ARGS__)
 
 #define ___Cbj_PublicConsts(case, ...) \

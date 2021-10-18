@@ -12,7 +12,7 @@
                                                     \
     return ((cbjType##Type *) ((___Cbject *) me)->type)->virtFuns.funName(me)
 
-#define ___Cbj_VirtFunCall__(cbjType, funName, ...) \
+#define ___Cbj_VirtFunCall_(cbjType, funName, ...) \
     typedef struct ___Cbject                        \
     {                                               \
         Cbj_Settings_maxAlign ___align;             \

@@ -7,7 +7,7 @@
 
 #define ___Cbj_PrivateFuns_0(...)
 
-#define ___Cbj_PrivateFuns__(...) \
+#define ___Cbj_PrivateFuns_(...) \
     ___Cbj_Utils_forEach(___Cbj_PrivateFuns_stripParenthesesAndApplyPrivateFun, __VA_ARGS__)
 
 #define ___Cbj_PrivateFuns(case, ...) \

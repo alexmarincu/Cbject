@@ -1,5 +1,5 @@
-#ifndef ___CBJ_ABSTRACTCLASS_H
-#define ___CBJ_ABSTRACTCLASS_H
+#ifndef _CBJ_ABSTRACTCLASS_H
+#define _CBJ_ABSTRACTCLASS_H
 #include "___Cbj_CastToSuperFunPrototype.h"
 #include "___Cbj_CbjectTypeVirtFunsGetFunPrototype.h"
 #include "___Cbj_ContainerTypeDef.h"
@@ -27,4 +27,4 @@
     ___Cbj_CastToSuperFunPrototype(cbjType, parent);                          \
     ___Cbj_CbjectTypeVirtFunsGetFunPrototype(cbjType)
 
-#endif // ___CBJ_ABSTRACTCLASS_H
+#endif // _CBJ_ABSTRACTCLASS_H

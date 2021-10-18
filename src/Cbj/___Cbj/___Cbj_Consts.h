@@ -7,7 +7,7 @@
 
 #define ___Cbj_Consts_0(...)
 
-#define ___Cbj_Consts__(...) \
+#define ___Cbj_Consts_(...) \
     ___Cbj_Utils_forEach(___Cbj_Consts_stripParenthesesAndApplyConst, __VA_ARGS__)
 
 #define ___Cbj_Consts(case, ...) \
