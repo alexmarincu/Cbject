@@ -1,6 +1,6 @@
 #ifndef SHAPE_H
 #define SHAPE_H
-#include "../Cbj/Cbj.h"
+#include "../Cbject/Cbject.h"
 #include "Point.h"
 
 #define Type Shape

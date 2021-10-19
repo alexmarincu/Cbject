@@ -7,7 +7,7 @@ void setUp(void) {}
 
 void tearDown(void) {}
 
-void test_Rectanglesss(void)
+void test_Rectanglexsss(void)
 {
     Rectangle * r = New(Rectangle, &((RectangleParams){.origin.x = 4, .origin.y = 5, .width = 1, .height = 2}));
     TEST_ASSERT_NOT_NULL(r);
