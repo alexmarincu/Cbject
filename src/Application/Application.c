@@ -6,6 +6,7 @@
 
 ObjectSetup(BindSuperFuns(0));
 Init {}
+Terminate {}
 
 PrivateFuns(,
     (void, printBeginMessage, (0)),
@@ -27,7 +28,7 @@ Fun(void, start, (0))
     Application_heapRectangleExample(me);
     Application_coloredCircleExample(me);
     Application_polymorphismExample(me);
-    free(me->props.heapRectangle);
+    Rectangle_delete(me->props.heapRectangle);
 }
 
 PrivateFun(void, circleExample, (0))

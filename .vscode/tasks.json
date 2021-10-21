@@ -19,6 +19,13 @@
             "problemMatcher": []
         },
         {
+            "label": "Run App",
+            "type": "shell",
+            "command": "build/artifacts/release/Cbject.out",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
             "label": "Run All Tests",
             "type": "shell",
             "command": "ceedling test:all",

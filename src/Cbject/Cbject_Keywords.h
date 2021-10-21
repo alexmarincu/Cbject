@@ -33,6 +33,7 @@
 #include "Cbject_SetProps.h"
 #include "Cbject_SuperFun.h"
 #include "Cbject_SuperFuns.h"
+#include "Cbject_Terminate.h"
 #include "Cbject_VirtFun.h"
 
 #define AbstractClass(params, props, virtFuns) \
@@ -151,5 +152,8 @@
 
 #define Init \
     Cbject_Init(Type, Parent)
+
+#define Terminate \
+    Cbject_Terminate(Type, Parent)
 
 #endif // CBJECT_KEYWORDS_H

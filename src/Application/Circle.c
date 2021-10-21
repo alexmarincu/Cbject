@@ -30,6 +30,8 @@ Init
     me->props.radius = params->radius;
 }
 
+Terminate {}
+
 DefaultSetProp(uint32, radius);
 DefaultGetProp(uint32, radius);
 
