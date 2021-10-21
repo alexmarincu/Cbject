@@ -34,7 +34,7 @@ Fun(void, start, (0))
 PrivateFun(void, circleExample, (0))
 {
     printf("\n= Circle example:\n");
-    me->props.circle = Get(Circle, &((CircleParams){.origin.x = 0, .origin.y = 1, .radius = 1}));
+    me->props.circle = Circle_get(&((CircleParams){{0, 1}, 1}));
     printf("radius = %d\n", Circle_radius(me->props.circle));
     printf("Set radius to 2\n");
     Circle_radiusSet(me->props.circle, 2);
@@ -60,14 +60,7 @@ PrivateFun(void, circleExample, (0))
 PrivateFun(void, stackCircleExample, (0))
 {
     printf("\n= StackCircle example:\n");
-
-    Circle * stackCircle =
-        NewOnStack(Circle,
-            &((CircleParams){
-                .origin.x = 2,
-                .origin.y = 3,
-                .radius = 3}));
-
+    Circle * stackCircle = Circle_newOnStack((Circle *) &(CircleContainer){}, &(CircleParams){{2, 3}, 3});
     printf("radius = %d\n", Circle_radius(stackCircle));
     printf("Set radius to 4\n");
     Circle_radiusSet(stackCircle, 4);
@@ -77,15 +70,7 @@ PrivateFun(void, stackCircleExample, (0))
 PrivateFun(void, rectangleExample, (0))
 {
     printf("\n= Rectangle example:\n");
-
-    me->props.rectangle =
-        Get(Rectangle,
-            &((RectangleParams){
-                .origin.x = 4,
-                .origin.y = 5,
-                .width = 1,
-                .height = 2}));
-
+    me->props.rectangle = Rectangle_get(&((RectangleParams){{4, 5}, 1, 2}));
     printf("width = %d\n", Rectangle_width(me->props.rectangle));
     printf("height = %d\n", Rectangle_height(me->props.rectangle));
     printf("Set width to 2 and height to 3\n");
@@ -101,15 +86,7 @@ PrivateFun(void, rectangleExample, (0))
 PrivateFun(void, stackRectangleExample, (0))
 {
     printf("\n= StackRectangle example:\n");
-
-    Rectangle * stackRectangle =
-        NewOnStack(Rectangle,
-            &((RectangleParams){
-                .origin.x = 12,
-                .origin.y = 23,
-                .width = 34,
-                .height = 2}));
-
+    Rectangle * stackRectangle = Rectangle_newOnStack((Rectangle *) &(RectangleContainer){}, &((RectangleParams){{12, 23}, 34, 2}));
     printf("width = %d\n", Rectangle_width(stackRectangle));
     printf("height = %d\n", Rectangle_height(stackRectangle));
     printf("Set width to 2 and height to 3\n");
@@ -122,15 +99,7 @@ PrivateFun(void, stackRectangleExample, (0))
 PrivateFun(void, heapRectangleExample, (0))
 {
     printf("\n= HeapRectangle example:\n");
-
-    me->props.heapRectangle =
-        New(Rectangle,
-            &((RectangleParams){
-                .origin.x = 12,
-                .origin.y = 23,
-                .width = 34,
-                .height = 2}));
-
+    me->props.heapRectangle = Rectangle_new(&((RectangleParams){{12, 23}, 34, 2}));
     printf("width = %d\n", Rectangle_width(me->props.heapRectangle));
     printf("height = %d\n", Rectangle_height(me->props.heapRectangle));
     printf("Set width to 2 and height to 3\n");
@@ -143,15 +112,7 @@ PrivateFun(void, heapRectangleExample, (0))
 PrivateFun(void, coloredCircleExample, (0))
 {
     printf("\n= ColoredCircle example:\n");
-
-    me->props.coloredCircle =
-        Get(ColoredCircle,
-            &((ColoredCircleParams){
-                .origin.x = 12,
-                .origin.y = 23,
-                .radius = 10,
-                .color = Color_red}));
-
+    me->props.coloredCircle = ColoredCircle_get(&((ColoredCircleParams){{12, 23}, 10, Color_red}));
     printf("radius = %d\n", Circle_radius((Circle *) me->props.coloredCircle));
     printf("Set radius to 3\n");
     Circle_radiusSet((Circle *) me->props.coloredCircle, 3);

@@ -5,8 +5,9 @@
 #define Cbject_DeleteObjectImpl(cbjType)     \
     Cbject_DeleteObjectFunPrototype(cbjType) \
     {                                        \
-        ___##cbjType##_terminate(me);        \
+        cbjType##_terminate(me);             \
         free(me);                            \
+        me = NULL;                           \
     }
 
 #endif // CBJECT_DELETEOBJECTIMPL_H

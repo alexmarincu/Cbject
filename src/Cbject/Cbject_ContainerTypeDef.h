@@ -3,14 +3,14 @@
 #include "Cbject_Settings.h"
 
 #define Cbject_ContainerTypeDef(cbjType, parent) \
-    typedef union ___##cbjType                   \
+    typedef union cbjType##Container             \
     {                                            \
-        Cbject_Settings_maxAlign ___align;       \
-        char ___data[sizeof(struct               \
+        Cbject_Settings_maxAlign a;              \
+        char d[sizeof(struct                     \
             {                                    \
-                ___##parent super;               \
+                parent##Container super;         \
                 cbjType##Props props;            \
             })];                                 \
-    } ___##cbjType
+    } cbjType##Container
 
 #endif // CBJECT_CONTAINERTYPEDEF_H

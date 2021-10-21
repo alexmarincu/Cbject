@@ -4,14 +4,14 @@ static uint8 super_Cbject_size(Cbject const * const me);
 
 struct CbjectType
 {
-    Cbject_Settings_maxAlign ___align;
+    Cbject_Settings_maxAlign a;
     char const * name;
     CbjectVirtFuns virtFuns;
 };
 
 struct Cbject
 {
-    Cbject_Settings_maxAlign ___align;
+    Cbject_Settings_maxAlign a;
     CbjectType * type;
     CbjectProps props;
 };
@@ -29,5 +29,5 @@ CbjectType const * const CbjectType_()
 }
 
 CbjectType const * Cbject_type(Cbject * const me) { return me->type; }
-void ___Cbject_init(Cbject * const me, CbjectParams const * const params) {}
-void ___Cbject_terminate(Cbject * const me) {}
+void Cbject_init(Cbject * const me, CbjectParams const * const params) {}
+void Cbject_terminate(Cbject * const me) {}

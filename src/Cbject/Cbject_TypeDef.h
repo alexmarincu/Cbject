@@ -4,7 +4,7 @@
 #define Cbject_TypeDef(cbjType, parent) \
     struct cbjType                      \
     {                                   \
-        ___##parent super;              \
+        parent##Container super;        \
         cbjType##Props props;           \
     }
 

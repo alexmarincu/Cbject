@@ -19,31 +19,31 @@ typedef struct CbjectVirtFuns
     uint8 (*size)(Cbject const * const me);
 } CbjectVirtFuns;
 
-typedef union ___CbjectType
+typedef union CbjectTypeContainer
 {
-    Cbject_Settings_maxAlign ___align;
-    char ___data[sizeof(struct
+    Cbject_Settings_maxAlign a;
+    char d[sizeof(struct
         {
-            Cbject_Settings_maxAlign ___align;
+            Cbject_Settings_maxAlign a;
             char const * name;
             CbjectVirtFuns virtFuns;
         })];
-} ___CbjectType;
+} CbjectTypeContainer;
 
-typedef union ___Cbject
+typedef union CbjectContainer
 {
-    Cbject_Settings_maxAlign ___align;
-    char ___data[sizeof(struct
+    Cbject_Settings_maxAlign a;
+    char d[sizeof(struct
         {
-            Cbject_Settings_maxAlign ___align;
+            Cbject_Settings_maxAlign a;
             CbjectType * type;
             CbjectProps props;
         })];
-} ___Cbject;
+} CbjectContainer;
 
 CbjectType const * const CbjectType_();
-void ___Cbject_init(Cbject * const me, CbjectParams const * const params);
-void ___Cbject_terminate(Cbject * const me);
+void Cbject_init(Cbject * const me, CbjectParams const * const params);
+void Cbject_terminate(Cbject * const me);
 uint8 Cbject_size(Cbject const * const me);
 CbjectType const * Cbject_type(Cbject * const me);
 

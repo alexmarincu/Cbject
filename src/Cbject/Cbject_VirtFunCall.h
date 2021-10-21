@@ -3,24 +3,24 @@
 #include "Cbject_Utils.h"
 
 #define Cbject_VirtFunCall_0(cbjType, funName, ...) \
-    typedef struct ___Cbject                        \
+    typedef struct CbjectContainer                  \
     {                                               \
-        Cbject_Settings_maxAlign ___align;          \
+        Cbject_Settings_maxAlign a;                 \
         CbjectType * type;                          \
         CbjectProps props;                          \
-    } ___Cbject;                                    \
+    } CbjectContainer;                              \
                                                     \
-    return ((cbjType##Type *) ((___Cbject *) me)->type)->virtFuns.funName(me)
+    return ((cbjType##Type *) ((CbjectContainer *) me)->type)->virtFuns.funName(me)
 
 #define Cbject_VirtFunCall_(cbjType, funName, ...) \
-    typedef struct ___Cbject                       \
+    typedef struct CbjectContainer                 \
     {                                              \
-        Cbject_Settings_maxAlign ___align;         \
+        Cbject_Settings_maxAlign a;                \
         CbjectType * type;                         \
         CbjectProps props;                         \
-    } ___Cbject;                                   \
+    } CbjectContainer;                             \
                                                    \
-    return ((cbjType##Type *) ((___Cbject *) me)->type)->virtFuns.funName(me, __VA_ARGS__)
+    return ((cbjType##Type *) ((CbjectContainer *) me)->type)->virtFuns.funName(me, __VA_ARGS__)
 
 #define Cbject_VirtFunCall_case(cbjType, funName, case, ...) \
     Cbject_VirtFunCall_##case (cbjType, funName, __VA_ARGS__)

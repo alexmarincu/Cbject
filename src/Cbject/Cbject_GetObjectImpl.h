@@ -14,7 +14,7 @@
         {                                        \
             me = &pool[count];                   \
             memset(me, 0, sizeof(cbjType));      \
-            ___##cbjType##_init(me, params);     \
+            cbjType##_init(me, params);          \
             count++;                             \
         }                                        \
                                                  \

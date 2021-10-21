@@ -7,8 +7,8 @@
     Cbject_OnTerminateFunPrototype(cbjType);     \
     Cbject_TerminateFunPrototype(cbjType)        \
     {                                            \
-        ___##cbjType##_onTerminate(me);          \
-        ___##parent##_terminate((parent *) me);  \
+        cbjType##_onTerminate(me);               \
+        parent##_terminate((parent *) me);       \
     }                                            \
     Cbject_OnTerminateFunPrototype(cbjType)
 

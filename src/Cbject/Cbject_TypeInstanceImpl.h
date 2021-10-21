@@ -6,53 +6,53 @@
 #define Cbject_TypeInstanceImpl_stripParenthesesAndApplyBindSuperFun(funPrototype) \
     Cbject_BindSuperFun funPrototype;
 
-#define Cbject_TypeInstanceImpl_0(cbjType, parent, ...)                                                            \
-    Cbject_TypeInstanceFunPrototype(cbjType)                                                                       \
-    {                                                                                                              \
-        static cbjType##Type type;                                                                                 \
-                                                                                                                   \
-        typedef struct ___CbjectType                                                                               \
-        {                                                                                                          \
-            Cbject_Settings_maxAlign ___align;                                                                        \
-            char const * name;                                                                                     \
-            CbjectVirtFuns virtFuns;                                                                               \
-        } ___CbjectType;                                                                                           \
-                                                                                                                   \
-        if (((___CbjectType *) &type)->name == NULL)                                                               \
-        {                                                                                                          \
-            /*static char const * const name = #cbjType;  */                                                       \
-            *((___##parent##Type *) &type) = *((___##parent##Type *) parent##Type_());                             \
-            ((___CbjectType *) &type)->name = NULL;                                                                \
-            ((___CbjectType *) &type)->virtFuns.size = (uint8(*)(Cbject const * const me)) super_##cbjType##_size; \
-            ((___CbjectType *) &type)->name = #cbjType;                                                            \
-        }                                                                                                          \
-                                                                                                                   \
-        return &type;                                                                                              \
+#define Cbject_TypeInstanceImpl_0(cbjType, parent, ...)                                                                  \
+    Cbject_TypeInstanceFunPrototype(cbjType)                                                                             \
+    {                                                                                                                    \
+        static cbjType##Type type;                                                                                       \
+                                                                                                                         \
+        typedef struct CbjectTypeContainer                                                                               \
+        {                                                                                                                \
+            Cbject_Settings_maxAlign a;                                                                                  \
+            char const * name;                                                                                           \
+            CbjectVirtFuns virtFuns;                                                                                     \
+        } CbjectTypeContainer;                                                                                           \
+                                                                                                                         \
+        if (((CbjectTypeContainer *) &type)->name == NULL)                                                               \
+        {                                                                                                                \
+            /*static char const * const name = #cbjType;  */                                                             \
+            *((parent##TypeContainer *) &type) = *((parent##TypeContainer *) parent##Type_());                           \
+            ((CbjectTypeContainer *) &type)->name = NULL;                                                                \
+            ((CbjectTypeContainer *) &type)->virtFuns.size = (uint8(*)(Cbject const * const me)) super_##cbjType##_size; \
+            ((CbjectTypeContainer *) &type)->name = #cbjType;                                                            \
+        }                                                                                                                \
+                                                                                                                         \
+        return &type;                                                                                                    \
     }
 
-#define Cbject_TypeInstanceImpl_(cbjType, parent, ...)                                                            \
-    Cbject_TypeInstanceFunPrototype(cbjType)                                                                       \
-    {                                                                                                              \
-        static cbjType##Type type;                                                                                 \
-                                                                                                                   \
-        typedef struct ___CbjectType                                                                               \
-        {                                                                                                          \
-            Cbject_Settings_maxAlign ___align;                                                                        \
-            char const * name;                                                                                     \
-            CbjectVirtFuns virtFuns;                                                                               \
-        } ___CbjectType;                                                                                           \
-                                                                                                                   \
-        if (((___CbjectType *) &type)->name == NULL)                                                               \
-        {                                                                                                          \
-            /*static char const * const name = #cbjType;  */                                                       \
-            *((___##parent##Type *) &type) = *((___##parent##Type *) parent##Type_());                             \
-            ((___CbjectType *) &type)->name = NULL;                                                                \
-            ((___CbjectType *) &type)->virtFuns.size = (uint8(*)(Cbject const * const me)) super_##cbjType##_size; \
-            Cbject_Utils_forEach(Cbject_TypeInstanceImpl_stripParenthesesAndApplyBindSuperFun, __VA_ARGS__);       \
-            ((___CbjectType *) &type)->name = #cbjType;                                                            \
-        }                                                                                                          \
-                                                                                                                   \
-        return &type;                                                                                              \
+#define Cbject_TypeInstanceImpl_(cbjType, parent, ...)                                                                   \
+    Cbject_TypeInstanceFunPrototype(cbjType)                                                                             \
+    {                                                                                                                    \
+        static cbjType##Type type;                                                                                       \
+                                                                                                                         \
+        typedef struct CbjectTypeContainer                                                                               \
+        {                                                                                                                \
+            Cbject_Settings_maxAlign a;                                                                                  \
+            char const * name;                                                                                           \
+            CbjectVirtFuns virtFuns;                                                                                     \
+        } CbjectTypeContainer;                                                                                           \
+                                                                                                                         \
+        if (((CbjectTypeContainer *) &type)->name == NULL)                                                               \
+        {                                                                                                                \
+            /*static char const * const name = #cbjType;  */                                                             \
+            *((parent##TypeContainer *) &type) = *((parent##TypeContainer *) parent##Type_());                           \
+            ((CbjectTypeContainer *) &type)->name = NULL;                                                                \
+            ((CbjectTypeContainer *) &type)->virtFuns.size = (uint8(*)(Cbject const * const me)) super_##cbjType##_size; \
+            Cbject_Utils_forEach(Cbject_TypeInstanceImpl_stripParenthesesAndApplyBindSuperFun, __VA_ARGS__);             \
+            ((CbjectTypeContainer *) &type)->name = #cbjType;                                                            \
+        }                                                                                                                \
+                                                                                                                         \
+        return &type;                                                                                                    \
     }
 
 #define Cbject_TypeInstanceImpl_case(cbjType, parent, case, ...) \

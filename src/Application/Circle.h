@@ -9,8 +9,10 @@ Class(
     Params(,
         Point origin,
         uint32 radius),
-    Props(, int32 radius),
-    VirtFuns(, (void, rotate, (0))));
+    Props(,
+        int32 radius),
+    VirtFuns(,
+        (void, rotate, (0))));
 
 PublicConst(float, pi);
 PublicConsts(, (float, anotherPi));

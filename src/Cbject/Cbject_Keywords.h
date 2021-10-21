@@ -15,12 +15,9 @@
 #include "Cbject_EnumClass.h"
 #include "Cbject_Fun.h"
 #include "Cbject_Funs.h"
-#include "Cbject_Get.h"
 #include "Cbject_GetProp.h"
 #include "Cbject_GetProps.h"
 #include "Cbject_Init.h"
-#include "Cbject_New.h"
-#include "Cbject_NewOnStack.h"
 #include "Cbject_Object.h"
 #include "Cbject_ObjectSetup.h"
 #include "Cbject_PoolSize.h"
@@ -116,15 +113,6 @@
 
 #define VirtFuns(...) \
     (__VA_ARGS__)
-
-#define NewOnStack(cbjType, ...) \
-    Cbject_NewOnStack(cbjType, __VA_ARGS__)
-
-#define New(cbjType, ...) \
-    Cbject_New(cbjType, __VA_ARGS__)
-
-#define Get(cbjType, ...) \
-    Cbject_Get(cbjType, __VA_ARGS__)
 
 #define SetProp(propType, propName) \
     Cbject_SetProp(Type, propType, propName)

@@ -75,4 +75,3 @@
     - module_generator
     - gcov
     - xml_tests_report
-    - warnings_report
