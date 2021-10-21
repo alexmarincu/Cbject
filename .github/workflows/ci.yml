@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+    branches: [master, develop]
+  pull_request:
+    branches: [master, develop]
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+      - name: Install Ceedling
+        run: gem install ceedling
+      - name: Install GCovr
+        run: sudo pip install gcovr
+      - name: Build
+        run: ceedling release
+      - name: Run Tests
+        run: ceedling test:all
