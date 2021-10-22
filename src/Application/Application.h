@@ -1,6 +1,6 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
-#include "../Cbj/Cbj.h"
+#include "../Cbject/Cbject.h"
 #include "Circle.h"
 #include "ColoredCircle.h"
 #include "Rectangle.h"
@@ -10,7 +10,7 @@
 #define Parent Cbject
 
 Object(
-    Props(_,
+    Props(,
         Circle * circle,
         Rectangle * rectangle,
         Rectangle * heapRectangle,

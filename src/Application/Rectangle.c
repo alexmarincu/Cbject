@@ -7,29 +7,31 @@ PoolSize(10);
 
 ClassSetup(
     VirtFunCalls(0),
-    BindFuns(_, (float, Shape, area, (0))));
+    BindSuperFuns(,
+        (Shape, float, area, (0))));
 
-DefaultSetters(_,
+DefaultSetProps(,
     (uint32, width),
     (uint32, height));
 
-DefaultGetters(_,
+DefaultGetProps(,
     (uint32, width),
     (uint32, height));
 
 Init
 {
-    *s_params = (ShapeParams){
+    *super_params = (ShapeParams){
         .origin.x = params->origin.x,
         .origin.y = params->origin.y};
 
-    me->p.width = params->width;
-    me->p.height = params->height;
+    me->props.width = params->width;
+    me->props.height = params->height;
 }
 
 Terminate {}
-Fun(uint32, test, (_, uint32 const a)) { return a; }
-SuperFun(float, area, (0)) { return me->p.width * me->p.height; }
+
+Fun(uint32, test, (, uint32 const ab)) { return ab; }
+SuperFun(float, area, (0)) { return me->props.width * me->props.height; }
 
 #undef Parent
 #undef Type

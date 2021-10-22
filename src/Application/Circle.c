@@ -7,41 +7,41 @@
 PoolSize(10);
 
 ClassSetup(
-    VirtFunCalls(_, (void, rotate, (0), (0))),
-    BindFuns(_,
-        (float, Shape, area, (0)),
-        (void, Shape, draw, (_, uint8 const a)),
-        (void, Circle, rotate, (0))));
+    VirtFunCalls(, (void, rotate, (0), (0))),
+    BindSuperFuns(,
+        (Shape, float, area, (0)),
+        (Shape, void, draw, (0)),
+        (Circle, void, rotate, (0))));
 
-Consts(_,
+Consts(,
     (float, pi = 3.14),
     (float, anotherPi = 3.14));
 
-PrivateConsts(_,
+PrivateConsts(,
     (float, privatePi = 3.14),
     (float, anotherPrivatePi = 3.14));
 
 Init
 {
-    *s_params = (ShapeParams){
+    *super_params = (ShapeParams){
         .origin.x = params->origin.x,
         .origin.y = params->origin.y};
 
-    me->p.radius = params->radius;
+    me->props.radius = params->radius;
 }
 
 Terminate {}
 
-DefaultSet(uint32, radius);
-DefaultGet(uint32, radius);
+DefaultSetProp(uint32, radius);
+DefaultGetProp(uint32, radius);
 
-SuperFun(void, draw, (_, uint8 const a))
+SuperFun(void, draw, (0))
 {
-    s_Shape_draw((Shape *) me, a);
+    super_Shape_draw((Shape *) me);
     printf("Circle draw\n");
 }
 
-SuperFun(float, area, (0)) { return me->p.radius * me->p.radius * Circle_pi; }
+SuperFun(float, area, (0)) { return me->props.radius * me->props.radius * Circle_pi; }
 SuperFun(void, rotate, (0)) { printf("Rotate clockwise\n"); }
 
 #undef Parent

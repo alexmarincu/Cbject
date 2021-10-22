@@ -21,6 +21,4 @@ jobs:
       - name: Build
         run: ceedling release
       - name: Run Tests
-        run: |
-          cd ../..
-          ceedling test:all
+        run: ceedling test:all
