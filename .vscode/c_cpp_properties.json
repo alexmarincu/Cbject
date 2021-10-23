@@ -5,13 +5,13 @@
             "includePath": [
                 "${workspaceFolder}/src/**",
                 "${workspaceFolder}/test/**",
-                "/home/alex/.gem/ruby/2.7.0/gems/ceedling-0.31.0/vendor/unity/src/**"
+                "/home/alex/.gem/ruby/2.7.0/gems/ceedling-0.31.1/vendor/unity/src/**"
             ],
             "browse": {
                 "path": [
                     "${workspaceFolder}/src/**",
                     "${workspaceFolder}/test/**",
-                    "/home/alex/.gem/ruby/2.7.0/gems/ceedling-0.31.0/vendor/unity/src/**"
+                    "/home/alex/.gem/ruby/2.7.0/gems/ceedling-0.31.1/vendor/unity/src/**"
                 ]
             },
             "defines": [],
