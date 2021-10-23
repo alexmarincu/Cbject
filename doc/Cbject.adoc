@@ -1,0 +1,5 @@
+= Cbject
+:toc:
+:sectnums:
+
+include::../src/Cbject/Cbject.h[tag=doc]

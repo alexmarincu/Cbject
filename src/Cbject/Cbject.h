@@ -1,3 +1,37 @@
+/************* tag::doc[]
+== Cbject
+
+[plantuml, target=Cbject, format=png]
+....
+hide circle
+class CbjectType {
+    max_align a - alignment enforcer
+    ..
+    char * name - type name
+    ..
+    CbjectVirtFuns vf - struct containing pointers to functions
+}
+
+class Cbject {
+    max_align a - alignment enforcer
+    ..
+    CbjectType t - pointer to the type struct
+    ..
+    CbjectData d - struct containing the object fields
+}
+
+class CustomClass {
+    Cbject s - embedded super class
+    ..
+    CustomClassData d - struct containing the object fields
+}
+
+Cbject::type -> CbjectType::a
+CustomClass -[hidden]u-> Cbject
+....
+
+*********** end::doc[] */
+
 #ifndef CBJECT_H
 #define CBJECT_H
 #include "Cbject_Keywords.h"
