@@ -16,8 +16,6 @@ class Cbject {
     max_align a - alignment enforcer
     ..
     CbjectType t - pointer to the type struct
-    ..
-    CbjectData d - struct containing the object fields
 }
 
 class CustomClass {
@@ -44,8 +42,6 @@ CustomClass -[hidden]u-> Cbject
 
 typedef struct CbjectType CbjectType;
 typedef struct Cbject Cbject;
-typedef char CbjectParams;
-typedef char CbjectData;
 
 typedef struct CbjectVirtFuns
 {
@@ -70,12 +66,11 @@ typedef union CbjectContainer
         {
             Cbject_Settings_maxAlign a;
             CbjectType * t;
-            CbjectData d;
         })];
 } CbjectContainer;
 
 CbjectType const * const CbjectType_instance();
-void Cbject_init(Cbject * const me, CbjectParams const * const params);
+void Cbject_init(Cbject * const me);
 void Cbject_terminate(Cbject * const me);
 uint8 Cbject_size(Cbject const * const me);
 CbjectType const * Cbject_type(Cbject * const me);

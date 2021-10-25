@@ -11,12 +11,11 @@
         {                                                                       \
             Cbject_Settings_maxAlign a;                                         \
             CbjectType * t;                                                     \
-            CbjectData d;                                                       \
         } CbjectContainer;                                                      \
                                                                                 \
-        parent##Params super_params;                                            \
-        typeName##_onInit(me, params, &super_params);                           \
-        parent##_init((parent *) me, &super_params);                            \
+        Cbject_init((Cbject *) me);                                             \
+        typeName##_onInit(me, params);                                          \
+        /* parent##_init((parent *) me, super_params); */                       \
         ((CbjectContainer *) me)->t = (CbjectType *) typeName##Type_instance(); \
     }                                                                           \
     Cbject_OnInitFunPrototype(typeName, parent)

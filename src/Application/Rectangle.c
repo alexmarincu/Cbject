@@ -17,12 +17,9 @@ DefaultGetProp(uint32, height);
 
 Init
 {
-    *super_params = (ShapeParams){
-        .origin.x = params->origin.x,
-        .origin.y = params->origin.y};
-
-    me->d.width = params->width;
-    me->d.height = params->height;
+    me->d.width = params.width;
+    me->d.height = params.height;
+    Shape_init((Shape *) (me), (ShapeParams){params.origin.x, params.origin.y});
 }
 
 Terminate {}

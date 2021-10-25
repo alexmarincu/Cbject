@@ -17,11 +17,8 @@ static Const(float, privatePi = 3.14);
 
 Init
 {
-    *super_params = (ShapeParams){
-        .origin.x = params->origin.x,
-        .origin.y = params->origin.y};
-
-    me->d.radius = params->radius;
+    me->d.radius = params.radius;
+    Shape_init((Shape *) (me), (ShapeParams){params.origin.x, params.origin.y});
 }
 
 Terminate {}

@@ -7,7 +7,6 @@
     {                                                \
         Cbject_Settings_maxAlign a;                  \
         CbjectType * t;                              \
-        CbjectData d;                                \
     } CbjectContainer;                               \
                                                      \
     return ((typeName##Type *) ((CbjectContainer *) me)->t)->vf.funName(me)
@@ -17,7 +16,6 @@
     {                                               \
         Cbject_Settings_maxAlign a;                 \
         CbjectType * t;                             \
-        CbjectData d;                               \
     } CbjectContainer;                              \
                                                     \
     return ((typeName##Type *) ((CbjectContainer *) me)->t)->vf.funName(me, __VA_ARGS__)

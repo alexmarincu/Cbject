@@ -16,12 +16,8 @@ DefaultGetProp(Color, color);
 
 Init
 {
-    *super_params = (CircleParams){
-        .origin.x = params->origin.x,
-        .origin.y = params->origin.y,
-        .radius = params->radius};
-
-    me->d.color = params->color;
+    me->d.color = params.color;
+    Circle_init((Circle *) me, (CircleParams){params.origin.x, params.origin.y, params.radius});
 }
 
 Terminate {}

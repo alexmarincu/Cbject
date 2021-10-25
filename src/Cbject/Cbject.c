@@ -13,7 +13,6 @@ struct Cbject
 {
     Cbject_Settings_maxAlign a;
     CbjectType * t;
-    CbjectData d;
 };
 
 static uint8 super_Cbject_size(Cbject const * const me) { return sizeof(*me); }
@@ -29,5 +28,5 @@ CbjectType const * const CbjectType_instance()
 }
 
 CbjectType const * Cbject_type(Cbject * const me) { return me->t; }
-void Cbject_init(Cbject * const me, CbjectParams const * const params) {}
+void Cbject_init(Cbject * const me) {}
 void Cbject_terminate(Cbject * const me) {}
