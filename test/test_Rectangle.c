@@ -22,7 +22,7 @@ Test creation on heap and data accessors of Rectangle object
 ******************************************************************************* end::testDoc[] */
 void test_Rectangle_Heap(void)
 {
-    Rectangle * r = Rectangle_createOnHeap(&(RectangleParams){{4, 5}, 1, 2});
+    Rectangle * r = Rectangle_createOnHeap((RectangleParams){{4, 5}, 1, 2});
     checkRectangleInit(r);
     checkRectangleDataAccessors(r);
     Rectangle_delete(r);
@@ -36,7 +36,7 @@ Test retrieval from static pool and data accessors of Rectangle object
 ******************************************************************************* end::testDoc[] */
 void test_Rectangle_StaticPool(void)
 {
-    Rectangle * r = Rectangle_getFromStaticPool(&(RectangleParams){{4, 5}, 1, 2});
+    Rectangle * r = Rectangle_getFromStaticPool((RectangleParams){{4, 5}, 1, 2});
     checkRectangleInit(r);
     checkRectangleDataAccessors(r);
 }
