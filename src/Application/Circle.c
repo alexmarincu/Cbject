@@ -4,22 +4,16 @@
 #define Type Circle
 #define Parent Shape
 
-PoolSize(10);
-
 ClassSetup(
-    VirtFunCalls(, (void, rotate, (0), (0))),
+    VirtFunCalls(,
+        (void, rotate, (0), (0))),
     BindSuperFuns(,
         (Shape, float, area, (0)),
         (Shape, void, draw, (0)),
         (Circle, void, rotate, (0))));
 
-Consts(,
-    (float, pi = 3.14),
-    (float, anotherPi = 3.14));
-
-PrivateConsts(,
-    (float, privatePi = 3.14),
-    (float, anotherPrivatePi = 3.14));
+Const(float, pi = 3.14);
+static Const(float, privatePi = 3.14);
 
 Init
 {
@@ -27,7 +21,7 @@ Init
         .origin.x = params->origin.x,
         .origin.y = params->origin.y};
 
-    me->props.radius = params->radius;
+    me->d.radius = params->radius;
 }
 
 Terminate {}
@@ -41,7 +35,7 @@ SuperFun(void, draw, (0))
     printf("Circle draw\n");
 }
 
-SuperFun(float, area, (0)) { return me->props.radius * me->props.radius * Circle_pi; }
+SuperFun(float, area, (0)) { return me->d.radius * me->d.radius * Circle_pi; }
 SuperFun(void, rotate, (0)) { printf("Rotate clockwise\n"); }
 
 #undef Parent

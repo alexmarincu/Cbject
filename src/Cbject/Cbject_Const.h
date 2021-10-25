@@ -2,7 +2,7 @@
 #define CBJECT_CONST_H
 #include "Cbject_ConstDef.h"
 
-#define Cbject_Const(cbjType, constType, constNameAndValue) \
-    Cbject_ConstDef(cbjType, constType, constNameAndValue)
+#define Cbject_Const(typeName, constType, constNameAndValue) \
+    Cbject_ConstDef(typeName, constType, constNameAndValue)
 
 #endif // CBJECT_CONST_H

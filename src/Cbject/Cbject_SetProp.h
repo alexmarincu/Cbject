@@ -2,7 +2,7 @@
 #define CBJECT_SETPROP_H
 #include "Cbject_SetPropFunPrototype.h"
 
-#define Cbject_SetProp(cbjType, propType, propName) \
-    Cbject_SetPropFunPrototype(cbjType, propType, propName)
+#define Cbject_SetProp(typeName, fieldType, fieldName) \
+    Cbject_SetPropFunPrototype(typeName, fieldType, fieldName)
 
 #endif // CBJECT_SETPROP_H

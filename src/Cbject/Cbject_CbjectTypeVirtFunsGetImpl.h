@@ -2,21 +2,21 @@
 #define CBJECT_CBJECTTYPEVIRTFUNSGETIMPL_H
 #include "Cbject_CbjectTypeVirtFunsGetFunPrototype.h"
 
-#define Cbject_CbjectTypeVirtFunsGetImpl(cbjType)           \
-    Cbject_CbjectTypeVirtFunsGetFunPrototype(cbjType)       \
+#define Cbject_CbjectTypeVirtFunsGetImpl(typeName)          \
+    Cbject_CbjectTypeVirtFunsGetFunPrototype(typeName)      \
     {                                                       \
-        cbjType##VirtFuns * virtFuns = NULL;                \
+        typeName##VirtFuns * virtFuns = NULL;               \
                                                             \
         typedef struct CbjectTypeContainer                  \
         {                                                   \
             Cbject_Settings_maxAlign a;                     \
             char const * name;                              \
-            CbjectVirtFuns virtFuns;                        \
+            CbjectVirtFuns vf;                              \
         } CbjectTypeContainer;                              \
                                                             \
         if (((CbjectTypeContainer *) meType)->name == NULL) \
         {                                                   \
-            virtFuns = &meType->virtFuns;                   \
+            virtFuns = &meType->vf;                         \
         }                                                   \
                                                             \
         return virtFuns;                                    \

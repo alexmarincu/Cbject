@@ -2,7 +2,7 @@
 #define CBJECT_DEFAULTGETPROP_H
 #include "Cbject_DefaultGetPropFunImpl.h"
 
-#define Cbject_DefaultGetProp(cbjType, propType, propName) \
-    Cbject_DefaultGetPropFunImpl(cbjType, propType, propName)
+#define Cbject_DefaultGetProp(typeName, fieldType, fieldName) \
+    Cbject_DefaultGetPropFunImpl(typeName, fieldType, fieldName)
 
 #endif // CBJECT_DEFAULTGETPROP_H

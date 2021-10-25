@@ -2,15 +2,15 @@
 #define CBJECT_CONTAINERTYPEDEF_H
 #include "Cbject_Settings.h"
 
-#define Cbject_ContainerTypeDef(cbjType, parent) \
-    typedef union cbjType##Container             \
-    {                                            \
-        Cbject_Settings_maxAlign a;              \
-        char d[sizeof(struct                     \
-            {                                    \
-                parent##Container super;         \
-                cbjType##Props props;            \
-            })];                                 \
-    } cbjType##Container
+#define Cbject_ContainerTypeDef(typeName, parent) \
+    typedef union typeName##Container             \
+    {                                             \
+        Cbject_Settings_maxAlign a;               \
+        char c[sizeof(struct                      \
+            {                                     \
+                parent##Container s;              \
+                typeName##Data d;                 \
+            })];                                  \
+    } typeName##Container
 
 #endif // CBJECT_CONTAINERTYPEDEF_H

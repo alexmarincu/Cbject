@@ -2,12 +2,12 @@
 #define CBJECT_NEWONSTACKFUNIMPL_H
 #include "Cbject_NewOnStackFunPrototype.h"
 
-#define Cbject_NewOnStackFunImpl(cbjType)  \
-    Cbject_NewOnStackFunPrototype(cbjType) \
-    {                                      \
-        memset(me, 0, sizeof(cbjType));    \
-        cbjType##_init(me, params);        \
-        return me;                         \
+#define Cbject_NewOnStackFunImpl(typeName)  \
+    Cbject_NewOnStackFunPrototype(typeName) \
+    {                                       \
+        memset(me, 0, sizeof(typeName));    \
+        typeName##_init(me, params);        \
+        return me;                          \
     }
 
 #endif // CBJECT_NEWONSTACKFUNIMPL_H

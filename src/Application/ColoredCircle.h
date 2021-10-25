@@ -11,20 +11,20 @@ Class(
         Point origin,
         uint32 radius,
         Color color),
-    Props(, Color color),
+    Data(,
+        Color color),
     VirtFuns(0));
 
-SetProps(,
-    (uint32, radius),
-    (Color, color));
+PoolSize(10);
 
-GetProps(,
-    (uint32, radius),
-    (Color, color));
+SetProp(uint32, radius);
+SetProp(Color, color);
 
-SuperFuns(,
-    (void, draw, (0)),
-    (void, rotate, (0)));
+GetProp(uint32, radius);
+GetProp(Color, color);
+
+SuperFun(void, draw, (0));
+SuperFun(void, rotate, (0));
 
 #undef Type
 #undef Parent

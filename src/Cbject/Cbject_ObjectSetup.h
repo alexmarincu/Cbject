@@ -8,12 +8,12 @@
 #include "Cbject_TypeTypeDef.h"
 #include "Cbject_Utils.h"
 
-#define Cbject_ObjectSetup(cbjType, parent, bindSuperFuns) \
-    Cbject_TypeTypeDef(cbjType, parent, withoutVirtFuns);  \
-    Cbject_TypeDef(cbjType, parent);                       \
-    Cbject_TypeInstanceFunPrototype(cbjType);              \
-    Cbject_ObjectInstanceImpl(cbjType);                    \
-    Cbject_SizeImpl(cbjType);                              \
-    Cbject_TypeInstanceImpl(cbjType, parent, Cbject_Utils_stripParentheses(bindSuperFuns))
+#define Cbject_ObjectSetup(typeName, parent, bindSuperFuns) \
+    Cbject_TypeTypeDef(typeName, parent, withoutVirtFuns);  \
+    Cbject_TypeDef(typeName, parent);                       \
+    Cbject_TypeInstanceFunPrototype(typeName);              \
+    Cbject_ObjectInstanceImpl(typeName);                    \
+    Cbject_SizeImpl(typeName);                              \
+    Cbject_TypeInstanceImpl(typeName, parent, Cbject_Utils_stripParentheses(bindSuperFuns))
 
 #endif // CBJECT_OBJECTSETUP_H

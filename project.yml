@@ -45,6 +45,7 @@
   :plugins:
     - :ignore
     - :callback
+  :treat_externs: :include
   :treat_as:
     uint8: HEX8
     uint16: HEX16

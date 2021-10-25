@@ -3,20 +3,17 @@
 
 #define Type Rectangle
 #define Parent Shape
-PoolSize(10);
 
 ClassSetup(
     VirtFunCalls(0),
     BindSuperFuns(,
         (Shape, float, area, (0))));
 
-DefaultSetProps(,
-    (uint32, width),
-    (uint32, height));
+DefaultSetProp(uint32, width);
+DefaultSetProp(uint32, height);
 
-DefaultGetProps(,
-    (uint32, width),
-    (uint32, height));
+DefaultGetProp(uint32, width);
+DefaultGetProp(uint32, height);
 
 Init
 {
@@ -24,14 +21,14 @@ Init
         .origin.x = params->origin.x,
         .origin.y = params->origin.y};
 
-    me->props.width = params->width;
-    me->props.height = params->height;
+    me->d.width = params->width;
+    me->d.height = params->height;
 }
 
 Terminate {}
 
 Fun(uint32, test, (, uint32 const ab)) { return ab; }
-SuperFun(float, area, (0)) { return me->props.width * me->props.height; }
+SuperFun(float, area, (0)) { return me->d.width * me->d.height; }
 
 #undef Parent
 #undef Type

@@ -5,8 +5,8 @@
 
 #define Cbject_Utils_stripParentheses_(x) x
 
-#define Cbject_Utils_stripParentheses(args) \
-    Cbject_Utils_stripParentheses_(Cbject_Utils_stripParentheses__ args)
+#define Cbject_Utils_stripParentheses(params) \
+    Cbject_Utils_stripParentheses_(Cbject_Utils_stripParentheses__ params)
 
 #define Cbject_Utils_fe1(macro, x) macro(x)
 #define Cbject_Utils_fe2(macro, x, ...) macro(x) Cbject_Utils_fe1(macro, __VA_ARGS__)

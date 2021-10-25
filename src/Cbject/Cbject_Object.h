@@ -1,23 +1,23 @@
 #ifndef CBJECT_OBJECT_H
 #define CBJECT_OBJECT_H
 #include "Cbject_ContainerTypeDef.h"
+#include "Cbject_DataTypeDef.h"
 #include "Cbject_InitFunPrototype.h"
 #include "Cbject_ObjectInstanceFunPrototype.h"
 #include "Cbject_ParamsTypeDef.h"
-#include "Cbject_PropsTypeDef.h"
 #include "Cbject_TerminateFunPrototype.h"
 #include "Cbject_TypeDecl.h"
 #include "Cbject_TypeTypeDecl.h"
 #include "Cbject_Utils.h"
 
-#define Cbject_Object(cbjType, parent, props)                           \
-    Cbject_TypeTypeDecl(cbjType);                                       \
-    Cbject_TypeDecl(cbjType);                                           \
-    Cbject_ParamsTypeDef(cbjType, 0);                                   \
-    Cbject_PropsTypeDef(cbjType, Cbject_Utils_stripParentheses(props)); \
-    Cbject_ContainerTypeDef(cbjType, parent);                           \
-    Cbject_InitFunPrototype(cbjType);                                   \
-    Cbject_TerminateFunPrototype(cbjType);                              \
-    Cbject_ObjectInstanceFunPrototype(cbjType)
+#define Cbject_Object(typeName, parent, data)                          \
+    Cbject_TypeTypeDecl(typeName);                                     \
+    Cbject_TypeDecl(typeName);                                         \
+    Cbject_ParamsTypeDef(typeName, 0);                                 \
+    Cbject_DataTypeDef(typeName, Cbject_Utils_stripParentheses(data)); \
+    Cbject_ContainerTypeDef(typeName, parent);                         \
+    Cbject_InitFunPrototype(typeName);                                 \
+    Cbject_TerminateFunPrototype(typeName);                            \
+    Cbject_ObjectInstanceFunPrototype(typeName)
 
 #endif // CBJECT_OBJECT_H

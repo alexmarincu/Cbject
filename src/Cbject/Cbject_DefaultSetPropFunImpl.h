@@ -2,7 +2,7 @@
 #define CBJECT_DEFAULTSETPROPFUNIMPL_H
 #include "Cbject_SetPropFunPrototype.h"
 
-#define Cbject_DefaultSetPropFunImpl(cbjType, propType, propName) \
-    Cbject_SetPropFunPrototype(cbjType, propType, propName) { me->props.propName = propName; }
+#define Cbject_DefaultSetPropFunImpl(typeName, fieldType, fieldName) \
+    Cbject_SetPropFunPrototype(typeName, fieldType, fieldName) { me->d.fieldName = fieldName; }
 
 #endif // CBJECT_DEFAULTSETPROPFUNIMPL_H

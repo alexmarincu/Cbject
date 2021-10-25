@@ -44,6 +44,13 @@
                 "isDefault": true
             },
             "problemMatcher": []
+        },
+        {
+            "label": "Generate Docs",
+            "type": "shell",
+            "command": "asciidoctor-pdf -r asciidoctor-diagram -o ./build/artifacts/doc/Cbject.pdf ./doc/Cbject.adoc; asciidoctor -r asciidoctor-diagram -o ./build/artifacts/doc/Cbject.html ./doc/Cbject.adoc",
+            "group": "build",
+            "problemMatcher": []
         }
     ]
 }

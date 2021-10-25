@@ -5,8 +5,6 @@
 #define Type ColoredCircle
 #define Parent Circle
 
-PoolSize(10);
-
 ClassSetup(
     VirtFunCalls(0),
     BindSuperFuns(,
@@ -23,7 +21,7 @@ Init
         .origin.y = params->origin.y,
         .radius = params->radius};
 
-    me->props.color = params->color;
+    me->d.color = params->color;
 }
 
 Terminate {}

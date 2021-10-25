@@ -2,7 +2,7 @@
 #define CBJECT_CASTTOSUPERIMPL_H
 #include "Cbject_CastToSuperFunPrototype.h"
 
-#define Cbject_CastToSuperImpl(cbjType, parent) \
-    Cbject_CastToSuperFunPrototype(cbjType, parent) { return (parent *) me; }
+#define Cbject_CastToSuperImpl(typeName, parent) \
+    Cbject_CastToSuperFunPrototype(typeName, parent) { return (parent *) me; }
 
 #endif // CBJECT_CASTTOSUPERIMPL_H

@@ -3,9 +3,10 @@
 #include "Cbject_CastToSuperFunPrototype.h"
 #include "Cbject_CbjectTypeVirtFunsGetFunPrototype.h"
 #include "Cbject_ContainerTypeDef.h"
+#include "Cbject_DataTypeDef.h"
+#include "Cbject_Funs.h"
 #include "Cbject_InitFunPrototype.h"
 #include "Cbject_ParamsTypeDef.h"
-#include "Cbject_PropsTypeDef.h"
 #include "Cbject_TerminateFunPrototype.h"
 #include "Cbject_TypeContainerTypeDef.h"
 #include "Cbject_TypeDecl.h"
@@ -14,19 +15,19 @@
 #include "Cbject_Utils.h"
 #include "Cbject_VirtFunsTypeDef.h"
 
-#define Cbject_AbstractClass(cbjType, parent, params, props, virtFuns)        \
-    Cbject_TypeTypeDecl(cbjType);                                             \
-    Cbject_TypeDecl(cbjType);                                                 \
-    Cbject_ParamsTypeDef(cbjType, Cbject_Utils_stripParentheses(params));     \
-    Cbject_PropsTypeDef(cbjType, Cbject_Utils_stripParentheses(props));       \
-    Cbject_VirtFunsTypeDef(cbjType, Cbject_Utils_stripParentheses(virtFuns)); \
-    Cbject_TypeContainerTypeDef(cbjType, parent, withVirtFuns);               \
-    Cbject_ContainerTypeDef(cbjType, parent);                                 \
-    Cbject_InitFunPrototype(cbjType);                                         \
-    Cbject_TerminateFunPrototype(cbjType);                                    \
-    Cbject_TypeInstanceFunPrototype(cbjType);                                 \
-    Funs(Cbject_Utils_stripParentheses(virtFuns));                            \
-    Cbject_CastToSuperFunPrototype(cbjType, parent);                          \
-    Cbject_CbjectTypeVirtFunsGetFunPrototype(cbjType)
+#define Cbject_AbstractClass(typeName, parent, params, data, virtFuns)         \
+    Cbject_TypeTypeDecl(typeName);                                             \
+    Cbject_TypeDecl(typeName);                                                 \
+    Cbject_ParamsTypeDef(typeName, Cbject_Utils_stripParentheses(params));     \
+    Cbject_DataTypeDef(typeName, Cbject_Utils_stripParentheses(data));         \
+    Cbject_VirtFunsTypeDef(typeName, Cbject_Utils_stripParentheses(virtFuns)); \
+    Cbject_TypeContainerTypeDef(typeName, parent, withVirtFuns);               \
+    Cbject_ContainerTypeDef(typeName, parent);                                 \
+    Cbject_InitFunPrototype(typeName);                                         \
+    Cbject_TerminateFunPrototype(typeName);                                    \
+    Cbject_TypeInstanceFunPrototype(typeName);                                 \
+    Cbject_Funs(Cbject_Utils_stripParentheses(virtFuns));                      \
+    Cbject_CastToSuperFunPrototype(typeName, parent);                          \
+    Cbject_CbjectTypeVirtFunsGetFunPrototype(typeName)
 
 #endif // CBJECT_ABSTRACTCLASS_H

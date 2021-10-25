@@ -9,21 +9,21 @@ Class(
     Params(,
         Point origin,
         uint32 radius),
-    Props(,
+    Data(,
         int32 radius),
     VirtFuns(,
         (void, rotate, (0))));
 
-PublicConst(float, pi);
-PublicConsts(, (float, anotherPi));
+PoolSize(10);
+
+extern Const(float, pi);
 
 SetProp(uint32, radius);
 GetProp(uint32, radius);
 
-SuperFuns(,
-    (float, area, (0)),
-    (void, draw, (0)),
-    (void, rotate, (0)));
+SuperFun(float, area, (0));
+SuperFun(void, draw, (0));
+SuperFun(void, rotate, (0));
 
 #undef Type
 #undef Parent
