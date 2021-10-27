@@ -44,17 +44,17 @@ void test_Rectangle_StaticPool(void)
 static void checkRectangleInit(Rectangle const * const r)
 {
     TEST_ASSERT_NOT_NULL(r);
-    TEST_ASSERT_EQUAL_UINT8(4, Shape_origin(Rectangle_toShape(r)).x);
-    TEST_ASSERT_EQUAL_UINT8(5, Shape_origin(Rectangle_toShape(r)).y);
+    TEST_ASSERT_EQUAL_UINT8(4, Shape_origin(Cbject_cast(r, Shape)).x);
+    TEST_ASSERT_EQUAL_UINT8(5, Shape_origin(Cbject_cast(r, Shape)).y);
     TEST_ASSERT_EQUAL_UINT8(1, Rectangle_width(r));
     TEST_ASSERT_EQUAL_UINT8(2, Rectangle_height(r));
 }
 
 static void checkRectangleDataAccessors(Rectangle * const r)
 {
-    Shape_originSet((Shape *) r, (Point){1, 2});
-    TEST_ASSERT_EQUAL_UINT8(1, Shape_origin(Rectangle_toShape(r)).x);
-    TEST_ASSERT_EQUAL_UINT8(2, Shape_origin(Rectangle_toShape(r)).y);
+    Shape_originSet(Cbject_cast(r, Shape), (Point){1, 2});
+    TEST_ASSERT_EQUAL_UINT8(1, Shape_origin(Cbject_cast(r, Shape)).x);
+    TEST_ASSERT_EQUAL_UINT8(2, Shape_origin(Cbject_cast(r, Shape)).y);
     Rectangle_widthSet(r, 2);
     Rectangle_heightSet(r, 3);
     TEST_ASSERT_EQUAL_UINT8(2, Rectangle_width(r));

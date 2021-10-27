@@ -28,6 +28,7 @@
     Cbject_TypeInstanceFunPrototype(typeName);                                 \
     Cbject_Funs(Cbject_Utils_stripParentheses(virtFuns));                      \
     Cbject_CastToSuperFunPrototype(typeName, parent);                          \
+    Cbject_CastFunPrototype(typeName);                                         \
     Cbject_CbjectTypeVirtFunsGetFunPrototype(typeName)
 
 #endif // CBJECT_ABSTRACTCLASS_H

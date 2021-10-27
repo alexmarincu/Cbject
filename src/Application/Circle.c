@@ -18,7 +18,8 @@ static Const(float, privatePi = 3.14);
 Init
 {
     me->d.radius = params.radius;
-    Shape_init((Shape *) (me), (ShapeParams){params.origin.x, params.origin.y});
+    s_params->origin = params.origin;
+    // Shape_init(Cbject_cast(me, Shape), (ShapeParams){params.origin.x, params.origin.y});
 }
 
 Terminate {}
@@ -28,7 +29,7 @@ DefaultGetProp(uint32, radius);
 
 SuperFun(void, draw, (0))
 {
-    super_Shape_draw((Shape *) me);
+    super_Shape_draw(Cbject_cast(me, Shape));
     printf("Circle draw\n");
 }
 

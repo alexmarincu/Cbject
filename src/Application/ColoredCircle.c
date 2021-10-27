@@ -17,21 +17,23 @@ DefaultGetProp(Color, color);
 Init
 {
     me->d.color = params.color;
-    Circle_init((Circle *) me, (CircleParams){params.origin.x, params.origin.y, params.radius});
+    s_params->origin = params.origin;
+    s_params->radius = params.radius;
+    // Circle_init(Cbject_cast(me, Circle), (CircleParams){params.origin.x, params.origin.y, params.radius});
 }
 
 Terminate {}
 
 SuperFun(void, draw, (0))
 {
-    super_Shape_draw((Shape *) me);
-    super_Circle_draw((Circle *) me);
+    super_Shape_draw(Cbject_cast(me, Shape));
+    super_Circle_draw(Cbject_cast(me, Circle));
     printf("ColoredCircle draw\n");
 }
 
 SuperFun(void, rotate, (0))
 {
-    super_Circle_rotate((Circle *) me);
+    super_Circle_rotate(Cbject_cast(me, Circle));
     printf("Rotate counter-clockwise\n");
 }
 

@@ -11,6 +11,8 @@
         {                                                   \
             Cbject_Settings_maxAlign a;                     \
             char const * name;                              \
+            CbjectTypeId id;                                \
+            CbjectType * s;                                 \
             CbjectVirtFuns vf;                              \
         } CbjectTypeContainer;                              \
                                                             \

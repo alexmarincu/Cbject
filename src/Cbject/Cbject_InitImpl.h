@@ -13,9 +13,9 @@
             CbjectType * t;                                                     \
         } CbjectContainer;                                                      \
                                                                                 \
-        Cbject_init((Cbject *) me);                                             \
-        typeName##_onInit(me, params);                                          \
-        /* parent##_init((parent *) me, super_params); */                       \
+        parent##Params s_params;                                                \
+        typeName##_onInit(me, params, &s_params);                               \
+        parent##_init((parent *) me, s_params);                                 \
         ((CbjectContainer *) me)->t = (CbjectType *) typeName##Type_instance(); \
     }                                                                           \
     Cbject_OnInitFunPrototype(typeName, parent)

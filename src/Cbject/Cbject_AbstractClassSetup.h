@@ -15,6 +15,7 @@
     Cbject_SizeImpl(typeName);                                                               \
     Cbject_TypeInstanceImpl(typeName, parent, Cbject_Utils_stripParentheses(bindSuperFuns)); \
     Cbject_CastToSuperImpl(typeName, parent);                                                \
+    Cbject_CastImpl(typeName);                                                               \
     Cbject_CbjectTypeVirtFunsGetImpl(typeName);                                              \
     Cbject_VirtFunCalls(Cbject_Utils_stripParentheses(virtFunCalls))
 

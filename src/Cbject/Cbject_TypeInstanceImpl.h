@@ -15,6 +15,8 @@
         {                                                                                                           \
             Cbject_Settings_maxAlign a;                                                                             \
             char const * name;                                                                                      \
+            CbjectTypeId id;                                                                                        \
+            CbjectType * s;                                                                                         \
             CbjectVirtFuns vf;                                                                                      \
         } CbjectTypeContainer;                                                                                      \
                                                                                                                     \
@@ -25,6 +27,8 @@
             ((CbjectTypeContainer *) &type)->name = NULL;                                                           \
             ((CbjectTypeContainer *) &type)->vf.size = (uint8(*)(Cbject const * const me)) super_##typeName##_size; \
             ((CbjectTypeContainer *) &type)->name = #typeName;                                                      \
+            ((CbjectTypeContainer *) &type)->id = CbjectTypeId_##typeName;                                          \
+            ((CbjectTypeContainer *) &type)->s = (CbjectType *) parent##Type_instance();                            \
         }                                                                                                           \
                                                                                                                     \
         return &type;                                                                                               \
@@ -39,6 +43,8 @@
         {                                                                                                           \
             Cbject_Settings_maxAlign a;                                                                             \
             char const * name;                                                                                      \
+            CbjectTypeId id;                                                                                        \
+            CbjectType * s;                                                                                         \
             CbjectVirtFuns vf;                                                                                      \
         } CbjectTypeContainer;                                                                                      \
                                                                                                                     \
@@ -50,6 +56,8 @@
             ((CbjectTypeContainer *) &type)->vf.size = (uint8(*)(Cbject const * const me)) super_##typeName##_size; \
             Cbject_Utils_forEach(Cbject_TypeInstanceImpl_stripParenthesesAndApplyBindSuperFun, __VA_ARGS__);        \
             ((CbjectTypeContainer *) &type)->name = #typeName;                                                      \
+            ((CbjectTypeContainer *) &type)->id = CbjectTypeId_##typeName;                                          \
+            ((CbjectTypeContainer *) &type)->s = (CbjectType *) parent##Type_instance();                            \
         }                                                                                                           \
                                                                                                                     \
         return &type;                                                                                               \
