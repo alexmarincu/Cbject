@@ -6,14 +6,14 @@
 #define Parent Shape
 
 Class(
-    Params(,
+    Params(
         Point origin,
         uint32 width,
         uint32 height),
-    Data(,
+    Data(
         uint32 width,
         uint32 height),
-    VirtFuns(0));
+    (0));
 
 PoolSize(10);
 
@@ -23,7 +23,7 @@ SetProp(uint32, height);
 GetProp(uint32, width);
 GetProp(uint32, height);
 
-Fun(uint32, test, (, uint32 const ab));
+Fun(uint32, test, Params(uint32 const ab));
 SuperFun(float, area, (0));
 
 #undef Parent

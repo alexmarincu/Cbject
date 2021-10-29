@@ -14,12 +14,11 @@ void setUp(void) {}
 
 void tearDown(void) {}
 
-/****************************************************************************** tag::testDoc[]
+/* tag::testDoc[]
 == Rectangle on heap
-.Description
 Test creation on heap and data accessors of Rectangle object
 
-******************************************************************************* end::testDoc[] */
+end::testDoc[] */
 void test_Rectangle_Heap(void)
 {
     Rectangle * r = Rectangle_createOnHeap((RectangleParams){{4, 5}, 1, 2});
@@ -28,12 +27,11 @@ void test_Rectangle_Heap(void)
     Rectangle_delete(r);
 }
 
-/****************************************************************************** tag::testDoc[]
+/* tag::testDoc[]
 == Rectangle on static pool
-.Description
 Test retrieval from static pool and data accessors of Rectangle object
 
-******************************************************************************* end::testDoc[] */
+end::testDoc[] */
 void test_Rectangle_StaticPool(void)
 {
     Rectangle * r = Rectangle_getFromStaticPool((RectangleParams){{4, 5}, 1, 2});

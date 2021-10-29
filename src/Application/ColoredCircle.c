@@ -6,8 +6,8 @@
 #define Parent Circle
 
 ClassSetup(
-    VirtFunCalls(0),
-    BindSuperFuns(,
+    (0),
+    BindSuperFuns(
         (Shape, void, draw, (0)),
         (Circle, void, rotate, (0))));
 

@@ -4,7 +4,7 @@
 #define Type Application
 #define Parent Cbject
 
-ObjectSetup(BindSuperFuns(0));
+ObjectSetup((0));
 Init {}
 Terminate {}
 

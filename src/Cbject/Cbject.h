@@ -70,7 +70,7 @@ typedef union CbjectTypeContainer
             Cbject_Settings_maxAlign a;
             char const * name;
             CbjectTypeId id;
-            CbjectType * s;
+            CbjectType * st;
             CbjectVirtFuns vf;
         })];
 } CbjectTypeContainer;

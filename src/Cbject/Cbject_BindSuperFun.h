@@ -3,10 +3,10 @@
 #include "Cbject_Utils.h"
 
 #define Cbject_BindSuperFun_0(typeName, parent, returnType, funName, ...) \
-    parent##Type_virtFuns((parent##Type *) &type)->funName = (returnType(*)(parent * const me)) super_##typeName##_##funName
+    parent##Type_virtFuns((parent##Type *) &t)->funName = (returnType(*)(parent * const me)) super_##typeName##_##funName
 
 #define Cbject_BindSuperFun_(typeName, parent, returnType, funName, ...) \
-    parent##Type_virtFuns((parent##Type *) &type)->funName = (returnType(*)(parent * const me, __VA_ARGS__)) super_##typeName##_##funName
+    parent##Type_virtFuns((parent##Type *) &t)->funName = (returnType(*)(parent * const me, __VA_ARGS__)) super_##typeName##_##funName
 
 #define Cbject_BindSuperFun_case(typeName, parent, returnType, funName, case, ...) \
     Cbject_BindSuperFun_##case (typeName, parent, returnType, funName, __VA_ARGS__)

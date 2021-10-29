@@ -7,7 +7,7 @@ struct CbjectType
     Cbject_Settings_maxAlign a;
     char const * name;
     CbjectTypeId id;
-    CbjectType * s;
+    CbjectType * st;
     CbjectVirtFuns vf;
 };
 
@@ -22,13 +22,13 @@ uint8 Cbject_size(Cbject const * const me) { return me->t->vf.size(me); }
 
 CbjectType const * const CbjectType_instance()
 {
-    static CbjectType type = {
+    static CbjectType t = {
         .name = "Cbject",
         .id = CbjectTypeId_Cbject,
-        .s = NULL,
+        .st = NULL,
         .vf = {.size = super_Cbject_size}};
 
-    return &type;
+    return &t;
 }
 
 CbjectType const * Cbject_type(Cbject * const me) { return me->t; }

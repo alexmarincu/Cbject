@@ -5,9 +5,9 @@
 #define Parent Shape
 
 ClassSetup(
-    VirtFunCalls(,
+    VirtFunCalls(
         (void, rotate, (0), (0))),
-    BindSuperFuns(,
+    BindSuperFuns(
         (Shape, float, area, (0)),
         (Shape, void, draw, (0)),
         (Circle, void, rotate, (0))));

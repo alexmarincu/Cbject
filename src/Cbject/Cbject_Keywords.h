@@ -29,7 +29,7 @@
     Cbject_AbstractClassSetup(Type, Parent, virtFunCalls, bindSuperFuns)
 
 #define BindSuperFuns(...) \
-    (__VA_ARGS__)
+    (, __VA_ARGS__)
 
 #define Class(params, data, virtFuns) \
     Cbject_Class(Type, Parent, params, data, virtFuns)
@@ -59,22 +59,22 @@
     Cbject_SuperFun(Type, returnType, funName, Cbject_Utils_stripParentheses(params))
 
 #define Params(...) \
-    (__VA_ARGS__)
+    (, __VA_ARGS__)
 
 #define PoolSize(poolSize) \
     Cbject_PoolSize(Type, poolSize)
 
 #define Data(...) \
-    (__VA_ARGS__)
+    (, __VA_ARGS__)
 
 #define VirtFun(returnType, funName, params, callParams) \
     Cbject_VirtFun(Type, returnType, funName, params, callParams)
 
 #define VirtFunCalls(...) \
-    (__VA_ARGS__)
+    (, __VA_ARGS__)
 
 #define VirtFuns(...) \
-    (__VA_ARGS__)
+    (, __VA_ARGS__)
 
 #define SetProp(fieldType, fieldName) \
     Cbject_SetProp(Type, fieldType, fieldName)

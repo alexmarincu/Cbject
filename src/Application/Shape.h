@@ -7,9 +7,11 @@
 #define Parent Cbject
 
 AbstractClass(
-    Params(, Point origin),
-    Data(, Point origin),
-    VirtFuns(,
+    Params(
+        Point origin),
+    Data(
+        Point origin),
+    VirtFuns(
         (float, area, (0)),
         (void, draw, (0))));
 

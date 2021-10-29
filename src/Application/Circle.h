@@ -6,12 +6,12 @@
 #define Parent Shape
 
 Class(
-    Params(,
+    Params(
         Point origin,
         uint32 radius),
-    Data(,
+    Data(
         int32 radius),
-    VirtFuns(,
+    VirtFuns(
         (void, rotate, (0))));
 
 PoolSize(10);

@@ -8,27 +8,27 @@
 #define Cbject_CastImpl(typeName)                                                    \
     Cbject_CastFunPrototype(typeName)                                                \
     {                                                                                \
-        typedef struct CbjectType                                                    \
+        typedef struct CbjectTypeT                                                   \
         {                                                                            \
             Cbject_Settings_maxAlign a;                                              \
             char const * name;                                                       \
             CbjectTypeId id;                                                         \
-            CbjectType * s;                                                          \
+            CbjectType * st;                                                         \
             CbjectVirtFuns vf;                                                       \
-        } CbjectType;                                                                \
+        } CbjectTypeT;                                                               \
                                                                                      \
-        typedef struct Cbject                                                        \
+        typedef struct CbjectT                                                       \
         {                                                                            \
             Cbject_Settings_maxAlign a;                                              \
             CbjectType * t;                                                          \
-        } Cbject;                                                                    \
+        } CbjectT;                                                                   \
                                                                                      \
-        CbjectType const * t = ((Cbject *) me)->t;                                   \
+        CbjectTypeT const * t = (CbjectTypeT *) ((CbjectT *) me)->t;                 \
                                                                                      \
         while ((t->id != CbjectTypeId_Cbject) && (t->id != CbjectTypeId_##typeName)) \
         {                                                                            \
-            t = (CbjectType *) t->s;                                                 \
-            assert((t->id != CbjectTypeId_Cbject) && "Cast to not possible");        \
+            t = (CbjectTypeT *) t->st;                                               \
+            assert((t->id != CbjectTypeId_Cbject) && "Cast not possible");           \
         }                                                                            \
                                                                                      \
         return (typeName *) me;                                                      \

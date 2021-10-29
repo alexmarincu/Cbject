@@ -5,8 +5,8 @@
 #define Parent Shape
 
 ClassSetup(
-    VirtFunCalls(0),
-    BindSuperFuns(,
+    (0),
+    BindSuperFuns(
         (Shape, float, area, (0))));
 
 DefaultSetProp(uint32, width);
@@ -25,7 +25,7 @@ Init
 
 Terminate {}
 
-Fun(uint32, test, (, uint32 const ab)) { return ab; }
+Fun(uint32, test, Params(uint32 const ab)) { return ab; }
 SuperFun(float, area, (0)) { return me->d.width * me->d.height; }
 
 #undef Parent

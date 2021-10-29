@@ -7,13 +7,13 @@
 #define Parent Circle
 
 Class(
-    Params(,
+    Params(
         Point origin,
         uint32 radius,
         Color color),
-    Data(,
+    Data(
         Color color),
-    VirtFuns(0));
+    (0));
 
 PoolSize(10);
 
