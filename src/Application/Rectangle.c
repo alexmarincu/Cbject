@@ -20,7 +20,7 @@ Init
     me->d.width = params.width;
     me->d.height = params.height;
     s_params->origin = params.origin;
-    // Shape_init(Cbject_cast(me, Shape), (ShapeParams){params.origin.x, params.origin.y});
+    // Shape_init(Cast(me, Shape), (ShapeParams){params.origin.x, params.origin.y});
 }
 
 Terminate {}

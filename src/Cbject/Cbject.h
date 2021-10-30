@@ -40,22 +40,12 @@ CustomClass -[hidden]u-> Cbject
 #define Cbject_isTypeOf(me, typeName) \
     (Cbject_type((Cbject *) (me)) == (CbjectType *) typeName##Type_instance())
 
-#define Cbject_cast(me, typeName) \
+#define Cast(typeName, me) \
     Cbject_to##typeName((Cbject *) me)
 
 typedef struct CbjectType CbjectType;
 typedef struct Cbject Cbject;
 typedef char CbjectParams;
-
-typedef enum CbjectTypeId
-{
-    CbjectTypeId_Cbject,
-    CbjectTypeId_Application,
-    CbjectTypeId_Circle,
-    CbjectTypeId_ColoredCircle,
-    CbjectTypeId_Shape,
-    CbjectTypeId_Rectangle,
-} CbjectTypeId;
 
 typedef struct CbjectVirtFuns
 {
@@ -69,7 +59,6 @@ typedef union CbjectTypeContainer
         {
             Cbject_Settings_maxAlign a;
             char const * name;
-            CbjectTypeId id;
             CbjectType * st;
             CbjectVirtFuns vf;
         })];

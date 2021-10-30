@@ -38,14 +38,14 @@ static Fun(void, circleExample, (0))
     printf("Set radius to 2\n");
     Circle_radiusSet(me->d.circle, 2);
     printf("radius = %d\n", Circle_radius(me->d.circle));
-    printf("area = %.2f\n", Shape_area(Cbject_cast(me->d.circle, Shape)));
-    printf("origin.x = %d\n", Shape_origin(Cbject_cast(me->d.circle, Shape)).x);
-    printf("origin.y = %d\n", Shape_origin(Cbject_cast(me->d.circle, Shape)).y);
+    printf("area = %.2f\n", Shape_area(Cast(Shape, me->d.circle)));
+    printf("origin.x = %d\n", Shape_origin(Cast(Shape, me->d.circle)).x);
+    printf("origin.y = %d\n", Shape_origin(Cast(Shape, me->d.circle)).y);
     printf("Set origin to {2, 3}\n");
-    Shape_originSet(Cbject_cast(me->d.circle, Shape), (Point){2, 3});
-    printf("origin.x = %d\n", Shape_origin(Cbject_cast(me->d.circle, Shape)).x);
-    printf("origin.y = %d\n", Shape_origin(Cbject_cast(me->d.circle, Shape)).y);
-    Shape_draw(Cbject_cast(me->d.circle, Shape));
+    Shape_originSet(Cast(Shape, me->d.circle), (Point){2, 3});
+    printf("origin.x = %d\n", Shape_origin(Cast(Shape, me->d.circle)).x);
+    printf("origin.y = %d\n", Shape_origin(Cast(Shape, me->d.circle)).y);
+    Shape_draw(Cast(Shape, me->d.circle));
     Circle_rotate(me->d.circle);
 
     if (Cbject_isTypeOf(me->d.circle, Circle))
@@ -77,8 +77,8 @@ static Fun(void, rectangleExample, (0))
     Rectangle_heightSet(me->d.rectangle, 3);
     printf("width = %d\n", Rectangle_width(me->d.rectangle));
     printf("height = %d\n", Rectangle_height(me->d.rectangle));
-    printf("area = %.2f\n", Shape_area(Cbject_cast(me->d.rectangle, Shape)));
-    Shape_draw(Cbject_cast(me->d.rectangle, Shape));
+    printf("area = %.2f\n", Shape_area(Cast(Shape, me->d.rectangle)));
+    Shape_draw(Cast(Shape, me->d.rectangle));
     // printf("type name = %s\n", Cbject_type((Cbject *) me->d.rectangle)->name);
 }
 
@@ -112,19 +112,19 @@ static Fun(void, coloredCircleExample, (0))
 {
     printf("\n= ColoredCircle example:\n");
     me->d.coloredCircle = ColoredCircle_getFromStaticPool((ColoredCircleParams){{12, 23}, 10, Color_red});
-    printf("radius = %d\n", Circle_radius(Cbject_cast(me->d.coloredCircle, Circle)));
+    printf("radius = %d\n", Circle_radius(Cast(Circle, me->d.coloredCircle)));
     printf("Set radius to 3\n");
-    Circle_radiusSet(Cbject_cast(me->d.coloredCircle, Circle), 3);
-    printf("radius = %d\n", Circle_radius(Cbject_cast(me->d.coloredCircle, Circle)));
-    printf("area = %.2f\n", Shape_area(Cbject_cast(me->d.coloredCircle, Shape)));
-    printf("origin.x = %d\n", Shape_origin(Cbject_cast(me->d.coloredCircle, Shape)).x);
-    printf("origin.y = %d\n", Shape_origin(Cbject_cast(me->d.coloredCircle, Shape)).y);
+    Circle_radiusSet(Cast(Circle, me->d.coloredCircle), 3);
+    printf("radius = %d\n", Circle_radius(Cast(Circle, me->d.coloredCircle)));
+    printf("area = %.2f\n", Shape_area(Cast(Shape, me->d.coloredCircle)));
+    printf("origin.x = %d\n", Shape_origin(Cast(Shape, me->d.coloredCircle)).x);
+    printf("origin.y = %d\n", Shape_origin(Cast(Shape, me->d.coloredCircle)).y);
     printf("Set origin to {2, 3}\n");
-    Shape_originSet(Cbject_cast(me->d.coloredCircle, Shape), (Point){2, 3});
-    printf("origin.x = %d\n", Shape_origin(Cbject_cast(me->d.coloredCircle, Shape)).x);
-    printf("origin.y = %d\n", Shape_origin(Cbject_cast(me->d.coloredCircle, Shape)).y);
-    Shape_draw(Cbject_cast(me->d.coloredCircle, Shape));
-    Circle_rotate(Cbject_cast(me->d.coloredCircle, Circle));
+    Shape_originSet(Cast(Shape, me->d.coloredCircle), (Point){2, 3});
+    printf("origin.x = %d\n", Shape_origin(Cast(Shape, me->d.coloredCircle)).x);
+    printf("origin.y = %d\n", Shape_origin(Cast(Shape, me->d.coloredCircle)).y);
+    Shape_draw(Cast(Shape, me->d.coloredCircle));
+    Circle_rotate(Cast(Circle, me->d.coloredCircle));
 }
 
 static Fun(void, polymorphismExample, (0))
@@ -132,10 +132,10 @@ static Fun(void, polymorphismExample, (0))
     printf("\n= Polymorphism example:\n");
 
     Shape * const shapes[] = {
-        Cbject_cast(me->d.circle, Shape),
-        Cbject_cast(me->d.rectangle, Shape),
-        Cbject_cast(me->d.heapRectangle, Shape),
-        Cbject_cast(me->d.coloredCircle, Shape)};
+        Cast(Shape, me->d.circle),
+        Cast(Shape, me->d.rectangle),
+        Cast(Shape, me->d.heapRectangle),
+        Cast(Shape, me->d.coloredCircle)};
 
     for (uint8 i = 0; i < Array_size(shapes); i++)
     {

@@ -6,7 +6,6 @@ struct CbjectType
 {
     Cbject_Settings_maxAlign a;
     char const * name;
-    CbjectTypeId id;
     CbjectType * st;
     CbjectVirtFuns vf;
 };
@@ -24,7 +23,6 @@ CbjectType const * const CbjectType_instance()
 {
     static CbjectType t = {
         .name = "Cbject",
-        .id = CbjectTypeId_Cbject,
         .st = NULL,
         .vf = {.size = super_Cbject_size}};
 

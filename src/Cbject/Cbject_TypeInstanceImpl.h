@@ -15,7 +15,6 @@
         {                                                                                                \
             Cbject_Settings_maxAlign a;                                                                  \
             char const * name;                                                                           \
-            CbjectTypeId id;                                                                             \
             CbjectType * st;                                                                             \
             CbjectVirtFuns vf;                                                                           \
         } CbjectTypeT;                                                                                   \
@@ -27,7 +26,6 @@
             ((CbjectTypeT *) &t)->name = NULL;                                                           \
             ((CbjectTypeT *) &t)->vf.size = (uint8(*)(Cbject const * const me)) super_##typeName##_size; \
             ((CbjectTypeT *) &t)->name = #typeName;                                                      \
-            ((CbjectTypeT *) &t)->id = CbjectTypeId_##typeName;                                          \
             ((CbjectTypeT *) &t)->st = (CbjectType *) parent##Type_instance();                           \
         }                                                                                                \
                                                                                                          \
@@ -43,7 +41,6 @@
         {                                                                                                    \
             Cbject_Settings_maxAlign a;                                                                      \
             char const * name;                                                                               \
-            CbjectTypeId id;                                                                                 \
             CbjectType * st;                                                                                 \
             CbjectVirtFuns vf;                                                                               \
         } CbjectTypeT;                                                                                       \
@@ -56,7 +53,6 @@
             ((CbjectTypeT *) &t)->vf.size = (uint8(*)(Cbject const * const me)) super_##typeName##_size;     \
             Cbject_Utils_forEach(Cbject_TypeInstanceImpl_stripParenthesesAndApplyBindSuperFun, __VA_ARGS__); \
             ((CbjectTypeT *) &t)->name = #typeName;                                                          \
-            ((CbjectTypeT *) &t)->id = CbjectTypeId_##typeName;                                              \
             ((CbjectTypeT *) &t)->st = (CbjectType *) parent##Type_instance();                               \
         }                                                                                                    \
                                                                                                              \

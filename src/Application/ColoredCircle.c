@@ -19,21 +19,21 @@ Init
     me->d.color = params.color;
     s_params->origin = params.origin;
     s_params->radius = params.radius;
-    // Circle_init(Cbject_cast(me, Circle), (CircleParams){params.origin.x, params.origin.y, params.radius});
+    // Circle_init(Cast(me, Circle), (CircleParams){params.origin.x, params.origin.y, params.radius});
 }
 
 Terminate {}
 
 SuperFun(void, draw, (0))
 {
-    super_Shape_draw(Cbject_cast(me, Shape));
-    super_Circle_draw(Cbject_cast(me, Circle));
+    super_Shape_draw(Cast(Shape, me));
+    super_Circle_draw(Cast(Circle, me));
     printf("ColoredCircle draw\n");
 }
 
 SuperFun(void, rotate, (0))
 {
-    super_Circle_rotate(Cbject_cast(me, Circle));
+    super_Circle_rotate(Cast(Circle, me));
     printf("Rotate counter-clockwise\n");
 }
 
