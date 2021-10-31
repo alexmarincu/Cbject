@@ -4,7 +4,7 @@
 #include "Point.h"
 
 #define Type Shape
-#define Parent Cbject
+#define Parent Object
 
 AbstractClass(
     Params(

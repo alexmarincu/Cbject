@@ -11,22 +11,22 @@
     {                                                                                             \
         static typeName##Type t;                                                                  \
                                                                                                   \
-        typedef struct CbjectTypeT                                                                \
+        typedef struct ObjectTypeT                                                                \
         {                                                                                         \
             Cbject_Settings_maxAlign a;                                                           \
             char const * name;                                                                    \
-            CbjectType * st;                                                                      \
-            CbjectVirtFuns vf;                                                                    \
-        } CbjectTypeT;                                                                            \
+            ObjectType * st;                                                                      \
+            ObjectVirtFuns vf;                                                                    \
+        } ObjectTypeT;                                                                            \
                                                                                                   \
-        if (((CbjectTypeT *)&t)->name == NULL)                                                    \
+        if (((ObjectTypeT *)&t)->name == NULL)                                                    \
         {                                                                                         \
             /*static char const * const name = #typeName;  */                                     \
             *((parent##TypeContainer *)&t) = *((parent##TypeContainer *)parent##Type_instance()); \
-            ((CbjectTypeT *)&t)->name = NULL;                                                     \
-            ((CbjectTypeT *)&t)->vf.size = (uint8(*)(Cbject const * const me))typeName##_s_size;  \
-            ((CbjectTypeT *)&t)->name = #typeName;                                                \
-            ((CbjectTypeT *)&t)->st = (CbjectType *)parent##Type_instance();                      \
+            ((ObjectTypeT *)&t)->name = NULL;                                                     \
+            ((ObjectTypeT *)&t)->vf.size = (uint8(*)(Object const * const me))typeName##_s_size;  \
+            ((ObjectTypeT *)&t)->name = #typeName;                                                \
+            ((ObjectTypeT *)&t)->st = (ObjectType *)parent##Type_instance();                      \
         }                                                                                         \
                                                                                                   \
         return &t;                                                                                \
@@ -37,23 +37,23 @@
     {                                                                                                    \
         static typeName##Type t;                                                                         \
                                                                                                          \
-        typedef struct CbjectTypeT                                                                       \
+        typedef struct ObjectTypeT                                                                       \
         {                                                                                                \
             Cbject_Settings_maxAlign a;                                                                  \
             char const * name;                                                                           \
-            CbjectType * st;                                                                             \
-            CbjectVirtFuns vf;                                                                           \
-        } CbjectTypeT;                                                                                   \
+            ObjectType * st;                                                                             \
+            ObjectVirtFuns vf;                                                                           \
+        } ObjectTypeT;                                                                                   \
                                                                                                          \
-        if (((CbjectTypeT *)&t)->name == NULL)                                                           \
+        if (((ObjectTypeT *)&t)->name == NULL)                                                           \
         {                                                                                                \
             /*static char const * const name = #typeName;  */                                            \
             *((parent##TypeContainer *)&t) = *((parent##TypeContainer *)parent##Type_instance());        \
-            ((CbjectTypeT *)&t)->name = NULL;                                                            \
-            ((CbjectTypeT *)&t)->vf.size = (uint8(*)(Cbject const * const me))typeName##_s_size;         \
+            ((ObjectTypeT *)&t)->name = NULL;                                                            \
+            ((ObjectTypeT *)&t)->vf.size = (uint8(*)(Object const * const me))typeName##_s_size;         \
             Cbject_Utils_forEach(Cbject_TypeInstanceImpl_stripParenthesesAndApplyBindFuns, __VA_ARGS__); \
-            ((CbjectTypeT *)&t)->name = #typeName;                                                       \
-            ((CbjectTypeT *)&t)->st = (CbjectType *)parent##Type_instance();                             \
+            ((ObjectTypeT *)&t)->name = #typeName;                                                       \
+            ((ObjectTypeT *)&t)->st = (ObjectType *)parent##Type_instance();                             \
         }                                                                                                \
                                                                                                          \
         return &t;                                                                                       \

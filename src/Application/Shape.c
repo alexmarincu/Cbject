@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #define Type Shape
-#define Parent Cbject
+#define Parent Object
 
 AbstractClassSetup(
     VirtFunCalls(

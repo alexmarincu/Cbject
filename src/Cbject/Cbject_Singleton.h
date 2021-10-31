@@ -1,16 +1,22 @@
-#ifndef CBJECT_OBJECT_H
-#define CBJECT_OBJECT_H
+#ifndef CBJECT_SINGLETON_H
+#define CBJECT_SINGLETON_H
 #include "Cbject_ContainerTypeDef.h"
 #include "Cbject_DataTypeDef.h"
 #include "Cbject_InitFun.h"
 #include "Cbject_ObjectInstanceFunPrototype.h"
+#include "Cbject_ObjectInstanceImpl.h"
 #include "Cbject_ParamsTypeDef.h"
+#include "Cbject_SizeImpl.h"
 #include "Cbject_TerminateFunPrototype.h"
 #include "Cbject_TypeDecl.h"
+#include "Cbject_TypeDef.h"
+#include "Cbject_TypeInstanceFunPrototype.h"
+#include "Cbject_TypeInstanceImpl.h"
 #include "Cbject_TypeTypeDecl.h"
+#include "Cbject_TypeTypeDef.h"
 #include "Cbject_Utils.h"
 
-#define Cbject_Object(typeName, parent, data)                          \
+#define Cbject_Singleton(typeName, parent, data)                       \
     Cbject_TypeTypeDecl(typeName);                                     \
     Cbject_TypeDecl(typeName);                                         \
     Cbject_ParamsTypeDef(typeName, void);                              \
@@ -20,4 +26,11 @@
     Cbject_TerminateFunPrototype(typeName);                            \
     Cbject_ObjectInstanceFunPrototype(typeName)
 
-#endif // CBJECT_OBJECT_H
+#define Cbject_Singleton_Setup(typeName, parent, bindFuns) \
+    Cbject_TypeTypeDef(typeName, parent, withoutVirtFuns); \
+    Cbject_TypeDef(typeName, parent);                      \
+    Cbject_TypeInstanceFunPrototype(typeName);             \
+    Cbject_ObjectInstanceImpl(typeName);                   \
+    Cbject_SizeImpl(typeName);                             \
+    Cbject_TypeInstanceImpl(typeName, parent, Cbject_Utils_stripParentheses(bindFuns))
+#endif // CBJECT_SINGLETON_H

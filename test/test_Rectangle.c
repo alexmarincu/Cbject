@@ -3,7 +3,7 @@
 #include "Rectangle.h"
 #include "Shape.h"
 
-TEST_FILE("Cbject.c")
+TEST_FILE("Object.c")
 TEST_FILE("Rectangle.c")
 TEST_FILE("Shape.c")
 

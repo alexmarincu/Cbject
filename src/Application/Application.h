@@ -7,9 +7,9 @@
 #include "Shape.h"
 
 #define Type Application
-#define Parent Cbject
+#define Parent Object
 
-Object(
+Singleton(
     Data(
         Circle * circle,
         Rectangle * rectangle,

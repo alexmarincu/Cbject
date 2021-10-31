@@ -7,15 +7,15 @@
     {                                                  \
         typeName##VirtFuns * virtFuns = NULL;          \
                                                        \
-        typedef struct CbjectTypeT                     \
+        typedef struct ObjectTypeT                     \
         {                                              \
             Cbject_Settings_maxAlign a;                \
             char const * name;                         \
-            CbjectType * st;                           \
-            CbjectVirtFuns vf;                         \
-        } CbjectTypeT;                                 \
+            ObjectType * st;                           \
+            ObjectVirtFuns vf;                         \
+        } ObjectTypeT;                                 \
                                                        \
-        if (((CbjectTypeT *) meType)->name == NULL)    \
+        if (((ObjectTypeT *)meType)->name == NULL)     \
         {                                              \
             virtFuns = &meType->vf;                    \
         }                                              \

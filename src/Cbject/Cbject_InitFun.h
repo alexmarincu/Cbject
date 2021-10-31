@@ -11,16 +11,16 @@
     Cbject_InitFun_OnInitFunPrototype(typeName, parent);              \
     Cbject_InitFun_Prototype(typeName)                                \
     {                                                                 \
-        typedef struct CbjectT                                        \
+        typedef struct ObjectT                                        \
         {                                                             \
             Cbject_Settings_maxAlign a;                               \
-            CbjectType * t;                                           \
-        } CbjectT;                                                    \
+            ObjectType * t;                                           \
+        } ObjectT;                                                    \
                                                                       \
         parent##Params sp;                                            \
         typeName##_onInit(me, p, &sp);                                \
         parent##_init((parent *)me, sp);                              \
-        ((CbjectT *)me)->t = (CbjectType *)typeName##Type_instance(); \
+        ((ObjectT *)me)->t = (ObjectType *)typeName##Type_instance(); \
     }                                                                 \
     Cbject_InitFun_OnInitFunPrototype(typeName, parent)
 

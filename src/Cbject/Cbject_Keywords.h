@@ -13,11 +13,10 @@
 #include "Cbject_Funs.h"
 #include "Cbject_GetProp.h"
 #include "Cbject_Init.h"
-#include "Cbject_Object.h"
-#include "Cbject_ObjectSetup.h"
 #include "Cbject_OverrideFun.h"
 #include "Cbject_PoolSize.h"
 #include "Cbject_SetProp.h"
+#include "Cbject_Singleton.h"
 #include "Cbject_Struct.h"
 #include "Cbject_Terminate.h"
 #include "Cbject_VirtFun.h"
@@ -49,11 +48,11 @@
 #define Fun(returnType, funName, params) \
     Cbject_Fun(Type, returnType, funName, Cbject_Utils_stripParentheses(params))
 
-#define Object(data) \
-    Cbject_Object(Type, Parent, data)
+#define Singleton(data) \
+    Cbject_Singleton(Type, Parent, data)
 
-#define ObjectSetup(bindFuns) \
-    Cbject_ObjectSetup(Type, Parent, bindFuns)
+#define SingletonSetup(bindFuns) \
+    Cbject_Singleton_Setup(Type, Parent, bindFuns)
 
 #define OverrideFun(returnType, funName, params) \
     Cbject_OverrideFun(Type, returnType, funName, Cbject_Utils_stripParentheses(params))

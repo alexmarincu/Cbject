@@ -2,31 +2,31 @@
 #define CBJECT_CASTFUN_H
 
 #define Cbject_CastFun_Prototype(typeName) \
-    typeName * const Cbject_to##typeName(Cbject const * const me)
+    typeName * const Object_to##typeName(Object const * const me)
 
 #define Cbject_CastFun_Impl(typeName)                                                                          \
     Cbject_CastFun_Prototype(typeName)                                                                         \
     {                                                                                                          \
-        typedef struct CbjectTypeT                                                                             \
+        typedef struct ObjectTypeT                                                                             \
         {                                                                                                      \
             Cbject_Settings_maxAlign a;                                                                        \
             char const * name;                                                                                 \
-            CbjectType * st;                                                                                   \
-            CbjectVirtFuns vf;                                                                                 \
-        } CbjectTypeT;                                                                                         \
+            ObjectType * st;                                                                                   \
+            ObjectVirtFuns vf;                                                                                 \
+        } ObjectTypeT;                                                                                         \
                                                                                                                \
-        typedef struct CbjectT                                                                                 \
+        typedef struct ObjectT                                                                                 \
         {                                                                                                      \
             Cbject_Settings_maxAlign a;                                                                        \
-            CbjectType * t;                                                                                    \
-        } CbjectT;                                                                                             \
+            ObjectType * t;                                                                                    \
+        } ObjectT;                                                                                             \
                                                                                                                \
-        CbjectTypeT const * t = (CbjectTypeT *)((CbjectT *)me)->t;                                             \
+        ObjectTypeT const * t = (ObjectTypeT *)((ObjectT *)me)->t;                                             \
                                                                                                                \
-        while ((t != (CbjectTypeT *)CbjectType_instance()) && (t != (CbjectTypeT *)typeName##Type_instance())) \
+        while ((t != (ObjectTypeT *)ObjectType_instance()) && (t != (ObjectTypeT *)typeName##Type_instance())) \
         {                                                                                                      \
-            t = (CbjectTypeT *)t->st;                                                                          \
-            assert((t != (CbjectTypeT *)CbjectType_instance()) && "Cast not possible");                        \
+            t = (ObjectTypeT *)t->st;                                                                          \
+            assert((t != (ObjectTypeT *)ObjectType_instance()) && "Cast not possible");                        \
         }                                                                                                      \
                                                                                                                \
         return (typeName *)me;                                                                                 \

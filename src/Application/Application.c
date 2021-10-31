@@ -2,9 +2,9 @@
 #include <stdio.h>
 
 #define Type Application
-#define Parent Cbject
+#define Parent Object
 
-ObjectSetup((void));
+SingletonSetup((void));
 Init {}
 Terminate {}
 
@@ -48,12 +48,12 @@ static Fun(void, circleExample, (void))
     Shape_draw(Cast(Shape, me->d.circle));
     Circle_rotate(me->d.circle);
 
-    if (Cbject_isTypeOf(me->d.circle, Circle))
+    if (Object_isTypeOf(me->d.circle, Circle))
     {
         printf("is circle\n");
     }
 
-    // printf("type name = %s\n", Cbject_type((Cbject *) me->d.circle)->name);
+    // printf("type name = %s\n", Object_type((Object *) me->d.circle)->name);
 }
 
 static Fun(void, stackCircleExample, (void))
@@ -79,7 +79,7 @@ static Fun(void, rectangleExample, (void))
     printf("height = %d\n", Rectangle_height(me->d.rectangle));
     printf("area = %.2f\n", Shape_area(Cast(Shape, me->d.rectangle)));
     Shape_draw(Cast(Shape, me->d.rectangle));
-    // printf("type name = %s\n", Cbject_type((Cbject *) me->d.rectangle)->name);
+    // printf("type name = %s\n", Object_type((Object *) me->d.rectangle)->name);
 }
 
 static Fun(void, stackRectangleExample, (void))
@@ -140,7 +140,7 @@ static Fun(void, polymorphismExample, (void))
     for (uint8 i = 0; i < Array_size(shapes); i++)
     {
         printf("shapes[%d].area() = %.2f\n", i, Shape_area(shapes[i]));
-        printf("shapes[%d].size() = %d\n", i, Cbject_size((Cbject *)shapes[i]));
+        printf("shapes[%d].size() = %d\n", i, Object_size((Object *)shapes[i]));
     }
 }
 
