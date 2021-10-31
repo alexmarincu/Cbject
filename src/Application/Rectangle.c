@@ -6,7 +6,7 @@
 
 ClassSetup(
     (void),
-    BindSuperFuns(
+    BindFuns(
         (Shape, float, area, (void))));
 
 DefaultSetProp(uint32, width);
@@ -26,7 +26,7 @@ Init
 Terminate {}
 
 Fun(uint32, test, Params(uint32 const ab)) { return ab; }
-SuperFun(float, area, (void)) { return me->d.width * me->d.height; }
+OverrideFun(float, area, (void)) { return me->d.width * me->d.height; }
 
 #undef Parent
 #undef Type

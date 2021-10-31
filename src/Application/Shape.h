@@ -17,7 +17,7 @@ AbstractClass(
 
 SetProp(Point, origin);
 GetProp(Point, origin);
-SuperFun(void, draw, (void));
+OverrideFun(void, draw, (void));
 
 #undef Parent
 #undef Type

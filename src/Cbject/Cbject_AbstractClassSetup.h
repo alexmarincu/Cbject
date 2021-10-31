@@ -9,14 +9,14 @@
 #include "Cbject_Utils.h"
 #include "Cbject_VirtFunCalls.h"
 
-#define Cbject_AbstractClassSetup(typeName, parent, virtFunCalls, bindSuperFuns)             \
-    Cbject_TypeTypeDef(typeName, parent, withVirtFuns);                                      \
-    Cbject_TypeDef(typeName, parent);                                                        \
-    Cbject_SizeImpl(typeName);                                                               \
-    Cbject_TypeInstanceImpl(typeName, parent, Cbject_Utils_stripParentheses(bindSuperFuns)); \
-    Cbject_CastToSuperImpl(typeName, parent);                                                \
-    Cbject_CastImpl(typeName);                                                               \
-    Cbject_CbjectTypeVirtFunsGetImpl(typeName);                                              \
+#define Cbject_AbstractClassSetup(typeName, parent, virtFunCalls, bindFuns)             \
+    Cbject_TypeTypeDef(typeName, parent, withVirtFuns);                                 \
+    Cbject_TypeDef(typeName, parent);                                                   \
+    Cbject_SizeImpl(typeName);                                                          \
+    Cbject_TypeInstanceImpl(typeName, parent, Cbject_Utils_stripParentheses(bindFuns)); \
+    Cbject_CastToSuperImpl(typeName, parent);                                           \
+    Cbject_CastImpl(typeName);                                                          \
+    Cbject_CbjectTypeVirtFunsGetImpl(typeName);                                         \
     Cbject_VirtFunCalls(Cbject_Utils_stripParentheses(virtFunCalls))
 
 #endif // CBJECT_ABSTRACTCLASSSETUP_H

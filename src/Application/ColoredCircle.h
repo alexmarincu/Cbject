@@ -23,8 +23,8 @@ SetProp(Color, color);
 GetProp(uint32, radius);
 GetProp(Color, color);
 
-SuperFun(void, draw, (void));
-SuperFun(void, rotate, (void));
+OverrideFun(void, draw, (void));
+OverrideFun(void, rotate, (void));
 
 #undef Type
 #undef Parent

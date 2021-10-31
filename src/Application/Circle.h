@@ -21,9 +21,9 @@ extern Const(float, pi);
 SetProp(uint32, radius);
 GetProp(uint32, radius);
 
-SuperFun(float, area, (void));
-SuperFun(void, draw, (void));
-SuperFun(void, rotate, (void));
+OverrideFun(float, area, (void));
+OverrideFun(void, draw, (void));
+OverrideFun(void, rotate, (void));
 
 #undef Type
 #undef Parent

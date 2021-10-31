@@ -7,7 +7,7 @@
 
 ClassSetup(
     (void),
-    BindSuperFuns(
+    BindFuns(
         (Shape, void, draw, (void)),
         (Circle, void, rotate, (void))));
 
@@ -24,16 +24,16 @@ Init
 
 Terminate {}
 
-SuperFun(void, draw, (void))
+OverrideFun(void, draw, (void))
 {
-    super_Shape_draw(Cast(Shape, me));
-    super_Circle_draw(Cast(Circle, me));
+    Shape_s_draw(Cast(Shape, me));
+    Circle_s_draw(Cast(Circle, me));
     printf("ColoredCircle draw\n");
 }
 
-SuperFun(void, rotate, (void))
+OverrideFun(void, rotate, (void))
 {
-    super_Circle_rotate(Cast(Circle, me));
+    Circle_s_rotate(Cast(Circle, me));
     printf("Rotate counter-clockwise\n");
 }
 

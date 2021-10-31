@@ -24,7 +24,7 @@ GetProp(uint32, width);
 GetProp(uint32, height);
 
 Fun(uint32, test, Params(uint32 const ab));
-SuperFun(float, area, (void));
+OverrideFun(float, area, (void));
 
 #undef Parent
 #undef Type
