@@ -6,7 +6,7 @@
     Cbject_NewOnStackFunPrototype(typeName) \
     {                                       \
         memset(me, 0, sizeof(typeName));    \
-        typeName##_init(me, params);        \
+        typeName##_init(me, p);             \
         return me;                          \
     }
 

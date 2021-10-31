@@ -38,10 +38,10 @@ CustomClass -[hidden]u-> Cbject
 #include <assert.h>
 
 #define Cbject_isTypeOf(me, typeName) \
-    (Cbject_type((Cbject *) (me)) == (CbjectType *) typeName##Type_instance())
+    (Cbject_type((Cbject *)(me)) == (CbjectType *)typeName##Type_instance())
 
 #define Cast(typeName, me) \
-    Cbject_to##typeName((Cbject *) me)
+    Cbject_to##typeName((Cbject *)me)
 
 typedef struct CbjectType CbjectType;
 typedef struct Cbject Cbject;
@@ -75,7 +75,7 @@ typedef union CbjectContainer
 } CbjectContainer;
 
 CbjectType const * const CbjectType_instance();
-void Cbject_init(Cbject * const me, CbjectParams const params);
+void Cbject_init(Cbject * const me, CbjectParams const p);
 void Cbject_terminate(Cbject * const me);
 uint8 Cbject_size(Cbject const * const me);
 CbjectType const * Cbject_type(Cbject * const me);

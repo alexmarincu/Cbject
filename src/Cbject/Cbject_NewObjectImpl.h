@@ -7,10 +7,10 @@
 #define Cbject_NewObjectImpl(typeName)                           \
     Cbject_NewObjectFunPrototype(typeName)                       \
     {                                                            \
-        typeName * me = (typeName *) malloc(sizeof(typeName));   \
+        typeName * me = (typeName *)malloc(sizeof(typeName));    \
         assert((me != NULL) && "Heap memory allocation failed"); \
         memset(me, 0, sizeof(typeName));                         \
-        typeName##_init(me, params);                             \
+        typeName##_init(me, p);                                  \
         return me;                                               \
     }
 

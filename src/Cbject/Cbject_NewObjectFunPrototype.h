@@ -2,5 +2,5 @@
 #define CBJECT_NEWOBJECTFUNPROTOTYPE_H
 
 #define Cbject_NewObjectFunPrototype(typeName) \
-    typeName * typeName##_createOnHeap(typeName##Params const params)
+    typeName * typeName##_createOnHeap(typeName##Params const p)
 #endif // CBJECT_NEWOBJECTFUNPROTOTYPE_H

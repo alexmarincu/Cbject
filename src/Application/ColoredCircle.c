@@ -16,10 +16,9 @@ DefaultGetProp(Color, color);
 
 Init
 {
-    me->d.color = params.color;
-    s_params->origin = params.origin;
-    s_params->radius = params.radius;
-    // Circle_init(Cast(me, Circle), (CircleParams){params.origin.x, params.origin.y, params.radius});
+    me->d.color = p.color;
+    sp->origin = p.origin;
+    sp->radius = p.radius;
 }
 
 Terminate {}

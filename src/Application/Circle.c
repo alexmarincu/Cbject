@@ -17,9 +17,8 @@ static Const(float, privatePi = 3.14);
 
 Init
 {
-    me->d.radius = params.radius;
-    s_params->origin = params.origin;
-    // Shape_init(Cast(me, Shape), (ShapeParams){params.origin.x, params.origin.y});
+    me->d.radius = p.radius;
+    sp->origin = p.origin;
 }
 
 Terminate {}

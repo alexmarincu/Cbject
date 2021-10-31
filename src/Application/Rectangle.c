@@ -17,10 +17,9 @@ DefaultGetProp(uint32, height);
 
 Init
 {
-    me->d.width = params.width;
-    me->d.height = params.height;
-    s_params->origin = params.origin;
-    // Shape_init(Cast(me, Shape), (ShapeParams){params.origin.x, params.origin.y});
+    me->d.width = p.width;
+    me->d.height = p.height;
+    sp->origin = p.origin;
 }
 
 Terminate {}

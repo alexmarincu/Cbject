@@ -11,7 +11,7 @@ AbstractClassSetup(
     BindFuns(
         (Shape, void, draw, (void))));
 
-Init { me->d.origin = params.origin; }
+Init { me->d.origin = p.origin; }
 Terminate {}
 
 DefaultSetProp(Point, origin);

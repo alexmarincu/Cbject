@@ -30,5 +30,5 @@ CbjectType const * const CbjectType_instance()
 }
 
 CbjectType const * Cbject_type(Cbject * const me) { return me->t; }
-void Cbject_init(Cbject * const me, CbjectParams const params) {}
+void Cbject_init(Cbject * const me, CbjectParams const p) {}
 void Cbject_terminate(Cbject * const me) {}
