@@ -4,7 +4,7 @@
 
 #define Type Point
 
-DataClass(
+Struct(
     uint32 x,
     uint32 y);
 

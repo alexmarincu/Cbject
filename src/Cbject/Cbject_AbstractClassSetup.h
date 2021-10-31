@@ -1,6 +1,6 @@
 #ifndef CBJECT_ABSTRACTCLASSSETUP_H
 #define CBJECT_ABSTRACTCLASSSETUP_H
-#include "Cbject_CastToSuperImpl.h"
+#include "Cbject_CastFun.h"
 #include "Cbject_CbjectTypeVirtFunsGetImpl.h"
 #include "Cbject_SizeImpl.h"
 #include "Cbject_TypeDef.h"
@@ -9,13 +9,13 @@
 #include "Cbject_Utils.h"
 #include "Cbject_VirtFunCalls.h"
 
-#define Cbject_AbstractClassSetup(cbjType, parent, virtFunCalls, bindSuperFuns)             \
-    Cbject_TypeTypeDef(cbjType, parent, withVirtFuns);                                      \
-    Cbject_TypeDef(cbjType, parent);                                                        \
-    Cbject_SizeImpl(cbjType);                                                               \
-    Cbject_TypeInstanceImpl(cbjType, parent, Cbject_Utils_stripParentheses(bindSuperFuns)); \
-    Cbject_CastToSuperImpl(cbjType, parent);                                                \
-    Cbject_CbjectTypeVirtFunsGetImpl(cbjType);                                              \
+#define Cbject_AbstractClassSetup(typeName, parent, virtFunCalls, bindFuns)             \
+    Cbject_TypeTypeDef(typeName, parent, withVirtFuns);                                 \
+    Cbject_TypeDef(typeName, parent);                                                   \
+    Cbject_SizeImpl(typeName);                                                          \
+    Cbject_TypeInstanceImpl(typeName, parent, Cbject_Utils_stripParentheses(bindFuns)); \
+    Cbject_CastFun_Impl(typeName);                                                      \
+    Cbject_CbjectTypeVirtFunsGetImpl(typeName);                                         \
     Cbject_VirtFunCalls(Cbject_Utils_stripParentheses(virtFunCalls))
 
 #endif // CBJECT_ABSTRACTCLASSSETUP_H

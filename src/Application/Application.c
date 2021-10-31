@@ -2,24 +2,23 @@
 #include <stdio.h>
 
 #define Type Application
-#define Parent Cbject
+#define Parent Object
 
-ObjectSetup(BindSuperFuns(0));
+SingletonSetup((void));
 Init {}
 Terminate {}
 
-PrivateFuns(,
-    (void, printBeginMessage, (0)),
-    (void, printEndMessage, (0)),
-    (void, circleExample, (0)),
-    (void, stackCircleExample, (0)),
-    (void, rectangleExample, (0)),
-    (void, stackRectangleExample, (0)),
-    (void, heapRectangleExample, (0)),
-    (void, coloredCircleExample, (0)),
-    (void, polymorphismExample, (0)));
+static Fun(void, printBeginMessage, (void));
+static Fun(void, printEndMessage, (void));
+static Fun(void, circleExample, (void));
+static Fun(void, stackCircleExample, (void));
+static Fun(void, rectangleExample, (void));
+static Fun(void, stackRectangleExample, (void));
+static Fun(void, heapRectangleExample, (void));
+static Fun(void, coloredCircleExample, (void));
+static Fun(void, polymorphismExample, (void));
 
-Fun(void, start, (0))
+Fun(void, start, (void))
 {
     Application_circleExample(me);
     Application_stackCircleExample(me);
@@ -28,65 +27,65 @@ Fun(void, start, (0))
     Application_heapRectangleExample(me);
     Application_coloredCircleExample(me);
     Application_polymorphismExample(me);
-    Rectangle_delete(me->props.heapRectangle);
+    Rectangle_delete(me->d.heapRectangle);
 }
 
-PrivateFun(void, circleExample, (0))
+static Fun(void, circleExample, (void))
 {
     printf("\n= Circle example:\n");
-    me->props.circle = Circle_get(&(CircleParams){{0, 1}, 1});
-    printf("radius = %d\n", Circle_radius(me->props.circle));
+    me->d.circle = Circle_getFromStaticPool((CircleParams){{0, 1}, 1});
+    printf("radius = %d\n", Circle_radius(me->d.circle));
     printf("Set radius to 2\n");
-    Circle_radiusSet(me->props.circle, 2);
-    printf("radius = %d\n", Circle_radius(me->props.circle));
-    printf("area = %.2f\n", Shape_area(Circle_toShape(me->props.circle)));
-    printf("origin.x = %d\n", Shape_origin(Circle_toShape(me->props.circle)).x);
-    printf("origin.y = %d\n", Shape_origin(Circle_toShape(me->props.circle)).y);
+    Circle_radiusSet(me->d.circle, 2);
+    printf("radius = %d\n", Circle_radius(me->d.circle));
+    printf("area = %.2f\n", Shape_area(Cast(Shape, me->d.circle)));
+    printf("origin.x = %d\n", Shape_origin(Cast(Shape, me->d.circle)).x);
+    printf("origin.y = %d\n", Shape_origin(Cast(Shape, me->d.circle)).y);
     printf("Set origin to {2, 3}\n");
-    Shape_originSet((Shape *) me->props.circle, (Point){2, 3});
-    printf("origin.x = %d\n", Shape_origin(Circle_toShape(me->props.circle)).x);
-    printf("origin.y = %d\n", Shape_origin((Shape *) me->props.circle).y);
-    Shape_draw((Shape *) me->props.circle);
-    Circle_rotate(me->props.circle);
+    Shape_originSet(Cast(Shape, me->d.circle), (Point){2, 3});
+    printf("origin.x = %d\n", Shape_origin(Cast(Shape, me->d.circle)).x);
+    printf("origin.y = %d\n", Shape_origin(Cast(Shape, me->d.circle)).y);
+    Shape_draw(Cast(Shape, me->d.circle));
+    Circle_rotate(me->d.circle);
 
-    if (Cbject_isTypeOf(me->props.circle, Circle))
+    if (Object_isTypeOf(me->d.circle, Circle))
     {
         printf("is circle\n");
     }
 
-    // printf("type name = %s\n", Cbject_type((Cbject *) me->props.circle)->name);
+    // printf("type name = %s\n", Object_type((Object *) me->d.circle)->name);
 }
 
-PrivateFun(void, stackCircleExample, (0))
+static Fun(void, stackCircleExample, (void))
 {
     printf("\n= StackCircle example:\n");
-    Circle * stackCircle = Circle_newOnStack((Circle *) &(CircleContainer){}, &(CircleParams){{2, 3}, 3});
+    Circle * stackCircle = Circle_createOnStack((Circle *)&(CircleContainer){}, (CircleParams){{2, 3}, 3});
     printf("radius = %d\n", Circle_radius(stackCircle));
     printf("Set radius to 4\n");
     Circle_radiusSet(stackCircle, 4);
     printf("radius = %d\n", Circle_radius(stackCircle));
 }
 
-PrivateFun(void, rectangleExample, (0))
+static Fun(void, rectangleExample, (void))
 {
     printf("\n= Rectangle example:\n");
-    me->props.rectangle = Rectangle_get(&(RectangleParams){{4, 5}, 1, 2});
-    printf("width = %d\n", Rectangle_width(me->props.rectangle));
-    printf("height = %d\n", Rectangle_height(me->props.rectangle));
+    me->d.rectangle = Rectangle_getFromStaticPool((RectangleParams){{4, 5}, 1, 2});
+    printf("width = %d\n", Rectangle_width(me->d.rectangle));
+    printf("height = %d\n", Rectangle_height(me->d.rectangle));
     printf("Set width to 2 and height to 3\n");
-    Rectangle_widthSet(me->props.rectangle, 2);
-    Rectangle_heightSet(me->props.rectangle, 3);
-    printf("width = %d\n", Rectangle_width(me->props.rectangle));
-    printf("height = %d\n", Rectangle_height(me->props.rectangle));
-    printf("area = %.2f\n", Shape_area((Shape *) me->props.rectangle));
-    Shape_draw((Shape *) me->props.rectangle);
-    // printf("type name = %s\n", Cbject_type((Cbject *) me->props.rectangle)->name);
+    Rectangle_widthSet(me->d.rectangle, 2);
+    Rectangle_heightSet(me->d.rectangle, 3);
+    printf("width = %d\n", Rectangle_width(me->d.rectangle));
+    printf("height = %d\n", Rectangle_height(me->d.rectangle));
+    printf("area = %.2f\n", Shape_area(Cast(Shape, me->d.rectangle)));
+    Shape_draw(Cast(Shape, me->d.rectangle));
+    // printf("type name = %s\n", Object_type((Object *) me->d.rectangle)->name);
 }
 
-PrivateFun(void, stackRectangleExample, (0))
+static Fun(void, stackRectangleExample, (void))
 {
     printf("\n= StackRectangle example:\n");
-    Rectangle * stackRectangle = Rectangle_newOnStack((Rectangle *) &(RectangleContainer){}, &(RectangleParams){{12, 23}, 34, 2});
+    Rectangle * stackRectangle = Rectangle_createOnStack((Rectangle *)&(RectangleContainer){}, (RectangleParams){{12, 23}, 34, 2});
     printf("width = %d\n", Rectangle_width(stackRectangle));
     printf("height = %d\n", Rectangle_height(stackRectangle));
     printf("Set width to 2 and height to 3\n");
@@ -96,52 +95,52 @@ PrivateFun(void, stackRectangleExample, (0))
     printf("height = %d\n", Rectangle_height(stackRectangle));
 }
 
-PrivateFun(void, heapRectangleExample, (0))
+static Fun(void, heapRectangleExample, (void))
 {
     printf("\n= HeapRectangle example:\n");
-    me->props.heapRectangle = Rectangle_new(&(RectangleParams){{12, 23}, 34, 2});
-    printf("width = %d\n", Rectangle_width(me->props.heapRectangle));
-    printf("height = %d\n", Rectangle_height(me->props.heapRectangle));
+    me->d.heapRectangle = Rectangle_createOnHeap((RectangleParams){{12, 23}, 34, 2});
+    printf("width = %d\n", Rectangle_width(me->d.heapRectangle));
+    printf("height = %d\n", Rectangle_height(me->d.heapRectangle));
     printf("Set width to 2 and height to 3\n");
-    Rectangle_widthSet(me->props.heapRectangle, 2);
-    Rectangle_heightSet(me->props.heapRectangle, 3);
-    printf("width = %d\n", Rectangle_width(me->props.heapRectangle));
-    printf("height = %d\n", Rectangle_height(me->props.heapRectangle));
+    Rectangle_widthSet(me->d.heapRectangle, 2);
+    Rectangle_heightSet(me->d.heapRectangle, 3);
+    printf("width = %d\n", Rectangle_width(me->d.heapRectangle));
+    printf("height = %d\n", Rectangle_height(me->d.heapRectangle));
 }
 
-PrivateFun(void, coloredCircleExample, (0))
+static Fun(void, coloredCircleExample, (void))
 {
     printf("\n= ColoredCircle example:\n");
-    me->props.coloredCircle = ColoredCircle_get(&(ColoredCircleParams){{12, 23}, 10, Color_red});
-    printf("radius = %d\n", Circle_radius((Circle *) me->props.coloredCircle));
+    me->d.coloredCircle = ColoredCircle_getFromStaticPool((ColoredCircleParams){{12, 23}, 10, Color_red});
+    printf("radius = %d\n", Circle_radius(Cast(Circle, me->d.coloredCircle)));
     printf("Set radius to 3\n");
-    Circle_radiusSet((Circle *) me->props.coloredCircle, 3);
-    printf("radius = %d\n", Circle_radius(ColoredCircle_toCircle(me->props.coloredCircle)));
-    printf("area = %.2f\n", Shape_area(Circle_toShape(ColoredCircle_toCircle(me->props.coloredCircle))));
-    printf("origin.x = %d\n", Shape_origin((Shape *) me->props.coloredCircle).x);
-    printf("origin.y = %d\n", Shape_origin((Shape *) me->props.coloredCircle).y);
+    Circle_radiusSet(Cast(Circle, me->d.coloredCircle), 3);
+    printf("radius = %d\n", Circle_radius(Cast(Circle, me->d.coloredCircle)));
+    printf("area = %.2f\n", Shape_area(Cast(Shape, me->d.coloredCircle)));
+    printf("origin.x = %d\n", Shape_origin(Cast(Shape, me->d.coloredCircle)).x);
+    printf("origin.y = %d\n", Shape_origin(Cast(Shape, me->d.coloredCircle)).y);
     printf("Set origin to {2, 3}\n");
-    Shape_originSet((Shape *) me->props.coloredCircle, (Point){2, 3});
-    printf("origin.x = %d\n", Shape_origin((Shape *) me->props.coloredCircle).x);
-    printf("origin.y = %d\n", Shape_origin((Shape *) me->props.coloredCircle).y);
-    Shape_draw((Shape *) me->props.coloredCircle);
-    Circle_rotate((Circle *) me->props.coloredCircle);
+    Shape_originSet(Cast(Shape, me->d.coloredCircle), (Point){2, 3});
+    printf("origin.x = %d\n", Shape_origin(Cast(Shape, me->d.coloredCircle)).x);
+    printf("origin.y = %d\n", Shape_origin(Cast(Shape, me->d.coloredCircle)).y);
+    Shape_draw(Cast(Shape, me->d.coloredCircle));
+    Circle_rotate(Cast(Circle, me->d.coloredCircle));
 }
 
-PrivateFun(void, polymorphismExample, (0))
+static Fun(void, polymorphismExample, (void))
 {
     printf("\n= Polymorphism example:\n");
 
     Shape * const shapes[] = {
-        Circle_toShape(me->props.circle),
-        Rectangle_toShape(me->props.rectangle),
-        Rectangle_toShape(me->props.heapRectangle),
-        Circle_toShape(ColoredCircle_toCircle(me->props.coloredCircle))};
+        Cast(Shape, me->d.circle),
+        Cast(Shape, me->d.rectangle),
+        Cast(Shape, me->d.heapRectangle),
+        Cast(Shape, me->d.coloredCircle)};
 
     for (uint8 i = 0; i < Array_size(shapes); i++)
     {
         printf("shapes[%d].area() = %.2f\n", i, Shape_area(shapes[i]));
-        printf("shapes[%d].size() = %d\n", i, Cbject_size((Cbject *) shapes[i]));
+        printf("shapes[%d].size() = %d\n", i, Object_size((Object *)shapes[i]));
     }
 }
 

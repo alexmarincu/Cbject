@@ -2,7 +2,7 @@
 #define CBJECT_PRIVATECONSTDEF_H
 #include "Cbject_ConstDef.h"
 
-#define Cbject_PrivateConstDef(cbjType, constType, constNameAndValue) \
-    static Cbject_ConstDef(cbjType, constType, constNameAndValue)
+#define Cbject_PrivateConstDef(typeName, constType, constNameAndValue) \
+    static Cbject_ConstDef(typeName, constType, constNameAndValue)
 
 #endif // CBJECT_PRIVATECONSTDEF_H

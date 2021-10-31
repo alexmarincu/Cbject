@@ -4,7 +4,7 @@
 
 #define Type Color
 
-EnumClass(
+Enum(
     red,
     yellow,
     blue = 6);

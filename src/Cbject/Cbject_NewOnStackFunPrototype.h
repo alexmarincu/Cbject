@@ -1,6 +1,6 @@
 #ifndef CBJECT_NEWONSTACKFUNPROTOTYPE_H
 #define CBJECT_NEWONSTACKFUNPROTOTYPE_H
 
-#define Cbject_NewOnStackFunPrototype(cbjType) \
-    cbjType * cbjType##_newOnStack(cbjType * const me, cbjType##Params const * const params)
+#define Cbject_NewOnStackFunPrototype(typeName) \
+    typeName * typeName##_createOnStack(typeName * const me, typeName##Params const p)
 #endif // CBJECT_NEWONSTACKFUNPROTOTYPE_H

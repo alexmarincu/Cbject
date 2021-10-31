@@ -7,24 +7,24 @@
 #define Parent Circle
 
 Class(
-    Params(,
+    Params(
         Point origin,
         uint32 radius,
         Color color),
-    Props(, Color color),
-    VirtFuns(0));
+    Data(
+        Color color),
+    (void));
 
-SetProps(,
-    (uint32, radius),
-    (Color, color));
+PoolSize(10);
 
-GetProps(,
-    (uint32, radius),
-    (Color, color));
+SetProp(uint32, radius);
+SetProp(Color, color);
 
-SuperFuns(,
-    (void, draw, (0)),
-    (void, rotate, (0)));
+GetProp(uint32, radius);
+GetProp(Color, color);
+
+OverrideFun(void, draw, (void));
+OverrideFun(void, rotate, (void));
 
 #undef Type
 #undef Parent

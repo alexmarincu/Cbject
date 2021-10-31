@@ -2,28 +2,28 @@
 #include <stdio.h>
 
 #define Type Shape
-#define Parent Cbject
+#define Parent Object
 
 AbstractClassSetup(
-    VirtFunCalls(,
-        (float, area, (0), (0)),
-        (void, draw, (0), (0))),
-    BindSuperFuns(,
-        (Shape, void, draw, (0))));
+    VirtFunCalls(
+        (float, area, (void), (void)),
+        (void, draw, (void), (void))),
+    BindFuns(
+        (Shape, void, draw, (void))));
 
-Init { me->props.origin = params->origin; }
+Init { me->d.origin = p.origin; }
 Terminate {}
 
 DefaultSetProp(Point, origin);
 DefaultGetProp(Point, origin);
 
-SuperFun(void, draw, (0))
+OverrideFun(void, draw, (void))
 {
-    (void) me;
+    (void)me;
     printf("Shape draw\n");
 }
 
-Fun(void, dummy, (0)) { printf("Shape dummy\n"); }
+Fun(void, dummy, (void)) { printf("Shape dummy\n"); }
 
 #undef Parent
 #undef Type

@@ -3,35 +3,29 @@
 
 #define Type Rectangle
 #define Parent Shape
-PoolSize(10);
 
 ClassSetup(
-    VirtFunCalls(0),
-    BindSuperFuns(,
-        (Shape, float, area, (0))));
+    (void),
+    BindFuns(
+        (Shape, float, area, (void))));
 
-DefaultSetProps(,
-    (uint32, width),
-    (uint32, height));
+DefaultSetProp(uint32, width);
+DefaultSetProp(uint32, height);
 
-DefaultGetProps(,
-    (uint32, width),
-    (uint32, height));
+DefaultGetProp(uint32, width);
+DefaultGetProp(uint32, height);
 
 Init
 {
-    *super_params = (ShapeParams){
-        .origin.x = params->origin.x,
-        .origin.y = params->origin.y};
-
-    me->props.width = params->width;
-    me->props.height = params->height;
+    me->d.width = p.width;
+    me->d.height = p.height;
+    sp->origin = p.origin;
 }
 
 Terminate {}
 
-Fun(uint32, test, (, uint32 const ab)) { return ab; }
-SuperFun(float, area, (0)) { return me->props.width * me->props.height; }
+Fun(uint32, test, Params(uint32 const ab)) { return ab; }
+OverrideFun(float, area, (void)) { return me->d.width * me->d.height; }
 
 #undef Parent
 #undef Type

@@ -7,16 +7,16 @@
 #include "Shape.h"
 
 #define Type Application
-#define Parent Cbject
+#define Parent Object
 
-Object(
-    Props(,
+Singleton(
+    Data(
         Circle * circle,
         Rectangle * rectangle,
         Rectangle * heapRectangle,
         ColoredCircle * coloredCircle));
 
-Fun(void, start, (0));
+Fun(void, start, (void));
 
 #undef Parent
 #undef Type

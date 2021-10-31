@@ -26,6 +26,13 @@
             "problemMatcher": []
         },
         {
+            "label": "Clean, Build, Test and Run App",
+            "type": "shell",
+            "command": "ceedling clobber release test:all; build/artifacts/release/Cbject.out",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
             "label": "Run All Tests",
             "type": "shell",
             "command": "ceedling test:all",
@@ -43,6 +50,13 @@
                 "kind": "test",
                 "isDefault": true
             },
+            "problemMatcher": []
+        },
+        {
+            "label": "Generate Docs",
+            "type": "shell",
+            "command": "asciidoctor-pdf -r asciidoctor-diagram -o ./build/artifacts/doc/Cbject.pdf ./doc/Cbject.adoc; asciidoctor -r asciidoctor-diagram -o ./build/artifacts/doc/Cbject.html ./doc/Cbject.adoc",
+            "group": "build",
             "problemMatcher": []
         }
     ]

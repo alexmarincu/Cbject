@@ -6,24 +6,24 @@
 #define Parent Shape
 
 Class(
-    Params(,
+    Params(
         Point origin,
         uint32 radius),
-    Props(,
+    Data(
         int32 radius),
-    VirtFuns(,
-        (void, rotate, (0))));
+    VirtFuns(
+        (void, rotate, (void))));
 
-PublicConst(float, pi);
-PublicConsts(, (float, anotherPi));
+PoolSize(10);
+
+extern Const(float, pi);
 
 SetProp(uint32, radius);
 GetProp(uint32, radius);
 
-SuperFuns(,
-    (float, area, (0)),
-    (void, draw, (0)),
-    (void, rotate, (0)));
+OverrideFun(float, area, (void));
+OverrideFun(void, draw, (void));
+OverrideFun(void, rotate, (void));
 
 #undef Type
 #undef Parent

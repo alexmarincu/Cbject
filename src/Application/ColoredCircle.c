@@ -5,39 +5,34 @@
 #define Type ColoredCircle
 #define Parent Circle
 
-PoolSize(10);
-
 ClassSetup(
-    VirtFunCalls(0),
-    BindSuperFuns(,
-        (Shape, void, draw, (0)),
-        (Circle, void, rotate, (0))));
+    (void),
+    BindFuns(
+        (Shape, void, draw, (void)),
+        (Circle, void, rotate, (void))));
 
 DefaultSetProp(Color, color);
 DefaultGetProp(Color, color);
 
 Init
 {
-    *super_params = (CircleParams){
-        .origin.x = params->origin.x,
-        .origin.y = params->origin.y,
-        .radius = params->radius};
-
-    me->props.color = params->color;
+    me->d.color = p.color;
+    sp->origin = p.origin;
+    sp->radius = p.radius;
 }
 
 Terminate {}
 
-SuperFun(void, draw, (0))
+OverrideFun(void, draw, (void))
 {
-    super_Shape_draw((Shape *) me);
-    super_Circle_draw((Circle *) me);
+    Shape_s_draw(Cast(Shape, me));
+    Circle_s_draw(Cast(Circle, me));
     printf("ColoredCircle draw\n");
 }
 
-SuperFun(void, rotate, (0))
+OverrideFun(void, rotate, (void))
 {
-    super_Circle_rotate((Circle *) me);
+    Circle_s_rotate(Cast(Circle, me));
     printf("Rotate counter-clockwise\n");
 }
 

@@ -5,7 +5,7 @@
 #define Cbject_VirtFunCalls_stripParenthesesAndApplyVirtFunCall(virtFunPrototype) \
     VirtFun virtFunPrototype;
 
-#define Cbject_VirtFunCalls_0(...)
+#define Cbject_VirtFunCalls_void(...)
 
 #define Cbject_VirtFunCalls_(...) \
     Cbject_Utils_forEach(Cbject_VirtFunCalls_stripParenthesesAndApplyVirtFunCall, __VA_ARGS__)

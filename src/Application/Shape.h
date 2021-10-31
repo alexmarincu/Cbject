@@ -4,18 +4,20 @@
 #include "Point.h"
 
 #define Type Shape
-#define Parent Cbject
+#define Parent Object
 
 AbstractClass(
-    Params(, Point origin),
-    Props(, Point origin),
-    VirtFuns(,
-        (float, area, (0)),
-        (void, draw, (0))));
+    Params(
+        Point origin),
+    Data(
+        Point origin),
+    VirtFuns(
+        (float, area, (void)),
+        (void, draw, (void))));
 
-SetProps(, (Point, origin));
-GetProps(, (Point, origin));
-SuperFun(void, draw, (0));
+SetProp(Point, origin);
+GetProp(Point, origin);
+OverrideFun(void, draw, (void));
 
 #undef Parent
 #undef Type

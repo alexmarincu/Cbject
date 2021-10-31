@@ -2,7 +2,7 @@
 #define CBJECT_VIRTFUN_H
 #include "Cbject_VirtFunImpl.h"
 
-#define Cbject_VirtFun(cbjType, returnType, funName, args, params) \
-    Cbject_VirtFunImpl(cbjType, returnType, funName, args, params)
+#define Cbject_VirtFun(typeName, returnType, funName, params, callParams) \
+    Cbject_VirtFunImpl(typeName, returnType, funName, params, callParams)
 
 #endif // CBJECT_VIRTFUN_H

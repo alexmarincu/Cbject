@@ -7,7 +7,7 @@
   :release_build: TRUE
   :test_file_prefix: test_
   :which_ceedling: gem
-  :ceedling_version: 0.31.0
+  :ceedling_version: 0.31.1
   :default_tasks:
     - release
 
@@ -45,6 +45,7 @@
   :plugins:
     - :ignore
     - :callback
+  :treat_externs: :include
   :treat_as:
     uint8: HEX8
     uint16: HEX16

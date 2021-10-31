@@ -1,50 +1,43 @@
 #ifndef CBJECT_H
 #define CBJECT_H
+
+/* tag::overview[]
+== Cbject
+
+[plantuml, target=CbjectDiagram, format=png]
+....
+hide circle
+class ObjectType {
+    max_align a - alignment enforcer
+    ..
+    char * name - type name
+    ..
+    ObjectVirtFuns vf - struct containing pointers to functions
+}
+
+class Object {
+    max_align a - alignment enforcer
+    ..
+    ObjectType t - pointer to the type struct
+}
+
+class CustomClass {
+    Object s - embedded super class
+    ..
+    CustomClassData d - struct containing the object fields
+}
+
+Object::type -> ObjectType::a
+CustomClass -[hidden]u-> Object
+....
+
+end::overview[] */
+
 #include "Cbject_Keywords.h"
 #include "Cbject_PrimitiveTypes.h"
 #include "Cbject_Settings.h"
 #include "Cbject_StaticAssert.h"
+#include "Object.h"
 #include <assert.h>
-
-#define Cbject_isTypeOf(me, cbjType) \
-    (Cbject_type((Cbject *) (me)) == (CbjectType *) cbjType##Type_())
-
-typedef struct CbjectType CbjectType;
-typedef struct Cbject Cbject;
-typedef char CbjectParams;
-typedef char CbjectProps;
-
-typedef struct CbjectVirtFuns
-{
-    uint8 (*size)(Cbject const * const me);
-} CbjectVirtFuns;
-
-typedef union CbjectTypeContainer
-{
-    Cbject_Settings_maxAlign a;
-    char d[sizeof(struct
-        {
-            Cbject_Settings_maxAlign a;
-            char const * name;
-            CbjectVirtFuns virtFuns;
-        })];
-} CbjectTypeContainer;
-
-typedef union CbjectContainer
-{
-    Cbject_Settings_maxAlign a;
-    char d[sizeof(struct
-        {
-            Cbject_Settings_maxAlign a;
-            CbjectType * type;
-            CbjectProps props;
-        })];
-} CbjectContainer;
-
-CbjectType const * const CbjectType_();
-void Cbject_init(Cbject * const me, CbjectParams const * const params);
-void Cbject_terminate(Cbject * const me);
-uint8 Cbject_size(Cbject const * const me);
-CbjectType const * Cbject_type(Cbject * const me);
 
 #endif // CBJECT_H

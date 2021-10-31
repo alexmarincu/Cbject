@@ -6,25 +6,25 @@
 #define Parent Shape
 
 Class(
-    Params(,
+    Params(
         Point origin,
         uint32 width,
         uint32 height),
-    Props(,
+    Data(
         uint32 width,
         uint32 height),
-    VirtFuns(0));
+    (void));
 
-SetProps(,
-    (uint32, width),
-    (uint32, height));
+PoolSize(10);
 
-GetProps(,
-    (uint32, width),
-    (uint32, height));
+SetProp(uint32, width);
+SetProp(uint32, height);
 
-Fun(uint32, test, (, uint32 const ab));
-SuperFun(float, area, (0));
+GetProp(uint32, width);
+GetProp(uint32, height);
+
+Fun(uint32, test, Params(uint32 const ab));
+OverrideFun(float, area, (void));
 
 #undef Parent
 #undef Type
