@@ -1,6 +1,6 @@
 #ifndef CBJECT_ABSTRACTCLASS_H
 #define CBJECT_ABSTRACTCLASS_H
-#include "Cbject_CastToSuperFunPrototype.h"
+#include "Cbject_CastFun.h"
 #include "Cbject_CbjectTypeVirtFunsGetFunPrototype.h"
 #include "Cbject_ContainerTypeDef.h"
 #include "Cbject_DataTypeDef.h"
@@ -27,8 +27,7 @@
     Cbject_TerminateFunPrototype(typeName);                                    \
     Cbject_TypeInstanceFunPrototype(typeName);                                 \
     Cbject_Funs(Cbject_Utils_stripParentheses(virtFuns));                      \
-    Cbject_CastToSuperFunPrototype(typeName, parent);                          \
-    Cbject_CastFunPrototype(typeName);                                         \
+    Cbject_CastFun_Prototype(typeName);                                        \
     Cbject_CbjectTypeVirtFunsGetFunPrototype(typeName)
 
 #endif // CBJECT_ABSTRACTCLASS_H
