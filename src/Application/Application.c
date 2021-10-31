@@ -4,21 +4,21 @@
 #define Type Application
 #define Parent Cbject
 
-ObjectSetup((0));
+ObjectSetup((void));
 Init {}
 Terminate {}
 
-static Fun(void, printBeginMessage, (0));
-static Fun(void, printEndMessage, (0));
-static Fun(void, circleExample, (0));
-static Fun(void, stackCircleExample, (0));
-static Fun(void, rectangleExample, (0));
-static Fun(void, stackRectangleExample, (0));
-static Fun(void, heapRectangleExample, (0));
-static Fun(void, coloredCircleExample, (0));
-static Fun(void, polymorphismExample, (0));
+static Fun(void, printBeginMessage, (void));
+static Fun(void, printEndMessage, (void));
+static Fun(void, circleExample, (void));
+static Fun(void, stackCircleExample, (void));
+static Fun(void, rectangleExample, (void));
+static Fun(void, stackRectangleExample, (void));
+static Fun(void, heapRectangleExample, (void));
+static Fun(void, coloredCircleExample, (void));
+static Fun(void, polymorphismExample, (void));
 
-Fun(void, start, (0))
+Fun(void, start, (void))
 {
     Application_circleExample(me);
     Application_stackCircleExample(me);
@@ -30,7 +30,7 @@ Fun(void, start, (0))
     Rectangle_delete(me->d.heapRectangle);
 }
 
-static Fun(void, circleExample, (0))
+static Fun(void, circleExample, (void))
 {
     printf("\n= Circle example:\n");
     me->d.circle = Circle_getFromStaticPool((CircleParams){{0, 1}, 1});
@@ -56,17 +56,17 @@ static Fun(void, circleExample, (0))
     // printf("type name = %s\n", Cbject_type((Cbject *) me->d.circle)->name);
 }
 
-static Fun(void, stackCircleExample, (0))
+static Fun(void, stackCircleExample, (void))
 {
     printf("\n= StackCircle example:\n");
-    Circle * stackCircle = Circle_createOnStack((Circle *) &(CircleContainer){}, (CircleParams){{2, 3}, 3});
+    Circle * stackCircle = Circle_createOnStack((Circle *)&(CircleContainer){}, (CircleParams){{2, 3}, 3});
     printf("radius = %d\n", Circle_radius(stackCircle));
     printf("Set radius to 4\n");
     Circle_radiusSet(stackCircle, 4);
     printf("radius = %d\n", Circle_radius(stackCircle));
 }
 
-static Fun(void, rectangleExample, (0))
+static Fun(void, rectangleExample, (void))
 {
     printf("\n= Rectangle example:\n");
     me->d.rectangle = Rectangle_getFromStaticPool((RectangleParams){{4, 5}, 1, 2});
@@ -82,10 +82,10 @@ static Fun(void, rectangleExample, (0))
     // printf("type name = %s\n", Cbject_type((Cbject *) me->d.rectangle)->name);
 }
 
-static Fun(void, stackRectangleExample, (0))
+static Fun(void, stackRectangleExample, (void))
 {
     printf("\n= StackRectangle example:\n");
-    Rectangle * stackRectangle = Rectangle_createOnStack((Rectangle *) &(RectangleContainer){}, (RectangleParams){{12, 23}, 34, 2});
+    Rectangle * stackRectangle = Rectangle_createOnStack((Rectangle *)&(RectangleContainer){}, (RectangleParams){{12, 23}, 34, 2});
     printf("width = %d\n", Rectangle_width(stackRectangle));
     printf("height = %d\n", Rectangle_height(stackRectangle));
     printf("Set width to 2 and height to 3\n");
@@ -95,7 +95,7 @@ static Fun(void, stackRectangleExample, (0))
     printf("height = %d\n", Rectangle_height(stackRectangle));
 }
 
-static Fun(void, heapRectangleExample, (0))
+static Fun(void, heapRectangleExample, (void))
 {
     printf("\n= HeapRectangle example:\n");
     me->d.heapRectangle = Rectangle_createOnHeap((RectangleParams){{12, 23}, 34, 2});
@@ -108,7 +108,7 @@ static Fun(void, heapRectangleExample, (0))
     printf("height = %d\n", Rectangle_height(me->d.heapRectangle));
 }
 
-static Fun(void, coloredCircleExample, (0))
+static Fun(void, coloredCircleExample, (void))
 {
     printf("\n= ColoredCircle example:\n");
     me->d.coloredCircle = ColoredCircle_getFromStaticPool((ColoredCircleParams){{12, 23}, 10, Color_red});
@@ -127,7 +127,7 @@ static Fun(void, coloredCircleExample, (0))
     Circle_rotate(Cast(Circle, me->d.coloredCircle));
 }
 
-static Fun(void, polymorphismExample, (0))
+static Fun(void, polymorphismExample, (void))
 {
     printf("\n= Polymorphism example:\n");
 
@@ -140,7 +140,7 @@ static Fun(void, polymorphismExample, (0))
     for (uint8 i = 0; i < Array_size(shapes); i++)
     {
         printf("shapes[%d].area() = %.2f\n", i, Shape_area(shapes[i]));
-        printf("shapes[%d].size() = %d\n", i, Cbject_size((Cbject *) shapes[i]));
+        printf("shapes[%d].size() = %d\n", i, Cbject_size((Cbject *)shapes[i]));
     }
 }
 

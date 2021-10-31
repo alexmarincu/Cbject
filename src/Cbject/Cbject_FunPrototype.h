@@ -1,7 +1,7 @@
 #ifndef CBJECT_FUNPROTOTYPE_H
 #define CBJECT_FUNPROTOTYPE_H
 
-#define Cbject_FunPrototype_0(typeName, returnType, funName, ...) \
+#define Cbject_FunPrototype_void(typeName, returnType, funName, ...) \
     returnType typeName##_##funName(typeName * const me)
 
 #define Cbject_FunPrototype_(typeName, returnType, funName, ...) \

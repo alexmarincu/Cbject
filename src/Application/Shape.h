@@ -12,12 +12,12 @@ AbstractClass(
     Data(
         Point origin),
     VirtFuns(
-        (float, area, (0)),
-        (void, draw, (0))));
+        (float, area, (void)),
+        (void, draw, (void))));
 
 SetProp(Point, origin);
 GetProp(Point, origin);
-SuperFun(void, draw, (0));
+SuperFun(void, draw, (void));
 
 #undef Parent
 #undef Type

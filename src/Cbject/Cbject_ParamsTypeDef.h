@@ -2,7 +2,7 @@
 #define CBJECT_PARAMSTYPEDEF_H
 #include "Cbject_Utils.h"
 
-#define Cbject_ParamsTypeDef_0(typeName, ...) \
+#define Cbject_ParamsTypeDef_void(typeName, ...) \
     typedef char typeName##Params
 
 #define Cbject_ParamsTypeDef_(typeName, ...)                         \

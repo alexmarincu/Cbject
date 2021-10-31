@@ -6,10 +6,10 @@
 
 AbstractClassSetup(
     VirtFunCalls(
-        (float, area, (0), (0)),
-        (void, draw, (0), (0))),
+        (float, area, (void), (void)),
+        (void, draw, (void), (void))),
     BindSuperFuns(
-        (Shape, void, draw, (0))));
+        (Shape, void, draw, (void))));
 
 Init { me->d.origin = params.origin; }
 Terminate {}
@@ -17,13 +17,13 @@ Terminate {}
 DefaultSetProp(Point, origin);
 DefaultGetProp(Point, origin);
 
-SuperFun(void, draw, (0))
+SuperFun(void, draw, (void))
 {
-    (void) me;
+    (void)me;
     printf("Shape draw\n");
 }
 
-Fun(void, dummy, (0)) { printf("Shape dummy\n"); }
+Fun(void, dummy, (void)) { printf("Shape dummy\n"); }
 
 #undef Parent
 #undef Type

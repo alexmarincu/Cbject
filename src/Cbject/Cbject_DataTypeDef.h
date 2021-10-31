@@ -2,7 +2,7 @@
 #define CBJECT_DATATYPEDEF_H
 #include "Cbject_Utils.h"
 
-#define Cbject_DataTypeDef_0(typeName, ...) \
+#define Cbject_DataTypeDef_void(typeName, ...) \
     typedef char typeName##Data
 
 #define Cbject_DataTypeDef_(typeName, ...)                           \

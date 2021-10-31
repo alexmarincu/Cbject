@@ -5,7 +5,7 @@
 #define Cbject_Funs_stripParenthesesAndApplyFun(funPrototype) \
     Fun funPrototype;
 
-#define Cbject_Funs_0(...)
+#define Cbject_Funs_void(...)
 
 #define Cbject_Funs_(...) \
     Cbject_Utils_forEach(Cbject_Funs_stripParenthesesAndApplyFun, __VA_ARGS__)

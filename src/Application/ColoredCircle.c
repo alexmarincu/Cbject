@@ -6,10 +6,10 @@
 #define Parent Circle
 
 ClassSetup(
-    (0),
+    (void),
     BindSuperFuns(
-        (Shape, void, draw, (0)),
-        (Circle, void, rotate, (0))));
+        (Shape, void, draw, (void)),
+        (Circle, void, rotate, (void))));
 
 DefaultSetProp(Color, color);
 DefaultGetProp(Color, color);
@@ -24,14 +24,14 @@ Init
 
 Terminate {}
 
-SuperFun(void, draw, (0))
+SuperFun(void, draw, (void))
 {
     super_Shape_draw(Cast(Shape, me));
     super_Circle_draw(Cast(Circle, me));
     printf("ColoredCircle draw\n");
 }
 
-SuperFun(void, rotate, (0))
+SuperFun(void, rotate, (void))
 {
     super_Circle_rotate(Cast(Circle, me));
     printf("Rotate counter-clockwise\n");

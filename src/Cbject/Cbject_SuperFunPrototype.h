@@ -1,7 +1,7 @@
 #ifndef CBJECT_SUPERFUNPROTOTYPE_H
 #define CBJECT_SUPERFUNPROTOTYPE_H
 
-#define Cbject_SuperFunPrototype_0(typeName, returnType, funName, ...) \
+#define Cbject_SuperFunPrototype_void(typeName, returnType, funName, ...) \
     returnType super_##typeName##_##funName(typeName * const me)
 
 #define Cbject_SuperFunPrototype_(typeName, returnType, funName, ...) \

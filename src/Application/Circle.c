@@ -6,11 +6,11 @@
 
 ClassSetup(
     VirtFunCalls(
-        (void, rotate, (0), (0))),
+        (void, rotate, (void), (void))),
     BindSuperFuns(
-        (Shape, float, area, (0)),
-        (Shape, void, draw, (0)),
-        (Circle, void, rotate, (0))));
+        (Shape, float, area, (void)),
+        (Shape, void, draw, (void)),
+        (Circle, void, rotate, (void))));
 
 Const(float, pi = 3.14);
 static Const(float, privatePi = 3.14);
@@ -27,14 +27,14 @@ Terminate {}
 DefaultSetProp(uint32, radius);
 DefaultGetProp(uint32, radius);
 
-SuperFun(void, draw, (0))
+SuperFun(void, draw, (void))
 {
     super_Shape_draw(Cast(Shape, me));
     printf("Circle draw\n");
 }
 
-SuperFun(float, area, (0)) { return me->d.radius * me->d.radius * Circle_pi; }
-SuperFun(void, rotate, (0)) { printf("Rotate clockwise\n"); }
+SuperFun(float, area, (void)) { return me->d.radius * me->d.radius * Circle_pi; }
+SuperFun(void, rotate, (void)) { printf("Rotate clockwise\n"); }
 
 #undef Parent
 #undef Type

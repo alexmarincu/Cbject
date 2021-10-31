@@ -12,7 +12,7 @@ Class(
     Data(
         int32 radius),
     VirtFuns(
-        (void, rotate, (0))));
+        (void, rotate, (void))));
 
 PoolSize(10);
 
@@ -21,9 +21,9 @@ extern Const(float, pi);
 SetProp(uint32, radius);
 GetProp(uint32, radius);
 
-SuperFun(float, area, (0));
-SuperFun(void, draw, (0));
-SuperFun(void, rotate, (0));
+SuperFun(float, area, (void));
+SuperFun(void, draw, (void));
+SuperFun(void, rotate, (void));
 
 #undef Type
 #undef Parent

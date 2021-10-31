@@ -5,9 +5,9 @@
 #define Parent Shape
 
 ClassSetup(
-    (0),
+    (void),
     BindSuperFuns(
-        (Shape, float, area, (0))));
+        (Shape, float, area, (void))));
 
 DefaultSetProp(uint32, width);
 DefaultSetProp(uint32, height);
@@ -26,7 +26,7 @@ Init
 Terminate {}
 
 Fun(uint32, test, Params(uint32 const ab)) { return ab; }
-SuperFun(float, area, (0)) { return me->d.width * me->d.height; }
+SuperFun(float, area, (void)) { return me->d.width * me->d.height; }
 
 #undef Parent
 #undef Type

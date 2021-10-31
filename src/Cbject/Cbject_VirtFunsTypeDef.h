@@ -5,7 +5,7 @@
 #define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr(funPrototype) \
     Cbject_VirtFunPtr funPrototype;
 
-#define Cbject_VirtFunsTypeDef_0(typeName, ...) \
+#define Cbject_VirtFunsTypeDef_void(typeName, ...) \
     typedef char typeName##VirtFuns
 
 #define Cbject_VirtFunsTypeDef_(typeName, ...)                                                       \

@@ -16,7 +16,7 @@ Object(
         Rectangle * heapRectangle,
         ColoredCircle * coloredCircle));
 
-Fun(void, start, (0));
+Fun(void, start, (void));
 
 #undef Parent
 #undef Type

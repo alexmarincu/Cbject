@@ -13,7 +13,7 @@ Class(
         Color color),
     Data(
         Color color),
-    (0));
+    (void));
 
 PoolSize(10);
 
@@ -23,8 +23,8 @@ SetProp(Color, color);
 GetProp(uint32, radius);
 GetProp(Color, color);
 
-SuperFun(void, draw, (0));
-SuperFun(void, rotate, (0));
+SuperFun(void, draw, (void));
+SuperFun(void, rotate, (void));
 
 #undef Type
 #undef Parent

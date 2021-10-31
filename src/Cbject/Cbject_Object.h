@@ -13,7 +13,7 @@
 #define Cbject_Object(typeName, parent, data)                          \
     Cbject_TypeTypeDecl(typeName);                                     \
     Cbject_TypeDecl(typeName);                                         \
-    Cbject_ParamsTypeDef(typeName, 0);                                 \
+    Cbject_ParamsTypeDef(typeName, void);                              \
     Cbject_DataTypeDef(typeName, Cbject_Utils_stripParentheses(data)); \
     Cbject_ContainerTypeDef(typeName, parent);                         \
     Cbject_InitFunPrototype(typeName);                                 \

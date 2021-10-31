@@ -13,7 +13,7 @@ Class(
     Data(
         uint32 width,
         uint32 height),
-    (0));
+    (void));
 
 PoolSize(10);
 
@@ -24,7 +24,7 @@ GetProp(uint32, width);
 GetProp(uint32, height);
 
 Fun(uint32, test, Params(uint32 const ab));
-SuperFun(float, area, (0));
+SuperFun(float, area, (void));
 
 #undef Parent
 #undef Type
