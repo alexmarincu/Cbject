@@ -5,7 +5,7 @@
 #include "Cbject_ContainerTypeDef.h"
 #include "Cbject_DataTypeDef.h"
 #include "Cbject_Funs.h"
-#include "Cbject_InitFunPrototype.h"
+#include "Cbject_InitFun.h"
 #include "Cbject_ParamsTypeDef.h"
 #include "Cbject_TerminateFunPrototype.h"
 #include "Cbject_TypeContainerTypeDef.h"
@@ -23,7 +23,7 @@
     Cbject_VirtFunsTypeDef(typeName, Cbject_Utils_stripParentheses(virtFuns)); \
     Cbject_TypeContainerTypeDef(typeName, parent, withVirtFuns);               \
     Cbject_ContainerTypeDef(typeName, parent);                                 \
-    Cbject_InitFunPrototype(typeName);                                         \
+    Cbject_InitFun_Prototype(typeName);                                        \
     Cbject_TerminateFunPrototype(typeName);                                    \
     Cbject_TypeInstanceFunPrototype(typeName);                                 \
     Cbject_Funs(Cbject_Utils_stripParentheses(virtFuns));                      \

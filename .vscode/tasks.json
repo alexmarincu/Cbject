@@ -26,9 +26,9 @@
             "problemMatcher": []
         },
         {
-            "label": "Clean, Build and Run App",
+            "label": "Clean, Build, Test and Run App",
             "type": "shell",
-            "command": "ceedling clean release; build/artifacts/release/Cbject.out",
+            "command": "ceedling clobber release test:all; build/artifacts/release/Cbject.out",
             "group": "build",
             "problemMatcher": []
         },
