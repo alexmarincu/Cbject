@@ -1,7 +1,6 @@
 #ifndef CBJECT_CLASS_H
 #define CBJECT_CLASS_H
-#include "Cbject_DeleteObjectFunPrototype.h"
-#include "Cbject_DeleteObjectImpl.h"
+#include "Cbject_DeleteObjectFun.h"
 #include "Cbject_GetObjectFunPrototype.h"
 #include "Cbject_GetObjectImpl.h"
 #include "Cbject_NewObjectFunPrototype.h"
@@ -17,13 +16,13 @@
             Cbject_NewOnStackFunPrototype(typeName);                   \
             Cbject_GetObjectFunPrototype(typeName);                    \
             Cbject_NewObjectFunPrototype(typeName);                    \
-            Cbject_DeleteObjectFunPrototype(typeName)
+            Cbject_DeleteObjectFun_Prototype(typeName)
     #else
         #define Cbject_Class(typeName, parent, params, data, virtFuns) \
             AbstractClass(params, data, virtFuns);                     \
             Cbject_NewOnStackFunPrototype(typeName);                   \
             Cbject_NewObjectFunPrototype(typeName);                    \
-            Cbject_DeleteObjectFunPrototype(typeName)
+            Cbject_DeleteObjectFun_Prototype(typeName)
     #endif
 #else
     #if Cbject_Settings_useStaticPool == true
@@ -45,13 +44,13 @@
             Cbject_NewOnStackFunImpl(typeName);                              \
             Cbject_GetObjectImpl(typeName);                                  \
             Cbject_NewObjectImpl(typeName);                                  \
-            Cbject_DeleteObjectImpl(typeName)
+            Cbject_DeleteObjectFun_Impl(typeName)
     #else
         #define Cbject_Class_Setup(typeName, parent, virtFunCalls, bindFuns) \
             AbstractClassSetup(virtFunCalls, bindFuns);                      \
             Cbject_NewOnStackFunImpl(typeName);                              \
             Cbject_NewObjectImpl(typeName);                                  \
-            Cbject_DeleteObjectImpl(typeName)
+            Cbject_DeleteObjectFun_Impl(typeName)
     #endif
 #else
     #if Cbject_Settings_useStaticPool == true
