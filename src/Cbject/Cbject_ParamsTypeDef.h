@@ -2,10 +2,10 @@
 #define CBJECT_PARAMSTYPEDEF_H
 #include "Cbject_Utils.h"
 
-#define Cbject_ParamsTypeDef_void(typeName, ...) \
+#define Cbject_ParamsTypeDef_(typeName, ...) \
     typedef char typeName##Params
 
-#define Cbject_ParamsTypeDef_(typeName, ...)                         \
+#define Cbject_ParamsTypeDef_args(typeName, ...)                     \
     typedef struct typeName##Params                                  \
     {                                                                \
         Cbject_Utils_forEach(Cbject_Utils_addSemicolon, __VA_ARGS__) \

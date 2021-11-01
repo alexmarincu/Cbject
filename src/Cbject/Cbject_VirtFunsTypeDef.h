@@ -5,10 +5,10 @@
 #define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr(funPrototype) \
     Cbject_VirtFunPtr funPrototype;
 
-#define Cbject_VirtFunsTypeDef_void(typeName, ...) \
+#define Cbject_VirtFunsTypeDef_(typeName, ...) \
     typedef char typeName##VirtFuns
 
-#define Cbject_VirtFunsTypeDef_(typeName, ...)                                                       \
+#define Cbject_VirtFunsTypeDef_args(typeName, ...)                                                   \
     typedef struct typeName##VirtFuns                                                                \
     {                                                                                                \
         Cbject_Utils_forEach(Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr, __VA_ARGS__) \

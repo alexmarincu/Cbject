@@ -2,10 +2,10 @@
 #define CBJECT_DATATYPEDEF_H
 #include "Cbject_Utils.h"
 
-#define Cbject_DataTypeDef_void(typeName, ...) \
+#define Cbject_DataTypeDef_(typeName, ...) \
     typedef char typeName##Data
 
-#define Cbject_DataTypeDef_(typeName, ...)                           \
+#define Cbject_DataTypeDef_args(typeName, ...)                       \
     typedef struct typeName##Data                                    \
     {                                                                \
         Cbject_Utils_forEach(Cbject_Utils_addSemicolon, __VA_ARGS__) \

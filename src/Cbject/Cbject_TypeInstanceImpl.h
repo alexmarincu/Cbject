@@ -6,7 +6,7 @@
 #define Cbject_TypeInstanceImpl_stripParenthesesAndApplyBindFuns(funPrototype) \
     Cbject_BindFun funPrototype;
 
-#define Cbject_TypeInstanceImpl_void(typeName, parent, ...)                                       \
+#define Cbject_TypeInstanceImpl_(typeName, parent, ...)                                           \
     Cbject_TypeInstanceFunPrototype(typeName)                                                     \
     {                                                                                             \
         static typeName##Type t;                                                                  \
@@ -32,7 +32,7 @@
         return &t;                                                                                \
     }
 
-#define Cbject_TypeInstanceImpl_(typeName, parent, ...)                                                  \
+#define Cbject_TypeInstanceImpl_args(typeName, parent, ...)                                              \
     Cbject_TypeInstanceFunPrototype(typeName)                                                            \
     {                                                                                                    \
         static typeName##Type t;                                                                         \

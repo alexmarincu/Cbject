@@ -6,10 +6,10 @@
 #define Parent Circle
 
 ClassSetup(
-    (void),
+    (),
     BindFuns(
-        (Shape, void, draw, (void)),
-        (Circle, void, rotate, (void))));
+        (Shape, void, draw, ()),
+        (Circle, void, rotate, ())));
 
 DefaultSetProp(Color, color);
 DefaultGetProp(Color, color);
@@ -23,14 +23,14 @@ Init
 
 Terminate {}
 
-OverrideFun(void, draw, (void))
+OverrideFun(void, draw, ())
 {
     Shape_s_draw(Cast(Shape, me));
     Circle_s_draw(Cast(Circle, me));
     printf("ColoredCircle draw\n");
 }
 
-OverrideFun(void, rotate, (void))
+OverrideFun(void, rotate, ())
 {
     Circle_s_rotate(Cast(Circle, me));
     printf("Rotate counter-clockwise\n");

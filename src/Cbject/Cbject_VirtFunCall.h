@@ -2,15 +2,6 @@
 #define CBJECT_VIRTFUNCALL_H
 #include "Cbject_Utils.h"
 
-#define Cbject_VirtFunCall_void(typeName, funName, ...) \
-    typedef struct ObjectT                              \
-    {                                                   \
-        Cbject_Settings_maxAlign a;                     \
-        ObjectType * t;                                 \
-    } ObjectT;                                          \
-                                                        \
-    return ((typeName##Type *)((ObjectT *)me)->t)->vf.funName(me)
-
 #define Cbject_VirtFunCall_(typeName, funName, ...) \
     typedef struct ObjectT                          \
     {                                               \
@@ -18,6 +9,15 @@
         ObjectType * t;                             \
     } ObjectT;                                      \
                                                     \
+    return ((typeName##Type *)((ObjectT *)me)->t)->vf.funName(me)
+
+#define Cbject_VirtFunCall_args(typeName, funName, ...) \
+    typedef struct ObjectT                              \
+    {                                                   \
+        Cbject_Settings_maxAlign a;                     \
+        ObjectType * t;                                 \
+    } ObjectT;                                          \
+                                                        \
     return ((typeName##Type *)((ObjectT *)me)->t)->vf.funName(me, __VA_ARGS__)
 
 #define Cbject_VirtFunCall_case(typeName, funName, case, ...) \

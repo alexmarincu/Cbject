@@ -2,10 +2,10 @@
 #define CBJECT_VIRTFUNPTR_H
 #include "Cbject_Utils.h"
 
-#define Cbject_VirtFunPtr_void(typeName, returnType, funName, ...) \
+#define Cbject_VirtFunPtr_(typeName, returnType, funName, ...) \
     returnType (*funName)(typeName * const me)
 
-#define Cbject_VirtFunPtr_(typeName, returnType, funName, ...) \
+#define Cbject_VirtFunPtr_args(typeName, returnType, funName, ...) \
     returnType (*funName)(typeName * const me, __VA_ARGS__)
 
 #define Cbject_VirtFunPtr_case(typeName, returnType, funName, case, ...) \

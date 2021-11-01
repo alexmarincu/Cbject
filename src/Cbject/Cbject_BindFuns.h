@@ -2,10 +2,10 @@
 #define CBJECT_BINDFUNS_H
 #include "Cbject_Utils.h"
 
-#define Cbject_BindFun_void(typeName, parent, returnType, funName, ...) \
+#define Cbject_BindFun_(typeName, parent, returnType, funName, ...) \
     parent##Type_virtFuns((parent##Type *)&t)->funName = (returnType(*)(parent * const me))typeName##_s_##funName
 
-#define Cbject_BindFun_(typeName, parent, returnType, funName, ...) \
+#define Cbject_BindFun_args(typeName, parent, returnType, funName, ...) \
     parent##Type_virtFuns((parent##Type *)&t)->funName = (returnType(*)(parent * const me, __VA_ARGS__))typeName##_s_##funName
 
 #define Cbject_BindFun_case(typeName, parent, returnType, funName, case, ...) \

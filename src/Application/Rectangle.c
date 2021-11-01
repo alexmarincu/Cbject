@@ -5,9 +5,9 @@
 #define Parent Shape
 
 ClassSetup(
-    (void),
+    (),
     BindFuns(
-        (Shape, float, area, (void))));
+        (Shape, float, area, ())));
 
 DefaultSetProp(uint32, width);
 DefaultSetProp(uint32, height);
@@ -25,7 +25,7 @@ Init
 Terminate {}
 
 Fun(uint32, test, Params(uint32 const ab)) { return ab; }
-OverrideFun(float, area, (void)) { return me->d.width * me->d.height; }
+OverrideFun(float, area, ()) { return me->d.width * me->d.height; }
 
 #undef Parent
 #undef Type

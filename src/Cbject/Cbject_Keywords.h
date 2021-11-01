@@ -1,10 +1,8 @@
 #ifndef CBJECT_KEYWORDS_H
 #define CBJECT_KEYWORDS_H
 #include "Cbject_AbstractClass.h"
-#include "Cbject_AbstractClassSetup.h"
 #include "Cbject_BindFuns.h"
 #include "Cbject_Class.h"
-#include "Cbject_ClassSetup.h"
 #include "Cbject_Const.h"
 #include "Cbject_DefaultGetProp.h"
 #include "Cbject_DefaultSetProp.h"
@@ -25,16 +23,16 @@
     Cbject_AbstractClass(Type, Parent, params, data, virtFuns)
 
 #define AbstractClassSetup(virtFunCalls, bindFuns) \
-    Cbject_AbstractClassSetup(Type, Parent, virtFunCalls, bindFuns)
+    Cbject_AbstractClass_Setup(Type, Parent, virtFunCalls, bindFuns)
 
 #define BindFuns(...) \
-    (, __VA_ARGS__)
+    (args, __VA_ARGS__)
 
 #define Class(params, data, virtFuns) \
     Cbject_Class(Type, Parent, params, data, virtFuns)
 
 #define ClassSetup(virtFunCalls, bindFuns) \
-    Cbject_ClassSetup(Type, Parent, virtFunCalls, bindFuns)
+    Cbject_Class_Setup(Type, Parent, virtFunCalls, bindFuns)
 
 #define Const(constType, constNameAndValue) \
     Cbject_Const(Type, constType, constNameAndValue)
@@ -58,22 +56,22 @@
     Cbject_OverrideFun(Type, returnType, funName, Cbject_Utils_stripParentheses(params))
 
 #define Params(...) \
-    (, __VA_ARGS__)
+    (args, __VA_ARGS__)
 
 #define PoolSize(poolSize) \
     Cbject_PoolSize(Type, poolSize)
 
 #define Data(...) \
-    (, __VA_ARGS__)
+    (args, __VA_ARGS__)
 
 #define VirtFun(returnType, funName, params, callParams) \
     Cbject_VirtFun(Type, returnType, funName, params, callParams)
 
 #define VirtFunCalls(...) \
-    (, __VA_ARGS__)
+    (args, __VA_ARGS__)
 
 #define VirtFuns(...) \
-    (, __VA_ARGS__)
+    (args, __VA_ARGS__)
 
 #define SetProp(fieldType, fieldName) \
     Cbject_SetProp(Type, fieldType, fieldName)
