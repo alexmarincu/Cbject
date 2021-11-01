@@ -1,12 +1,12 @@
 #ifndef CBJECT_UTILS_H
 #define CBJECT_UTILS_H
 
-#define Cbject_Utils_stripParentheses__(...) __VA_ARGS__
+#define Cbject_Utils_stripParentheses_args(...) __VA_ARGS__
 
-#define Cbject_Utils_stripParentheses_(x) x
+#define Cbject_Utils_stripParentheses_x(x) x
 
-#define Cbject_Utils_stripParentheses(params) \
-    Cbject_Utils_stripParentheses_(Cbject_Utils_stripParentheses__ params)
+#define Cbject_Utils_stripParentheses(args) \
+    Cbject_Utils_stripParentheses_x(Cbject_Utils_stripParentheses_args args)
 
 #define Cbject_Utils_forEach0(macro, x) macro(x)
 #define Cbject_Utils_forEach1(macro, x, ...) macro(x) Cbject_Utils_forEach0(macro, __VA_ARGS__)
