@@ -39,6 +39,18 @@ void test_Rectangle_StaticPool(void)
     checkRectangleDataAccessors(r);
 }
 
+/* tag::testDoc[]
+== Rectangle on stack
+Test creation on stack and data accessors of Rectangle object
+
+end::testDoc[] */
+void test_Rectangle_Stack(void)
+{
+    Rectangle * r = Rectangle_createOnStack((Rectangle *)&(RectangleContainer){}, (RectangleParams){{4, 5}, 1, 2});
+    checkRectangleInit(r);
+    checkRectangleDataAccessors(r);
+}
+
 static void checkRectangleInit(Rectangle const * const r)
 {
     TEST_ASSERT_NOT_NULL(r);
