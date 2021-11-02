@@ -9,7 +9,7 @@ AbstractClassSetup(
         (float, area, (), ()),
         (void, draw, (), ())),
     BindFuns(
-        (Shape, void, draw, ())));
+        (Shape, (void, draw, ()))));
 
 Init { me->d.origin = p.origin; }
 Terminate {}

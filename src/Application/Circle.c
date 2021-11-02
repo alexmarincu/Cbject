@@ -8,12 +8,11 @@ ClassSetup(
     VirtFunCalls(
         (void, rotate, (), ())),
     BindFuns(
-        (Shape, float, area, ()),
-        (Shape, void, draw, ()),
-        (Circle, void, rotate, ())));
+        (Shape, (float, area, ())),
+        (Shape, (void, draw, ())),
+        (Circle, (void, rotate, ()))));
 
 Const(float, pi = 3.14);
-static Const(float, privatePi = 3.14);
 
 Init
 {

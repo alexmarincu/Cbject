@@ -7,7 +7,7 @@
 ClassSetup(
     (),
     BindFuns(
-        (Shape, float, area, ())));
+        (Shape, (float, area, ()))));
 
 DefaultSetProp(uint32, width);
 DefaultSetProp(uint32, height);

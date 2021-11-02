@@ -16,14 +16,14 @@
 #include "Cbject_TypeTypeDef.h"
 #include "Cbject_Utils.h"
 
-#define Cbject_Singleton(typeName, parent, data)                       \
-    Cbject_TypeTypeDecl(typeName);                                     \
-    Cbject_TypeDecl(typeName);                                         \
-    Cbject_ParamsTypeDef(typeName, );                                  \
-    Cbject_DataTypeDef(typeName, Cbject_Utils_stripParentheses(data)); \
-    Cbject_ContainerTypeDef(typeName, parent);                         \
-    Cbject_InitFun_Prototype(typeName);                                \
-    Cbject_TerminateFunPrototype(typeName);                            \
+#define Cbject_Singleton(typeName, parent, data) \
+    Cbject_TypeTypeDecl(typeName);               \
+    Cbject_TypeDecl(typeName);                   \
+    Cbject_ParamsTypeDef(typeName, ());          \
+    Cbject_DataTypeDef(typeName, data);          \
+    Cbject_ContainerTypeDef(typeName, parent);   \
+    Cbject_InitFun_Prototype(typeName);          \
+    Cbject_TerminateFunPrototype(typeName);      \
     Cbject_ObjectInstanceFunPrototype(typeName)
 
 #define Cbject_Singleton_Setup(typeName, parent, bindFuns) \
@@ -32,5 +32,5 @@
     Cbject_TypeInstanceFunPrototype(typeName);             \
     Cbject_ObjectInstanceImpl(typeName);                   \
     Cbject_SizeImpl(typeName);                             \
-    Cbject_TypeInstanceImpl(typeName, parent, Cbject_Utils_stripParentheses(bindFuns))
+    Cbject_TypeInstanceImpl(typeName, parent, bindFuns)
 #endif // CBJECT_SINGLETON_H

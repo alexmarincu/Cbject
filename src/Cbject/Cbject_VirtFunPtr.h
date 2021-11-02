@@ -2,19 +2,19 @@
 #define CBJECT_VIRTFUNPTR_H
 #include "Cbject_Utils.h"
 
-#define Cbject_VirtFunPtr_(typeName, returnType, funName, ...) \
+#define Cbject_VirtFunPtr_case_(typeName, returnType, funName, ...) \
     returnType (*funName)(typeName * const me)
 
-#define Cbject_VirtFunPtr_args(typeName, returnType, funName, ...) \
+#define Cbject_VirtFunPtr_case_params(typeName, returnType, funName, ...) \
     returnType (*funName)(typeName * const me, __VA_ARGS__)
 
-#define Cbject_VirtFunPtr_case(typeName, returnType, funName, case, ...) \
-    Cbject_VirtFunPtr_##case (typeName, returnType, funName, __VA_ARGS__)
+#define Cbject_VirtFunPtr_switch(typeName, returnType, funName, case, ...) \
+    Cbject_VirtFunPtr_case_##case (typeName, returnType, funName, __VA_ARGS__)
 
-#define Cbject_VirtFunPtr__(typeName, returnType, funName, ...) \
-    Cbject_VirtFunPtr_case(typeName, returnType, funName, __VA_ARGS__)
+#define Cbject_VirtFunPtr_x(typeName, returnType, funName, ...) \
+    Cbject_VirtFunPtr_switch(typeName, returnType, funName, __VA_ARGS__)
 
 #define Cbject_VirtFunPtr(returnType, funName, params) \
-    Cbject_VirtFunPtr__(Type, returnType, funName, Cbject_Utils_stripParentheses(params))
+    Cbject_VirtFunPtr_x(Type, returnType, funName, Cbject_Utils_stripParentheses(params))
 
 #endif // CBJECT_VIRTFUNPTR_H

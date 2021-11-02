@@ -8,8 +8,8 @@
 ClassSetup(
     (),
     BindFuns(
-        (Shape, void, draw, ()),
-        (Circle, void, rotate, ())));
+        (Shape, (void, draw, ())),
+        (Circle, (void, rotate, ()))));
 
 DefaultSetProp(Color, color);
 DefaultGetProp(Color, color);

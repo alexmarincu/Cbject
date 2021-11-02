@@ -5,15 +5,18 @@
 #define Cbject_VirtFunCalls_stripParenthesesAndApplyVirtFunCall(virtFunPrototype) \
     VirtFun virtFunPrototype;
 
-#define Cbject_VirtFunCalls_(...)
+#define Cbject_VirtFunCalls_case_(...)
 
-#define Cbject_VirtFunCalls_args(...) \
+#define Cbject_VirtFunCalls_case_virtFunCalls(...) \
     Cbject_Utils_forEach(Cbject_VirtFunCalls_stripParenthesesAndApplyVirtFunCall, __VA_ARGS__)
 
-#define Cbject_VirtFunCalls__(case, ...) \
-    Cbject_VirtFunCalls_##case (__VA_ARGS__)
+#define Cbject_VirtFunCalls_switch(case, ...) \
+    Cbject_VirtFunCalls_case_##case (__VA_ARGS__)
 
-#define Cbject_VirtFunCalls(...) \
-    Cbject_VirtFunCalls__(__VA_ARGS__)
+#define Cbject_VirtFunCalls_x(...) \
+    Cbject_VirtFunCalls_switch(__VA_ARGS__)
+
+#define Cbject_VirtFunCalls(virtFunCalls) \
+    Cbject_VirtFunCalls_x(Cbject_Utils_stripParentheses(virtFunCalls))
 
 #endif // CBJECT_VIRTFUNCALLS_H

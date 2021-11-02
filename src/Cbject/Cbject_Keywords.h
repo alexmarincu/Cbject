@@ -9,7 +9,7 @@
     Cbject_KeywordExpander_AbstractClassSetup(Type, Parent, virtFunCalls, bindFuns)
 
 #define BindFuns(...) \
-    (args, __VA_ARGS__)
+    (bindFuns, __VA_ARGS__)
 
 #define Class(params, data, virtFuns) \
     Cbject_KeywordExpander_Class(Type, Parent, params, data, virtFuns)
@@ -39,22 +39,22 @@
     Cbject_KeywordExpander_OverrideFun(Type, returnType, funName, params)
 
 #define Params(...) \
-    (args, __VA_ARGS__)
+    (params, __VA_ARGS__)
 
 #define PoolSize(poolSize) \
     Cbject_KeywordExpander_PoolSize(Type, poolSize)
 
 #define Data(...) \
-    (args, __VA_ARGS__)
+    (data, __VA_ARGS__)
 
 #define VirtFun(returnType, funName, params, callParams) \
     Cbject_KeywordExpander_VirtFun(Type, returnType, funName, params, callParams)
 
 #define VirtFunCalls(...) \
-    (args, __VA_ARGS__)
+    (virtFunCalls, __VA_ARGS__)
 
 #define VirtFuns(...) \
-    (args, __VA_ARGS__)
+    (virtFuns, __VA_ARGS__)
 
 #define SetProp(fieldType, fieldName) \
     Cbject_KeywordExpander_SetProp(Type, fieldType, fieldName)
