@@ -4,21 +4,22 @@
 #define Type Application
 #define Parent Object
 
-SingletonSetup(());
+SingletonSetup(BindFunsNone);
+
 Init {}
 Terminate {}
 
-static Fun(void, printBeginMessage, ());
-static Fun(void, printEndMessage, ());
-static Fun(void, circleExample, ());
-static Fun(void, stackCircleExample, ());
-static Fun(void, rectangleExample, ());
-static Fun(void, stackRectangleExample, ());
-static Fun(void, heapRectangleExample, ());
-static Fun(void, coloredCircleExample, ());
-static Fun(void, polymorphismExample, ());
+static Fun(void, printBeginMessage, ParamsNone);
+static Fun(void, printEndMessage, ParamsNone);
+static Fun(void, circleExample, ParamsNone);
+static Fun(void, stackCircleExample, ParamsNone);
+static Fun(void, rectangleExample, ParamsNone);
+static Fun(void, stackRectangleExample, ParamsNone);
+static Fun(void, heapRectangleExample, ParamsNone);
+static Fun(void, coloredCircleExample, ParamsNone);
+static Fun(void, polymorphismExample, ParamsNone);
 
-Fun(void, start, ())
+Fun(void, start, ParamsNone)
 {
     Application_circleExample(me);
     Application_stackCircleExample(me);
@@ -30,7 +31,7 @@ Fun(void, start, ())
     Rectangle_delete(me->d.heapRectangle);
 }
 
-static Fun(void, circleExample, ())
+static Fun(void, circleExample, ParamsNone)
 {
     printf("\n= Circle example:\n");
     me->d.circle = Circle_getFromStaticPool((CircleParams){{0, 1}, 1});
@@ -56,7 +57,7 @@ static Fun(void, circleExample, ())
     // printf("type name = %s\n", Object_type((Object *) me->d.circle)->name);
 }
 
-static Fun(void, stackCircleExample, ())
+static Fun(void, stackCircleExample, ParamsNone)
 {
     printf("\n= StackCircle example:\n");
     Circle * stackCircle = Circle_createOnStack((Circle *)&(CircleContainer){}, (CircleParams){{2, 3}, 3});
@@ -66,7 +67,7 @@ static Fun(void, stackCircleExample, ())
     printf("radius = %d\n", Circle_radius(stackCircle));
 }
 
-static Fun(void, rectangleExample, ())
+static Fun(void, rectangleExample, ParamsNone)
 {
     printf("\n= Rectangle example:\n");
     me->d.rectangle = Rectangle_getFromStaticPool((RectangleParams){{4, 5}, 1, 2});
@@ -82,7 +83,7 @@ static Fun(void, rectangleExample, ())
     // printf("type name = %s\n", Object_type((Object *) me->d.rectangle)->name);
 }
 
-static Fun(void, stackRectangleExample, ())
+static Fun(void, stackRectangleExample, ParamsNone)
 {
     printf("\n= StackRectangle example:\n");
     Rectangle * stackRectangle = Rectangle_createOnStack((Rectangle *)&(RectangleContainer){}, (RectangleParams){{12, 23}, 34, 2});
@@ -95,7 +96,7 @@ static Fun(void, stackRectangleExample, ())
     printf("height = %d\n", Rectangle_height(stackRectangle));
 }
 
-static Fun(void, heapRectangleExample, ())
+static Fun(void, heapRectangleExample, ParamsNone)
 {
     printf("\n= HeapRectangle example:\n");
     me->d.heapRectangle = Rectangle_createOnHeap((RectangleParams){{12, 23}, 34, 2});
@@ -108,7 +109,7 @@ static Fun(void, heapRectangleExample, ())
     printf("height = %d\n", Rectangle_height(me->d.heapRectangle));
 }
 
-static Fun(void, coloredCircleExample, ())
+static Fun(void, coloredCircleExample, ParamsNone)
 {
     printf("\n= ColoredCircle example:\n");
     me->d.coloredCircle = ColoredCircle_getFromStaticPool((ColoredCircleParams){{12, 23}, 10, Color_red});
@@ -127,7 +128,7 @@ static Fun(void, coloredCircleExample, ())
     Circle_rotate(Cast(Circle, me->d.coloredCircle));
 }
 
-static Fun(void, polymorphismExample, ())
+static Fun(void, polymorphismExample, ParamsNone)
 {
     printf("\n= Polymorphism example:\n");
 

@@ -1,7 +1,7 @@
 #ifndef CBJECT_OVERRIDEFUNPROTOTYPE_H
 #define CBJECT_OVERRIDEFUNPROTOTYPE_H
 
-#define Cbject_OverrideFunPrototype_case_(typeName, returnType, funName, ...) \
+#define Cbject_OverrideFunPrototype_case_paramsNone(typeName, returnType, funName, ...) \
     returnType typeName##_s_##funName(typeName * const me)
 
 #define Cbject_OverrideFunPrototype_case_params(typeName, returnType, funName, ...) \

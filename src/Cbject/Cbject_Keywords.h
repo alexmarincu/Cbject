@@ -11,6 +11,9 @@
 #define BindFuns(...) \
     (bindFuns, __VA_ARGS__)
 
+#define BindFunsNone \
+    (bindFunsNone)
+
 #define Class(params, data, virtFuns) \
     Cbject_KeywordExpander_Class(Type, Parent, params, data, virtFuns)
 
@@ -41,11 +44,17 @@
 #define Params(...) \
     (params, __VA_ARGS__)
 
+#define ParamsNone \
+    (paramsNone)
+
 #define PoolSize(poolSize) \
     Cbject_KeywordExpander_PoolSize(Type, poolSize)
 
 #define Data(...) \
     (data, __VA_ARGS__)
+
+#define DataNone \
+    (dataNone)
 
 #define VirtFun(returnType, funName, params, callParams) \
     Cbject_KeywordExpander_VirtFun(Type, returnType, funName, params, callParams)
@@ -53,8 +62,14 @@
 #define VirtFunCalls(...) \
     (virtFunCalls, __VA_ARGS__)
 
+#define VirtFunCallsNone \
+    (virtFunCallsNone)
+
 #define VirtFuns(...) \
     (virtFuns, __VA_ARGS__)
+
+#define VirtFunsNone \
+    (virtFunsNone)
 
 #define SetProp(fieldType, fieldName) \
     Cbject_KeywordExpander_SetProp(Type, fieldType, fieldName)

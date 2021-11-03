@@ -2,7 +2,7 @@
 #define CBJECT_VIRTFUNSTYPEDEF_H
 #include "Cbject_VirtFunPtr.h"
 
-#define Cbject_VirtFunsTypeDef_case_(typeName, ...) \
+#define Cbject_VirtFunsTypeDef_case_virtFunsNone(typeName, ...) \
     typedef char typeName##VirtFuns
 
 #define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_virtual(funPrototype) \

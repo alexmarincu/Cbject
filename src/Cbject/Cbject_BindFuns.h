@@ -2,7 +2,7 @@
 #define CBJECT_BINDFUNS_H
 #include "Cbject_Utils.h"
 
-#define Cbject_BindFun_case_(typeName, parent, returnType, funName, ...) \
+#define Cbject_BindFun_case_paramsNone(typeName, parent, returnType, funName, ...) \
     parent##Type_virtFuns((parent##Type *)&t)->funName = (returnType(*)(parent * const me))typeName##_s_##funName
 
 #define Cbject_BindFun_case_params(typeName, parent, returnType, funName, ...) \

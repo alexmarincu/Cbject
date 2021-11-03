@@ -14,8 +14,8 @@ Class(
     Data(
         Color color),
     VirtFuns(
-        (override, (void, draw, ())),
-        (override, (void, rotate, ()))));
+        (override, (void, draw, ParamsNone)),
+        (override, (void, rotate, ParamsNone))));
 
 PoolSize(10);
 
@@ -24,9 +24,6 @@ SetProp(Color, color);
 
 GetProp(uint32, radius);
 GetProp(Color, color);
-
-// OverrideFun(void, draw, ());
-// OverrideFun(void, rotate, ());
 
 #undef Type
 #undef Parent

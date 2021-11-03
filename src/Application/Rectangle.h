@@ -15,7 +15,7 @@ Class(
         uint32 height),
     VirtFuns(
         (final, (uint32, test, Params(uint32 const ab))),
-        (override, (float, area, ()))));
+        (override, (float, area, ParamsNone))));
 
 PoolSize(10);
 

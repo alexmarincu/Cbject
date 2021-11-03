@@ -6,7 +6,7 @@
 #define Cbject_TypeInstanceImpl_stripParenthesesAndApplyBindFun(funPrototype) \
     Cbject_BindFun funPrototype;
 
-#define Cbject_TypeInstanceImpl_case_(typeName, parent, ...)                                      \
+#define Cbject_TypeInstanceImpl_case_bindFunsNone(typeName, parent, ...)                          \
     Cbject_TypeInstanceFunPrototype(typeName)                                                     \
     {                                                                                             \
         static typeName##Type t;                                                                  \

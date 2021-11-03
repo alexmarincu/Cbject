@@ -4,6 +4,6 @@
 #include "Cbject_VirtFunCall.h"
 
 #define Cbject_VirtFunImpl(typeName, returnType, funName, params, callParams) \
-    Fun(returnType, funName, params) { Cbject_VirtFunCall(typeName, funName, Cbject_Utils_stripParentheses(callParams)); }
+    Fun(returnType, funName, params) { Cbject_VirtFunCall(typeName, funName, callParams); }
 
 #endif // CBJECT_VIRTFUNIMPL_H

@@ -12,9 +12,9 @@ Class(
     Data(
         int32 radius),
     VirtFuns(
-        (override, (float, area, ())),
-        (override, (void, draw, ())),
-        (virtual, (void, rotate, ()))));
+        (override, (float, area, ParamsNone)),
+        (override, (void, draw, ParamsNone)),
+        (virtual, (void, rotate, ParamsNone))));
 
 PoolSize(10);
 

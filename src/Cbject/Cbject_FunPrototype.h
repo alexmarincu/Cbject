@@ -1,7 +1,7 @@
 #ifndef CBJECT_FUNPROTOTYPE_H
 #define CBJECT_FUNPROTOTYPE_H
 
-#define Cbject_FunPrototype_case_(typeName, returnType, funName, ...) \
+#define Cbject_FunPrototype_case_paramsNone(typeName, returnType, funName, ...) \
     returnType typeName##_##funName(typeName * const me)
 
 #define Cbject_FunPrototype_case_params(typeName, returnType, funName, ...) \

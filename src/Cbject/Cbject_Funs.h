@@ -24,7 +24,7 @@
 #define Cbject_Funs_stripParenthesesAndApplyFun(funPrototype) \
     Cbject_Funs_stripParenthesesAndApplyFun_x1(Cbject_Utils_stripParentheses(funPrototype))
 
-#define Cbject_Funs_case_(...)
+#define Cbject_Funs_case_virtFunsNone(...)
 
 #define Cbject_Funs_case_virtFuns(...) \
     Cbject_Utils_forEach(Cbject_Funs_stripParenthesesAndApplyFun, __VA_ARGS__)

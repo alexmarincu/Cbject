@@ -2,7 +2,7 @@
 #define CBJECT_VIRTFUNPTR_H
 #include "Cbject_Utils.h"
 
-#define Cbject_VirtFunPtr_case_(typeName, returnType, funName, ...) \
+#define Cbject_VirtFunPtr_case_paramsNone(typeName, returnType, funName, ...) \
     returnType (*funName)(typeName * const me)
 
 #define Cbject_VirtFunPtr_case_params(typeName, returnType, funName, ...) \

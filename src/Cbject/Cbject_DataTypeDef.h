@@ -2,7 +2,7 @@
 #define CBJECT_DATATYPEDEF_H
 #include "Cbject_Utils.h"
 
-#define Cbject_DataTypeDef_case_(typeName, ...) \
+#define Cbject_DataTypeDef_case_dataNone(typeName, ...) \
     typedef char typeName##Data
 
 #define Cbject_DataTypeDef_case_data(typeName, ...)                  \

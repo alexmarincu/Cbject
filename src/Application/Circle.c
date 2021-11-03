@@ -6,11 +6,11 @@
 
 ClassSetup(
     VirtFunCalls(
-        (void, rotate, (), ())),
+        (void, rotate, ParamsNone, ParamsNone)),
     BindFuns(
-        (Shape, (float, area, ())),
-        (Shape, (void, draw, ())),
-        (Circle, (void, rotate, ()))));
+        (Shape, (float, area, ParamsNone)),
+        (Shape, (void, draw, ParamsNone)),
+        (Circle, (void, rotate, ParamsNone))));
 
 Const(float, pi = 3.14);
 
@@ -25,14 +25,14 @@ Terminate {}
 DefaultSetProp(uint32, radius);
 DefaultGetProp(uint32, radius);
 
-OverrideFun(void, draw, ())
+OverrideFun(void, draw, ParamsNone)
 {
     Shape_s_draw(Cast(Shape, me));
     printf("Circle draw\n");
 }
 
-OverrideFun(float, area, ()) { return me->d.radius * me->d.radius * Circle_pi; }
-OverrideFun(void, rotate, ()) { printf("Rotate clockwise\n"); }
+OverrideFun(float, area, ParamsNone) { return me->d.radius * me->d.radius * Circle_pi; }
+OverrideFun(void, rotate, ParamsNone) { printf("Rotate clockwise\n"); }
 
 #undef Parent
 #undef Type

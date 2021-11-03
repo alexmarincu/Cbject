@@ -2,7 +2,7 @@
 #define CBJECT_PARAMSTYPEDEF_H
 #include "Cbject_Utils.h"
 
-#define Cbject_ParamsTypeDef_case_(typeName, ...) \
+#define Cbject_ParamsTypeDef_case_paramsNone(typeName, ...) \
     typedef char typeName##Params
 
 #define Cbject_ParamsTypeDef_case_params(typeName, ...)              \
@@ -14,10 +14,10 @@
 #define Cbject_ParamsTypeDef_switch(typeName, case, ...) \
     Cbject_ParamsTypeDef_case_##case (typeName, __VA_ARGS__)
 
-#define Cbject_ParamsTypeDef_x(typeName, ...) \
+#define Cbject_ParamsTypeDef_x1(typeName, ...) \
     Cbject_ParamsTypeDef_switch(typeName, __VA_ARGS__)
 
 #define Cbject_ParamsTypeDef(typeName, params) \
-    Cbject_ParamsTypeDef_x(typeName, Cbject_Utils_stripParentheses(params))
+    Cbject_ParamsTypeDef_x1(typeName, Cbject_Utils_stripParentheses(params))
 
 #endif // CBJECT_PARAMSTYPEDEF_H
