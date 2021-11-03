@@ -11,10 +11,10 @@
 #define Cbject_VirtFunPtr_switch(typeName, returnType, funName, case, ...) \
     Cbject_VirtFunPtr_case_##case (typeName, returnType, funName, __VA_ARGS__)
 
-#define Cbject_VirtFunPtr_x(typeName, returnType, funName, ...) \
+#define Cbject_VirtFunPtr_x1(typeName, returnType, funName, ...) \
     Cbject_VirtFunPtr_switch(typeName, returnType, funName, __VA_ARGS__)
 
 #define Cbject_VirtFunPtr(returnType, funName, params) \
-    Cbject_VirtFunPtr_x(Type, returnType, funName, Cbject_Utils_stripParentheses(params))
+    Cbject_VirtFunPtr_x1(Type, returnType, funName, Cbject_Utils_stripParentheses(params))
 
 #endif // CBJECT_VIRTFUNPTR_H

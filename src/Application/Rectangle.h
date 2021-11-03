@@ -13,7 +13,9 @@ Class(
     Data(
         uint32 width,
         uint32 height),
-    ());
+    VirtFuns(
+        (final, (uint32, test, Params(uint32 const ab))),
+        (override, (float, area, ()))));
 
 PoolSize(10);
 
@@ -22,9 +24,6 @@ SetProp(uint32, height);
 
 GetProp(uint32, width);
 GetProp(uint32, height);
-
-Fun(uint32, test, Params(uint32 const ab));
-OverrideFun(float, area, ());
 
 #undef Parent
 #undef Type

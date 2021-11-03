@@ -20,19 +20,19 @@
 #include "Cbject_VirtFunsGetter.h"
 #include "Cbject_VirtFunsTypeDef.h"
 
-#define Cbject_AbstractClass(typeName, parent, params, data, virtFuns) \
-    Cbject_TypeTypeDecl(typeName);                                     \
-    Cbject_TypeDecl(typeName);                                         \
-    Cbject_ParamsTypeDef(typeName, params);                            \
-    Cbject_DataTypeDef(typeName, data);                                \
-    Cbject_VirtFunsTypeDef(typeName, virtFuns);                        \
-    Cbject_TypeContainerTypeDef(typeName, parent, withVirtFuns);       \
-    Cbject_ContainerTypeDef(typeName, parent);                         \
-    Cbject_InitFun_Prototype(typeName);                                \
-    Cbject_TerminateFunPrototype(typeName);                            \
-    Cbject_TypeInstanceFunPrototype(typeName);                         \
-    Cbject_Funs(virtFuns);                                             \
-    Cbject_CastFun_Prototype(typeName);                                \
+#define Cbject_AbstractClass(typeName, parent, params, data, funs) \
+    Cbject_TypeTypeDecl(typeName);                                 \
+    Cbject_TypeDecl(typeName);                                     \
+    Cbject_ParamsTypeDef(typeName, params);                        \
+    Cbject_DataTypeDef(typeName, data);                            \
+    Cbject_VirtFunsTypeDef(typeName, funs);                        \
+    Cbject_TypeContainerTypeDef(typeName, parent, withVirtFuns);   \
+    Cbject_ContainerTypeDef(typeName, parent);                     \
+    Cbject_InitFun_Prototype(typeName);                            \
+    Cbject_TerminateFunPrototype(typeName);                        \
+    Cbject_TypeInstanceFunPrototype(typeName);                     \
+    Cbject_Funs(funs);                                             \
+    Cbject_CastFun_Prototype(typeName);                            \
     Cbject_VirtFunsGetter_Prototype(typeName)
 
 #define Cbject_AbstractClass_Setup(typeName, parent, virtFunCalls, bindFuns) \
