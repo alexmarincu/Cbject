@@ -7,7 +7,7 @@
 ClassSetup(
     VirtFunCallsNone,
     BindFuns(
-        (Shape, (float, area, ParamsNone))));
+        (Shape, (float, area, ()))));
 
 DefaultSetProp(uint32, width);
 DefaultSetProp(uint32, height);
@@ -25,7 +25,7 @@ Init
 Terminate {}
 
 Fun(uint32, test, Params(uint32 const ab)) { return ab; }
-OverrideFun(float, area, ParamsNone) { return me->d.width * me->d.height; }
+OverrideFun(float, area, ()) { return me->d.width * me->d.height; }
 
 #undef Parent
 #undef Type

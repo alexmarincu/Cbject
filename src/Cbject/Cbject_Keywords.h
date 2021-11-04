@@ -11,9 +11,6 @@
 #define BindFuns(...) \
     (bindFuns, __VA_ARGS__)
 
-#define BindFunsNone \
-    (bindFunsNone)
-
 #define Class(params, data, virtFuns) \
     Cbject_KeywordExpander_Class(Type, Parent, params, data, virtFuns)
 
@@ -43,9 +40,6 @@
 
 #define Params(...) \
     (params, __VA_ARGS__)
-
-#define ParamsNone \
-    (paramsNone)
 
 #define PoolSize(poolSize) \
     Cbject_KeywordExpander_PoolSize(Type, poolSize)

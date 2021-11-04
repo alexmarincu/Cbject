@@ -14,10 +14,10 @@
 #define Cbject_DataTypeDef_switch(typeName, case, ...) \
     Cbject_DataTypeDef_case_##case (typeName, __VA_ARGS__)
 
-#define Cbject_DataTypeDef_x(typeName, ...) \
+#define Cbject_DataTypeDef_x1(typeName, ...) \
     Cbject_DataTypeDef_switch(typeName, __VA_ARGS__)
 
 #define Cbject_DataTypeDef(typeName, data) \
-    Cbject_DataTypeDef_x(typeName, Cbject_Utils_stripParentheses(data))
+    Cbject_DataTypeDef_x1(typeName, Cbject_Utils_stripParentheses(data))
 
 #endif // CBJECT_DATATYPEDEF_H

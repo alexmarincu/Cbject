@@ -14,8 +14,8 @@ Class(
     Data(
         Color color),
     VirtFuns(
-        (override, (void, draw, ParamsNone)),
-        (override, (void, rotate, ParamsNone))));
+        (override, (void, draw, ())),
+        (override, (void, rotate, ()))));
 
 PoolSize(10);
 

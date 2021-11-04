@@ -2,13 +2,13 @@
 #define CBJECT_VIRTFUNCALL_H
 #include "Cbject_Utils.h"
 
-#define Cbject_VirtFunCall_case_paramsNone(typeName, funName, ...) \
-    typedef struct ObjectT                                         \
-    {                                                              \
-        Cbject_Settings_maxAlign a;                                \
-        ObjectType * t;                                            \
-    } ObjectT;                                                     \
-                                                                   \
+#define Cbject_VirtFunCall_case_(typeName, funName, ...) \
+    typedef struct ObjectT                               \
+    {                                                    \
+        Cbject_Settings_maxAlign a;                      \
+        ObjectType * t;                                  \
+    } ObjectT;                                           \
+                                                         \
     return ((typeName##Type *)((ObjectT *)me)->t)->vf.funName(me)
 
 #define Cbject_VirtFunCall_case_params(typeName, funName, ...) \

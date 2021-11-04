@@ -19,7 +19,7 @@
 #define Cbject_Singleton(typeName, parent, data) \
     Cbject_TypeTypeDecl(typeName);               \
     Cbject_TypeDecl(typeName);                   \
-    Cbject_ParamsTypeDef(typeName, ParamsNone);  \
+    Cbject_ParamsTypeDef(typeName, ());          \
     Cbject_DataTypeDef(typeName, data);          \
     Cbject_ContainerTypeDef(typeName, parent);   \
     Cbject_InitFun_Prototype(typeName);          \

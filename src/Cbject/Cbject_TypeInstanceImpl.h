@@ -6,7 +6,7 @@
 #define Cbject_TypeInstanceImpl_stripParenthesesAndApplyBindFun(funPrototype) \
     Cbject_BindFun funPrototype;
 
-#define Cbject_TypeInstanceImpl_case_bindFunsNone(typeName, parent, ...)                          \
+#define Cbject_TypeInstanceImpl_case_(typeName, parent, ...)                                      \
     Cbject_TypeInstanceFunPrototype(typeName)                                                     \
     {                                                                                             \
         static typeName##Type t;                                                                  \
@@ -62,10 +62,10 @@
 #define Cbject_TypeInstanceImpl_switch(typeName, parent, case, ...) \
     Cbject_TypeInstanceImpl_case_##case (typeName, parent, __VA_ARGS__)
 
-#define Cbject_TypeInstanceImpl_x(typeName, parent, ...) \
+#define Cbject_TypeInstanceImpl_x1(typeName, parent, ...) \
     Cbject_TypeInstanceImpl_switch(typeName, parent, __VA_ARGS__)
 
 #define Cbject_TypeInstanceImpl(typeName, parent, bindFuns) \
-    Cbject_TypeInstanceImpl_x(typeName, parent, Cbject_Utils_stripParentheses(bindFuns))
+    Cbject_TypeInstanceImpl_x1(typeName, parent, Cbject_Utils_stripParentheses(bindFuns))
 
 #endif // CBJECT_TYPEINSTANCEIMPL_H

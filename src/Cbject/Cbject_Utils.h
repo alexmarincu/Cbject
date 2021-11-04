@@ -3,10 +3,10 @@
 
 #define Cbject_Utils_stripParentheses_args(...) __VA_ARGS__
 
-#define Cbject_Utils_stripParentheses_x(x) x
+#define Cbject_Utils_stripParentheses_x1(x) x
 
 #define Cbject_Utils_stripParentheses(args) \
-    Cbject_Utils_stripParentheses_x(Cbject_Utils_stripParentheses_args args)
+    Cbject_Utils_stripParentheses_x1(Cbject_Utils_stripParentheses_args args)
 
 #define Cbject_Utils_forEach0(macro, x) macro(x)
 #define Cbject_Utils_forEach1(macro, x, ...) macro(x) Cbject_Utils_forEach0(macro, __VA_ARGS__)
