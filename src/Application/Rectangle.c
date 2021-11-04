@@ -17,15 +17,15 @@ DefaultGetProp(uint32, height);
 
 Init
 {
-    me->d.width = p.width;
-    me->d.height = p.height;
-    sp->origin = p.origin;
+    me->data.width = params.width;
+    me->data.height = params.height;
+    superParams->origin = params.origin;
 }
 
 Terminate {}
 
 Fun(uint32, test, Params(uint32 const ab)) { return ab; }
-OverrideFun(float, area, ()) { return me->d.width * me->d.height; }
+OverrideFun(float, area, ()) { return me->data.width * me->data.height; }
 
 #undef Parent
 #undef Type

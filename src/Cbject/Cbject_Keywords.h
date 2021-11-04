@@ -26,8 +26,8 @@
 #define Enum(...) \
     Cbject_KeywordExpander_Enum(Type, __VA_ARGS__)
 
-#define Fun(returnType, funName, params) \
-    Cbject_KeywordExpander_Fun(Type, returnType, funName, params)
+#define Fun(funReturnType, funName, funParams) \
+    Cbject_KeywordExpander_Fun(Type, funReturnType, funName, funParams)
 
 #define Singleton(data) \
     Cbject_KeywordExpander_Singleton(Type, Parent, data)
@@ -35,8 +35,8 @@
 #define SingletonSetup(bindFuns) \
     Cbject_KeywordExpander_SingletonSetup(Type, Parent, bindFuns)
 
-#define OverrideFun(returnType, funName, params) \
-    Cbject_KeywordExpander_OverrideFun(Type, returnType, funName, params)
+#define OverrideFun(funReturnType, funName, funParams) \
+    Cbject_KeywordExpander_OverrideFun(Type, funReturnType, funName, funParams)
 
 #define Params(...) \
     (params, __VA_ARGS__)
@@ -47,8 +47,8 @@
 #define Data(...) \
     (data, __VA_ARGS__)
 
-#define VirtFun(returnType, funName, params, callParams) \
-    Cbject_KeywordExpander_VirtFun(Type, returnType, funName, params, callParams)
+#define VirtFun(funReturnType, funName, funParams, funCallParams) \
+    Cbject_KeywordExpander_VirtFun(Type, funReturnType, funName, funParams, funCallParams)
 
 #define VirtFunCalls(...) \
     (virtFunCalls, __VA_ARGS__)

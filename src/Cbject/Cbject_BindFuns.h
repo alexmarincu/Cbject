@@ -2,25 +2,25 @@
 #define CBJECT_BINDFUNS_H
 #include "Cbject_Utils.h"
 
-#define Cbject_BindFun_case_(typeName, parent, returnType, funName, ...) \
-    parent##Type_virtFuns((parent##Type *)&t)->funName = (returnType(*)(parent * const me))typeName##_s_##funName
+#define Cbject_BindFun_case_(typeName, superTypeName, funReturnType, funName, ...) \
+    superTypeName##Type_virtFuns((superTypeName##Type *)&type)->funName = (funReturnType(*)(superTypeName * const me))super_##typeName##_##funName
 
-#define Cbject_BindFun_case_params(typeName, parent, returnType, funName, ...) \
-    parent##Type_virtFuns((parent##Type *)&t)->funName = (returnType(*)(parent * const me, __VA_ARGS__))typeName##_s_##funName
+#define Cbject_BindFun_case_params(typeName, superTypeName, funReturnType, funName, ...) \
+    superTypeName##Type_virtFuns((superTypeName##Type *)&type)->funName = (funReturnType(*)(superTypeName * const me, __VA_ARGS__))super_##typeName##_##funName
 
-#define Cbject_BindFun_switch(typeName, parent, returnType, funName, case, ...) \
-    Cbject_BindFun_case_##case (typeName, parent, returnType, funName, __VA_ARGS__)
+#define Cbject_BindFun_switch(typeName, superTypeName, funReturnType, funName, case, ...) \
+    Cbject_BindFun_case_##case (typeName, superTypeName, funReturnType, funName, __VA_ARGS__)
 
-#define Cbject_BindFun_x3(typeName, parent, returnType, funName, ...) \
-    Cbject_BindFun_switch(typeName, parent, returnType, funName, __VA_ARGS__)
+#define Cbject_BindFun_x3(typeName, superTypeName, funReturnType, funName, ...) \
+    Cbject_BindFun_switch(typeName, superTypeName, funReturnType, funName, __VA_ARGS__)
 
-#define Cbject_BindFun_x2(typeName, parent, returnType, funName, params) \
-    Cbject_BindFun_x3(typeName, parent, returnType, funName, Cbject_Utils_stripParentheses(params))
+#define Cbject_BindFun_x2(typeName, superTypeName, funReturnType, funName, funParams) \
+    Cbject_BindFun_x3(typeName, superTypeName, funReturnType, funName, Cbject_Utils_stripParentheses(funParams))
 
-#define Cbject_BindFun_x1(typeName, parent, ...) \
-    Cbject_BindFun_x2(typeName, parent, __VA_ARGS__)
+#define Cbject_BindFun_x1(typeName, superTypeName, ...) \
+    Cbject_BindFun_x2(typeName, superTypeName, __VA_ARGS__)
 
-#define Cbject_BindFun(parent, funPrototype) \
-    Cbject_BindFun_x1(Type, parent, Cbject_Utils_stripParentheses(funPrototype))
+#define Cbject_BindFun(superTypeName, funPrototype) \
+    Cbject_BindFun_x1(Type, superTypeName, Cbject_Utils_stripParentheses(funPrototype))
 
 #endif // CBJECT_BINDFUNS_H

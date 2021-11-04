@@ -11,15 +11,15 @@
                                                    \
         typedef struct ObjectTypeT                 \
         {                                          \
-            Cbject_Settings_maxAlign a;            \
+            Cbject_Settings_maxAlign align;        \
             char const * name;                     \
-            ObjectType * st;                       \
-            ObjectVirtFuns vf;                     \
+            ObjectType * superType;                \
+            ObjectVirtFuns virtFuns;               \
         } ObjectTypeT;                             \
                                                    \
         if (((ObjectTypeT *)meType)->name == NULL) \
         {                                          \
-            virtFuns = &meType->vf;                \
+            virtFuns = &meType->virtFuns;          \
         }                                          \
                                                    \
         return virtFuns;                           \

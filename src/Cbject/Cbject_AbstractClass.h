@@ -20,29 +20,29 @@
 #include "Cbject_VirtFunsGetter.h"
 #include "Cbject_VirtFunsTypeDef.h"
 
-#define Cbject_AbstractClass(typeName, parent, params, data, virtFuns, funs) \
-    Cbject_TypeTypeDecl(typeName);                                           \
-    Cbject_TypeDecl(typeName);                                               \
-    Cbject_ParamsTypeDef(typeName, params);                                  \
-    Cbject_DataTypeDef(typeName, data);                                      \
-    Cbject_VirtFunsTypeDef(typeName, virtFuns);                              \
-    Cbject_TypeContainerTypeDef(typeName, parent, withVirtFuns);             \
-    Cbject_ContainerTypeDef(typeName, parent);                               \
-    Cbject_InitFun_Prototype(typeName);                                      \
-    Cbject_TerminateFunPrototype(typeName);                                  \
-    Cbject_TypeInstanceFunPrototype(typeName);                               \
-    Cbject_FunDecls(virtFuns);                                               \
-    Cbject_FunDecls(funs);                                                   \
-    Cbject_CastFun_Prototype(typeName);                                      \
+#define Cbject_AbstractClass(typeName, superTypeName, params, data, virtFuns, funs) \
+    Cbject_TypeTypeDecl(typeName);                                                  \
+    Cbject_TypeDecl(typeName);                                                      \
+    Cbject_ParamsTypeDef(typeName, params);                                         \
+    Cbject_DataTypeDef(typeName, data);                                             \
+    Cbject_VirtFunsTypeDef(typeName, virtFuns);                                     \
+    Cbject_TypeContainerTypeDef(typeName, superTypeName, withVirtFuns);             \
+    Cbject_ContainerTypeDef(typeName, superTypeName);                               \
+    Cbject_InitFun_Prototype(typeName);                                             \
+    Cbject_TerminateFunPrototype(typeName);                                         \
+    Cbject_TypeInstanceFunPrototype(typeName);                                      \
+    Cbject_FunDecls(virtFuns);                                                      \
+    Cbject_FunDecls(funs);                                                          \
+    Cbject_CastFun_Prototype(typeName);                                             \
     Cbject_VirtFunsGetter_Prototype(typeName)
 
-#define Cbject_AbstractClass_Setup(typeName, parent, virtFunCalls, bindFuns) \
-    Cbject_TypeTypeDef(typeName, parent, withVirtFuns);                      \
-    Cbject_TypeDef(typeName, parent);                                        \
-    Cbject_SizeImpl(typeName);                                               \
-    Cbject_TypeInstanceImpl(typeName, parent, bindFuns);                     \
-    Cbject_CastFun_Impl(typeName);                                           \
-    Cbject_VirtFunsGetter_Impl(typeName);                                    \
+#define Cbject_AbstractClass_Setup(typeName, superTypeName, virtFunCalls, bindFuns) \
+    Cbject_TypeTypeDef(typeName, superTypeName, withVirtFuns);                      \
+    Cbject_TypeDef(typeName, superTypeName);                                        \
+    Cbject_SizeImpl(typeName);                                                      \
+    Cbject_TypeInstanceImpl(typeName, superTypeName, bindFuns);                     \
+    Cbject_CastFun_Impl(typeName);                                                  \
+    Cbject_VirtFunsGetter_Impl(typeName);                                           \
     Cbject_VirtFunCalls(virtFunCalls)
 
 #endif // CBJECT_ABSTRACTCLASS_H

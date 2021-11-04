@@ -5,6 +5,6 @@
     fieldType typeName##_##fieldName(typeName const * const me)
 
 #define Cbject_GetPropFun_DefaultImpl(typeName, fieldType, fieldName) \
-    Cbject_GetPropFun_Prototype(typeName, fieldType, fieldName) { return me->d.fieldName; }
+    Cbject_GetPropFun_Prototype(typeName, fieldType, fieldName) { return me->data.fieldName; }
 
 #endif // CBJECT_GETPROPFUN_H

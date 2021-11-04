@@ -19,28 +19,30 @@ typedef struct ObjectVirtFuns
 
 typedef union ObjectTypeContainer
 {
-    Cbject_Settings_maxAlign a;
-    char c[sizeof(struct
+    Cbject_Settings_maxAlign align;
+    char container[sizeof(
+        struct
         {
-            Cbject_Settings_maxAlign a;
+            Cbject_Settings_maxAlign align;
             char const * name;
-            ObjectType * st;
-            ObjectVirtFuns vf;
+            ObjectType * superType;
+            ObjectVirtFuns virtFuns;
         })];
 } ObjectTypeContainer;
 
 typedef union ObjectContainer
 {
-    Cbject_Settings_maxAlign a;
-    char c[sizeof(struct
+    Cbject_Settings_maxAlign align;
+    char container[sizeof(
+        struct
         {
-            Cbject_Settings_maxAlign a;
-            ObjectType * t;
+            Cbject_Settings_maxAlign align;
+            ObjectType * type;
         })];
 } ObjectContainer;
 
 ObjectType const * const ObjectType_instance();
-void Object_init(Object * const me, ObjectParams const p);
+void Object_init(Object * const me, ObjectParams const params);
 void Object_terminate(Object * const me);
 uint8 Object_size(Object const * const me);
 ObjectType const * Object_type(Object * const me);

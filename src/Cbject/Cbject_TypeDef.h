@@ -1,11 +1,11 @@
 #ifndef CBJECT_TYPEDEF_H
 #define CBJECT_TYPEDEF_H
 
-#define Cbject_TypeDef(typeName, parent) \
-    struct typeName                      \
-    {                                    \
-        parent##Container s;             \
-        typeName##Data d;                \
+#define Cbject_TypeDef(typeName, superTypeName) \
+    struct typeName                             \
+    {                                           \
+        superTypeName##Container super;         \
+        typeName##Data data;                    \
     }
 
 #endif // CBJECT_TYPEDEF_H

@@ -1,19 +1,19 @@
 #ifndef CBJECT_OVERRIDEFUNPROTOTYPE_H
 #define CBJECT_OVERRIDEFUNPROTOTYPE_H
 
-#define Cbject_OverrideFunPrototype_case_(typeName, returnType, funName, ...) \
-    returnType typeName##_s_##funName(typeName * const me)
+#define Cbject_OverrideFunPrototype_case_(typeName, funReturnType, funName, ...) \
+    funReturnType super_##typeName##_##funName(typeName * const me)
 
-#define Cbject_OverrideFunPrototype_case_params(typeName, returnType, funName, ...) \
-    returnType typeName##_s_##funName(typeName * const me, __VA_ARGS__)
+#define Cbject_OverrideFunPrototype_case_params(typeName, funReturnType, funName, ...) \
+    funReturnType super_##typeName##_##funName(typeName * const me, __VA_ARGS__)
 
-#define Cbject_OverrideFunPrototype_switch(typeName, returnType, funName, case, ...) \
-    Cbject_OverrideFunPrototype_case_##case (typeName, returnType, funName, __VA_ARGS__)
+#define Cbject_OverrideFunPrototype_switch(typeName, funReturnType, funName, case, ...) \
+    Cbject_OverrideFunPrototype_case_##case (typeName, funReturnType, funName, __VA_ARGS__)
 
-#define Cbject_OverrideFunPrototype_x1(typeName, returnType, funName, ...) \
-    Cbject_OverrideFunPrototype_switch(typeName, returnType, funName, __VA_ARGS__)
+#define Cbject_OverrideFunPrototype_x1(typeName, funReturnType, funName, ...) \
+    Cbject_OverrideFunPrototype_switch(typeName, funReturnType, funName, __VA_ARGS__)
 
-#define Cbject_OverrideFunPrototype(typeName, returnType, funName, params) \
-    Cbject_OverrideFunPrototype_x1(typeName, returnType, funName, Cbject_Utils_stripParentheses(params))
+#define Cbject_OverrideFunPrototype(typeName, funReturnType, funName, funParams) \
+    Cbject_OverrideFunPrototype_x1(typeName, funReturnType, funName, Cbject_Utils_stripParentheses(funParams))
 
 #endif // CBJECT_OVERRIDEFUNPROTOTYPE_H

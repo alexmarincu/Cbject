@@ -10,7 +10,7 @@
         typeName * me = (typeName *)malloc(sizeof(typeName));    \
         assert((me != NULL) && "Heap memory allocation failed"); \
         memset(me, 0, sizeof(typeName));                         \
-        typeName##_init(me, p);                                  \
+        typeName##_init(me, params);                             \
         return me;                                               \
     }
 

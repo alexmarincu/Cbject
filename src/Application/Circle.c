@@ -16,8 +16,8 @@ Const(float, pi = 3.14);
 
 Init
 {
-    me->d.radius = p.radius;
-    sp->origin = p.origin;
+    me->data.radius = params.radius;
+    superParams->origin = params.origin;
 }
 
 Terminate {}
@@ -27,11 +27,11 @@ DefaultGetProp(uint32, radius);
 
 OverrideFun(void, draw, ())
 {
-    Shape_s_draw(Cast(Shape, me));
+    super_Shape_draw(Cast(Shape, me));
     printf("Circle draw\n");
 }
 
-OverrideFun(float, area, ()) { return me->d.radius * me->d.radius * Circle_pi; }
+OverrideFun(float, area, ()) { return me->data.radius * me->data.radius * Circle_pi; }
 OverrideFun(void, rotate, ()) { printf("Rotate clockwise\n"); }
 
 #undef Parent
