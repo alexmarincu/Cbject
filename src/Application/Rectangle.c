@@ -5,7 +5,7 @@
 #define Parent Shape
 
 ClassSetup(
-    VirtFunCallsNone,
+    (),
     BindFuns(
         (Shape, (float, area, ()))));
 

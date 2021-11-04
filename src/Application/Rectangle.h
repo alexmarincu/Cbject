@@ -13,7 +13,8 @@ Class(
     Data(
         uint32 width,
         uint32 height),
-    VirtFuns(
+    (),
+    Funs(
         (final, (uint32, test, Params(uint32 const ab))),
         (override, (float, area, ()))));
 

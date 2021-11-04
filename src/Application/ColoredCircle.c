@@ -6,7 +6,7 @@
 #define Parent Circle
 
 ClassSetup(
-    VirtFunCallsNone,
+    (),
     BindFuns(
         (Shape, (void, draw, ())),
         (Circle, (void, rotate, ()))));

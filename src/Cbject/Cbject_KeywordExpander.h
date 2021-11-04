@@ -7,8 +7,8 @@
 #include "Cbject_DefaultGetProp.h"
 #include "Cbject_DefaultSetProp.h"
 #include "Cbject_Enum.h"
+#include "Cbject_FunDecls.h"
 #include "Cbject_FunPrototype.h"
-#include "Cbject_Funs.h"
 #include "Cbject_GetProp.h"
 #include "Cbject_Init.h"
 #include "Cbject_OverrideFunPrototype.h"
@@ -19,14 +19,14 @@
 #include "Cbject_Terminate.h"
 #include "Cbject_VirtFun.h"
 
-#define Cbject_KeywordExpander_AbstractClass(type, parent, params, data, virtFuns) \
-    Cbject_AbstractClass(type, parent, params, data, virtFuns)
+#define Cbject_KeywordExpander_AbstractClass(type, parent, params, data, virtFuns, funs) \
+    Cbject_AbstractClass(type, parent, params, data, virtFuns, funs)
 
 #define Cbject_KeywordExpander_AbstractClassSetup(type, parent, virtFunCalls, bindFuns) \
     Cbject_AbstractClass_Setup(type, parent, virtFunCalls, bindFuns)
 
-#define Cbject_KeywordExpander_Class(type, parent, params, data, virtFuns) \
-    Cbject_Class(type, parent, params, data, virtFuns)
+#define Cbject_KeywordExpander_Class(type, parent, params, data, virtFuns, funs) \
+    Cbject_Class(type, parent, params, data, virtFuns, funs)
 
 #define Cbject_KeywordExpander_ClassSetup(type, parent, virtFunCalls, bindFuns) \
     Cbject_Class_Setup(type, parent, virtFunCalls, bindFuns)

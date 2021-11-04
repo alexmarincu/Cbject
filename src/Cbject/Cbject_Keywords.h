@@ -2,8 +2,8 @@
 #define CBJECT_KEYWORDS_H
 #include "Cbject_KeywordExpander.h"
 
-#define AbstractClass(params, data, virtFuns) \
-    Cbject_KeywordExpander_AbstractClass(Type, Parent, params, data, virtFuns)
+#define AbstractClass(params, data, virtFuns, funs) \
+    Cbject_KeywordExpander_AbstractClass(Type, Parent, params, data, virtFuns, funs)
 
 #define AbstractClassSetup(virtFunCalls, bindFuns) \
     Cbject_KeywordExpander_AbstractClassSetup(Type, Parent, virtFunCalls, bindFuns)
@@ -11,8 +11,8 @@
 #define BindFuns(...) \
     (bindFuns, __VA_ARGS__)
 
-#define Class(params, data, virtFuns) \
-    Cbject_KeywordExpander_Class(Type, Parent, params, data, virtFuns)
+#define Class(params, data, virtFuns, funs) \
+    Cbject_KeywordExpander_Class(Type, Parent, params, data, virtFuns, funs)
 
 #define ClassSetup(virtFunCalls, bindFuns) \
     Cbject_KeywordExpander_ClassSetup(Type, Parent, virtFunCalls, bindFuns)
@@ -47,23 +47,34 @@
 #define Data(...) \
     (data, __VA_ARGS__)
 
-#define DataNone \
-    (dataNone)
-
 #define VirtFun(returnType, funName, params, callParams) \
     Cbject_KeywordExpander_VirtFun(Type, returnType, funName, params, callParams)
 
 #define VirtFunCalls(...) \
     (virtFunCalls, __VA_ARGS__)
 
-#define VirtFunCallsNone \
-    (virtFunCallsNone)
-
 #define VirtFuns(...) \
     (virtFuns, __VA_ARGS__)
 
-#define VirtFunsNone \
-    (virtFunsNone)
+#define VirtFunDeclPure(...) \
+    (pure, (__VA_ARGS__))
+
+#define VirtFunDecl(...) \
+    (implemented, (__VA_ARGS__))
+
+#define Funs(...) \
+    (funs, __VA_ARGS__)
+
+#define final final
+#define override override
+#define pure pure
+#define implemented implemented
+
+#define FunDecl(...) \
+    (final, (__VA_ARGS__))
+
+#define FunDeclOverride(...) \
+    (override, (__VA_ARGS__))
 
 #define SetProp(fieldType, fieldName) \
     Cbject_KeywordExpander_SetProp(Type, fieldType, fieldName)

@@ -13,7 +13,8 @@ Class(
         Color color),
     Data(
         Color color),
-    VirtFuns(
+    (),
+    Funs(
         (override, (void, draw, ())),
         (override, (void, rotate, ()))));
 

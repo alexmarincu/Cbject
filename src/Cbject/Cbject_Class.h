@@ -11,28 +11,28 @@
 
 #if Cbject_Settings_useHeap == true
     #if Cbject_Settings_useStaticPool == true
-        #define Cbject_Class(typeName, parent, params, data, virtFuns) \
-            AbstractClass(params, data, virtFuns);                     \
-            Cbject_NewOnStackFunPrototype(typeName);                   \
-            Cbject_GetObjectFunPrototype(typeName);                    \
-            Cbject_NewObjectFunPrototype(typeName);                    \
+        #define Cbject_Class(typeName, parent, params, data, virtFuns, funs) \
+            AbstractClass(params, data, virtFuns, funs);                     \
+            Cbject_NewOnStackFunPrototype(typeName);                         \
+            Cbject_GetObjectFunPrototype(typeName);                          \
+            Cbject_NewObjectFunPrototype(typeName);                          \
             Cbject_DeleteObjectFun_Prototype(typeName)
     #else
-        #define Cbject_Class(typeName, parent, params, data, virtFuns) \
-            AbstractClass(params, data, virtFuns);                     \
-            Cbject_NewOnStackFunPrototype(typeName);                   \
-            Cbject_NewObjectFunPrototype(typeName);                    \
+        #define Cbject_Class(typeName, parent, params, data, virtFuns, funs) \
+            AbstractClass(params, data, virtFuns, funs);                     \
+            Cbject_NewOnStackFunPrototype(typeName);                         \
+            Cbject_NewObjectFunPrototype(typeName);                          \
             Cbject_DeleteObjectFun_Prototype(typeName)
     #endif
 #else
     #if Cbject_Settings_useStaticPool == true
-        #define Cbject_Class(typeName, parent, params, data, virtFuns) \
-            AbstractClass(params, data, virtFuns);                     \
-            Cbject_NewOnStackFunPrototype(typeName);                   \
+        #define Cbject_Class(typeName, parent, params, data, virtFuns, funs) \
+            AbstractClass(params, data, virtFuns, funs);                     \
+            Cbject_NewOnStackFunPrototype(typeName);                         \
             Cbject_GetObjectFunPrototype(typeName)
     #else
-        #define Cbject_Class(typeName, parent, params, data, virtFuns) \
-            AbstractClass(params, data, virtFuns);                     \
+        #define Cbject_Class(typeName, parent, params, data, virtFuns, funs) \
+            AbstractClass(params, data, virtFuns, funs);                     \
             Cbject_NewOnStackFunPrototype(typeName)
     #endif
 #endif

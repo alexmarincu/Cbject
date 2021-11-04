@@ -12,8 +12,9 @@ AbstractClass(
     Data(
         Point origin),
     VirtFuns(
-        (virtualPure, (float, area, ())),
-        (virtual, (void, draw, ()))));
+        (pure, (float, area, ())),
+        (implemented, (void, draw, ()))),
+    ());
 
 SetProp(Point, origin);
 GetProp(Point, origin);

@@ -2,18 +2,14 @@
 #define CBJECT_VIRTFUNSTYPEDEF_H
 #include "Cbject_VirtFunPtr.h"
 
-#define Cbject_VirtFunsTypeDef_case_virtFunsNone(typeName, ...) \
+#define Cbject_VirtFunsTypeDef_case_(typeName, ...) \
     typedef char typeName##VirtFuns
 
-#define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_virtual(funPrototype) \
+#define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_implemented(funPrototype) \
     Cbject_VirtFunPtr funPrototype;
 
-#define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_virtualPure(funPrototype) \
+#define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_pure(funPrototype) \
     Cbject_VirtFunPtr funPrototype;
-
-#define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_final(funPrototype)
-
-#define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_override(funPrototype)
 
 #define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_switch(case, funPrototype) \
     Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_##case (funPrototype)
