@@ -15,8 +15,8 @@ Class(
         uint32 height),
     (),
     Funs(
-        (final, (uint32, test, Params(uint32 const ab))),
-        (override, (float, area, ()))));
+        (Final, (uint32, test, Params(uint32 const ab))),
+        (Override, (float, area, ()))));
 
 PoolSize(10);
 

@@ -57,24 +57,24 @@
     (virtFuns, __VA_ARGS__)
 
 #define VirtFunDeclPure(...) \
-    (pure, (__VA_ARGS__))
+    (Pure, (__VA_ARGS__))
 
 #define VirtFunDecl(...) \
-    (implemented, (__VA_ARGS__))
+    (Implemented, (__VA_ARGS__))
 
 #define Funs(...) \
     (funs, __VA_ARGS__)
 
-#define final final
-#define override override
-#define pure pure
-#define implemented implemented
+#define Final Final
+#define Override Override
+#define Pure Pure
+#define Implemented Implemented
 
 #define FunDecl(...) \
-    (final, (__VA_ARGS__))
+    (Final, (__VA_ARGS__))
 
 #define FunDeclOverride(...) \
-    (override, (__VA_ARGS__))
+    (Override, (__VA_ARGS__))
 
 #define SetProp(fieldType, fieldName) \
     Cbject_KeywordExpander_SetProp(Type, fieldType, fieldName)

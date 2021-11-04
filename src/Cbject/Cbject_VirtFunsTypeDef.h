@@ -5,10 +5,10 @@
 #define Cbject_VirtFunsTypeDef_case_(typeName, ...) \
     typedef char typeName##VirtFuns
 
-#define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_implemented(funPrototype) \
+#define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_Implemented(funPrototype) \
     Cbject_VirtFunPtr funPrototype;
 
-#define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_pure(funPrototype) \
+#define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_Pure(funPrototype) \
     Cbject_VirtFunPtr funPrototype;
 
 #define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_switch(case, funPrototype) \

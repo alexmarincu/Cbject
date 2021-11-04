@@ -2,16 +2,16 @@
 #define CBJECT_FUNDECLS_H
 #include "Cbject_Utils.h"
 
-#define Cbject_FunDecls_stripParenthesesAndApplyFun_case_final(funPrototype) \
+#define Cbject_FunDecls_stripParenthesesAndApplyFun_case_Final(funPrototype) \
     Fun funPrototype;
 
-#define Cbject_FunDecls_stripParenthesesAndApplyFun_case_override(funPrototype) \
+#define Cbject_FunDecls_stripParenthesesAndApplyFun_case_Override(funPrototype) \
     OverrideFun funPrototype;
 
-#define Cbject_FunDecls_stripParenthesesAndApplyFun_case_pure(funPrototype) \
+#define Cbject_FunDecls_stripParenthesesAndApplyFun_case_Pure(funPrototype) \
     Fun funPrototype;
 
-#define Cbject_FunDecls_stripParenthesesAndApplyFun_case_implemented(funPrototype) \
+#define Cbject_FunDecls_stripParenthesesAndApplyFun_case_Implemented(funPrototype) \
     Fun funPrototype;                                                              \
     OverrideFun funPrototype;
 

@@ -15,8 +15,8 @@ Class(
         Color color),
     (),
     Funs(
-        (override, (void, draw, ())),
-        (override, (void, rotate, ()))));
+        (Override, (void, draw, ())),
+        (Override, (void, rotate, ()))));
 
 PoolSize(10);
 
