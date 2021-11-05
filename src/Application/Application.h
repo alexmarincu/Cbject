@@ -14,9 +14,9 @@ Singleton(
         Circle * circle,
         Rectangle * rectangle,
         Rectangle * heapRectangle,
-        ColoredCircle * coloredCircle));
-
-Fun(void, start, ());
+        ColoredCircle * coloredCircle),
+    Funs(
+        (Final, (void, start, ()))));
 
 #undef Parent
 #undef Type

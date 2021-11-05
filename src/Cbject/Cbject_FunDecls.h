@@ -38,7 +38,7 @@
 #define Cbject_FunDecls_x1(...) \
     Cbject_FunDecls_switch(__VA_ARGS__)
 
-#define Cbject_FunDecls(virtFuns) \
-    Cbject_FunDecls_x1(Cbject_Utils_stripParentheses(virtFuns))
+#define Cbject_FunDecls(funs) \
+    Cbject_FunDecls_x1(Cbject_Utils_stripParentheses(funs))
 
 #endif // CBJECT_FUNDECLS_H

@@ -16,15 +16,16 @@
 #include "Cbject_TypeTypeDef.h"
 #include "Cbject_Utils.h"
 
-#define Cbject_Singleton(typeName, superTypeName, data) \
-    Cbject_TypeTypeDecl(typeName);                      \
-    Cbject_TypeDecl(typeName);                          \
-    Cbject_ParamsTypeDef(typeName, ());                 \
-    Cbject_DataTypeDef(typeName, data);                 \
-    Cbject_ContainerTypeDef(typeName, superTypeName);   \
-    Cbject_InitFun_Prototype(typeName);                 \
-    Cbject_TerminateFunPrototype(typeName);             \
-    Cbject_ObjectInstanceFunPrototype(typeName)
+#define Cbject_Singleton(typeName, superTypeName, data, funs) \
+    Cbject_TypeTypeDecl(typeName);                            \
+    Cbject_TypeDecl(typeName);                                \
+    Cbject_ParamsTypeDef(typeName, ());                       \
+    Cbject_DataTypeDef(typeName, data);                       \
+    Cbject_ContainerTypeDef(typeName, superTypeName);         \
+    Cbject_InitFun_Prototype(typeName);                       \
+    Cbject_TerminateFunPrototype(typeName);                   \
+    Cbject_ObjectInstanceFunPrototype(typeName);              \
+    Cbject_FunDecls(funs)
 
 #define Cbject_Singleton_Setup(typeName, superTypeName, bindFuns) \
     Cbject_TypeTypeDef(typeName, superTypeName, withoutVirtFuns); \

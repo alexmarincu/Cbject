@@ -29,8 +29,8 @@
 #define Fun(funReturnType, funName, funParams) \
     Cbject_KeywordExpander_Fun(Type, funReturnType, funName, funParams)
 
-#define Singleton(data) \
-    Cbject_KeywordExpander_Singleton(Type, Parent, data)
+#define Singleton(data, funs) \
+    Cbject_KeywordExpander_Singleton(Type, Parent, data, funs)
 
 #define SingletonSetup(bindFuns) \
     Cbject_KeywordExpander_SingletonSetup(Type, Parent, bindFuns)

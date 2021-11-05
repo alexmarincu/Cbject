@@ -43,8 +43,8 @@
 #define Cbject_KeywordExpander_Fun(type, funReturnType, funName, funParams) \
     Cbject_FunPrototype(type, funReturnType, funName, funParams)
 
-#define Cbject_KeywordExpander_Singleton(type, superTypeName, data) \
-    Cbject_Singleton(type, superTypeName, data)
+#define Cbject_KeywordExpander_Singleton(type, superTypeName, data, funs) \
+    Cbject_Singleton(type, superTypeName, data, funs)
 
 #define Cbject_KeywordExpander_SingletonSetup(type, superTypeName, bindFuns) \
     Cbject_Singleton_Setup(type, superTypeName, bindFuns)
