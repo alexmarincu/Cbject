@@ -9,12 +9,6 @@ ClassSetup(
     BindFuns(
         (Shape, (float, area, ()))));
 
-Setter(uint32, width);
-Setter(uint32, height);
-
-Getter(uint32, width);
-Getter(uint32, height);
-
 Init
 {
     me->data.width = params.width;
@@ -23,6 +17,16 @@ Init
 }
 
 Terminate {}
+
+SetterCustom(uint32, width)
+{
+    me->data.width = width;
+}
+
+Setter(uint32, height);
+
+Getter(uint32, width);
+Getter(uint32, height);
 
 Fun(void, makeSquare, Params(uint32 const edgeSize))
 {

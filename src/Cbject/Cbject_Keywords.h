@@ -1,5 +1,6 @@
 #ifndef CBJECT_KEYWORDS_H
 #define CBJECT_KEYWORDS_H
+#include "Cbject_AccessorFun.h"
 #include "Cbject_KeywordExpander.h"
 
 #define AbstractClass(params, data, virtFuns, funs) \
@@ -71,17 +72,17 @@
 #define Access_Read Access_Read
 #define Access_Write Access_Write
 
-#define SetProp(fieldType, fieldName) \
-    Cbject_KeywordExpander_SetProp(Type, fieldType, fieldName)
+#define SetterCustom(fieldType, fieldName) \
+    Cbject_AccessorFun_Setter_Prototype(Type, fieldType, fieldName)
 
-#define GetProp(fieldType, fieldName) \
-    Cbject_KeywordExpander_GetProp(Type, fieldType, fieldName)
+#define GetterCustom(fieldType, fieldName) \
+    Cbject_AccessorFun_Getter_Prototype(Type, fieldType, fieldName)
 
 #define Setter(fieldType, fieldName) \
-    Cbject_KeywordExpander_Setter(Type, fieldType, fieldName)
+    Cbject_AccessorFun_Setter_Impl(Type, fieldType, fieldName)
 
 #define Getter(fieldType, fieldName) \
-    Cbject_KeywordExpander_Getter(Type, fieldType, fieldName)
+    Cbject_AccessorFun_Getter_Impl(Type, fieldType, fieldName)
 
 #define Init \
     Cbject_KeywordExpander_Init(Type, Parent)

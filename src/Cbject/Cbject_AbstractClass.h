@@ -1,6 +1,6 @@
 #ifndef CBJECT_ABSTRACTCLASS_H
 #define CBJECT_ABSTRACTCLASS_H
-#include "Cbject_AccessorsDecls.h"
+#include "Cbject_AccessorFunDecls.h"
 #include "Cbject_CastFun.h"
 #include "Cbject_ContainerTypeDef.h"
 #include "Cbject_DataTypeDef.h"
@@ -34,7 +34,7 @@
     Cbject_TypeInstanceFunPrototype(typeName);                                      \
     Cbject_FunDecls(virtFuns);                                                      \
     Cbject_FunDecls(funs);                                                          \
-    Cbject_AccessorsDecls(data);                                                    \
+    Cbject_AccessorFunDecls(data);                                                  \
     Cbject_CastFun_Prototype(typeName);                                             \
     Cbject_VirtFunsGetter_Prototype(typeName)
 
