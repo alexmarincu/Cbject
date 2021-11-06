@@ -16,7 +16,7 @@ Singleton(
         Rectangle * heapRectangle,
         ColoredCircle * coloredCircle),
     Funs(
-        (Final, (void, start, ()))));
+        ((void, start, ()), Final)));
 
 #undef Parent
 #undef Type

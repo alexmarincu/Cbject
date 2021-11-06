@@ -15,7 +15,7 @@
     Fun funPrototype;                                                              \
     OverrideFun funPrototype;
 
-#define Cbject_FunDecls_stripParenthesesAndApplyFun_switch(case, funPrototype) \
+#define Cbject_FunDecls_stripParenthesesAndApplyFun_switch(funPrototype, case) \
     Cbject_FunDecls_stripParenthesesAndApplyFun_case_##case (funPrototype)
 
 #define Cbject_FunDecls_stripParenthesesAndApplyFun_x1(...) \

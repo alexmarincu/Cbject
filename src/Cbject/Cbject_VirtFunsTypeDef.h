@@ -11,7 +11,7 @@
 #define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_Pure(funPrototype) \
     Cbject_VirtFunPtr funPrototype;
 
-#define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_switch(case, funPrototype) \
+#define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_switch(funPrototype, case) \
     Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_case_##case (funPrototype)
 
 #define Cbject_VirtFunsTypeDef_stripParenthesesAndApplyVirtFunPtr_x1(...) \
