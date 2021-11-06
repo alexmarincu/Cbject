@@ -7,7 +7,7 @@
 ClassSetup(
     VirtFunCalls(
         (void, rotate, (), ())),
-    BindFuns(
+    FunOverrides(
         (Shape, (float, area, ())),
         (Shape, (void, draw, ())),
         (Circle, (void, rotate, ()))));

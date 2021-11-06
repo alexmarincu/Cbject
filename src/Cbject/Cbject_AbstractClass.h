@@ -35,13 +35,13 @@
     Cbject_CastFun_Prototype(className);                                              \
     Cbject_ClassVirtFunsGetter_Prototype(className)
 
-#define Cbject_AbstractClass_Setup(className, superClassName, virtFunCalls, bindFuns) \
-    Cbject_ClassTypeInfoStruct_Def(className, superClassName, withVirtFuns);          \
-    Cbject_ClassStruct_Def(className, superClassName);                                \
-    Cbject_SizeImpl(className);                                                       \
-    Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, bindFuns);        \
-    Cbject_CastFun_Impl(className);                                                   \
-    Cbject_ClassVirtFunsGetter_Impl(className);                                       \
+#define Cbject_AbstractClass_Setup(className, superClassName, virtFunCalls, funOverrides) \
+    Cbject_ClassTypeInfoStruct_Def(className, superClassName, withVirtFuns);              \
+    Cbject_ClassStruct_Def(className, superClassName);                                    \
+    Cbject_SizeImpl(className);                                                           \
+    Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, funOverrides);        \
+    Cbject_CastFun_Impl(className);                                                       \
+    Cbject_ClassVirtFunsGetter_Impl(className);                                           \
     Cbject_VirtFunCalls(virtFunCalls)
 
 #endif // CBJECT_ABSTRACTCLASS_H

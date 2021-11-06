@@ -1,12 +1,12 @@
 #ifndef CBJECT_CLASSTYPEINFOINSTANCEFUN_H
 #define CBJECT_CLASSTYPEINFOINSTANCEFUN_H
-#include "Cbject_BindFuns.h"
+#include "Cbject_FunOverride.h"
 
 #define Cbject_ClassTypeInfoInstanceFun_Prototype(className) \
     className##Type const * const className##Type_instance()
 
-#define Cbject_ClassTypeInfoInstanceFun_Impl_caseBindFuns_bindFun(funPrototype) \
-    Cbject_BindFun funPrototype;
+#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride(funPrototype) \
+    Cbject_FunOverride funPrototype;
 
 #define Cbject_ClassTypeInfoInstanceFun_Impl_case(className, superClassName, ...)                                            \
     Cbject_ClassTypeInfoInstanceFun_Prototype(className)                                                                     \
@@ -34,7 +34,7 @@
         return &type;                                                                                                        \
     }
 
-#define Cbject_ClassTypeInfoInstanceFun_Impl_caseBindFuns(className, superClassName, ...)                                    \
+#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides(className, superClassName, ...)                                \
     Cbject_ClassTypeInfoInstanceFun_Prototype(className)                                                                     \
     {                                                                                                                        \
         static className##Type type;                                                                                         \
@@ -53,7 +53,7 @@
             *((superClassName##TypeContainer *)&type) = *((superClassName##TypeContainer *)superClassName##Type_instance()); \
             ((ObjectTypeT *)&type)->name = NULL;                                                                             \
             ((ObjectTypeT *)&type)->virtFuns.size = (uint8(*)(Object const * const me))super_##className##_size;             \
-            Cbject_Utils_forEach(Cbject_ClassTypeInfoInstanceFun_Impl_caseBindFuns_bindFun, __VA_ARGS__);                    \
+            Cbject_Utils_forEach(Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride, __VA_ARGS__);            \
             ((ObjectTypeT *)&type)->name = #className;                                                                       \
             ((ObjectTypeT *)&type)->superType = (ObjectType *)superClassName##Type_instance();                               \
         }                                                                                                                    \
@@ -67,7 +67,7 @@
 #define Cbject_ClassTypeInfoInstanceFun_Impl_x(className, superClassName, ...) \
     Cbject_ClassTypeInfoInstanceFun_Impl_switch(className, superClassName, __VA_ARGS__)
 
-#define Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, bindFuns) \
-    Cbject_ClassTypeInfoInstanceFun_Impl_x(className, superClassName, Cbject_Utils_unpack(bindFuns))
+#define Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, funOverrides) \
+    Cbject_ClassTypeInfoInstanceFun_Impl_x(className, superClassName, Cbject_Utils_unpack(funOverrides))
 
 #endif // CBJECT_CLASSTYPEINFOINSTANCEFUN_H

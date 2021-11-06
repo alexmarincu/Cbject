@@ -8,10 +8,14 @@ AbstractClassSetup(
     VirtFunCalls(
         (float, area, (), ()),
         (void, draw, (), ())),
-    BindFuns(
+    FunOverrides(
         (Shape, (void, draw, ()))));
 
-Init { me->data.origin = params.origin; }
+Init
+{
+    me->data.origin = params.origin;
+}
+
 Terminate {}
 
 Setter(Point, origin);

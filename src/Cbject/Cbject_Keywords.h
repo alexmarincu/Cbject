@@ -2,11 +2,11 @@
 #define CBJECT_KEYWORDS_H
 #include "Cbject_AbstractClass.h"
 #include "Cbject_AccessorFun.h"
-#include "Cbject_BindFuns.h"
 #include "Cbject_Class.h"
 #include "Cbject_Const.h"
 #include "Cbject_Enum.h"
 #include "Cbject_FunDecls.h"
+#include "Cbject_FunOverride.h"
 #include "Cbject_FunPrototype.h"
 #include "Cbject_InitFun.h"
 #include "Cbject_OverrideFunPrototype.h"
@@ -19,17 +19,17 @@
 #define AbstractClass(params, data, virtFuns, funs) \
     Cbject_AbstractClass(Type, Parent, params, data, virtFuns, funs)
 
-#define AbstractClassSetup(virtFunCalls, bindFuns) \
-    Cbject_AbstractClass_Setup(Type, Parent, virtFunCalls, bindFuns)
+#define AbstractClassSetup(virtFunCalls, funOverrides) \
+    Cbject_AbstractClass_Setup(Type, Parent, virtFunCalls, funOverrides)
 
-#define BindFuns(...) \
-    (BindFuns, __VA_ARGS__)
+#define FunOverrides(...) \
+    (FunOverrides, __VA_ARGS__)
 
 #define Class(params, data, virtFuns, funs) \
     Cbject_Class(Type, Parent, params, data, virtFuns, funs)
 
-#define ClassSetup(virtFunCalls, bindFuns) \
-    Cbject_Class_Setup(Type, Parent, virtFunCalls, bindFuns)
+#define ClassSetup(virtFunCalls, funOverrides) \
+    Cbject_Class_Setup(Type, Parent, virtFunCalls, funOverrides)
 
 #define Const(constType, constNameAndValue) \
     Cbject_Const(Type, constType, constNameAndValue)
@@ -46,8 +46,8 @@
 #define Singleton(data, funs) \
     Cbject_Singleton(Type, Parent, data, funs)
 
-#define SingletonSetup(bindFuns) \
-    Cbject_Singleton_Setup(Type, Parent, bindFuns)
+#define SingletonSetup(funOverrides) \
+    Cbject_Singleton_Setup(Type, Parent, funOverrides)
 
 #define OverrideFun(funReturnType, funName, funParams) \
     Cbject_OverrideFunPrototype(Type, funReturnType, funName, funParams)

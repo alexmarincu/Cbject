@@ -6,7 +6,7 @@
 
 ClassSetup(
     (),
-    BindFuns(
+    FunOverrides(
         (Shape, (float, area, ()))));
 
 Init

@@ -7,7 +7,7 @@
 
 ClassSetup(
     (),
-    BindFuns(
+    FunOverrides(
         (Shape, (void, draw, ())),
         (Circle, (void, rotate, ()))));
 
