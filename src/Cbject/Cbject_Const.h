@@ -1,10 +1,10 @@
 #ifndef CBJECT_CONST_H
 #define CBJECT_CONST_H
 
-#define Cbject_Const_do(typeName, constType, constNameAndValue) \
-    constType const typeName##_##constNameAndValue
+#define Cbject_Const_do(className, constType, constNameAndValue) \
+    constType const className##_##constNameAndValue
 
-#define Cbject_Const(typeName, constType, constNameAndValue) \
-    Cbject_Const_do(typeName, constType, constNameAndValue)
+#define Cbject_Const(className, constType, constNameAndValue) \
+    Cbject_Const_do(className, constType, constNameAndValue)
 
 #endif // CBJECT_CONST_H

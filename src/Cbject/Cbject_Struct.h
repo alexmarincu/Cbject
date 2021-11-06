@@ -2,10 +2,10 @@
 #define CBJECT_STRUCT_H
 #include "Cbject_Utils.h"
 
-#define Cbject_Struct(typeName, ...)                                 \
-    typedef struct typeName                                          \
+#define Cbject_Struct(className, ...)                                \
+    typedef struct className                                         \
     {                                                                \
         Cbject_Utils_forEach(Cbject_Utils_addSemicolon, __VA_ARGS__) \
-    } typeName
+    } className
 
 #endif // CBJECT_STRUCT_H

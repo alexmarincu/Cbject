@@ -2,25 +2,25 @@
 #define CBJECT_CLASSTYPEINFOCONTAINERSTRUCT_H
 #include "Cbject_Settings.h"
 
-#define Cbject_ClassTypeInfoContainerStruct_withoutVirtFuns(typeName, superTypeName) \
-    typedef union typeName##TypeContainer                                            \
-    {                                                                                \
-        Cbject_Settings_maxAlign align;                                              \
-        char container[sizeof(struct { superTypeName##TypeContainer super; })];      \
-    } typeName##TypeContainer
+#define Cbject_ClassTypeInfoContainerStruct_withoutVirtFuns(className, superClassName) \
+    typedef union className##TypeContainer                                             \
+    {                                                                                  \
+        Cbject_Settings_maxAlign align;                                                \
+        char container[sizeof(struct { superClassName##TypeContainer super; })];       \
+    } className##TypeContainer
 
-#define Cbject_ClassTypeInfoContainerStruct_withVirtFuns(typeName, superTypeName) \
-    typedef union typeName##TypeContainer                                         \
-    {                                                                             \
-        Cbject_Settings_maxAlign align;                                           \
-        char container[sizeof(struct                                              \
-            {                                                                     \
-                superTypeName##TypeContainer super;                               \
-                typeName##VirtFuns virtFuns;                                      \
-            })];                                                                  \
-    } typeName##TypeContainer
+#define Cbject_ClassTypeInfoContainerStruct_withVirtFuns(className, superClassName) \
+    typedef union className##TypeContainer                                          \
+    {                                                                               \
+        Cbject_Settings_maxAlign align;                                             \
+        char container[sizeof(struct                                                \
+            {                                                                       \
+                superClassName##TypeContainer super;                                \
+                className##VirtFuns virtFuns;                                       \
+            })];                                                                    \
+    } className##TypeContainer
 
-#define Cbject_ClassTypeInfoContainerStruct(typeName, superTypeName, case) \
-    Cbject_ClassTypeInfoContainerStruct_##case (typeName, superTypeName)
+#define Cbject_ClassTypeInfoContainerStruct(className, superClassName, case) \
+    Cbject_ClassTypeInfoContainerStruct_##case (className, superClassName)
 
 #endif // CBJECT_CLASSTYPEINFOCONTAINERSTRUCT_H

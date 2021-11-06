@@ -3,22 +3,22 @@
 #include "Cbject_GetObjectFunPrototype.h"
 #include "string.h"
 
-#define Cbject_GetObjectImpl(typeName)             \
-    Cbject_GetObjectFunPrototype(typeName)         \
-    {                                              \
-        static typeName pool[typeName##_poolSize]; \
-        static uint64 count = 0;                   \
-        typeName * me = NULL;                      \
-                                                   \
-        if (count < typeName##_poolSize)           \
-        {                                          \
-            me = &pool[count];                     \
-            memset(me, 0, sizeof(typeName));       \
-            typeName##_init(me, params);           \
-            count++;                               \
-        }                                          \
-                                                   \
-        return me;                                 \
+#define Cbject_GetObjectImpl(className)              \
+    Cbject_GetObjectFunPrototype(className)          \
+    {                                                \
+        static className pool[className##_poolSize]; \
+        static uint64 count = 0;                     \
+        className * me = NULL;                       \
+                                                     \
+        if (count < className##_poolSize)            \
+        {                                            \
+            me = &pool[count];                       \
+            memset(me, 0, sizeof(className));        \
+            className##_init(me, params);            \
+            count++;                                 \
+        }                                            \
+                                                     \
+        return me;                                   \
     }
 
 #endif // CBJECT_GETOBJECTIMPL_H

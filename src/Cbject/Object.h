@@ -2,11 +2,11 @@
 #define OBJECT_H
 #include "Cbject.h"
 
-#define Object_isTypeOf(me, typeName) \
-    (Object_type((Object *)(me)) == (ObjectType *)typeName##Type_instance())
+#define Object_isTypeOf(me, className) \
+    (Object_type((Object *)(me)) == (ObjectType *)className##Type_instance())
 
-#define Cast(typeName, me) \
-    Object_to##typeName((Object *)me)
+#define Cast(className, me) \
+    Object_to##className((Object *)me)
 
 typedef struct ObjectType ObjectType;
 typedef struct Object Object;

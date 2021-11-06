@@ -5,7 +5,7 @@
 #include "Cbject_BindFuns.h"
 #include "Cbject_Class.h"
 #include "Cbject_Const.h"
-#include "Cbject_EnumTypeDef.h"
+#include "Cbject_Enum.h"
 #include "Cbject_FunDecls.h"
 #include "Cbject_FunPrototype.h"
 #include "Cbject_InitFun.h"
@@ -38,7 +38,7 @@
     Cbject_Struct(Type, __VA_ARGS__)
 
 #define Enum(...) \
-    Cbject_EnumTypeDef(Type, __VA_ARGS__)
+    Cbject_Enum(Type, __VA_ARGS__)
 
 #define Fun(funReturnType, funName, funParams) \
     Cbject_FunPrototype(Type, funReturnType, funName, funParams)

@@ -3,17 +3,17 @@
 #include "Cbject_AccessorFun.h"
 #include "Cbject_Utils.h"
 
-#define Cbject_AccessorFunDecls_caseData_accessorFunDecl_casePublicRead(typeName, dataType, dataName) \
-    Cbject_AccessorFun_Getter_Prototype(typeName, dataType, dataName);
+#define Cbject_AccessorFunDecls_caseData_accessorFunDecl_casePublicRead(className, dataType, dataName) \
+    Cbject_AccessorFun_Getter_Prototype(className, dataType, dataName);
 
-#define Cbject_AccessorFunDecls_caseData_accessorFunDecl_casePublicWrite(typeName, dataType, dataName) \
-    Cbject_AccessorFun_Setter_Prototype(typeName, dataType, dataName);
+#define Cbject_AccessorFunDecls_caseData_accessorFunDecl_casePublicWrite(className, dataType, dataName) \
+    Cbject_AccessorFun_Setter_Prototype(className, dataType, dataName);
 
-#define Cbject_AccessorFunDecls_caseData_accessorFunDecl_casePublic(typeName, dataType, dataName) \
-    Cbject_AccessorFun_Getter_Prototype(typeName, dataType, dataName);                            \
-    Cbject_AccessorFun_Setter_Prototype(typeName, dataType, dataName);
+#define Cbject_AccessorFunDecls_caseData_accessorFunDecl_casePublic(className, dataType, dataName) \
+    Cbject_AccessorFun_Getter_Prototype(className, dataType, dataName);                            \
+    Cbject_AccessorFun_Setter_Prototype(className, dataType, dataName);
 
-#define Cbject_AccessorFunDecls_caseData_accessorFunDecl_casePrivate(typeName, dataType, dataName)
+#define Cbject_AccessorFunDecls_caseData_accessorFunDecl_casePrivate(className, dataType, dataName)
 
 #define Cbject_AccessorFunDecls_caseData_accessorFunDecl_switch(dataType, dataName, case) \
     Cbject_AccessorFunDecls_caseData_accessorFunDecl_case##case (Type, dataType, dataName)

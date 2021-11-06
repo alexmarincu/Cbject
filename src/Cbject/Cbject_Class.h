@@ -11,57 +11,57 @@
 
 #if Cbject_Settings_useHeap == true
     #if Cbject_Settings_useStaticPool == true
-        #define Cbject_Class(typeName, superTypeName, params, data, virtFuns, funs) \
-            AbstractClass(params, data, virtFuns, funs);                            \
-            Cbject_NewOnStackFunPrototype(typeName);                                \
-            Cbject_GetObjectFunPrototype(typeName);                                 \
-            Cbject_NewObjectFunPrototype(typeName);                                 \
-            Cbject_DeleteObjectFun_Prototype(typeName)
+        #define Cbject_Class(className, superClassName, params, data, virtFuns, funs) \
+            AbstractClass(params, data, virtFuns, funs);                              \
+            Cbject_NewOnStackFunPrototype(className);                                 \
+            Cbject_GetObjectFunPrototype(className);                                  \
+            Cbject_NewObjectFunPrototype(className);                                  \
+            Cbject_DeleteObjectFun_Prototype(className)
     #else
-        #define Cbject_Class(typeName, superTypeName, params, data, virtFuns, funs) \
-            AbstractClass(params, data, virtFuns, funs);                            \
-            Cbject_NewOnStackFunPrototype(typeName);                                \
-            Cbject_NewObjectFunPrototype(typeName);                                 \
-            Cbject_DeleteObjectFun_Prototype(typeName)
+        #define Cbject_Class(className, superClassName, params, data, virtFuns, funs) \
+            AbstractClass(params, data, virtFuns, funs);                              \
+            Cbject_NewOnStackFunPrototype(className);                                 \
+            Cbject_NewObjectFunPrototype(className);                                  \
+            Cbject_DeleteObjectFun_Prototype(className)
     #endif
 #else
     #if Cbject_Settings_useStaticPool == true
-        #define Cbject_Class(typeName, superTypeName, params, data, virtFuns, funs) \
-            AbstractClass(params, data, virtFuns, funs);                            \
-            Cbject_NewOnStackFunPrototype(typeName);                                \
-            Cbject_GetObjectFunPrototype(typeName)
+        #define Cbject_Class(className, superClassName, params, data, virtFuns, funs) \
+            AbstractClass(params, data, virtFuns, funs);                              \
+            Cbject_NewOnStackFunPrototype(className);                                 \
+            Cbject_GetObjectFunPrototype(className)
     #else
-        #define Cbject_Class(typeName, superTypeName, params, data, virtFuns, funs) \
-            AbstractClass(params, data, virtFuns, funs);                            \
-            Cbject_NewOnStackFunPrototype(typeName)
+        #define Cbject_Class(className, superClassName, params, data, virtFuns, funs) \
+            AbstractClass(params, data, virtFuns, funs);                              \
+            Cbject_NewOnStackFunPrototype(className)
     #endif
 #endif
 
 #if Cbject_Settings_useHeap == true
     #if Cbject_Settings_useStaticPool == true
-        #define Cbject_Class_Setup(typeName, superTypeName, virtFunCalls, bindFuns) \
-            AbstractClassSetup(virtFunCalls, bindFuns);                             \
-            Cbject_NewOnStackFunImpl(typeName);                                     \
-            Cbject_GetObjectImpl(typeName);                                         \
-            Cbject_NewObjectImpl(typeName);                                         \
-            Cbject_DeleteObjectFun_Impl(typeName)
+        #define Cbject_Class_Setup(className, superClassName, virtFunCalls, bindFuns) \
+            AbstractClassSetup(virtFunCalls, bindFuns);                               \
+            Cbject_NewOnStackFunImpl(className);                                      \
+            Cbject_GetObjectImpl(className);                                          \
+            Cbject_NewObjectImpl(className);                                          \
+            Cbject_DeleteObjectFun_Impl(className)
     #else
-        #define Cbject_Class_Setup(typeName, superTypeName, virtFunCalls, bindFuns) \
-            AbstractClassSetup(virtFunCalls, bindFuns);                             \
-            Cbject_NewOnStackFunImpl(typeName);                                     \
-            Cbject_NewObjectImpl(typeName);                                         \
-            Cbject_DeleteObjectFun_Impl(typeName)
+        #define Cbject_Class_Setup(className, superClassName, virtFunCalls, bindFuns) \
+            AbstractClassSetup(virtFunCalls, bindFuns);                               \
+            Cbject_NewOnStackFunImpl(className);                                      \
+            Cbject_NewObjectImpl(className);                                          \
+            Cbject_DeleteObjectFun_Impl(className)
     #endif
 #else
     #if Cbject_Settings_useStaticPool == true
-        #define Cbject_Class_Setup(typeName, superTypeName, virtFunCalls, bindFuns) \
-            AbstractClassSetup(virtFunCalls, bindFuns);                             \
-            Cbject_NewOnStackFunImpl(typeName);                                     \
-            Cbject_GetObjectImpl(typeName)
+        #define Cbject_Class_Setup(className, superClassName, virtFunCalls, bindFuns) \
+            AbstractClassSetup(virtFunCalls, bindFuns);                               \
+            Cbject_NewOnStackFunImpl(className);                                      \
+            Cbject_GetObjectImpl(className)
     #else
-        #define Cbject_Class_Setup(typeName, superTypeName, virtFunCalls, bindFuns) \
-            AbstractClassSetup(virtFunCalls, bindFuns);                             \
-            Cbject_NewOnStackFunImpl(typeName)
+        #define Cbject_Class_Setup(className, superClassName, virtFunCalls, bindFuns) \
+            AbstractClassSetup(virtFunCalls, bindFuns);                               \
+            Cbject_NewOnStackFunImpl(className)
     #endif
 #endif
 

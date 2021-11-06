@@ -1,6 +1,6 @@
 #ifndef CBJECT_NEWOBJECTFUNPROTOTYPE_H
 #define CBJECT_NEWOBJECTFUNPROTOTYPE_H
 
-#define Cbject_NewObjectFunPrototype(typeName) \
-    typeName * typeName##_createOnHeap(typeName##Params const params)
+#define Cbject_NewObjectFunPrototype(className) \
+    className * className##_createOnHeap(className##Params const params)
 #endif // CBJECT_NEWOBJECTFUNPROTOTYPE_H

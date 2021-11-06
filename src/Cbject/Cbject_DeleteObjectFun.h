@@ -2,14 +2,14 @@
 #define CBJECT_DELETEOBJECTFUN_H
 #include <stdlib.h>
 
-#define Cbject_DeleteObjectFun_Prototype(typeName) \
-    void typeName##_delete(typeName * const me)
+#define Cbject_DeleteObjectFun_Prototype(className) \
+    void className##_delete(className * const me)
 
-#define Cbject_DeleteObjectFun_Impl(typeName)  \
-    Cbject_DeleteObjectFun_Prototype(typeName) \
-    {                                          \
-        typeName##_terminate(me);              \
-        free(me);                              \
+#define Cbject_DeleteObjectFun_Impl(className)  \
+    Cbject_DeleteObjectFun_Prototype(className) \
+    {                                           \
+        className##_terminate(me);              \
+        free(me);                               \
     }
 
 #endif // CBJECT_DELETEOBJECTFUN_H

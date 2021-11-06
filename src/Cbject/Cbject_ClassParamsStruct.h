@@ -2,22 +2,22 @@
 #define CBJECT_CLASSPARAMSSTRUCT_H
 #include "Cbject_Utils.h"
 
-#define Cbject_ClassParamsStruct_case(typeName, ...) \
-    typedef char typeName##Params
+#define Cbject_ClassParamsStruct_case(className, ...) \
+    typedef char className##Params
 
-#define Cbject_ClassParamsStruct_caseParams(typeName, ...)           \
-    typedef struct typeName##Params                                  \
+#define Cbject_ClassParamsStruct_caseParams(className, ...)          \
+    typedef struct className##Params                                 \
     {                                                                \
         Cbject_Utils_forEach(Cbject_Utils_addSemicolon, __VA_ARGS__) \
-    } typeName##Params
+    } className##Params
 
-#define Cbject_ClassParamsStruct_switch(typeName, case, ...) \
-    Cbject_ClassParamsStruct_case##case (typeName, __VA_ARGS__)
+#define Cbject_ClassParamsStruct_switch(className, case, ...) \
+    Cbject_ClassParamsStruct_case##case (className, __VA_ARGS__)
 
-#define Cbject_ClassParamsStruct_x(typeName, ...) \
-    Cbject_ClassParamsStruct_switch(typeName, __VA_ARGS__)
+#define Cbject_ClassParamsStruct_x(className, ...) \
+    Cbject_ClassParamsStruct_switch(className, __VA_ARGS__)
 
-#define Cbject_ClassParamsStruct(typeName, params) \
-    Cbject_ClassParamsStruct_x(typeName, Cbject_Utils_unpack(params))
+#define Cbject_ClassParamsStruct(className, params) \
+    Cbject_ClassParamsStruct_x(className, Cbject_Utils_unpack(params))
 
 #endif // CBJECT_CLASSPARAMSSTRUCT_H
