@@ -66,6 +66,6 @@
     Cbject_TypeInstanceImpl_switch(typeName, superTypeName, __VA_ARGS__)
 
 #define Cbject_TypeInstanceImpl(typeName, superTypeName, bindFuns) \
-    Cbject_TypeInstanceImpl_x1(typeName, superTypeName, Cbject_Utils_stripParentheses(bindFuns))
+    Cbject_TypeInstanceImpl_x1(typeName, superTypeName, Cbject_Utils_unpack(bindFuns))
 
 #endif // CBJECT_TYPEINSTANCEIMPL_H

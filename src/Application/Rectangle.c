@@ -9,11 +9,11 @@ ClassSetup(
     BindFuns(
         (Shape, (float, area, ()))));
 
-DefaultSetProp(uint32, width);
-DefaultSetProp(uint32, height);
+Setter(uint32, width);
+Setter(uint32, height);
 
-DefaultGetProp(uint32, width);
-DefaultGetProp(uint32, height);
+Getter(uint32, width);
+Getter(uint32, height);
 
 Init
 {

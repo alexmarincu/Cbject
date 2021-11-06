@@ -1,7 +1,9 @@
 #ifndef CBJECT_SINGLETON_H
 #define CBJECT_SINGLETON_H
+#include "Cbject_AccessorsDecls.h"
 #include "Cbject_ContainerTypeDef.h"
 #include "Cbject_DataTypeDef.h"
+#include "Cbject_FunDecls.h"
 #include "Cbject_InitFun.h"
 #include "Cbject_ObjectInstanceFunPrototype.h"
 #include "Cbject_ObjectInstanceImpl.h"
@@ -25,7 +27,8 @@
     Cbject_InitFun_Prototype(typeName);                       \
     Cbject_TerminateFunPrototype(typeName);                   \
     Cbject_ObjectInstanceFunPrototype(typeName);              \
-    Cbject_FunDecls(funs)
+    Cbject_FunDecls(funs);                                    \
+    Cbject_AccessorsDecls(data)
 
 #define Cbject_Singleton_Setup(typeName, superTypeName, bindFuns) \
     Cbject_TypeTypeDef(typeName, superTypeName, withoutVirtFuns); \

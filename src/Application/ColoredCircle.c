@@ -11,8 +11,8 @@ ClassSetup(
         (Shape, (void, draw, ())),
         (Circle, (void, rotate, ()))));
 
-DefaultSetProp(Color, color);
-DefaultGetProp(Color, color);
+Setter(Color, color);
+Getter(Color, color);
 
 Init
 {

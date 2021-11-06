@@ -15,6 +15,6 @@
     Cbject_VirtFunPtr_switch(typeName, funReturnType, funName, __VA_ARGS__)
 
 #define Cbject_VirtFunPtr(funReturnType, funName, funParams) \
-    Cbject_VirtFunPtr_x1(Type, funReturnType, funName, Cbject_Utils_stripParentheses(funParams))
+    Cbject_VirtFunPtr_x1(Type, funReturnType, funName, Cbject_Utils_unpack(funParams))
 
 #endif // CBJECT_VIRTFUNPTR_H

@@ -17,6 +17,6 @@
     Cbject_VirtFunCalls_switch(__VA_ARGS__)
 
 #define Cbject_VirtFunCalls(virtFunCalls) \
-    Cbject_VirtFunCalls_x1(Cbject_Utils_stripParentheses(virtFunCalls))
+    Cbject_VirtFunCalls_x1(Cbject_Utils_unpack(virtFunCalls))
 
 #endif // CBJECT_VIRTFUNCALLS_H

@@ -68,6 +68,8 @@
 #define VirtFunType_Implemented VirtFunType_Implemented
 #define Access_None Access_None
 #define Access_ReadWrite Access_ReadWrite
+#define Access_Read Access_Read
+#define Access_Write Access_Write
 
 #define SetProp(fieldType, fieldName) \
     Cbject_KeywordExpander_SetProp(Type, fieldType, fieldName)
@@ -75,11 +77,11 @@
 #define GetProp(fieldType, fieldName) \
     Cbject_KeywordExpander_GetProp(Type, fieldType, fieldName)
 
-#define DefaultSetProp(fieldType, fieldName) \
-    Cbject_KeywordExpander_DefaultSetProp(Type, fieldType, fieldName)
+#define Setter(fieldType, fieldName) \
+    Cbject_KeywordExpander_Setter(Type, fieldType, fieldName)
 
-#define DefaultGetProp(fieldType, fieldName) \
-    Cbject_KeywordExpander_DefaultGetProp(Type, fieldType, fieldName)
+#define Getter(fieldType, fieldName) \
+    Cbject_KeywordExpander_Getter(Type, fieldType, fieldName)
 
 #define Init \
     Cbject_KeywordExpander_Init(Type, Parent)

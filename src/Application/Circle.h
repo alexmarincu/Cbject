@@ -10,7 +10,7 @@ Class(
         Point origin,
         uint32 radius),
     Data(
-        ((int32, radius), Access_ReadWrite)),
+        ((uint32, radius), Access_ReadWrite)),
     VirtFuns(
         ((void, rotate, ()), VirtFunType_Implemented)),
     Funs(
@@ -20,9 +20,6 @@ Class(
 PoolSize(10);
 
 extern Const(float, pi);
-
-SetProp(uint32, radius);
-GetProp(uint32, radius);
 
 #undef Type
 #undef Parent

@@ -20,12 +20,6 @@ Class(
 
 PoolSize(10);
 
-SetProp(uint32, width);
-SetProp(uint32, height);
-
-GetProp(uint32, width);
-GetProp(uint32, height);
-
 #undef Parent
 #undef Type
 #endif // RECTANGLE_H

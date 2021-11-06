@@ -14,8 +14,8 @@ AbstractClassSetup(
 Init { me->data.origin = params.origin; }
 Terminate {}
 
-DefaultSetProp(Point, origin);
-DefaultGetProp(Point, origin);
+Setter(Point, origin);
+Getter(Point, origin);
 
 OverrideFun(void, draw, ())
 {

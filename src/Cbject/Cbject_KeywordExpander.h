@@ -4,16 +4,16 @@
 #include "Cbject_BindFuns.h"
 #include "Cbject_Class.h"
 #include "Cbject_Const.h"
-#include "Cbject_DefaultGetProp.h"
-#include "Cbject_DefaultSetProp.h"
 #include "Cbject_Enum.h"
 #include "Cbject_FunDecls.h"
 #include "Cbject_FunPrototype.h"
 #include "Cbject_GetProp.h"
+#include "Cbject_Getter.h"
 #include "Cbject_Init.h"
 #include "Cbject_OverrideFunPrototype.h"
 #include "Cbject_PoolSize.h"
 #include "Cbject_SetProp.h"
+#include "Cbject_Setter.h"
 #include "Cbject_Singleton.h"
 #include "Cbject_Struct.h"
 #include "Cbject_Terminate.h"
@@ -64,11 +64,11 @@
 #define Cbject_KeywordExpander_GetProp(type, fieldType, fieldName) \
     Cbject_GetProp(type, fieldType, fieldName)
 
-#define Cbject_KeywordExpander_DefaultSetProp(type, fieldType, fieldName) \
-    Cbject_DefaultSetProp(type, fieldType, fieldName)
+#define Cbject_KeywordExpander_Setter(type, fieldType, fieldName) \
+    Cbject_Setter(type, fieldType, fieldName)
 
-#define Cbject_KeywordExpander_DefaultGetProp(type, fieldType, fieldName) \
-    Cbject_DefaultGetProp(type, fieldType, fieldName)
+#define Cbject_KeywordExpander_Getter(type, fieldType, fieldName) \
+    Cbject_Getter(type, fieldType, fieldName)
 
 #define Cbject_KeywordExpander_Init(type, superTypeName) \
     Cbject_Init(type, superTypeName)

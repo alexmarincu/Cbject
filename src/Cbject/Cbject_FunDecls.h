@@ -22,7 +22,7 @@
     Cbject_FunDecls_stripParenthesesAndApplyFun_switch(__VA_ARGS__)
 
 #define Cbject_FunDecls_stripParenthesesAndApplyFun(funPrototype) \
-    Cbject_FunDecls_stripParenthesesAndApplyFun_x1(Cbject_Utils_stripParentheses(funPrototype))
+    Cbject_FunDecls_stripParenthesesAndApplyFun_x1(Cbject_Utils_unpack(funPrototype))
 
 #define Cbject_FunDecls_case_(...)
 
@@ -39,6 +39,6 @@
     Cbject_FunDecls_switch(__VA_ARGS__)
 
 #define Cbject_FunDecls(funs) \
-    Cbject_FunDecls_x1(Cbject_Utils_stripParentheses(funs))
+    Cbject_FunDecls_x1(Cbject_Utils_unpack(funs))
 
 #endif // CBJECT_FUNDECLS_H

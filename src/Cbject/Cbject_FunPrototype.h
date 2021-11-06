@@ -14,6 +14,6 @@
     Cbject_FunPrototype_switch(typeName, funReturnType, funName, __VA_ARGS__)
 
 #define Cbject_FunPrototype(typeName, funReturnType, funName, funParams) \
-    Cbject_FunPrototype_x1(typeName, funReturnType, funName, Cbject_Utils_stripParentheses(funParams))
+    Cbject_FunPrototype_x1(typeName, funReturnType, funName, Cbject_Utils_unpack(funParams))
 
 #endif // CBJECT_FUNPROTOTYPE_H

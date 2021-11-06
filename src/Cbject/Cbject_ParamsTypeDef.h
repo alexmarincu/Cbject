@@ -18,6 +18,6 @@
     Cbject_ParamsTypeDef_switch(typeName, __VA_ARGS__)
 
 #define Cbject_ParamsTypeDef(typeName, params) \
-    Cbject_ParamsTypeDef_x1(typeName, Cbject_Utils_stripParentheses(params))
+    Cbject_ParamsTypeDef_x1(typeName, Cbject_Utils_unpack(params))
 
 #endif // CBJECT_PARAMSTYPEDEF_H

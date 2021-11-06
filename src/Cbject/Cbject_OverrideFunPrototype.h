@@ -14,6 +14,6 @@
     Cbject_OverrideFunPrototype_switch(typeName, funReturnType, funName, __VA_ARGS__)
 
 #define Cbject_OverrideFunPrototype(typeName, funReturnType, funName, funParams) \
-    Cbject_OverrideFunPrototype_x1(typeName, funReturnType, funName, Cbject_Utils_stripParentheses(funParams))
+    Cbject_OverrideFunPrototype_x1(typeName, funReturnType, funName, Cbject_Utils_unpack(funParams))
 
 #endif // CBJECT_OVERRIDEFUNPROTOTYPE_H

@@ -22,8 +22,8 @@ Init
 
 Terminate {}
 
-DefaultSetProp(uint32, radius);
-DefaultGetProp(uint32, radius);
+Setter(uint32, radius);
+Getter(uint32, radius);
 
 OverrideFun(void, draw, ())
 {

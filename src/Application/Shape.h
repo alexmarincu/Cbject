@@ -16,9 +16,6 @@ AbstractClass(
         ((void, draw, ()), VirtFunType_Implemented)),
     ());
 
-SetProp(Point, origin);
-GetProp(Point, origin);
-
 #undef Parent
 #undef Type
 #endif // SHAPE_H

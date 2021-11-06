@@ -20,12 +20,6 @@ Class(
 
 PoolSize(10);
 
-SetProp(uint32, radius);
-SetProp(Color, color);
-
-GetProp(uint32, radius);
-GetProp(Color, color);
-
 #undef Type
 #undef Parent
 #endif // COLOREDCIRCLE_H
