@@ -2,21 +2,21 @@
 #define CBJECT_VIRTFUNCALLS_H
 #include "Cbject_Utils.h"
 
-#define Cbject_VirtFunCalls_stripParenthesesAndApplyVirtFunCall(virtFunPrototype) \
+#define Cbject_VirtFunCalls_caseVirtFunCalls_virtFunCall(virtFunPrototype) \
     VirtFun virtFunPrototype;
 
-#define Cbject_VirtFunCalls_case_(...)
+#define Cbject_VirtFunCalls_case(...)
 
-#define Cbject_VirtFunCalls_case_VirtFunCalls(...) \
-    Cbject_Utils_forEach(Cbject_VirtFunCalls_stripParenthesesAndApplyVirtFunCall, __VA_ARGS__)
+#define Cbject_VirtFunCalls_caseVirtFunCalls(...) \
+    Cbject_Utils_forEach(Cbject_VirtFunCalls_caseVirtFunCalls_virtFunCall, __VA_ARGS__)
 
 #define Cbject_VirtFunCalls_switch(case, ...) \
-    Cbject_VirtFunCalls_case_##case (__VA_ARGS__)
+    Cbject_VirtFunCalls_case##case (__VA_ARGS__)
 
-#define Cbject_VirtFunCalls_x1(...) \
+#define Cbject_VirtFunCalls_x(...) \
     Cbject_VirtFunCalls_switch(__VA_ARGS__)
 
 #define Cbject_VirtFunCalls(virtFunCalls) \
-    Cbject_VirtFunCalls_x1(Cbject_Utils_unpack(virtFunCalls))
+    Cbject_VirtFunCalls_x(Cbject_Utils_unpack(virtFunCalls))
 
 #endif // CBJECT_VIRTFUNCALLS_H

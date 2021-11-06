@@ -1,11 +1,11 @@
-#ifndef CBJECT_VIRTFUNSGETTER_H
-#define CBJECT_VIRTFUNSGETTER_H
+#ifndef CBJECT_CLASSVIRTFUNSGETTER_H
+#define CBJECT_CLASSVIRTFUNSGETTER_H
 
-#define Cbject_VirtFunsGetter_Prototype(typeName) \
+#define Cbject_ClassVirtFunsGetter_Prototype(typeName) \
     typeName##VirtFuns * typeName##Type_virtFuns(typeName##Type * meType)
 
-#define Cbject_VirtFunsGetter_Impl(typeName)       \
-    Cbject_VirtFunsGetter_Prototype(typeName)      \
+#define Cbject_ClassVirtFunsGetter_Impl(typeName)  \
+    Cbject_ClassVirtFunsGetter_Prototype(typeName) \
     {                                              \
         typeName##VirtFuns * virtFuns = NULL;      \
                                                    \
@@ -24,5 +24,6 @@
                                                    \
         return virtFuns;                           \
     }
+// todo: assert when accessed after init
 
-#endif // CBJECT_VIRTFUNSGETTER_H
+#endif // CBJECT_CLASSVIRTFUNSGETTER_H

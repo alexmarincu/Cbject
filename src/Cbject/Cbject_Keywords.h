@@ -5,15 +5,15 @@
 #include "Cbject_BindFuns.h"
 #include "Cbject_Class.h"
 #include "Cbject_Const.h"
-#include "Cbject_Enum.h"
+#include "Cbject_EnumTypeDef.h"
 #include "Cbject_FunDecls.h"
 #include "Cbject_FunPrototype.h"
-#include "Cbject_Init.h"
+#include "Cbject_InitFun.h"
 #include "Cbject_OverrideFunPrototype.h"
 #include "Cbject_PoolSize.h"
 #include "Cbject_Singleton.h"
 #include "Cbject_Struct.h"
-#include "Cbject_Terminate.h"
+#include "Cbject_TerminateFun.h"
 #include "Cbject_VirtFun.h"
 
 #define AbstractClass(params, data, virtFuns, funs) \
@@ -38,7 +38,7 @@
     Cbject_Struct(Type, __VA_ARGS__)
 
 #define Enum(...) \
-    Cbject_Enum(Type, __VA_ARGS__)
+    Cbject_EnumTypeDef(Type, __VA_ARGS__)
 
 #define Fun(funReturnType, funName, funParams) \
     Cbject_FunPrototype(Type, funReturnType, funName, funParams)
@@ -95,9 +95,9 @@
     Cbject_AccessorFun_Getter_Impl(Type, fieldType, fieldName)
 
 #define Init \
-    Cbject_Init(Type, Parent)
+    Cbject_InitFun_Impl(Type, Parent)
 
 #define Terminate \
-    Cbject_Terminate(Type, Parent)
+    Cbject_TerminateFun_Impl(Type, Parent)
 
 #endif // CBJECT_KEYWORDS_H

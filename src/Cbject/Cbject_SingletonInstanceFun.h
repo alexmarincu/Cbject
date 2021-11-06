@@ -1,9 +1,11 @@
-#ifndef CBJECT_OBJECTINSTANCEIMPL_H
-#define CBJECT_OBJECTINSTANCEIMPL_H
-#include "Cbject_ObjectInstanceFunPrototype.h"
+#ifndef CBJECT_SINGLETONINSTANCEFUN_H
+#define CBJECT_SINGLETONINSTANCEFUN_H
 
-#define Cbject_ObjectInstanceImpl(typeName)                                                  \
-    Cbject_ObjectInstanceFunPrototype(typeName)                                              \
+#define Cbject_SingletonInstanceFun_Prototype(typeName) \
+    typeName * typeName##_instance()
+
+#define Cbject_SingletonInstanceFun_Impl(typeName)                                           \
+    Cbject_SingletonInstanceFun_Prototype(typeName)                                          \
     {                                                                                        \
         static typeName me;                                                                  \
                                                                                              \
@@ -17,4 +19,4 @@
         return &me;                                                                          \
     }
 
-#endif // CBJECT_OBJECTINSTANCEIMPL_H
+#endif // CBJECT_SINGLETONINSTANCEFUN_H

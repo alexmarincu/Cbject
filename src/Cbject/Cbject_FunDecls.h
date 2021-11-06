@@ -2,43 +2,43 @@
 #define CBJECT_FUNDECLS_H
 #include "Cbject_Utils.h"
 
-#define Cbject_FunDecls_stripParenthesesAndApplyFun_case_Final(funPrototype) \
+#define Cbject_FunDecls_caseXFuns_funDecl_caseFinal(funPrototype) \
     Fun funPrototype;
 
-#define Cbject_FunDecls_stripParenthesesAndApplyFun_case_Override(funPrototype) \
+#define Cbject_FunDecls_caseXFuns_funDecl_caseOverride(funPrototype) \
     OverrideFun funPrototype;
 
-#define Cbject_FunDecls_stripParenthesesAndApplyFun_case_Pure(funPrototype) \
+#define Cbject_FunDecls_caseXFuns_funDecl_casePure(funPrototype) \
     Fun funPrototype;
 
-#define Cbject_FunDecls_stripParenthesesAndApplyFun_case_Implemented(funPrototype) \
-    Fun funPrototype;                                                              \
+#define Cbject_FunDecls_caseXFuns_funDecl_caseImplemented(funPrototype) \
+    Fun funPrototype;                                                   \
     OverrideFun funPrototype;
 
-#define Cbject_FunDecls_stripParenthesesAndApplyFun_switch(funPrototype, case) \
-    Cbject_FunDecls_stripParenthesesAndApplyFun_case_##case (funPrototype)
+#define Cbject_FunDecls_caseXFuns_funDecl_switch(funPrototype, case) \
+    Cbject_FunDecls_caseXFuns_funDecl_case##case (funPrototype)
 
-#define Cbject_FunDecls_stripParenthesesAndApplyFun_x1(...) \
-    Cbject_FunDecls_stripParenthesesAndApplyFun_switch(__VA_ARGS__)
+#define Cbject_FunDecls_caseXFuns_funDecl_x(...) \
+    Cbject_FunDecls_caseXFuns_funDecl_switch(__VA_ARGS__)
 
-#define Cbject_FunDecls_stripParenthesesAndApplyFun(funPrototype) \
-    Cbject_FunDecls_stripParenthesesAndApplyFun_x1(Cbject_Utils_unpack(funPrototype))
+#define Cbject_FunDecls_caseXFuns_funDecl(funPrototype) \
+    Cbject_FunDecls_caseXFuns_funDecl_x(Cbject_Utils_unpack(funPrototype))
 
-#define Cbject_FunDecls_case_(...)
+#define Cbject_FunDecls_case(...)
 
-#define Cbject_FunDecls_case_Funs(...) \
-    Cbject_Utils_forEach(Cbject_FunDecls_stripParenthesesAndApplyFun, __VA_ARGS__)
+#define Cbject_FunDecls_caseFuns(...) \
+    Cbject_Utils_forEach(Cbject_FunDecls_caseXFuns_funDecl, __VA_ARGS__)
 
-#define Cbject_FunDecls_case_VirtFuns(...) \
-    Cbject_Utils_forEach(Cbject_FunDecls_stripParenthesesAndApplyFun, __VA_ARGS__)
+#define Cbject_FunDecls_caseVirtFuns(...) \
+    Cbject_Utils_forEach(Cbject_FunDecls_caseXFuns_funDecl, __VA_ARGS__)
 
 #define Cbject_FunDecls_switch(case, ...) \
-    Cbject_FunDecls_case_##case (__VA_ARGS__)
+    Cbject_FunDecls_case##case (__VA_ARGS__)
 
-#define Cbject_FunDecls_x1(...) \
+#define Cbject_FunDecls_x(...) \
     Cbject_FunDecls_switch(__VA_ARGS__)
 
 #define Cbject_FunDecls(funs) \
-    Cbject_FunDecls_x1(Cbject_Utils_unpack(funs))
+    Cbject_FunDecls_x(Cbject_Utils_unpack(funs))
 
 #endif // CBJECT_FUNDECLS_H

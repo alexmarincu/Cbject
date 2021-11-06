@@ -7,7 +7,7 @@
 #define Cbject_InitFun_Prototype(typeName) \
     void typeName##_init(typeName * const me, typeName##Params const params)
 
-#define Cbject_InitFun_Impl(typeName, superTypeName)                     \
+#define Cbject_InitFun_Impl_x(typeName, superTypeName)                   \
     Cbject_InitFun_OnInitFunPrototype(typeName, superTypeName);          \
     Cbject_InitFun_Prototype(typeName)                                   \
     {                                                                    \
@@ -24,4 +24,6 @@
     }                                                                    \
     Cbject_InitFun_OnInitFunPrototype(typeName, superTypeName)
 
+#define Cbject_InitFun_Impl(typeName, superTypeName) \
+    Cbject_InitFun_Impl_x(typeName, superTypeName)
 #endif // CBJECT_INITFUN_H
