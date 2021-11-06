@@ -1,55 +1,68 @@
 #ifndef CBJECT_KEYWORDS_H
 #define CBJECT_KEYWORDS_H
+#include "Cbject_AbstractClass.h"
 #include "Cbject_AccessorFun.h"
-#include "Cbject_KeywordExpander.h"
+#include "Cbject_BindFuns.h"
+#include "Cbject_Class.h"
+#include "Cbject_Const.h"
+#include "Cbject_Enum.h"
+#include "Cbject_FunDecls.h"
+#include "Cbject_FunPrototype.h"
+#include "Cbject_Init.h"
+#include "Cbject_OverrideFunPrototype.h"
+#include "Cbject_PoolSize.h"
+#include "Cbject_Singleton.h"
+#include "Cbject_Struct.h"
+#include "Cbject_Terminate.h"
+#include "Cbject_VirtFun.h"
 
 #define AbstractClass(params, data, virtFuns, funs) \
-    Cbject_KeywordExpander_AbstractClass(Type, Parent, params, data, virtFuns, funs)
+    Cbject_AbstractClass(Type, Parent, params, data, virtFuns, funs)
 
 #define AbstractClassSetup(virtFunCalls, bindFuns) \
-    Cbject_KeywordExpander_AbstractClassSetup(Type, Parent, virtFunCalls, bindFuns)
+    Cbject_AbstractClass_Setup(Type, Parent, virtFunCalls, bindFuns)
 
 #define BindFuns(...) \
     (bindFuns, __VA_ARGS__)
 
 #define Class(params, data, virtFuns, funs) \
-    Cbject_KeywordExpander_Class(Type, Parent, params, data, virtFuns, funs)
+    Cbject_Class(Type, Parent, params, data, virtFuns, funs)
 
 #define ClassSetup(virtFunCalls, bindFuns) \
-    Cbject_KeywordExpander_ClassSetup(Type, Parent, virtFunCalls, bindFuns)
+    Cbject_Class_Setup(Type, Parent, virtFunCalls, bindFuns)
 
 #define Const(constType, constNameAndValue) \
-    Cbject_KeywordExpander_Const(Type, constType, constNameAndValue)
+    Cbject_Const(Type, constType, constNameAndValue)
 
 #define Struct(...) \
-    Cbject_KeywordExpander_Struct(Type, __VA_ARGS__)
+    Cbject_Struct(Type, __VA_ARGS__)
 
 #define Enum(...) \
-    Cbject_KeywordExpander_Enum(Type, __VA_ARGS__)
+    Cbject_Enum(Type, __VA_ARGS__)
 
 #define Fun(funReturnType, funName, funParams) \
-    Cbject_KeywordExpander_Fun(Type, funReturnType, funName, funParams)
+    Cbject_FunPrototype(Type, funReturnType, funName, funParams)
 
 #define Singleton(data, funs) \
-    Cbject_KeywordExpander_Singleton(Type, Parent, data, funs)
+    Cbject_Singleton(Type, Parent, data, funs)
 
 #define SingletonSetup(bindFuns) \
-    Cbject_KeywordExpander_SingletonSetup(Type, Parent, bindFuns)
+    Cbject_Singleton_Setup(Type, Parent, bindFuns)
 
 #define OverrideFun(funReturnType, funName, funParams) \
-    Cbject_KeywordExpander_OverrideFun(Type, funReturnType, funName, funParams)
+    Cbject_OverrideFunPrototype(Type, funReturnType, funName, funParams)
 
 #define Params(...) \
     (params, __VA_ARGS__)
 
 #define PoolSize(poolSize) \
-    Cbject_KeywordExpander_PoolSize(Type, poolSize)
+    Cbject_PoolSize(Type, poolSize)
 
 #define Data(...) \
     (data, __VA_ARGS__)
 
 #define VirtFun(funReturnType, funName, funParams, funCallParams) \
-    Cbject_KeywordExpander_VirtFun(Type, funReturnType, funName, funParams, funCallParams)
+    Cbject_VirtFun(Type, funReturnType, funName, funParams, funCallParams)
 
 #define VirtFunCalls(...) \
     (virtFunCalls, __VA_ARGS__)
@@ -85,9 +98,9 @@
     Cbject_AccessorFun_Getter_Impl(Type, fieldType, fieldName)
 
 #define Init \
-    Cbject_KeywordExpander_Init(Type, Parent)
+    Cbject_Init(Type, Parent)
 
 #define Terminate \
-    Cbject_KeywordExpander_Terminate(Type, Parent)
+    Cbject_Terminate(Type, Parent)
 
 #endif // CBJECT_KEYWORDS_H
