@@ -32,7 +32,7 @@
         return &type;                                                                                                     \
     }
 
-#define Cbject_TypeInstanceImpl_case_bindFuns(typeName, superTypeName, ...)                                               \
+#define Cbject_TypeInstanceImpl_case_BindFuns(typeName, superTypeName, ...)                                               \
     Cbject_TypeInstanceFunPrototype(typeName)                                                                             \
     {                                                                                                                     \
         static typeName##Type type;                                                                                       \

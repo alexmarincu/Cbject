@@ -5,7 +5,7 @@
 #define Cbject_BindFun_case_(typeName, superTypeName, funReturnType, funName, ...) \
     superTypeName##Type_virtFuns((superTypeName##Type *)&type)->funName = (funReturnType(*)(superTypeName * const me))super_##typeName##_##funName
 
-#define Cbject_BindFun_case_params(typeName, superTypeName, funReturnType, funName, ...) \
+#define Cbject_BindFun_case_Params(typeName, superTypeName, funReturnType, funName, ...) \
     superTypeName##Type_virtFuns((superTypeName##Type *)&type)->funName = (funReturnType(*)(superTypeName * const me, __VA_ARGS__))super_##typeName##_##funName
 
 #define Cbject_BindFun_switch(typeName, superTypeName, funReturnType, funName, case, ...) \

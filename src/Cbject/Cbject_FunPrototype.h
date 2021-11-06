@@ -4,7 +4,7 @@
 #define Cbject_FunPrototype_case_(typeName, funReturnType, funName, ...) \
     funReturnType typeName##_##funName(typeName * const me)
 
-#define Cbject_FunPrototype_case_params(typeName, funReturnType, funName, ...) \
+#define Cbject_FunPrototype_case_Params(typeName, funReturnType, funName, ...) \
     funReturnType typeName##_##funName(typeName * const me, __VA_ARGS__)
 
 #define Cbject_FunPrototype_switch(typeName, funReturnType, funName, case, ...) \

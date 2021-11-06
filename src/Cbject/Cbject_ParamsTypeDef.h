@@ -5,7 +5,7 @@
 #define Cbject_ParamsTypeDef_case_(typeName, ...) \
     typedef char typeName##Params
 
-#define Cbject_ParamsTypeDef_case_params(typeName, ...)              \
+#define Cbject_ParamsTypeDef_case_Params(typeName, ...)              \
     typedef struct typeName##Params                                  \
     {                                                                \
         Cbject_Utils_forEach(Cbject_Utils_addSemicolon, __VA_ARGS__) \

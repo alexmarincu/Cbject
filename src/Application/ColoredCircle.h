@@ -12,11 +12,11 @@ Class(
         uint32 radius,
         Color color),
     Data(
-        ((Color, color), Access_ReadWrite)),
+        ((Color, color), Public)),
     (),
     Funs(
-        ((void, draw, ()), FunType_Override),
-        ((void, rotate, ()), FunType_Override)));
+        ((void, draw, ()), Override),
+        ((void, rotate, ()), Override)));
 
 PoolSize(10);
 

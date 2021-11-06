@@ -10,10 +10,10 @@ AbstractClass(
     Params(
         Point origin),
     Data(
-        ((Point, origin), Access_ReadWrite)),
+        ((Point, origin), Public)),
     VirtFuns(
-        ((float, area, ()), VirtFunType_Pure),
-        ((void, draw, ()), VirtFunType_Implemented)),
+        ((float, area, ()), Pure),
+        ((void, draw, ()), Implemented)),
     ());
 
 #undef Parent

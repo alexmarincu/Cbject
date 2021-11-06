@@ -4,7 +4,7 @@
 #define Cbject_OverrideFunPrototype_case_(typeName, funReturnType, funName, ...) \
     funReturnType super_##typeName##_##funName(typeName * const me)
 
-#define Cbject_OverrideFunPrototype_case_params(typeName, funReturnType, funName, ...) \
+#define Cbject_OverrideFunPrototype_case_Params(typeName, funReturnType, funName, ...) \
     funReturnType super_##typeName##_##funName(typeName * const me, __VA_ARGS__)
 
 #define Cbject_OverrideFunPrototype_switch(typeName, funReturnType, funName, case, ...) \

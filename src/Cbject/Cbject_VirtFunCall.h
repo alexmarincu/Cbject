@@ -11,7 +11,7 @@
                                                          \
     return ((typeName##Type *)((ObjectT *)me)->type)->virtFuns.funName(me)
 
-#define Cbject_VirtFunCall_case_params(typeName, funName, ...) \
+#define Cbject_VirtFunCall_case_Params(typeName, funName, ...) \
     typedef struct ObjectT                                     \
     {                                                          \
         Cbject_Settings_maxAlign align;                        \

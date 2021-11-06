@@ -23,7 +23,7 @@
     Cbject_AbstractClass_Setup(Type, Parent, virtFunCalls, bindFuns)
 
 #define BindFuns(...) \
-    (bindFuns, __VA_ARGS__)
+    (BindFuns, __VA_ARGS__)
 
 #define Class(params, data, virtFuns, funs) \
     Cbject_Class(Type, Parent, params, data, virtFuns, funs)
@@ -53,37 +53,34 @@
     Cbject_OverrideFunPrototype(Type, funReturnType, funName, funParams)
 
 #define Params(...) \
-    (params, __VA_ARGS__)
+    (Params, __VA_ARGS__)
 
 #define PoolSize(poolSize) \
     Cbject_PoolSize(Type, poolSize)
 
 #define Data(...) \
-    (data, __VA_ARGS__)
+    (Data, __VA_ARGS__)
 
 #define VirtFun(funReturnType, funName, funParams, funCallParams) \
     Cbject_VirtFun(Type, funReturnType, funName, funParams, funCallParams)
 
 #define VirtFunCalls(...) \
-    (virtFunCalls, __VA_ARGS__)
+    (VirtFunCalls, __VA_ARGS__)
 
 #define VirtFuns(...) \
-    (virtFuns, __VA_ARGS__)
-
-#define VirtFunDecl(...) \
-    (VirtFunType_Implemented, (__VA_ARGS__))
+    (VirtFuns, __VA_ARGS__)
 
 #define Funs(...) \
-    (funs, __VA_ARGS__)
+    (Funs, __VA_ARGS__)
 
-#define FunType_Final FunType_Final
-#define FunType_Override FunType_Override
-#define VirtFunType_Pure VirtFunType_Pure
-#define VirtFunType_Implemented VirtFunType_Implemented
-#define Access_None Access_None
-#define Access_ReadWrite Access_ReadWrite
-#define Access_Read Access_Read
-#define Access_Write Access_Write
+#define Final Final
+#define Override Override
+#define Pure Pure
+#define Implemented Implemented
+#define Private Private
+#define Public Public
+#define PublicRead PublicRead
+#define PublicWrite PublicWrite
 
 #define SetterCustom(fieldType, fieldName) \
     Cbject_AccessorFun_Setter_Prototype(Type, fieldType, fieldName)

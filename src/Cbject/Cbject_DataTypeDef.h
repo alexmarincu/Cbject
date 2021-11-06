@@ -23,7 +23,7 @@
 #define Cbject_DataTypeDef_case_(typeName, ...) \
     typedef char typeName##Data
 
-#define Cbject_DataTypeDef_case_data(typeName, ...)                                           \
+#define Cbject_DataTypeDef_case_Data(typeName, ...)                                           \
     typedef struct typeName##Data                                                             \
     {                                                                                         \
         Cbject_Utils_forEach(Cbject_DataTypeDef_discardCase_unpack_addSemicolon, __VA_ARGS__) \

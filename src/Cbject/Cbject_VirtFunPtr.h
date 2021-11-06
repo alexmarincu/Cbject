@@ -5,7 +5,7 @@
 #define Cbject_VirtFunPtr_case_(typeName, funReturnType, funName, ...) \
     funReturnType (*funName)(typeName * const me)
 
-#define Cbject_VirtFunPtr_case_params(typeName, funReturnType, funName, ...) \
+#define Cbject_VirtFunPtr_case_Params(typeName, funReturnType, funName, ...) \
     funReturnType (*funName)(typeName * const me, __VA_ARGS__)
 
 #define Cbject_VirtFunPtr_switch(typeName, funReturnType, funName, case, ...) \

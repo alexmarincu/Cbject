@@ -7,7 +7,7 @@
 
 #define Cbject_VirtFunCalls_case_(...)
 
-#define Cbject_VirtFunCalls_case_virtFunCalls(...) \
+#define Cbject_VirtFunCalls_case_VirtFunCalls(...) \
     Cbject_Utils_forEach(Cbject_VirtFunCalls_stripParenthesesAndApplyVirtFunCall, __VA_ARGS__)
 
 #define Cbject_VirtFunCalls_switch(case, ...) \
