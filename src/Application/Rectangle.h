@@ -11,12 +11,12 @@ Class(
         uint32 width,
         uint32 height),
     Data(
-        uint32 width,
-        uint32 height),
+        ((uint32, width), Access_ReadWrite),
+        ((uint32, height), Access_ReadWrite)),
     (),
     Funs(
-        ((uint32, test, Params(uint32 const ab)), Final),
-        ((float, area, ()), Override)));
+        ((void, makeSquare, Params(uint32 const edgeSize)), FunType_Final),
+        ((float, area, ()), FunType_Override)));
 
 PoolSize(10);
 

@@ -79,6 +79,10 @@ static Fun(void, rectangleExample, ())
     printf("width = %d\n", Rectangle_width(me->data.rectangle));
     printf("height = %d\n", Rectangle_height(me->data.rectangle));
     printf("area = %.2f\n", Shape_area(Cast(Shape, me->data.rectangle)));
+    Rectangle_makeSquare(me->data.rectangle, 5);
+    printf("width = %d\n", Rectangle_width(me->data.rectangle));
+    printf("height = %d\n", Rectangle_height(me->data.rectangle));
+    printf("area = %.2f\n", Shape_area(Cast(Shape, me->data.rectangle)));
     Shape_draw(Cast(Shape, me->data.rectangle));
     // printf("type name = %s\n", Object_type((Object *) me->data.rectangle)->name);
 }

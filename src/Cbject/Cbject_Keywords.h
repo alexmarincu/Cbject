@@ -56,25 +56,18 @@
 #define VirtFuns(...) \
     (virtFuns, __VA_ARGS__)
 
-#define VirtFunDeclPure(...) \
-    (Pure, (__VA_ARGS__))
-
 #define VirtFunDecl(...) \
-    (Implemented, (__VA_ARGS__))
+    (VirtFunType_Implemented, (__VA_ARGS__))
 
 #define Funs(...) \
     (funs, __VA_ARGS__)
 
-#define Final Final
-#define Override Override
-#define Pure Pure
-#define Implemented Implemented
-
-#define FunDecl(...) \
-    (Final, (__VA_ARGS__))
-
-#define FunDeclOverride(...) \
-    (Override, (__VA_ARGS__))
+#define FunType_Final FunType_Final
+#define FunType_Override FunType_Override
+#define VirtFunType_Pure VirtFunType_Pure
+#define VirtFunType_Implemented VirtFunType_Implemented
+#define Access_None Access_None
+#define Access_ReadWrite Access_ReadWrite
 
 #define SetProp(fieldType, fieldName) \
     Cbject_KeywordExpander_SetProp(Type, fieldType, fieldName)

@@ -10,10 +10,10 @@ AbstractClass(
     Params(
         Point origin),
     Data(
-        Point origin),
+        ((Point, origin), Access_ReadWrite)),
     VirtFuns(
-        ((float, area, ()), Pure),
-        ((void, draw, ()), Implemented)),
+        ((float, area, ()), VirtFunType_Pure),
+        ((void, draw, ()), VirtFunType_Implemented)),
     ());
 
 SetProp(Point, origin);

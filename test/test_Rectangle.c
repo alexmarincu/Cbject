@@ -7,66 +7,78 @@ TEST_FILE("Object.c")
 TEST_FILE("Rectangle.c")
 TEST_FILE("Shape.c")
 
-static void checkRectangleInit(Rectangle const * const r);
-static void checkRectangleDataAccessors(Rectangle * const r);
+static void checkRectangleInit(Rectangle const * const rectangle);
+static void checkRectangleDataAccessors(Rectangle * const rectangle);
+static void checkMakeSquare(Rectangle * const rectangle);
 
 void setUp(void) {}
 
 void tearDown(void) {}
 
-/* tag::testDoc[]
+/* tag::testDescription[]
 == Rectangle on heap
 Test creation on heap and data accessors of Rectangle object
 
-end::testDoc[] */
+end::testDescription[] */
 void test_Rectangle_Heap(void)
 {
-    Rectangle * r = Rectangle_createOnHeap((RectangleParams){{4, 5}, 1, 2});
-    checkRectangleInit(r);
-    checkRectangleDataAccessors(r);
-    Rectangle_delete(r);
+    Rectangle * rectangle = Rectangle_createOnHeap((RectangleParams){{4, 5}, 1, 2});
+    checkRectangleInit(rectangle);
+    checkRectangleDataAccessors(rectangle);
+    checkMakeSquare(rectangle);
+    Rectangle_delete(rectangle);
 }
 
-/* tag::testDoc[]
+/* tag::testDescription[]
 == Rectangle on static pool
 Test retrieval from static pool and data accessors of Rectangle object
 
-end::testDoc[] */
+end::testDescription[] */
 void test_Rectangle_StaticPool(void)
 {
-    Rectangle * r = Rectangle_getFromStaticPool((RectangleParams){{4, 5}, 1, 2});
-    checkRectangleInit(r);
-    checkRectangleDataAccessors(r);
+    Rectangle * rectangle = Rectangle_getFromStaticPool((RectangleParams){{4, 5}, 1, 2});
+    checkRectangleInit(rectangle);
+    checkRectangleDataAccessors(rectangle);
 }
 
-/* tag::testDoc[]
+/* tag::testDescription[]
 == Rectangle on stack
 Test creation on stack and data accessors of Rectangle object
 
-end::testDoc[] */
+end::testDescription[] */
 void test_Rectangle_Stack(void)
 {
-    Rectangle * r = Rectangle_createOnStack((Rectangle *)&(RectangleContainer){}, (RectangleParams){{4, 5}, 1, 2});
-    checkRectangleInit(r);
-    checkRectangleDataAccessors(r);
+    Rectangle * rectangle = Rectangle_createOnStack((Rectangle *)&(RectangleContainer){}, (RectangleParams){{4, 5}, 1, 2});
+    checkRectangleInit(rectangle);
+    checkRectangleDataAccessors(rectangle);
 }
 
-static void checkRectangleInit(Rectangle const * const r)
+static void checkRectangleInit(Rectangle const * const rectangle)
 {
-    TEST_ASSERT_NOT_NULL(r);
-    TEST_ASSERT_EQUAL_UINT8(4, Shape_origin(Cast(Shape, r)).x);
-    TEST_ASSERT_EQUAL_UINT8(5, Shape_origin(Cast(Shape, r)).y);
-    TEST_ASSERT_EQUAL_UINT8(1, Rectangle_width(r));
-    TEST_ASSERT_EQUAL_UINT8(2, Rectangle_height(r));
+    TEST_ASSERT_NOT_NULL(rectangle);
+    TEST_ASSERT_EQUAL_UINT8(4, Shape_origin(Cast(Shape, rectangle)).x);
+    TEST_ASSERT_EQUAL_UINT8(5, Shape_origin(Cast(Shape, rectangle)).y);
+    TEST_ASSERT_EQUAL_UINT8(1, Rectangle_width(rectangle));
+    TEST_ASSERT_EQUAL_UINT8(2, Rectangle_height(rectangle));
+    TEST_ASSERT_EQUAL_UINT8(1 * 2, Shape_area(Cast(Shape, rectangle)));
 }
 
-static void checkRectangleDataAccessors(Rectangle * const r)
+static void checkRectangleDataAccessors(Rectangle * const rectangle)
 {
-    Shape_originSet(Cast(Shape, r), (Point){1, 2});
-    TEST_ASSERT_EQUAL_UINT8(1, Shape_origin(Cast(Shape, r)).x);
-    TEST_ASSERT_EQUAL_UINT8(2, Shape_origin(Cast(Shape, r)).y);
-    Rectangle_widthSet(r, 2);
-    Rectangle_heightSet(r, 3);
-    TEST_ASSERT_EQUAL_UINT8(2, Rectangle_width(r));
-    TEST_ASSERT_EQUAL_UINT8(3, Rectangle_height(r));
+    Shape_originSet(Cast(Shape, rectangle), (Point){1, 2});
+    TEST_ASSERT_EQUAL_UINT8(1, Shape_origin(Cast(Shape, rectangle)).x);
+    TEST_ASSERT_EQUAL_UINT8(2, Shape_origin(Cast(Shape, rectangle)).y);
+    Rectangle_widthSet(rectangle, 2);
+    Rectangle_heightSet(rectangle, 3);
+    TEST_ASSERT_EQUAL_UINT8(2, Rectangle_width(rectangle));
+    TEST_ASSERT_EQUAL_UINT8(3, Rectangle_height(rectangle));
+    TEST_ASSERT_EQUAL_UINT8(2 * 3, Shape_area(Cast(Shape, rectangle)));
+}
+
+static void checkMakeSquare(Rectangle * const rectangle)
+{
+    Rectangle_makeSquare(rectangle, 5);
+    TEST_ASSERT_EQUAL_UINT8(5, Rectangle_width(rectangle));
+    TEST_ASSERT_EQUAL_UINT8(5, Rectangle_height(rectangle));
+    TEST_ASSERT_EQUAL_UINT8(5 * 5, Shape_area(Cast(Shape, rectangle)));
 }

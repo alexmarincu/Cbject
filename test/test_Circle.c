@@ -14,11 +14,11 @@ void setUp(void) {}
 
 void tearDown(void) {}
 
-/* tag::testDoc[]
+/* tag::testDescription[]
 == Circle on heap
 Test creation on heap and data accessors of Circle object
 
-end::testDoc[] */
+end::testDescription[] */
 void test_Circle_Heap(void)
 {
     Circle * c = Circle_createOnHeap((CircleParams){{4, 5}, 1});
@@ -27,11 +27,11 @@ void test_Circle_Heap(void)
     Circle_delete(c);
 }
 
-/* tag::testDoc[]
+/* tag::testDescription[]
 == Circle on static pool
 Test retrieval from static pool and data accessors of Circle object
 
-end::testDoc[] */
+end::testDescription[] */
 void test_Circle_StaticPool(void)
 {
     Circle * c = Circle_getFromStaticPool((CircleParams){{4, 5}, 1});
@@ -39,11 +39,11 @@ void test_Circle_StaticPool(void)
     checkCircleDataAccessors(c);
 }
 
-/* tag::testDoc[]
+/* tag::testDescription[]
 == Circle on stack
 Test creation on stack and data accessors of Circle object
 
-end::testDoc[] */
+end::testDescription[] */
 void test_Circle_Stack(void)
 {
     Circle * c = Circle_createOnStack((Circle *)&(CircleContainer){}, (CircleParams){{4, 5}, 1});

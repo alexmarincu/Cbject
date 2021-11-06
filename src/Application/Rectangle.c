@@ -24,7 +24,12 @@ Init
 
 Terminate {}
 
-Fun(uint32, test, Params(uint32 const ab)) { return ab; }
+Fun(void, makeSquare, Params(uint32 const edgeSize))
+{
+    me->data.height = edgeSize;
+    me->data.width = edgeSize;
+}
+
 OverrideFun(float, area, ()) { return me->data.width * me->data.height; }
 
 #undef Parent

@@ -10,12 +10,12 @@ Class(
         Point origin,
         uint32 radius),
     Data(
-        int32 radius),
+        ((int32, radius), Access_ReadWrite)),
     VirtFuns(
-        ((void, rotate, ()), Implemented)),
+        ((void, rotate, ()), VirtFunType_Implemented)),
     Funs(
-        ((float, area, ()), Override),
-        ((void, draw, ()), Override)));
+        ((float, area, ()), FunType_Override),
+        ((void, draw, ()), FunType_Override)));
 
 PoolSize(10);
 
