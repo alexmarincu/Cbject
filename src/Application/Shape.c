@@ -9,7 +9,7 @@ AbstractClassSetup(
         ((float, area, NA), NA),
         ((void, draw, NA), NA)),
     FunOverrides(
-        (Shape, (void, draw, NA))));
+        ((void, draw, NA), Shape)));
 
 Init
 {

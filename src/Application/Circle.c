@@ -8,9 +8,9 @@ ClassSetup(
     VirtFunCalls(
         ((void, rotate, NA), NA)),
     FunOverrides(
-        (Shape, (float, area, NA)),
-        (Shape, (void, draw, NA)),
-        (Circle, (void, rotate, NA))));
+        ((float, area, NA), Shape),
+        ((void, draw, NA), Shape),
+        ((void, rotate, NA), Circle)));
 
 Const(float, pi) = 3.14;
 Var(Point, point) = {.x = 5, .y = 6};

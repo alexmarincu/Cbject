@@ -8,8 +8,8 @@
 ClassSetup(
     NA,
     FunOverrides(
-        (Shape, (void, draw, NA)),
-        (Circle, (void, rotate, NA))));
+        ((void, draw, NA), Shape),
+        ((void, rotate, NA), Circle)));
 
 SetImpl(Color, color);
 GetImpl(Color, color);

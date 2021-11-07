@@ -37,7 +37,7 @@
 #define Cbject_FunOverride_x(className, superClassName, ...) \
     Cbject_FunOverride_x2(className, superClassName, __VA_ARGS__)
 
-#define Cbject_FunOverride(superClassName, funPrototype) \
+#define Cbject_FunOverride(funPrototype, superClassName) \
     Cbject_FunOverride_x(Type, superClassName, Cbject_Utils_unpack(funPrototype))
 
 #endif // CBJECT_FUNOVERRIDE_H

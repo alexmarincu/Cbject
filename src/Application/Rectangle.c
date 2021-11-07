@@ -7,7 +7,7 @@
 ClassSetup(
     NA,
     FunOverrides(
-        (Shape, (float, area, NA))));
+        ((float, area, NA), Shape)));
 
 Init
 {

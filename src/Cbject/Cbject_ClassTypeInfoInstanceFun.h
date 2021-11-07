@@ -5,8 +5,10 @@
 #define Cbject_ClassTypeInfoInstanceFun_Prototype(className) \
     className##Type const * const className##Type_instance()
 
-#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride(funPrototype) \
-    Cbject_FunOverride funPrototype;
+//
+
+#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride(funPrototypeWithSuperClassName) \
+    Cbject_FunOverride funPrototypeWithSuperClassName;
 
 #define Cbject_ClassTypeInfoInstanceFun_Impl_case(className, superClassName, ...)                                            \
     Cbject_ClassTypeInfoInstanceFun_Prototype(className)                                                                     \
