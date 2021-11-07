@@ -11,13 +11,13 @@
         Cbject_Utils_forEach(Cbject_Utils_addSemicolon, __VA_ARGS__) \
     } className##Params
 
-#define Cbject_ClassParamsStruct_switch(className, case, ...) \
+#define Cbject_ClassParamsStruct_x1(className, case, ...) \
     Cbject_ClassParamsStruct_case##case (className, __VA_ARGS__)
 
-#define Cbject_ClassParamsStruct_x(className, ...) \
-    Cbject_ClassParamsStruct_switch(className, __VA_ARGS__)
+#define Cbject_ClassParamsStruct_x0(className, ...) \
+    Cbject_ClassParamsStruct_x1(className, __VA_ARGS__)
 
 #define Cbject_ClassParamsStruct(className, params) \
-    Cbject_ClassParamsStruct_x(className, Cbject_Utils_unpack(params))
+    Cbject_ClassParamsStruct_x0(className, Cbject_Utils_unpack(params))
 
 #endif // CBJECT_CLASSPARAMSSTRUCT_H

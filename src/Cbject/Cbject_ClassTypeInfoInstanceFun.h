@@ -7,8 +7,14 @@
 
 //
 
+#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride_x1(funPrototype, superClassName) \
+    Cbject_FunOverride(Type, superClassName, funPrototype);
+
+#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride_x0(...) \
+    Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride_x1(__VA_ARGS__);
+
 #define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride(funPrototypeWithSuperClassName) \
-    Cbject_FunOverride funPrototypeWithSuperClassName;
+    Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride_x0(Cbject_Utils_unpack(funPrototypeWithSuperClassName));
 
 #define Cbject_ClassTypeInfoInstanceFun_Impl_case(className, superClassName, ...)                                            \
     Cbject_ClassTypeInfoInstanceFun_Prototype(className)                                                                     \
@@ -63,13 +69,13 @@
         return &type;                                                                                                        \
     }
 
-#define Cbject_ClassTypeInfoInstanceFun_Impl_switch(className, superClassName, case, ...) \
+#define Cbject_ClassTypeInfoInstanceFun_Impl_x1(className, superClassName, case, ...) \
     Cbject_ClassTypeInfoInstanceFun_Impl_case##case (className, superClassName, __VA_ARGS__)
 
-#define Cbject_ClassTypeInfoInstanceFun_Impl_x(className, superClassName, ...) \
-    Cbject_ClassTypeInfoInstanceFun_Impl_switch(className, superClassName, __VA_ARGS__)
+#define Cbject_ClassTypeInfoInstanceFun_Impl_x0(className, superClassName, ...) \
+    Cbject_ClassTypeInfoInstanceFun_Impl_x1(className, superClassName, __VA_ARGS__)
 
 #define Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, funOverrides) \
-    Cbject_ClassTypeInfoInstanceFun_Impl_x(className, superClassName, Cbject_Utils_unpack(funOverrides))
+    Cbject_ClassTypeInfoInstanceFun_Impl_x0(className, superClassName, Cbject_Utils_unpack(funOverrides))
 
 #endif // CBJECT_CLASSTYPEINFOINSTANCEFUN_H

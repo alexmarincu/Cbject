@@ -3,10 +3,10 @@
 
 #define Cbject_Utils_args(...) __VA_ARGS__
 
-#define Cbject_Utils_unpack_x(x) x
+#define Cbject_Utils_unpack_x0(x) x
 
 #define Cbject_Utils_unpack(args) \
-    Cbject_Utils_unpack_x(Cbject_Utils_args args)
+    Cbject_Utils_unpack_x0(Cbject_Utils_args args)
 
 #define Cbject_Utils_forEach0(macro, x) macro(x)
 #define Cbject_Utils_forEach1(macro, x, ...) macro(x) Cbject_Utils_forEach0(macro, __VA_ARGS__)

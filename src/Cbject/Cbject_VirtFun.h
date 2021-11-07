@@ -21,14 +21,14 @@
                                                                 \
     return ((className##Type *)((ObjectT *)me)->type)->virtFuns.funName(me, __VA_ARGS__)
 
-#define Cbject_VirtFun_Call_switch(className, funName, case, ...) \
+#define Cbject_VirtFun_Call_x1(className, funName, case, ...) \
     Cbject_VirtFun_Call_case##case (className, funName, __VA_ARGS__)
 
-#define Cbject_VirtFun_Call_x(className, funName, ...) \
-    Cbject_VirtFun_Call_switch(className, funName, __VA_ARGS__)
+#define Cbject_VirtFun_Call_x0(className, funName, ...) \
+    Cbject_VirtFun_Call_x1(className, funName, __VA_ARGS__)
 
 #define Cbject_VirtFun_Call(className, funName, funCallParams) \
-    Cbject_VirtFun_Call_x(className, funName, Cbject_Utils_unpack(funCallParams))
+    Cbject_VirtFun_Call_x0(className, funName, Cbject_Utils_unpack(funCallParams))
 
 //
 
