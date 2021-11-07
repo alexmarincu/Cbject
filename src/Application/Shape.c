@@ -6,8 +6,8 @@
 
 AbstractClassSetup(
     VirtFunCalls(
-        (float, area, NA, NA),
-        (void, draw, NA, NA)),
+        ((float, area, NA), NA),
+        ((void, draw, NA), NA)),
     FunOverrides(
         (Shape, (void, draw, NA))));
 

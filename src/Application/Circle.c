@@ -6,7 +6,7 @@
 
 ClassSetup(
     VirtFunCalls(
-        (void, rotate, NA, NA)),
+        ((void, rotate, NA), NA)),
     FunOverrides(
         (Shape, (float, area, NA)),
         (Shape, (void, draw, NA)),

@@ -14,7 +14,6 @@
 #include "Cbject_Struct.h"
 #include "Cbject_TerminateFun.h"
 #include "Cbject_Var.h"
-#include "Cbject_VirtFun.h"
 
 #define AbstractClass(params, data, virtFuns, funs) \
     Cbject_AbstractClass(Type, Parent, params, data, virtFuns, funs)
@@ -63,9 +62,6 @@
 
 #define Data(...) \
     (Data, __VA_ARGS__)
-
-#define VirtFun(funReturnType, funName, funParams, funCallParams) \
-    Cbject_VirtFun(Type, funReturnType, funName, funParams, funCallParams)
 
 #define VirtFunCalls(...) \
     (VirtFunCalls, __VA_ARGS__)
