@@ -1,0 +1,13 @@
+= Cbject: OOP framework for C
+
+[%autowidth]
+[cols="1,1,1"]
+|===
+|https://github.com/alexmarincu/Cbject/actions/workflows/ci.yml[image:https://github.com/alexmarincu/Cbject/actions/workflows/ci.yml/badge.svg[CI]] ~@master~
+|https://github.com/alexmarincu/Cbject/releases[image:https://img.shields.io/github/v/release/alexmarincu/Cbject?include_prereleases[GitHub release (latest by date including pre-releases)]]
+|https://github.com/alexmarincu/Cbject/blob/master/LICENSE[image:https://img.shields.io/github/license/alexmarincu/Cbject[GitHub]]
+
+|https://github.com/alexmarincu/Cbject/actions/workflows/ci.yml[image:https://github.com/alexmarincu/Cbject/actions/workflows/ci.yml/badge.svg?branch=develop[CI]] ~@develop~
+|
+|
+|===
