@@ -5,35 +5,35 @@
 #define Parent Shape
 
 ClassSetup(
-    VirtFunCalls(
-        (void, rotate, (void), (void))),
-    BindFuns(
-        (Shape, float, area, (void)),
-        (Shape, void, draw, (void)),
-        (Circle, void, rotate, (void))));
+    VirtFunSetup(
+        ((void, rotate, NA), NA)),
+    FunOverrideSetup(
+        ((float, area, NA), Shape),
+        ((void, draw, NA), Shape),
+        ((void, rotate, NA), Circle)));
 
-Const(float, pi = 3.14);
-static Const(float, privatePi = 3.14);
+Const(float, pi) = 3.14;
+Var(Point, point) = {.x = 5, .y = 6};
 
 Init
 {
-    me->d.radius = p.radius;
-    sp->origin = p.origin;
+    me->data.radius = params.radius;
+    superParams->origin = params.origin;
 }
 
 Terminate {}
 
-DefaultSetProp(uint32, radius);
-DefaultGetProp(uint32, radius);
+SetImpl(uint32, radius);
+GetImpl(uint32, radius);
 
-OverrideFun(void, draw, (void))
+FunOverride(void, draw, NA)
 {
-    Shape_s_draw(Cast(Shape, me));
+    super_Shape_draw(Cast(Shape, me));
     printf("Circle draw\n");
 }
 
-OverrideFun(float, area, (void)) { return me->d.radius * me->d.radius * Circle_pi; }
-OverrideFun(void, rotate, (void)) { printf("Rotate clockwise\n"); }
+FunOverride(float, area, NA) { return me->data.radius * me->data.radius * Circle_pi; }
+FunOverride(void, rotate, NA) { printf("Rotate clockwise\n"); }
 
 #undef Parent
 #undef Type

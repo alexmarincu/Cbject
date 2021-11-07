@@ -12,19 +12,13 @@ Class(
         uint32 radius,
         Color color),
     Data(
-        Color color),
-    (void));
+        ((Color, color), Public)),
+    NA,
+    Funs(
+        ((void, draw, NA), Override),
+        ((void, rotate, NA), Override)));
 
 PoolSize(10);
-
-SetProp(uint32, radius);
-SetProp(Color, color);
-
-GetProp(uint32, radius);
-GetProp(Color, color);
-
-OverrideFun(void, draw, (void));
-OverrideFun(void, rotate, (void));
 
 #undef Type
 #undef Parent

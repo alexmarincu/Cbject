@@ -1,13 +1,19 @@
 #ifndef CBJECT_UTILS_H
 #define CBJECT_UTILS_H
 
-#define Cbject_Utils_stripParentheses__(...) __VA_ARGS__
+/*
+Cbject_Utils_unpack
+*/
+#define Cbject_Utils_args(...) __VA_ARGS__
 
-#define Cbject_Utils_stripParentheses_(x) x
+#define Cbject_Utils_unpack_x0(x) x
 
-#define Cbject_Utils_stripParentheses(params) \
-    Cbject_Utils_stripParentheses_(Cbject_Utils_stripParentheses__ params)
+#define Cbject_Utils_unpack(args) \
+    Cbject_Utils_unpack_x0(Cbject_Utils_args args)
 
+/*
+Cbject_Utils_forEach
+*/
 #define Cbject_Utils_forEach0(macro, x) macro(x)
 #define Cbject_Utils_forEach1(macro, x, ...) macro(x) Cbject_Utils_forEach0(macro, __VA_ARGS__)
 #define Cbject_Utils_forEach2(macro, x, ...) macro(x) Cbject_Utils_forEach1(macro, __VA_ARGS__)
@@ -316,6 +322,9 @@
         Cbject_Utils_forEach1,           \
         Cbject_Utils_forEach0)(macro, __VA_ARGS__)
 
+/*
+Cbject_Utils_addSemicolon
+*/
 #define Cbject_Utils_addSemicolon(x) x;
 
 #endif // CBJECT_UTILS_H

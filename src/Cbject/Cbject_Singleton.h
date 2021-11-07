@@ -1,36 +1,43 @@
 #ifndef CBJECT_SINGLETON_H
 #define CBJECT_SINGLETON_H
-#include "Cbject_ContainerTypeDef.h"
-#include "Cbject_DataTypeDef.h"
+#include "Cbject_AccessorFunDecls.h"
+#include "Cbject_ClassContainerStruct.h"
+#include "Cbject_ClassDataStruct.h"
+#include "Cbject_ClassParamsStruct.h"
+#include "Cbject_ClassStruct.h"
+#include "Cbject_ClassTypeInfoInstanceFun.h"
+#include "Cbject_ClassTypeInfoStruct.h"
+#include "Cbject_FunDecls.h"
 #include "Cbject_InitFun.h"
-#include "Cbject_ObjectInstanceFunPrototype.h"
-#include "Cbject_ObjectInstanceImpl.h"
-#include "Cbject_ParamsTypeDef.h"
+#include "Cbject_SingletonInstanceFun.h"
 #include "Cbject_SizeImpl.h"
-#include "Cbject_TerminateFunPrototype.h"
-#include "Cbject_TypeDecl.h"
-#include "Cbject_TypeDef.h"
-#include "Cbject_TypeInstanceFunPrototype.h"
-#include "Cbject_TypeInstanceImpl.h"
-#include "Cbject_TypeTypeDecl.h"
-#include "Cbject_TypeTypeDef.h"
+#include "Cbject_TerminateFun.h"
 #include "Cbject_Utils.h"
 
-#define Cbject_Singleton(typeName, parent, data)                       \
-    Cbject_TypeTypeDecl(typeName);                                     \
-    Cbject_TypeDecl(typeName);                                         \
-    Cbject_ParamsTypeDef(typeName, void);                              \
-    Cbject_DataTypeDef(typeName, Cbject_Utils_stripParentheses(data)); \
-    Cbject_ContainerTypeDef(typeName, parent);                         \
-    Cbject_InitFun_Prototype(typeName);                                \
-    Cbject_TerminateFunPrototype(typeName);                            \
-    Cbject_ObjectInstanceFunPrototype(typeName)
+/*
+Cbject_Singleton
+*/
+#define Cbject_Singleton(className, superClassName, data, funs) \
+    Cbject_ClassTypeInfoStruct_Decl(className);                 \
+    Cbject_ClassStruct_Decl(className);                         \
+    Cbject_ClassParamsStruct(className, NA);                    \
+    Cbject_ClassDataStruct(className, data);                    \
+    Cbject_ClassContainerStruct(className, superClassName);     \
+    Cbject_InitFun_Prototype(className);                        \
+    Cbject_TerminateFun_Prototype(className);                   \
+    Cbject_SingletonInstanceFun_Prototype(className);           \
+    Cbject_FunDecls(funs);                                      \
+    Cbject_AccessorFunDecls(data)
 
-#define Cbject_Singleton_Setup(typeName, parent, bindFuns) \
-    Cbject_TypeTypeDef(typeName, parent, withoutVirtFuns); \
-    Cbject_TypeDef(typeName, parent);                      \
-    Cbject_TypeInstanceFunPrototype(typeName);             \
-    Cbject_ObjectInstanceImpl(typeName);                   \
-    Cbject_SizeImpl(typeName);                             \
-    Cbject_TypeInstanceImpl(typeName, parent, Cbject_Utils_stripParentheses(bindFuns))
+/*
+Cbject_Singleton_Setup
+*/
+#define Cbject_Singleton_Setup(className, superClassName, funOverrideSetup)     \
+    Cbject_ClassTypeInfoStruct_Def(className, superClassName, withoutVirtFuns); \
+    Cbject_ClassStruct_Def(className, superClassName);                          \
+    Cbject_ClassTypeInfoInstanceFun_Prototype(className);                       \
+    Cbject_SingletonInstanceFun_Impl(className);                                \
+    Cbject_SizeImpl(className);                                                 \
+    Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, funOverrideSetup)
+
 #endif // CBJECT_SINGLETON_H

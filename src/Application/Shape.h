@@ -10,14 +10,11 @@ AbstractClass(
     Params(
         Point origin),
     Data(
-        Point origin),
+        ((Point, origin), Public)),
     VirtFuns(
-        (float, area, (void)),
-        (void, draw, (void))));
-
-SetProp(Point, origin);
-GetProp(Point, origin);
-OverrideFun(void, draw, (void));
+        ((float, area, NA), Pure),
+        ((void, draw, NA), Impl)),
+    NA);
 
 #undef Parent
 #undef Type

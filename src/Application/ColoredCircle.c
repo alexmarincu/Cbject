@@ -6,33 +6,33 @@
 #define Parent Circle
 
 ClassSetup(
-    (void),
-    BindFuns(
-        (Shape, void, draw, (void)),
-        (Circle, void, rotate, (void))));
+    NA,
+    FunOverrideSetup(
+        ((void, draw, NA), Shape),
+        ((void, rotate, NA), Circle)));
 
-DefaultSetProp(Color, color);
-DefaultGetProp(Color, color);
+SetImpl(Color, color);
+GetImpl(Color, color);
 
 Init
 {
-    me->d.color = p.color;
-    sp->origin = p.origin;
-    sp->radius = p.radius;
+    me->data.color = params.color;
+    superParams->origin = params.origin;
+    superParams->radius = params.radius;
 }
 
 Terminate {}
 
-OverrideFun(void, draw, (void))
+FunOverride(void, draw, NA)
 {
-    Shape_s_draw(Cast(Shape, me));
-    Circle_s_draw(Cast(Circle, me));
+    super_Shape_draw(Cast(Shape, me));
+    super_Circle_draw(Cast(Circle, me));
     printf("ColoredCircle draw\n");
 }
 
-OverrideFun(void, rotate, (void))
+FunOverride(void, rotate, NA)
 {
-    Circle_s_rotate(Cast(Circle, me));
+    super_Circle_rotate(Cast(Circle, me));
     printf("Rotate counter-clockwise\n");
 }
 

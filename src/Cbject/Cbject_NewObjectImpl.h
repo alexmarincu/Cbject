@@ -4,13 +4,16 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#define Cbject_NewObjectImpl(typeName)                           \
-    Cbject_NewObjectFunPrototype(typeName)                       \
+/*
+Cbject_NewObjectImpl
+*/
+#define Cbject_NewObjectImpl(className)                          \
+    Cbject_NewObjectFunPrototype(className)                      \
     {                                                            \
-        typeName * me = (typeName *)malloc(sizeof(typeName));    \
+        className * me = (className *)malloc(sizeof(className)); \
         assert((me != NULL) && "Heap memory allocation failed"); \
-        memset(me, 0, sizeof(typeName));                         \
-        typeName##_init(me, p);                                  \
+        memset(me, 0, sizeof(className));                        \
+        className##_init(me, params);                            \
         return me;                                               \
     }
 

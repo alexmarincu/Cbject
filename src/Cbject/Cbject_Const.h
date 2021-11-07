@@ -1,8 +1,13 @@
 #ifndef CBJECT_CONST_H
 #define CBJECT_CONST_H
-#include "Cbject_ConstDef.h"
 
-#define Cbject_Const(typeName, constType, constNameAndValue) \
-    Cbject_ConstDef(typeName, constType, constNameAndValue)
+/*
+Cbject_Const
+*/
+#define Cbject_Const_x0(className, constType, constName) \
+    constType const className##_##constName
+
+#define Cbject_Const(className, constType, constName) \
+    Cbject_Const_x0(className, constType, constName)
 
 #endif // CBJECT_CONST_H

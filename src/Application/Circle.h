@@ -10,20 +10,16 @@ Class(
         Point origin,
         uint32 radius),
     Data(
-        int32 radius),
+        ((uint32, radius), Public)),
     VirtFuns(
-        (void, rotate, (void))));
+        ((void, rotate, NA), Impl)),
+    Funs(
+        ((float, area, NA), Override),
+        ((void, draw, NA), Override)));
 
 PoolSize(10);
 
 extern Const(float, pi);
-
-SetProp(uint32, radius);
-GetProp(uint32, radius);
-
-OverrideFun(float, area, (void));
-OverrideFun(void, draw, (void));
-OverrideFun(void, rotate, (void));
 
 #undef Type
 #undef Parent

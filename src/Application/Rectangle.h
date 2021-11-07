@@ -11,20 +11,14 @@ Class(
         uint32 width,
         uint32 height),
     Data(
-        uint32 width,
-        uint32 height),
-    (void));
+        ((uint32, width), Public),
+        ((uint32, height), Public)),
+    NA,
+    Funs(
+        ((void, makeSquare, Params(uint32 const edgeSize)), Final),
+        ((float, area, NA), Override)));
 
 PoolSize(10);
-
-SetProp(uint32, width);
-SetProp(uint32, height);
-
-GetProp(uint32, width);
-GetProp(uint32, height);
-
-Fun(uint32, test, Params(uint32 const ab));
-OverrideFun(float, area, (void));
 
 #undef Parent
 #undef Type

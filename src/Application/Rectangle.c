@@ -5,27 +5,36 @@
 #define Parent Shape
 
 ClassSetup(
-    (void),
-    BindFuns(
-        (Shape, float, area, (void))));
-
-DefaultSetProp(uint32, width);
-DefaultSetProp(uint32, height);
-
-DefaultGetProp(uint32, width);
-DefaultGetProp(uint32, height);
+    NA,
+    FunOverrideSetup(
+        ((float, area, NA), Shape)));
 
 Init
 {
-    me->d.width = p.width;
-    me->d.height = p.height;
-    sp->origin = p.origin;
+    me->data.width = params.width;
+    me->data.height = params.height;
+    superParams->origin = params.origin;
 }
 
 Terminate {}
 
-Fun(uint32, test, Params(uint32 const ab)) { return ab; }
-OverrideFun(float, area, (void)) { return me->d.width * me->d.height; }
+Set(uint32, width)
+{
+    me->data.width = width;
+}
+
+SetImpl(uint32, height);
+
+GetImpl(uint32, width);
+GetImpl(uint32, height);
+
+Fun(void, makeSquare, Params(uint32 const edgeSize))
+{
+    me->data.height = edgeSize;
+    me->data.width = edgeSize;
+}
+
+FunOverride(float, area, NA) { return me->data.width * me->data.height; }
 
 #undef Parent
 #undef Type

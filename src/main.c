@@ -1,7 +1,7 @@
 #include "Application/Application.h"
 #include <stdio.h>
 
-int main()
+int main(void)
 {
     Application * const application = Application_instance();
     printf("application.size() = %d\n", Object_size((Object *)application));

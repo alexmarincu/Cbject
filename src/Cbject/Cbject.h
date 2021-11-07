@@ -8,26 +8,26 @@
 ....
 hide circle
 class ObjectType {
-    max_align a - alignment enforcer
+    max_align align - alignment enforcer
     ..
     char * name - type name
     ..
-    ObjectVirtFuns vf - struct containing pointers to functions
+    ObjectVirtFuns virtFuns - struct containing pointers to functions
 }
 
 class Object {
-    max_align a - alignment enforcer
+    max_align align - alignment enforcer
     ..
-    ObjectType t - pointer to the type struct
+    ObjectType type - pointer to the type struct
 }
 
 class CustomClass {
-    Object s - embedded super class
+    Object super - embedded super class
     ..
-    CustomClassData d - struct containing the object fields
+    CustomClassData data - struct containing the object fields
 }
 
-Object::type -> ObjectType::a
+Object::type -> ObjectType::align
 CustomClass -[hidden]u-> Object
 ....
 

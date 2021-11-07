@@ -1,34 +1,34 @@
 #include "Object.h"
 
-static uint8 Object_s_size(Object const * const me);
+static uint8 super_Object_size(Object const * const me);
 
 struct ObjectType
 {
-    Cbject_Settings_maxAlign a;
+    Cbject_Settings_maxAlign align;
     char const * name;
-    ObjectType * st;
-    ObjectVirtFuns vf;
+    ObjectType * superType;
+    ObjectVirtFuns virtFuns;
 };
 
 struct Object
 {
-    Cbject_Settings_maxAlign a;
-    ObjectType * t;
+    Cbject_Settings_maxAlign align;
+    ObjectType * type;
 };
 
-static uint8 Object_s_size(Object const * const me) { return sizeof(*me); }
-uint8 Object_size(Object const * const me) { return me->t->vf.size(me); }
+static uint8 super_Object_size(Object const * const me) { return sizeof(*me); }
+uint8 Object_size(Object const * const me) { return me->type->virtFuns.size(me); }
 
 ObjectType const * const ObjectType_instance()
 {
-    static ObjectType t = {
+    static ObjectType type = {
         .name = "Object",
-        .st = NULL,
-        .vf = {.size = Object_s_size}};
+        .superType = NULL,
+        .virtFuns = {.size = super_Object_size}};
 
-    return &t;
+    return &type;
 }
 
-ObjectType const * Object_type(Object * const me) { return me->t; }
-void Object_init(Object * const me, ObjectParams const p) {}
+ObjectType const * Object_type(Object * const me) { return me->type; }
+void Object_init(Object * const me, ObjectParams const params) {}
 void Object_terminate(Object * const me) {}

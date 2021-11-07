@@ -11,12 +11,12 @@
 
 Singleton(
     Data(
-        Circle * circle,
-        Rectangle * rectangle,
-        Rectangle * heapRectangle,
-        ColoredCircle * coloredCircle));
-
-Fun(void, start, (void));
+        ((Circle *, circle), Private),
+        ((Rectangle *, rectangle), Private),
+        ((Rectangle *, heapRectangle), Private),
+        ((ColoredCircle *, coloredCircle), Private)),
+    Funs(
+        ((void, start, NA), Final)));
 
 #undef Parent
 #undef Type
