@@ -12,7 +12,8 @@ ClassSetup(
         (Shape, (void, draw, NA)),
         (Circle, (void, rotate, NA))));
 
-Const(float, pi = 3.14);
+Const(float, pi) = 3.14;
+Var(Point, point) = {.x = 5, .y = 6};
 
 Init
 {

@@ -13,6 +13,7 @@
 #include "Cbject_Singleton.h"
 #include "Cbject_Struct.h"
 #include "Cbject_TerminateFun.h"
+#include "Cbject_Var.h"
 #include "Cbject_VirtFun.h"
 
 #define AbstractClass(params, data, virtFuns, funs) \
@@ -30,8 +31,11 @@
 #define ClassSetup(virtFunCalls, funOverrides) \
     Cbject_Class_Setup(Type, Parent, virtFunCalls, funOverrides)
 
-#define Const(constType, constNameAndValue) \
-    Cbject_Const(Type, constType, constNameAndValue)
+#define Const(constType, constName) \
+    Cbject_Const(Type, constType, constName)
+
+#define Var(varType, varName) \
+    Cbject_Var(Type, varType, varName)
 
 #define Struct(...) \
     Cbject_Struct(Type, __VA_ARGS__)

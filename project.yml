@@ -42,7 +42,7 @@
   :release:
     :compile:
       :*:
-        - -save-temps
+        # - -save-temps
         - -std=c99
 
 :cmock:
