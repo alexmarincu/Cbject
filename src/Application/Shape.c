@@ -6,10 +6,10 @@
 
 AbstractClassSetup(
     VirtFunCalls(
-        (float, area, (), ()),
-        (void, draw, (), ())),
+        (float, area, NA, NA),
+        (void, draw, NA, NA)),
     FunOverrides(
-        (Shape, (void, draw, ()))));
+        (Shape, (void, draw, NA))));
 
 Init
 {
@@ -21,12 +21,12 @@ Terminate {}
 SetImpl(Point, origin);
 GetImpl(Point, origin);
 
-FunOverride(void, draw, ())
+FunOverride(void, draw, NA)
 {
     printf("Shape draw\n");
 }
 
-Fun(void, dummy, ()) { printf("Shape dummy\n"); }
+Fun(void, dummy, NA) { printf("Shape dummy\n"); }
 
 #undef Parent
 #undef Type

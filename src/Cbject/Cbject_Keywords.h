@@ -72,6 +72,9 @@
 #define Funs(...) \
     (Funs, __VA_ARGS__)
 
+#define NA \
+    ()
+
 #define Final Final
 #define Override Override
 #define Pure Pure

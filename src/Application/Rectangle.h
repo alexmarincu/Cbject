@@ -13,10 +13,10 @@ Class(
     Data(
         ((uint32, width), Public),
         ((uint32, height), Public)),
-    (),
+    NA,
     Funs(
         ((void, makeSquare, Params(uint32 const edgeSize)), Final),
-        ((float, area, ()), Override)));
+        ((float, area, NA), Override)));
 
 PoolSize(10);
 

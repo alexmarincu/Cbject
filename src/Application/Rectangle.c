@@ -5,9 +5,9 @@
 #define Parent Shape
 
 ClassSetup(
-    (),
+    NA,
     FunOverrides(
-        (Shape, (float, area, ()))));
+        (Shape, (float, area, NA))));
 
 Init
 {
@@ -34,7 +34,7 @@ Fun(void, makeSquare, Params(uint32 const edgeSize))
     me->data.width = edgeSize;
 }
 
-FunOverride(float, area, ()) { return me->data.width * me->data.height; }
+FunOverride(float, area, NA) { return me->data.width * me->data.height; }
 
 #undef Parent
 #undef Type

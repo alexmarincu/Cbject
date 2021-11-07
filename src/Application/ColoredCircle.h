@@ -13,10 +13,10 @@ Class(
         Color color),
     Data(
         ((Color, color), Public)),
-    (),
+    NA,
     Funs(
-        ((void, draw, ()), Override),
-        ((void, rotate, ()), Override)));
+        ((void, draw, NA), Override),
+        ((void, rotate, NA), Override)));
 
 PoolSize(10);
 

@@ -12,9 +12,9 @@ AbstractClass(
     Data(
         ((Point, origin), Public)),
     VirtFuns(
-        ((float, area, ()), Pure),
-        ((void, draw, ()), Impl)),
-    ());
+        ((float, area, NA), Pure),
+        ((void, draw, NA), Impl)),
+    NA);
 
 #undef Parent
 #undef Type

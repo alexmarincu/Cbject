@@ -38,6 +38,13 @@
     - *common_defines
     - TEST
 
+:flags:
+  :release:
+    :compile:
+      :*:
+        - -save-temps
+        - -std=c99
+
 :cmock:
   :mock_prefix: mock_
   :when_no_prototypes: :warn

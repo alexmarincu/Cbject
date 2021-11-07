@@ -17,7 +17,7 @@
 #define Cbject_Singleton(className, superClassName, data, funs) \
     Cbject_ClassTypeInfoStruct_Decl(className);                 \
     Cbject_ClassStruct_Decl(className);                         \
-    Cbject_ClassParamsStruct(className, ());                    \
+    Cbject_ClassParamsStruct(className, NA);                    \
     Cbject_ClassDataStruct(className, data);                    \
     Cbject_ClassContainerStruct(className, superClassName);     \
     Cbject_InitFun_Prototype(className);                        \
