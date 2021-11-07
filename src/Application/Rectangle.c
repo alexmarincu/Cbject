@@ -6,7 +6,7 @@
 
 ClassSetup(
     NA,
-    FunOverrides(
+    FunOverrideSetup(
         ((float, area, NA), Shape)));
 
 Init

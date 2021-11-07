@@ -18,17 +18,17 @@
 #define AbstractClass(params, data, virtFuns, funs) \
     Cbject_AbstractClass(Type, Parent, params, data, virtFuns, funs)
 
-#define AbstractClassSetup(virtFunCalls, funOverrides) \
-    Cbject_AbstractClass_Setup(Type, Parent, virtFunCalls, funOverrides)
+#define AbstractClassSetup(virtFunSetup, funOverrideSetup) \
+    Cbject_AbstractClass_Setup(Type, Parent, virtFunSetup, funOverrideSetup)
 
-#define FunOverrides(...) \
-    (FunOverrides, __VA_ARGS__)
+#define FunOverrideSetup(...) \
+    (FunOverrideSetup, __VA_ARGS__)
 
 #define Class(params, data, virtFuns, funs) \
     Cbject_Class(Type, Parent, params, data, virtFuns, funs)
 
-#define ClassSetup(virtFunCalls, funOverrides) \
-    Cbject_Class_Setup(Type, Parent, virtFunCalls, funOverrides)
+#define ClassSetup(virtFunSetup, funOverrideSetup) \
+    Cbject_Class_Setup(Type, Parent, virtFunSetup, funOverrideSetup)
 
 #define Const(constType, constName) \
     Cbject_Const(Type, constType, constName)
@@ -48,8 +48,8 @@
 #define Singleton(data, funs) \
     Cbject_Singleton(Type, Parent, data, funs)
 
-#define SingletonSetup(funOverrides) \
-    Cbject_Singleton_Setup(Type, Parent, funOverrides)
+#define SingletonSetup(funOverrideSetup) \
+    Cbject_Singleton_Setup(Type, Parent, funOverrideSetup)
 
 #define FunOverride(funReturnType, funName, funParams) \
     Cbject_FunOverride_Prototype(Type, funReturnType, funName, funParams)
@@ -63,8 +63,8 @@
 #define Data(...) \
     (Data, __VA_ARGS__)
 
-#define VirtFunCalls(...) \
-    (VirtFunCalls, __VA_ARGS__)
+#define VirtFunSetup(...) \
+    (VirtFunSetup, __VA_ARGS__)
 
 #define VirtFuns(...) \
     (VirtFuns, __VA_ARGS__)
@@ -73,7 +73,7 @@
     (Funs, __VA_ARGS__)
 
 #define NA \
-    ()
+    (NA)
 
 #define Final Final
 #define Override Override

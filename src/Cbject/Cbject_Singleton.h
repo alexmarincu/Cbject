@@ -14,6 +14,9 @@
 #include "Cbject_TerminateFun.h"
 #include "Cbject_Utils.h"
 
+/*
+Cbject_Singleton
+*/
 #define Cbject_Singleton(className, superClassName, data, funs) \
     Cbject_ClassTypeInfoStruct_Decl(className);                 \
     Cbject_ClassStruct_Decl(className);                         \
@@ -26,11 +29,15 @@
     Cbject_FunDecls(funs);                                      \
     Cbject_AccessorFunDecls(data)
 
-#define Cbject_Singleton_Setup(className, superClassName, funOverrides)         \
+/*
+Cbject_Singleton_Setup
+*/
+#define Cbject_Singleton_Setup(className, superClassName, funOverrideSetup)     \
     Cbject_ClassTypeInfoStruct_Def(className, superClassName, withoutVirtFuns); \
     Cbject_ClassStruct_Def(className, superClassName);                          \
     Cbject_ClassTypeInfoInstanceFun_Prototype(className);                       \
     Cbject_SingletonInstanceFun_Impl(className);                                \
     Cbject_SizeImpl(className);                                                 \
-    Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, funOverrides)
+    Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, funOverrideSetup)
+
 #endif // CBJECT_SINGLETON_H

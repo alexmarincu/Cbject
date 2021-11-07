@@ -4,6 +4,9 @@
 #include <assert.h>
 #include <stdlib.h>
 
+/*
+Cbject_NewObjectImpl
+*/
 #define Cbject_NewObjectImpl(className)                          \
     Cbject_NewObjectFunPrototype(className)                      \
     {                                                            \

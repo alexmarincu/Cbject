@@ -2,7 +2,10 @@
 #define CBJECT_CLASSDATASTRUCT_H
 #include "Cbject_Utils.h"
 
-#define Cbject_ClassDataStruct_case(className, ...) \
+/*
+Cbject_ClassDataStruct
+*/
+#define Cbject_ClassDataStruct_caseNA(className, ...) \
     typedef char className##Data
 
 #define Cbject_ClassDataStruct_caseData_member_caseX_addSemicolon(dataType, dataName) \

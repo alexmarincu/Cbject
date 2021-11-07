@@ -1,9 +1,15 @@
 #ifndef CBJECT_CASTFUN_H
 #define CBJECT_CASTFUN_H
 
+/*
+Cbject_CastFun_Prototype
+*/
 #define Cbject_CastFun_Prototype(className) \
     className * const Object_to##className(Object const * const me)
 
+/*
+Cbject_CastFun_Impl
+*/
 #define Cbject_CastFun_Impl(className)                                                                                \
     Cbject_CastFun_Prototype(className)                                                                               \
     {                                                                                                                 \

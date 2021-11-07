@@ -7,7 +7,7 @@
 
 ClassSetup(
     NA,
-    FunOverrides(
+    FunOverrideSetup(
         ((void, draw, NA), Shape),
         ((void, rotate, NA), Circle)));
 

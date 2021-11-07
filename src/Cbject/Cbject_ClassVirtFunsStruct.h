@@ -1,15 +1,18 @@
 #ifndef CBJECT_CLASSVIRTFUNSSTRUCT_H
 #define CBJECT_CLASSVIRTFUNSSTRUCT_H
-#include "Cbject_VirtFunPtr.h"
+#include "Cbject_VirtFun.h"
 
-#define Cbject_ClassVirtFunsStruct_case(className, ...) \
+/*
+Cbject_ClassVirtFunsStruct
+*/
+#define Cbject_ClassVirtFunsStruct_caseNA(className, ...) \
     typedef char className##VirtFuns
 
 #define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_caseImpl(funPrototype) \
-    Cbject_VirtFunPtr funPrototype;
+    Cbject_VirtFun_Ptr funPrototype;
 
 #define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_casePure(funPrototype) \
-    Cbject_VirtFunPtr funPrototype;
+    Cbject_VirtFun_Ptr funPrototype;
 
 #define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_x1(funPrototype, case) \
     Cbject_ClassVirtFunsStruct_caseVirtFuns_member_case##case (funPrototype)

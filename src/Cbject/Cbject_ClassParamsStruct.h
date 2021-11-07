@@ -2,7 +2,10 @@
 #define CBJECT_CLASSPARAMSSTRUCT_H
 #include "Cbject_Utils.h"
 
-#define Cbject_ClassParamsStruct_case(className, ...) \
+/*
+Cbject_ClassParamsStruct
+*/
+#define Cbject_ClassParamsStruct_caseNA(className, ...) \
     typedef char className##Params
 
 #define Cbject_ClassParamsStruct_caseParams(className, ...)          \

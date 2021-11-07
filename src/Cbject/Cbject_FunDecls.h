@@ -2,6 +2,9 @@
 #define CBJECT_FUNDECLS_H
 #include "Cbject_Utils.h"
 
+/*
+Cbject_FunDecls
+*/
 #define Cbject_FunDecls_caseXFuns_funDecl_caseFinal(funPrototype) \
     Fun funPrototype;
 
@@ -24,7 +27,7 @@
 #define Cbject_FunDecls_caseXFuns_funDecl(funPrototype) \
     Cbject_FunDecls_caseXFuns_funDecl_x0(Cbject_Utils_unpack(funPrototype))
 
-#define Cbject_FunDecls_case(...)
+#define Cbject_FunDecls_caseNA(...)
 
 #define Cbject_FunDecls_caseFuns(...) \
     Cbject_Utils_forEach(Cbject_FunDecls_caseXFuns_funDecl, __VA_ARGS__)

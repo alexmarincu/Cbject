@@ -2,6 +2,9 @@
 #define CBJECT_CLASSCONTAINERSTRUCT_H
 #include "Cbject_Settings.h"
 
+/*
+Cbject_ClassContainerStruct
+*/
 #define Cbject_ClassContainerStruct(className, superClassName) \
     typedef union className##Container                         \
     {                                                          \

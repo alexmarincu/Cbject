@@ -2,21 +2,25 @@
 #define CBJECT_CLASSTYPEINFOINSTANCEFUN_H
 #include "Cbject_FunOverride.h"
 
+/*
+Cbject_ClassTypeInfoInstanceFun_Prototype
+*/
 #define Cbject_ClassTypeInfoInstanceFun_Prototype(className) \
     className##Type const * const className##Type_instance()
 
-//
-
-#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride_x1(funPrototype, superClassName) \
+/*
+Cbject_ClassTypeInfoInstanceFun_Impl
+*/
+#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrideSetup_funOverride_x1(funPrototype, superClassName) \
     Cbject_FunOverride(Type, superClassName, funPrototype);
 
-#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride_x0(...) \
-    Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride_x1(__VA_ARGS__);
+#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrideSetup_funOverride_x0(...) \
+    Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrideSetup_funOverride_x1(__VA_ARGS__);
 
-#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride(funPrototypeWithSuperClassName) \
-    Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride_x0(Cbject_Utils_unpack(funPrototypeWithSuperClassName));
+#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrideSetup_funOverride(funPrototypeWithSuperClassName) \
+    Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrideSetup_funOverride_x0(Cbject_Utils_unpack(funPrototypeWithSuperClassName));
 
-#define Cbject_ClassTypeInfoInstanceFun_Impl_case(className, superClassName, ...)                                            \
+#define Cbject_ClassTypeInfoInstanceFun_Impl_caseNA(className, superClassName, ...)                                          \
     Cbject_ClassTypeInfoInstanceFun_Prototype(className)                                                                     \
     {                                                                                                                        \
         static className##Type type;                                                                                         \
@@ -42,7 +46,7 @@
         return &type;                                                                                                        \
     }
 
-#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides(className, superClassName, ...)                                \
+#define Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrideSetup(className, superClassName, ...)                            \
     Cbject_ClassTypeInfoInstanceFun_Prototype(className)                                                                     \
     {                                                                                                                        \
         static className##Type type;                                                                                         \
@@ -61,7 +65,7 @@
             *((superClassName##TypeContainer *)&type) = *((superClassName##TypeContainer *)superClassName##Type_instance()); \
             ((ObjectTypeT *)&type)->name = NULL;                                                                             \
             ((ObjectTypeT *)&type)->virtFuns.size = (uint8(*)(Object const * const me))super_##className##_size;             \
-            Cbject_Utils_forEach(Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrides_funOverride, __VA_ARGS__);            \
+            Cbject_Utils_forEach(Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrideSetup_funOverride, __VA_ARGS__);        \
             ((ObjectTypeT *)&type)->name = #className;                                                                       \
             ((ObjectTypeT *)&type)->superType = (ObjectType *)superClassName##Type_instance();                               \
         }                                                                                                                    \
@@ -75,7 +79,7 @@
 #define Cbject_ClassTypeInfoInstanceFun_Impl_x0(className, superClassName, ...) \
     Cbject_ClassTypeInfoInstanceFun_Impl_x1(className, superClassName, __VA_ARGS__)
 
-#define Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, funOverrides) \
-    Cbject_ClassTypeInfoInstanceFun_Impl_x0(className, superClassName, Cbject_Utils_unpack(funOverrides))
+#define Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, funOverrideSetup) \
+    Cbject_ClassTypeInfoInstanceFun_Impl_x0(className, superClassName, Cbject_Utils_unpack(funOverrideSetup))
 
 #endif // CBJECT_CLASSTYPEINFOINSTANCEFUN_H

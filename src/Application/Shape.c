@@ -5,10 +5,10 @@
 #define Parent Object
 
 AbstractClassSetup(
-    VirtFunCalls(
+    VirtFunSetup(
         ((float, area, NA), NA),
         ((void, draw, NA), NA)),
-    FunOverrides(
+    FunOverrideSetup(
         ((void, draw, NA), Shape)));
 
 Init

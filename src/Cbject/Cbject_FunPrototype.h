@@ -1,7 +1,10 @@
 #ifndef CBJECT_FUNPROTOTYPE_H
 #define CBJECT_FUNPROTOTYPE_H
 
-#define Cbject_FunPrototype_case(className, funReturnType, funName, ...) \
+/*
+Cbject_FunPrototype
+*/
+#define Cbject_FunPrototype_caseNA(className, funReturnType, funName, ...) \
     funReturnType className##_##funName(className * const me)
 
 #define Cbject_FunPrototype_caseParams(className, funReturnType, funName, ...) \

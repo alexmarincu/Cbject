@@ -3,6 +3,9 @@
 #include "Cbject_GetObjectFunPrototype.h"
 #include "string.h"
 
+/*
+Cbject_GetObjectImpl
+*/
 #define Cbject_GetObjectImpl(className)              \
     Cbject_GetObjectFunPrototype(className)          \
     {                                                \

@@ -2,6 +2,9 @@
 #define CBJECT_STRUCT_H
 #include "Cbject_Utils.h"
 
+/*
+Cbject_Struct
+*/
 #define Cbject_Struct(className, ...)                                \
     typedef struct className                                         \
     {                                                                \

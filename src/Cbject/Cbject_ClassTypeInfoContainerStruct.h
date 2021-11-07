@@ -2,6 +2,9 @@
 #define CBJECT_CLASSTYPEINFOCONTAINERSTRUCT_H
 #include "Cbject_Settings.h"
 
+/*
+Cbject_ClassTypeInfoContainerStruct
+*/
 #define Cbject_ClassTypeInfoContainerStruct_withoutVirtFuns(className, superClassName) \
     typedef union className##TypeContainer                                             \
     {                                                                                  \

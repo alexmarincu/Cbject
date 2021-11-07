@@ -2,6 +2,9 @@
 #define CBJECT_POOLSIZE_H
 #include "Cbject_PoolSizeDef.h"
 
+/*
+Cbject_PoolSize
+*/
 #define Cbject_PoolSize(className, poolSize) \
     Cbject_PoolSizeDef(className, poolSize)
 

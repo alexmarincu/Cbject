@@ -2,14 +2,17 @@
 #define CBJECT_ENUM_H
 #include "Cbject_Utils.h"
 
-#define Cbject_Enum_member_x2(className, member) \
+/*
+Cbject_Enum
+*/
+#define Cbject_Enum_member_x1(className, member) \
     className##_##member,
 
-#define Cbject_Enum_member_x(className, member) \
-    Cbject_Enum_member_x2(className, member)
+#define Cbject_Enum_member_x0(className, member) \
+    Cbject_Enum_member_x1(className, member)
 
 #define Cbject_Enum_member(member) \
-    Cbject_Enum_member_x(Type, member)
+    Cbject_Enum_member_x0(Type, member)
 
 #define Cbject_Enum(className, ...)                           \
     typedef enum className                                    \

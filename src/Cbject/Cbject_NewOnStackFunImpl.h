@@ -2,6 +2,9 @@
 #define CBJECT_NEWONSTACKFUNIMPL_H
 #include "Cbject_NewOnStackFunPrototype.h"
 
+/*
+Cbject_NewOnStackFunImpl
+*/
 #define Cbject_NewOnStackFunImpl(className)  \
     Cbject_NewOnStackFunPrototype(className) \
     {                                        \

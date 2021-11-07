@@ -3,6 +3,9 @@
 #include "Cbject_AccessorFun.h"
 #include "Cbject_Utils.h"
 
+/*
+Cbject_AccessorFunDecls
+*/
 #define Cbject_AccessorFunDecls_caseData_accessorFunDecl_casePublicRead(className, dataType, dataName) \
     Cbject_AccessorFun_Getter_Prototype(className, dataType, dataName);
 
@@ -30,7 +33,7 @@
 #define Cbject_AccessorFunDecls_caseData_accessorFunDecl(dataPrototypeWithAccess) \
     Cbject_AccessorFunDecls_caseData_accessorFunDecl_x0(Cbject_Utils_unpack(dataPrototypeWithAccess))
 
-#define Cbject_AccessorFunDecls_case(...)
+#define Cbject_AccessorFunDecls_caseNA(...)
 
 #define Cbject_AccessorFunDecls_caseData(...) \
     Cbject_Utils_forEach(Cbject_AccessorFunDecls_caseData_accessorFunDecl, __VA_ARGS__)

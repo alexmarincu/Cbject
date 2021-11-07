@@ -1,9 +1,15 @@
 #ifndef CBJECT_SINGLETONINSTANCEFUN_H
 #define CBJECT_SINGLETONINSTANCEFUN_H
 
+/*
+Cbject_SingletonInstanceFun_Prototype
+*/
 #define Cbject_SingletonInstanceFun_Prototype(className) \
     className * className##_instance()
 
+/*
+Cbject_SingletonInstanceFun_Impl
+*/
 #define Cbject_SingletonInstanceFun_Impl(className)                                            \
     Cbject_SingletonInstanceFun_Prototype(className)                                           \
     {                                                                                          \

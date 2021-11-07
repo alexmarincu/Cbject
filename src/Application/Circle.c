@@ -5,9 +5,9 @@
 #define Parent Shape
 
 ClassSetup(
-    VirtFunCalls(
+    VirtFunSetup(
         ((void, rotate, NA), NA)),
-    FunOverrides(
+    FunOverrideSetup(
         ((float, area, NA), Shape),
         ((void, draw, NA), Shape),
         ((void, rotate, NA), Circle)));

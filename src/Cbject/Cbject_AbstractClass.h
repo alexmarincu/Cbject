@@ -16,8 +16,11 @@
 #include "Cbject_SizeImpl.h"
 #include "Cbject_TerminateFun.h"
 #include "Cbject_Utils.h"
-#include "Cbject_VirtFunCalls.h"
+#include "Cbject_VirtFunSetup.h"
 
+/*
+Cbject_AbstractClass
+*/
 #define Cbject_AbstractClass(className, superClassName, params, data, virtFuns, funs) \
     Cbject_ClassTypeInfoStruct_Decl(className);                                       \
     Cbject_ClassStruct_Decl(className);                                               \
@@ -35,13 +38,16 @@
     Cbject_CastFun_Prototype(className);                                              \
     Cbject_ClassVirtFunsGetter_Prototype(className)
 
-#define Cbject_AbstractClass_Setup(className, superClassName, virtFunCalls, funOverrides) \
-    Cbject_ClassTypeInfoStruct_Def(className, superClassName, withVirtFuns);              \
-    Cbject_ClassStruct_Def(className, superClassName);                                    \
-    Cbject_SizeImpl(className);                                                           \
-    Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, funOverrides);        \
-    Cbject_CastFun_Impl(className);                                                       \
-    Cbject_ClassVirtFunsGetter_Impl(className);                                           \
-    Cbject_VirtFunCalls(virtFunCalls)
+/*
+Cbject_AbstractClass_Setup
+*/
+#define Cbject_AbstractClass_Setup(className, superClassName, virtFunSetup, funOverrideSetup) \
+    Cbject_ClassTypeInfoStruct_Def(className, superClassName, withVirtFuns);                  \
+    Cbject_ClassStruct_Def(className, superClassName);                                        \
+    Cbject_SizeImpl(className);                                                               \
+    Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, funOverrideSetup);        \
+    Cbject_CastFun_Impl(className);                                                           \
+    Cbject_ClassVirtFunsGetter_Impl(className);                                               \
+    Cbject_VirtFunSetup(virtFunSetup)
 
 #endif // CBJECT_ABSTRACTCLASS_H
