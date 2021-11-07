@@ -18,8 +18,8 @@ Init
 
 Terminate {}
 
-Setter(Point, origin);
-Getter(Point, origin);
+SetImpl(Point, origin);
+GetImpl(Point, origin);
 
 OverrideFun(void, draw, ())
 {

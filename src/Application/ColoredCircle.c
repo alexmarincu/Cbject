@@ -11,8 +11,8 @@ ClassSetup(
         (Shape, (void, draw, ())),
         (Circle, (void, rotate, ()))));
 
-Setter(Color, color);
-Getter(Color, color);
+SetImpl(Color, color);
+GetImpl(Color, color);
 
 Init
 {

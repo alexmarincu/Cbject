@@ -82,16 +82,16 @@
 #define PublicRead PublicRead
 #define PublicWrite PublicWrite
 
-#define SetterCustom(fieldType, fieldName) \
+#define Set(fieldType, fieldName) \
     Cbject_AccessorFun_Setter_Prototype(Type, fieldType, fieldName)
 
-#define GetterCustom(fieldType, fieldName) \
+#define Get(fieldType, fieldName) \
     Cbject_AccessorFun_Getter_Prototype(Type, fieldType, fieldName)
 
-#define Setter(fieldType, fieldName) \
+#define SetImpl(fieldType, fieldName) \
     Cbject_AccessorFun_Setter_Impl(Type, fieldType, fieldName)
 
-#define Getter(fieldType, fieldName) \
+#define GetImpl(fieldType, fieldName) \
     Cbject_AccessorFun_Getter_Impl(Type, fieldType, fieldName)
 
 #define Init \

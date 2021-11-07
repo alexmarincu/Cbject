@@ -22,8 +22,8 @@ Init
 
 Terminate {}
 
-Setter(uint32, radius);
-Getter(uint32, radius);
+SetImpl(uint32, radius);
+GetImpl(uint32, radius);
 
 OverrideFun(void, draw, ())
 {

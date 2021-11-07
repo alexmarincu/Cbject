@@ -18,15 +18,15 @@ Init
 
 Terminate {}
 
-SetterCustom(uint32, width)
+Set(uint32, width)
 {
     me->data.width = width;
 }
 
-Setter(uint32, height);
+SetImpl(uint32, height);
 
-Getter(uint32, width);
-Getter(uint32, height);
+GetImpl(uint32, width);
+GetImpl(uint32, height);
 
 Fun(void, makeSquare, Params(uint32 const edgeSize))
 {
