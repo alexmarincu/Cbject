@@ -12,7 +12,7 @@ Class(
     Data(
         ((uint32, radius), Public)),
     VirtFuns(
-        ((void, rotate, ()), Implemented)),
+        ((void, rotate, ()), Impl)),
     Funs(
         ((float, area, ()), Override),
         ((void, draw, ()), Override)));

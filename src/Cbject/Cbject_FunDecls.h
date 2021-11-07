@@ -11,8 +11,8 @@
 #define Cbject_FunDecls_caseXFuns_funDecl_casePure(funPrototype) \
     Fun funPrototype;
 
-#define Cbject_FunDecls_caseXFuns_funDecl_caseImplemented(funPrototype) \
-    Fun funPrototype;                                                   \
+#define Cbject_FunDecls_caseXFuns_funDecl_caseImpl(funPrototype) \
+    Fun funPrototype;                                            \
     FunOverride funPrototype;
 
 #define Cbject_FunDecls_caseXFuns_funDecl_switch(funPrototype, case) \

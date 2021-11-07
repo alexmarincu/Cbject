@@ -75,7 +75,7 @@
 #define Final Final
 #define Override Override
 #define Pure Pure
-#define Implemented Implemented
+#define Impl Impl
 #define Private Private
 #define Public Public
 #define PublicRead PublicRead

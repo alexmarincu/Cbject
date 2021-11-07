@@ -5,7 +5,7 @@
 #define Cbject_ClassVirtFunsStruct_case(className, ...) \
     typedef char className##VirtFuns
 
-#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_caseImplemented(funPrototype) \
+#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_caseImpl(funPrototype) \
     Cbject_VirtFunPtr funPrototype;
 
 #define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_casePure(funPrototype) \

@@ -13,7 +13,7 @@ AbstractClass(
         ((Point, origin), Public)),
     VirtFuns(
         ((float, area, ()), Pure),
-        ((void, draw, ()), Implemented)),
+        ((void, draw, ()), Impl)),
     ());
 
 #undef Parent
