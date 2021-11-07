@@ -23,14 +23,14 @@ Init
 
 Terminate {}
 
-OverrideFun(void, draw, ())
+FunOverride(void, draw, ())
 {
     super_Shape_draw(Cast(Shape, me));
     super_Circle_draw(Cast(Circle, me));
     printf("ColoredCircle draw\n");
 }
 
-OverrideFun(void, rotate, ())
+FunOverride(void, rotate, ())
 {
     super_Circle_rotate(Cast(Circle, me));
     printf("Rotate counter-clockwise\n");

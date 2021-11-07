@@ -2,6 +2,23 @@
 #define CBJECT_FUNOVERRIDE_H
 #include "Cbject_Utils.h"
 
+#define Cbject_FunOverride_Prototype_case(className, funReturnType, funName, ...) \
+    funReturnType super_##className##_##funName(className * const me)
+
+#define Cbject_FunOverride_Prototype_caseParams(className, funReturnType, funName, ...) \
+    funReturnType super_##className##_##funName(className * const me, __VA_ARGS__)
+
+#define Cbject_FunOverride_Prototype_switch(className, funReturnType, funName, case, ...) \
+    Cbject_FunOverride_Prototype_case##case (className, funReturnType, funName, __VA_ARGS__)
+
+#define Cbject_FunOverride_Prototype_x(className, funReturnType, funName, ...) \
+    Cbject_FunOverride_Prototype_switch(className, funReturnType, funName, __VA_ARGS__)
+
+#define Cbject_FunOverride_Prototype(className, funReturnType, funName, funParams) \
+    Cbject_FunOverride_Prototype_x(className, funReturnType, funName, Cbject_Utils_unpack(funParams))
+
+//
+
 #define Cbject_FunOverride_case(className, superClassName, funReturnType, funName, ...) \
     superClassName##Type_virtFuns((superClassName##Type *)&type)->funName = (funReturnType(*)(superClassName * const me))super_##className##_##funName
 

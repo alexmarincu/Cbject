@@ -9,7 +9,6 @@
 #include "Cbject_FunOverride.h"
 #include "Cbject_FunPrototype.h"
 #include "Cbject_InitFun.h"
-#include "Cbject_OverrideFunPrototype.h"
 #include "Cbject_PoolSize.h"
 #include "Cbject_Singleton.h"
 #include "Cbject_Struct.h"
@@ -49,8 +48,8 @@
 #define SingletonSetup(funOverrides) \
     Cbject_Singleton_Setup(Type, Parent, funOverrides)
 
-#define OverrideFun(funReturnType, funName, funParams) \
-    Cbject_OverrideFunPrototype(Type, funReturnType, funName, funParams)
+#define FunOverride(funReturnType, funName, funParams) \
+    Cbject_FunOverride_Prototype(Type, funReturnType, funName, funParams)
 
 #define Params(...) \
     (Params, __VA_ARGS__)

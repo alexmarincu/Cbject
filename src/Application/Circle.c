@@ -25,14 +25,14 @@ Terminate {}
 SetImpl(uint32, radius);
 GetImpl(uint32, radius);
 
-OverrideFun(void, draw, ())
+FunOverride(void, draw, ())
 {
     super_Shape_draw(Cast(Shape, me));
     printf("Circle draw\n");
 }
 
-OverrideFun(float, area, ()) { return me->data.radius * me->data.radius * Circle_pi; }
-OverrideFun(void, rotate, ()) { printf("Rotate clockwise\n"); }
+FunOverride(float, area, ()) { return me->data.radius * me->data.radius * Circle_pi; }
+FunOverride(void, rotate, ()) { printf("Rotate clockwise\n"); }
 
 #undef Parent
 #undef Type

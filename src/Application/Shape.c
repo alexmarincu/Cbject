@@ -21,7 +21,7 @@ Terminate {}
 SetImpl(Point, origin);
 GetImpl(Point, origin);
 
-OverrideFun(void, draw, ())
+FunOverride(void, draw, ())
 {
     printf("Shape draw\n");
 }

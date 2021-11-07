@@ -34,7 +34,7 @@ Fun(void, makeSquare, Params(uint32 const edgeSize))
     me->data.width = edgeSize;
 }
 
-OverrideFun(float, area, ()) { return me->data.width * me->data.height; }
+FunOverride(float, area, ()) { return me->data.width * me->data.height; }
 
 #undef Parent
 #undef Type
