@@ -1,10 +1,11 @@
 #include "Shape.h"
 #include <stdio.h>
 
+#undef Type
 #define Type Shape
-#define Parent Object
 
 AbstractClassSetup(
+    Object,
     VirtFunSetup(
         ((float, area, NA), NA),
         ((void, draw, NA), NA)),
@@ -26,7 +27,4 @@ FunOverride(void, draw, NA)
     printf("Shape draw\n");
 }
 
-Fun(void, dummy, NA) { printf("Shape dummy\n"); }
-
-#undef Parent
 #undef Type

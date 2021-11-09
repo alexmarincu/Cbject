@@ -32,12 +32,14 @@ Cbject_Singleton
 /*
 Cbject_Singleton_Setup
 */
-#define Cbject_Singleton_Setup(className, superClassName, funOverrideSetup)     \
-    Cbject_ClassTypeInfoStruct_Def(className, superClassName, withoutVirtFuns); \
-    Cbject_ClassStruct_Def(className, superClassName);                          \
-    Cbject_ClassTypeInfoInstanceFun_Prototype(className);                       \
-    Cbject_SingletonInstanceFun_Impl(className);                                \
-    Cbject_SizeImpl(className);                                                 \
-    Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, funOverrideSetup)
+#define Cbject_Singleton_Setup(className, superClassName, funOverrideSetup)            \
+    Cbject_ClassTypeInfoStruct_Def(className, superClassName, withoutVirtFuns);        \
+    Cbject_ClassStruct_Def(className, superClassName);                                 \
+    Cbject_ClassTypeInfoInstanceFun_Prototype(className);                              \
+    Cbject_SingletonInstanceFun_Impl(className);                                       \
+    Cbject_SizeImpl(className);                                                        \
+    Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, funOverrideSetup); \
+    Cbject_InitFun_Impl(className, superClassName);                                    \
+    Cbject_TerminateFun_Impl(className, superClassName)
 
 #endif // CBJECT_SINGLETON_H

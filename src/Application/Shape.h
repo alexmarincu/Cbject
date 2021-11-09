@@ -3,10 +3,11 @@
 #include "../Cbject/Cbject.h"
 #include "Point.h"
 
+#undef Type
 #define Type Shape
-#define Parent Object
 
 AbstractClass(
+    Object,
     Params(
         Point origin),
     Data(
@@ -16,6 +17,4 @@ AbstractClass(
         ((void, draw, NA), Impl)),
     NA);
 
-#undef Parent
-#undef Type
 #endif // SHAPE_H

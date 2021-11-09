@@ -2,10 +2,11 @@
 #include "Circle.h"
 #include <stdio.h>
 
+#undef Type
 #define Type ColoredCircle
-#define Parent Circle
 
 ClassSetup(
+    Circle,
     NA,
     FunOverrideSetup(
         ((void, draw, NA), Shape),
@@ -16,9 +17,10 @@ GetImpl(Color, color);
 
 Init
 {
+    CircleParams * circleParams = super_params;
+    circleParams->origin = params.origin;
+    circleParams->radius = params.radius;
     me->data.color = params.color;
-    superParams->origin = params.origin;
-    superParams->radius = params.radius;
 }
 
 Terminate {}
@@ -35,6 +37,3 @@ FunOverride(void, rotate, NA)
     super_Circle_rotate(Cast(Circle, me));
     printf("Rotate counter-clockwise\n");
 }
-
-#undef Parent
-#undef Type

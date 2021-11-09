@@ -15,20 +15,20 @@
 #include "Cbject_TerminateFun.h"
 #include "Cbject_Var.h"
 
-#define AbstractClass(params, data, virtFuns, funs) \
-    Cbject_AbstractClass(Type, Parent, params, data, virtFuns, funs)
+#define AbstractClass(superClass, params, data, virtFuns, funs) \
+    Cbject_AbstractClass(Type, superClass, params, data, virtFuns, funs)
 
-#define AbstractClassSetup(virtFunSetup, funOverrideSetup) \
-    Cbject_AbstractClass_Setup(Type, Parent, virtFunSetup, funOverrideSetup)
+#define AbstractClassSetup(superClass, virtFunSetup, funOverrideSetup) \
+    Cbject_AbstractClass_Setup(Type, superClass, virtFunSetup, funOverrideSetup)
 
 #define FunOverrideSetup(...) \
     (FunOverrideSetup, __VA_ARGS__)
 
-#define Class(params, data, virtFuns, funs) \
-    Cbject_Class(Type, Parent, params, data, virtFuns, funs)
+#define Class(superClass, params, data, virtFuns, funs) \
+    Cbject_Class(Type, superClass, params, data, virtFuns, funs)
 
-#define ClassSetup(virtFunSetup, funOverrideSetup) \
-    Cbject_Class_Setup(Type, Parent, virtFunSetup, funOverrideSetup)
+#define ClassSetup(superClass, virtFunSetup, funOverrideSetup) \
+    Cbject_Class_Setup(Type, superClass, virtFunSetup, funOverrideSetup)
 
 #define Const(constType, constName) \
     Cbject_Const(Type, constType, constName)
@@ -45,11 +45,11 @@
 #define Fun(funReturnType, funName, funParams) \
     Cbject_FunPrototype(Type, funReturnType, funName, funParams)
 
-#define Singleton(data, funs) \
-    Cbject_Singleton(Type, Parent, data, funs)
+#define Singleton(superClass, data, funs) \
+    Cbject_Singleton(Type, superClass, data, funs)
 
-#define SingletonSetup(funOverrideSetup) \
-    Cbject_Singleton_Setup(Type, Parent, funOverrideSetup)
+#define SingletonSetup(superClass, funOverrideSetup) \
+    Cbject_Singleton_Setup(Type, superClass, funOverrideSetup)
 
 #define FunOverride(funReturnType, funName, funParams) \
     Cbject_FunOverride_Prototype(Type, funReturnType, funName, funParams)
@@ -97,9 +97,9 @@
     Cbject_AccessorFun_Getter_Impl(Type, fieldType, fieldName)
 
 #define Init \
-    Cbject_InitFun_Impl(Type, Parent)
+    Cbject_InitFun_OnInitFunPrototype(Type)
 
 #define Terminate \
-    Cbject_TerminateFun_Impl(Type, Parent)
+    Cbject_TerminateFun_OnTerminateFunPrototype(Type)
 
 #endif // CBJECT_KEYWORDS_H

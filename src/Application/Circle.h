@@ -2,10 +2,11 @@
 #define CIRCLE_H
 #include "Shape.h"
 
+#undef Type
 #define Type Circle
-#define Parent Shape
 
 Class(
+    Shape,
     Params(
         Point origin,
         uint32 radius),
@@ -21,6 +22,4 @@ PoolSize(10);
 
 extern Const(float, pi);
 
-#undef Type
-#undef Parent
 #endif // CIRCLE_H

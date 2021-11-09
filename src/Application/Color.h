@@ -2,6 +2,7 @@
 #define COLOR_H
 #include "../Cbject/Cbject.h"
 
+#undef Type
 #define Type Color
 
 Enum(
@@ -9,5 +10,4 @@ Enum(
     yellow,
     blue = 6);
 
-#undef Type
 #endif // COLOR_H

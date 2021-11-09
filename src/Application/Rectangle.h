@@ -2,10 +2,11 @@
 #define RECTANGLE_H
 #include "Shape.h"
 
+#undef Type
 #define Type Rectangle
-#define Parent Shape
 
 Class(
+    Shape,
     Params(
         Point origin,
         uint32 width,
@@ -20,6 +21,4 @@ Class(
 
 PoolSize(10);
 
-#undef Parent
-#undef Type
 #endif // RECTANGLE_H

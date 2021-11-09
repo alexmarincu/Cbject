@@ -1,10 +1,12 @@
 #include "Application.h"
 #include <stdio.h>
 
+#undef Type
 #define Type Application
-#define Parent Object
 
-SingletonSetup(NA);
+SingletonSetup(
+    Object,
+    NA);
 
 Init {}
 Terminate {}
@@ -148,6 +150,3 @@ static Fun(void, polymorphismExample, NA)
         printf("shapes[%d].size() = %d\n", i, Object_size((Object *)shapes[i]));
     }
 }
-
-#undef Parent
-#undef Type

@@ -3,10 +3,11 @@
 #include "Circle.h"
 #include "Color.h"
 
+#undef Type
 #define Type ColoredCircle
-#define Parent Circle
 
 Class(
+    Circle,
     Params(
         Point origin,
         uint32 radius,
@@ -20,6 +21,4 @@ Class(
 
 PoolSize(10);
 
-#undef Type
-#undef Parent
 #endif // COLOREDCIRCLE_H

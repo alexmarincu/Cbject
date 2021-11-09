@@ -4,8 +4,11 @@
 /*
 Cbject_TerminateFun_OnTerminateFunPrototype
 */
-#define Cbject_TerminateFun_OnTerminateFunPrototype(className) \
+#define Cbject_TerminateFun_OnTerminateFunPrototype_x0(className) \
     static void className##_onTerminate(className * const me)
+
+#define Cbject_TerminateFun_OnTerminateFunPrototype(className) \
+    Cbject_TerminateFun_OnTerminateFunPrototype_x0(className)
 
 /*
 Cbject_TerminateFun_Prototype
@@ -22,8 +25,7 @@ Cbject_TerminateFun_Impl
     {                                                          \
         className##_onTerminate(me);                           \
         superClassName##_terminate((superClassName *)me);      \
-    }                                                          \
-    Cbject_TerminateFun_OnTerminateFunPrototype(className)
+    }
 
 #define Cbject_TerminateFun_Impl(className, superClassName) \
     Cbject_TerminateFun_Impl_x0(className, superClassName)

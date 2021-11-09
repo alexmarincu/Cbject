@@ -48,6 +48,8 @@ Cbject_AbstractClass_Setup
     Cbject_ClassTypeInfoInstanceFun_Impl(className, superClassName, funOverrideSetup);        \
     Cbject_CastFun_Impl(className);                                                           \
     Cbject_ClassVirtFunsGetter_Impl(className);                                               \
-    Cbject_VirtFunSetup(virtFunSetup)
+    Cbject_VirtFunSetup(virtFunSetup);                                                        \
+    Cbject_InitFun_Impl(className, superClassName);                                           \
+    Cbject_TerminateFun_Impl(className, superClassName)
 
 #endif // CBJECT_ABSTRACTCLASS_H

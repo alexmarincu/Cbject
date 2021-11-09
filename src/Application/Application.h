@@ -6,10 +6,11 @@
 #include "Rectangle.h"
 #include "Shape.h"
 
+#undef Type
 #define Type Application
-#define Parent Object
 
 Singleton(
+    Object,
     Data(
         ((Circle *, circle), Private),
         ((Rectangle *, rectangle), Private),
@@ -18,6 +19,4 @@ Singleton(
     Funs(
         ((void, start, NA), Final)));
 
-#undef Parent
-#undef Type
 #endif // APPLICATION_H

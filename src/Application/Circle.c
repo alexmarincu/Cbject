@@ -1,10 +1,11 @@
 #include "Circle.h"
 #include <stdio.h>
 
+#undef Type
 #define Type Circle
-#define Parent Shape
 
 ClassSetup(
+    Shape,
     VirtFunSetup(
         ((void, rotate, NA), NA)),
     FunOverrideSetup(
@@ -17,8 +18,9 @@ Var(Point, point) = {.x = 5, .y = 6};
 
 Init
 {
+    ShapeParams * shapeParams = super_params;
+    shapeParams->origin = params.origin;
     me->data.radius = params.radius;
-    superParams->origin = params.origin;
 }
 
 Terminate {}
@@ -34,6 +36,3 @@ FunOverride(void, draw, NA)
 
 FunOverride(float, area, NA) { return me->data.radius * me->data.radius * Circle_pi; }
 FunOverride(void, rotate, NA) { printf("Rotate clockwise\n"); }
-
-#undef Parent
-#undef Type
