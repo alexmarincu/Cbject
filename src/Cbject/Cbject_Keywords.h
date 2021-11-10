@@ -54,6 +54,9 @@
 #define FunOverride(funReturnType, funName, funParams) \
     Cbject_FunOverride_Prototype(Type, funReturnType, funName, funParams)
 
+#define Extends(superClass) \
+    (Extends, superClass)
+
 #define Params(...) \
     (Params, __VA_ARGS__)
 

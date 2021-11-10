@@ -5,7 +5,7 @@
 #define Type Application
 
 SingletonSetup(
-    Object,
+    NA,
     NA);
 
 Init {}

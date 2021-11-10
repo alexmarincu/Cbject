@@ -6,7 +6,7 @@
 #define Type Rectangle
 
 Class(
-    Shape,
+    Extends(Shape),
     Params(
         Point origin,
         uint32 width,

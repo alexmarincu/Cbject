@@ -5,7 +5,7 @@
 #define Type Shape
 
 AbstractClassSetup(
-    Object,
+    NA,
     VirtFunSetup(
         ((float, area, NA), NA),
         ((void, draw, NA), NA)),

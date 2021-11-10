@@ -5,7 +5,7 @@
 #define Type Rectangle
 
 ClassSetup(
-    Shape,
+    Extends(Shape),
     NA,
     FunOverrideSetup(
         ((float, area, NA), Shape)));

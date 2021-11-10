@@ -10,7 +10,7 @@
 #define Type Application
 
 Singleton(
-    Object,
+    NA,
     Data(
         ((Circle *, circle), Private),
         ((Rectangle *, rectangle), Private),

@@ -7,7 +7,7 @@
 #define Type Shape
 
 AbstractClass(
-    Object,
+    NA,
     Params(
         Point origin),
     Data(

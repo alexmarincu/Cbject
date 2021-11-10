@@ -6,7 +6,7 @@
 #define Type ColoredCircle
 
 ClassSetup(
-    Circle,
+    Extends(Circle),
     NA,
     FunOverrideSetup(
         ((void, draw, NA), Shape),

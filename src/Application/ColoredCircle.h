@@ -7,7 +7,7 @@
 #define Type ColoredCircle
 
 Class(
-    Circle,
+    Extends(Circle),
     Params(
         Point origin,
         uint32 radius,

@@ -5,7 +5,7 @@
 #define Type Circle
 
 ClassSetup(
-    Shape,
+    Extends(Shape),
     VirtFunSetup(
         ((void, rotate, NA), NA)),
     FunOverrideSetup(

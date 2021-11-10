@@ -6,7 +6,7 @@
 #define Type Circle
 
 Class(
-    Shape,
+    Extends(Shape),
     Params(
         Point origin,
         uint32 radius),
