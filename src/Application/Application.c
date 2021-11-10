@@ -49,7 +49,7 @@ static Fun(void, circleExample, NA)
     printf("origin.x = %d\n", Shape_origin(Cast(Shape, me->data.circle)).x);
     printf("origin.y = %d\n", Shape_origin(Cast(Shape, me->data.circle)).y);
     Shape_draw(Cast(Shape, me->data.circle));
-    Circle_rotate(me->data.circle);
+    Circle_rotate(me->data.circle, 30);
 
     if (Object_isTypeOf(me->data.circle, Circle))
     {
@@ -131,7 +131,7 @@ static Fun(void, coloredCircleExample, NA)
     printf("origin.x = %d\n", Shape_origin(Cast(Shape, me->data.coloredCircle)).x);
     printf("origin.y = %d\n", Shape_origin(Cast(Shape, me->data.coloredCircle)).y);
     Shape_draw(Cast(Shape, me->data.coloredCircle));
-    Circle_rotate(Cast(Circle, me->data.coloredCircle));
+    Circle_rotate(Cast(Circle, me->data.coloredCircle), 30);
 }
 
 static Fun(void, polymorphismExample, NA)

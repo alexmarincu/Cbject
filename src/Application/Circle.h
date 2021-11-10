@@ -13,7 +13,7 @@ Class(
     Data(
         ((uint32, radius), Public)),
     VirtFuns(
-        ((void, rotate, NA), Impl)),
+        ((void, rotate, Params(uint8 const degrees)), Impl)),
     Funs(
         ((float, area, NA), Override),
         ((void, draw, NA), Override)));

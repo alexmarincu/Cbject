@@ -17,7 +17,7 @@ Class(
     NA,
     Funs(
         ((void, draw, NA), Override),
-        ((void, rotate, NA), Override)));
+        ((void, rotate, Params(uint8 const degrees)), Override)));
 
 PoolSize(10);
 
