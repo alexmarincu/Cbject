@@ -17,59 +17,59 @@
 /*
 Cbject_Singleton
 */
-#define Cbject_Singleton_caseX(className, superClass, data, funs) \
-    Cbject_ClassTypeInfoStruct_Decl(className);                   \
-    Cbject_ClassStruct_Decl(className);                           \
-    Cbject_ClassParamsStruct(className, NA);                      \
-    Cbject_ClassDataStruct(className, data);                      \
-    Cbject_ClassContainerStruct(className, superClass);           \
-    Cbject_InitFun_Prototype(className);                          \
-    Cbject_TerminateFun_Prototype(className);                     \
-    Cbject_SingletonInstanceFun_Prototype(className);             \
-    Cbject_FunDecls(funs);                                        \
-    Cbject_AccessorFunDecls(data)
+#define Cbject_Singleton_caseX(class, superClass, dataPack, funsPack) \
+    Cbject_ClassTypeInfoStruct_Decl(class);                           \
+    Cbject_ClassStruct_Decl(class);                                   \
+    Cbject_ClassParamsStruct(class, NA);                              \
+    Cbject_ClassDataStruct(class, dataPack);                          \
+    Cbject_ClassContainerStruct(class, superClass);                   \
+    Cbject_InitFun_Prototype(class);                                  \
+    Cbject_TerminateFun_Prototype(class);                             \
+    Cbject_SingletonInstanceFun_Prototype(class);                     \
+    Cbject_FunDecls(funsPack);                                        \
+    Cbject_AccessorFunDecls(dataPack)
 
-#define Cbject_Singleton_caseNA(className, superClass, data, funs) \
-    Cbject_Singleton_caseX(className, Object, data, funs)
+#define Cbject_Singleton_caseNA(class, superClass, dataPack, funsPack) \
+    Cbject_Singleton_caseX(class, Object, dataPack, funsPack)
 
-#define Cbject_Singleton_caseExtends(className, superClass, data, funs) \
-    Cbject_Singleton_caseX(className, superClass, data, funs)
+#define Cbject_Singleton_caseExtends(class, superClass, dataPack, funsPack) \
+    Cbject_Singleton_caseX(class, superClass, dataPack, funsPack)
 
-#define Cbject_Singleton_x1(className, data, funs, extendsCase, ...) \
-    Cbject_Singleton_case##extendsCase(className, __VA_ARGS__, data, funs)
+#define Cbject_Singleton_x1(class, dataPack, funsPack, extendsCase, ...) \
+    Cbject_Singleton_case##extendsCase(class, __VA_ARGS__, dataPack, funsPack)
 
-#define Cbject_Singleton_x0(className, data, funs, ...) \
-    Cbject_Singleton_x1(className, data, funs, __VA_ARGS__)
+#define Cbject_Singleton_x0(class, dataPack, funsPack, ...) \
+    Cbject_Singleton_x1(class, dataPack, funsPack, __VA_ARGS__)
 
-#define Cbject_Singleton(className, extendsPack, data, funs) \
-    Cbject_Singleton_x0(className, data, funs, Cbject_Utils_unpack(extendsPack))
+#define Cbject_Singleton(class, extendsPack, dataPack, funsPack) \
+    Cbject_Singleton_x0(class, dataPack, funsPack, Cbject_Utils_unpack(extendsPack))
 
 /*
 Cbject_Singleton_Setup
 */
-#define Cbject_Singleton_Setup_caseX(className, superClass, funOverrideSetup)      \
-    Cbject_ClassTypeInfoStruct_Def(className, superClass, withoutVirtFuns);        \
-    Cbject_ClassStruct_Def(className, superClass);                                 \
-    Cbject_ClassTypeInfoInstanceFun_Prototype(className);                          \
-    Cbject_SingletonInstanceFun_Impl(className);                                   \
-    Cbject_SizeImpl(className);                                                    \
-    Cbject_ClassTypeInfoInstanceFun_Impl(className, superClass, funOverrideSetup); \
-    Cbject_InitFun_Impl(className, superClass);                                    \
-    Cbject_TerminateFun_Impl(className, superClass)
+#define Cbject_Singleton_Setup_caseX(class, superClass, funOverrideSetupPack)      \
+    Cbject_ClassTypeInfoStruct_Def_caseNA(class, superClass);                      \
+    Cbject_ClassStruct_Def(class, superClass);                                     \
+    Cbject_ClassTypeInfoInstanceFun_Prototype(class);                              \
+    Cbject_SingletonInstanceFun_Impl(class);                                       \
+    Cbject_SizeImpl(class);                                                        \
+    Cbject_ClassTypeInfoInstanceFun_Impl(class, superClass, funOverrideSetupPack); \
+    Cbject_InitFun_Impl(class, superClass);                                        \
+    Cbject_TerminateFun_Impl(class, superClass)
 
-#define Cbject_Singleton_Setup_caseNA(className, superClass, funOverrideSetup) \
-    Cbject_Singleton_Setup_caseX(className, Object, funOverrideSetup)
+#define Cbject_Singleton_Setup_caseNA(class, superClass, funOverrideSetupPack) \
+    Cbject_Singleton_Setup_caseX(class, Object, funOverrideSetupPack)
 
-#define Cbject_Singleton_Setup_caseExtends(className, superClass, funOverrideSetup) \
-    Cbject_Singleton_Setup_caseX(className, superClass, funOverrideSetup)
+#define Cbject_Singleton_Setup_caseExtends(class, superClass, funOverrideSetupPack) \
+    Cbject_Singleton_Setup_caseX(class, superClass, funOverrideSetupPack)
 
-#define Cbject_Singleton_Setup_x1(className, funOverrideSetup, extendsCase, ...) \
-    Cbject_Singleton_Setup_case##extendsCase(className, __VA_ARGS__, funOverrideSetup)
+#define Cbject_Singleton_Setup_x1(class, funOverrideSetupPack, extendsCase, ...) \
+    Cbject_Singleton_Setup_case##extendsCase(class, __VA_ARGS__, funOverrideSetupPack)
 
-#define Cbject_Singleton_Setup_x0(className, funOverrideSetup, ...) \
-    Cbject_Singleton_Setup_x1(className, funOverrideSetup, __VA_ARGS__)
+#define Cbject_Singleton_Setup_x0(class, funOverrideSetupPack, ...) \
+    Cbject_Singleton_Setup_x1(class, funOverrideSetupPack, __VA_ARGS__)
 
-#define Cbject_Singleton_Setup(className, extendsPack, funOverrideSetup) \
-    Cbject_Singleton_Setup_x0(className, funOverrideSetup, Cbject_Utils_unpack(extendsPack))
+#define Cbject_Singleton_Setup(class, extendsPack, funOverrideSetupPack) \
+    Cbject_Singleton_Setup_x0(class, funOverrideSetupPack, Cbject_Utils_unpack(extendsPack))
 
 #endif // CBJECT_SINGLETON_H

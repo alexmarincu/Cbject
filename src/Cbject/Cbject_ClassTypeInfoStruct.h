@@ -4,26 +4,32 @@
 /*
 Cbject_ClassTypeInfoStruct_Decl
 */
-#define Cbject_ClassTypeInfoStruct_Decl(className) \
-    typedef struct className##Type className##Type
+#define Cbject_ClassTypeInfoStruct_Decl(class) \
+    typedef struct class##Type class##Type
 
 /*
 Cbject_ClassTypeInfoStruct_Def
 */
-#define Cbject_ClassTypeInfoStruct_Def_withoutVirtFuns(className, superClassName) \
-    struct className##Type                                                        \
-    {                                                                             \
-        superClassName##TypeContainer super;                                      \
+#define Cbject_ClassTypeInfoStruct_Def_caseNA(class, superClass) \
+    struct class##Type                                           \
+    {                                                            \
+        superClass##TypeContainer super;                         \
     }
 
-#define Cbject_ClassTypeInfoStruct_Def_withVirtFuns(className, superClassName) \
-    struct className##Type                                                     \
-    {                                                                          \
-        superClassName##TypeContainer super;                                   \
-        className##VirtFuns virtFuns;                                          \
+#define Cbject_ClassTypeInfoStruct_Def_caseVirtFunSetup(class, superClass) \
+    struct class##Type                                                     \
+    {                                                                      \
+        superClass##TypeContainer super;                                   \
+        class##VirtFuns virtFuns;                                          \
     }
 
-#define Cbject_ClassTypeInfoStruct_Def(className, superClassName, case) \
-    Cbject_ClassTypeInfoStruct_Def_##case (className, superClassName)
+#define Cbject_ClassTypeInfoStruct_Def_x1(class, superClass, virtFunSetupCase, ...) \
+    Cbject_ClassTypeInfoStruct_Def_case##virtFunSetupCase(class, superClass)
+
+#define Cbject_ClassTypeInfoStruct_Def_x0(class, superClass, ...) \
+    Cbject_ClassTypeInfoStruct_Def_x1(class, superClass, __VA_ARGS__)
+
+#define Cbject_ClassTypeInfoStruct_Def(class, superClass, virtFunSetupPack) \
+    Cbject_ClassTypeInfoStruct_Def_x0(class, superClass, Cbject_Utils_unpack(virtFunSetupPack))
 
 #endif // CBJECT_CLASSTYPEINFOSTRUCT_H

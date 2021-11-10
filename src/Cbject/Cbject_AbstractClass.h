@@ -21,65 +21,63 @@
 /*
 Cbject_AbstractClass
 */
-#define Cbject_AbstractClass_caseX(className, superClass, params, data, virtFuns, funs) \
-    Cbject_ClassTypeInfoStruct_Decl(className);                                         \
-    Cbject_ClassStruct_Decl(className);                                                 \
-    Cbject_ClassParamsStruct(className, params);                                        \
-    Cbject_ClassDataStruct(className, data);                                            \
-    Cbject_ClassVirtFunsStruct(className, virtFuns);                                    \
-    Cbject_ClassTypeInfoContainerStruct(className, superClass, withVirtFuns);           \
-    Cbject_ClassContainerStruct(className, superClass);                                 \
-    Cbject_InitFun_Prototype(className);                                                \
-    Cbject_TerminateFun_Prototype(className);                                           \
-    Cbject_ClassTypeInfoInstanceFun_Prototype(className);                               \
-    Cbject_FunDecls(virtFuns);                                                          \
-    Cbject_FunDecls(funs);                                                              \
-    Cbject_AccessorFunDecls(data);                                                      \
-    Cbject_CastFun_Prototype(className);                                                \
-    Cbject_ClassVirtFunsGetter_Prototype(className)
+#define Cbject_AbstractClass_caseX(class, superClass, paramsPack, dataPack, virtFunsPack, funsPack) \
+    Cbject_ClassTypeInfoStruct_Decl(class);                                                         \
+    Cbject_ClassStruct_Decl(class);                                                                 \
+    Cbject_ClassParamsStruct(class, paramsPack);                                                    \
+    Cbject_ClassDataStruct(class, dataPack);                                                        \
+    Cbject_ClassVirtFunsStruct(class, virtFunsPack);                                                \
+    Cbject_ClassTypeInfoContainerStruct(class, superClass, virtFunsPack);                           \
+    Cbject_ClassContainerStruct(class, superClass);                                                 \
+    Cbject_InitFun_Prototype(class);                                                                \
+    Cbject_TerminateFun_Prototype(class);                                                           \
+    Cbject_ClassTypeInfoInstanceFun_Prototype(class);                                               \
+    Cbject_FunDecls(virtFunsPack);                                                                  \
+    Cbject_FunDecls(funsPack);                                                                      \
+    Cbject_AccessorFunDecls(dataPack);                                                              \
+    Cbject_CastFun_Prototype(class)
 
-#define Cbject_AbstractClass_caseNA(className, superClass, params, data, virtFuns, funs) \
-    Cbject_AbstractClass_caseX(className, Object, params, data, virtFuns, funs)
+#define Cbject_AbstractClass_caseNA(class, superClass, paramsPack, dataPack, virtFunsPack, funsPack) \
+    Cbject_AbstractClass_caseX(class, Object, paramsPack, dataPack, virtFunsPack, funsPack)
 
-#define Cbject_AbstractClass_caseExtends(className, superClass, params, data, virtFuns, funs) \
-    Cbject_AbstractClass_caseX(className, superClass, params, data, virtFuns, funs)
+#define Cbject_AbstractClass_caseExtends(class, superClass, paramsPack, dataPack, virtFunsPack, funsPack) \
+    Cbject_AbstractClass_caseX(class, superClass, paramsPack, dataPack, virtFunsPack, funsPack)
 
-#define Cbject_AbstractClass_x1(className, params, data, virtFuns, funs, extendsCase, ...) \
-    Cbject_AbstractClass_case##extendsCase(className, __VA_ARGS__, params, data, virtFuns, funs)
+#define Cbject_AbstractClass_x1(class, paramsPack, dataPack, virtFunsPack, funsPack, extendsCase, ...) \
+    Cbject_AbstractClass_case##extendsCase(class, __VA_ARGS__, paramsPack, dataPack, virtFunsPack, funsPack)
 
-#define Cbject_AbstractClass_x0(className, params, data, virtFuns, funs, ...) \
-    Cbject_AbstractClass_x1(className, params, data, virtFuns, funs, __VA_ARGS__)
+#define Cbject_AbstractClass_x0(class, paramsPack, dataPack, virtFunsPack, funsPack, ...) \
+    Cbject_AbstractClass_x1(class, paramsPack, dataPack, virtFunsPack, funsPack, __VA_ARGS__)
 
-#define Cbject_AbstractClass(className, extendsPack, params, data, virtFuns, funs) \
-    Cbject_AbstractClass_x0(className, params, data, virtFuns, funs, Cbject_Utils_unpack(extendsPack))
+#define Cbject_AbstractClass(class, extendsPack, paramsPack, dataPack, virtFunsPack, funsPack) \
+    Cbject_AbstractClass_x0(class, paramsPack, dataPack, virtFunsPack, funsPack, Cbject_Utils_unpack(extendsPack))
 
 /*
 Cbject_AbstractClass_Setup
 */
-#define Cbject_AbstractClass_Setup_caseX(className, superClass, virtFunSetup, funOverrideSetup) \
-    Cbject_ClassTypeInfoStruct_Def(className, superClass, withVirtFuns);                        \
-    Cbject_ClassStruct_Def(className, superClass);                                              \
-    Cbject_SizeImpl(className);                                                                 \
-    Cbject_ClassTypeInfoInstanceFun_Impl(className, superClass, funOverrideSetup);              \
-    Cbject_CastFun_Impl(className);                                                             \
-    Cbject_ClassVirtFunsGetter_Impl(className);                                                 \
-    Cbject_VirtFunSetup(virtFunSetup);                                                          \
-    Cbject_InitFun_Impl(className, superClass);                                                 \
-    Cbject_TerminateFun_Impl(className, superClass)
+#define Cbject_AbstractClass_Setup_caseX(class, superClass, virtFunSetupPack, funOverrideSetupPack) \
+    Cbject_ClassTypeInfoStruct_Def(class, superClass, virtFunSetupPack);                            \
+    Cbject_ClassStruct_Def(class, superClass);                                                      \
+    Cbject_SizeImpl(class);                                                                         \
+    Cbject_ClassTypeInfoInstanceFun_Impl(class, superClass, funOverrideSetupPack);                  \
+    Cbject_CastFun_Impl(class);                                                                     \
+    Cbject_VirtFunSetup(class, virtFunSetupPack);                                                   \
+    Cbject_InitFun_Impl(class, superClass);                                                         \
+    Cbject_TerminateFun_Impl(class, superClass)
 
-#define Cbject_AbstractClass_Setup_caseNA(className, superClass, virtFunSetup, funOverrideSetup) \
-    Cbject_AbstractClass_Setup_caseX(className, Object, virtFunSetup, funOverrideSetup)
+#define Cbject_AbstractClass_Setup_caseNA(class, superClass, virtFunSetupPack, funOverrideSetupPack) \
+    Cbject_AbstractClass_Setup_caseX(class, Object, virtFunSetupPack, funOverrideSetupPack)
 
-#define Cbject_AbstractClass_Setup_caseExtends(className, superClass, virtFunSetup, funOverrideSetup) \
-    Cbject_AbstractClass_Setup_caseX(className, superClass, virtFunSetup, funOverrideSetup)
+#define Cbject_AbstractClass_Setup_caseExtends(class, superClass, virtFunSetupPack, funOverrideSetupPack) \
+    Cbject_AbstractClass_Setup_caseX(class, superClass, virtFunSetupPack, funOverrideSetupPack)
 
-#define Cbject_AbstractClass_Setup_x1(className, virtFunSetup, funOverrideSetup, extendsCase, ...) \
-    Cbject_AbstractClass_Setup_case##extendsCase(className, __VA_ARGS__, virtFunSetup, funOverrideSetup)
+#define Cbject_AbstractClass_Setup_x1(class, virtFunSetupPack, funOverrideSetupPack, extendsCase, ...) \
+    Cbject_AbstractClass_Setup_case##extendsCase(class, __VA_ARGS__, virtFunSetupPack, funOverrideSetupPack)
 
-#define Cbject_AbstractClass_Setup_x0(className, virtFunSetup, funOverrideSetup, ...) \
-    Cbject_AbstractClass_Setup_x1(className, virtFunSetup, funOverrideSetup, __VA_ARGS__)
+#define Cbject_AbstractClass_Setup_x0(class, virtFunSetupPack, funOverrideSetupPack, ...) \
+    Cbject_AbstractClass_Setup_x1(class, virtFunSetupPack, funOverrideSetupPack, __VA_ARGS__)
 
-#define Cbject_AbstractClass_Setup(className, extendsPack, virtFunSetup, funOverrideSetup) \
-    Cbject_AbstractClass_Setup_x0(className, virtFunSetup, funOverrideSetup, Cbject_Utils_unpack(extendsPack))
+#define Cbject_AbstractClass_Setup(class, extendsPack, virtFunSetupPack, funOverrideSetupPack) \
+    Cbject_AbstractClass_Setup_x0(class, virtFunSetupPack, funOverrideSetupPack, Cbject_Utils_unpack(extendsPack))
 
 #endif // CBJECT_ABSTRACTCLASS_H

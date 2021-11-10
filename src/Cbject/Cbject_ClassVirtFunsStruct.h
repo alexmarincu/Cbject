@@ -5,37 +5,38 @@
 /*
 Cbject_ClassVirtFunsStruct
 */
-#define Cbject_ClassVirtFunsStruct_caseNA(className, ...) \
-    typedef char className##VirtFuns
+#define Cbject_ClassVirtFunsStruct_caseNA(class, ...)
 
-#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_caseImpl(funPrototype) \
-    Cbject_VirtFun_Ptr funPrototype;
+#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_caseImpl(funPrototypePack) \
+    Cbject_VirtFun_Ptr funPrototypePack;
 
-#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_casePure(funPrototype) \
-    Cbject_VirtFun_Ptr funPrototype;
+#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_casePure(funPrototypePack) \
+    Cbject_VirtFun_Ptr funPrototypePack;
 
-#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_x1(funPrototype, case) \
-    Cbject_ClassVirtFunsStruct_caseVirtFuns_member_case##case (funPrototype)
+#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_x1(funPrototypePack, funCase) \
+    Cbject_ClassVirtFunsStruct_caseVirtFuns_member_case##funCase(funPrototypePack)
 
 #define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_x0(...) \
     Cbject_ClassVirtFunsStruct_caseVirtFuns_member_x1(__VA_ARGS__)
 
-#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member(funPrototype) \
-    Cbject_ClassVirtFunsStruct_caseVirtFuns_member_x0(Cbject_Utils_unpack(funPrototype))
+#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member(funPrototypeWithFunCasePack) \
+    Cbject_ClassVirtFunsStruct_caseVirtFuns_member_x0(Cbject_Utils_unpack(funPrototypeWithFunCasePack))
 
-#define Cbject_ClassVirtFunsStruct_caseVirtFuns(className, ...)                           \
-    typedef struct className##VirtFuns                                                    \
+#define Cbject_ClassVirtFunsStruct_caseVirtFuns(class, ...)                               \
+    typedef struct class##VirtFuns                                                        \
     {                                                                                     \
         Cbject_Utils_forEach(Cbject_ClassVirtFunsStruct_caseVirtFuns_member, __VA_ARGS__) \
-    } className##VirtFuns
+    } class##VirtFuns;                                                                    \
+                                                                                          \
+    Cbject_ClassVirtFunsGetter_Prototype(class)
 
-#define Cbject_ClassVirtFunsStruct_x1(className, case, ...) \
-    Cbject_ClassVirtFunsStruct_case##case (className, __VA_ARGS__)
+#define Cbject_ClassVirtFunsStruct_x1(class, virtFunsCase, ...) \
+    Cbject_ClassVirtFunsStruct_case##virtFunsCase(class, __VA_ARGS__)
 
-#define Cbject_ClassVirtFunsStruct_x0(className, ...) \
-    Cbject_ClassVirtFunsStruct_x1(className, __VA_ARGS__)
+#define Cbject_ClassVirtFunsStruct_x0(class, ...) \
+    Cbject_ClassVirtFunsStruct_x1(class, __VA_ARGS__)
 
-#define Cbject_ClassVirtFunsStruct(className, virtFuns) \
-    Cbject_ClassVirtFunsStruct_x0(className, Cbject_Utils_unpack(virtFuns))
+#define Cbject_ClassVirtFunsStruct(class, virtFunsPack) \
+    Cbject_ClassVirtFunsStruct_x0(class, Cbject_Utils_unpack(virtFunsPack))
 
 #endif // CBJECT_CLASSVIRTFUNSSTRUCT_H
