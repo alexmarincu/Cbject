@@ -5,15 +5,15 @@
 /*
 Cbject_ClassContainerStruct
 */
-#define Cbject_ClassContainerStruct(className, superClassName) \
-    typedef union className##Container                         \
-    {                                                          \
-        Cbject_Settings_maxAlign align;                        \
-        char container[sizeof(struct                           \
-            {                                                  \
-                superClassName##Container super;               \
-                className##Data data;                          \
-            })];                                               \
-    } className##Container
+#define Cbject_ClassContainerStruct(class, superClass) \
+    typedef union class##Container                     \
+    {                                                  \
+        Cbject_Settings_maxAlign align;                \
+        char container[sizeof(struct                   \
+            {                                          \
+                superClass##Container super;           \
+                class##Data data;                      \
+            })];                                       \
+    } class##Container
 
 #endif // CBJECT_CLASSCONTAINERSTRUCT_H

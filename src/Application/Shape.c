@@ -19,8 +19,8 @@ Init
 
 Terminate {}
 
-SetImpl(Point, origin);
-GetImpl(Point, origin);
+SetterImpl(Point, origin);
+GetterImpl(Point, origin);
 
 FunOverride(void, draw, NA)
 {

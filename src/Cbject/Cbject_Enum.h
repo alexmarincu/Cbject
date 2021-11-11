@@ -5,19 +5,19 @@
 /*
 Cbject_Enum
 */
-#define Cbject_Enum_member_x1(className, member) \
-    className##_##member,
+#define Cbject_Enum_member_x1(class, member) \
+    class##_##member,
 
-#define Cbject_Enum_member_x0(className, member) \
-    Cbject_Enum_member_x1(className, member)
+#define Cbject_Enum_member_x0(class, member) \
+    Cbject_Enum_member_x1(class, member)
 
 #define Cbject_Enum_member(member) \
     Cbject_Enum_member_x0(Type, member)
 
-#define Cbject_Enum(className, ...)                           \
-    typedef enum className                                    \
+#define Cbject_Enum(class, ...)                               \
+    typedef enum class                                        \
     {                                                         \
         Cbject_Utils_forEach(Cbject_Enum_member, __VA_ARGS__) \
-    } className
+    } class
 
 #endif // CBJECT_ENUM_H

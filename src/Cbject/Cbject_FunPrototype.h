@@ -4,19 +4,19 @@
 /*
 Cbject_FunPrototype
 */
-#define Cbject_FunPrototype_caseNA(className, funReturnType, funName, ...) \
-    funReturnType className##_##funName(className * const me)
+#define Cbject_FunPrototype_caseNA(class, funReturnType, funName, ...) \
+    funReturnType class##_##funName(class * const me)
 
-#define Cbject_FunPrototype_caseParams(className, funReturnType, funName, ...) \
-    funReturnType className##_##funName(className * const me, __VA_ARGS__)
+#define Cbject_FunPrototype_caseParams(class, funReturnType, funName, ...) \
+    funReturnType class##_##funName(class * const me, __VA_ARGS__)
 
-#define Cbject_FunPrototype_x1(className, funReturnType, funName, case, ...) \
-    Cbject_FunPrototype_case##case (className, funReturnType, funName, __VA_ARGS__)
+#define Cbject_FunPrototype_x1(class, funReturnType, funName, paramsCase, ...) \
+    Cbject_FunPrototype_case##paramsCase(class, funReturnType, funName, __VA_ARGS__)
 
-#define Cbject_FunPrototype_x0(className, funReturnType, funName, ...) \
-    Cbject_FunPrototype_x1(className, funReturnType, funName, __VA_ARGS__)
+#define Cbject_FunPrototype_x0(class, funReturnType, funName, ...) \
+    Cbject_FunPrototype_x1(class, funReturnType, funName, __VA_ARGS__)
 
-#define Cbject_FunPrototype(className, funReturnType, funName, funParams) \
-    Cbject_FunPrototype_x0(className, funReturnType, funName, Cbject_Utils_unpack(funParams))
+#define Cbject_FunPrototype(class, funReturnType, funName, funParamsPack) \
+    Cbject_FunPrototype_x0(class, funReturnType, funName, Cbject_Utils_unpack(funParamsPack))
 
 #endif // CBJECT_FUNPROTOTYPE_H

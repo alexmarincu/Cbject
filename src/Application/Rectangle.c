@@ -20,12 +20,12 @@ Init
 
 Terminate {}
 
-Set(uint32, width) { me->data.width = width; }
-SetImpl(uint32, height);
-GetImpl(uint32, width);
-GetImpl(uint32, height);
+Setter(UInt32, width) { me->data.width = width; }
+SetterImpl(UInt32, height);
+GetterImpl(UInt32, width);
+GetterImpl(UInt32, height);
 
-Fun(void, makeSquare, Params(uint32 const edgeSize))
+Fun(void, makeSquare, Params(UInt32 const edgeSize))
 {
     me->data.height = edgeSize;
     me->data.width = edgeSize;

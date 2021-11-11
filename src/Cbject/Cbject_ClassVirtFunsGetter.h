@@ -4,31 +4,31 @@
 /*
 Cbject_ClassVirtFunsGetter_Prototype
 */
-#define Cbject_ClassVirtFunsGetter_Prototype(className) \
-    className##VirtFuns * className##Type_virtFuns(className##Type * meType)
+#define Cbject_ClassVirtFunsGetter_Prototype(class) \
+    class##VirtFuns * class##Type_virtFuns(class##Type * meType)
 
 /*
 Cbject_ClassVirtFunsGetter_Impl
 */
-#define Cbject_ClassVirtFunsGetter_Impl(className)  \
-    Cbject_ClassVirtFunsGetter_Prototype(className) \
-    {                                               \
-        className##VirtFuns * virtFuns = NULL;      \
-                                                    \
-        typedef struct ObjectTypeT                  \
-        {                                           \
-            Cbject_Settings_maxAlign align;         \
-            char const * name;                      \
-            ObjectType * superType;                 \
-            ObjectVirtFuns virtFuns;                \
-        } ObjectTypeT;                              \
-                                                    \
-        if (((ObjectTypeT *)meType)->name == NULL)  \
-        {                                           \
-            virtFuns = &meType->virtFuns;           \
-        }                                           \
-                                                    \
-        return virtFuns;                            \
+#define Cbject_ClassVirtFunsGetter_Impl(class)     \
+    Cbject_ClassVirtFunsGetter_Prototype(class)    \
+    {                                              \
+        class##VirtFuns * virtFuns = NULL;         \
+                                                   \
+        typedef struct ObjectTypeT                 \
+        {                                          \
+            Cbject_Settings_maxAlign align;        \
+            char const * name;                     \
+            ObjectType * superType;                \
+            ObjectVirtFuns virtFuns;               \
+        } ObjectTypeT;                             \
+                                                   \
+        if (((ObjectTypeT *)meType)->name == NULL) \
+        {                                          \
+            virtFuns = &meType->virtFuns;          \
+        }                                          \
+                                                   \
+        return virtFuns;                           \
     }
 // todo: assert when accessed after init
 

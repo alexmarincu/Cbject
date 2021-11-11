@@ -1,43 +1,41 @@
 #ifndef CBJECT_CLASS_H
 #define CBJECT_CLASS_H
 #include "Cbject_AbstractClass.h"
-#include "Cbject_DeleteObjectFun.h"
-#include "Cbject_GetObjectFunPrototype.h"
-#include "Cbject_GetObjectImpl.h"
-#include "Cbject_NewObjectFunPrototype.h"
-#include "Cbject_NewObjectImpl.h"
-#include "Cbject_NewOnStackFunImpl.h"
-#include "Cbject_NewOnStackFunPrototype.h"
 #include "Cbject_Settings.h"
+#include "Cbject_StackCreateObjectFun.h"
 
 /*
 Cbject_Class
 */
 #if Cbject_Settings_useHeap == true
+    #include "Cbject_CreateObjectFun.h"
+    #include "Cbject_DeleteObjectFun.h"
     #if Cbject_Settings_useStaticPool == true
-        #define Cbject_Class(className, superClassName, params, data, virtFuns, funs)      \
-            Cbject_AbstractClass(className, superClassName, params, data, virtFuns, funs); \
-            Cbject_NewOnStackFunPrototype(className);                                      \
-            Cbject_GetObjectFunPrototype(className);                                       \
-            Cbject_NewObjectFunPrototype(className);                                       \
-            Cbject_DeleteObjectFun_Prototype(className)
+        #include "Cbject_GetObjectFun.h"
+        #define Cbject_Class(class, superClass, paramsPack, dataPack, virtFunsPack, funsPack)      \
+            Cbject_AbstractClass(class, superClass, paramsPack, dataPack, virtFunsPack, funsPack); \
+            Cbject_StackCreateObjectFun_Prototype(class);                                          \
+            Cbject_GetObjectFun_Prototype(class);                                                  \
+            Cbject_CreateObjectFun_Prototype(class);                                               \
+            Cbject_DeleteObjectFun_Prototype(class)
     #else
-        #define Cbject_Class(className, superClassName, params, data, virtFuns, funs)      \
-            Cbject_AbstractClass(className, superClassName, params, data, virtFuns, funs); \
-            Cbject_NewOnStackFunPrototype(className);                                      \
-            Cbject_NewObjectFunPrototype(className);                                       \
-            Cbject_DeleteObjectFun_Prototype(className)
+        #define Cbject_Class(class, superClass, paramsPack, dataPack, virtFunsPack, funsPack)      \
+            Cbject_AbstractClass(class, superClass, paramsPack, dataPack, virtFunsPack, funsPack); \
+            Cbject_StackCreateObjectFun_Prototype(class);                                          \
+            Cbject_CreateObjectFun_Prototype(class);                                               \
+            Cbject_DeleteObjectFun_Prototype(class)
     #endif
 #else
     #if Cbject_Settings_useStaticPool == true
-        #define Cbject_Class(className, superClassName, params, data, virtFuns, funs)      \
-            Cbject_AbstractClass(className, superClassName, params, data, virtFuns, funs); \
-            Cbject_NewOnStackFunPrototype(className);                                      \
-            Cbject_GetObjectFunPrototype(className)
+        #include "Cbject_GetObjectFun.h"
+        #define Cbject_Class(class, superClass, paramsPack, dataPack, virtFunsPack, funsPack)      \
+            Cbject_AbstractClass(class, superClass, paramsPack, dataPack, virtFunsPack, funsPack); \
+            Cbject_StackCreateObjectFun_Prototype(class);                                          \
+            Cbject_GetObjectFun_Prototype(class)
     #else
-        #define Cbject_Class(className, superClassName, params, data, virtFuns, funs)      \
-            Cbject_AbstractClass(className, superClassName, params, data, virtFuns, funs); \
-            Cbject_NewOnStackFunPrototype(className)
+        #define Cbject_Class(class, superClass, paramsPack, dataPack, virtFunsPack, funsPack)      \
+            Cbject_AbstractClass(class, superClass, paramsPack, dataPack, virtFunsPack, funsPack); \
+            Cbject_StackCreateObjectFun_Prototype(class)
     #endif
 #endif
 
@@ -45,30 +43,34 @@ Cbject_Class
 Cbject_Class_Setup
 */
 #if Cbject_Settings_useHeap == true
+    #include "Cbject_CreateObjectFun.h"
+    #include "Cbject_DeleteObjectFun.h"
     #if Cbject_Settings_useStaticPool == true
-        #define Cbject_Class_Setup(className, superClassName, virtFunSetup, funOverrideSetup)      \
-            Cbject_AbstractClass_Setup(className, superClassName, virtFunSetup, funOverrideSetup); \
-            Cbject_NewOnStackFunImpl(className);                                                   \
-            Cbject_GetObjectImpl(className);                                                       \
-            Cbject_NewObjectImpl(className);                                                       \
-            Cbject_DeleteObjectFun_Impl(className)
+        #include "Cbject_GetObjectFun.h"
+        #define Cbject_Class_Setup(class, superClass, virtFunSetup, funOverrideSetupPack)      \
+            Cbject_AbstractClass_Setup(class, superClass, virtFunSetup, funOverrideSetupPack); \
+            Cbject_StackCreateObjectFun_Impl(class);                                           \
+            Cbject_GetObjectFun_Impl(class);                                                   \
+            Cbject_CreateObjectFun_Impl(class);                                                \
+            Cbject_DeleteObjectFun_Impl(class)
     #else
-        #define Cbject_Class_Setup(className, superClassName, virtFunSetup, funOverrideSetup)      \
-            Cbject_AbstractClass_Setup(className, superClassName, virtFunSetup, funOverrideSetup); \
-            Cbject_NewOnStackFunImpl(className);                                                   \
-            Cbject_NewObjectImpl(className);                                                       \
-            Cbject_DeleteObjectFun_Impl(className)
+        #define Cbject_Class_Setup(class, superClass, virtFunSetup, funOverrideSetupPack)      \
+            Cbject_AbstractClass_Setup(class, superClass, virtFunSetup, funOverrideSetupPack); \
+            Cbject_StackCreateObjectFun_Impl(class);                                           \
+            Cbject_CreateObjectFun_Impl(class);                                                \
+            Cbject_DeleteObjectFun_Impl(class)
     #endif
 #else
     #if Cbject_Settings_useStaticPool == true
-        #define Cbject_Class_Setup(className, superClassName, virtFunSetup, funOverrideSetup)      \
-            Cbject_AbstractClass_Setup(className, superClassName, virtFunSetup, funOverrideSetup); \
-            Cbject_NewOnStackFunImpl(className);                                                   \
-            Cbject_GetObjectImpl(className)
+        #include "Cbject_GetObjectFun.h"
+        #define Cbject_Class_Setup(class, superClass, virtFunSetup, funOverrideSetupPack)      \
+            Cbject_AbstractClass_Setup(class, superClass, virtFunSetup, funOverrideSetupPack); \
+            Cbject_StackCreateObjectFun_Impl(class);                                           \
+            Cbject_GetObjectFun_Impl(class)
     #else
-        #define Cbject_Class_Setup(className, superClassName, virtFunSetup, funOverrideSetup)      \
-            Cbject_AbstractClass_Setup(className, superClassName, virtFunSetup, funOverrideSetup); \
-            Cbject_NewOnStackFunImpl(className)
+        #define Cbject_Class_Setup(class, superClass, virtFunSetup, funOverrideSetupPack)      \
+            Cbject_AbstractClass_Setup(class, superClass, virtFunSetup, funOverrideSetupPack); \
+            Cbject_StackCreateObjectFun_Impl(class)
     #endif
 #endif
 

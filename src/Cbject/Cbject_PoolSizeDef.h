@@ -4,10 +4,13 @@
 /*
 Cbject_PoolSizeDef
 */
-#define Cbject_PoolSizeDef(className, poolSize) \
-    enum                                        \
-    {                                           \
-        className##_poolSize = poolSize         \
+#define Cbject_PoolSizeDef_x0(class, poolSize) \
+    enum                                       \
+    {                                          \
+        class##_poolSize = poolSize            \
     }
+
+#define Cbject_PoolSizeDef(class, poolSize) \
+    Cbject_PoolSizeDef_x0(class, poolSize)
 
 #endif // CBJECT_POOLSIZEDEF_H

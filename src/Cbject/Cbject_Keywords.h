@@ -9,26 +9,27 @@
 #include "Cbject_FunOverride.h"
 #include "Cbject_FunPrototype.h"
 #include "Cbject_InitFun.h"
-#include "Cbject_PoolSize.h"
+#include "Cbject_PoolSizeDef.h"
 #include "Cbject_Singleton.h"
+#include "Cbject_StaticAssert.h"
 #include "Cbject_Struct.h"
 #include "Cbject_TerminateFun.h"
 #include "Cbject_Var.h"
 
-#define AbstractClass(superClass, params, data, virtFuns, funs) \
-    Cbject_AbstractClass(Type, superClass, params, data, virtFuns, funs)
+#define AbstractClass(superClass, paramsPack, dataPack, virtFunsPack, funsPack) \
+    Cbject_AbstractClass(Type, superClass, paramsPack, dataPack, virtFunsPack, funsPack)
 
-#define AbstractClassSetup(superClass, virtFunSetup, funOverrideSetup) \
-    Cbject_AbstractClass_Setup(Type, superClass, virtFunSetup, funOverrideSetup)
+#define AbstractClassSetup(superClass, virtFunSetup, funOverrideSetupPack) \
+    Cbject_AbstractClass_Setup(Type, superClass, virtFunSetup, funOverrideSetupPack)
 
 #define FunOverrideSetup(...) \
     (FunOverrideSetup, __VA_ARGS__)
 
-#define Class(superClass, params, data, virtFuns, funs) \
-    Cbject_Class(Type, superClass, params, data, virtFuns, funs)
+#define Class(superClass, paramsPack, dataPack, virtFunsPack, funsPack) \
+    Cbject_Class(Type, superClass, paramsPack, dataPack, virtFunsPack, funsPack)
 
-#define ClassSetup(superClass, virtFunSetup, funOverrideSetup) \
-    Cbject_Class_Setup(Type, superClass, virtFunSetup, funOverrideSetup)
+#define ClassSetup(superClass, virtFunSetup, funOverrideSetupPack) \
+    Cbject_Class_Setup(Type, superClass, virtFunSetup, funOverrideSetupPack)
 
 #define Const(constType, constName) \
     Cbject_Const(Type, constType, constName)
@@ -42,17 +43,17 @@
 #define Enum(...) \
     Cbject_Enum(Type, __VA_ARGS__)
 
-#define Fun(funReturnType, funName, funParams) \
-    Cbject_FunPrototype(Type, funReturnType, funName, funParams)
+#define Fun(funReturnType, funName, funParamsPack) \
+    Cbject_FunPrototype(Type, funReturnType, funName, funParamsPack)
 
-#define Singleton(superClass, data, funs) \
-    Cbject_Singleton(Type, superClass, data, funs)
+#define Singleton(superClass, dataPack, funsPack) \
+    Cbject_Singleton(Type, superClass, dataPack, funsPack)
 
-#define SingletonSetup(superClass, funOverrideSetup) \
-    Cbject_Singleton_Setup(Type, superClass, funOverrideSetup)
+#define SingletonSetup(superClass, funOverrideSetupPack) \
+    Cbject_Singleton_Setup(Type, superClass, funOverrideSetupPack)
 
-#define FunOverride(funReturnType, funName, funParams) \
-    Cbject_FunOverride_Prototype(Type, funReturnType, funName, funParams)
+#define FunOverride(funReturnType, funName, funParamsPack) \
+    Cbject_FunOverride_Prototype(Type, funReturnType, funName, funParamsPack)
 
 #define Extends(superClass) \
     (Extends, superClass)
@@ -61,7 +62,7 @@
     (Params, __VA_ARGS__)
 
 #define PoolSize(poolSize) \
-    Cbject_PoolSize(Type, poolSize)
+    Cbject_PoolSizeDef(Type, poolSize)
 
 #define Data(...) \
     (Data, __VA_ARGS__)
@@ -87,22 +88,40 @@
 #define PublicRead PublicRead
 #define PublicWrite PublicWrite
 
-#define Set(fieldType, fieldName) \
-    Cbject_AccessorFun_Setter_Prototype(Type, fieldType, fieldName)
+#define Setter(dataMemberType, dataMember) \
+    Cbject_AccessorFun_Setter_Prototype(Type, dataMemberType, dataMember)
 
-#define Get(fieldType, fieldName) \
-    Cbject_AccessorFun_Getter_Prototype(Type, fieldType, fieldName)
+#define Getter(dataMemberType, dataMember) \
+    Cbject_AccessorFun_Getter_Prototype(Type, dataMemberType, dataMember)
 
-#define SetImpl(fieldType, fieldName) \
-    Cbject_AccessorFun_Setter_Impl(Type, fieldType, fieldName)
+#define SetterImpl(dataMemberType, dataMember) \
+    Cbject_AccessorFun_Setter_Impl(Type, dataMemberType, dataMember)
 
-#define GetImpl(fieldType, fieldName) \
-    Cbject_AccessorFun_Getter_Impl(Type, fieldType, fieldName)
+#define GetterImpl(dataMemberType, dataMember) \
+    Cbject_AccessorFun_Getter_Impl(Type, dataMemberType, dataMember)
 
 #define Init \
     Cbject_InitFun_OnInitFunPrototype(Type)
 
 #define Terminate \
     Cbject_TerminateFun_OnTerminateFunPrototype(Type)
+
+#define StaticAssert(condition, identifier) \
+    Cbject_StaticAssert(condition, identifier)
+
+#define Cast(class, me) \
+    Object_to##class((Object *)me)
+
+#define Get(class, ...) \
+    class##_get(__VA_ARGS__)
+
+#define Create(class, ...) \
+    class##_create(__VA_ARGS__)
+
+#define Delete(class, me) \
+    class##_delete(me)
+
+#define StackCreate(class, ...) \
+    class##_stackCreate((class *)&(class##Container){}, __VA_ARGS__)
 
 #endif // CBJECT_KEYWORDS_H

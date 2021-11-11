@@ -13,14 +13,14 @@ Cbject_ClassVirtFunsStruct
 #define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_casePure(funPrototypePack) \
     Cbject_VirtFun_Ptr funPrototypePack;
 
-#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_x1(funPrototypePack, funCase) \
-    Cbject_ClassVirtFunsStruct_caseVirtFuns_member_case##funCase(funPrototypePack)
+#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_x1(funPrototypePack, funType) \
+    Cbject_ClassVirtFunsStruct_caseVirtFuns_member_case##funType(funPrototypePack)
 
 #define Cbject_ClassVirtFunsStruct_caseVirtFuns_member_x0(...) \
     Cbject_ClassVirtFunsStruct_caseVirtFuns_member_x1(__VA_ARGS__)
 
-#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member(funPrototypeWithFunCasePack) \
-    Cbject_ClassVirtFunsStruct_caseVirtFuns_member_x0(Cbject_Utils_unpack(funPrototypeWithFunCasePack))
+#define Cbject_ClassVirtFunsStruct_caseVirtFuns_member(funPrototypeWithFunTypePack) \
+    Cbject_ClassVirtFunsStruct_caseVirtFuns_member_x0(Cbject_Utils_unpack(funPrototypeWithFunTypePack))
 
 #define Cbject_ClassVirtFunsStruct_caseVirtFuns(class, ...)                               \
     typedef struct class##VirtFuns                                                        \

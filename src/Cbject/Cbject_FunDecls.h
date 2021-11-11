@@ -5,27 +5,27 @@
 /*
 Cbject_FunDecls
 */
-#define Cbject_FunDecls_caseXFuns_funDecl_caseFinal(funPrototype) \
-    Fun funPrototype;
+#define Cbject_FunDecls_caseXFuns_funDecl_caseFinal(funPrototypePack) \
+    Fun funPrototypePack;
 
-#define Cbject_FunDecls_caseXFuns_funDecl_caseOverride(funPrototype) \
-    FunOverride funPrototype;
+#define Cbject_FunDecls_caseXFuns_funDecl_caseOverride(funPrototypePack) \
+    FunOverride funPrototypePack;
 
-#define Cbject_FunDecls_caseXFuns_funDecl_casePure(funPrototype) \
-    Fun funPrototype;
+#define Cbject_FunDecls_caseXFuns_funDecl_casePure(funPrototypePack) \
+    Fun funPrototypePack;
 
-#define Cbject_FunDecls_caseXFuns_funDecl_caseImpl(funPrototype) \
-    Fun funPrototype;                                            \
-    FunOverride funPrototype;
+#define Cbject_FunDecls_caseXFuns_funDecl_caseImpl(funPrototypePack) \
+    Fun funPrototypePack;                                            \
+    FunOverride funPrototypePack;
 
-#define Cbject_FunDecls_caseXFuns_funDecl_x1(funPrototype, case) \
-    Cbject_FunDecls_caseXFuns_funDecl_case##case (funPrototype)
+#define Cbject_FunDecls_caseXFuns_funDecl_x1(funPrototypePack, funType) \
+    Cbject_FunDecls_caseXFuns_funDecl_case##funType(funPrototypePack)
 
 #define Cbject_FunDecls_caseXFuns_funDecl_x0(...) \
     Cbject_FunDecls_caseXFuns_funDecl_x1(__VA_ARGS__)
 
-#define Cbject_FunDecls_caseXFuns_funDecl(funPrototype) \
-    Cbject_FunDecls_caseXFuns_funDecl_x0(Cbject_Utils_unpack(funPrototype))
+#define Cbject_FunDecls_caseXFuns_funDecl(funPrototypeWithFunTypePack) \
+    Cbject_FunDecls_caseXFuns_funDecl_x0(Cbject_Utils_unpack(funPrototypeWithFunTypePack))
 
 #define Cbject_FunDecls_caseNA(...)
 
@@ -41,7 +41,7 @@ Cbject_FunDecls
 #define Cbject_FunDecls_x0(...) \
     Cbject_FunDecls_x1(__VA_ARGS__)
 
-#define Cbject_FunDecls(funs) \
-    Cbject_FunDecls_x0(Cbject_Utils_unpack(funs))
+#define Cbject_FunDecls(funsPack) \
+    Cbject_FunDecls_x0(Cbject_Utils_unpack(funsPack))
 
 #endif // CBJECT_FUNDECLS_H

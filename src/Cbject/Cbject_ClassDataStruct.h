@@ -5,40 +5,40 @@
 /*
 Cbject_ClassDataStruct
 */
-#define Cbject_ClassDataStruct_caseNA(className, ...) \
-    typedef char className##Data
+#define Cbject_ClassDataStruct_caseNA(class, ...) \
+    typedef char class##Data
 
-#define Cbject_ClassDataStruct_caseData_member_caseX_addSemicolon(dataType, dataName) \
-    Cbject_Utils_addSemicolon(dataType dataName)
+#define Cbject_ClassDataStruct_caseData_member_caseX_addSemicolon(dataMemberType, dataMember) \
+    Cbject_Utils_addSemicolon(dataMemberType dataMember)
 
 #define Cbject_ClassDataStruct_caseData_member_caseX_x0(...) \
     Cbject_ClassDataStruct_caseData_member_caseX_addSemicolon(__VA_ARGS__)
 
-#define Cbject_ClassDataStruct_caseData_member_caseX(dataPrototype) \
-    Cbject_ClassDataStruct_caseData_member_caseX_x0(Cbject_Utils_unpack(dataPrototype))
+#define Cbject_ClassDataStruct_caseData_member_caseX(dataMemberPrototypePack) \
+    Cbject_ClassDataStruct_caseData_member_caseX_x0(Cbject_Utils_unpack(dataMemberPrototypePack))
 
-#define Cbject_ClassDataStruct_caseData_member_x1(dataPrototype, case) \
-    Cbject_ClassDataStruct_caseData_member_caseX(dataPrototype)
+#define Cbject_ClassDataStruct_caseData_member_x1(dataMemberPrototypePack, accessType) \
+    Cbject_ClassDataStruct_caseData_member_caseX(dataMemberPrototypePack)
 
 #define Cbject_ClassDataStruct_caseData_member_x0(...) \
     Cbject_ClassDataStruct_caseData_member_x1(__VA_ARGS__)
 
-#define Cbject_ClassDataStruct_caseData_member(dataPrototypeWithType) \
-    Cbject_ClassDataStruct_caseData_member_x0(Cbject_Utils_unpack(dataPrototypeWithType))
+#define Cbject_ClassDataStruct_caseData_member(dataMemberPrototypeWithAccessPack) \
+    Cbject_ClassDataStruct_caseData_member_x0(Cbject_Utils_unpack(dataMemberPrototypeWithAccessPack))
 
-#define Cbject_ClassDataStruct_caseData(className, ...)                           \
-    typedef struct className##Data                                                \
+#define Cbject_ClassDataStruct_caseData(class, ...)                               \
+    typedef struct class##Data                                                    \
     {                                                                             \
         Cbject_Utils_forEach(Cbject_ClassDataStruct_caseData_member, __VA_ARGS__) \
-    } className##Data
+    } class##Data
 
-#define Cbject_ClassDataStruct_x1(className, case, ...) \
-    Cbject_ClassDataStruct_case##case (className, __VA_ARGS__)
+#define Cbject_ClassDataStruct_x1(class, case, ...) \
+    Cbject_ClassDataStruct_case##case (class, __VA_ARGS__)
 
-#define Cbject_ClassDataStruct_x0(className, ...) \
-    Cbject_ClassDataStruct_x1(className, __VA_ARGS__)
+#define Cbject_ClassDataStruct_x0(class, ...) \
+    Cbject_ClassDataStruct_x1(class, __VA_ARGS__)
 
-#define Cbject_ClassDataStruct(className, data) \
-    Cbject_ClassDataStruct_x0(className, Cbject_Utils_unpack(data))
+#define Cbject_ClassDataStruct(class, dataPack) \
+    Cbject_ClassDataStruct_x0(class, Cbject_Utils_unpack(dataPack))
 
 #endif // CBJECT_CLASSDATASTRUCT_H

@@ -22,11 +22,11 @@ Test creation on heap and data accessors of Rectangle object
 end::testDescription[] */
 void test_Rectangle_Heap(void)
 {
-    Rectangle * rectangle = Rectangle_createOnHeap((RectangleParams){{4, 5}, 1, 2});
+    Rectangle * rectangle = Create(Rectangle, (RectangleParams){{4, 5}, 1, 2});
     checkRectangleInit(rectangle);
     checkRectangleDataAccessors(rectangle);
     checkMakeSquare(rectangle);
-    Rectangle_delete(rectangle);
+    Delete(Rectangle, rectangle);
 }
 
 /* tag::testDescription[]
@@ -36,7 +36,7 @@ Test retrieval from static pool and data accessors of Rectangle object
 end::testDescription[] */
 void test_Rectangle_StaticPool(void)
 {
-    Rectangle * rectangle = Rectangle_getFromStaticPool((RectangleParams){{4, 5}, 1, 2});
+    Rectangle * rectangle = Get(Rectangle, (RectangleParams){{4, 5}, 1, 2});
     checkRectangleInit(rectangle);
     checkRectangleDataAccessors(rectangle);
 }
@@ -48,7 +48,7 @@ Test creation on stack and data accessors of Rectangle object
 end::testDescription[] */
 void test_Rectangle_Stack(void)
 {
-    Rectangle * rectangle = Rectangle_createOnStack((Rectangle *)&(RectangleContainer){}, (RectangleParams){{4, 5}, 1, 2});
+    Rectangle * rectangle = StackCreate(Rectangle, (RectangleParams){{4, 5}, 1, 2});
     checkRectangleInit(rectangle);
     checkRectangleDataAccessors(rectangle);
 }

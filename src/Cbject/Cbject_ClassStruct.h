@@ -4,17 +4,17 @@
 /*
 Cbject_ClassStruct_Decl
 */
-#define Cbject_ClassStruct_Decl(className) \
-    typedef struct className className
+#define Cbject_ClassStruct_Decl(class) \
+    typedef struct class class
 
 /*
 Cbject_ClassStruct_Def
 */
-#define Cbject_ClassStruct_Def(className, superClassName) \
-    struct className                                      \
-    {                                                     \
-        superClassName##Container super;                  \
-        className##Data data;                             \
+#define Cbject_ClassStruct_Def(class, superClass) \
+    struct class                                  \
+    {                                             \
+        superClass##Container super;              \
+        class##Data data;                         \
     }
 
 #endif // CBJECT_CLASSSTRUCT_H

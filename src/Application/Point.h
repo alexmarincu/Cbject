@@ -6,7 +6,7 @@
 #define Type Point
 
 Struct(
-    uint32 x,
-    uint32 y);
+    UInt32 x,
+    UInt32 y);
 
 #endif // POINT_H

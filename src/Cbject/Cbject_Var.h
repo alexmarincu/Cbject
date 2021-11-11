@@ -4,10 +4,10 @@
 /*
 Cbject_Var
 */
-#define Cbject_Var_x0(className, varType, varName) \
-    varType className##_##varName
+#define Cbject_Var_x0(class, varType, varName) \
+    varType class##_##varName
 
-#define Cbject_Var(className, varType, varName) \
-    Cbject_Var_x0(className, varType, varName)
+#define Cbject_Var(class, varType, varName) \
+    Cbject_Var_x0(class, varType, varName)
 
 #endif // CBJECT_VAR_H

@@ -4,7 +4,7 @@
 /*
 Cbject_SizeImpl
 */
-#define Cbject_SizeImpl(className) \
-    static uint8 super_##className##_size(className const * const me) { return sizeof(*me); }
+#define Cbject_SizeImpl(class) \
+    static UInt8 super_##class##_size(class const * const me) { return sizeof(*me); }
 
 #endif // CBJECT_SIZEIMPL_H

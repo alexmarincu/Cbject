@@ -5,22 +5,22 @@
 /*
 Cbject_ClassParamsStruct
 */
-#define Cbject_ClassParamsStruct_caseNA(className, ...) \
-    typedef char className##Params
+#define Cbject_ClassParamsStruct_caseNA(class, ...) \
+    typedef char class##Params
 
-#define Cbject_ClassParamsStruct_caseParams(className, ...)          \
-    typedef struct className##Params                                 \
+#define Cbject_ClassParamsStruct_caseParams(class, ...)              \
+    typedef struct class##Params                                     \
     {                                                                \
         Cbject_Utils_forEach(Cbject_Utils_addSemicolon, __VA_ARGS__) \
-    } className##Params
+    } class##Params
 
-#define Cbject_ClassParamsStruct_x1(className, case, ...) \
-    Cbject_ClassParamsStruct_case##case (className, __VA_ARGS__)
+#define Cbject_ClassParamsStruct_x1(class, case, ...) \
+    Cbject_ClassParamsStruct_case##case (class, __VA_ARGS__)
 
-#define Cbject_ClassParamsStruct_x0(className, ...) \
-    Cbject_ClassParamsStruct_x1(className, __VA_ARGS__)
+#define Cbject_ClassParamsStruct_x0(class, ...) \
+    Cbject_ClassParamsStruct_x1(class, __VA_ARGS__)
 
-#define Cbject_ClassParamsStruct(className, params) \
-    Cbject_ClassParamsStruct_x0(className, Cbject_Utils_unpack(params))
+#define Cbject_ClassParamsStruct(class, paramsPack) \
+    Cbject_ClassParamsStruct_x0(class, Cbject_Utils_unpack(paramsPack))
 
 #endif // CBJECT_CLASSPARAMSSTRUCT_H

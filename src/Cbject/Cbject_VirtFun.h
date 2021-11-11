@@ -6,55 +6,55 @@
 /*
 Cbject_VirtFun_Ptr
 */
-#define Cbject_VirtFun_Ptr_caseNA(className, funReturnType, funName, ...) \
-    funReturnType (*funName)(className * const me)
+#define Cbject_VirtFun_Ptr_caseNA(class, funReturnType, funName, ...) \
+    funReturnType (*funName)(class * const me)
 
-#define Cbject_VirtFun_Ptr_caseParams(className, funReturnType, funName, ...) \
-    funReturnType (*funName)(className * const me, __VA_ARGS__)
+#define Cbject_VirtFun_Ptr_caseParams(class, funReturnType, funName, ...) \
+    funReturnType (*funName)(class * const me, __VA_ARGS__)
 
-#define Cbject_VirtFun_Ptr_x1(className, funReturnType, funName, case, ...) \
-    Cbject_VirtFun_Ptr_case##case (className, funReturnType, funName, __VA_ARGS__)
+#define Cbject_VirtFun_Ptr_x1(class, funReturnType, funName, paramsCase, ...) \
+    Cbject_VirtFun_Ptr_case##paramsCase(class, funReturnType, funName, __VA_ARGS__)
 
-#define Cbject_VirtFun_Ptr_x0(className, funReturnType, funName, ...) \
-    Cbject_VirtFun_Ptr_x1(className, funReturnType, funName, __VA_ARGS__)
+#define Cbject_VirtFun_Ptr_x0(class, funReturnType, funName, ...) \
+    Cbject_VirtFun_Ptr_x1(class, funReturnType, funName, __VA_ARGS__)
 
-#define Cbject_VirtFun_Ptr(funReturnType, funName, funParams) \
-    Cbject_VirtFun_Ptr_x0(Type, funReturnType, funName, Cbject_Utils_unpack(funParams))
+#define Cbject_VirtFun_Ptr(funReturnType, funName, funParamsPack) \
+    Cbject_VirtFun_Ptr_x0(Type, funReturnType, funName, Cbject_Utils_unpack(funParamsPack))
 
 /*
 Cbject_VirtFun_Call
 */
-#define Cbject_VirtFun_Call_caseNA(className, funName, ...) \
+#define Cbject_VirtFun_Call_caseNA(class, funName, ...) \
+    typedef struct ObjectT                              \
+    {                                                   \
+        Cbject_Settings_maxAlign align;                 \
+        ObjectType * type;                              \
+    } ObjectT;                                          \
+                                                        \
+    return ((class##Type *)((ObjectT *)me)->type)->virtFuns.funName(me)
+
+#define Cbject_VirtFun_Call_caseParams(class, funName, ...) \
     typedef struct ObjectT                                  \
     {                                                       \
         Cbject_Settings_maxAlign align;                     \
         ObjectType * type;                                  \
     } ObjectT;                                              \
                                                             \
-    return ((className##Type *)((ObjectT *)me)->type)->virtFuns.funName(me)
+    return ((class##Type *)((ObjectT *)me)->type)->virtFuns.funName(me, __VA_ARGS__)
 
-#define Cbject_VirtFun_Call_caseParams(className, funName, ...) \
-    typedef struct ObjectT                                      \
-    {                                                           \
-        Cbject_Settings_maxAlign align;                         \
-        ObjectType * type;                                      \
-    } ObjectT;                                                  \
-                                                                \
-    return ((className##Type *)((ObjectT *)me)->type)->virtFuns.funName(me, __VA_ARGS__)
+#define Cbject_VirtFun_Call_x1(class, funName, paramsCase, ...) \
+    Cbject_VirtFun_Call_case##paramsCase(class, funName, __VA_ARGS__)
 
-#define Cbject_VirtFun_Call_x1(className, funName, case, ...) \
-    Cbject_VirtFun_Call_case##case (className, funName, __VA_ARGS__)
+#define Cbject_VirtFun_Call_x0(class, funName, ...) \
+    Cbject_VirtFun_Call_x1(class, funName, __VA_ARGS__)
 
-#define Cbject_VirtFun_Call_x0(className, funName, ...) \
-    Cbject_VirtFun_Call_x1(className, funName, __VA_ARGS__)
-
-#define Cbject_VirtFun_Call(className, funName, funCallParams) \
-    Cbject_VirtFun_Call_x0(className, funName, Cbject_Utils_unpack(funCallParams))
+#define Cbject_VirtFun_Call(class, funName, funCallParamsPack) \
+    Cbject_VirtFun_Call_x0(class, funName, Cbject_Utils_unpack(funCallParamsPack))
 
 /*
 Cbject_VirtFun_Impl
 */
-#define Cbject_VirtFun_Impl(className, funReturnType, funName, funParams, funCallParams) \
-    Fun(funReturnType, funName, funParams) { Cbject_VirtFun_Call(className, funName, funCallParams); }
+#define Cbject_VirtFun_Impl(class, funReturnType, funName, funParamsPack, funCallParamsPack) \
+    Fun(funReturnType, funName, funParamsPack) { Cbject_VirtFun_Call(class, funName, funCallParamsPack); }
 
 #endif // CBJECT_VIRTFUN_H
