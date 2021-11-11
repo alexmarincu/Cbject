@@ -54,10 +54,10 @@
     - :callback
   :treat_externs: :include
   :treat_as:
-    UInt8: HEX8
-    UInt16: HEX16
-    UInt32: UINT32
-    Int8: INT8
+    uint8: HEX8
+    uint16: HEX16
+    uint32: UINT32
+    int8: INT8
     bool: UINT8
 
 :gcov:

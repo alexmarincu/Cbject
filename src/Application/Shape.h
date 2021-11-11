@@ -8,8 +8,7 @@
 
 AbstractClass(
     NA,
-    Params(
-        Point origin),
+    Params(Point origin),
     Data(
         ((Point, origin), Public)),
     VirtFuns(

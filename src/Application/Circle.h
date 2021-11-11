@@ -7,13 +7,11 @@
 
 Class(
     Extends(Shape),
-    Params(
-        Point origin,
-        UInt32 radius),
+    Params(Point origin, uint32 radius),
     Data(
-        ((UInt32, radius), Public)),
+        ((uint32, radius), Public)),
     VirtFuns(
-        ((void, rotate, Params(UInt8 const degrees)), Impl)),
+        ((void, rotate, Params(uint8 const degrees)), Impl)),
     Funs(
         ((float, area, NA), Override),
         ((void, draw, NA), Override)));

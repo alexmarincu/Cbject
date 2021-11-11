@@ -8,16 +8,13 @@
 
 Class(
     Extends(Circle),
-    Params(
-        Point origin,
-        UInt32 radius,
-        Color color),
+    Params(Point origin, uint32 radius, Color color),
     Data(
         ((Color, color), Public)),
     NA,
     Funs(
         ((void, draw, NA), Override),
-        ((void, rotate, Params(UInt8 const degrees)), Override)));
+        ((void, rotate, Params(uint8 const degrees)), Override)));
 
 PoolSize(10);
 

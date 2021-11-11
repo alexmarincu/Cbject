@@ -11,7 +11,7 @@ typedef char ObjectParams;
 
 typedef struct ObjectVirtFuns
 {
-    UInt8 (*size)(Object const * const me);
+    uint8 (*size)(Object const * const me);
 } ObjectVirtFuns;
 
 typedef union ObjectTypeContainer
@@ -41,7 +41,7 @@ typedef union ObjectContainer
 ObjectType const * const ObjectType_instance();
 void Object_init(Object * const me, ObjectParams const params);
 void Object_terminate(Object * const me);
-UInt8 Object_size(Object const * const me);
+uint8 Object_size(Object const * const me);
 ObjectType const * Object_type(Object * const me);
 
 #endif // OBJECT_H

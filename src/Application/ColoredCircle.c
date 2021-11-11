@@ -10,7 +10,7 @@ ClassSetup(
     NA,
     FunOverrideSetup(
         ((void, draw, NA), Shape),
-        ((void, rotate, Params(UInt8 const degrees)), Circle)));
+        ((void, rotate, Params(uint8 const degrees)), Circle)));
 
 SetterImpl(Color, color);
 GetterImpl(Color, color);
@@ -32,7 +32,7 @@ FunOverride(void, draw, NA)
     printf("ColoredCircle draw\n");
 }
 
-FunOverride(void, rotate, Params(UInt8 const degrees))
+FunOverride(void, rotate, Params(uint8 const degrees))
 {
     super_Circle_rotate(Cast(Circle, me), 30);
     printf("ColoredCircle rotate %d\n", degrees);

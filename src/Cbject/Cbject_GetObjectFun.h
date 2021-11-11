@@ -14,7 +14,7 @@ Cbject_GetObjectFun_Impl
     Cbject_GetObjectFun_Prototype(class)     \
     {                                        \
         static class pool[class##_poolSize]; \
-        static UInt64 count = 0;             \
+        static uint64 count = 0;             \
         class * me = NULL;                   \
                                              \
         if (count < class##_poolSize)        \

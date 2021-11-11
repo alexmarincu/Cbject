@@ -144,7 +144,7 @@ static Fun(void, polymorphismExample, NA)
         Cast(Shape, me->data.heapRectangle),
         Cast(Shape, me->data.coloredCircle)};
 
-    for (UInt8 i = 0; i < Array_size(shapes); i++)
+    for (uint8 i = 0; i < Array_size(shapes); i++)
     {
         printf("shapes[%d].area() = %.2f\n", i, Shape_area(shapes[i]));
         printf("shapes[%d].size() = %d\n", i, Object_size((Object *)shapes[i]));
