@@ -36,8 +36,6 @@ end::overview[] */
 #include "Cbject_Keywords.h"
 #include "Cbject_PrimitiveTypes.h"
 #include "Cbject_Settings.h"
-#include "Cbject_StaticAssert.h"
 #include "Object.h"
-#include <assert.h>
 
 #endif // CBJECT_H

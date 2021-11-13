@@ -13,7 +13,7 @@ Cbject_CastFun_Impl
 #define Cbject_CastFun_Impl(class)                                                                                \
     Cbject_CastFun_Prototype(class)                                                                               \
     {                                                                                                             \
-        assert((me != NULL) && "Cast cannot be used with NULL pointer");                                          \
+        Assert((me != NULL) && "Cast cannot be used with NULL pointer");                                          \
         typedef struct ObjectTypeT                                                                                \
         {                                                                                                         \
             Cbject_Settings_maxAlign align;                                                                       \
@@ -29,12 +29,12 @@ Cbject_CastFun_Impl
         } ObjectT;                                                                                                \
                                                                                                                   \
         ObjectTypeT const * type = (ObjectTypeT *)((ObjectT *)me)->type;                                          \
-        assert((type != NULL) && "Cast cannot be used if object is not initialized");                             \
+        Assert((type != NULL) && "Cast cannot be used if object is not initialized");                             \
                                                                                                                   \
         while ((type != (ObjectTypeT *)ObjectType_instance()) && (type != (ObjectTypeT *)class##Type_instance())) \
         {                                                                                                         \
             type = (ObjectTypeT *)type->superType;                                                                \
-            assert((type != (ObjectTypeT *)ObjectType_instance()) && "Cast to" #class "not possible");            \
+            Assert((type != (ObjectTypeT *)ObjectType_instance()) && "Cast to" #class "not possible");            \
         }                                                                                                         \
                                                                                                                   \
         return (class *)me;                                                                                       \

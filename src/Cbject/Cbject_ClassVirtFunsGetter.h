@@ -30,6 +30,6 @@ Cbject_ClassVirtFunsGetter_Impl
                                                    \
         return virtFuns;                           \
     }
-// todo: assert when accessed after init
+// todo: Assert when accessed after init
 
 #endif // CBJECT_CLASSVIRTFUNSGETTER_H

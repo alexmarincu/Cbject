@@ -1,15 +1,19 @@
+#include "CException.h"
 #include "unity.h"
 
+#include "Circle.h"
 #include "Rectangle.h"
 #include "Shape.h"
 
 TEST_FILE("Object.c")
 TEST_FILE("Rectangle.c")
 TEST_FILE("Shape.c")
+TEST_FILE("Circle.c")
 
 static void checkRectangleInit(Rectangle const * const rectangle);
 static void checkRectangleDataAccessors(Rectangle * const rectangle);
 static void checkMakeSquare(Rectangle * const rectangle);
+static void checkCast(Rectangle * const rectangle);
 
 void setUp(void) {}
 
@@ -26,6 +30,7 @@ void test_Rectangle_Heap(void)
     checkRectangleInit(rectangle);
     checkRectangleDataAccessors(rectangle);
     checkMakeSquare(rectangle);
+    checkCast(rectangle);
     Delete(rectangle, Rectangle);
 }
 
@@ -81,4 +86,39 @@ static void checkMakeSquare(Rectangle * const rectangle)
     TEST_ASSERT_EQUAL_UINT8(5, Rectangle_width(rectangle));
     TEST_ASSERT_EQUAL_UINT8(5, Rectangle_height(rectangle));
     TEST_ASSERT_EQUAL_UINT8(5 * 5, Shape_area(Cast(rectangle, Shape)));
+}
+
+static void checkCast(Rectangle * const rectangle)
+{
+    CEXCEPTION_T e;
+
+    Try
+    {
+        Cast(NULL, Rectangle);
+        TEST_FAIL_MESSAGE("Cast of NULL pointer did not assert");
+    }
+    Catch(e)
+    {
+        TEST_MESSAGE("Cast of NULL pointer did assert");
+    }
+
+    Try
+    {
+        Cast(rectangle, Circle);
+        TEST_FAIL_MESSAGE("Cast to illegal class did not assert");
+    }
+    Catch(e)
+    {
+        TEST_MESSAGE("Cast to illegal class did assert");
+    }
+
+    Try
+    {
+        Cast(rectangle, Shape);
+        TEST_MESSAGE("Cast to super class is working");
+    }
+    Catch(e)
+    {
+        TEST_FAIL_MESSAGE("Cast to super class is not working");
+    }
 }

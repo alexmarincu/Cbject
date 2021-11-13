@@ -2,6 +2,7 @@
 #define CBJECT_KEYWORDS_H
 #include "Cbject_AbstractClass.h"
 #include "Cbject_AccessorFun.h"
+#include "Cbject_Assert.h"
 #include "Cbject_Class.h"
 #include "Cbject_Const.h"
 #include "Cbject_Enum.h"
@@ -12,7 +13,6 @@
 #include "Cbject_ObjectTeardownFun.h"
 #include "Cbject_PoolSizeDef.h"
 #include "Cbject_Singleton.h"
-#include "Cbject_StaticAssert.h"
 #include "Cbject_Struct.h"
 #include "Cbject_Var.h"
 
@@ -106,8 +106,11 @@
 #define Terminate \
     Cbject_ObjectTeardownFun_TerminateFunPrototype(Type)
 
+#define Assert(condition) \
+    Cbject_Assert(condition)
+
 #define StaticAssert(condition, identifier) \
-    Cbject_StaticAssert(condition, identifier)
+    Cbject_Assert_Static(condition, identifier)
 
 #define Cast(me, class) \
     Object_to##class((Object *)me)
