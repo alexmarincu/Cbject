@@ -5,7 +5,7 @@
 Cbject_GetObjectFun_Prototype
 */
 #define Cbject_GetObjectFun_Prototype(class) \
-    class * class##_get(class##Params const params)
+    class * class##_get(class##Params const * const params)
 
 /*
 Cbject_GetObjectFun_Impl
@@ -21,7 +21,7 @@ Cbject_GetObjectFun_Impl
         {                                    \
             me = &pool[count];               \
             *me = (class){0};                \
-            class##_init(me, params);        \
+            class##_setup(me, params);       \
             count++;                         \
         }                                    \
                                              \

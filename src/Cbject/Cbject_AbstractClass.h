@@ -12,9 +12,9 @@
 #include "Cbject_ClassVirtFunsGetter.h"
 #include "Cbject_ClassVirtFunsStruct.h"
 #include "Cbject_FunDecls.h"
-#include "Cbject_InitFun.h"
+#include "Cbject_ObjectSetupFun.h"
+#include "Cbject_ObjectTeardownFun.h"
 #include "Cbject_SizeImpl.h"
-#include "Cbject_TerminateFun.h"
 #include "Cbject_Utils.h"
 #include "Cbject_VirtFunSetup.h"
 
@@ -29,8 +29,8 @@ Cbject_AbstractClass
     Cbject_ClassVirtFunsStruct(class, virtFunsPack);                                                \
     Cbject_ClassTypeInfoContainerStruct(class, superClass, virtFunsPack);                           \
     Cbject_ClassContainerStruct(class, superClass);                                                 \
-    Cbject_InitFun_Prototype(class);                                                                \
-    Cbject_TerminateFun_Prototype(class);                                                           \
+    Cbject_ObjectSetupFun_InitFunPrototype(class);                                                  \
+    Cbject_ObjectTeardownFun_TerminateFunPrototype(class);                                          \
     Cbject_ClassTypeInfoInstanceFun_Prototype(class);                                               \
     Cbject_FunDecls(virtFunsPack);                                                                  \
     Cbject_FunDecls(funsPack);                                                                      \
@@ -62,8 +62,8 @@ Cbject_AbstractClass_Setup
     Cbject_ClassTypeInfoInstanceFun_Impl(class, superClass, funOverrideSetupPack);                  \
     Cbject_CastFun_Impl(class);                                                                     \
     Cbject_VirtFunSetup(class, virtFunSetupPack);                                                   \
-    Cbject_InitFun_Impl(class, superClass);                                                         \
-    Cbject_TerminateFun_Impl(class, superClass)
+    Cbject_ObjectSetupFun_Impl(class, superClass);                                                  \
+    Cbject_ObjectTeardownFun_Impl(class, superClass)
 
 #define Cbject_AbstractClass_Setup_caseNA(class, superClass, virtFunSetupPack, funOverrideSetupPack) \
     Cbject_AbstractClass_Setup_caseX(class, Object, virtFunSetupPack, funOverrideSetupPack)

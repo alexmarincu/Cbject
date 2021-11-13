@@ -42,12 +42,13 @@
   :release:
     :compile:
       :*:
-        # - -save-temps
+        - -save-temps
         - -std=c99
 
 :cmock:
   :mock_prefix: mock_
   :when_no_prototypes: :warn
+  :when_ptr: :compare_ptr
   :enforce_strict_ordering: TRUE
   :plugins:
     - :ignore
@@ -79,7 +80,8 @@
   :load_paths:
     - "#{Ceedling.load_path}"
   :enabled:
-    - stdout_pretty_tests_report
+    # - stdout_pretty_tests_report
+    - stdout_gtestlike_tests_report
     - module_generator
     - gcov
     - xml_tests_report

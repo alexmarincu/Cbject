@@ -8,12 +8,12 @@
 #include "Cbject_FunDecls.h"
 #include "Cbject_FunOverride.h"
 #include "Cbject_FunPrototype.h"
-#include "Cbject_InitFun.h"
+#include "Cbject_ObjectSetupFun.h"
+#include "Cbject_ObjectTeardownFun.h"
 #include "Cbject_PoolSizeDef.h"
 #include "Cbject_Singleton.h"
 #include "Cbject_StaticAssert.h"
 #include "Cbject_Struct.h"
-#include "Cbject_TerminateFun.h"
 #include "Cbject_Var.h"
 
 #define AbstractClass(superClass, paramsPack, dataPack, virtFunsPack, funsPack) \
@@ -101,15 +101,15 @@
     Cbject_AccessorFun_Getter_Impl(Type, dataMemberType, dataMember)
 
 #define Init \
-    Cbject_InitFun_OnInitFunPrototype(Type)
+    Cbject_ObjectSetupFun_InitFunPrototype(Type)
 
 #define Terminate \
-    Cbject_TerminateFun_OnTerminateFunPrototype(Type)
+    Cbject_ObjectTeardownFun_TerminateFunPrototype(Type)
 
 #define StaticAssert(condition, identifier) \
     Cbject_StaticAssert(condition, identifier)
 
-#define Cast(class, me) \
+#define Cast(me, class) \
     Object_to##class((Object *)me)
 
 #define Get(class, ...) \
@@ -118,7 +118,7 @@
 #define Create(class, ...) \
     class##_create(__VA_ARGS__)
 
-#define Delete(class, me) \
+#define Delete(me, class) \
     class##_delete(me)
 
 #define StackCreate(class, ...) \

@@ -5,7 +5,7 @@
 Cbject_StackCreateObjectFun_Prototype
 */
 #define Cbject_StackCreateObjectFun_Prototype(class) \
-    class * class##_stackCreate(class * const me, class##Params const params)
+    class * class##_stackCreate(class * const me, class##Params const * const params)
 
 /*
 Cbject_StackCreateObjectFun_Impl
@@ -14,7 +14,7 @@ Cbject_StackCreateObjectFun_Impl
     Cbject_StackCreateObjectFun_Prototype(class) \
     {                                            \
         *me = (class){0};                        \
-        class##_init(me, params);                \
+        class##_setup(me, params);               \
         return me;                               \
     }
 

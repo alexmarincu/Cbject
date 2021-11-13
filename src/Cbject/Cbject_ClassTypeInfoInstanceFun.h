@@ -38,7 +38,7 @@ Cbject_ClassTypeInfoInstanceFun_Impl
             /*static char const * const name = #class;  */                                                       \
             *((superClass##TypeContainer *)&type) = *((superClass##TypeContainer *)superClass##Type_instance()); \
             ((ObjectTypeT *)&type)->name = NULL;                                                                 \
-            ((ObjectTypeT *)&type)->virtFuns.size = (uint8(*)(Object const * const me))super_##class##_size;     \
+            ((ObjectTypeT *)&type)->virtFuns.size = (uint8(*)(Object const * const me))super##class##_size;      \
             ((ObjectTypeT *)&type)->name = #class;                                                               \
             ((ObjectTypeT *)&type)->superType = (ObjectType *)superClass##Type_instance();                       \
         }                                                                                                        \
@@ -64,7 +64,7 @@ Cbject_ClassTypeInfoInstanceFun_Impl
             /*static char const * const name = #class;  */                                                            \
             *((superClass##TypeContainer *)&type) = *((superClass##TypeContainer *)superClass##Type_instance());      \
             ((ObjectTypeT *)&type)->name = NULL;                                                                      \
-            ((ObjectTypeT *)&type)->virtFuns.size = (uint8(*)(Object const * const me))super_##class##_size;          \
+            ((ObjectTypeT *)&type)->virtFuns.size = (uint8(*)(Object const * const me))super##class##_size;           \
             Cbject_Utils_forEach(Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrideSetup_funOverride, __VA_ARGS__); \
             ((ObjectTypeT *)&type)->name = #class;                                                                    \
             ((ObjectTypeT *)&type)->superType = (ObjectType *)superClass##Type_instance();                            \

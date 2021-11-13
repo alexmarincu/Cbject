@@ -18,9 +18,8 @@ Var(Point, point) = {.x = 5, .y = 6};
 
 Init
 {
-    ShapeParams * shapeParams = super_params;
-    shapeParams->origin = params.origin;
-    me->data.radius = params.radius;
+    Shape_init(Cast(me, Shape), &(ShapeParams){params->origin});
+    me->data.radius = params->radius;
 }
 
 Terminate {}
@@ -30,7 +29,7 @@ GetterImpl(uint32, radius);
 
 FunOverride(void, draw, NA)
 {
-    super_Shape_draw(Cast(Shape, me));
+    superShape_draw(Cast(me, Shape));
     printf("Circle draw\n");
 }
 

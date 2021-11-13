@@ -17,23 +17,21 @@ GetterImpl(Color, color);
 
 Init
 {
-    CircleParams * circleParams = super_params;
-    circleParams->origin = params.origin;
-    circleParams->radius = params.radius;
-    me->data.color = params.color;
+    Circle_init(Cast(me, Circle), &(CircleParams){params->origin, params->radius});
+    me->data.color = params->color;
 }
 
 Terminate {}
 
 FunOverride(void, draw, NA)
 {
-    super_Shape_draw(Cast(Shape, me));
-    super_Circle_draw(Cast(Circle, me));
+    superShape_draw(Cast(me, Shape));
+    superCircle_draw(Cast(me, Circle));
     printf("ColoredCircle draw\n");
 }
 
 FunOverride(void, rotate, Params(uint8 const degrees))
 {
-    super_Circle_rotate(Cast(Circle, me), 30);
+    superCircle_rotate(Cast(me, Circle), 30);
     printf("ColoredCircle rotate %d\n", degrees);
 }

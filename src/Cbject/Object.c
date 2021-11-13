@@ -1,6 +1,6 @@
 #include "Object.h"
 
-static uint8 super_Object_size(Object const * const me);
+static uint8 superObject_size(Object const * const me);
 
 struct ObjectType
 {
@@ -16,19 +16,21 @@ struct Object
     ObjectType * type;
 };
 
-static uint8 super_Object_size(Object const * const me) { return sizeof(*me); }
+static uint8 superObject_size(Object const * const me) { return sizeof(*me); }
 uint8 Object_size(Object const * const me) { return me->type->virtFuns.size(me); }
 
-ObjectType const * const ObjectType_instance()
+ObjectType const * ObjectType_instance()
 {
     static ObjectType type = {
         .name = "Object",
         .superType = NULL,
-        .virtFuns = {.size = super_Object_size}};
+        .virtFuns = {.size = superObject_size}};
 
     return &type;
 }
 
 ObjectType const * Object_type(Object * const me) { return me->type; }
-void Object_init(Object * const me, ObjectParams const params) {}
+void Object_init(Object * const me, ObjectParams const * const params) {}
 void Object_terminate(Object * const me) {}
+Object * Object_toObject(Object * const me) { return me; }
+char const * Object_typeName(Object const * const me) { return me->type->name; }

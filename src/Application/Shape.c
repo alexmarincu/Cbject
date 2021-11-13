@@ -14,7 +14,7 @@ AbstractClassSetup(
 
 Init
 {
-    me->data.origin = params.origin;
+    me->data.origin = params->origin;
 }
 
 Terminate {}

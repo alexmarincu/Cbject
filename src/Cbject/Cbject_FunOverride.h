@@ -6,10 +6,10 @@
 Cbject_FunOverride_Prototype
 */
 #define Cbject_FunOverride_Prototype_caseNA(class, funReturnType, funName, ...) \
-    funReturnType super_##class##_##funName(class * const me)
+    funReturnType super##class##_##funName(class * const me)
 
 #define Cbject_FunOverride_Prototype_caseParams(class, funReturnType, funName, ...) \
-    funReturnType super_##class##_##funName(class * const me, __VA_ARGS__)
+    funReturnType super##class##_##funName(class * const me, __VA_ARGS__)
 
 #define Cbject_FunOverride_Prototype_x1(class, funReturnType, funName, paramsCase, ...) \
     Cbject_FunOverride_Prototype_case##paramsCase(class, funReturnType, funName, __VA_ARGS__)
@@ -24,10 +24,10 @@ Cbject_FunOverride_Prototype
 Cbject_FunOverride
 */
 #define Cbject_FunOverride_caseNA(class, superClass, funReturnType, funName, ...) \
-    superClass##Type_virtFuns((superClass##Type *)&type)->funName = (funReturnType(*)(superClass * const me))super_##class##_##funName
+    superClass##Type_virtFuns((superClass##Type *)&type)->funName = (funReturnType(*)(superClass * const me))super##class##_##funName
 
 #define Cbject_FunOverride_caseParams(class, superClass, funReturnType, funName, ...) \
-    superClass##Type_virtFuns((superClass##Type *)&type)->funName = (funReturnType(*)(superClass * const me, __VA_ARGS__))super_##class##_##funName
+    superClass##Type_virtFuns((superClass##Type *)&type)->funName = (funReturnType(*)(superClass * const me, __VA_ARGS__))super##class##_##funName
 
 #define Cbject_FunOverride_x3(class, superClass, funReturnType, funName, paramsCase, ...) \
     Cbject_FunOverride_case##paramsCase(class, superClass, funReturnType, funName, __VA_ARGS__)

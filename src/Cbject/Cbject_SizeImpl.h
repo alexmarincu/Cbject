@@ -5,6 +5,6 @@
 Cbject_SizeImpl
 */
 #define Cbject_SizeImpl(class) \
-    static uint8 super_##class##_size(class const * const me) { return sizeof(*me); }
+    static uint8 super##class##_size(class const * const me) { return sizeof(*me); }
 
 #endif // CBJECT_SIZEIMPL_H

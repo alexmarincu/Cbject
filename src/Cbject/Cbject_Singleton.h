@@ -8,10 +8,10 @@
 #include "Cbject_ClassTypeInfoInstanceFun.h"
 #include "Cbject_ClassTypeInfoStruct.h"
 #include "Cbject_FunDecls.h"
-#include "Cbject_InitFun.h"
+#include "Cbject_ObjectSetupFun.h"
+#include "Cbject_ObjectTeardownFun.h"
 #include "Cbject_SingletonInstanceFun.h"
 #include "Cbject_SizeImpl.h"
-#include "Cbject_TerminateFun.h"
 #include "Cbject_Utils.h"
 
 /*
@@ -23,8 +23,8 @@ Cbject_Singleton
     Cbject_ClassParamsStruct(class, NA);                              \
     Cbject_ClassDataStruct(class, dataPack);                          \
     Cbject_ClassContainerStruct(class, superClass);                   \
-    Cbject_InitFun_Prototype(class);                                  \
-    Cbject_TerminateFun_Prototype(class);                             \
+    Cbject_ObjectSetupFun_InitFunPrototype(class);                    \
+    Cbject_ObjectTeardownFun_TerminateFunPrototype(class);            \
     Cbject_SingletonInstanceFun_Prototype(class);                     \
     Cbject_FunDecls(funsPack);                                        \
     Cbject_AccessorFunDecls(dataPack)
@@ -51,11 +51,11 @@ Cbject_Singleton_Setup
     Cbject_ClassTypeInfoStruct_Def_caseNA(class, superClass);                      \
     Cbject_ClassStruct_Def(class, superClass);                                     \
     Cbject_ClassTypeInfoInstanceFun_Prototype(class);                              \
-    Cbject_SingletonInstanceFun_Impl(class);                                       \
     Cbject_SizeImpl(class);                                                        \
     Cbject_ClassTypeInfoInstanceFun_Impl(class, superClass, funOverrideSetupPack); \
-    Cbject_InitFun_Impl(class, superClass);                                        \
-    Cbject_TerminateFun_Impl(class, superClass)
+    Cbject_ObjectSetupFun_Impl(class, superClass);                                 \
+    Cbject_ObjectTeardownFun_Impl(class, superClass);                              \
+    Cbject_SingletonInstanceFun_Impl(class)
 
 #define Cbject_Singleton_Setup_caseNA(class, superClass, funOverrideSetupPack) \
     Cbject_Singleton_Setup_caseX(class, Object, funOverrideSetupPack)

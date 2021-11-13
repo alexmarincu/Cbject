@@ -6,7 +6,7 @@
 Cbject_ClassParamsStruct
 */
 #define Cbject_ClassParamsStruct_caseNA(class, ...) \
-    typedef char class##Params
+    typedef void class##Params
 
 #define Cbject_ClassParamsStruct_caseParams(class, ...)              \
     typedef struct class##Params                                     \

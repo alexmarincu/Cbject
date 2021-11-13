@@ -1,4 +1,5 @@
 #include "Rectangle.h"
+#include "Circle.h"
 #include "Shape.h"
 
 #undef Type
@@ -12,10 +13,9 @@ ClassSetup(
 
 Init
 {
-    ShapeParams * shapeParams = super_params;
-    shapeParams->origin = params.origin;
-    me->data.width = params.width;
-    me->data.height = params.height;
+    Shape_init(Cast(me, Shape), &(ShapeParams){params->origin});
+    me->data.width = params->width;
+    me->data.height = params->height;
 }
 
 Terminate {}

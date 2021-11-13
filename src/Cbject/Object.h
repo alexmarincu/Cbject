@@ -38,10 +38,12 @@ typedef union ObjectContainer
         })];
 } ObjectContainer;
 
-ObjectType const * const ObjectType_instance();
-void Object_init(Object * const me, ObjectParams const params);
+ObjectType const * ObjectType_instance();
+void Object_init(Object * const me, ObjectParams const * const params);
 void Object_terminate(Object * const me);
 uint8 Object_size(Object const * const me);
 ObjectType const * Object_type(Object * const me);
+char const * Object_typeName(Object const * const me);
+Object * Object_toObject(Object * const me);
 
 #endif // OBJECT_H
