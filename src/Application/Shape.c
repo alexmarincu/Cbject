@@ -12,19 +12,8 @@ AbstractClassSetup(
     FunOverrideSetup(
         ((void, draw, NA), Shape)));
 
-Init
-{
-    me->data.origin = params->origin;
-}
-
+Init { me->data.origin = params->origin; }
 Terminate {}
-
 SetterImpl(Point, origin);
 GetterImpl(Point, origin);
-
-FunOverride(void, draw, NA)
-{
-    printf("Shape draw\n");
-}
-
-#undef Type
+FunOverride(void, draw, NA) { printf("Shape draw\n"); }

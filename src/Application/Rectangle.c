@@ -20,7 +20,14 @@ Init
 
 Terminate {}
 
-Setter(uint32, width) { me->data.width = width; }
+Setter(uint32, width)
+{
+    if (width < 100)
+    {
+        me->data.width = width;
+    }
+}
+
 SetterImpl(uint32, height);
 GetterImpl(uint32, width);
 GetterImpl(uint32, height);
