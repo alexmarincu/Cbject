@@ -4,12 +4,14 @@
 
 OOP framework for C
 
-https://github.com/alexmarincu/Cbject/actions/workflows/ci.yml[image:https://github.com/alexmarincu/Cbject/actions/workflows/ci.yml/badge.svg[CI]] https://github.com/alexmarincu/Cbject/releases[image:https://img.shields.io/github/v/release/alexmarincu/Cbject?include_prereleases[GitHub release (latest by date including pre-releases)]] https://github.com/alexmarincu/Cbject/blob/master/LICENSE[image:https://img.shields.io/github/license/alexmarincu/Cbject[GitHub]] https://ko-fi.com/H2H36Z43N[image:https://ko-fi.com/img/githubbutton_sm.svg[ko-fi]]
+https://github.com/alexmarincu/Cbject/actions/workflows/ci.yml[image:https://github.com/alexmarincu/Cbject/actions/workflows/ci.yml/badge.svg[CI]] https://github.com/alexmarincu/Cbject/releases[image:https://img.shields.io/github/v/release/alexmarincu/Cbject?include_prereleases[GitHub release (latest by date including pre-releases)]] https://github.com/alexmarincu/Cbject/blob/master/LICENSE[image:https://img.shields.io/github/license/alexmarincu/Cbject[GitHub]]
+
+https://ko-fi.com/H2H36Z43N[image:https://ko-fi.com/img/githubbutton_sm.svg[ko-fi]]
 
 == Introduction
 Cbject makes it easier to write object oriented code in C.
 
-.Features
+.Features:
 * Classes
 * Abstract classes
 * Virtual functions
@@ -18,10 +20,12 @@ Cbject makes it easier to write object oriented code in C.
 * Single inheritance
 * Polymorphism
 
-.Roadmap
+.Roadmap:
 * Interfaces
 * Multiple inheritance with interfaces
 * Example projects
+
+To dive right in check the https://github.com/alexmarincu/Cbject/tree/master/src[src] or the https://github.com/alexmarincu/Cbject/tree/master/test[test] folder.
 
 == Basic syntax
 All files must include Cbject.h and must start with the following define:
@@ -239,6 +243,89 @@ Fun(void, makeSquare, Params(uint32 const edgeSize))
 [source,c]
 ----
 FunOverride(float, area, NA) { return me->data.width * me->data.height; }
+----
+
+=== Creating objects
+Objects can be created in the heap, stack or fetched from a static pool depending on the Cbject settings.
+
+.Create object in the heap memory
+[source,c]
+----
+Rectangle * rectangle = Create(Rectangle, &(RectangleParams){{4, 5}, 1, 2});
+----
+
+.Create object on the stack
+[source,c]
+----
+Rectangle * rectangle = StackCreate(Rectangle, &(RectangleParams){{4, 5}, 1, 2});
+----
+
+.Fetch object from the static pool
+[source,c]
+----
+Rectangle * rectangle = Get(Rectangle, &(RectangleParams){{4, 5}, 1, 2});
+----
+
+.Get instance of a singleton
+[source,c]
+----
+Application * const application = Application_instance();
+----
+
+=== Using objects
+All functions associated with a class begin with the name of the class. The object is passed as the first parameter of the function call.
+
+.Using the setters and getters of an object
+[source,c]
+----
+Rectangle_widthSet(rectangle, 2);
+Rectangle_heightSet(rectangle, 3);
+uint32 width = Rectangle_width(rectangle);
+uint32 height = Rectangle_height(rectangle);
+----
+
+.Using a class function
+[source,c]
+----
+Rectangle_makeSquare(rectangle, 5);
+----
+
+.Polymorphic function call
+[source,c]
+----
+float area = Shape_area(Cast(rectangle, Shape));
+----
+
+=== Casting
+Casting between types of objects can be made with the following macro:
+[source,c]
+----
+Cast(me, class)
+----
+If casting is not possible a runtime assert will be thrown.
+
+CAUTION: The Cast macro works only on Cbject objects. Do not try to use it with other variables or pointers. The behavior is undefined and it will probably result in a segfault.
+
+=== Deleting or terminating an object
+There is no garbage collection in C, so objects created in the heap need to be deleted, in order to free the memory.
+
+.Deleting an object created in the heap:
+[source,c]
+----
+Delete(rectangle, Rectangle);
+// Or
+Rectangle_delete(rectangle);
+----
+
+When delete is called the terminate function is called as well.
+For objects created on the stack, fetched from the static pool or for singletons, the terminate function should be called, if needed.
+
+NOTE: For example, a singleton can hold references to other objects created in the heap, which are deleted in the terminate function. So by calling the terminate function also the heap memory will be freed.
+
+.Terminating a singleton:
+[source,c]
+----
+Application_terminate(application);
 ----
 
 === To be continued...
