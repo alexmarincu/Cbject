@@ -2,7 +2,6 @@
 #define CBJECT_KEYWORDS_H
 #include "Cbject_AbstractClass.h"
 #include "Cbject_AccessorFun.h"
-#include "Cbject_Assert.h"
 #include "Cbject_Class.h"
 #include "Cbject_Const.h"
 #include "Cbject_Enum.h"
@@ -105,26 +104,5 @@
 
 #define Terminate \
     Cbject_ObjectTeardownFun_TerminateFunPrototype(Type)
-
-#define Assert(condition) \
-    Cbject_Assert(condition)
-
-#define StaticAssert(condition, identifier) \
-    Cbject_Assert_Static(condition, identifier)
-
-#define Cast(me, class) \
-    Object_to##class((Object *)me)
-
-#define Get(class, ...) \
-    class##_get(__VA_ARGS__)
-
-#define Create(class, ...) \
-    class##_create(__VA_ARGS__)
-
-#define Delete(me, class) \
-    class##_delete(me)
-
-#define StackCreate(class, ...) \
-    class##_stackCreate((class *)&(class##Container){}, __VA_ARGS__)
 
 #endif // CBJECT_KEYWORDS_H

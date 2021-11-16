@@ -2,9 +2,6 @@
 #define OBJECT_H
 #include "Cbject.h"
 
-#define Object_isTypeOf(me, class) \
-    (Object_type((Object *)(me)) == (ObjectType *)class##Type_instance())
-
 typedef struct ObjectType ObjectType;
 typedef struct Object Object;
 typedef char ObjectParams;
@@ -45,5 +42,6 @@ uint8 Object_size(Object const * const me);
 ObjectType const * Object_type(Object * const me);
 char const * Object_typeName(Object const * const me);
 Object * Object_toObject(Object * const me);
+bool Object_isTypeOf(Object const * const me, ObjectType const * const targetType);
 
 #endif // OBJECT_H

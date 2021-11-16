@@ -50,12 +50,12 @@ static Fun(void, circleExample, NA)
     Shape_draw(Cast(me->data.circle, Shape));
     Circle_rotate(me->data.circle, 30);
 
-    if (Object_isTypeOf(me->data.circle, Circle))
+    if (IsTypeOf(me->data.circle, Shape))
     {
-        printf("is circle\n");
+        printf("is Shape\n");
     }
 
-    printf("type name = %s\n", Object_typeName(Cast(me->data.circle, Object)));
+    printf("type name = %s\n", TypeName(me->data.circle));
 }
 
 static Fun(void, stackCircleExample, NA)
@@ -85,7 +85,7 @@ static Fun(void, rectangleExample, NA)
     printf("height = %d\n", Rectangle_height(me->data.rectangle));
     printf("area = %.2f\n", Shape_area(Cast(me->data.rectangle, Shape)));
     Shape_draw(Cast(me->data.rectangle, Shape));
-    printf("type name = %s\n", Object_typeName(Cast(me->data.rectangle, Object)));
+    printf("type name = %s\n", TypeName(me->data.rectangle));
 }
 
 static Fun(void, stackRectangleExample, NA)
@@ -146,6 +146,6 @@ static Fun(void, polymorphismExample, NA)
     for (uint8 i = 0; i < Array_size(shapes); i++)
     {
         printf("shapes[%d].area() = %.2f\n", i, Shape_area(Cast(shapes[i], Shape)));
-        printf("shapes[%d].size() = %d\n", i, Object_size(Cast(shapes[i], Object)));
+        printf("shapes[%d].size() = %d\n", i, Size(shapes[i]));
     }
 }

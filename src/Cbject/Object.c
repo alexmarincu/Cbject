@@ -34,3 +34,23 @@ void Object_init(Object * const me, ObjectParams const * const params) {}
 void Object_terminate(Object * const me) {}
 Object * Object_toObject(Object * const me) { return me; }
 char const * Object_typeName(Object const * const me) { return me->type->name; }
+
+bool Object_isTypeOf(Object const * const me, ObjectType const * const targetType)
+{
+    bool isTypeOf = true;
+    Assert((me != NULL) && "NULL pointer in IsTypeOf");
+    ObjectType const * type = (ObjectType *)me->type;
+    Assert((type != NULL) && "IsTypeOf cannot be used if object is not initialized");
+
+    while ((isTypeOf == true) && (type != targetType))
+    {
+        type = type->superType;
+
+        if (type == NULL)
+        {
+            isTypeOf = false;
+        }
+    }
+
+    return isTypeOf;
+}
