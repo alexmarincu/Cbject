@@ -1,13 +1,11 @@
 #include "Object.h"
 
-static uint8 superObject_size(Object const * const me);
-
 struct ObjectType
 {
     Cbject_Settings_maxAlign align;
+    uint64 size;
     char const * name;
     ObjectType * superType;
-    ObjectVirtFuns virtFuns;
 };
 
 struct Object
@@ -16,15 +14,14 @@ struct Object
     ObjectType * type;
 };
 
-static uint8 superObject_size(Object const * const me) { return sizeof(*me); }
-uint8 Object_size(Object const * const me) { return me->type->virtFuns.size(me); }
+uint8 Object_size(Object const * const me) { return me->type->size; }
 
 ObjectType const * ObjectType_instance()
 {
     static ObjectType type = {
+        .size = sizeof(Object),
         .name = "Object",
-        .superType = NULL,
-        .virtFuns = {.size = superObject_size}};
+        .superType = NULL};
 
     return &type;
 }

@@ -11,7 +11,6 @@
 #include "Cbject_ObjectSetupFun.h"
 #include "Cbject_ObjectTeardownFun.h"
 #include "Cbject_SingletonInstanceFun.h"
-#include "Cbject_SizeImpl.h"
 #include "Cbject_Utils.h"
 
 /*
@@ -51,7 +50,6 @@ Cbject_Singleton_Setup
     Cbject_ClassTypeInfoStruct_Def_caseNA(class, superClass);                      \
     Cbject_ClassStruct_Def(class, superClass);                                     \
     Cbject_ClassTypeInfoInstanceFun_Prototype(class);                              \
-    Cbject_SizeImpl(class);                                                        \
     Cbject_ClassTypeInfoInstanceFun_Impl(class, superClass, funOverrideSetupPack); \
     Cbject_ObjectSetupFun_Impl(class, superClass);                                 \
     Cbject_ObjectTeardownFun_Impl(class, superClass);                              \

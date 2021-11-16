@@ -18,9 +18,9 @@ typedef union ObjectTypeContainer
         struct
         {
             Cbject_Settings_maxAlign align;
+            uint64 size;
             char const * name;
             ObjectType * superType;
-            ObjectVirtFuns virtFuns;
         })];
 } ObjectTypeContainer;
 

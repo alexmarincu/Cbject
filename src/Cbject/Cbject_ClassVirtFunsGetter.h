@@ -18,9 +18,9 @@ Cbject_ClassVirtFunsGetter_Impl
         typedef struct ObjectTypeT                 \
         {                                          \
             Cbject_Settings_maxAlign align;        \
+            uint64 size;                           \
             char const * name;                     \
             ObjectType * superType;                \
-            ObjectVirtFuns virtFuns;               \
         } ObjectTypeT;                             \
                                                    \
         if (((ObjectTypeT *)meType)->name == NULL) \

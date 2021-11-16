@@ -14,7 +14,6 @@
 #include "Cbject_FunDecls.h"
 #include "Cbject_ObjectSetupFun.h"
 #include "Cbject_ObjectTeardownFun.h"
-#include "Cbject_SizeImpl.h"
 #include "Cbject_Utils.h"
 #include "Cbject_VirtFunSetup.h"
 
@@ -58,7 +57,6 @@ Cbject_AbstractClass_Setup
 #define Cbject_AbstractClass_Setup_caseX(class, superClass, virtFunSetupPack, funOverrideSetupPack) \
     Cbject_ClassTypeInfoStruct_Def(class, superClass, virtFunSetupPack);                            \
     Cbject_ClassStruct_Def(class, superClass);                                                      \
-    Cbject_SizeImpl(class);                                                                         \
     Cbject_ClassTypeInfoInstanceFun_Impl(class, superClass, funOverrideSetupPack);                  \
     Cbject_CastFun_Impl(class);                                                                     \
     Cbject_VirtFunSetup(class, virtFunSetupPack);                                                   \

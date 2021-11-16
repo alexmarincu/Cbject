@@ -28,17 +28,17 @@ Cbject_ClassTypeInfoInstanceFun_Impl
         typedef struct ObjectTypeT                                                                               \
         {                                                                                                        \
             Cbject_Settings_maxAlign align;                                                                      \
+            uint64 size;                                                                                         \
             char const * name;                                                                                   \
             ObjectType * superType;                                                                              \
-            ObjectVirtFuns virtFuns;                                                                             \
         } ObjectTypeT;                                                                                           \
                                                                                                                  \
         if (((ObjectTypeT *)&type)->name == NULL)                                                                \
         {                                                                                                        \
             /*static char const * const name = #class;  */                                                       \
             *((superClass##TypeContainer *)&type) = *((superClass##TypeContainer *)superClass##Type_instance()); \
+            ((ObjectTypeT *)&type)->size = sizeof(class);                                                        \
             ((ObjectTypeT *)&type)->name = NULL;                                                                 \
-            ((ObjectTypeT *)&type)->virtFuns.size = (uint8(*)(Object const * const me))super##class##_size;      \
             ((ObjectTypeT *)&type)->name = #class;                                                               \
             ((ObjectTypeT *)&type)->superType = (ObjectType *)superClass##Type_instance();                       \
         }                                                                                                        \
@@ -54,17 +54,17 @@ Cbject_ClassTypeInfoInstanceFun_Impl
         typedef struct ObjectTypeT                                                                                    \
         {                                                                                                             \
             Cbject_Settings_maxAlign align;                                                                           \
+            uint64 size;                                                                                              \
             char const * name;                                                                                        \
             ObjectType * superType;                                                                                   \
-            ObjectVirtFuns virtFuns;                                                                                  \
         } ObjectTypeT;                                                                                                \
                                                                                                                       \
         if (((ObjectTypeT *)&type)->name == NULL)                                                                     \
         {                                                                                                             \
             /*static char const * const name = #class;  */                                                            \
             *((superClass##TypeContainer *)&type) = *((superClass##TypeContainer *)superClass##Type_instance());      \
+            ((ObjectTypeT *)&type)->size = sizeof(class);                                                             \
             ((ObjectTypeT *)&type)->name = NULL;                                                                      \
-            ((ObjectTypeT *)&type)->virtFuns.size = (uint8(*)(Object const * const me))super##class##_size;           \
             Cbject_Utils_forEach(Cbject_ClassTypeInfoInstanceFun_Impl_caseFunOverrideSetup_funOverride, __VA_ARGS__); \
             ((ObjectTypeT *)&type)->name = #class;                                                                    \
             ((ObjectTypeT *)&type)->superType = (ObjectType *)superClass##Type_instance();                            \
