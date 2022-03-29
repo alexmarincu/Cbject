@@ -5,15 +5,15 @@
             "includePath": [
                 "${workspaceFolder}/src/**",
                 "${workspaceFolder}/test/**",
-                "/home/alex/.gem/ruby/2.7.0/gems/ceedling-0.31.1/vendor/unity/src/**",
-                "/home/alex/.gem/ruby/2.7.0/gems/ceedling-0.31.1/vendor/c_exception/lib/**"
+                "/lib/ruby/gems/2.7.0/gems/ceedling-0.31.1/vendor/unity/src/**",
+                "/lib/ruby/gems/2.7.0/gems/ceedling-0.31.1/vendor/c_exception/lib/**"
             ],
             "browse": {
                 "path": [
                     "${workspaceFolder}/src/**",
                     "${workspaceFolder}/test/**",
-                    "/home/alex/.gem/ruby/2.7.0/gems/ceedling-0.31.1/vendor/unity/src/**",
-                    "/home/alex/.gem/ruby/2.7.0/gems/ceedling-0.31.1/vendor/c_exception/lib/**"
+                    "/lib/ruby/gems/2.7.0/gems/ceedling-0.31.1/vendor/unity/src/**",
+                    "/lib/ruby/gems/2.7.0/gems/ceedling-0.31.1/vendor/c_exception/lib/**"
                 ]
             },
             "defines": [],

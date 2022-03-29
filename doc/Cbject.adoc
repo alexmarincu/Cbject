@@ -2,4 +2,4 @@
 :toc: right
 :sectnums:
 
-include::../src/Cbject/Cbject.h[tag=overview]
+== Cbject

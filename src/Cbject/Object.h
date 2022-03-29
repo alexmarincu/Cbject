@@ -1,47 +1,262 @@
 #ifndef OBJECT_H
 #define OBJECT_H
-#include "Cbject.h"
+#include "Class.h"
+#include "Types.h"
 
-typedef struct ObjectType ObjectType;
-typedef struct Object Object;
-typedef char ObjectParams;
+/**
+ * @brief Object members
+ *
+ */
+typedef struct Object {
+    Class const * class_;
+} Object;
 
-typedef struct ObjectVirtFuns
-{
-    uint8 (*size)(Object const * const me);
-} ObjectVirtFuns;
+/**
+ * @brief Helper macro for extending a class
+ *
+ */
+#define extends_(className) className _xSuper
 
-typedef union ObjectTypeContainer
-{
-    Cbject_Settings_maxAlign align;
-    char container[sizeof(
-        struct
-        {
-            Cbject_Settings_maxAlign align;
-            uint64 size;
-            char const * name;
-            ObjectType * superType;
-        })];
-} ObjectTypeContainer;
+/**
+ * @brief Helper macro for inheriting an interface
+ *
+ */
+#define contains_(typeName) typeName _x##typeName
 
-typedef union ObjectContainer
-{
-    Cbject_Settings_maxAlign align;
-    char container[sizeof(
-        struct
-        {
-            Cbject_Settings_maxAlign align;
-            ObjectType * type;
-        })];
-} ObjectContainer;
+/**
+ * @brief
+ *
+ * @param this_
+ * @param class_
+ * @return Object*
+ */
+Object * Object_init(Object * const this_, Class const * const class_);
 
-ObjectType const * ObjectType_instance();
-void Object_init(Object * const me, ObjectParams const * const params);
-void Object_terminate(Object * const me);
-uint8 Object_size(Object const * const me);
-ObjectType const * Object_type(Object * const me);
-char const * Object_typeName(Object const * const me);
-Object * Object_toObject(Object * const me);
-bool Object_isTypeOf(Object const * const me, ObjectType const * const targetType);
+/**
+ * @brief
+ *
+ */
+#define initObject_(this_, class_) Object_init(objectOf_(this_), class_)
+
+/**
+ * @brief
+ *
+ */
+#define objectOf_(this_) ((Object *)(this_))
+
+/**
+ * @brief
+ *
+ */
+#define classOf_(this_) objectOf_(this_)->class_
+
+/**
+ * @brief
+ *
+ */
+#define superClassOf_(this_) classOf_(this_)->superClass
+
+/**
+ * @brief
+ *
+ */
+#define classNameOf_(this_) classOf_(this_)->name
+
+/**
+ * @brief
+ *
+ */
+#define objectSizeOf_(this_) classOf_(this_)->objectSize
+
+/**
+ * @brief
+ *
+ */
+#define operationsOf_(className, this_) ((className##Operations *)classOf_(this_)->operations)
+
+/**
+ * @brief
+ *
+ */
+#define superOperationsOf_(className, this_) \
+    ((className##Operations *)superClassOf_(this_)->operations)
+
+/**
+ * @brief
+ *
+ */
+#define operationCall_(className, operationName, this_) \
+    operationsOf_(className, this_)->operationName(cast_(className, this_))
+
+/**
+ * @brief
+ *
+ */
+#define operationCallWithArgs_(className, operationName, this_, ...) \
+    operationsOf_(className, this_)->operationName(cast_(className, this_), __VA_ARGS__)
+
+/**
+ * @brief
+ *
+ */
+#define superOperationCall_(className, operationName, this_) \
+    superOperationsOf_(className, this_)->operationName(cast_(className, this_))
+
+/**
+ * @brief
+ *
+ */
+#define superOperationCallWithArgs_(className, operationName, this_, ...) \
+    superOperationsOf_(className, this_)->operationName(cast_(className, this_), __VA_ARGS__)
+
+/**
+ * @brief
+ *
+ * @param this_
+ * @param class_
+ * @return true
+ * @return false
+ */
+bool Object_isOfClass(Object const * const this_, Class const * const class_);
+
+/**
+ * @brief
+ *
+ */
+#define isOfClass_(this_, class_) Object_isOfClass(objectOf_(this_), class_)
+
+/**
+ * @brief
+ *
+ * @param this_
+ * @param class_
+ * @return Object*
+ */
+Object * Object_cast(Object * const this_, Class const * const class_);
+
+/**
+ * @brief
+ *
+ */
+#define cast_(className, this_) ((className *)Object_cast(objectOf_(this_), className##Class_()))
+
+/**
+ * @brief
+ *
+ * @param class_
+ * @return Object*
+ */
+Object * Object_new(Class const * const class_);
+
+/**
+ * @brief
+ *
+ */
+#define new_(className) ((className *)Object_new(className##Class_()))
+
+/**
+ * @brief
+ *
+ */
+#define obj_(className) (&(className){ 0 })
+
+/**
+ * @brief
+ *
+ * @param this_
+ */
+void Object_delete(Object * const this_);
+
+/**
+ * @brief
+ *
+ */
+#define delete_(this_) Object_delete(objectOf_(this_))
+
+/**
+ * @brief
+ *
+ * @param this_
+ */
+void Object_finalize(Object * this_);
+typedef void (*ObjectOperation_finalize)(Object * this_);
+
+/**
+ * @brief
+ *
+ */
+#define finalize_(this_) Object_finalize(objectOf_(this_))
+
+/**
+ * @brief
+ *
+ * @param this_
+ * @return Object*
+ */
+Object * Object_copy(Object const * const this_);
+typedef Object * (*ObjectOperation_copy)(Object const * const this_);
+
+/**
+ * @brief
+ *
+ */
+#define copy_(className, this_) ((className *)Object_copy(objectOf_(this_)))
+
+/**
+ * @brief
+ *
+ * @param this_
+ * @param other
+ * @return true
+ * @return false
+ */
+bool Object_equals(Object const * const this_, Object const * const other);
+typedef bool (*ObjectOperation_equals)(Object const * const this_, Object const * const other);
+
+/**
+ * @brief
+ *
+ */
+#define equals_(this_, other) Object_equals(objectOf_(this_), objectOf_(other))
+
+/**
+ * @brief
+ *
+ * @param this_
+ * @return uint64_t
+ */
+uint64_t Object_hashCode(Object const * const this_);
+typedef uint64_t (*ObjectOperation_hashCode)(Object const * const this_);
+
+/**
+ * @brief
+ *
+ */
+#define hashCode_(this_) Object_hashCode(objectOf_(this_))
+
+/**
+ * @brief
+ *
+ */
+typedef struct ObjectOperations {
+    ObjectOperation_finalize finalize;
+    ObjectOperation_hashCode hashCode;
+    ObjectOperation_copy copy;
+    ObjectOperation_equals equals;
+} ObjectOperations;
+
+/**
+ * @brief
+ *
+ * @return ObjectOperations const*
+ */
+ObjectOperations const * ObjectOperations_(void);
+
+/**
+ * @brief
+ *
+ * @return Class const*
+ */
+Class const * ObjectClass_(void);
 
 #endif // OBJECT_H

@@ -42,7 +42,7 @@
   :release:
     :compile:
       :*:
-        - -save-temps
+        # - -save-temps
         - -std=c99
 
 :cmock:
@@ -55,9 +55,9 @@
     - :callback
   :treat_externs: :include
   :treat_as:
-    uint8: HEX8
+    uint8_t: HEX8
     uint16: HEX16
-    uint32: UINT32
+    uint32_t: UINT32
     int8: INT8
     bool: UINT8
 
