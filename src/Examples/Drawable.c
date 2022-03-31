@@ -6,7 +6,7 @@
  * @param this_
  */
 void Drawable_draw(Drawable const * const this_) {
-    return interfaceOperationCall_(Drawable, draw, this_);
+    return interfaceCall_(Drawable, draw, this_);
 }
 static void draw(Drawable const * const this_) {
     assert_(false && "function not overriden");

@@ -7,7 +7,7 @@
  *
  */
 typedef struct Drawable {
-    interface_;
+    extends_(Interface);
 } Drawable;
 
 /**

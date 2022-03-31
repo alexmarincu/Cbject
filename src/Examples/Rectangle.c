@@ -7,8 +7,8 @@
  */
 struct Rectangle {
     extends_(Object);
-    contains_(Shape);
-    contains_(Drawable);
+    inherits_(Shape);
+    inherits_(Drawable);
     uint32_t width;
     uint32_t height;
 };
@@ -70,7 +70,7 @@ void Rectangle_makeSquare(Rectangle * const this_, uint32_t const edgeSize) {
  * @param this_
  */
 static void finalize(Rectangle * this_) {
-    superOperationCall_(Object, finalize, this_);
+    superCall_(Object, finalize, this_);
 }
 
 /**
@@ -81,7 +81,7 @@ static void finalize(Rectangle * this_) {
  */
 static Rectangle * copy(Rectangle const * const this_) {
     Rectangle * rectangle =
-        Rectangle_init(new_(Rectangle), this_->_xShape.origin, this_->height, this_->width);
+        Rectangle_init(new_(Rectangle), this_->_iShape.origin, this_->height, this_->width);
     return rectangle;
 }
 
@@ -101,7 +101,7 @@ static float area(Rectangle const * const this_) {
  * @param this_
  */
 static void draw(Rectangle const * const this_) {
-    printf("draw rectangle: %d, %d\n", this_->_xShape.origin.x, this_->_xShape.origin.y);
+    printf("draw rectangle: %d, %d\n", this_->_iShape.origin.x, this_->_iShape.origin.y);
 }
 
 /**
@@ -111,7 +111,7 @@ static void draw(Rectangle const * const this_) {
  * @return Shape*
  */
 Shape * Rectangle_getShape(Rectangle * const this_) {
-    return &this_->_xShape;
+    return &this_->_iShape;
 }
 
 /**
@@ -121,7 +121,7 @@ Shape * Rectangle_getShape(Rectangle * const this_) {
  * @return Drawable*
  */
 Drawable * Rectangle_getDrawable(Rectangle * const this_) {
-    return &this_->_xDrawable;
+    return &this_->_iDrawable;
 }
 
 /**
@@ -135,9 +135,9 @@ Drawable * Rectangle_getDrawable(Rectangle * const this_) {
  */
 Rectangle * Rectangle_init(Rectangle * this_, Point origin, uint32_t width, uint32_t height) {
     initObject_(this_, RectangleClass_());
-    initInterface_(&this_->_xShape, this_, &RectangleOperations_()->_xShapeOperations);
-    initInterface_(&this_->_xDrawable, this_, &RectangleOperations_()->_xDrawableOperations);
-    this_->_xShape.origin = origin;
+    initInterface_(&this_->_iShape, this_, &RectangleOperations_()->_iShapeOperations);
+    initInterface_(&this_->_iDrawable, this_, &RectangleOperations_()->_iDrawableOperations);
+    this_->_iShape.origin = origin;
     this_->width = width;
     this_->height = height;
     return this_;
@@ -153,13 +153,13 @@ RectangleOperations const * RectangleOperations_(void) {
     static bool isInitialized = false;
 
     if (!isInitialized) {
-        operations._xSuper = *ObjectOperations_();
-        operations._xDrawableOperations = *DrawableOperations_();
-        operations._xShapeOperations = *ShapeOperations_();
-        operations._xSuper.finalize = (ObjectOperation_finalize)finalize;
-        operations._xSuper.copy = (ObjectOperation_copy)copy;
-        operations._xShapeOperations.area = (ShapeOperation_area)area;
-        operations._xDrawableOperations.draw = (DrawableOperation_draw)draw;
+        operations._xObjectOperations = *ObjectOperations_();
+        operations._iDrawableOperations = *DrawableOperations_();
+        operations._iShapeOperations = *ShapeOperations_();
+        operations._xObjectOperations.finalize = (ObjectOperation_finalize)finalize;
+        operations._xObjectOperations.copy = (ObjectOperation_copy)copy;
+        operations._iShapeOperations.area = (ShapeOperation_area)area;
+        operations._iDrawableOperations.draw = (DrawableOperation_draw)draw;
         isInitialized = true;
     }
 

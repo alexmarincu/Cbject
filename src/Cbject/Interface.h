@@ -36,12 +36,6 @@ Interface * Interface_init(
  * @brief
  *
  */
-#define interface_ Interface _xInterface
-
-/**
- * @brief
- *
- */
 #define interfaceOf_(this_) ((Interface *)(this_))
 
 /**
@@ -61,16 +55,16 @@ Interface * Interface_init(
  * @brief
  *
  */
-#define interfaceOperationCall_(interfaceName, operationName, this_) \
-    interfaceOperationsOf_(interfaceName, this_)                     \
+#define interfaceCall_(interfaceName, operationName, this_) \
+    interfaceOperationsOf_(interfaceName, this_)            \
         ->operationName((interfaceName *)interfaceObjectOf_(this_))
 
 /**
  * @brief
  *
  */
-#define interfaceOperationCallWithArgs_(interfaceName, operationName, this_, ...) \
-    interfaceOperationsOf_(interfaceName, this_)                                  \
+#define interfaceCallWithArgs_(interfaceName, operationName, this_, ...) \
+    interfaceOperationsOf_(interfaceName, this_)                         \
         ->operationName((interfaceName *)interfaceObjectOf_(this_), __VA_ARGS__)
 
 #endif // INTERFACE_H

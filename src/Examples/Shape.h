@@ -8,7 +8,7 @@
  *
  */
 typedef struct Shape {
-    interface_;
+    extends_(Interface);
     Point origin;
 } Shape;
 

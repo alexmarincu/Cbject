@@ -44,8 +44,8 @@ void Application_main(Application * const this_) {
 
     Circle * c = Circle_init(new_(Circle), (Point){ 0, 0 }, 5);
 
-    printf("Circle area = %.2f\n", Shape_area(&c->_xShape));
-    Drawable_draw(&c->_xDrawable);
+    printf("Circle area = %.2f\n", Shape_area(&c->_iShape));
+    Drawable_draw(&c->_iDrawable);
     Circle_rotate(c, 8);
     delete_(c);
     r = Rectangle_init(new_(Rectangle), (Point){ 1, 1 }, 5, 7);
@@ -65,14 +65,14 @@ static void circleExample(Application * const this_) {
     printf("Set radius to 2\n");
     this_->circle->radius = 2;
     printf("radius = %d\n", this_->circle->radius);
-    printf("area = %.2f\n", Shape_area(&this_->circle->_xShape));
-    printf("origin.x = %d\n", this_->circle->_xShape.origin.x);
-    printf("origin.y = %d\n", this_->circle->_xShape.origin.y);
+    printf("area = %.2f\n", Shape_area(&this_->circle->_iShape));
+    printf("origin.x = %d\n", this_->circle->_iShape.origin.x);
+    printf("origin.y = %d\n", this_->circle->_iShape.origin.y);
     printf("Set origin to {2, 3}\n");
-    this_->circle->_xShape.origin = (Point){ 2, 3 };
-    printf("origin.x = %d\n", this_->circle->_xShape.origin.x);
-    printf("origin.y = %d\n", this_->circle->_xShape.origin.y);
-    Drawable_draw(&this_->circle->_xDrawable);
+    this_->circle->_iShape.origin = (Point){ 2, 3 };
+    printf("origin.x = %d\n", this_->circle->_iShape.origin.x);
+    printf("origin.y = %d\n", this_->circle->_iShape.origin.y);
+    Drawable_draw(&this_->circle->_iDrawable);
     Circle_rotate(this_->circle, 30);
 
     if (isOfClass_(this_->circle, CircleClass_())) {
@@ -111,7 +111,7 @@ static void polymorphismExample(Application * const this_) {
     printf("\n= Polymorphism example:\n");
 
     Shape * const shapes[] = {
-        &this_->circle->_xShape,
+        &this_->circle->_iShape,
         Rectangle_getShape(this_->rectangle),
     };
 

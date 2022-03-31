@@ -10,8 +10,8 @@
  */
 typedef struct Circle {
     extends_(Object);
-    contains_(Shape);
-    contains_(Drawable);
+    inherits_(Shape);
+    inherits_(Drawable);
     uint32_t radius;
 } Circle;
 
@@ -39,8 +39,8 @@ void Circle_rotate(Circle const * const this_, uint8_t const degrees);
  */
 typedef struct CircleOperations {
     extends_(ObjectOperations);
-    contains_(ShapeOperations);
-    contains_(DrawableOperations);
+    inherits_(ShapeOperations);
+    inherits_(DrawableOperations);
 } CircleOperations;
 
 /**

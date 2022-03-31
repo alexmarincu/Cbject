@@ -8,7 +8,7 @@
  * @return Circle*
  */
 static Circle * copy(Circle const * const this_) {
-    Circle * rectangle = Circle_init(new_(Circle), this_->_xShape.origin, this_->radius);
+    Circle * rectangle = Circle_init(new_(Circle), this_->_iShape.origin, this_->radius);
     return rectangle;
 }
 
@@ -49,9 +49,9 @@ void Circle_rotate(Circle const * const this_, uint8_t const degrees) {
  */
 Circle * Circle_init(Circle * this_, Point origin, uint32_t radius) {
     initObject_(this_, CircleClass_());
-    initInterface_(&this_->_xShape, this_, &CircleOperations_()->_xShapeOperations);
-    initInterface_(&this_->_xDrawable, this_, &CircleOperations_()->_xDrawableOperations);
-    this_->_xShape.origin = origin;
+    initInterface_(&this_->_iShape, this_, &CircleOperations_()->_iShapeOperations);
+    initInterface_(&this_->_iDrawable, this_, &CircleOperations_()->_iDrawableOperations);
+    this_->_iShape.origin = origin;
     this_->radius = radius;
     return this_;
 }
@@ -62,7 +62,7 @@ Circle * Circle_init(Circle * this_, Point origin, uint32_t radius) {
  * @param this_
  */
 static void finalize(Circle * this_) {
-    superOperationCall_(Object, finalize, this_);
+    superCall_(Object, finalize, this_);
 }
 
 /**
@@ -75,13 +75,13 @@ CircleOperations const * CircleOperations_(void) {
     static bool isInitialized = false;
 
     if (!isInitialized) {
-        operations._xSuper = *ObjectOperations_();
-        operations._xDrawableOperations = *DrawableOperations_();
-        operations._xShapeOperations = *ShapeOperations_();
-        operations._xSuper.finalize = (ObjectOperation_finalize)finalize;
-        operations._xSuper.copy = (ObjectOperation_copy)copy;
-        operations._xShapeOperations.area = (ShapeOperation_area)area;
-        operations._xDrawableOperations.draw = (DrawableOperation_draw)draw;
+        operations._xObjectOperations = *ObjectOperations_();
+        operations._iDrawableOperations = *DrawableOperations_();
+        operations._iShapeOperations = *ShapeOperations_();
+        operations._xObjectOperations.finalize = (ObjectOperation_finalize)finalize;
+        operations._xObjectOperations.copy = (ObjectOperation_copy)copy;
+        operations._iShapeOperations.area = (ShapeOperation_area)area;
+        operations._iDrawableOperations.draw = (DrawableOperation_draw)draw;
         isInitialized = true;
     }
 

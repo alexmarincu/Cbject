@@ -7,7 +7,7 @@
  * @return float
  */
 float Shape_area(Shape const * const this_) {
-    return interfaceOperationCall_(Shape, area, this_);
+    return interfaceCall_(Shape, area, this_);
 }
 static float area(Shape const * const this_) {
     assert_(false && "function not overriden");

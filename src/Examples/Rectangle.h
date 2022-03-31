@@ -83,8 +83,8 @@ void Rectangle_makeSquare(Rectangle * const this_, uint32_t const edgeSize);
  */
 typedef struct RectangleOperations {
     extends_(ObjectOperations);
-    contains_(ShapeOperations);
-    contains_(DrawableOperations);
+    inherits_(ShapeOperations);
+    inherits_(DrawableOperations);
 } RectangleOperations;
 
 /**

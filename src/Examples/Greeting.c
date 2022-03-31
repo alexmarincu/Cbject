@@ -42,7 +42,7 @@ GreetingOperations const * GreetingOperations_(void) {
     static bool isInitialized = false;
 
     if (!isInitialized) {
-        operations._xSuper = *ObjectOperations_();
+        operations._xObjectOperations = *ObjectOperations_();
         isInitialized = true;
     }
 

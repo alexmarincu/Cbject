@@ -12,40 +12,41 @@ typedef struct Object {
 } Object;
 
 /**
- * @brief Helper macro for extending a class
+ * @brief Helper macro for extending an object
  *
+ * @param type The type of the parent object
  */
-#define extends_(className) className _xSuper
+#define extends_(type) type _x##type
 
 /**
  * @brief Helper macro for inheriting an interface
  *
  */
-#define contains_(typeName) typeName _x##typeName
+#define inherits_(type) type _i##type
 
 /**
- * @brief
+ * @brief Initializes an object
  *
- * @param this_
- * @param class_
- * @return Object*
+ * @param this_ The object
+ * @param class_ The class
+ * @return Object* The initialized object
  */
 Object * Object_init(Object * const this_, Class const * const class_);
 
 /**
- * @brief
+ * @brief Helper macro for initializing an object
  *
  */
 #define initObject_(this_, class_) Object_init(objectOf_(this_), class_)
 
 /**
- * @brief
+ * @brief Helper macro for casting to (Object *)
  *
  */
 #define objectOf_(this_) ((Object *)(this_))
 
 /**
- * @brief
+ * @brief Helper macro to get class of an object
  *
  */
 #define classOf_(this_) objectOf_(this_)->class_
@@ -85,28 +86,28 @@ Object * Object_init(Object * const this_, Class const * const class_);
  * @brief
  *
  */
-#define operationCall_(className, operationName, this_) \
+#define call_(className, operationName, this_) \
     operationsOf_(className, this_)->operationName(cast_(className, this_))
 
 /**
  * @brief
  *
  */
-#define operationCallWithArgs_(className, operationName, this_, ...) \
+#define callWithArgs_(className, operationName, this_, ...) \
     operationsOf_(className, this_)->operationName(cast_(className, this_), __VA_ARGS__)
 
 /**
  * @brief
  *
  */
-#define superOperationCall_(className, operationName, this_) \
+#define superCall_(className, operationName, this_) \
     superOperationsOf_(className, this_)->operationName(cast_(className, this_))
 
 /**
  * @brief
  *
  */
-#define superOperationCallWithArgs_(className, operationName, this_, ...) \
+#define supercallWithArgs_(className, operationName, this_, ...) \
     superOperationsOf_(className, this_)->operationName(cast_(className, this_), __VA_ARGS__)
 
 /**
