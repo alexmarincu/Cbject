@@ -24,9 +24,11 @@ void tearDown(void) {
  *
  */
 void test_Class_init(void) {
-    Class * class_ = Class_init(salloc_(Class), "Test", 1, &class_, &class_);
+    Class * superClass = salloc_(Class);
+    Any * operations = salloc_(Class);
+    Class * class_ = Class_init(salloc_(Class), "Test", 1, operations, superClass);
     TEST_ASSERT_EQUAL_STRING("Test", class_->name);
     TEST_ASSERT_EQUAL_size_t(1, class_->objectSize);
-    TEST_ASSERT_EQUAL_PTR(&class_, class_->operations);
-    TEST_ASSERT_EQUAL_PTR(&class_, class_->superClass);
+    TEST_ASSERT_EQUAL_PTR(operations, class_->operations);
+    TEST_ASSERT_EQUAL_PTR(superClass, class_->superClass);
 }
