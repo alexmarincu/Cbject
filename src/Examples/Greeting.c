@@ -39,12 +39,10 @@ Greeting * Greeting_init(Greeting * this_, char * const text) {
  */
 GreetingOperations const * GreetingOperations_(void) {
     static GreetingOperations operations;
-    static bool isInitialized = false;
 
-    if (!isInitialized) {
+    doOnce_({
         operations._xObjectOperations = *ObjectOperations_();
-        isInitialized = true;
-    }
+    });
 
     return &operations;
 }
@@ -56,12 +54,10 @@ GreetingOperations const * GreetingOperations_(void) {
  */
 Class const * GreetingClass_(void) {
     static Class class_;
-    static bool isInitialized = false;
 
-    if (!isInitialized) {
+    doOnce_({
         initClass_(&class_, Greeting, ObjectClass_());
-        isInitialized = true;
-    }
+    });
 
     return &class_;
 }

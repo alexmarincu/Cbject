@@ -21,12 +21,10 @@ static float area(Shape const * const this_) {
  */
 ShapeOperations const * ShapeOperations_(void) {
     static ShapeOperations operations;
-    static bool isInitialized = false;
 
-    if (!isInitialized) {
+    doOnce_({
         operations.area = area;
-        isInitialized = true;
-    }
+    });
 
     return &operations;
 }

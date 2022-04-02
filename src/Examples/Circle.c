@@ -72,9 +72,8 @@ static void finalize(Circle * this_) {
  */
 CircleOperations const * CircleOperations_(void) {
     static CircleOperations operations;
-    static bool isInitialized = false;
 
-    if (!isInitialized) {
+    doOnce_({
         operations._xObjectOperations = *ObjectOperations_();
         operations._iDrawableOperations = *DrawableOperations_();
         operations._iShapeOperations = *ShapeOperations_();
@@ -82,8 +81,7 @@ CircleOperations const * CircleOperations_(void) {
         operations._xObjectOperations.copy = (ObjectOperation_copy)copy;
         operations._iShapeOperations.area = (ShapeOperation_area)area;
         operations._iDrawableOperations.draw = (DrawableOperation_draw)draw;
-        isInitialized = true;
-    }
+    });
 
     return &operations;
 }
@@ -95,12 +93,10 @@ CircleOperations const * CircleOperations_(void) {
  */
 Class const * CircleClass_(void) {
     static Class class_;
-    static bool isInitialized = false;
 
-    if (!isInitialized) {
+    doOnce_({
         initClass_(&class_, Circle, ObjectClass_());
-        isInitialized = true;
-    }
+    });
 
     return &class_;
 }

@@ -150,9 +150,8 @@ Rectangle * Rectangle_init(Rectangle * this_, Point origin, uint32_t width, uint
  */
 RectangleOperations const * RectangleOperations_(void) {
     static RectangleOperations operations;
-    static bool isInitialized = false;
 
-    if (!isInitialized) {
+    doOnce_({
         operations._xObjectOperations = *ObjectOperations_();
         operations._iDrawableOperations = *DrawableOperations_();
         operations._iShapeOperations = *ShapeOperations_();
@@ -160,8 +159,7 @@ RectangleOperations const * RectangleOperations_(void) {
         operations._xObjectOperations.copy = (ObjectOperation_copy)copy;
         operations._iShapeOperations.area = (ShapeOperation_area)area;
         operations._iDrawableOperations.draw = (DrawableOperation_draw)draw;
-        isInitialized = true;
-    }
+    });
 
     return &operations;
 }
@@ -173,12 +171,10 @@ RectangleOperations const * RectangleOperations_(void) {
  */
 Class const * RectangleClass_(void) {
     static Class class_;
-    static bool isInitialized = false;
 
-    if (!isInitialized) {
+    doOnce_({
         initClass_(&class_, Rectangle, ObjectClass_());
-        isInitialized = true;
-    }
+    });
 
     return &class_;
 }

@@ -150,12 +150,10 @@ ObjectOperations const * ObjectOperations_(void) {
  */
 Class const * ObjectClass_(void) {
     static Class class_;
-    static bool isInitialized = false;
 
-    if (isInitialized == false) {
+    doOnce_({
         initClass_(&class_, Object, NULL);
-        isInitialized = true;
-    }
+    });
 
     return &class_;
 }

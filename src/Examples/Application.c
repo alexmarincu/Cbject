@@ -149,11 +149,10 @@ static Application * copy(Application * const this_) {
  */
 Application * Application_(void) {
     static Application this_;
-    static bool isInitialized = false;
 
-    if (!isInitialized) {
+    doOnce_({
         init(&this_);
-    }
+    });
 
     return &this_;
 }
@@ -165,14 +164,12 @@ Application * Application_(void) {
  */
 ApplicationOperations const * ApplicationOperations_(void) {
     static ApplicationOperations operations;
-    static bool isInitialized = false;
 
-    if (!isInitialized) {
+    doOnce_({
         operations.objectOperations = *ObjectOperations_();
         operations.objectOperations.finalize = (ObjectOperation_finalize)finalize;
         operations.objectOperations.copy = (ObjectOperation_copy)copy;
-        isInitialized = true;
-    }
+    });
 
     return &operations;
 }
@@ -184,12 +181,10 @@ ApplicationOperations const * ApplicationOperations_(void) {
  */
 Class const * ApplicationClass_(void) {
     static Class class_;
-    static bool isInitialized = false;
 
-    if (!isInitialized) {
+    doOnce_({
         initClass_(&class_, Application, ObjectClass_());
-        isInitialized = true;
-    }
+    });
 
     return &class_;
 }
