@@ -29,13 +29,13 @@ typedef void Any;
  */
 #define salloc_(typeName) (&(typeName){ 0 })
 
-#define doOnce_(block)            \
-    do {                          \
-        static bool once = false; \
-        if (once == false) {      \
-            do block while (0);   \
-            once = true;          \
-        }                         \
+#define doOnce_(...)                  \
+    do {                              \
+        static bool once = false;     \
+        if (once == false) {          \
+            do __VA_ARGS__ while (0); \
+            once = true;              \
+        }                             \
     } while (0);
 
 #endif // TYPES_H
