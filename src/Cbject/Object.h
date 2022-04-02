@@ -158,12 +158,6 @@ Object * Object_new(Class const * const class_);
 /**
  * @brief
  *
- */
-#define obj_(className) (&(className){ 0 })
-
-/**
- * @brief
- *
  * @param this_
  */
 void Object_delete(Object * const this_);

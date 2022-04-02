@@ -53,6 +53,7 @@
   :plugins:
     - :ignore
     - :callback
+    - :ignore_arg
   :treat_externs: :include
   :treat_as:
     uint8_t: HEX8

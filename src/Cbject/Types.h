@@ -22,4 +22,11 @@ typedef void Any;
  */
 #define anyOf_(this_) ((Any *)(this_))
 
+/**
+ * @brief Helper macro for allocating memory on stack
+ *
+ * @param typeName The type to allocate memory for
+ */
+#define salloc_(typeName) (&(typeName){ 0 })
+
 #endif // TYPES_H

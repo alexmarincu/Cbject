@@ -14,9 +14,8 @@ struct Application {
     Rectangle * rectangle;
 };
 
-static void printBeginMessage(Application * const this_);
-static void printEndMessage(Application * const this_);
 static void circleExample(Application * const this_);
+static void greetingExample(Application * const this_);
 static void rectangleExample(Application * const this_);
 static void polymorphismExample(Application * const this_);
 
@@ -26,31 +25,21 @@ static void polymorphismExample(Application * const this_);
  * @param this_
  */
 void Application_main(Application * const this_) {
-    Greeting * greeting = Greeting_init(new_(Greeting), "Hello Cbject!");
-    Greeting_print(greeting);
-    delete_(greeting);
-
+    greetingExample(this_);
     circleExample(this_);
     rectangleExample(this_);
     polymorphismExample(this_);
-    Rectangle * r = Rectangle_init(new_(Rectangle), (Point){ 1, 1 }, 5, 7);
+}
 
-    printf("area = %.2f\n", Shape_area(Rectangle_getShape(r)));
-    delete_(r);
-    r = Rectangle_init(new_(Rectangle), (Point){ 1, 1 }, 6, 5);
-    delete_(r);
-
-    Drawable_draw(Rectangle_getDrawable(r));
-
-    Circle * c = Circle_init(new_(Circle), (Point){ 0, 0 }, 5);
-
-    printf("Circle area = %.2f\n", Shape_area(&c->_iShape));
-    Drawable_draw(&c->_iDrawable);
-    Circle_rotate(c, 8);
-    delete_(c);
-    r = Rectangle_init(new_(Rectangle), (Point){ 1, 1 }, 5, 7);
-
-    printf("Rect hash = %d\n", hashCode_(r));
+/**
+ * @brief
+ *
+ * @param this_
+ */
+static void greetingExample(Application * const this_) {
+    Greeting * greeting = Greeting_init(new_(Greeting), "Hello Cbject!");
+    Greeting_print(greeting);
+    delete_(greeting);
 }
 
 /**
@@ -143,6 +132,16 @@ static void finalize(Application * const this_) {
 }
 
 /**
+ * @brief Returns the same singleton object instead of a copy
+ *
+ * @param this_ The singleton Application object
+ * @return Application*
+ */
+static Application * copy(Application * const this_) {
+    return this_;
+}
+
+/**
  * @brief
  *
  * @param params
@@ -171,6 +170,7 @@ ApplicationOperations const * ApplicationOperations_(void) {
     if (!isInitialized) {
         operations.objectOperations = *ObjectOperations_();
         operations.objectOperations.finalize = (ObjectOperation_finalize)finalize;
+        operations.objectOperations.copy = (ObjectOperation_copy)copy;
         isInitialized = true;
     }
 
