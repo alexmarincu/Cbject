@@ -25,8 +25,7 @@ Greeting * Greeting_init(Greeting * this_, char * const text);
 void Greeting_print(Greeting * const this_);
 
 /**
- * @brief
- *
+ * @brief Contains Greeting's operations (aka virtual functions)
  */
 typedef struct GreetingOperations {
     extends_(ObjectOperations);

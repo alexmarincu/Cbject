@@ -78,8 +78,7 @@ void Rectangle_setHeight(Rectangle * const this_, uint32_t const height);
 void Rectangle_makeSquare(Rectangle * const this_, uint32_t const edgeSize);
 
 /**
- * @brief
- *
+ * @brief Contains Rectangle's operations (aka virtual functions)
  */
 typedef struct RectangleOperations {
     extends_(ObjectOperations);

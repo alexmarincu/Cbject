@@ -3,34 +3,22 @@
 #include "Cbject.h"
 
 /**
- * @brief
- *
+ * @brief interface Drawable
  */
 typedef struct Drawable {
     extends_(Interface);
 } Drawable;
 
-/**
- * @brief
- *
- * @param this_
- */
 void Drawable_draw(Drawable const * const this_);
 typedef void (*DrawableOperation_draw)(Drawable const * const this_);
 
 /**
- * @brief
- *
+ * @brief Contains Drawable's operations (aka virtual functions)
  */
 typedef struct DrawableOperations {
     DrawableOperation_draw draw;
 } DrawableOperations;
 
-/**
- * @brief
- *
- * @return DrawableOperations const*
- */
 DrawableOperations const * DrawableOperations_(void);
 
 #endif // DRAWABLE_H

@@ -101,7 +101,27 @@ static float area(Rectangle const * const this_) {
  * @param this_
  */
 static void draw(Rectangle const * const this_) {
-    printf("draw rectangle: %d, %d\n", this_->_iShape.origin.x, this_->_iShape.origin.y);
+    for (uint8_t i = 0; i < this_->width; i++) {
+        printf("--");
+    }
+
+    printf("\n");
+
+    for (uint8_t i = 0; i < this_->height; i++) {
+        printf("|");
+
+        for (uint8_t i = 0; i < this_->width - 1; i++) {
+            printf("  ");
+        }
+
+        printf("|\n");
+    }
+
+    for (uint8_t i = 0; i < this_->width; i++) {
+        printf("--");
+    }
+
+    printf("\n");
 }
 
 /**

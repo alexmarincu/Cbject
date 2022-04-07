@@ -34,8 +34,7 @@ Circle * Circle_init(Circle * this_, Point origin, uint32_t radius);
 void Circle_rotate(Circle const * const this_, uint8_t const degrees);
 
 /**
- * @brief
- *
+ * @brief Contains Circle's operations (aka virtual functions)
  */
 typedef struct CircleOperations {
     extends_(ObjectOperations);

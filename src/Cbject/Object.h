@@ -4,8 +4,7 @@
 #include "Types.h"
 
 /**
- * @brief Object members
- *
+ * @brief class Object
  */
 typedef struct Object {
     Class const * class_;
@@ -21,16 +20,10 @@ typedef struct Object {
 /**
  * @brief Helper macro for inheriting an interface
  *
+ * @param type The type of the interface
  */
 #define inherits_(type) type _i##type
 
-/**
- * @brief Initializes an object
- *
- * @param this_ The object
- * @param class_ The class
- * @return Object* The initialized object
- */
 Object * Object_init(Object * const this_, Class const * const class_);
 
 /**
@@ -230,8 +223,7 @@ typedef uint64_t (*ObjectOperation_hashCode)(Object const * const this_);
 #define hashCode_(this_) Object_hashCode(objectOf_(this_))
 
 /**
- * @brief
- *
+ * @brief Contains Object's operations (aka virtual functions)
  */
 typedef struct ObjectOperations {
     ObjectOperation_finalize finalize;

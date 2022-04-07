@@ -4,36 +4,23 @@
 #include "Point.h"
 
 /**
- * @brief
- *
+ * @brief interface Shape
  */
 typedef struct Shape {
     extends_(Interface);
     Point origin;
 } Shape;
 
-/**
- * @brief
- *
- * @param this_
- * @return float
- */
 float Shape_area(Shape const * const this_);
 typedef float (*ShapeOperation_area)(Shape const * const this_);
 
 /**
- * @brief
- *
+ * @brief Contains Shape's operations (aka virtual functions)
  */
 typedef struct ShapeOperations {
     ShapeOperation_area area;
 } ShapeOperations;
 
-/**
- * @brief
- *
- * @return ShapeOperations const*
- */
 ShapeOperations const * ShapeOperations_(void);
 
 #endif // SHAPE_H

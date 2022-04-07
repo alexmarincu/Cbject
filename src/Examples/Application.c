@@ -52,7 +52,7 @@ static void circleExample(Application * const this_) {
     this_->circle = Circle_init(new_(Circle), (Point){ 0, 1 }, 1);
     printf("radius = %d\n", this_->circle->radius);
     printf("Set radius to 2\n");
-    this_->circle->radius = 2;
+    this_->circle->radius = 10;
     printf("radius = %d\n", this_->circle->radius);
     printf("area = %.2f\n", Shape_area(&this_->circle->_iShape));
     printf("origin.x = %d\n", this_->circle->_iShape.origin.x);
@@ -88,6 +88,7 @@ static void rectangleExample(Application * const this_) {
     printf("height = %d\n", Rectangle_getHeight(this_->rectangle));
     Rectangle * rectangle = Rectangle_init(new_(Rectangle), (Point){ 0, 0 }, 5, 10);
     printf("area = %.2f\n", Shape_area(Rectangle_getShape(rectangle)));
+    Drawable_draw(Rectangle_getDrawable(rectangle));
     delete_(rectangle);
 }
 

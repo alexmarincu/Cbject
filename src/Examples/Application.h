@@ -23,8 +23,7 @@ Application * Application_(void);
 void Application_main(Application * const this_);
 
 /**
- * @brief
- *
+ * @brief Contains Application's operations (aka virtual functions)
  */
 typedef struct ApplicationOperations {
     ObjectOperations objectOperations;

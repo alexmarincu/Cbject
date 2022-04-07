@@ -118,10 +118,11 @@ void Object_delete(Object * const this_) {
 }
 
 /**
- * @brief
+ * @brief Initializes an object
  *
- * @param this_
- * @param class_
+ * @param this_ The object
+ * @param class_ The class
+ * @return Object* The initialized object
  */
 Object * Object_init(Object * const this_, Class const * const class_) {
     this_->class_ = class_;

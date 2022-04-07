@@ -2,8 +2,7 @@
 #define POINT_H
 
 /**
- * @brief
- *
+ * @brief 2d representation of a point
  */
 typedef struct Point {
     uint32_t x;

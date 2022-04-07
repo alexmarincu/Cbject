@@ -28,7 +28,17 @@ static float area(Circle const * const this_) {
  * @param this_
  */
 static void draw(Circle const * const this_) {
-    printf("draw circle: %d\n", this_->radius);
+    int const radius = this_->radius;
+    int const tolerance = radius / 2;
+
+    for (int x = -radius; x <= radius; x++) {
+        for (int y = -radius; y <= radius; y++) {
+            int eq = x * x + y * y - radius * radius;
+            printf(((eq < tolerance) && (eq > -tolerance)) ? "*" : " ");
+        }
+
+        printf("\r\n");
+    }
 }
 
 /**
