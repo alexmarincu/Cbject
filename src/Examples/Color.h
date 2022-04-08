@@ -3,7 +3,6 @@
 
 /**
  * @brief
- *
  */
 typedef enum Color {
     Color_red,

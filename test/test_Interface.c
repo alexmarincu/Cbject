@@ -7,21 +7,18 @@ TEST_FILE("Interface.c")
 
 /**
  * @brief
- *
  */
 void setUp(void) {
 }
 
 /**
  * @brief
- *
  */
 void tearDown(void) {
 }
 
 /**
  * @brief Test Interface initialization
- *
  */
 void test_Interface_init(void) {
     Object * object = salloc_(Object);

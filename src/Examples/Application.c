@@ -6,7 +6,6 @@
 
 /**
  * @brief
- *
  */
 struct Application {
     extends_(Object);
@@ -14,29 +13,29 @@ struct Application {
     Rectangle * rectangle;
 };
 
-static void circleExample(Application * const this_);
-static void greetingExample(Application * const this_);
-static void rectangleExample(Application * const this_);
-static void polymorphismExample(Application * const this_);
+static void circleExample(Application * const me);
+static void greetingExample(Application * const me);
+static void rectangleExample(Application * const me);
+static void polymorphismExample(Application * const me);
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-void Application_main(Application * const this_) {
-    greetingExample(this_);
-    circleExample(this_);
-    rectangleExample(this_);
-    polymorphismExample(this_);
+void Application_main(Application * const me) {
+    greetingExample(me);
+    circleExample(me);
+    rectangleExample(me);
+    polymorphismExample(me);
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-static void greetingExample(Application * const this_) {
+static void greetingExample(Application * const me) {
     Greeting * greeting = Greeting_init(new_(Greeting), "Hello Cbject!");
     Greeting_print(greeting);
     delete_(greeting);
@@ -45,47 +44,47 @@ static void greetingExample(Application * const this_) {
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-static void circleExample(Application * const this_) {
+static void circleExample(Application * const me) {
     printf("\n= Circle example:\n");
-    this_->circle = Circle_init(new_(Circle), (Point){ 0, 1 }, 1);
-    printf("radius = %d\n", this_->circle->radius);
+    me->circle = Circle_init(new_(Circle), (Point){ 0, 1 }, 1);
+    printf("radius = %d\n", me->circle->radius);
     printf("Set radius to 2\n");
-    this_->circle->radius = 10;
-    printf("radius = %d\n", this_->circle->radius);
-    printf("area = %.2f\n", Shape_area(&this_->circle->_iShape));
-    printf("origin.x = %d\n", this_->circle->_iShape.origin.x);
-    printf("origin.y = %d\n", this_->circle->_iShape.origin.y);
+    me->circle->radius = 10;
+    printf("radius = %d\n", me->circle->radius);
+    printf("area = %.2f\n", Shape_area(&me->circle->_iShape));
+    printf("origin.x = %d\n", me->circle->_iShape.origin.x);
+    printf("origin.y = %d\n", me->circle->_iShape.origin.y);
     printf("Set origin to {2, 3}\n");
-    this_->circle->_iShape.origin = (Point){ 2, 3 };
-    printf("origin.x = %d\n", this_->circle->_iShape.origin.x);
-    printf("origin.y = %d\n", this_->circle->_iShape.origin.y);
-    Drawable_draw(&this_->circle->_iDrawable);
-    Circle_rotate(this_->circle, 30);
+    me->circle->_iShape.origin = (Point){ 2, 3 };
+    printf("origin.x = %d\n", me->circle->_iShape.origin.x);
+    printf("origin.y = %d\n", me->circle->_iShape.origin.y);
+    Drawable_draw(&me->circle->_iDrawable);
+    Circle_rotate(me->circle, 30);
 
-    if (isOfClass_(this_->circle, CircleClass_())) {
+    if (isOfClass_(me->circle, CircleClass_())) {
         printf("is Circle\n");
     }
 
-    printf("type name = %s\n", classNameOf_(this_->circle));
+    printf("type name = %s\n", classNameOf_(me->circle));
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-static void rectangleExample(Application * const this_) {
+static void rectangleExample(Application * const me) {
     printf("\n= rectangle example:\n");
-    this_->rectangle = Rectangle_init(new_(Rectangle), (Point){ 12, 23 }, 34, 2);
-    printf("width = %d\n", Rectangle_getWidth(this_->rectangle));
-    printf("height = %d\n", Rectangle_getHeight(this_->rectangle));
+    me->rectangle = Rectangle_init(new_(Rectangle), (Point){ 12, 23 }, 34, 2);
+    printf("width = %d\n", Rectangle_getWidth(me->rectangle));
+    printf("height = %d\n", Rectangle_getHeight(me->rectangle));
     printf("Set width to 2 and height to 3\n");
-    Rectangle_setWidth(this_->rectangle, 2);
-    Rectangle_setHeight(this_->rectangle, 3);
-    printf("width = %d\n", Rectangle_getWidth(this_->rectangle));
-    printf("height = %d\n", Rectangle_getHeight(this_->rectangle));
+    Rectangle_setWidth(me->rectangle, 2);
+    Rectangle_setHeight(me->rectangle, 3);
+    printf("width = %d\n", Rectangle_getWidth(me->rectangle));
+    printf("height = %d\n", Rectangle_getHeight(me->rectangle));
     Rectangle * rectangle = Rectangle_init(new_(Rectangle), (Point){ 0, 0 }, 5, 10);
     printf("area = %.2f\n", Shape_area(Rectangle_getShape(rectangle)));
     Drawable_draw(Rectangle_getDrawable(rectangle));
@@ -95,14 +94,14 @@ static void rectangleExample(Application * const this_) {
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-static void polymorphismExample(Application * const this_) {
+static void polymorphismExample(Application * const me) {
     printf("\n= Polymorphism example:\n");
 
     Shape * const shapes[] = {
-        &this_->circle->_iShape,
-        Rectangle_getShape(this_->rectangle),
+        &me->circle->_iShape,
+        Rectangle_getShape(me->rectangle),
     };
 
     for (uint8_t i = 0; i < lengthOf_(shapes); i++) {
@@ -115,31 +114,31 @@ static void polymorphismExample(Application * const this_) {
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param params
  */
-Application * init(Application * const this_) {
-    initObject_(this_, ApplicationClass_());
+Application * init(Application * const me) {
+    initObject_(me, ApplicationClass_());
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-static void finalize(Application * const this_) {
-    delete_(this_->rectangle);
-    delete_(this_->circle);
+static void finalize(Application * const me) {
+    delete_(me->rectangle);
+    delete_(me->circle);
 }
 
 /**
  * @brief Returns the same singleton object instead of a copy
  *
- * @param this_ The singleton Application object
+ * @param me The singleton Application object
  * @return Application*
  */
-static Application * copy(Application * const this_) {
-    return this_;
+static Application * copy(Application * const me) {
+    return me;
 }
 
 /**
@@ -149,13 +148,13 @@ static Application * copy(Application * const this_) {
  * @return Application*
  */
 Application * Application_(void) {
-    static Application this_;
+    static Application me;
 
     doOnce_({
-        init(&this_);
+        init(&me);
     });
 
-    return &this_;
+    return &me;
 }
 
 /**

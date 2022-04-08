@@ -5,7 +5,6 @@
 
 /**
  * @brief Interface members
- *
  */
 typedef struct Interface {
     Object * object;
@@ -15,56 +14,43 @@ typedef struct Interface {
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param object
  * @param operations
  * @return Interface*
  */
 Interface * Interface_init(
-    Interface * const this_,
+    Interface * const me,
     Object * const object,
     Any const * const operations);
 
 /**
  * @brief
- *
  */
-#define initInterface_(this_, object, operations) \
-    Interface_init(interfaceOf_(this_), objectOf_(object), anyOf_(operations))
+#define initInterface_(me, object, operations) \
+    Interface_init(interfaceOf_(me), objectOf_(object), anyOf_(operations))
 
 /**
  * @brief
- *
  */
-#define interfaceOf_(this_) ((Interface *)(this_))
+#define interfaceOf_(me) ((Interface *)(me))
 
 /**
  * @brief
- *
  */
-#define interfaceOperationsOf_(interfaceName, this_) \
-    ((interfaceName##Operations *)interfaceOf_(this_)->operations)
+#define interfaceOperationsOf_(interfaceName, me) \
+    ((interfaceName##Operations *)interfaceOf_(me)->operations)
 
 /**
  * @brief
- *
  */
-#define interfaceObjectOf_(this_) interfaceOf_(this_)->object
+#define interfaceObjectOf_(me) interfaceOf_(me)->object
 
 /**
  * @brief
- *
  */
-#define interfaceCall_(interfaceName, operationName, this_) \
-    interfaceOperationsOf_(interfaceName, this_)            \
-        ->operationName((interfaceName *)interfaceObjectOf_(this_))
-
-/**
- * @brief
- *
- */
-#define interfaceCallWithArgs_(interfaceName, operationName, this_, ...) \
-    interfaceOperationsOf_(interfaceName, this_)                         \
-        ->operationName((interfaceName *)interfaceObjectOf_(this_), __VA_ARGS__)
+#define interfaceCall_(interfaceName, operationName, ...)             \
+    interfaceOperationsOf_(interfaceName, VaArgs_first_(__VA_ARGS__)) \
+        ->operationName((interfaceName *)interfaceObjectOf_(VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
 
 #endif // INTERFACE_H

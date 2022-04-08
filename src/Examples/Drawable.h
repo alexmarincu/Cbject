@@ -9,8 +9,8 @@ typedef struct Drawable {
     extends_(Interface);
 } Drawable;
 
-void Drawable_draw(Drawable const * const this_);
-typedef void (*DrawableOperation_draw)(Drawable const * const this_);
+void Drawable_draw(Drawable const * const me);
+typedef void (*DrawableOperation_draw)(Drawable const * const me);
 
 /**
  * @brief Contains Drawable's operations (aka virtual functions)

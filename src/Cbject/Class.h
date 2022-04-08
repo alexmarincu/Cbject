@@ -4,7 +4,6 @@
 
 /**
  * @brief
- *
  */
 typedef struct Class Class;
 struct Class {
@@ -17,7 +16,7 @@ struct Class {
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param name
  * @param objectSize
  * @param operations
@@ -25,7 +24,7 @@ struct Class {
  * @return Class*
  */
 Class * Class_init(
-    Class * const this_,
+    Class * const me,
     char const * const name,
     size_t const objectSize,
     Any const * const operations,
@@ -33,9 +32,8 @@ Class * Class_init(
 
 /**
  * @brief
- *
  */
-#define initClass_(this_, className, superClass) \
-    Class_init(this_, #className, sizeof(className), anyOf_(className##Operations_()), superClass)
+#define initClass_(me, className, superClass) \
+    Class_init(me, #className, sizeof(className), anyOf_(className##Operations_()), superClass)
 
 #endif // CLASS_H

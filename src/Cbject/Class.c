@@ -3,7 +3,7 @@
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param name
  * @param objectSize
  * @param operations
@@ -11,14 +11,14 @@
  * @return Class*
  */
 Class * Class_init(
-    Class * const this_,
+    Class * const me,
     char const * const name,
     size_t const objectSize,
     Any const * const operations,
     Class const * const superClass) {
-    this_->name = name;
-    this_->objectSize = objectSize;
-    this_->operations = operations;
-    this_->superClass = superClass;
-    return this_;
+    me->name = name;
+    me->objectSize = objectSize;
+    me->operations = operations;
+    me->superClass = superClass;
+    return me;
 }

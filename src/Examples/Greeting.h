@@ -4,25 +4,24 @@
 
 /**
  * @brief
- *
  */
 typedef struct Greeting Greeting;
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param text
  * @return Greeting*
  */
-Greeting * Greeting_init(Greeting * this_, char * const text);
+Greeting * Greeting_init(Greeting * me, char * const text);
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-void Greeting_print(Greeting * const this_);
+void Greeting_print(Greeting * const me);
 
 /**
  * @brief Contains Greeting's operations (aka virtual functions)

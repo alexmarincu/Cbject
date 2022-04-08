@@ -24,115 +24,89 @@ typedef struct Object {
  */
 #define inherits_(type) type _i##type
 
-Object * Object_init(Object * const this_, Class const * const class_);
+Object * Object_init(Object * const me, Class const * const class_);
 
 /**
  * @brief Helper macro for initializing an object
- *
  */
-#define initObject_(this_, class_) Object_init(objectOf_(this_), class_)
+#define initObject_(me, class_) Object_init(objectOf_(me), class_)
 
 /**
  * @brief Helper macro for casting to (Object *)
- *
  */
-#define objectOf_(this_) ((Object *)(this_))
+#define objectOf_(me) ((Object *)(me))
 
 /**
  * @brief Helper macro to get class of an object
- *
  */
-#define classOf_(this_) objectOf_(this_)->class_
+#define classOf_(me) objectOf_(me)->class_
+
+/**
+ * @brief
+ */
+#define superClassOf_(me) classOf_(me)->superClass
+
+/**
+ * @brief
+ */
+#define classNameOf_(me) classOf_(me)->name
+
+/**
+ * @brief
+ */
+#define objectSizeOf_(me) classOf_(me)->objectSize
+
+/**
+ * @brief
+ */
+#define operationsOf_(className, me) ((className##Operations *)classOf_(me)->operations)
+
+/**
+ * @brief
+ */
+#define superOperationsOf_(className, me) \
+    ((className##Operations *)superClassOf_(me)->operations)
+
+/**
+ * @brief Helper macro for calling an object operation
+ */
+#define call_(className, operationName, ...) \
+    operationsOf_(className, VaArgs_first_(__VA_ARGS__))->operationName(cast_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
+
+/**
+ * @brief Helper macro for calling a super object operation
+ */
+#define superCall_(className, operationName, ...) \
+    superOperationsOf_(className, VaArgs_first_(__VA_ARGS__))->operationName(cast_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
 
 /**
  * @brief
  *
- */
-#define superClassOf_(this_) classOf_(this_)->superClass
-
-/**
- * @brief
- *
- */
-#define classNameOf_(this_) classOf_(this_)->name
-
-/**
- * @brief
- *
- */
-#define objectSizeOf_(this_) classOf_(this_)->objectSize
-
-/**
- * @brief
- *
- */
-#define operationsOf_(className, this_) ((className##Operations *)classOf_(this_)->operations)
-
-/**
- * @brief
- *
- */
-#define superOperationsOf_(className, this_) \
-    ((className##Operations *)superClassOf_(this_)->operations)
-
-/**
- * @brief
- *
- */
-#define call_(className, operationName, this_) \
-    operationsOf_(className, this_)->operationName(cast_(className, this_))
-
-/**
- * @brief
- *
- */
-#define callWithArgs_(className, operationName, this_, ...) \
-    operationsOf_(className, this_)->operationName(cast_(className, this_), __VA_ARGS__)
-
-/**
- * @brief
- *
- */
-#define superCall_(className, operationName, this_) \
-    superOperationsOf_(className, this_)->operationName(cast_(className, this_))
-
-/**
- * @brief
- *
- */
-#define supercallWithArgs_(className, operationName, this_, ...) \
-    superOperationsOf_(className, this_)->operationName(cast_(className, this_), __VA_ARGS__)
-
-/**
- * @brief
- *
- * @param this_
+ * @param me
  * @param class_
  * @return true
  * @return false
  */
-bool Object_isOfClass(Object const * const this_, Class const * const class_);
+bool Object_isOfClass(Object const * const me, Class const * const class_);
 
 /**
  * @brief
- *
  */
-#define isOfClass_(this_, class_) Object_isOfClass(objectOf_(this_), class_)
+#define isOfClass_(me, class_) Object_isOfClass(objectOf_(me), class_)
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param class_
  * @return Object*
  */
-Object * Object_cast(Object * const this_, Class const * const class_);
+Object * Object_cast(Object * const me, Class const * const class_);
 
 /**
  * @brief
- *
  */
-#define cast_(className, this_) ((className *)Object_cast(objectOf_(this_), className##Class_()))
+#define cast_(className, me) ((className *)Object_cast(objectOf_(me), className##Class_()))
 
 /**
  * @brief
@@ -144,83 +118,77 @@ Object * Object_new(Class const * const class_);
 
 /**
  * @brief
- *
  */
 #define new_(className) ((className *)Object_new(className##Class_()))
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-void Object_delete(Object * const this_);
+void Object_delete(Object * const me);
+
+/**
+ * @brief
+ */
+#define delete_(me) Object_delete(objectOf_(me))
 
 /**
  * @brief
  *
+ * @param me
  */
-#define delete_(this_) Object_delete(objectOf_(this_))
+void Object_finalize(Object * me);
+typedef void (*ObjectOperation_finalize)(Object * me);
+
+/**
+ * @brief
+ */
+#define finalize_(me) Object_finalize(objectOf_(me))
 
 /**
  * @brief
  *
- * @param this_
- */
-void Object_finalize(Object * this_);
-typedef void (*ObjectOperation_finalize)(Object * this_);
-
-/**
- * @brief
- *
- */
-#define finalize_(this_) Object_finalize(objectOf_(this_))
-
-/**
- * @brief
- *
- * @param this_
+ * @param me
  * @return Object*
  */
-Object * Object_copy(Object const * const this_);
-typedef Object * (*ObjectOperation_copy)(Object const * const this_);
+Object * Object_copy(Object const * const me);
+typedef Object * (*ObjectOperation_copy)(Object const * const me);
 
 /**
  * @brief
- *
  */
-#define copy_(className, this_) ((className *)Object_copy(objectOf_(this_)))
+#define copy_(className, me) ((className *)Object_copy(objectOf_(me)))
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param other
  * @return true
  * @return false
  */
-bool Object_equals(Object const * const this_, Object const * const other);
-typedef bool (*ObjectOperation_equals)(Object const * const this_, Object const * const other);
+bool Object_equals(Object const * const me, Object const * const other);
+typedef bool (*ObjectOperation_equals)(Object const * const me, Object const * const other);
 
 /**
  * @brief
- *
  */
-#define equals_(this_, other) Object_equals(objectOf_(this_), objectOf_(other))
+#define equals_(me, other) Object_equals(objectOf_(me), objectOf_(other))
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return uint64_t
  */
-uint64_t Object_hashCode(Object const * const this_);
-typedef uint64_t (*ObjectOperation_hashCode)(Object const * const this_);
+uint64_t Object_hashCode(Object const * const me);
+typedef uint64_t (*ObjectOperation_hashCode)(Object const * const me);
 
 /**
  * @brief
- *
  */
-#define hashCode_(this_) Object_hashCode(objectOf_(this_))
+#define hashCode_(me) Object_hashCode(objectOf_(me))
 
 /**
  * @brief Contains Object's operations (aka virtual functions)

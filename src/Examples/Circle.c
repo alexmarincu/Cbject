@@ -4,31 +4,31 @@
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return Circle*
  */
-static Circle * copy(Circle const * const this_) {
-    Circle * rectangle = Circle_init(new_(Circle), this_->_iShape.origin, this_->radius);
+static Circle * copy(Circle const * const me) {
+    Circle * rectangle = Circle_init(new_(Circle), me->_iShape.origin, me->radius);
     return rectangle;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return float
  */
-static float area(Circle const * const this_) {
-    return this_->radius * this_->radius * 3.14;
+static float area(Circle const * const me) {
+    return me->radius * me->radius * 3.14;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-static void draw(Circle const * const this_) {
-    int const radius = this_->radius;
+static void draw(Circle const * const me) {
+    int const radius = me->radius;
     int const tolerance = radius / 2;
 
     for (int x = -radius; x <= radius; x++) {
@@ -44,35 +44,35 @@ static void draw(Circle const * const this_) {
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param degrees
  */
-void Circle_rotate(Circle const * const this_, uint8_t const degrees) {
+void Circle_rotate(Circle const * const me, uint8_t const degrees) {
     printf("Circle rotate %d\n", degrees);
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param params
  */
-Circle * Circle_init(Circle * this_, Point origin, uint32_t radius) {
-    initObject_(this_, CircleClass_());
-    initInterface_(&this_->_iShape, this_, &CircleOperations_()->_iShapeOperations);
-    initInterface_(&this_->_iDrawable, this_, &CircleOperations_()->_iDrawableOperations);
-    this_->_iShape.origin = origin;
-    this_->radius = radius;
-    return this_;
+Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
+    initObject_(me, CircleClass_());
+    initInterface_(&me->_iShape, me, &CircleOperations_()->_iShapeOperations);
+    initInterface_(&me->_iDrawable, me, &CircleOperations_()->_iDrawableOperations);
+    me->_iShape.origin = origin;
+    me->radius = radius;
+    return me;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-static void finalize(Circle * this_) {
-    superCall_(Object, finalize, this_);
+static void finalize(Circle * me) {
+    superCall_(Object, finalize, me);
 }
 
 /**

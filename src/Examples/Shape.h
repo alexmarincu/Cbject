@@ -11,8 +11,8 @@ typedef struct Shape {
     Point origin;
 } Shape;
 
-float Shape_area(Shape const * const this_);
-typedef float (*ShapeOperation_area)(Shape const * const this_);
+float Shape_area(Shape const * const me);
+typedef float (*ShapeOperation_area)(Shape const * const me);
 
 /**
  * @brief Contains Shape's operations (aka virtual functions)

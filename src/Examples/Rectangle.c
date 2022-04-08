@@ -3,7 +3,6 @@
 
 /**
  * @brief
- *
  */
 struct Rectangle {
     extends_(Object);
@@ -16,108 +15,108 @@ struct Rectangle {
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return uint32_t
  */
-uint32_t Rectangle_getWidth(Rectangle const * const this_) {
-    return this_->width;
+uint32_t Rectangle_getWidth(Rectangle const * const me) {
+    return me->width;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param width
  */
-void Rectangle_setWidth(Rectangle * const this_, uint32_t const width) {
-    this_->width = width;
+void Rectangle_setWidth(Rectangle * const me, uint32_t const width) {
+    me->width = width;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return uint32_t
  */
-uint32_t Rectangle_getHeight(Rectangle const * const this_) {
-    return this_->height;
+uint32_t Rectangle_getHeight(Rectangle const * const me) {
+    return me->height;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param height
  */
-void Rectangle_setHeight(Rectangle * const this_, uint32_t const height) {
-    this_->height = height;
+void Rectangle_setHeight(Rectangle * const me, uint32_t const height) {
+    me->height = height;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param edgeSize
  */
-void Rectangle_makeSquare(Rectangle * const this_, uint32_t const edgeSize) {
-    this_->height = edgeSize;
-    this_->width = edgeSize;
+void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize) {
+    me->height = edgeSize;
+    me->width = edgeSize;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-static void finalize(Rectangle * this_) {
-    superCall_(Object, finalize, this_);
+static void finalize(Rectangle * me) {
+    superCall_(Object, finalize, me);
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return Rectangle*
  */
-static Rectangle * copy(Rectangle const * const this_) {
+static Rectangle * copy(Rectangle const * const me) {
     Rectangle * rectangle =
-        Rectangle_init(new_(Rectangle), this_->_iShape.origin, this_->height, this_->width);
+        Rectangle_init(new_(Rectangle), me->_iShape.origin, me->height, me->width);
     return rectangle;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return float
  */
-static float area(Rectangle const * const this_) {
-    return this_->width * this_->height;
+static float area(Rectangle const * const me) {
+    return me->width * me->height;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-static void draw(Rectangle const * const this_) {
-    for (uint8_t i = 0; i < this_->width; i++) {
+static void draw(Rectangle const * const me) {
+    for (uint8_t i = 0; i < me->width; i++) {
         printf("--");
     }
 
     printf("\n");
 
-    for (uint8_t i = 0; i < this_->height; i++) {
+    for (uint8_t i = 0; i < me->height; i++) {
         printf("|");
 
-        for (uint8_t i = 0; i < this_->width - 1; i++) {
+        for (uint8_t i = 0; i < me->width - 1; i++) {
             printf("  ");
         }
 
         printf("|\n");
     }
 
-    for (uint8_t i = 0; i < this_->width; i++) {
+    for (uint8_t i = 0; i < me->width; i++) {
         printf("--");
     }
 
@@ -127,40 +126,40 @@ static void draw(Rectangle const * const this_) {
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return Shape*
  */
-Shape * Rectangle_getShape(Rectangle * const this_) {
-    return &this_->_iShape;
+Shape * Rectangle_getShape(Rectangle * const me) {
+    return &me->_iShape;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return Drawable*
  */
-Drawable * Rectangle_getDrawable(Rectangle * const this_) {
-    return &this_->_iDrawable;
+Drawable * Rectangle_getDrawable(Rectangle * const me) {
+    return &me->_iDrawable;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param origin
  * @param width
  * @param height
  * @return Rectangle*
  */
-Rectangle * Rectangle_init(Rectangle * this_, Point origin, uint32_t width, uint32_t height) {
-    initObject_(this_, RectangleClass_());
-    initInterface_(&this_->_iShape, this_, &RectangleOperations_()->_iShapeOperations);
-    initInterface_(&this_->_iDrawable, this_, &RectangleOperations_()->_iDrawableOperations);
-    this_->_iShape.origin = origin;
-    this_->width = width;
-    this_->height = height;
-    return this_;
+Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_t height) {
+    initObject_(me, RectangleClass_());
+    initInterface_(&me->_iShape, me, &RectangleOperations_()->_iShapeOperations);
+    initInterface_(&me->_iDrawable, me, &RectangleOperations_()->_iDrawableOperations);
+    me->_iShape.origin = origin;
+    me->width = width;
+    me->height = height;
+    return me;
 }
 
 /**

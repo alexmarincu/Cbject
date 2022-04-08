@@ -4,7 +4,6 @@
 
 /**
  * @brief
- *
  */
 typedef struct Application Application;
 
@@ -18,9 +17,9 @@ Application * Application_(void);
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-void Application_main(Application * const this_);
+void Application_main(Application * const me);
 
 /**
  * @brief Contains Application's operations (aka virtual functions)

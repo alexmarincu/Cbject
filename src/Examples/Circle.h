@@ -6,7 +6,6 @@
 
 /**
  * @brief
- *
  */
 typedef struct Circle {
     extends_(Object);
@@ -18,20 +17,20 @@ typedef struct Circle {
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param origin
  * @param radius
  * @return Circle*
  */
-Circle * Circle_init(Circle * this_, Point origin, uint32_t radius);
+Circle * Circle_init(Circle * me, Point origin, uint32_t radius);
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param degrees
  */
-void Circle_rotate(Circle const * const this_, uint8_t const degrees);
+void Circle_rotate(Circle const * const me, uint8_t const degrees);
 
 /**
  * @brief Contains Circle's operations (aka virtual functions)

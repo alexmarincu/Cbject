@@ -6,69 +6,69 @@
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-void Object_finalize(Object * this_) {
-    return call_(Object, finalize, this_);
+void Object_finalize(Object * me) {
+    return call_(Object, finalize, me);
 }
-static void finalize(Object * this_) {
+static void finalize(Object * me) {
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return Object*
  */
-Object * Object_copy(Object const * const this_) {
-    return call_(Object, copy, this_);
+Object * Object_copy(Object const * const me) {
+    return call_(Object, copy, me);
 }
-static Object * copy(Object const * const this_) {
-    Object * object = Object_new(classOf_(this_));
+static Object * copy(Object const * const me) {
+    Object * object = Object_new(classOf_(me));
     assert_(object);
-    object = memcpy(object, this_, objectSizeOf_(this_));
+    object = memcpy(object, me, objectSizeOf_(me));
     return object;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param other
  * @return true
  * @return false
  */
-bool Object_equals(Object const * const this_, Object const * const other) {
-    return callWithArgs_(Object, equals, this_, other);
+bool Object_equals(Object const * const me, Object const * const other) {
+    return call_(Object, equals, me, other);
 }
-static bool equals(Object const * const this_, Object const * const other) {
-    return this_ == other;
+static bool equals(Object const * const me, Object const * const other) {
+    return me == other;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return uint64_t
  */
-uint64_t Object_hashCode(Object const * const this_) {
-    return call_(Object, hashCode, this_);
+uint64_t Object_hashCode(Object const * const me) {
+    return call_(Object, hashCode, me);
 }
-static uint64_t hashCode(Object const * const this_) {
-    return (uint64_t)this_;
+static uint64_t hashCode(Object const * const me) {
+    return (uint64_t)me;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param class_
  * @return true
  * @return false
  */
-bool Object_isOfClass(Object const * const this_, Class const * const targetClass) {
+bool Object_isOfClass(Object const * const me, Class const * const targetClass) {
     bool isOfClass = true;
-    Class const * class_ = this_->class_;
+    Class const * class_ = me->class_;
 
     if (targetClass != ObjectClass_()) {
         while ((isOfClass == true) && (class_ != targetClass)) {
@@ -86,13 +86,13 @@ bool Object_isOfClass(Object const * const this_, Class const * const targetClas
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param class_
  * @return Object*
  */
-Object * Object_cast(Object * const this_, Class const * const class_) {
-    assert_(isOfClass_(this_, class_) == true);
-    return this_;
+Object * Object_cast(Object * const me, Class const * const class_) {
+    assert_(isOfClass_(me, class_) == true);
+    return me;
 }
 
 /**
@@ -102,30 +102,30 @@ Object * Object_cast(Object * const this_, Class const * const class_) {
  * @return Object*
  */
 Object * Object_new(Class const * const class_) {
-    Object * this_ = objectOf_(calloc(1, class_->objectSize));
-    assert_(this_);
-    return this_;
+    Object * me = objectOf_(calloc(1, class_->objectSize));
+    assert_(me);
+    return me;
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-void Object_delete(Object * const this_) {
-    finalize_(this_);
-    free(this_);
+void Object_delete(Object * const me) {
+    finalize_(me);
+    free(me);
 }
 
 /**
  * @brief Initializes an object
  *
- * @param this_ The object
+ * @param me The object
  * @param class_ The class
  * @return Object* The initialized object
  */
-Object * Object_init(Object * const this_, Class const * const class_) {
-    this_->class_ = class_;
+Object * Object_init(Object * const me, Class const * const class_) {
+    me->class_ = class_;
 }
 
 /**

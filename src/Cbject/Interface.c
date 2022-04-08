@@ -3,14 +3,16 @@
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param object
  * @param operations
  */
 Interface * Interface_init(
-    Interface * const this_,
+    Interface * const me,
     Object * const object,
-    Any const * const operations) {
-    this_->object = object;
-    this_->operations = operations;
+    Any const * const operations //
+) {
+    me->object = object;
+    me->operations = operations;
+    return me;
 }

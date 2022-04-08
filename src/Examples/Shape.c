@@ -3,13 +3,13 @@
 /**
  * @brief Calculates area of a shape
  *
- * @param this_ The shape's interface
+ * @param me The shape's interface
  * @return float The area of the shape
  */
-float Shape_area(Shape const * const this_) {
-    return interfaceCall_(Shape, area, this_);
+float Shape_area(Shape const * const me) {
+    return interfaceCall_(Shape, area, me);
 }
-static float area(Shape const * const this_) {
+static float area(Shape const * const me) {
     assert_(false && "function not overriden");
     return 1;
 }

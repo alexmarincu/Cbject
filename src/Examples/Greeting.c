@@ -3,7 +3,6 @@
 
 /**
  * @brief
- *
  */
 struct Greeting {
     extends_(Object);
@@ -13,23 +12,23 @@ struct Greeting {
 /**
  * @brief
  *
- * @param this_
+ * @param me
  */
-void Greeting_print(Greeting * const this_) {
-    printf("%s\n", this_->text);
+void Greeting_print(Greeting * const me) {
+    printf("%s\n", me->text);
 }
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param text
  * @return Greeting*
  */
-Greeting * Greeting_init(Greeting * this_, char * const text) {
-    initObject_(this_, GreetingClass_());
-    this_->text = text;
-    return this_;
+Greeting * Greeting_init(Greeting * me, char * const text) {
+    initObject_(me, GreetingClass_());
+    me->text = text;
+    return me;
 }
 
 /**

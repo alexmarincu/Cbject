@@ -8,7 +8,6 @@
 
 /**
  * @brief Run time assert
- *
  */
 #if TEST
     #define assert_(condition) \
@@ -19,7 +18,6 @@
 
 /**
  * @brief Compile time assert
- *
  */
 #define assertStatic_(condition, identifier) typedef char identifier[(!!(condition)) * 2 - 1]
 

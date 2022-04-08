@@ -4,12 +4,12 @@
 /**
  * @brief Draws a drawable
  *
- * @param this_ The drawable's interface
+ * @param me The drawable's interface
  */
-void Drawable_draw(Drawable const * const this_) {
-    return interfaceCall_(Drawable, draw, this_);
+void Drawable_draw(Drawable const * const me) {
+    return interfaceCall_(Drawable, draw, me);
 }
-static void draw(Drawable const * const this_) {
+static void draw(Drawable const * const me) {
     printf(".\n");
 }
 

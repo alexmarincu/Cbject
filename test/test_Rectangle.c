@@ -12,21 +12,18 @@ TEST_FILE("Interface.c")
 
 /**
  * @brief
- *
  */
 void setUp(void) {
 }
 
 /**
  * @brief
- *
  */
 void tearDown(void) {
 }
 
 /**
  * @brief
- *
  */
 void test_Rectangle_Heap(void) {
     Rectangle * r1 = Rectangle_init(new_(Rectangle), (Point){ 0, 0 }, 5, 7);

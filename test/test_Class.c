@@ -7,21 +7,18 @@ TEST_FILE("Class.c")
 
 /**
  * @brief
- *
  */
 void setUp(void) {
 }
 
 /**
  * @brief
- *
  */
 void tearDown(void) {
 }
 
 /**
  * @brief Test class initialization
- *
  */
 void test_Class_init(void) {
     Class * superClass = salloc_(Class);

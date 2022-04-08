@@ -6,76 +6,75 @@
 
 /**
  * @brief
- *
  */
 typedef struct Rectangle Rectangle;
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param origin
  * @param width
  * @param height
  * @return Rectangle*
  */
-Rectangle * Rectangle_init(Rectangle * this_, Point origin, uint32_t width, uint32_t height);
+Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_t height);
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return Shape*
  */
-Shape * Rectangle_getShape(Rectangle * const this_);
+Shape * Rectangle_getShape(Rectangle * const me);
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return Drawable*
  */
-Drawable * Rectangle_getDrawable(Rectangle * const this_);
+Drawable * Rectangle_getDrawable(Rectangle * const me);
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return uint32_t
  */
-uint32_t Rectangle_getWidth(Rectangle const * const this_);
+uint32_t Rectangle_getWidth(Rectangle const * const me);
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param width
  */
-void Rectangle_setWidth(Rectangle * const this_, uint32_t const width);
+void Rectangle_setWidth(Rectangle * const me, uint32_t const width);
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @return uint32_t
  */
-uint32_t Rectangle_getHeight(Rectangle const * const this_);
+uint32_t Rectangle_getHeight(Rectangle const * const me);
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param height
  */
-void Rectangle_setHeight(Rectangle * const this_, uint32_t const height);
+void Rectangle_setHeight(Rectangle * const me, uint32_t const height);
 
 /**
  * @brief
  *
- * @param this_
+ * @param me
  * @param edgeSize
  */
-void Rectangle_makeSquare(Rectangle * const this_, uint32_t const edgeSize);
+void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize);
 
 /**
  * @brief Contains Rectangle's operations (aka virtual functions)
