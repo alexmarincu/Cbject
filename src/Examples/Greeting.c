@@ -11,7 +11,6 @@ struct Greeting {
 
 /**
  * @brief
- *
  * @param me
  */
 void Greeting_print(Greeting * const me) {
@@ -20,7 +19,6 @@ void Greeting_print(Greeting * const me) {
 
 /**
  * @brief
- *
  * @param me
  * @param text
  * @return Greeting*
@@ -33,7 +31,6 @@ Greeting * Greeting_init(Greeting * me, char * const text) {
 
 /**
  * @brief
- *
  * @return GreetingOperations const*
  */
 GreetingOperations const * GreetingOperations_(void) {
@@ -48,7 +45,6 @@ GreetingOperations const * GreetingOperations_(void) {
 
 /**
  * @brief
- *
  * @return Class const*
  */
 Class const * GreetingClass_(void) {

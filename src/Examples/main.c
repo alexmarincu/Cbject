@@ -2,7 +2,6 @@
 
 /**
  * @brief
- *
  * @return int
  */
 int main(void) {

@@ -2,7 +2,6 @@
 
 /**
  * @brief
- *
  * @param me
  * @param name
  * @param objectSize

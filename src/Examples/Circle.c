@@ -3,7 +3,6 @@
 
 /**
  * @brief
- *
  * @param me
  * @return Circle*
  */
@@ -14,7 +13,6 @@ static Circle * copy(Circle const * const me) {
 
 /**
  * @brief
- *
  * @param me
  * @return float
  */
@@ -24,7 +22,6 @@ static float area(Circle const * const me) {
 
 /**
  * @brief
- *
  * @param me
  */
 static void draw(Circle const * const me) {
@@ -43,7 +40,6 @@ static void draw(Circle const * const me) {
 
 /**
  * @brief
- *
  * @param me
  * @param degrees
  */
@@ -53,7 +49,6 @@ void Circle_rotate(Circle const * const me, uint8_t const degrees) {
 
 /**
  * @brief
- *
  * @param me
  * @param params
  */
@@ -68,7 +63,6 @@ Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
 
 /**
  * @brief
- *
  * @param me
  */
 static void finalize(Circle * me) {
@@ -77,7 +71,6 @@ static void finalize(Circle * me) {
 
 /**
  * @brief
- *
  * @return CircleOperations const*
  */
 CircleOperations const * CircleOperations_(void) {
@@ -98,7 +91,6 @@ CircleOperations const * CircleOperations_(void) {
 
 /**
  * @brief
- *
  * @return Class const*
  */
 Class const * CircleClass_(void) {

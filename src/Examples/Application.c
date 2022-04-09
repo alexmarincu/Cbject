@@ -20,7 +20,6 @@ static void polymorphismExample(Application * const me);
 
 /**
  * @brief
- *
  * @param me
  */
 void Application_main(Application * const me) {
@@ -32,7 +31,6 @@ void Application_main(Application * const me) {
 
 /**
  * @brief
- *
  * @param me
  */
 static void greetingExample(Application * const me) {
@@ -43,7 +41,6 @@ static void greetingExample(Application * const me) {
 
 /**
  * @brief
- *
  * @param me
  */
 static void circleExample(Application * const me) {
@@ -72,7 +69,6 @@ static void circleExample(Application * const me) {
 
 /**
  * @brief
- *
  * @param me
  */
 static void rectangleExample(Application * const me) {
@@ -93,7 +89,6 @@ static void rectangleExample(Application * const me) {
 
 /**
  * @brief
- *
  * @param me
  */
 static void polymorphismExample(Application * const me) {
@@ -113,7 +108,6 @@ static void polymorphismExample(Application * const me) {
 
 /**
  * @brief
- *
  * @param me
  * @param params
  */
@@ -123,7 +117,6 @@ Application * init(Application * const me) {
 
 /**
  * @brief
- *
  * @param me
  */
 static void finalize(Application * const me) {
@@ -133,7 +126,6 @@ static void finalize(Application * const me) {
 
 /**
  * @brief Returns the same singleton object instead of a copy
- *
  * @param me The singleton Application object
  * @return Application*
  */
@@ -143,7 +135,6 @@ static Application * copy(Application * const me) {
 
 /**
  * @brief
- *
  * @param params
  * @return Application*
  */
@@ -159,7 +150,6 @@ Application * Application_(void) {
 
 /**
  * @brief
- *
  * @return ApplicationOperations const*
  */
 ApplicationOperations const * ApplicationOperations_(void) {
@@ -176,7 +166,6 @@ ApplicationOperations const * ApplicationOperations_(void) {
 
 /**
  * @brief
- *
  * @return Class const*
  */
 Class const * ApplicationClass_(void) {

@@ -14,7 +14,6 @@ struct Rectangle {
 
 /**
  * @brief
- *
  * @param me
  * @return uint32_t
  */
@@ -24,7 +23,6 @@ uint32_t Rectangle_getWidth(Rectangle const * const me) {
 
 /**
  * @brief
- *
  * @param me
  * @param width
  */
@@ -34,7 +32,6 @@ void Rectangle_setWidth(Rectangle * const me, uint32_t const width) {
 
 /**
  * @brief
- *
  * @param me
  * @return uint32_t
  */
@@ -44,7 +41,6 @@ uint32_t Rectangle_getHeight(Rectangle const * const me) {
 
 /**
  * @brief
- *
  * @param me
  * @param height
  */
@@ -54,7 +50,6 @@ void Rectangle_setHeight(Rectangle * const me, uint32_t const height) {
 
 /**
  * @brief
- *
  * @param me
  * @param edgeSize
  */
@@ -65,7 +60,6 @@ void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize) {
 
 /**
  * @brief
- *
  * @param me
  */
 static void finalize(Rectangle * me) {
@@ -74,7 +68,6 @@ static void finalize(Rectangle * me) {
 
 /**
  * @brief
- *
  * @param me
  * @return Rectangle*
  */
@@ -86,7 +79,6 @@ static Rectangle * copy(Rectangle const * const me) {
 
 /**
  * @brief
- *
  * @param me
  * @return float
  */
@@ -96,7 +88,6 @@ static float area(Rectangle const * const me) {
 
 /**
  * @brief
- *
  * @param me
  */
 static void draw(Rectangle const * const me) {
@@ -125,7 +116,6 @@ static void draw(Rectangle const * const me) {
 
 /**
  * @brief
- *
  * @param me
  * @return Shape*
  */
@@ -135,7 +125,6 @@ Shape * Rectangle_getShape(Rectangle * const me) {
 
 /**
  * @brief
- *
  * @param me
  * @return Drawable*
  */
@@ -145,7 +134,6 @@ Drawable * Rectangle_getDrawable(Rectangle * const me) {
 
 /**
  * @brief
- *
  * @param me
  * @param origin
  * @param width
@@ -164,7 +152,6 @@ Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_
 
 /**
  * @brief
- *
  * @return RectangleOperations const*
  */
 RectangleOperations const * RectangleOperations_(void) {
@@ -185,7 +172,6 @@ RectangleOperations const * RectangleOperations_(void) {
 
 /**
  * @brief
- *
  * @return Class const*
  */
 Class const * RectangleClass_(void) {

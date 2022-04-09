@@ -16,7 +16,6 @@ typedef struct Circle {
 
 /**
  * @brief
- *
  * @param me
  * @param origin
  * @param radius
@@ -26,7 +25,6 @@ Circle * Circle_init(Circle * me, Point origin, uint32_t radius);
 
 /**
  * @brief
- *
  * @param me
  * @param degrees
  */
@@ -43,14 +41,12 @@ typedef struct CircleOperations {
 
 /**
  * @brief
- *
  * @return CircleOperations const*
  */
 CircleOperations const * CircleOperations_(void);
 
 /**
  * @brief
- *
  * @return Class const*
  */
 Class const * CircleClass_(void);

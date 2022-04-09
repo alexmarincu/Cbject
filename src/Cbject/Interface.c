@@ -2,7 +2,6 @@
 
 /**
  * @brief
- *
  * @param me
  * @param object
  * @param operations

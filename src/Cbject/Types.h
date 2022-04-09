@@ -21,11 +21,14 @@ typedef void Any;
 
 /**
  * @brief Helper macro for allocating memory on stack
- *
  * @param typeName The type to allocate memory for
  */
 #define salloc_(typeName) (&(typeName){ 0 })
 
+/**
+ * @brief Helper macro to perform a block of code only once
+ * @remark Not thread safe
+ */
 #define doOnce_(...)                  \
     do {                              \
         static bool once = false;     \
@@ -44,6 +47,7 @@ typedef void Any;
 /**
  * @brief Get list of arguments from __VA_ARGS__ except the first
  * @remark Comma is added before the list
+ * @remark Supports max 10 arguments
  */
 #define VaArgs_rest_(...) VaArgs_rest__(VaArgs_number_(__VA_ARGS__), __VA_ARGS__)
 #define VaArgs_rest__(case, ...) VaArgs_rest___(case, __VA_ARGS__)

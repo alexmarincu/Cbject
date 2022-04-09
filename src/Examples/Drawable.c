@@ -3,7 +3,6 @@
 
 /**
  * @brief Draws a drawable
- *
  * @param me The drawable's interface
  */
 void Drawable_draw(Drawable const * const me) {
@@ -16,7 +15,6 @@ static void draw(Drawable const * const me) {
 /**
  * @brief Gets reference to DrawableOperations
  * @remark At first call the initialization is done
- *
  * @return DrawableOperations const* The reference to DrawableOperations
  */
 DrawableOperations const * DrawableOperations_(void) {

@@ -5,7 +5,6 @@
 
 /**
  * @brief
- *
  * @param me
  */
 void Object_finalize(Object * me) {
@@ -16,7 +15,6 @@ static void finalize(Object * me) {
 
 /**
  * @brief
- *
  * @param me
  * @return Object*
  */
@@ -32,7 +30,6 @@ static Object * copy(Object const * const me) {
 
 /**
  * @brief
- *
  * @param me
  * @param other
  * @return true
@@ -47,7 +44,6 @@ static bool equals(Object const * const me, Object const * const other) {
 
 /**
  * @brief
- *
  * @param me
  * @return uint64_t
  */
@@ -60,7 +56,6 @@ static uint64_t hashCode(Object const * const me) {
 
 /**
  * @brief
- *
  * @param me
  * @param class_
  * @return true
@@ -85,7 +80,6 @@ bool Object_isOfClass(Object const * const me, Class const * const targetClass) 
 
 /**
  * @brief
- *
  * @param me
  * @param class_
  * @return Object*
@@ -97,7 +91,6 @@ Object * Object_cast(Object * const me, Class const * const class_) {
 
 /**
  * @brief
- *
  * @param class_
  * @return Object*
  */
@@ -109,7 +102,6 @@ Object * Object_new(Class const * const class_) {
 
 /**
  * @brief
- *
  * @param me
  */
 void Object_delete(Object * const me) {
@@ -119,7 +111,6 @@ void Object_delete(Object * const me) {
 
 /**
  * @brief Initializes an object
- *
  * @param me The object
  * @param class_ The class
  * @return Object* The initialized object
@@ -130,7 +121,6 @@ Object * Object_init(Object * const me, Class const * const class_) {
 
 /**
  * @brief
- *
  * @return ObjectOperations const*
  */
 ObjectOperations const * ObjectOperations_(void) {
@@ -146,7 +136,6 @@ ObjectOperations const * ObjectOperations_(void) {
 
 /**
  * @brief
- *
  * @return Class const*
  */
 Class const * ObjectClass_(void) {

@@ -2,7 +2,6 @@
 
 /**
  * @brief Calculates area of a shape
- *
  * @param me The shape's interface
  * @return float The area of the shape
  */
@@ -17,7 +16,6 @@ static float area(Shape const * const me) {
 /**
  * @brief Gets reference to ShapeOperations
  * @remark At first call the initialization is done
- *
  * @return ShapeOperations const* The reference to ShapeOperations
  */
 ShapeOperations const * ShapeOperations_(void) {

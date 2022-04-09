@@ -12,14 +12,12 @@ typedef struct Object {
 
 /**
  * @brief Helper macro for extending an object
- *
  * @param type The type of the parent object
  */
 #define extends_(type) type _x##type
 
 /**
  * @brief Helper macro for inheriting an interface
- *
  * @param type The type of the interface
  */
 #define inherits_(type) type _i##type
@@ -81,7 +79,6 @@ Object * Object_init(Object * const me, Class const * const class_);
 
 /**
  * @brief
- *
  * @param me
  * @param class_
  * @return true
@@ -96,7 +93,6 @@ bool Object_isOfClass(Object const * const me, Class const * const class_);
 
 /**
  * @brief
- *
  * @param me
  * @param class_
  * @return Object*
@@ -110,7 +106,6 @@ Object * Object_cast(Object * const me, Class const * const class_);
 
 /**
  * @brief
- *
  * @param class_
  * @return Object*
  */
@@ -123,7 +118,6 @@ Object * Object_new(Class const * const class_);
 
 /**
  * @brief
- *
  * @param me
  */
 void Object_delete(Object * const me);
@@ -135,7 +129,6 @@ void Object_delete(Object * const me);
 
 /**
  * @brief
- *
  * @param me
  */
 void Object_finalize(Object * me);
@@ -148,7 +141,6 @@ typedef void (*ObjectOperation_finalize)(Object * me);
 
 /**
  * @brief
- *
  * @param me
  * @return Object*
  */
@@ -162,7 +154,6 @@ typedef Object * (*ObjectOperation_copy)(Object const * const me);
 
 /**
  * @brief
- *
  * @param me
  * @param other
  * @return true
@@ -178,7 +169,6 @@ typedef bool (*ObjectOperation_equals)(Object const * const me, Object const * c
 
 /**
  * @brief
- *
  * @param me
  * @return uint64_t
  */
@@ -202,14 +192,12 @@ typedef struct ObjectOperations {
 
 /**
  * @brief
- *
  * @return ObjectOperations const*
  */
 ObjectOperations const * ObjectOperations_(void);
 
 /**
  * @brief
- *
  * @return Class const*
  */
 Class const * ObjectClass_(void);
