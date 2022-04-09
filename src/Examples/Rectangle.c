@@ -73,7 +73,7 @@ static void finalize(Rectangle * me) {
  */
 static Rectangle * copy(Rectangle const * const me) {
     Rectangle * rectangle =
-        Rectangle_init(new_(Rectangle), me->_iShape.origin, me->height, me->width);
+        init_(Rectangle, new_(Rectangle), me->_iShape.origin, me->height, me->width);
     return rectangle;
 }
 

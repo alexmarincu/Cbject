@@ -34,7 +34,7 @@ void Application_main(Application * const me) {
  * @param me
  */
 static void greetingExample(Application * const me) {
-    Greeting * greeting = Greeting_init(new_(Greeting), "Hello Cbject!");
+    Greeting * greeting = init_(Greeting, new_(Greeting), "Hello Cbject!");
     Greeting_print(greeting);
     delete_(greeting);
 }
@@ -45,7 +45,8 @@ static void greetingExample(Application * const me) {
  */
 static void circleExample(Application * const me) {
     printf("\n= Circle example:\n");
-    me->circle = Circle_init(new_(Circle), (Point){ 0, 1 }, 1);
+    me->circle = init_(Circle, new_(Circle), (Point){ 0, 1 }, 1);
+
     printf("radius = %d\n", me->circle->radius);
     printf("Set radius to 2\n");
     me->circle->radius = 10;
@@ -73,7 +74,7 @@ static void circleExample(Application * const me) {
  */
 static void rectangleExample(Application * const me) {
     printf("\n= rectangle example:\n");
-    me->rectangle = Rectangle_init(new_(Rectangle), (Point){ 12, 23 }, 34, 2);
+    me->rectangle = init_(Rectangle, new_(Rectangle), (Point){ 12, 23 }, 34, 2);
     printf("width = %d\n", Rectangle_getWidth(me->rectangle));
     printf("height = %d\n", Rectangle_getHeight(me->rectangle));
     printf("Set width to 2 and height to 3\n");
@@ -81,7 +82,7 @@ static void rectangleExample(Application * const me) {
     Rectangle_setHeight(me->rectangle, 3);
     printf("width = %d\n", Rectangle_getWidth(me->rectangle));
     printf("height = %d\n", Rectangle_getHeight(me->rectangle));
-    Rectangle * rectangle = Rectangle_init(new_(Rectangle), (Point){ 0, 0 }, 5, 10);
+    Rectangle * rectangle = init_(Rectangle, new_(Rectangle), (Point){ 0, 0 }, 5, 10);
     printf("area = %.2f\n", Shape_area(Rectangle_getShape(rectangle)));
     Drawable_draw(Rectangle_getDrawable(rectangle));
     delete_(rectangle);

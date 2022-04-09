@@ -42,7 +42,7 @@ typedef void Any;
  * @brief Get first argument from __VA_ARGS__
  */
 #define VaArgs_first_(...) VaArgs_first__(__VA_ARGS__, discard)
-#define VaArgs_first__(first, ...) first
+#define VaArgs_first__(first, ...) (first)
 
 /**
  * @brief Get list of arguments from __VA_ARGS__ except the first

@@ -25,9 +25,14 @@ typedef struct Object {
 Object * Object_init(Object * const me, Class const * const class_);
 
 /**
- * @brief Helper macro for initializing an object
+ * @brief Helper macro for initializing the root object
  */
 #define initObject_(me, class_) Object_init(objectOf_(me), class_)
+
+/**
+ * @brief Helper macro for initializing a derived object
+ */
+#define init_(className, ...) className##_init((className *)VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
 
 /**
  * @brief Helper macro for casting to (Object *)

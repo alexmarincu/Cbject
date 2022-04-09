@@ -7,7 +7,7 @@
  * @return Circle*
  */
 static Circle * copy(Circle const * const me) {
-    Circle * rectangle = Circle_init(new_(Circle), me->_iShape.origin, me->radius);
+    Circle * rectangle = init_(Circle, new_(Circle), me->_iShape.origin, me->radius);
     return rectangle;
 }
 
