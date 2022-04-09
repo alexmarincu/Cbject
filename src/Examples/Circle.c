@@ -25,26 +25,17 @@ static float area(Circle const * const me) {
  * @param me
  */
 static void draw(Circle const * const me) {
-    int const radius = me->radius;
-    int const tolerance = radius / 2;
+    float const radius = me->radius;
+    float const tolerance = radius / 2;
 
     for (int x = -radius; x <= radius; x++) {
         for (int y = -radius; y <= radius; y++) {
-            int eq = x * x + y * y - radius * radius;
+            float eq = x * x + y * y - radius * radius;
             printf(((eq < tolerance) && (eq > -tolerance)) ? "*" : " ");
         }
 
-        printf("\r\n");
+        printf("\n");
     }
-}
-
-/**
- * @brief
- * @param me
- * @param degrees
- */
-void Circle_rotate(Circle const * const me, uint8_t const degrees) {
-    printf("Circle rotate %d\n", degrees);
 }
 
 /**

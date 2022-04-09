@@ -34,8 +34,13 @@ void Application_main(Application * const me) {
  * @param me
  */
 static void greetingExample(Application * const me) {
+    // Allocate and initialize a Greeting object
     Greeting * greeting = init_(Greeting, new_(Greeting), "Hello Cbject!");
+
+    // Call Greeting print function on the greeting object
     Greeting_print(greeting);
+
+    // Free memory allocated for the Greeting object
     delete_(greeting);
 }
 
@@ -44,28 +49,26 @@ static void greetingExample(Application * const me) {
  * @param me
  */
 static void circleExample(Application * const me) {
-    printf("\n= Circle example:\n");
-    me->circle = init_(Circle, new_(Circle), (Point){ 0, 1 }, 1);
+    // Allocate and initialize a Circle object
+    me->circle = init_(Circle, new_(Circle), (Point){ 0, 1 }, 2);
 
-    printf("radius = %d\n", me->circle->radius);
-    printf("Set radius to 2\n");
-    me->circle->radius = 10;
-    printf("radius = %d\n", me->circle->radius);
-    printf("area = %.2f\n", Shape_area(&me->circle->_iShape));
-    printf("origin.x = %d\n", me->circle->_iShape.origin.x);
-    printf("origin.y = %d\n", me->circle->_iShape.origin.y);
-    printf("Set origin to {2, 3}\n");
-    me->circle->_iShape.origin = (Point){ 2, 3 };
-    printf("origin.x = %d\n", me->circle->_iShape.origin.x);
-    printf("origin.y = %d\n", me->circle->_iShape.origin.y);
+    // Get circle radius
+    uint32_t radius = me->circle->radius;
+
+    // Set circle radius
+    me->circle->radius = 3;
+
+    // Get circle area through Shape interface polymorphic call
+    float area = Shape_area(&me->circle->_iShape);
+
+    // Get circle shape origin
+    Point origin = me->circle->_iShape.origin;
+
+    // set circle shape origin
+    me->circle->_iShape.origin = (Point){ 4, 5 };
+
+    // Draw circle through Drawable interface polymorphic call
     Drawable_draw(&me->circle->_iDrawable);
-    Circle_rotate(me->circle, 30);
-
-    if (isOfClass_(me->circle, CircleClass_())) {
-        printf("is Circle\n");
-    }
-
-    printf("type name = %s\n", classNameOf_(me->circle));
 }
 
 /**
@@ -73,19 +76,28 @@ static void circleExample(Application * const me) {
  * @param me
  */
 static void rectangleExample(Application * const me) {
-    printf("\n= rectangle example:\n");
-    me->rectangle = init_(Rectangle, new_(Rectangle), (Point){ 12, 23 }, 34, 2);
-    printf("width = %d\n", Rectangle_getWidth(me->rectangle));
-    printf("height = %d\n", Rectangle_getHeight(me->rectangle));
-    printf("Set width to 2 and height to 3\n");
-    Rectangle_setWidth(me->rectangle, 2);
-    Rectangle_setHeight(me->rectangle, 3);
-    printf("width = %d\n", Rectangle_getWidth(me->rectangle));
-    printf("height = %d\n", Rectangle_getHeight(me->rectangle));
-    Rectangle * rectangle = init_(Rectangle, new_(Rectangle), (Point){ 0, 0 }, 5, 10);
-    printf("area = %.2f\n", Shape_area(Rectangle_getShape(rectangle)));
-    Drawable_draw(Rectangle_getDrawable(rectangle));
-    delete_(rectangle);
+    // Allocate and initialize a Rectangle object
+    me->rectangle = init_(Rectangle, new_(Rectangle), (Point){ 0, 1 }, 2, 3);
+
+    // Get rectangle width and height
+    uint32_t width = Rectangle_getWidth(me->rectangle);
+    uint32_t height = Rectangle_getHeight(me->rectangle);
+
+    // Set rectangle with and height
+    Rectangle_setWidth(me->rectangle, 4);
+    Rectangle_setHeight(me->rectangle, 5);
+
+    // Get rectangle area through Shape interface polymorphic call
+    float area = Shape_area(Rectangle_getShape(me->rectangle));
+
+    // Get rectangle shape origin
+    Point origin = Rectangle_getShape(me->rectangle)->origin;
+
+    // set rectangle shape origin
+    Rectangle_getShape(me->rectangle)->origin = (Point){ 6, 7 };
+
+    // Draw rectangle through Drawable interface polymorphic call
+    Drawable_draw(Rectangle_getDrawable(me->rectangle));
 }
 
 /**
@@ -93,17 +105,38 @@ static void rectangleExample(Application * const me) {
  * @param me
  */
 static void polymorphismExample(Application * const me) {
-    printf("\n= Polymorphism example:\n");
-
+    // Prepare a list of shapes
     Shape * const shapes[] = {
         &me->circle->_iShape,
         Rectangle_getShape(me->rectangle),
     };
 
+    // Loop through the list of shapes and call various polymorphic functions
     for (uint8_t i = 0; i < lengthOf_(shapes); i++) {
-        printf("shapes[%d] area = %.2f\n", i, Shape_area(shapes[i]));
-        printf("shapes[%d] objectSize = %d\n", i, objectSizeOf_(interfaceObjectOf_(shapes[i])));
-        printf("shapes[%d] hashCode = %d\n", i, hashCode_(interfaceObjectOf_(shapes[i])));
+        // Get area through Shape interface polymorphic call
+        float area = Shape_area(shapes[i]);
+
+        // Get object from interface
+        Object * object = interfaceObjectOf_(shapes[i]);
+
+        // Get size of object
+        size_t objectSize = objectSizeOf_(object);
+
+        // Get hash code of object
+        uint64_t hashCode = hashCode_(object);
+
+        // Get className of object
+        char const * className = classNameOf_(me->circle);
+
+        // Check class of object
+        if (isOfClass_(object, CircleClass_())) {
+            // Get circle radius
+            uint32_t radius = cast_(Circle, object)->radius;
+        } else if (isOfClass_(object, RectangleClass_())) {
+            // Get rectangle width and height
+            uint32_t width = Rectangle_getWidth(cast_(Rectangle, object));
+            uint32_t height = Rectangle_getHeight(cast_(Rectangle, object));
+        }
     }
 }
 
