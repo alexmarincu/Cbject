@@ -28,7 +28,8 @@ Class * Class_init(
     char const * const name,
     size_t const objectSize,
     Any const * const operations,
-    Class const * const superClass);
+    Class const * const superClass
+);
 
 /**
  * @brief
