@@ -17,7 +17,7 @@ static void draw(Drawable const * const me) {
  */
 ColoredCircle * ColoredCircle_init(ColoredCircle * const me, Point const origin, uint32_t const radius, Color const color) {
     init_(Circle, me, origin, radius);
-    initObject_(me, ColoredCircleClass_());
+    initObject_(me, ColoredCircle);
     me->color = color;
     return me;
 }
@@ -45,7 +45,7 @@ Class const * ColoredCircleClass_(void) {
     static Class class_;
 
     doOnce_({
-        initClass_(&class_, ColoredCircle, CircleClass_());
+        initClass_(&class_, ColoredCircle, Circle);
     });
 
     return &class_;

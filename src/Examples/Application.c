@@ -146,7 +146,7 @@ static void polymorphismExample(Application * const me) {
  * @param params
  */
 Application * init(Application * const me) {
-    initObject_(me, ApplicationClass_());
+    initObject_(me, Application);
 }
 
 /**
@@ -208,7 +208,7 @@ Class const * ApplicationClass_(void) {
     static Class class_;
 
     doOnce_({
-        initClass_(&class_, Application, ObjectClass_());
+        initClass_(&class_, Application, Object);
     });
 
     return &class_;

@@ -26,8 +26,10 @@ Object * Object_init(Object * const me, Class const * const class_);
 
 /**
  * @brief Helper macro for initializing the root object
+ * @param me
+ * @param className
  */
-#define initObject_(me, class_) Object_init(objectOf_(me), class_)
+#define initObject_(me, className) Object_init(objectOf_(me), className##Class_())
 
 /**
  * @brief Helper macro for initializing a derived object

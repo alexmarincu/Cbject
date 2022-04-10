@@ -143,7 +143,7 @@ Class const * ObjectClass_(void) {
     static Class class_;
 
     doOnce_({
-        initClass_(&class_, Object, NULL);
+        Class_init(&class_, "Object", sizeof(Object), anyOf_(ObjectOperations_()), NULL);
     });
 
     return &class_;

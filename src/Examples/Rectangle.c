@@ -134,7 +134,7 @@ Drawable * Rectangle_getDrawable(Rectangle * const me) {
  * @return Rectangle*
  */
 Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_t height) {
-    initObject_(me, RectangleClass_());
+    initObject_(me, Rectangle);
     initInterface_(&me->_iShape, me, &RectangleOperations_()->_iShapeOperations);
     initInterface_(&me->_iDrawable, me, &RectangleOperations_()->_iDrawableOperations);
     me->_iShape.origin = origin;
@@ -170,7 +170,7 @@ Class const * RectangleClass_(void) {
     static Class class_;
 
     doOnce_({
-        initClass_(&class_, Rectangle, ObjectClass_());
+        initClass_(&class_, Rectangle, Object);
     });
 
     return &class_;

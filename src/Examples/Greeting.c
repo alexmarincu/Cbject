@@ -24,7 +24,7 @@ void Greeting_print(Greeting * const me) {
  * @return Greeting*
  */
 Greeting * Greeting_init(Greeting * me, char * const text) {
-    initObject_(me, GreetingClass_());
+    initObject_(me, Greeting);
     me->text = text;
     return me;
 }
@@ -51,7 +51,7 @@ Class const * GreetingClass_(void) {
     static Class class_;
 
     doOnce_({
-        initClass_(&class_, Greeting, ObjectClass_());
+        initClass_(&class_, Greeting, Object);
     });
 
     return &class_;

@@ -36,7 +36,7 @@ static void draw(Drawable const * const me) {
  * @param params
  */
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
-    initObject_(me, CircleClass_());
+    initObject_(me, Circle);
     initInterface_(&me->_iShape, me, &CircleOperations_()->_iShapeOperations);
     initInterface_(&me->_iDrawable, me, &CircleOperations_()->_iDrawableOperations);
     me->_iShape.origin = origin;
@@ -80,7 +80,7 @@ Class const * CircleClass_(void) {
     static Class class_;
 
     doOnce_({
-        initClass_(&class_, Circle, ObjectClass_());
+        initClass_(&class_, Circle, Object);
     });
 
     return &class_;
