@@ -4,28 +4,20 @@
 /**
  * @brief
  * @param me
- * @return Circle*
- */
-static Circle * copy(Circle const * const me) {
-    Circle * rectangle = init_(Circle, new_(Circle), me->_iShape.origin, me->radius);
-    return rectangle;
-}
-
-/**
- * @brief
- * @param me
  * @return float
  */
-static float area(Circle const * const me) {
-    return me->radius * me->radius * 3.14;
+static float area(Shape const * const me) {
+    Circle * _me = cast_(Circle, interfaceObjectOf_(me));
+    return _me->radius * _me->radius * 3.14;
 }
 
 /**
  * @brief
  * @param me
  */
-static void draw(Circle const * const me) {
-    float const radius = me->radius;
+static void draw(Drawable const * const me) {
+    Circle * _me = cast_(Circle, interfaceObjectOf_(me));
+    float const radius = _me->radius;
     float const tolerance = radius / 2;
 
     for (int x = -radius; x <= radius; x++) {
@@ -56,8 +48,9 @@ Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
  * @brief
  * @param me
  */
-static void finalize(Circle * me) {
-    superCall_(Object, finalize, me);
+static void finalize(Object * me) {
+    Circle * _me = cast_(Circle, me);
+    superCall_(Object, finalize, _me);
 }
 
 /**
@@ -71,10 +64,9 @@ CircleOperations const * CircleOperations_(void) {
         operations._xObjectOperations = *ObjectOperations_();
         operations._iDrawableOperations = *DrawableOperations_();
         operations._iShapeOperations = *ShapeOperations_();
-        operations._xObjectOperations.finalize = (ObjectOperation_finalize)finalize;
-        operations._xObjectOperations.copy = (ObjectOperation_copy)copy;
-        operations._iShapeOperations.area = (ShapeOperation_area)area;
-        operations._iDrawableOperations.draw = (DrawableOperation_draw)draw;
+        operations._xObjectOperations.finalize = finalize;
+        operations._iShapeOperations.area = area;
+        operations._iDrawableOperations.draw = draw;
     });
 
     return &operations;

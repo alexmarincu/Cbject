@@ -10,13 +10,12 @@ typedef struct Drawable {
 } Drawable;
 
 void Drawable_draw(Drawable const * const me);
-typedef void (*DrawableOperation_draw)(Drawable const * const me);
 
 /**
  * @brief Contains Drawable's operations (aka virtual functions)
  */
 typedef struct DrawableOperations {
-    DrawableOperation_draw draw;
+    void (*draw)(Drawable const * const me);
 } DrawableOperations;
 
 DrawableOperations const * DrawableOperations_(void);

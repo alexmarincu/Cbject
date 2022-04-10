@@ -31,8 +31,11 @@ Object * Object_init(Object * const me, Class const * const class_);
 
 /**
  * @brief Helper macro for initializing a derived object
+ * @param className The object class
+ * @param ... (me The object to initialize, ... The init arguments)
  */
-#define init_(className, ...) className##_init((className *)VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
+#define init_(className, ...) \
+    className##_init((className *)VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
 
 /**
  * @brief Helper macro for casting to (Object *)
@@ -80,7 +83,14 @@ Object * Object_init(Object * const me, Class const * const class_);
  * @brief Helper macro for calling a super object operation
  */
 #define superCall_(className, operationName, ...) \
-    superOperationsOf_(className, VaArgs_first_(__VA_ARGS__))->operationName(cast_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
+    className##Operations_()->operationName(&VaArgs_first_(__VA_ARGS__)->_x##className VaArgs_rest_(__VA_ARGS__))
+
+/**
+ * @brief Helper macro for calling a super object interface operation
+ */
+#define superInterfaceCall_(className, interfaceName, operationName, ...) \
+    (void)VaArgs_first_(__VA_ARGS__)->_x##className._i##interfaceName;    \
+    className##Operations_()->_i##interfaceName##Operations.operationName((interfaceName *)VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
 
 /**
  * @brief
@@ -94,7 +104,7 @@ bool Object_isOfClass(Object const * const me, Class const * const class_);
 /**
  * @brief
  */
-#define isOfClass_(me, class_) Object_isOfClass(objectOf_(me), class_)
+#define isOfClass_(className, me) Object_isOfClass(objectOf_(me), className##Class_())
 
 /**
  * @brief
@@ -137,7 +147,6 @@ void Object_delete(Object * const me);
  * @param me
  */
 void Object_finalize(Object * me);
-typedef void (*ObjectOperation_finalize)(Object * me);
 
 /**
  * @brief
@@ -150,12 +159,11 @@ typedef void (*ObjectOperation_finalize)(Object * me);
  * @return Object*
  */
 Object * Object_copy(Object const * const me);
-typedef Object * (*ObjectOperation_copy)(Object const * const me);
 
 /**
  * @brief
  */
-#define copy_(className, me) ((className *)Object_copy(objectOf_(me)))
+#define copy_(className, me) cast_(className, Object_copy(objectOf_(me)))
 
 /**
  * @brief
@@ -165,7 +173,6 @@ typedef Object * (*ObjectOperation_copy)(Object const * const me);
  * @return false
  */
 bool Object_equals(Object const * const me, Object const * const other);
-typedef bool (*ObjectOperation_equals)(Object const * const me, Object const * const other);
 
 /**
  * @brief
@@ -178,7 +185,6 @@ typedef bool (*ObjectOperation_equals)(Object const * const me, Object const * c
  * @return uint64_t
  */
 uint64_t Object_hashCode(Object const * const me);
-typedef uint64_t (*ObjectOperation_hashCode)(Object const * const me);
 
 /**
  * @brief
@@ -189,10 +195,10 @@ typedef uint64_t (*ObjectOperation_hashCode)(Object const * const me);
  * @brief Contains Object's operations (aka virtual functions)
  */
 typedef struct ObjectOperations {
-    ObjectOperation_finalize finalize;
-    ObjectOperation_hashCode hashCode;
-    ObjectOperation_copy copy;
-    ObjectOperation_equals equals;
+    void (*finalize)(Object * me);
+    uint64_t (*hashCode)(Object const * const me);
+    Object * (*copy)(Object const * const me);
+    bool (*equals)(Object const * const me, Object const * const other);
 } ObjectOperations;
 
 /**

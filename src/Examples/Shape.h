@@ -12,13 +12,12 @@ typedef struct Shape {
 } Shape;
 
 float Shape_area(Shape const * const me);
-typedef float (*ShapeOperation_area)(Shape const * const me);
 
 /**
  * @brief Contains Shape's operations (aka virtual functions)
  */
 typedef struct ShapeOperations {
-    ShapeOperation_area area;
+    float (*area)(Shape const * const me);
 } ShapeOperations;
 
 ShapeOperations const * ShapeOperations_(void);

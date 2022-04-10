@@ -129,10 +129,10 @@ static void polymorphismExample(Application * const me) {
         char const * className = classNameOf_(me->circle);
 
         // Check class of object
-        if (isOfClass_(object, CircleClass_())) {
+        if (isOfClass_(Circle, object)) {
             // Get circle radius
             uint32_t radius = cast_(Circle, object)->radius;
-        } else if (isOfClass_(object, RectangleClass_())) {
+        } else if (isOfClass_(Rectangle, object)) {
             // Get rectangle width and height
             uint32_t width = Rectangle_getWidth(cast_(Rectangle, object));
             uint32_t height = Rectangle_getHeight(cast_(Rectangle, object));
@@ -153,9 +153,10 @@ Application * init(Application * const me) {
  * @brief
  * @param me
  */
-static void finalize(Application * const me) {
-    delete_(me->rectangle);
-    delete_(me->circle);
+static void finalize(Object * const me) {
+    Application * _me = cast_(Application, me);
+    delete_(_me->rectangle);
+    delete_(_me->circle);
 }
 
 /**
@@ -163,8 +164,9 @@ static void finalize(Application * const me) {
  * @param me The singleton Application object
  * @return Application*
  */
-static Application * copy(Application * const me) {
-    return me;
+static Object * copy(Object const * const me) {
+    Application * _me = cast_(Application, me);
+    return objectOf_(me);
 }
 
 /**
@@ -191,8 +193,8 @@ ApplicationOperations const * ApplicationOperations_(void) {
 
     doOnce_({
         operations.objectOperations = *ObjectOperations_();
-        operations.objectOperations.finalize = (ObjectOperation_finalize)finalize;
-        operations.objectOperations.copy = (ObjectOperation_copy)copy;
+        operations.objectOperations.finalize = finalize;
+        operations.objectOperations.copy = copy;
     });
 
     return &operations;

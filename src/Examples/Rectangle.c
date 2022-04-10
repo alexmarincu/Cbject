@@ -62,19 +62,9 @@ void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize) {
  * @brief
  * @param me
  */
-static void finalize(Rectangle * me) {
-    superCall_(Object, finalize, me);
-}
-
-/**
- * @brief
- * @param me
- * @return Rectangle*
- */
-static Rectangle * copy(Rectangle const * const me) {
-    Rectangle * rectangle =
-        init_(Rectangle, new_(Rectangle), me->_iShape.origin, me->height, me->width);
-    return rectangle;
+static void finalize(Object * me) {
+    Rectangle * _me = cast_(Rectangle, me);
+    superCall_(Object, finalize, _me);
 }
 
 /**
@@ -82,32 +72,35 @@ static Rectangle * copy(Rectangle const * const me) {
  * @param me
  * @return float
  */
-static float area(Rectangle const * const me) {
-    return me->width * me->height;
+static float area(Shape const * const me) {
+    Rectangle * _me = cast_(Rectangle, interfaceObjectOf_(me));
+    return _me->width * _me->height;
 }
 
 /**
  * @brief
  * @param me
  */
-static void draw(Rectangle const * const me) {
-    for (uint8_t i = 0; i < me->width; i++) {
+static void draw(Drawable const * const me) {
+    Rectangle * _me = cast_(Rectangle, interfaceObjectOf_(me));
+
+    for (uint8_t i = 0; i < _me->width; i++) {
         printf("--");
     }
 
     printf("\n");
 
-    for (uint8_t i = 0; i < me->height; i++) {
+    for (uint8_t i = 0; i < _me->height; i++) {
         printf("|");
 
-        for (uint8_t i = 0; i < me->width - 1; i++) {
+        for (uint8_t i = 0; i < _me->width - 1; i++) {
             printf("  ");
         }
 
         printf("|\n");
     }
 
-    for (uint8_t i = 0; i < me->width; i++) {
+    for (uint8_t i = 0; i < _me->width; i++) {
         printf("--");
     }
 
@@ -161,10 +154,9 @@ RectangleOperations const * RectangleOperations_(void) {
         operations._xObjectOperations = *ObjectOperations_();
         operations._iDrawableOperations = *DrawableOperations_();
         operations._iShapeOperations = *ShapeOperations_();
-        operations._xObjectOperations.finalize = (ObjectOperation_finalize)finalize;
-        operations._xObjectOperations.copy = (ObjectOperation_copy)copy;
-        operations._iShapeOperations.area = (ShapeOperation_area)area;
-        operations._iDrawableOperations.draw = (DrawableOperation_draw)draw;
+        operations._xObjectOperations.finalize = finalize;
+        operations._iShapeOperations.area = area;
+        operations._iDrawableOperations.draw = draw;
     });
 
     return &operations;

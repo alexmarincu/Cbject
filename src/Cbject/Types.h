@@ -28,6 +28,7 @@ typedef void Any;
 /**
  * @brief Helper macro to perform a block of code only once
  * @remark Not thread safe
+ * @param ... The block of code
  */
 #define doOnce_(...)                  \
     do {                              \

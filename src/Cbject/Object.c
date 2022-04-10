@@ -85,7 +85,7 @@ bool Object_isOfClass(Object const * const me, Class const * const targetClass) 
  * @return Object*
  */
 Object * Object_cast(Object * const me, Class const * const class_) {
-    assert_(isOfClass_(me, class_) == true);
+    assert_(Object_isOfClass(me, class_) == true);
     return me;
 }
 
@@ -117,6 +117,7 @@ void Object_delete(Object * const me) {
  */
 Object * Object_init(Object * const me, Class const * const class_) {
     me->class_ = class_;
+    return me;
 }
 
 /**

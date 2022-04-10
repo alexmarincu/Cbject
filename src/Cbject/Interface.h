@@ -51,6 +51,6 @@ Interface * Interface_init(
  */
 #define interfaceCall_(interfaceName, operationName, ...)             \
     interfaceOperationsOf_(interfaceName, VaArgs_first_(__VA_ARGS__)) \
-        ->operationName((interfaceName *)interfaceObjectOf_(VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
+        ->operationName(__VA_ARGS__)
 
 #endif // INTERFACE_H
