@@ -21,9 +21,9 @@ static float area(Shape const * const me) {
 ShapeOperations const * ShapeOperations_(void) {
     static ShapeOperations operations;
 
-    doOnce_({
+    doOnce_ {
         operations.area = area;
-    });
+    }
 
     return &operations;
 }

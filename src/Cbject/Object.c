@@ -61,7 +61,7 @@ static uint64_t hashCode(Object const * const me) {
  * @return true
  * @return false
  */
-bool Object_isOfClass(Object const * const me, Class const * const targetClass) {
+bool ObjectiSOfClass(Object const * const me, Class const * const targetClass) {
     bool isOfClass = true;
     Class const * class_ = me->class_;
 
@@ -85,7 +85,7 @@ bool Object_isOfClass(Object const * const me, Class const * const targetClass) 
  * @return Object*
  */
 Object * Object_cast(Object * const me, Class const * const class_) {
-    assert_(Object_isOfClass(me, class_) == true);
+    assert_(ObjectiSOfClass(me, class_) == true);
     return me;
 }
 
@@ -95,7 +95,7 @@ Object * Object_cast(Object * const me, Class const * const class_) {
  * @return Object*
  */
 Object * Object_new(Class const * const class_) {
-    Object * me = objectOf_(calloc(1, class_->objectSize));
+    Object * me = toObject_(calloc(1, class_->objectSize));
     assert_(me);
     return me;
 }
@@ -142,9 +142,9 @@ ObjectOperations const * ObjectOperations_(void) {
 Class const * ObjectClass_(void) {
     static Class class_;
 
-    doOnce_({
-        Class_init(&class_, "Object", sizeof(Object), anyOf_(ObjectOperations_()), NULL);
-    });
+    doOnce_ {
+        Class_init(&class_, "Object", sizeof(Object), toAny_(ObjectOperations_()), NULL);
+    }
 
     return &class_;
 }

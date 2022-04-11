@@ -7,8 +7,8 @@
  * @return float
  */
 static float area(Shape const * const me) {
-    Circle * _me = cast_(Circle, interfaceObjectOf_(me));
-    return _me->radius * _me->radius * 3.14;
+    Circle * Me = cast_(Circle, objectOf_(me));
+    return Me->radius * Me->radius * 3.14;
 }
 
 /**
@@ -16,8 +16,8 @@ static float area(Shape const * const me) {
  * @param me
  */
 static void draw(Drawable const * const me) {
-    Circle * _me = cast_(Circle, interfaceObjectOf_(me));
-    float const radius = _me->radius;
+    Circle * Me = cast_(Circle, objectOf_(me));
+    float const radius = Me->radius;
     float const tolerance = radius / 2;
 
     for (int x = -radius; x <= radius; x++) {
@@ -37,9 +37,9 @@ static void draw(Drawable const * const me) {
  */
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
     initObject_(me, Circle);
-    initInterface_(&me->_iShape, me, &CircleOperations_()->_iShapeOperations);
-    initInterface_(&me->_iDrawable, me, &CircleOperations_()->_iDrawableOperations);
-    me->_iShape.origin = origin;
+    initInterface_(&me->iShape, me, &CircleOperations_()->iShapeOperations);
+    initInterface_(&me->iDrawable, me, &CircleOperations_()->iDrawableOperations);
+    me->iShape.origin = origin;
     me->radius = radius;
     return me;
 }
@@ -49,8 +49,7 @@ Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
  * @param me
  */
 static void finalize(Object * me) {
-    Circle * _me = cast_(Circle, me);
-    superCall_(Object, finalize, _me);
+    ObjectOperations_()->finalize(toObject_(cast_(Circle, me)));
 }
 
 /**
@@ -60,14 +59,14 @@ static void finalize(Object * me) {
 CircleOperations const * CircleOperations_(void) {
     static CircleOperations operations;
 
-    doOnce_({
-        operations._xObjectOperations = *ObjectOperations_();
-        operations._iDrawableOperations = *DrawableOperations_();
-        operations._iShapeOperations = *ShapeOperations_();
-        operations._xObjectOperations.finalize = finalize;
-        operations._iShapeOperations.area = area;
-        operations._iDrawableOperations.draw = draw;
-    });
+    doOnce_ {
+        operations.xObjectOperations = *ObjectOperations_();
+        operations.iDrawableOperations = *DrawableOperations_();
+        operations.iShapeOperations = *ShapeOperations_();
+        operations.xObjectOperations.finalize = finalize;
+        operations.iShapeOperations.area = area;
+        operations.iDrawableOperations.draw = draw;
+    }
 
     return &operations;
 }
@@ -79,9 +78,9 @@ CircleOperations const * CircleOperations_(void) {
 Class const * CircleClass_(void) {
     static Class class_;
 
-    doOnce_({
+    doOnce_ {
         initClass_(&class_, Circle, Object);
-    });
+    }
 
     return &class_;
 }

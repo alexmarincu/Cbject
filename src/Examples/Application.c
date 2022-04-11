@@ -59,16 +59,16 @@ static void circleExample(Application * const me) {
     me->circle->radius = 3;
 
     // Get circle area through Shape interface polymorphic call
-    float area = Shape_area(&me->circle->_iShape);
+    float area = Shape_area(&me->circle->iShape);
 
     // Get circle shape origin
-    Point origin = me->circle->_iShape.origin;
+    Point origin = me->circle->iShape.origin;
 
     // set circle shape origin
-    me->circle->_iShape.origin = (Point){ 4, 5 };
+    me->circle->iShape.origin = (Point){ 4, 5 };
 
     // Draw circle through Drawable interface polymorphic call
-    Drawable_draw(&me->circle->_iDrawable);
+    Drawable_draw(&me->circle->iDrawable);
 }
 
 /**
@@ -107,7 +107,7 @@ static void rectangleExample(Application * const me) {
 static void polymorphismExample(Application * const me) {
     // Prepare a list of shapes
     Shape * const shapes[] = {
-        &me->circle->_iShape,
+        &me->circle->iShape,
         Rectangle_getShape(me->rectangle),
     };
 
@@ -117,7 +117,7 @@ static void polymorphismExample(Application * const me) {
         float area = Shape_area(shapes[i]);
 
         // Get object from interface
-        Object * object = interfaceObjectOf_(shapes[i]);
+        Object * object = objectOf_(shapes[i]);
 
         // Get size of object
         size_t objectSize = objectSizeOf_(object);
@@ -154,9 +154,9 @@ Application * init(Application * const me) {
  * @param me
  */
 static void finalize(Object * const me) {
-    Application * _me = cast_(Application, me);
-    delete_(_me->rectangle);
-    delete_(_me->circle);
+    Application * Me = cast_(Application, me);
+    delete_(Me->rectangle);
+    delete_(Me->circle);
 }
 
 /**
@@ -165,8 +165,8 @@ static void finalize(Object * const me) {
  * @return Application*
  */
 static Object * copy(Object const * const me) {
-    Application * _me = cast_(Application, me);
-    return objectOf_(me);
+    Application * Me = cast_(Application, me);
+    return toObject_(Me);
 }
 
 /**
@@ -177,9 +177,9 @@ static Object * copy(Object const * const me) {
 Application * Application_(void) {
     static Application me;
 
-    doOnce_({
+    doOnce_ {
         init(&me);
-    });
+    }
 
     return &me;
 }
@@ -191,11 +191,11 @@ Application * Application_(void) {
 ApplicationOperations const * ApplicationOperations_(void) {
     static ApplicationOperations operations;
 
-    doOnce_({
+    doOnce_ {
         operations.objectOperations = *ObjectOperations_();
         operations.objectOperations.finalize = finalize;
         operations.objectOperations.copy = copy;
-    });
+    }
 
     return &operations;
 }
@@ -207,9 +207,9 @@ ApplicationOperations const * ApplicationOperations_(void) {
 Class const * ApplicationClass_(void) {
     static Class class_;
 
-    doOnce_({
+    doOnce_ {
         initClass_(&class_, Application, Object);
-    });
+    }
 
     return &class_;
 }

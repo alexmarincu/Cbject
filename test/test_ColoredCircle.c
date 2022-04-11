@@ -28,6 +28,6 @@ void tearDown(void) {
  */
 void test_ColoredCircle_init(void) {
     ColoredCircle * c = init_(ColoredCircle, new_(ColoredCircle), (Point){ 0, 1 }, 2, Color_blue);
-    Drawable_draw(&c->_xCircle._iDrawable);
+    Drawable_draw(&c->xCircle.iDrawable);
     delete_(c);
 }

@@ -36,9 +36,9 @@ Greeting * Greeting_init(Greeting * me, char * const text) {
 GreetingOperations const * GreetingOperations_(void) {
     static GreetingOperations operations;
 
-    doOnce_({
-        operations._xObjectOperations = *ObjectOperations_();
-    });
+    doOnce_ {
+        operations.xObjectOperations = *ObjectOperations_();
+    }
 
     return &operations;
 }
@@ -50,9 +50,9 @@ GreetingOperations const * GreetingOperations_(void) {
 Class const * GreetingClass_(void) {
     static Class class_;
 
-    doOnce_({
+    doOnce_ {
         initClass_(&class_, Greeting, Object);
-    });
+    }
 
     return &class_;
 }

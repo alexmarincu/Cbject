@@ -34,6 +34,6 @@ Class * Class_init(
  * @brief
  */
 #define initClass_(me, className, superClassName) \
-    Class_init(me, #className, sizeof(className), anyOf_(className##Operations_()), superClassName##Class_())
+    Class_init(me, #className, sizeof(className), toAny_(className##Operations_()), superClassName##Class_())
 
 #endif // CLASS_H

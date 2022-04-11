@@ -17,7 +17,7 @@ typedef void Any;
 /**
  * @brief Helper macro for casting to (Any *)
  */
-#define anyOf_(me) ((Any *)(me))
+#define toAny_(me) ((Any *)(me))
 
 /**
  * @brief Helper macro for allocating memory on stack
@@ -28,16 +28,10 @@ typedef void Any;
 /**
  * @brief Helper macro to perform a block of code only once
  * @remark Not thread safe
- * @param ... The block of code
  */
-#define doOnce_(...)                  \
-    do {                              \
-        static bool once = false;     \
-        if (once == false) {          \
-            do __VA_ARGS__ while (0); \
-            once = true;              \
-        }                             \
-    } while (0);
+#define doOnce_               \
+    static bool once = false; \
+    for (; once == false; once = true)
 
 /**
  * @brief Get first argument from __VA_ARGS__

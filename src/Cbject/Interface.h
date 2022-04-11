@@ -28,29 +28,23 @@ Interface * Interface_init(
  * @brief
  */
 #define initInterface_(me, object, operations) \
-    Interface_init(interfaceOf_(me), objectOf_(object), anyOf_(operations))
+    Interface_init(toInterface_(me), toObject_(object), toAny_(operations))
 
 /**
  * @brief
  */
-#define interfaceOf_(me) ((Interface *)(me))
+#define toInterface_(me) ((Interface *)(me))
 
 /**
  * @brief
  */
-#define interfaceOperationsOf_(interfaceName, me) \
-    ((interfaceName##Operations *)interfaceOf_(me)->operations)
+#define objectOf_(me) toInterface_(me)->object
 
 /**
  * @brief
  */
-#define interfaceObjectOf_(me) interfaceOf_(me)->object
-
-/**
- * @brief
- */
-#define interfaceCall_(interfaceName, operationName, ...)             \
-    interfaceOperationsOf_(interfaceName, VaArgs_first_(__VA_ARGS__)) \
+#define interfaceCall_(interfaceName, operationName, ...)                               \
+    ((interfaceName##Operations *)toInterface_(VaArgs_first_(__VA_ARGS__))->operations) \
         ->operationName(__VA_ARGS__)
 
 #endif // INTERFACE_H

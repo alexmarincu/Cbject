@@ -3,7 +3,7 @@
 
 /**
  * @brief Draws a drawable
- * @param me The drawable's interface
+ * @param me The drawable's interface reference
  */
 void Drawable_draw(Drawable const * const me) {
     return interfaceCall_(Drawable, draw, me);
