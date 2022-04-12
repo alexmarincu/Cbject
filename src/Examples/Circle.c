@@ -2,9 +2,7 @@
 #include <stdio.h>
 
 /**
- * @brief
- * @param me
- * @return float
+ *
  */
 static float area(Shape const * const me) {
     Circle * Me = cast_(Circle, objectOf_(me));
@@ -12,8 +10,7 @@ static float area(Shape const * const me) {
 }
 
 /**
- * @brief
- * @param me
+ *
  */
 static void draw(Drawable const * const me) {
     Circle * Me = cast_(Circle, objectOf_(me));
@@ -31,9 +28,7 @@ static void draw(Drawable const * const me) {
 }
 
 /**
- * @brief
- * @param me
- * @param params
+ *
  */
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
     initObject_(me, Circle);
@@ -45,16 +40,14 @@ Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
 }
 
 /**
- * @brief
- * @param me
+ *
  */
 static void finalize(Object * me) {
     ObjectOperations_()->finalize(toObject_(cast_(Circle, me)));
 }
 
 /**
- * @brief
- * @return CircleOperations const*
+ *
  */
 CircleOperations const * CircleOperations_(void) {
     static CircleOperations operations;
@@ -72,15 +65,14 @@ CircleOperations const * CircleOperations_(void) {
 }
 
 /**
- * @brief
- * @return Class const*
+ *
  */
 Class const * CircleClass_(void) {
-    static Class class_;
+    static Class cls;
 
     doOnce_ {
-        initClass_(&class_, Circle, Object);
+        initClass_(&cls, Circle, Object);
     }
 
-    return &class_;
+    return &cls;
 }

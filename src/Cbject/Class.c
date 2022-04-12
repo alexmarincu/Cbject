@@ -1,13 +1,7 @@
 #include "Class.h"
 
 /**
- * @brief
- * @param me
- * @param name
- * @param objectSize
- * @param operations
- * @param superClass
- * @return Class*
+ *
  */
 Class * Class_init(
     Class * const me,

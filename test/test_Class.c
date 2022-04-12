@@ -31,17 +31,19 @@ static TestOperations const * TestOperations_(void) {
 }
 
 static Class const * TestClass_(void) {
-    static Class class_;
-    return &class_;
+    static Class cls;
+    return &cls;
 }
 
 /**
- * @brief Test class initialization
+ * @test Test class initialization
+ * -# Allocate and initialize a Class
+ * -# Check class name, object size, operations and super class
  */
 void test_Class_init(void) {
-    Class * class_ = initClass_(salloc_(Class), Test, Test);
-    TEST_ASSERT_EQUAL_STRING("Test", class_->name);
-    TEST_ASSERT_EQUAL_size_t(sizeof(Test), class_->objectSize);
-    TEST_ASSERT_EQUAL_PTR(TestOperations_(), class_->operations);
-    TEST_ASSERT_EQUAL_PTR(TestClass_(), class_->superClass);
+    Class * cls = initClass_(salloc_(Class), Test, Test);
+    TEST_ASSERT_EQUAL_STRING("Test", cls->name);
+    TEST_ASSERT_EQUAL_size_t(sizeof(Test), cls->objectSize);
+    TEST_ASSERT_EQUAL_PTR(TestOperations_(), cls->operations);
+    TEST_ASSERT_EQUAL_PTR(TestClass_(), cls->superClass);
 }

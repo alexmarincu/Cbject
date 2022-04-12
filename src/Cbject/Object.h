@@ -7,7 +7,7 @@
  * @brief class Object
  */
 typedef struct Object {
-    Class const * class_;
+    Class const * cls;
 } Object;
 
 /**
@@ -22,7 +22,13 @@ typedef struct Object {
  */
 #define inherits_(type) type i##type
 
-Object * Object_init(Object * const me, Class const * const class_);
+/**
+ * @brief Initializes an object
+ * @param me The object
+ * @param cls The class
+ * @return Object* The initialized object
+ */
+Object * Object_init(Object * const me, Class const * const cls);
 
 /**
  * @brief Helper macro for initializing the root object
@@ -47,7 +53,7 @@ Object * Object_init(Object * const me, Class const * const class_);
 /**
  * @brief Helper macro to get class of an object
  */
-#define classOf_(me) toObject_(me)->class_
+#define classOf_(me) toObject_(me)->cls
 
 /**
  * @brief
@@ -69,24 +75,24 @@ Object * Object_init(Object * const me, Class const * const class_);
 /**
  * @brief
  * @param me
- * @param class_
+ * @param cls
  * @return true
  * @return false
  */
-bool ObjectiSOfClass(Object const * const me, Class const * const class_);
+bool Object_isOfClass(Object const * const me, Class const * const cls);
 
 /**
  * @brief
  */
-#define isOfClass_(className, me) ObjectiSOfClass(toObject_(me), className##Class_())
+#define isOfClass_(className, me) Object_isOfClass(toObject_(me), className##Class_())
 
 /**
  * @brief
  * @param me
- * @param class_
+ * @param cls
  * @return Object*
  */
-Object * Object_cast(Object * const me, Class const * const class_);
+Object * Object_cast(Object * const me, Class const * const cls);
 
 /**
  * @brief
@@ -95,10 +101,10 @@ Object * Object_cast(Object * const me, Class const * const class_);
 
 /**
  * @brief
- * @param class_
+ * @param cls
  * @return Object*
  */
-Object * Object_new(Class const * const class_);
+Object * Object_new(Class const * const cls);
 
 /**
  * @brief
@@ -109,7 +115,7 @@ Object * Object_new(Class const * const class_);
  * @brief
  * @param me
  */
-void Object_delete(Object * const me);
+Object * Object_delete(Object * const me);
 
 /**
  * @brief

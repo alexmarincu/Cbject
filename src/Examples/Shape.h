@@ -11,6 +11,11 @@ typedef struct Shape {
     Point origin;
 } Shape;
 
+/**
+ * @brief Calculates area of a shape
+ * @param me The shape's interface
+ * @return float The area of the shape
+ */
 float Shape_area(Shape const * const me);
 
 /**
@@ -20,6 +25,11 @@ typedef struct ShapeOperations {
     float (*area)(Shape const * const me);
 } ShapeOperations;
 
+/**
+ * @brief Gets reference to ShapeOperations
+ * @remark At first call the initialization is done
+ * @return ShapeOperations const* The reference to ShapeOperations
+ */
 ShapeOperations const * ShapeOperations_(void);
 
 #endif // SHAPE_H

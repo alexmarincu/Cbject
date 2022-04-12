@@ -18,7 +18,7 @@ void tearDown(void) {
 }
 
 /**
- * @brief Test Interface initialization
+ * @test Test Interface initialization
  */
 void test_Interface_init(void) {
     Object * object;

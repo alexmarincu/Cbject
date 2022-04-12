@@ -4,8 +4,7 @@
 #include <string.h>
 
 /**
- * @brief
- * @param me
+ *
  */
 void Object_finalize(Object * me) {
     return call_(Object, finalize, me);
@@ -14,9 +13,7 @@ static void finalize(Object * me) {
 }
 
 /**
- * @brief
- * @param me
- * @return Object*
+ *
  */
 Object * Object_copy(Object const * const me) {
     return call_(Object, copy, me);
@@ -29,11 +26,7 @@ static Object * copy(Object const * const me) {
 }
 
 /**
- * @brief
- * @param me
- * @param other
- * @return true
- * @return false
+ *
  */
 bool Object_equals(Object const * const me, Object const * const other) {
     return call_(Object, equals, me, other);
@@ -43,9 +36,7 @@ static bool equals(Object const * const me, Object const * const other) {
 }
 
 /**
- * @brief
- * @param me
- * @return uint64_t
+ *
  */
 uint64_t Object_hashCode(Object const * const me) {
     return call_(Object, hashCode, me);
@@ -55,21 +46,17 @@ static uint64_t hashCode(Object const * const me) {
 }
 
 /**
- * @brief
- * @param me
- * @param class_
- * @return true
- * @return false
+ *
  */
-bool ObjectiSOfClass(Object const * const me, Class const * const targetClass) {
+bool Object_isOfClass(Object const * const me, Class const * const targetClass) {
     bool isOfClass = true;
-    Class const * class_ = me->class_;
+    Class const * cls = me->cls;
 
     if (targetClass != ObjectClass_()) {
-        while ((isOfClass == true) && (class_ != targetClass)) {
-            class_ = class_->superClass;
+        while ((isOfClass == true) && (cls != targetClass)) {
+            cls = cls->superClass;
 
-            if (class_ == NULL) {
+            if (cls == NULL) {
                 isOfClass = false;
             }
         }
@@ -79,50 +66,41 @@ bool ObjectiSOfClass(Object const * const me, Class const * const targetClass) {
 }
 
 /**
- * @brief
- * @param me
- * @param class_
- * @return Object*
+ *
  */
-Object * Object_cast(Object * const me, Class const * const class_) {
-    assert_(ObjectiSOfClass(me, class_) == true);
+Object * Object_cast(Object * const me, Class const * const cls) {
+    assert_(Object_isOfClass(me, cls) == true);
     return me;
 }
 
 /**
- * @brief
- * @param class_
- * @return Object*
+ *
  */
-Object * Object_new(Class const * const class_) {
-    Object * me = toObject_(calloc(1, class_->objectSize));
+Object * Object_new(Class const * const cls) {
+    Object * me = toObject_(calloc(1, cls->objectSize));
     assert_(me);
     return me;
 }
 
 /**
- * @brief
- * @param me
+ *
  */
-void Object_delete(Object * const me) {
+Object * Object_delete(Object * const me) {
     finalize_(me);
     free(me);
+    return NULL;
 }
 
 /**
- * @brief Initializes an object
- * @param me The object
- * @param class_ The class
- * @return Object* The initialized object
+ *
  */
-Object * Object_init(Object * const me, Class const * const class_) {
-    me->class_ = class_;
+Object * Object_init(Object * const me, Class const * const cls) {
+    me->cls = cls;
     return me;
 }
 
 /**
- * @brief
- * @return ObjectOperations const*
+ *
  */
 ObjectOperations const * ObjectOperations_(void) {
     static ObjectOperations const operations = {
@@ -136,15 +114,14 @@ ObjectOperations const * ObjectOperations_(void) {
 }
 
 /**
- * @brief
- * @return Class const*
+ *
  */
 Class const * ObjectClass_(void) {
-    static Class class_;
+    static Class cls;
 
     doOnce_ {
-        Class_init(&class_, "Object", sizeof(Object), toAny_(ObjectOperations_()), NULL);
+        Class_init(&cls, "Object", sizeof(Object), toAny_(ObjectOperations_()), NULL);
     }
 
-    return &class_;
+    return &cls;
 }

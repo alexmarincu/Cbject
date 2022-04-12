@@ -2,8 +2,7 @@
 #include <stdio.h>
 
 /**
- * @brief
- * @param me
+ *
  */
 static void draw(Drawable const * const me) {
     ColoredCircle * Me = cast_(ColoredCircle, objectOf_(me));
@@ -11,9 +10,7 @@ static void draw(Drawable const * const me) {
 }
 
 /**
- * @brief
- * @param me
- * @param params
+ *
  */
 ColoredCircle * ColoredCircle_init(ColoredCircle * const me, Point const origin, uint32_t const radius, Color const color) {
     init_(Circle, me, origin, radius);
@@ -25,8 +22,7 @@ ColoredCircle * ColoredCircle_init(ColoredCircle * const me, Point const origin,
 }
 
 /**
- * @brief
- * @return ColoredCircleOperations const*
+ *
  */
 ColoredCircleOperations const * ColoredCircleOperations_(void) {
     static ColoredCircleOperations operations;
@@ -40,15 +36,14 @@ ColoredCircleOperations const * ColoredCircleOperations_(void) {
 }
 
 /**
- * @brief
- * @return Class const*
+ *
  */
 Class const * ColoredCircleClass_(void) {
-    static Class class_;
+    static Class cls;
 
     doOnce_ {
-        initClass_(&class_, ColoredCircle, Circle);
+        initClass_(&cls, ColoredCircle, Circle);
     }
 
-    return &class_;
+    return &cls;
 }

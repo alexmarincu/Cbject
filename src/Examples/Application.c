@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 /**
- * @brief
+ *
  */
 struct Application {
     extends_(Object);
@@ -19,8 +19,7 @@ static void rectangleExample(Application * const me);
 static void polymorphismExample(Application * const me);
 
 /**
- * @brief
- * @param me
+ *
  */
 void Application_main(Application * const me) {
     greetingExample(me);
@@ -30,8 +29,7 @@ void Application_main(Application * const me) {
 }
 
 /**
- * @brief
- * @param me
+ *
  */
 static void greetingExample(Application * const me) {
     // Allocate and initialize a Greeting object
@@ -45,8 +43,7 @@ static void greetingExample(Application * const me) {
 }
 
 /**
- * @brief
- * @param me
+ *
  */
 static void circleExample(Application * const me) {
     // Allocate and initialize a Circle object
@@ -72,8 +69,7 @@ static void circleExample(Application * const me) {
 }
 
 /**
- * @brief
- * @param me
+ *
  */
 static void rectangleExample(Application * const me) {
     // Allocate and initialize a Rectangle object
@@ -101,8 +97,7 @@ static void rectangleExample(Application * const me) {
 }
 
 /**
- * @brief
- * @param me
+ *
  */
 static void polymorphismExample(Application * const me) {
     // Prepare a list of shapes
@@ -141,17 +136,14 @@ static void polymorphismExample(Application * const me) {
 }
 
 /**
- * @brief
- * @param me
- * @param params
+ *
  */
 Application * init(Application * const me) {
     initObject_(me, Application);
 }
 
 /**
- * @brief
- * @param me
+ *
  */
 static void finalize(Object * const me) {
     Application * Me = cast_(Application, me);
@@ -160,9 +152,7 @@ static void finalize(Object * const me) {
 }
 
 /**
- * @brief Returns the same singleton object instead of a copy
- * @param me The singleton Application object
- * @return Application*
+ * Override Object_copy to return the same singleton object instead of a copy
  */
 static Object * copy(Object const * const me) {
     Application * Me = cast_(Application, me);
@@ -170,9 +160,7 @@ static Object * copy(Object const * const me) {
 }
 
 /**
- * @brief
- * @param params
- * @return Application*
+ *
  */
 Application * Application_(void) {
     static Application me;
@@ -185,8 +173,7 @@ Application * Application_(void) {
 }
 
 /**
- * @brief
- * @return ApplicationOperations const*
+ *
  */
 ApplicationOperations const * ApplicationOperations_(void) {
     static ApplicationOperations operations;
@@ -201,15 +188,14 @@ ApplicationOperations const * ApplicationOperations_(void) {
 }
 
 /**
- * @brief
- * @return Class const*
+ *
  */
 Class const * ApplicationClass_(void) {
-    static Class class_;
+    static Class cls;
 
     doOnce_ {
-        initClass_(&class_, Application, Object);
+        initClass_(&cls, Application, Object);
     }
 
-    return &class_;
+    return &cls;
 }

@@ -23,7 +23,7 @@ void tearDown(void) {
 }
 
 /**
- * @brief
+ * @test
  */
 void test_Rectangle_init(void) {
     Rectangle * r = Rectangle_init(new_(Rectangle), (Point){ 0, 1 }, 2, 3);
@@ -34,7 +34,7 @@ void test_Rectangle_init(void) {
 }
 
 /**
- * @brief
+ * @test
  */
 void test_Rectangle_setters(void) {
     Rectangle * r = Rectangle_init(new_(Rectangle), (Point){ 0, 1 }, 2, 3);
@@ -47,7 +47,7 @@ void test_Rectangle_setters(void) {
 }
 
 /**
- * @brief
+ * @test
  */
 void test_Rectangle_makeSquare(void) {
     Rectangle * r = Rectangle_init(new_(Rectangle), (Point){ 0, 1 }, 2, 3);

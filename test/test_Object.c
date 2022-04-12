@@ -19,7 +19,7 @@ void tearDown(void) {
 }
 
 /**
- * @brief
+ * @test
  */
 void test_Object_class(void) {
     Class const * objectClass = ObjectClass_();
@@ -29,7 +29,7 @@ void test_Object_class(void) {
 }
 
 /**
- * @brief
+ * @test
  */
 void test_Object_init(void) {
     Object * object = initObject_(salloc_(Object), Object);
@@ -37,7 +37,7 @@ void test_Object_init(void) {
 }
 
 /**
- * @brief
+ * @test
  */
 void test_Object_equals(void) {
     Object * object = initObject_(salloc_(Object), Object);
@@ -48,7 +48,7 @@ void test_Object_equals(void) {
 }
 
 /**
- * @brief
+ * @test
  */
 void test_Object_hashCode(void) {
     Object * object = initObject_(salloc_(Object), Object);
@@ -56,7 +56,7 @@ void test_Object_hashCode(void) {
 }
 
 /**
- * @brief
+ * @test
  */
 void test_ObjectiSOfClass(void) {
     Object * object = initObject_(salloc_(Object), Object);
@@ -64,7 +64,7 @@ void test_ObjectiSOfClass(void) {
 }
 
 /**
- * @brief
+ * @test
  */
 void test_Object_copy(void) {
     Object * object = initObject_(salloc_(Object), Object);
@@ -74,7 +74,7 @@ void test_Object_copy(void) {
 }
 
 /**
- * @brief
+ * @test
  */
 void test_Object_cast(void) {
     Object * object = initObject_(salloc_(Object), Object);

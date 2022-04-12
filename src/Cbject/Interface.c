@@ -1,10 +1,7 @@
 #include "Interface.h"
 
 /**
- * @brief
- * @param me
- * @param object
- * @param operations
+ *
  */
 Interface * Interface_init(
     Interface * const me,

@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 /**
- * @brief
+ *
  */
 struct Greeting {
     extends_(Object);
@@ -10,18 +10,14 @@ struct Greeting {
 };
 
 /**
- * @brief
- * @param me
+ *
  */
 void Greeting_print(Greeting * const me) {
     printf("%s\n", me->text);
 }
 
 /**
- * @brief
- * @param me
- * @param text
- * @return Greeting*
+ *
  */
 Greeting * Greeting_init(Greeting * me, char * const text) {
     initObject_(me, Greeting);
@@ -30,8 +26,7 @@ Greeting * Greeting_init(Greeting * me, char * const text) {
 }
 
 /**
- * @brief
- * @return GreetingOperations const*
+ *
  */
 GreetingOperations const * GreetingOperations_(void) {
     static GreetingOperations operations;
@@ -44,15 +39,14 @@ GreetingOperations const * GreetingOperations_(void) {
 }
 
 /**
- * @brief
- * @return Class const*
+ *
  */
 Class const * GreetingClass_(void) {
-    static Class class_;
+    static Class cls;
 
     doOnce_ {
-        initClass_(&class_, Greeting, Object);
+        initClass_(&cls, Greeting, Object);
     }
 
-    return &class_;
+    return &cls;
 }
