@@ -52,7 +52,7 @@ void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize) {
  *
  */
 static void finalize(Object * me) {
-    ObjectOperations_()->finalize(toObject_(cast_(Rectangle, me)));
+    ObjectOps_()->finalize(toObject_(cast_(Rectangle, me)));
 }
 
 /**
@@ -111,8 +111,8 @@ Drawable * Rectangle_getDrawable(Rectangle * const me) {
  */
 Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_t height) {
     initObject_(me, Rectangle);
-    initInterface_(&me->iShape, me, &RectangleOperations_()->iShapeOperations);
-    initInterface_(&me->iDrawable, me, &RectangleOperations_()->iDrawableOperations);
+    initInterface_(&me->iShape, me, &RectangleOps_()->iShapeOps);
+    initInterface_(&me->iDrawable, me, &RectangleOps_()->iDrawableOps);
     me->iShape.origin = origin;
     me->width = width;
     me->height = height;
@@ -122,19 +122,19 @@ Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_
 /**
  *
  */
-RectangleOperations const * RectangleOperations_(void) {
-    static RectangleOperations operations;
+RectangleOps const * RectangleOps_(void) {
+    static RectangleOps ops;
 
     doOnce_ {
-        operations.xObjectOperations = *ObjectOperations_();
-        operations.iDrawableOperations = *DrawableOperations_();
-        operations.iShapeOperations = *ShapeOperations_();
-        operations.xObjectOperations.finalize = finalize;
-        operations.iShapeOperations.area = area;
-        operations.iDrawableOperations.draw = draw;
+        ops.xObjectOps = *ObjectOps_();
+        ops.iDrawableOps = *DrawableOps_();
+        ops.iShapeOps = *ShapeOps_();
+        ops.xObjectOps.finalize = finalize;
+        ops.iShapeOps.area = area;
+        ops.iDrawableOps.draw = draw;
     }
 
-    return &operations;
+    return &ops;
 }
 
 /**

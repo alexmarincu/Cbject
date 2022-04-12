@@ -16,17 +16,17 @@ typedef struct Drawable {
 void Drawable_draw(Drawable const * const me);
 
 /**
- * @brief Contains Drawable's operations (aka virtual functions)
+ * @brief Contains Drawable's ops (aka virtual functions)
  */
-typedef struct DrawableOperations {
+typedef struct DrawableOps {
     void (*draw)(Drawable const * const me);
-} DrawableOperations;
+} DrawableOps;
 
 /**
- * @brief Gets reference to DrawableOperations
+ * @brief Gets reference to DrawableOps
  * @remark At first call the initialization is done
- * @return DrawableOperations const* The reference to DrawableOperations
+ * @return DrawableOps const* The reference to DrawableOps
  */
-DrawableOperations const * DrawableOperations_(void);
+DrawableOps const * DrawableOps_(void);
 
 #endif // DRAWABLE_H

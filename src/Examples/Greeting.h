@@ -22,17 +22,17 @@ Greeting * Greeting_init(Greeting * me, char * const text);
 void Greeting_print(Greeting * const me);
 
 /**
- * @brief Contains Greeting's operations (aka virtual functions)
+ * @brief Contains Greeting's ops (aka virtual functions)
  */
-typedef struct GreetingOperations {
-    extends_(ObjectOperations);
-} GreetingOperations;
+typedef struct GreetingOps {
+    extends_(ObjectOps);
+} GreetingOps;
 
 /**
  * @brief
- * @return GreetingOperations const*
+ * @return GreetingOps const*
  */
-GreetingOperations const * GreetingOperations_(void);
+GreetingOps const * GreetingOps_(void);
 
 /**
  * @brief

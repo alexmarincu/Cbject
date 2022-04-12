@@ -24,19 +24,19 @@ typedef struct Circle {
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius);
 
 /**
- * @brief Contains Circle's operations (aka virtual functions)
+ * @brief Contains Circle's ops (aka virtual functions)
  */
-typedef struct CircleOperations {
-    extends_(ObjectOperations);
-    inherits_(ShapeOperations);
-    inherits_(DrawableOperations);
-} CircleOperations;
+typedef struct CircleOps {
+    extends_(ObjectOps);
+    inherits_(ShapeOps);
+    inherits_(DrawableOps);
+} CircleOps;
 
 /**
  * @brief
- * @return CircleOperations const*
+ * @return CircleOps const*
  */
-CircleOperations const * CircleOperations_(void);
+CircleOps const * CircleOps_(void);
 
 /**
  * @brief

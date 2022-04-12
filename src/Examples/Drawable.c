@@ -14,10 +14,10 @@ static void draw(Drawable const * const me) {
 /**
  *
  */
-DrawableOperations const * DrawableOperations_(void) {
-    static DrawableOperations const operations = {
+DrawableOps const * DrawableOps_(void) {
+    static DrawableOps const ops = {
         .draw = draw
     };
 
-    return &operations;
+    return &ops;
 }

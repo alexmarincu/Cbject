@@ -69,19 +69,19 @@ void Rectangle_setHeight(Rectangle * const me, uint32_t const height);
 void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize);
 
 /**
- * @brief Contains Rectangle's operations (aka virtual functions)
+ * @brief Contains Rectangle's ops (aka virtual functions)
  */
-typedef struct RectangleOperations {
-    extends_(ObjectOperations);
-    inherits_(ShapeOperations);
-    inherits_(DrawableOperations);
-} RectangleOperations;
+typedef struct RectangleOps {
+    extends_(ObjectOps);
+    inherits_(ShapeOps);
+    inherits_(DrawableOps);
+} RectangleOps;
 
 /**
  * @brief
- * @return RectangleOperations const*
+ * @return RectangleOps const*
  */
-RectangleOperations const * RectangleOperations_(void);
+RectangleOps const * RectangleOps_(void);
 
 /**
  * @brief

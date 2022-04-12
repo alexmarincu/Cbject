@@ -6,9 +6,9 @@
 Interface * Interface_init(
     Interface * const me,
     Object * const object,
-    Any const * const operations
+    Any const * const ops
 ) {
     me->object = object;
-    me->operations = operations;
+    me->ops = ops;
     return me;
 }

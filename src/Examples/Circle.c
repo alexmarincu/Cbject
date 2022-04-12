@@ -32,8 +32,8 @@ static void draw(Drawable const * const me) {
  */
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
     initObject_(me, Circle);
-    initInterface_(&me->iShape, me, &CircleOperations_()->iShapeOperations);
-    initInterface_(&me->iDrawable, me, &CircleOperations_()->iDrawableOperations);
+    initInterface_(&me->iShape, me, &CircleOps_()->iShapeOps);
+    initInterface_(&me->iDrawable, me, &CircleOps_()->iDrawableOps);
     me->iShape.origin = origin;
     me->radius = radius;
     return me;
@@ -43,25 +43,25 @@ Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
  *
  */
 static void finalize(Object * me) {
-    ObjectOperations_()->finalize(toObject_(cast_(Circle, me)));
+    ObjectOps_()->finalize(toObject_(cast_(Circle, me)));
 }
 
 /**
  *
  */
-CircleOperations const * CircleOperations_(void) {
-    static CircleOperations operations;
+CircleOps const * CircleOps_(void) {
+    static CircleOps ops;
 
     doOnce_ {
-        operations.xObjectOperations = *ObjectOperations_();
-        operations.iDrawableOperations = *DrawableOperations_();
-        operations.iShapeOperations = *ShapeOperations_();
-        operations.xObjectOperations.finalize = finalize;
-        operations.iShapeOperations.area = area;
-        operations.iDrawableOperations.draw = draw;
+        ops.xObjectOps = *ObjectOps_();
+        ops.iDrawableOps = *DrawableOps_();
+        ops.iShapeOps = *ShapeOps_();
+        ops.xObjectOps.finalize = finalize;
+        ops.iShapeOps.area = area;
+        ops.iDrawableOps.draw = draw;
     }
 
-    return &operations;
+    return &ops;
 }
 
 /**

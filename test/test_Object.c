@@ -25,7 +25,7 @@ void test_Object_class(void) {
     Class const * objectClass = ObjectClass_();
     TEST_ASSERT_EQUAL_STRING("Object", objectClass->name);
     TEST_ASSERT_EQUAL_size_t(sizeof(Object), objectClass->objectSize);
-    TEST_ASSERT_EQUAL_PTR(ObjectOperations_(), objectClass->operations);
+    TEST_ASSERT_EQUAL_PTR(ObjectOps_(), objectClass->ops);
 }
 
 /**

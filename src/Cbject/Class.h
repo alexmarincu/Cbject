@@ -9,7 +9,7 @@ typedef struct Class Class;
 struct Class {
     char const * name;
     size_t objectSize;
-    Any const * operations;
+    Any const * ops;
     Class const * superClass;
 };
 
@@ -18,7 +18,7 @@ struct Class {
  * @param me
  * @param name
  * @param objectSize
- * @param operations
+ * @param ops
  * @param superClass
  * @return Class*
  */
@@ -26,7 +26,7 @@ Class * Class_init(
     Class * const me,
     char const * const name,
     size_t const objectSize,
-    Any const * const operations,
+    Any const * const ops,
     Class const * const superClass
 );
 
@@ -34,6 +34,6 @@ Class * Class_init(
  * @brief
  */
 #define initClass_(me, className, superClassName) \
-    Class_init(me, #className, sizeof(className), toAny_(className##Operations_()), superClassName##Class_())
+    Class_init(me, #className, sizeof(className), toAny_(className##Ops_()), superClassName##Class_())
 
 #endif // CLASS_H

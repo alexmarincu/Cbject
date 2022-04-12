@@ -22,17 +22,17 @@ typedef struct ColoredCircle {
 ColoredCircle * ColoredCircle_init(ColoredCircle * const me, Point const origin, uint32_t const radius, Color const color);
 
 /**
- * @brief Contains ColoredCircle's operations (aka virtual functions)
+ * @brief Contains ColoredCircle's ops (aka virtual functions)
  */
-typedef struct ColoredCircleOperations {
-    extends_(CircleOperations);
-} ColoredCircleOperations;
+typedef struct ColoredCircleOps {
+    extends_(CircleOps);
+} ColoredCircleOps;
 
 /**
  * @brief
- * @return ColoredCircleOperations const*
+ * @return ColoredCircleOps const*
  */
-ColoredCircleOperations const * ColoredCircleOperations_(void);
+ColoredCircleOps const * ColoredCircleOps_(void);
 
 /**
  * @brief

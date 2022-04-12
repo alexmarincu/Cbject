@@ -28,14 +28,14 @@ Greeting * Greeting_init(Greeting * me, char * const text) {
 /**
  *
  */
-GreetingOperations const * GreetingOperations_(void) {
-    static GreetingOperations operations;
+GreetingOps const * GreetingOps_(void) {
+    static GreetingOps ops;
 
     doOnce_ {
-        operations.xObjectOperations = *ObjectOperations_();
+        ops.xObjectOps = *ObjectOps_();
     }
 
-    return &operations;
+    return &ops;
 }
 
 /**

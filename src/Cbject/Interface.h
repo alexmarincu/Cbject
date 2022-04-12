@@ -8,27 +8,27 @@
  */
 typedef struct Interface {
     Object * object;
-    Any const * operations;
+    Any const * ops;
 } Interface;
 
 /**
  * @brief
  * @param me
  * @param object
- * @param operations
+ * @param ops
  * @return Interface*
  */
 Interface * Interface_init(
     Interface * const me,
     Object * const object,
-    Any const * const operations
+    Any const * const ops
 );
 
 /**
  * @brief
  */
-#define initInterface_(me, object, operations) \
-    Interface_init(toInterface_(me), toObject_(object), toAny_(operations))
+#define initInterface_(me, object, ops) \
+    Interface_init(toInterface_(me), toObject_(object), toAny_(ops))
 
 /**
  * @brief
@@ -43,8 +43,8 @@ Interface * Interface_init(
 /**
  * @brief
  */
-#define interfaceCall_(interfaceName, operationName, ...)                               \
-    ((interfaceName##Operations *)toInterface_(VaArgs_first_(__VA_ARGS__))->operations) \
+#define interfaceCall_(interfaceName, operationName, ...)                 \
+    ((interfaceName##Ops *)toInterface_(VaArgs_first_(__VA_ARGS__))->ops) \
         ->operationName(__VA_ARGS__)
 
 #endif // INTERFACE_H

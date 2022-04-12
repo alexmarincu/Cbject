@@ -175,16 +175,16 @@ Application * Application_(void) {
 /**
  *
  */
-ApplicationOperations const * ApplicationOperations_(void) {
-    static ApplicationOperations operations;
+ApplicationOps const * ApplicationOps_(void) {
+    static ApplicationOps ops;
 
     doOnce_ {
-        operations.objectOperations = *ObjectOperations_();
-        operations.objectOperations.finalize = finalize;
-        operations.objectOperations.copy = copy;
+        ops.objectOps = *ObjectOps_();
+        ops.objectOps.finalize = finalize;
+        ops.objectOps.copy = copy;
     }
 
-    return &operations;
+    return &ops;
 }
 
 /**

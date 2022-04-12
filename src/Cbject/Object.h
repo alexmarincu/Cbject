@@ -68,8 +68,8 @@ Object * Object_init(Object * const me, Class const * const cls);
 /**
  * @brief Helper macro for calling an object operation
  */
-#define call_(className, operationName, ...)                                    \
-    ((className##Operations *)classOf_(VaArgs_first_(__VA_ARGS__))->operations) \
+#define call_(className, operationName, ...)                      \
+    ((className##Ops *)classOf_(VaArgs_first_(__VA_ARGS__))->ops) \
         ->operationName(cast_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
 
 /**
@@ -172,20 +172,20 @@ uint64_t Object_hashCode(Object const * const me);
 #define hashCode_(me) Object_hashCode(toObject_(me))
 
 /**
- * @brief Contains Object's operations (aka virtual functions)
+ * @brief Contains Object's ops (aka virtual functions)
  */
-typedef struct ObjectOperations {
+typedef struct ObjectOps {
     void (*finalize)(Object * me);
     uint64_t (*hashCode)(Object const * const me);
     Object * (*copy)(Object const * const me);
     bool (*equals)(Object const * const me, Object const * const other);
-} ObjectOperations;
+} ObjectOps;
 
 /**
  * @brief
- * @return ObjectOperations const*
+ * @return ObjectOps const*
  */
-ObjectOperations const * ObjectOperations_(void);
+ObjectOps const * ObjectOps_(void);
 
 /**
  * @brief

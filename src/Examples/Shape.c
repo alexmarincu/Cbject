@@ -14,12 +14,12 @@ static float area(Shape const * const me) {
 /**
  *
  */
-ShapeOperations const * ShapeOperations_(void) {
-    static ShapeOperations operations;
+ShapeOps const * ShapeOps_(void) {
+    static ShapeOps ops;
 
     doOnce_ {
-        operations.area = area;
+        ops.area = area;
     }
 
-    return &operations;
+    return &ops;
 }

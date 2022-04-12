@@ -20,17 +20,17 @@ Application * Application_(void);
 void Application_main(Application * const me);
 
 /**
- * @brief Contains Application's operations (aka virtual functions)
+ * @brief Contains Application's ops (aka virtual functions)
  */
-typedef struct ApplicationOperations {
-    ObjectOperations objectOperations;
-} ApplicationOperations;
+typedef struct ApplicationOps {
+    ObjectOps objectOps;
+} ApplicationOps;
 
 /**
  * @brief
- * @return ApplicationOperations const*
+ * @return ApplicationOps const*
  */
-ApplicationOperations const * ApplicationOperations_(void);
+ApplicationOps const * ApplicationOps_(void);
 
 /**
  * @brief

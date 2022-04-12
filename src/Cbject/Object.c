@@ -102,15 +102,15 @@ Object * Object_init(Object * const me, Class const * const cls) {
 /**
  *
  */
-ObjectOperations const * ObjectOperations_(void) {
-    static ObjectOperations const operations = {
+ObjectOps const * ObjectOps_(void) {
+    static ObjectOps const ops = {
         .finalize = finalize,
         .copy = copy,
         .equals = equals,
         .hashCode = hashCode
     };
 
-    return &operations;
+    return &ops;
 }
 
 /**
@@ -120,7 +120,7 @@ Class const * ObjectClass_(void) {
     static Class cls;
 
     doOnce_ {
-        Class_init(&cls, "Object", sizeof(Object), toAny_(ObjectOperations_()), NULL);
+        Class_init(&cls, "Object", sizeof(Object), toAny_(ObjectOps_()), NULL);
     }
 
     return &cls;

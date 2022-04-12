@@ -22,8 +22,8 @@ void tearDown(void) {
  */
 void test_Interface_init(void) {
     Object * object;
-    Any * operations;
-    Interface * interface = Interface_init(salloc_(Interface), object, operations);
+    Any * ops;
+    Interface * interface = Interface_init(salloc_(Interface), object, ops);
     TEST_ASSERT_EQUAL_PTR(object, interface->object);
-    TEST_ASSERT_EQUAL_PTR(operations, interface->operations);
+    TEST_ASSERT_EQUAL_PTR(ops, interface->ops);
 }

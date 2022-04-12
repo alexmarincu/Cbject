@@ -19,17 +19,17 @@ typedef struct Shape {
 float Shape_area(Shape const * const me);
 
 /**
- * @brief Contains Shape's operations (aka virtual functions)
+ * @brief Contains Shape's ops (aka virtual functions)
  */
-typedef struct ShapeOperations {
+typedef struct ShapeOps {
     float (*area)(Shape const * const me);
-} ShapeOperations;
+} ShapeOps;
 
 /**
- * @brief Gets reference to ShapeOperations
+ * @brief Gets reference to ShapeOps
  * @remark At first call the initialization is done
- * @return ShapeOperations const* The reference to ShapeOperations
+ * @return ShapeOps const* The reference to ShapeOps
  */
-ShapeOperations const * ShapeOperations_(void);
+ShapeOps const * ShapeOps_(void);
 
 #endif // SHAPE_H
