@@ -51,8 +51,8 @@ void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize) {
 /**
  *
  */
-static void finalize(Object * me) {
-    ObjectOps_()->finalize(toObject_(cast_(Rectangle, me)));
+static Object * finalize(Object * me) {
+    return ObjectOps_()->finalize(me);
 }
 
 /**

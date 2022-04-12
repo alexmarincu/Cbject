@@ -145,10 +145,11 @@ Application * init(Application * const me) {
 /**
  *
  */
-static void finalize(Object * const me) {
+static Object * finalize(Object * const me) {
     Application * Me = cast_(Application, me);
     delete_(Me->rectangle);
     delete_(Me->circle);
+    return ObjectOps_()->finalize(me);
 }
 
 /**

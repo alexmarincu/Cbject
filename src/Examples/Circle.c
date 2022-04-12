@@ -42,8 +42,8 @@ Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
 /**
  *
  */
-static void finalize(Object * me) {
-    ObjectOps_()->finalize(toObject_(cast_(Circle, me)));
+static Object * finalize(Object * me) {
+    return ObjectOps_()->finalize(me);
 }
 
 /**

@@ -126,12 +126,12 @@ Object * Object_delete(Object * const me);
  * @brief
  * @param me
  */
-void Object_finalize(Object * me);
+Object * Object_finalize(Object * me);
 
 /**
  * @brief
  */
-#define finalize_(me) Object_finalize(toObject_(me))
+#define finalize_(me) ((Any *)Object_finalize(toObject_(me)))
 
 /**
  * @brief
@@ -175,7 +175,7 @@ uint64_t Object_hashCode(Object const * const me);
  * @brief Contains Object's ops (aka virtual functions)
  */
 typedef struct ObjectOps {
-    void (*finalize)(Object * me);
+    Object * (*finalize)(Object * me);
     uint64_t (*hashCode)(Object const * const me);
     Object * (*copy)(Object const * const me);
     bool (*equals)(Object const * const me, Object const * const other);

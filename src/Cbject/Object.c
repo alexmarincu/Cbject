@@ -6,10 +6,11 @@
 /**
  *
  */
-void Object_finalize(Object * me) {
+Object * Object_finalize(Object * me) {
     return call_(Object, finalize, me);
 }
-static void finalize(Object * me) {
+static Object * finalize(Object * me) {
+    return NULL;
 }
 
 /**
