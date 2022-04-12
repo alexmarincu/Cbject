@@ -33,13 +33,13 @@ void Application_main(Application * const me) {
  */
 static void greetingExample(Application * const me) {
     // Allocate and initialize a Greeting object
-    Greeting * greeting = init_(Greeting, new_(Greeting), "Hello Cbject!");
+    Greeting * greeting = init_(Greeting, alloc_(Greeting), "Hello Cbject!");
 
     // Call Greeting print function on the greeting object
     Greeting_print(greeting);
 
     // Free memory allocated for the Greeting object
-    delete_(greeting);
+    dealloc_(greeting);
 }
 
 /**
@@ -47,7 +47,7 @@ static void greetingExample(Application * const me) {
  */
 static void circleExample(Application * const me) {
     // Allocate and initialize a Circle object
-    me->circle = init_(Circle, new_(Circle), (Point){ 0, 1 }, 2);
+    me->circle = init_(Circle, alloc_(Circle), (Point){ 0, 1 }, 2);
 
     // Get circle radius
     uint32_t radius = me->circle->radius;
@@ -73,7 +73,7 @@ static void circleExample(Application * const me) {
  */
 static void rectangleExample(Application * const me) {
     // Allocate and initialize a Rectangle object
-    me->rectangle = init_(Rectangle, new_(Rectangle), (Point){ 0, 1 }, 2, 3);
+    me->rectangle = init_(Rectangle, alloc_(Rectangle), (Point){ 0, 1 }, 2, 3);
 
     // Get rectangle width and height
     uint32_t width = Rectangle_getWidth(me->rectangle);
@@ -145,11 +145,11 @@ Application * init(Application * const me) {
 /**
  *
  */
-static Object * finalize(Object * const me) {
+static Object * deinit(Object * const me) {
     Application * Me = cast_(Application, me);
-    delete_(Me->rectangle);
-    delete_(Me->circle);
-    return ObjectOps_()->finalize(me);
+    dealloc_(Me->rectangle);
+    dealloc_(Me->circle);
+    return ObjectOps_()->deinit(me);
 }
 
 /**
@@ -181,7 +181,7 @@ ApplicationOps const * ApplicationOps_(void) {
 
     doOnce_ {
         ops.objectOps = *ObjectOps_();
-        ops.objectOps.finalize = finalize;
+        ops.objectOps.deinit = deinit;
         ops.objectOps.copy = copy;
     }
 

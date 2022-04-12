@@ -42,8 +42,8 @@ Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
 /**
  *
  */
-static Object * finalize(Object * me) {
-    return ObjectOps_()->finalize(me);
+static Object * deinit(Object * me) {
+    return ObjectOps_()->deinit(me);
 }
 
 /**
@@ -56,7 +56,7 @@ CircleOps const * CircleOps_(void) {
         ops.xObjectOps = *ObjectOps_();
         ops.iDrawableOps = *DrawableOps_();
         ops.iShapeOps = *ShapeOps_();
-        ops.xObjectOps.finalize = finalize;
+        ops.xObjectOps.deinit = deinit;
         ops.iShapeOps.area = area;
         ops.iDrawableOps.draw = draw;
     }

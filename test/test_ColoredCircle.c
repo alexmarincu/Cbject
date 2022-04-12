@@ -27,7 +27,7 @@ void tearDown(void) {
  * @test
  */
 void test_ColoredCircle_init(void) {
-    ColoredCircle * c = init_(ColoredCircle, new_(ColoredCircle), (Point){ 0, 1 }, 2, Color_blue);
+    ColoredCircle * c = init_(ColoredCircle, alloc_(ColoredCircle), (Point){ 0, 1 }, 2, Color_blue);
     Drawable_draw(&c->xCircle.iDrawable);
-    delete_(c);
+    dealloc_(c);
 }

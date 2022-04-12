@@ -51,8 +51,8 @@ void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize) {
 /**
  *
  */
-static Object * finalize(Object * me) {
-    return ObjectOps_()->finalize(me);
+static Object * deinit(Object * me) {
+    return ObjectOps_()->deinit(me);
 }
 
 /**
@@ -129,7 +129,7 @@ RectangleOps const * RectangleOps_(void) {
         ops.xObjectOps = *ObjectOps_();
         ops.iDrawableOps = *DrawableOps_();
         ops.iShapeOps = *ShapeOps_();
-        ops.xObjectOps.finalize = finalize;
+        ops.xObjectOps.deinit = deinit;
         ops.iShapeOps.area = area;
         ops.iDrawableOps.draw = draw;
     }

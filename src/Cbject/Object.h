@@ -104,34 +104,34 @@ Object * Object_cast(Object * const me, Class const * const cls);
  * @param cls
  * @return Object*
  */
-Object * Object_new(Class const * const cls);
+Object * Object_alloc(Class const * const cls);
 
 /**
  * @brief
  */
-#define new_(className) ((className *)Object_new(className##Class_()))
-
-/**
- * @brief
- * @param me
- */
-Object * Object_delete(Object * const me);
-
-/**
- * @brief
- */
-#define delete_(me) Object_delete(toObject_(me))
+#define alloc_(className) ((className *)Object_alloc(className##Class_()))
 
 /**
  * @brief
  * @param me
  */
-Object * Object_finalize(Object * me);
+Object * Object_dealloc(Object * const me);
 
 /**
  * @brief
  */
-#define finalize_(me) ((Any *)Object_finalize(toObject_(me)))
+#define dealloc_(me) Object_dealloc(toObject_(me))
+
+/**
+ * @brief
+ * @param me
+ */
+Object * Object_deinit(Object * me);
+
+/**
+ * @brief
+ */
+#define deinit_(me) ((Any *)Object_deinit(toObject_(me)))
 
 /**
  * @brief
@@ -175,7 +175,7 @@ uint64_t Object_hashCode(Object const * const me);
  * @brief Contains Object's ops (aka virtual functions)
  */
 typedef struct ObjectOps {
-    Object * (*finalize)(Object * me);
+    Object * (*deinit)(Object * me);
     uint64_t (*hashCode)(Object const * const me);
     Object * (*copy)(Object const * const me);
     bool (*equals)(Object const * const me, Object const * const other);

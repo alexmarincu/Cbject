@@ -6,10 +6,10 @@
 /**
  *
  */
-Object * Object_finalize(Object * me) {
-    return call_(Object, finalize, me);
+Object * Object_deinit(Object * me) {
+    return call_(Object, deinit, me);
 }
-static Object * finalize(Object * me) {
+static Object * deinit(Object * me) {
     return NULL;
 }
 
@@ -20,7 +20,7 @@ Object * Object_copy(Object const * const me) {
     return call_(Object, copy, me);
 }
 static Object * copy(Object const * const me) {
-    Object * object = Object_new(classOf_(me));
+    Object * object = Object_alloc(classOf_(me));
     assert_(object);
     object = memcpy(object, me, objectSizeOf_(me));
     return object;
@@ -77,7 +77,7 @@ Object * Object_cast(Object * const me, Class const * const cls) {
 /**
  *
  */
-Object * Object_new(Class const * const cls) {
+Object * Object_alloc(Class const * const cls) {
     Object * me = toObject_(calloc(1, cls->objectSize));
     assert_(me);
     return me;
@@ -86,8 +86,8 @@ Object * Object_new(Class const * const cls) {
 /**
  *
  */
-Object * Object_delete(Object * const me) {
-    finalize_(me);
+Object * Object_dealloc(Object * const me) {
+    deinit_(me);
     free(me);
     return NULL;
 }
@@ -105,7 +105,7 @@ Object * Object_init(Object * const me, Class const * const cls) {
  */
 ObjectOps const * ObjectOps_(void) {
     static ObjectOps const ops = {
-        .finalize = finalize,
+        .deinit = deinit,
         .copy = copy,
         .equals = equals,
         .hashCode = hashCode

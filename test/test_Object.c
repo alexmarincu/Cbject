@@ -70,7 +70,7 @@ void test_Object_copy(void) {
     Object * object = initObject_(salloc_(Object), Object);
     Object * copyObject = copy_(Object, object);
     TEST_ASSERT_EQUAL_MEMORY(object, copyObject, ObjectClass_()->objectSize);
-    delete_(copyObject);
+    dealloc_(copyObject);
 }
 
 /**

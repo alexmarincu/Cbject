@@ -7,6 +7,6 @@
 int main(void) {
     Application * application = Application_();
     Application_main(application);
-    application = finalize_(application);
+    application = deinit_(application);
     return 0;
 }
