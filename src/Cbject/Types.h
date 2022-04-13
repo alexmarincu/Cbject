@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 /**
- * @brief Helper macro for getting length of an array
+ * @brief Get length of an array
  */
 #define lengthOf_(array) (sizeof(array) / sizeof(array[0]))
 
@@ -15,18 +15,18 @@
 typedef void Any;
 
 /**
- * @brief Helper macro for casting to (Any *)
+ * @brief Cast to (Any *)
  */
 #define toAny_(me) ((Any *)(me))
 
 /**
- * @brief Helper macro for allocating memory on stack
+ * @brief Allocate memory on stack
  * @param typeName The type to allocate memory for
  */
 #define salloc_(typeName) (&(typeName){ 0 })
 
 /**
- * @brief Helper macro to perform a block of code only once
+ * @brief Run a block of code only once
  * @remark Not thread safe
  */
 #define doOnce_               \

@@ -6,7 +6,7 @@
  */
 static void draw(Drawable const * const me) {
     ColoredCircle * Me = cast_(ColoredCircle, objectOf_(me));
-    CircleOps_()->iDrawableOps.draw(&Me->xCircle.iDrawable);
+    CircleOps_()->iDrawableOps.draw(me);
 }
 
 /**
@@ -14,9 +14,10 @@ static void draw(Drawable const * const me) {
  */
 ColoredCircle * ColoredCircle_init(ColoredCircle * const me, Point const origin, uint32_t const radius, Color const color) {
     init_(Circle, me, origin, radius);
-    initObject_(me, ColoredCircle);
-    initInterface_(&me->xCircle.iShape, me, &ColoredCircleOps_()->xCircleOps.iShapeOps);
-    initInterface_(&me->xCircle.iDrawable, me, &ColoredCircleOps_()->xCircleOps.iDrawableOps);
+    objectOf_(me)->cls = ColoredCircleClass_();
+    me->xCircle.iShape.xInterface.ops =
+        initInterface_(&me->xCircle.iShape, offsetof(Circle, iShape), &ColoredCircleOps_()->xCircleOps.iShapeOps);
+    initInterface_(&me->xCircle.iDrawable, offsetof(Circle, iDrawable), &ColoredCircleOps_()->xCircleOps.iDrawableOps);
     me->color = color;
     return me;
 }

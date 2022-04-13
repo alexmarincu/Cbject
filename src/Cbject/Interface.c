@@ -5,10 +5,10 @@
  */
 Interface * Interface_init(
     Interface * const me,
-    Object * const object,
+    size_t const offset,
     Any const * const ops
 ) {
-    me->object = object;
+    me->offset = offset;
     me->ops = ops;
     return me;
 }

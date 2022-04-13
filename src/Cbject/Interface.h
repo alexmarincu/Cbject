@@ -7,41 +7,42 @@
  * @brief Interface members
  */
 typedef struct Interface {
-    Object * object;
+    size_t offset;
     Any const * ops;
 } Interface;
 
 /**
  * @brief
  * @param me
- * @param object
+ * @param offset
  * @param ops
  * @return Interface*
  */
 Interface * Interface_init(
     Interface * const me,
-    Object * const object,
+    size_t const offset,
     Any const * const ops
 );
 
 /**
- * @brief
+ * @brief Initialize an interface
+ * @param me
+ * @param offset
+ * @param ops
  */
-#define initInterface_(me, object, ops) \
-    Interface_init(toInterface_(me), toObject_(object), toAny_(ops))
+#define initInterface_(me, offset, ops) \
+    Interface_init(toInterface_(me), offset, toAny_(ops))
 
 /**
- * @brief
+ * @brief Cast to (Interface *)
+ * @param me
  */
 #define toInterface_(me) ((Interface *)(me))
 
 /**
  * @brief
- */
-#define objectOf_(me) toInterface_(me)->object
-
-/**
- * @brief
+ * @param interfaceName
+ * @param operationName
  */
 #define interfaceCall_(interfaceName, operationName, ...)                 \
     ((interfaceName##Ops *)toInterface_(VaArgs_first_(__VA_ARGS__))->ops) \

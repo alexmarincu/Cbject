@@ -111,8 +111,8 @@ Drawable * Rectangle_getDrawable(Rectangle * const me) {
  */
 Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_t height) {
     initObject_(me, Rectangle);
-    initInterface_(&me->iShape, me, &RectangleOps_()->iShapeOps);
-    initInterface_(&me->iDrawable, me, &RectangleOps_()->iDrawableOps);
+    initInterface_(&me->iShape, offsetof(Rectangle, iShape), &RectangleOps_()->iShapeOps);
+    initInterface_(&me->iDrawable, offsetof(Rectangle, iDrawable), &RectangleOps_()->iDrawableOps);
     me->iShape.origin = origin;
     me->width = width;
     me->height = height;

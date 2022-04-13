@@ -6,24 +6,26 @@
 /**
  * @brief class Object
  */
-typedef struct Object {
+typedef struct Object Object;
+struct Object {
+    size_t offset;
     Class const * cls;
-} Object;
+};
 
 /**
- * @brief Helper macro for extending an object
+ * @brief Extend an object
  * @param type The type of the parent object
  */
 #define extends_(type) type x##type
 
 /**
- * @brief Helper macro for inheriting an interface
+ * @brief Inherit an interface
  * @param type The type of the interface
  */
 #define inherits_(type) type i##type
 
 /**
- * @brief Initializes an object
+ * @brief Initialize an object
  * @param me The object
  * @param cls The class
  * @return Object* The initialized object
@@ -31,14 +33,14 @@ typedef struct Object {
 Object * Object_init(Object * const me, Class const * const cls);
 
 /**
- * @brief Helper macro for initializing the root object
+ * @brief Initialize the root object
  * @param me
  * @param className
  */
 #define initObject_(me, className) Object_init(toObject_(me), className##Class_())
 
 /**
- * @brief Helper macro for initializing a derived object
+ * @brief Initialize a derived object
  * @param className The object class
  * @param ... (me The object to initialize, ... The init arguments)
  */
@@ -46,27 +48,37 @@ Object * Object_init(Object * const me, Class const * const cls);
     className##_init((className *)VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
 
 /**
- * @brief Helper macro for casting to (Object *)
+ * @brief Cast to (Object *)
  */
 #define toObject_(me) ((Object *)(me))
 
 /**
- * @brief Helper macro to get class of an object
+ * @brief Get object offset from object or interface
+ */
+#define objectOffsetOf_(me) (*(size_t *)(me))
+
+/**
+ * @brief Get object from object or interface
+ */
+#define objectOf_(me) toObject_(toAny_(me) - objectOffsetOf_(me))
+
+/**
+ * @brief Get class of an object
  */
 #define classOf_(me) toObject_(me)->cls
 
 /**
- * @brief
+ * @brief Get the class name of an object
  */
 #define classNameOf_(me) classOf_(me)->name
 
 /**
- * @brief
+ * @brief Get the size in memory of an object
  */
 #define objectSizeOf_(me) classOf_(me)->objectSize
 
 /**
- * @brief Helper macro for calling an object operation
+ * @brief Call an object operation
  */
 #define call_(className, operationName, ...)                      \
     ((className##Ops *)classOf_(VaArgs_first_(__VA_ARGS__))->ops) \
@@ -172,7 +184,7 @@ uint64_t Object_hashCode(Object const * const me);
 #define hashCode_(me) Object_hashCode(toObject_(me))
 
 /**
- * @brief Contains Object's ops (aka virtual functions)
+ * @brief Object's operations (aka virtual functions)
  */
 typedef struct ObjectOps {
     Object * (*deinit)(Object * me);

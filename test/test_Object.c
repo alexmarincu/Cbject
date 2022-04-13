@@ -33,6 +33,7 @@ void test_Object_class(void) {
  */
 void test_Object_init(void) {
     Object * object = initObject_(salloc_(Object), Object);
+    TEST_ASSERT_EQUAL_PTR(objectOf_(object), object);
     TEST_ASSERT_EQUAL_PTR(classOf_(object), ObjectClass_());
 }
 

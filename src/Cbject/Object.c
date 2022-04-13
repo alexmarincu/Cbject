@@ -70,8 +70,8 @@ bool Object_isOfClass(Object const * const me, Class const * const targetClass) 
  *
  */
 Object * Object_cast(Object * const me, Class const * const cls) {
-    assert_(Object_isOfClass(me, cls) == true);
-    return me;
+    assert_(Object_isOfClass(objectOf_(me), cls));
+    return objectOf_(me);
 }
 
 /**
@@ -96,6 +96,7 @@ Object * Object_dealloc(Object * const me) {
  *
  */
 Object * Object_init(Object * const me, Class const * const cls) {
+    me->offset = 0;
     me->cls = cls;
     return me;
 }
