@@ -34,7 +34,7 @@ void test_Object_class(void) {
  * @test
  */
 void test_Object_init(void) {
-    Object * object = initObject_(salloc_(Object), ObjectClass_());
+    Object * object = initObject_(salloc_(Object), Object);
     TEST_ASSERT_EQUAL_PTR(objectOf_(object), object);
     TEST_ASSERT_EQUAL_PTR(classOf_(object), ObjectClass_());
 }
@@ -43,10 +43,10 @@ void test_Object_init(void) {
  * @test
  */
 void test_Object_equals(void) {
-    Object * object = initObject_(salloc_(Object), ObjectClass_());
+    Object * object = initObject_(salloc_(Object), Object);
     TEST_ASSERT_TRUE(equals_(object, object));
 
-    Object * otherObject = initObject_(salloc_(Object), ObjectClass_());
+    Object * otherObject = initObject_(salloc_(Object), Object);
     TEST_ASSERT_FALSE(equals_(object, otherObject));
 }
 
@@ -54,7 +54,7 @@ void test_Object_equals(void) {
  * @test
  */
 void test_Object_hashCode(void) {
-    Object * object = initObject_(salloc_(Object), ObjectClass_());
+    Object * object = initObject_(salloc_(Object), Object);
     TEST_ASSERT_EQUAL_UINT64((uint64_t)object, hashCode_(object));
 }
 
@@ -62,7 +62,7 @@ void test_Object_hashCode(void) {
  * @test
  */
 void test_Object_isOfClass(void) {
-    Object * object = initObject_(salloc_(Object), ObjectClass_());
+    Object * object = initObject_(salloc_(Object), Object);
     TEST_ASSERT_TRUE(isOfClass_(Object, object));
 }
 
@@ -70,7 +70,7 @@ void test_Object_isOfClass(void) {
  * @test
  */
 void test_Object_copy(void) {
-    Object * object = initObject_(salloc_(Object), ObjectClass_());
+    Object * object = initObject_(salloc_(Object), Object);
     Object * copyObject = copy_(Object, object);
     TEST_ASSERT_EQUAL_MEMORY(object, copyObject, toClass_(ObjectClass_())->objectSize);
     dealloc_(copyObject);
@@ -80,6 +80,6 @@ void test_Object_copy(void) {
  * @test
  */
 void test_Object_cast(void) {
-    Object * object = initObject_(salloc_(Object), ObjectClass_());
+    Object * object = initObject_(salloc_(Object), Object);
     Object * castObject = to_(Object, object);
 }

@@ -21,7 +21,17 @@ ObjectOperations const * ObjectOperations_(void) {
 
 ObjectClass const * ObjectClass_(void) {
     static ObjectClass cls;
-    doOnce_ { initClass_(&cls, Object, NULL); }
+
+    doOnce_ {
+        Class_init(
+            toClass_(&cls),
+            toOperations_(ObjectOperations_()),
+            "Object",
+            sizeof(Object),
+            NULL
+        );
+    }
+
     return &cls;
 }
 

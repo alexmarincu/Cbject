@@ -33,7 +33,7 @@ RectangleClass const * RectangleClass_(void) {
     static RectangleClass cls;
 
     doOnce_ {
-        initClass_(toClass_(&cls), Rectangle, ObjectClass_());
+        initClass_(&cls, Rectangle, Object);
         initInterface_(&cls.iShapeInterface, offsetof(Rectangle, iShape), &RectangleOperations_()->iShapeOperations);
         initInterface_(&cls.iDrawableInterface, offsetof(Rectangle, iDrawable), &RectangleOperations_()->iDrawableOperations);
     }
@@ -42,9 +42,9 @@ RectangleClass const * RectangleClass_(void) {
 }
 
 Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_t height) {
-    initObject_(me, RectangleClass_());
-    initObject_(&me->iShape, &RectangleClass_()->iShapeInterface);
-    initObject_(&me->iDrawable, &RectangleClass_()->iDrawableInterface);
+    initObject_(me, Rectangle);
+    initChildObject_(me, Rectangle, Rectangle, Shape);
+    initChildObject_(me, Rectangle, Rectangle, Drawable);
     me->iShape.origin = origin;
     me->width = width;
     me->height = height;
@@ -105,12 +105,4 @@ static void draw(Drawable const * const me) {
     }
 
     printf("\n");
-}
-
-Shape * Rectangle_getShape(Rectangle * const me) {
-    return &me->iShape;
-}
-
-Drawable * Rectangle_getDrawable(Rectangle * const me) {
-    return &me->iDrawable;
 }

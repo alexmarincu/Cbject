@@ -22,7 +22,7 @@ CircleClass const * CircleClass_(void) {
     static CircleClass cls;
 
     doOnce_ {
-        initClass_(&cls, Circle, ObjectClass_());
+        initClass_(&cls, Circle, Object);
         initInterface_(&cls.iShapeInterface, offsetof(Circle, iShape), &CircleOperations_()->iShapeOperations);
         initInterface_(&cls.iDrawableInterface, offsetof(Circle, iDrawable), &CircleOperations_()->iDrawableOperations);
     }
@@ -31,9 +31,9 @@ CircleClass const * CircleClass_(void) {
 }
 
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
-    initObject_(me, CircleClass_());
-    initObject_(&me->iShape, &CircleClass_()->iShapeInterface);
-    initObject_(&me->iDrawable, &CircleClass_()->iDrawableInterface);
+    initObject_(me, Circle);
+    initChildObject_(me, Circle, Circle, Shape);
+    initChildObject_(me, Circle, Circle, Drawable);
     me->iShape.origin = origin;
     me->radius = radius;
     return me;

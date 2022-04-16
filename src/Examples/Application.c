@@ -31,7 +31,7 @@ ApplicationOperations const * ApplicationOperations_(void) {
 
 ApplicationClass const * ApplicationClass_(void) {
     static ApplicationClass cls;
-    doOnce_ { initClass_(&cls, Application, ObjectClass_()); }
+    doOnce_ { initClass_(&cls, Application, Object); }
     return &cls;
 }
 
@@ -42,7 +42,7 @@ Application * Application_(void) {
 }
 
 static Application * init(Application * const me) {
-    initObject_(me, ApplicationClass_());
+    initObject_(me, Application);
 }
 
 static void circleExample(Application * const me);
@@ -79,16 +79,16 @@ static void circleExample(Application * const me) {
     me->circle->radius = 3;
 
     // Get circle area through Shape interface polymorphic call
-    float area = Shape_area(&me->circle->iShape);
+    float area = Shape_area(childOf_(Circle, Shape, me->circle));
 
     // Get circle shape origin
-    Point origin = me->circle->iShape.origin;
+    Point origin = childOf_(Circle, Shape, me->circle)->origin;
 
     // set circle shape origin
-    me->circle->iShape.origin = (Point){ 4, 5 };
+    childOf_(Circle, Shape, me->circle)->origin = (Point){ 4, 5 };
 
     // Draw circle through Drawable interface polymorphic call
-    Drawable_draw(&me->circle->iDrawable);
+    Drawable_draw(childOf_(Circle, Drawable, me->circle));
 }
 
 static void rectangleExample(Application * const me) {
@@ -104,23 +104,23 @@ static void rectangleExample(Application * const me) {
     Rectangle_setHeight(me->rectangle, 5);
 
     // Get rectangle area through Shape interface polymorphic call
-    float area = Shape_area(Rectangle_getShape(me->rectangle));
+    float area = Shape_area(childOf_(Rectangle, Shape, me->rectangle));
 
     // Get rectangle shape origin
-    Point origin = Rectangle_getShape(me->rectangle)->origin;
+    Point origin = childOf_(Rectangle, Shape, me->rectangle)->origin;
 
     // set rectangle shape origin
-    Rectangle_getShape(me->rectangle)->origin = (Point){ 6, 7 };
+    childOf_(Rectangle, Shape, me->rectangle)->origin = (Point){ 6, 7 };
 
     // Draw rectangle through Drawable interface polymorphic call
-    Drawable_draw(Rectangle_getDrawable(me->rectangle));
+    Drawable_draw(childOf_(Rectangle, Drawable, me->rectangle));
 }
 
 static void polymorphismExample(Application * const me) {
     // Prepare a list of shapes
     Shape * const shapes[] = {
-        &me->circle->iShape,
-        Rectangle_getShape(me->rectangle),
+        childOf_(Circle, Shape, me->circle),
+        childOf_(Rectangle, Shape, me->rectangle),
     };
 
     // Loop through the list of shapes and call various polymorphic functions

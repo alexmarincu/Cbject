@@ -34,13 +34,13 @@ Class * Class_init(
 /**
  * @brief
  */
-#define initClass_(me, className, superClass)    \
-    Class_init(                                  \
-        toClass_(me),                            \
-        toOperations_(className##Operations_()), \
-        #className,                              \
-        sizeof(className),                       \
-        toClass_(superClass)                     \
+#define initClass_(me, className, superClassName) \
+    Class_init(                                   \
+        toClass_(me),                             \
+        toOperations_(className##Operations_()),  \
+        #className,                               \
+        sizeof(className),                        \
+        toClass_(superClassName##Class_())        \
     )
 
 /**

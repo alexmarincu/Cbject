@@ -49,20 +49,6 @@ Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_
 /**
  * @brief
  * @param me
- * @return Shape*
- */
-Shape * Rectangle_getShape(Rectangle * const me);
-
-/**
- * @brief
- * @param me
- * @return Drawable*
- */
-Drawable * Rectangle_getDrawable(Rectangle * const me);
-
-/**
- * @brief
- * @param me
  * @return uint32_t
  */
 uint32_t Rectangle_getWidth(Rectangle const * const me);

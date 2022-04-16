@@ -21,12 +21,12 @@ GreetingOperations const * GreetingOperations_(void) {
 
 GreetingClass const * GreetingClass_(void) {
     static GreetingClass cls;
-    doOnce_ { initClass_(&cls, Greeting, ObjectClass_()); }
+    doOnce_ { initClass_(&cls, Greeting, Object); }
     return &cls;
 }
 
 Greeting * Greeting_init(Greeting * me, char * const text) {
-    initObject_(me, GreetingClass_());
+    initObject_(me, Greeting);
     me->text = text;
     return me;
 }

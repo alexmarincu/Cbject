@@ -53,7 +53,10 @@ Object * Object_init(Object * const me, Type const * const type);
  * @param me
  * @param className
  */
-#define initObject_(me, type) Object_init(toObject_(me), toType_(type))
+#define initObject_(me, className) Object_init(toObject_(me), toType_(className##Class_()))
+
+#define initChildObject_(me, className, superClassName, interfaceName) \
+    Object_init(toObject_(childOf_(superClassName, interfaceName, me)), toType_(&to_(superClassName##Class, className##Class_())->i##interfaceName##Interface))
 
 /**
  * @brief Initialize a derived object
@@ -74,9 +77,15 @@ Object * Object_init(Object * const me, Type const * const type);
 #define objectOffsetOf_(me) typeOf_(me)->offset
 
 /**
- * @brief Get object from object or interface
+ * @brief Get parent object from object or interface
  */
 #define objectOf_(me) toObject_(toAny_(me) - objectOffsetOf_(me))
+
+/**
+ * @brief Get child object from object or interface
+ */
+#define childOf_(className, interfaceName, me) \
+    to_(interfaceName, toAny_(me) + toType_(&to_(className##Class, classOf_(me))->i##interfaceName##Interface)->offset)
 
 /**
  * @brief Get class of an object

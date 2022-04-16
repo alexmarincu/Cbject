@@ -43,7 +43,7 @@ static Class const * TestClass_(void) {
  * -# Check class name, object size, operations and super class
  */
 void test_Class_init(void) {
-    Class * cls = initClass_(salloc_(Class), Test, TestClass_());
+    Class * cls = initClass_(salloc_(Class), Test, Test);
     TEST_ASSERT_EQUAL_STRING("Test", cls->name);
     TEST_ASSERT_EQUAL_size_t(sizeof(Test), cls->objectSize);
     TEST_ASSERT_EQUAL_PTR(TestOperations_(), toInterface_(cls)->operations);
