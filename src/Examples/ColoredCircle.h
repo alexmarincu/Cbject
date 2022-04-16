@@ -4,13 +4,41 @@
 #include "Circle.h"
 #include "Color.h"
 
+class_(ColoredCircle);
+
 /**
- * @brief
+ * @brief ColoredCircleOps
  */
-typedef struct ColoredCircle {
-    extends_(Circle);
+struct ColoredCircleOps {
+    extend_(CircleOps);
+};
+
+/**
+ * @brief ColoredCircleClass
+ */
+struct ColoredCircleClass {
+    extend_(CircleClass);
+};
+
+/**
+ * @brief ColoredCircle
+ */
+struct ColoredCircle {
+    extend_(Circle);
     Color color;
-} ColoredCircle;
+};
+
+/**
+ * @brief ColoredCircleOps
+ * @return ColoredCircleOps const*
+ */
+ColoredCircleOps const * ColoredCircleOps_(void);
+
+/**
+ * @brief ColoredCircleClass
+ * @return ColoredCircleClass const*
+ */
+ColoredCircleClass const * ColoredCircleClass_(void);
 
 /**
  * @brief
@@ -20,24 +48,5 @@ typedef struct ColoredCircle {
  * @return ColoredCircle*
  */
 ColoredCircle * ColoredCircle_init(ColoredCircle * const me, Point const origin, uint32_t const radius, Color const color);
-
-/**
- * @brief Contains ColoredCircle's ops (aka virtual functions)
- */
-typedef struct ColoredCircleOps {
-    extends_(CircleOps);
-} ColoredCircleOps;
-
-/**
- * @brief
- * @return ColoredCircleOps const*
- */
-ColoredCircleOps const * ColoredCircleOps_(void);
-
-/**
- * @brief
- * @return Class const*
- */
-Class const * ColoredCircleClass_(void);
 
 #endif // COLOREDCIRCLE_H

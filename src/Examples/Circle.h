@@ -4,44 +4,55 @@
 #include "Drawable.h"
 #include "Shape.h"
 
-/**
- * @brief
- */
-typedef struct Circle {
-    extends_(Object);
-    inherits_(Shape);
-    inherits_(Drawable);
-    uint32_t radius;
-} Circle;
+class_(Circle);
 
 /**
- * @brief
+ * @brief CircleOps
+ */
+struct CircleOps {
+    extend_(ObjectOps);
+    inherit_(ShapeOps);
+    inherit_(DrawableOps);
+};
+
+/**
+ * @brief CircleClass
+ */
+struct CircleClass {
+    extend_(ObjectClass);
+    inherit_(ShapeInterface);
+    inherit_(DrawableInterface);
+};
+
+/**
+ * @brief Circle
+ */
+struct Circle {
+    extend_(Object);
+    inherit_(Shape);
+    inherit_(Drawable);
+    uint32_t radius;
+};
+
+/**
+ * @brief Get CircleOps
+ * @return CircleOps const*
+ */
+CircleOps const * CircleOps_(void);
+
+/**
+ * @brief Get CircleClass
+ * @return Class const*
+ */
+CircleClass const * CircleClass_(void);
+
+/**
+ * @brief Init Circle object
  * @param me
  * @param origin
  * @param radius
  * @return Circle*
  */
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius);
-
-/**
- * @brief Contains Circle's ops (aka virtual functions)
- */
-typedef struct CircleOps {
-    extends_(ObjectOps);
-    inherits_(ShapeOps);
-    inherits_(DrawableOps);
-} CircleOps;
-
-/**
- * @brief
- * @return CircleOps const*
- */
-CircleOps const * CircleOps_(void);
-
-/**
- * @brief
- * @return Class const*
- */
-Class const * CircleClass_(void);
 
 #endif // CIRCLE_H

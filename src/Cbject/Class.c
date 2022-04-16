@@ -1,18 +1,15 @@
 #include "Class.h"
 
-/**
- *
- */
 Class * Class_init(
     Class * const me,
+    Any const * const ops,
     char const * const name,
     size_t const objectSize,
-    Any const * const ops,
     Class const * const superClass
 ) {
+    initInterface_(me, 0, ops);
     me->name = name;
     me->objectSize = objectSize;
-    me->ops = ops;
     me->superClass = superClass;
     return me;
 }

@@ -1,28 +1,44 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 #include "Class.h"
-#include "Types.h"
+
+class_(Object);
 
 /**
- * @brief class Object
+ * @brief ObjectOps
  */
-typedef struct Object Object;
-struct Object {
-    size_t offset;
-    Class const * cls;
+typedef struct ObjectOps {
+    Object * (*deinit)(Object * me);
+    uint64_t (*hashCode)(Object const * const me);
+    Object * (*copy)(Object const * const me);
+    bool (*equals)(Object const * const me, Object const * const other);
+} ObjectOps;
+
+/**
+ * @brief ObjectClass
+ */
+struct ObjectClass {
+    extend_(Class);
 };
 
 /**
- * @brief Extend an object
- * @param type The type of the parent object
+ * @brief Object
  */
-#define extends_(type) type x##type
+struct Object {
+    Type const * type;
+};
 
 /**
- * @brief Inherit an interface
- * @param type The type of the interface
+ * @brief ObjectOps
+ * @return ObjectOps const*
  */
-#define inherits_(type) type i##type
+ObjectOps const * ObjectOps_(void);
+
+/**
+ * @brief ObjectClass
+ * @return ObjectClass const*
+ */
+ObjectClass const * ObjectClass_(void);
 
 /**
  * @brief Initialize an object
@@ -30,14 +46,14 @@ struct Object {
  * @param cls The class
  * @return Object* The initialized object
  */
-Object * Object_init(Object * const me, Class const * const cls);
+Object * Object_init(Object * const me, Type const * const type);
 
 /**
  * @brief Initialize the root object
  * @param me
  * @param className
  */
-#define initObject_(me, className) Object_init(toObject_(me), className##Class_())
+#define initObject_(me, type) Object_init(toObject_(me), toType_(type))
 
 /**
  * @brief Initialize a derived object
@@ -45,17 +61,17 @@ Object * Object_init(Object * const me, Class const * const cls);
  * @param ... (me The object to initialize, ... The init arguments)
  */
 #define init_(className, ...) \
-    className##_init((className *)VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
+    className##_init(to_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
 
 /**
- * @brief Cast to (Object *)
+ * @brief Get type of an object
  */
-#define toObject_(me) ((Object *)(me))
+#define typeOf_(me) toObject_(me)->type
 
 /**
  * @brief Get object offset from object or interface
  */
-#define objectOffsetOf_(me) (*(size_t *)(me))
+#define objectOffsetOf_(me) typeOf_(me)->offset
 
 /**
  * @brief Get object from object or interface
@@ -65,7 +81,12 @@ Object * Object_init(Object * const me, Class const * const cls);
 /**
  * @brief Get class of an object
  */
-#define classOf_(me) toObject_(me)->cls
+#define classOf_(me) toClass_(typeOf_(me))
+
+/**
+ * @brief Get interface of an object
+ */
+#define interfaceOf_(me) toInterface_(typeOf_(me))
 
 /**
  * @brief Get the class name of an object
@@ -80,9 +101,8 @@ Object * Object_init(Object * const me, Class const * const cls);
 /**
  * @brief Call an object operation
  */
-#define call_(className, operationName, ...)                      \
-    ((className##Ops *)classOf_(VaArgs_first_(__VA_ARGS__))->ops) \
-        ->operationName(cast_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
+#define call_(typeName, operationName, ...) \
+    to_(typeName##Ops, interfaceOf_(VaArgs_first_(__VA_ARGS__))->ops)->operationName(__VA_ARGS__)
 
 /**
  * @brief
@@ -96,7 +116,7 @@ bool Object_isOfClass(Object const * const me, Class const * const cls);
 /**
  * @brief
  */
-#define isOfClass_(className, me) Object_isOfClass(toObject_(me), className##Class_())
+#define isOfClass_(className, me) Object_isOfClass(toObject_(me), toClass_(className##Class_()))
 
 /**
  * @brief
@@ -109,7 +129,8 @@ Object * Object_cast(Object * const me, Class const * const cls);
 /**
  * @brief
  */
-#define cast_(className, me) ((className *)Object_cast(toObject_(me), className##Class_()))
+#define cast_(className, me) \
+    to_(className, Object_cast(toObject_(me), toClass_(className##Class_())))
 
 /**
  * @brief
@@ -121,7 +142,7 @@ Object * Object_alloc(Class const * const cls);
 /**
  * @brief
  */
-#define alloc_(className) ((className *)Object_alloc(className##Class_()))
+#define alloc_(className) to_(className, Object_alloc(toClass_(className##Class_())))
 
 /**
  * @brief
@@ -143,7 +164,7 @@ Object * Object_deinit(Object * me);
 /**
  * @brief
  */
-#define deinit_(me) ((Any *)Object_deinit(toObject_(me)))
+#define deinit_(me) toAny_(Object_deinit(toObject_(me)))
 
 /**
  * @brief
@@ -182,27 +203,5 @@ uint64_t Object_hashCode(Object const * const me);
  * @brief
  */
 #define hashCode_(me) Object_hashCode(toObject_(me))
-
-/**
- * @brief Object's operations (aka virtual functions)
- */
-typedef struct ObjectOps {
-    Object * (*deinit)(Object * me);
-    uint64_t (*hashCode)(Object const * const me);
-    Object * (*copy)(Object const * const me);
-    bool (*equals)(Object const * const me, Object const * const other);
-} ObjectOps;
-
-/**
- * @brief
- * @return ObjectOps const*
- */
-ObjectOps const * ObjectOps_(void);
-
-/**
- * @brief
- * @return Class const*
- */
-Class const * ObjectClass_(void);
 
 #endif // OBJECT_H

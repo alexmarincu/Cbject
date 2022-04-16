@@ -5,22 +5,59 @@
 #include <stdio.h>
 
 /**
- *
+ * @brief Application
  */
 struct Application {
-    extends_(Object);
+    extend_(Object);
     Circle * circle;
     Rectangle * rectangle;
 };
+
+static Object * deinit(Object * me);
+static Object * copy(Object const * const me);
+static Application * init(Application * const me);
+
+ApplicationOps const * ApplicationOps_(void) {
+    static ApplicationOps ops;
+
+    doOnce_ {
+        ops.xObjectOps = *ObjectOps_();
+        ops.xObjectOps.deinit = deinit;
+        ops.xObjectOps.copy = copy;
+    }
+
+    return &ops;
+}
+
+ApplicationClass const * ApplicationClass_(void) {
+    static ApplicationClass cls;
+
+    doOnce_ {
+        initClass_(&cls, Application, ObjectClass_());
+    }
+
+    return &cls;
+}
+
+Application * Application_(void) {
+    static Application me;
+
+    doOnce_ {
+        init(&me);
+    }
+
+    return &me;
+}
+
+static Application * init(Application * const me) {
+    initObject_(me, ApplicationClass_());
+}
 
 static void circleExample(Application * const me);
 static void greetingExample(Application * const me);
 static void rectangleExample(Application * const me);
 static void polymorphismExample(Application * const me);
 
-/**
- *
- */
 void Application_main(Application * const me) {
     greetingExample(me);
     circleExample(me);
@@ -28,9 +65,6 @@ void Application_main(Application * const me) {
     polymorphismExample(me);
 }
 
-/**
- *
- */
 static void greetingExample(Application * const me) {
     // Allocate and initialize a Greeting object
     Greeting * greeting = init_(Greeting, alloc_(Greeting), "Hello Cbject!");
@@ -42,9 +76,6 @@ static void greetingExample(Application * const me) {
     dealloc_(greeting);
 }
 
-/**
- *
- */
 static void circleExample(Application * const me) {
     // Allocate and initialize a Circle object
     me->circle = init_(Circle, alloc_(Circle), (Point){ 0, 1 }, 2);
@@ -68,9 +99,6 @@ static void circleExample(Application * const me) {
     Drawable_draw(&me->circle->iDrawable);
 }
 
-/**
- *
- */
 static void rectangleExample(Application * const me) {
     // Allocate and initialize a Rectangle object
     me->rectangle = init_(Rectangle, alloc_(Rectangle), (Point){ 0, 1 }, 2, 3);
@@ -96,9 +124,6 @@ static void rectangleExample(Application * const me) {
     Drawable_draw(Rectangle_getDrawable(me->rectangle));
 }
 
-/**
- *
- */
 static void polymorphismExample(Application * const me) {
     // Prepare a list of shapes
     Shape * const shapes[] = {
@@ -135,16 +160,6 @@ static void polymorphismExample(Application * const me) {
     }
 }
 
-/**
- *
- */
-Application * init(Application * const me) {
-    initObject_(me, Application);
-}
-
-/**
- *
- */
 static Object * deinit(Object * const me) {
     Application * Me = cast_(Application, me);
     dealloc_(Me->rectangle);
@@ -158,45 +173,4 @@ static Object * deinit(Object * const me) {
 static Object * copy(Object const * const me) {
     Application * Me = cast_(Application, me);
     return toObject_(Me);
-}
-
-/**
- *
- */
-Application * Application_(void) {
-    static Application me;
-
-    doOnce_ {
-        init(&me);
-    }
-
-    return &me;
-}
-
-/**
- *
- */
-ApplicationOps const * ApplicationOps_(void) {
-    static ApplicationOps ops;
-
-    doOnce_ {
-        ops.objectOps = *ObjectOps_();
-        ops.objectOps.deinit = deinit;
-        ops.objectOps.copy = copy;
-    }
-
-    return &ops;
-}
-
-/**
- *
- */
-Class const * ApplicationClass_(void) {
-    static Class cls;
-
-    doOnce_ {
-        initClass_(&cls, Application, Object);
-    }
-
-    return &cls;
 }

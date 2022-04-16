@@ -4,6 +4,6 @@
 #include "Class.h"
 #include "Interface.h"
 #include "Object.h"
-#include "Types.h"
+#include "Type.h"
 
 #endif // CBJECT_H

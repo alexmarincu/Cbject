@@ -3,33 +3,35 @@
 #include "Cbject.h"
 #include "Point.h"
 
+interface_(Shape);
+
 /**
- * @brief interface Shape
+ * @brief ShapeOps
  */
-typedef struct Shape {
-    extends_(Interface);
+struct ShapeOps {
+    float (*area)(Shape const * const me);
+};
+
+/**
+ * @brief ShapeInterface
+ */
+struct ShapeInterface {
+    extend_(Interface);
+};
+
+/**
+ * @brief Shape
+ */
+struct Shape {
+    extend_(Object);
     Point origin;
-} Shape;
+};
 
 /**
  * @brief Calculates area of a shape
- * @param me The shape's interface
+ * @param me The shape object
  * @return float The area of the shape
  */
 float Shape_area(Shape const * const me);
-
-/**
- * @brief Contains Shape's ops (aka virtual functions)
- */
-typedef struct ShapeOps {
-    float (*area)(Shape const * const me);
-} ShapeOps;
-
-/**
- * @brief Gets reference to ShapeOps
- * @remark At first call the initialization is done
- * @return ShapeOps const* The reference to ShapeOps
- */
-ShapeOps const * ShapeOps_(void);
 
 #endif // SHAPE_H

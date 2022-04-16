@@ -2,32 +2,13 @@
 #include <stdio.h>
 
 /**
- *
+ * @brief Greeting
  */
 struct Greeting {
-    extends_(Object);
+    extend_(Object);
     char * text;
 };
 
-/**
- *
- */
-void Greeting_print(Greeting * const me) {
-    printf("%s\n", me->text);
-}
-
-/**
- *
- */
-Greeting * Greeting_init(Greeting * me, char * const text) {
-    initObject_(me, Greeting);
-    me->text = text;
-    return me;
-}
-
-/**
- *
- */
 GreetingOps const * GreetingOps_(void) {
     static GreetingOps ops;
 
@@ -38,15 +19,22 @@ GreetingOps const * GreetingOps_(void) {
     return &ops;
 }
 
-/**
- *
- */
-Class const * GreetingClass_(void) {
-    static Class cls;
+GreetingClass const * GreetingClass_(void) {
+    static GreetingClass cls;
 
     doOnce_ {
-        initClass_(&cls, Greeting, Object);
+        initClass_(&cls, Greeting, ObjectClass_());
     }
 
     return &cls;
+}
+
+Greeting * Greeting_init(Greeting * me, char * const text) {
+    initObject_(me, GreetingClass_());
+    me->text = text;
+    return me;
+}
+
+void Greeting_print(Greeting * const me) {
+    printf("%s\n", me->text);
 }

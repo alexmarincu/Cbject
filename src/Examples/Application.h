@@ -2,13 +2,36 @@
 #define APPLICATION_H
 #include "Cbject.h"
 
-/**
- * @brief
- */
-typedef struct Application Application;
+class_(Application);
 
 /**
- * @brief
+ * @brief ApplicationOps
+ */
+struct ApplicationOps {
+    extend_(ObjectOps);
+};
+
+/**
+ * @brief ApplicationClass
+ */
+struct ApplicationClass {
+    extend_(ObjectClass);
+};
+
+/**
+ * @brief Get ApplicationOps
+ * @return ApplicationOps const*
+ */
+ApplicationOps const * ApplicationOps_(void);
+
+/**
+ * @brief Get ApplicationClass
+ * @return ApplicationClass const*
+ */
+ApplicationClass const * ApplicationClass_(void);
+
+/**
+ * @brief Get Application singleton
  * @return Application*
  */
 Application * Application_(void);
@@ -18,24 +41,5 @@ Application * Application_(void);
  * @param me
  */
 void Application_main(Application * const me);
-
-/**
- * @brief Contains Application's ops (aka virtual functions)
- */
-typedef struct ApplicationOps {
-    ObjectOps objectOps;
-} ApplicationOps;
-
-/**
- * @brief
- * @return ApplicationOps const*
- */
-ApplicationOps const * ApplicationOps_(void);
-
-/**
- * @brief
- * @return Class const*
- */
-Class const * ApplicationClass_(void);
 
 #endif // APPLICATION_H

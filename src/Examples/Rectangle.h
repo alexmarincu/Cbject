@@ -4,10 +4,37 @@
 #include "Drawable.h"
 #include "Shape.h"
 
+class_(Rectangle);
+
 /**
- * @brief
+ * @brief RectangleOps
  */
-typedef struct Rectangle Rectangle;
+struct RectangleOps {
+    extend_(ObjectOps);
+    inherit_(ShapeOps);
+    inherit_(DrawableOps);
+};
+
+/**
+ * @brief RectangleClass
+ */
+struct RectangleClass {
+    extend_(ObjectClass);
+    inherit_(ShapeInterface);
+    inherit_(DrawableInterface);
+};
+
+/**
+ * @brief Get RectangleOps
+ * @return RectangleOps const*
+ */
+RectangleOps const * RectangleOps_(void);
+
+/**
+ * @brief Get RectangleClass
+ * @return RectangleClass const*
+ */
+RectangleClass const * RectangleClass_(void);
 
 /**
  * @brief
@@ -67,26 +94,5 @@ void Rectangle_setHeight(Rectangle * const me, uint32_t const height);
  * @param edgeSize
  */
 void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize);
-
-/**
- * @brief Contains Rectangle's ops (aka virtual functions)
- */
-typedef struct RectangleOps {
-    extends_(ObjectOps);
-    inherits_(ShapeOps);
-    inherits_(DrawableOps);
-} RectangleOps;
-
-/**
- * @brief
- * @return RectangleOps const*
- */
-RectangleOps const * RectangleOps_(void);
-
-/**
- * @brief
- * @return Class const*
- */
-Class const * RectangleClass_(void);
 
 #endif // RECTANGLE_H

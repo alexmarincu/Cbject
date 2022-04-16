@@ -1,30 +1,8 @@
 #include "ColoredCircle.h"
 #include <stdio.h>
 
-/**
- *
- */
-static void draw(Drawable const * const me) {
-    ColoredCircle * Me = cast_(ColoredCircle, objectOf_(me));
-    CircleOps_()->iDrawableOps.draw(me);
-}
+static void draw(Drawable const * const me);
 
-/**
- *
- */
-ColoredCircle * ColoredCircle_init(ColoredCircle * const me, Point const origin, uint32_t const radius, Color const color) {
-    init_(Circle, me, origin, radius);
-    objectOf_(me)->cls = ColoredCircleClass_();
-    me->xCircle.iShape.xInterface.ops =
-        initInterface_(&me->xCircle.iShape, offsetof(Circle, iShape), &ColoredCircleOps_()->xCircleOps.iShapeOps);
-    initInterface_(&me->xCircle.iDrawable, offsetof(Circle, iDrawable), &ColoredCircleOps_()->xCircleOps.iDrawableOps);
-    me->color = color;
-    return me;
-}
-
-/**
- *
- */
 ColoredCircleOps const * ColoredCircleOps_(void) {
     static ColoredCircleOps ops;
 
@@ -36,15 +14,29 @@ ColoredCircleOps const * ColoredCircleOps_(void) {
     return &ops;
 }
 
-/**
- *
- */
-Class const * ColoredCircleClass_(void) {
-    static Class cls;
+ColoredCircleClass const * ColoredCircleClass_(void) {
+    static ColoredCircleClass cls;
 
     doOnce_ {
-        initClass_(&cls, ColoredCircle, Circle);
+        initClass_(&cls, ColoredCircle, CircleClass_());
+        initInterface_(&to_(CircleClass, &cls)->iShapeInterface, offsetof(Circle, iShape), &((CircleOps *)ColoredCircleOps_())->iShapeOps);
+        initInterface_(&to_(CircleClass, &cls)->iDrawableInterface, offsetof(Circle, iDrawable), &((CircleOps *)ColoredCircleOps_())->iDrawableOps);
     }
 
     return &cls;
+}
+
+ColoredCircle * ColoredCircle_init(ColoredCircle * const me, Point const origin, uint32_t const radius, Color const color) {
+    init_(Circle, me, origin, radius);
+
+    initObject_(me, ColoredCircleClass_());
+    initObject_(&((Circle *)me)->iShape, &((CircleClass *)ColoredCircleClass_())->iShapeInterface);
+    initObject_(&((Circle *)me)->iDrawable, &((CircleClass *)ColoredCircleClass_())->iDrawableInterface);
+    me->color = color;
+    return me;
+}
+
+static void draw(Drawable const * const me) {
+    ColoredCircle * Me = cast_(ColoredCircle, objectOf_(me));
+    CircleOps_()->iDrawableOps.draw(me);
 }

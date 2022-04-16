@@ -4,6 +4,7 @@
 #include "Interface.h"
 
 TEST_FILE("Interface.c")
+TEST_FILE("Type.c")
 
 /**
  * @brief
@@ -23,6 +24,6 @@ void tearDown(void) {
 void test_Interface_init(void) {
     Any * ops;
     Interface * interface = Interface_init(salloc_(Interface), 5, ops);
-    TEST_ASSERT_EQUAL(5, interface->offset);
+    TEST_ASSERT_EQUAL(5, toType_(interface)->offset);
     TEST_ASSERT_EQUAL_PTR(ops, interface->ops);
 }
