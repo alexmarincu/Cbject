@@ -5,47 +5,25 @@
 #include <stdint.h>
 
 /**
- * @brief Type info
+ * @brief Type
  */
 typedef struct Type {
     size_t offset;
 } Type;
 
 /**
- *
+ * @brief Initialize a type
+ * @param me The type reference
+ * @param offset The offset of the object in the parent structure
+ * @return Type* The initialized type
  */
-Type * Type_init(
-    Type * const me,
-    size_t const offset
-);
+Type * Type_init(Type * const me, size_t const offset);
 
 /**
- * @brief Declare an interface
- * @param name The interface name
- */
-#define interface_(name)                            \
-    typedef struct name##Ops name##Ops;             \
-    typedef struct name##Interface name##Interface; \
-    typedef struct name name
-
-/**
- * @brief Declare a class
- * @param name The class name
- */
-#define class_(name)                        \
-    typedef struct name##Ops name##Ops;     \
-    typedef struct name##Class name##Class; \
-    typedef struct name name
-
-/**
- * @brief Typedef to use for pointer to any kind of type
+ * @brief Any
+ * @remark To be used with pointers to anything
  */
 typedef void Any;
-
-/**
- * @brief Cast to (Any *)
- */
-#define toAny_(me) ((Any *)(me))
 
 /**
  * @brief Cast to a type
@@ -55,28 +33,17 @@ typedef void Any;
 #define to_(typeName, me) ((typeName *)(me))
 
 /**
+ * @brief Cast to (Any *)
+ */
+#define toAny_(me) to_(Any, (me))
+
+/**
  * @brief Cast to (Type *)
  */
-#define toType_(me) ((Type *)(me))
+#define toType_(me) to_(Type, (me))
 
 /**
- * @brief Cast to (Object *)
- */
-#define toObject_(me) ((Object *)(me))
-
-/**
- * @brief Cast to (Class *)
- */
-#define toClass_(me) ((Class *)(me))
-
-/**
- * @brief Cast to (Interface *)
- * @param me
- */
-#define toInterface_(me) ((Interface *)(me))
-
-/**
- * @brief Initialize an interface
+ * @brief Initialize a type
  * @param me
  * @param offset
  */

@@ -6,9 +6,9 @@
 interface_(Shape);
 
 /**
- * @brief ShapeOps
+ * @brief ShapeOperations
  */
-struct ShapeOps {
+struct ShapeOperations {
     float (*area)(Shape const * const me);
 };
 

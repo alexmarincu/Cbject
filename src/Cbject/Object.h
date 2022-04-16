@@ -5,14 +5,14 @@
 class_(Object);
 
 /**
- * @brief ObjectOps
+ * @brief ObjectOperations
  */
-typedef struct ObjectOps {
+typedef struct ObjectOperations {
     Object * (*deinit)(Object * me);
     uint64_t (*hashCode)(Object const * const me);
     Object * (*copy)(Object const * const me);
     bool (*equals)(Object const * const me, Object const * const other);
-} ObjectOps;
+} ObjectOperations;
 
 /**
  * @brief ObjectClass
@@ -29,10 +29,10 @@ struct Object {
 };
 
 /**
- * @brief ObjectOps
- * @return ObjectOps const*
+ * @brief ObjectOperations
+ * @return ObjectOperations const*
  */
-ObjectOps const * ObjectOps_(void);
+ObjectOperations const * ObjectOperations_(void);
 
 /**
  * @brief ObjectClass
@@ -102,7 +102,7 @@ Object * Object_init(Object * const me, Type const * const type);
  * @brief Call an object operation
  */
 #define call_(typeName, operationName, ...) \
-    to_(typeName##Ops, interfaceOf_(VaArgs_first_(__VA_ARGS__))->ops)->operationName(__VA_ARGS__)
+    to_(typeName##Operations, interfaceOf_(VaArgs_first_(__VA_ARGS__))->operations)->operationName(__VA_ARGS__)
 
 /**
  * @brief
@@ -117,20 +117,6 @@ bool Object_isOfClass(Object const * const me, Class const * const cls);
  * @brief
  */
 #define isOfClass_(className, me) Object_isOfClass(toObject_(me), toClass_(className##Class_()))
-
-/**
- * @brief
- * @param me
- * @param cls
- * @return Object*
- */
-Object * Object_cast(Object * const me, Class const * const cls);
-
-/**
- * @brief
- */
-#define cast_(className, me) \
-    to_(className, Object_cast(toObject_(me), toClass_(className##Class_())))
 
 /**
  * @brief
@@ -176,7 +162,7 @@ Object * Object_copy(Object const * const me);
 /**
  * @brief
  */
-#define copy_(className, me) cast_(className, Object_copy(toObject_(me)))
+#define copy_(className, me) to_(className, Object_copy(toObject_(me)))
 
 /**
  * @brief
@@ -203,5 +189,10 @@ uint64_t Object_hashCode(Object const * const me);
  * @brief
  */
 #define hashCode_(me) Object_hashCode(toObject_(me))
+
+/**
+ * @brief Cast to (Object *)
+ */
+#define toObject_(me) to_(Object, (me))
 
 #endif // OBJECT_H

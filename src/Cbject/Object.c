@@ -8,24 +8,20 @@ static Object * copy(Object const * const me);
 static bool equals(Object const * const me, Object const * const other);
 static uint64_t hashCode(Object const * const me);
 
-ObjectOps const * ObjectOps_(void) {
-    static ObjectOps const ops = {
+ObjectOperations const * ObjectOperations_(void) {
+    static ObjectOperations const operations = {
         .deinit = deinit,
         .copy = copy,
         .equals = equals,
         .hashCode = hashCode
     };
 
-    return &ops;
+    return &operations;
 }
 
 ObjectClass const * ObjectClass_(void) {
     static ObjectClass cls;
-
-    doOnce_ {
-        initClass_(&cls, Object, NULL);
-    }
-
+    doOnce_ { initClass_(&cls, Object, NULL); }
     return &cls;
 }
 
@@ -84,11 +80,6 @@ bool Object_isOfClass(Object const * const me, Class const * const targetClass) 
     }
 
     return isOfClass;
-}
-
-Object * Object_cast(Object * const me, Class const * const cls) {
-    assert_(Object_isOfClass(objectOf_(me), cls));
-    return objectOf_(me);
 }
 
 Object * Object_alloc(Class const * const cls) {

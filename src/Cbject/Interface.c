@@ -3,9 +3,9 @@
 Interface * Interface_init(
     Interface * const me,
     size_t const offset,
-    Any const * const ops
+    Operations const * const operations
 ) {
     initType_(me, offset);
-    me->ops = ops;
+    me->operations = operations;
     return me;
 }

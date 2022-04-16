@@ -5,9 +5,9 @@
 interface_(Drawable);
 
 /**
- * @brief DrawableOps
+ * @brief DrawableOperations
  */
-struct DrawableOps {
+struct DrawableOperations {
     void (*draw)(Drawable const * const me);
 };
 

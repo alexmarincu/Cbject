@@ -2,10 +2,11 @@
 #define CLASS_H
 #include "Interface.h"
 
+typedef struct Class Class;
+
 /**
  * @brief Class
  */
-typedef struct Class Class;
 struct Class {
     extend_(Interface);
     char const * name;
@@ -18,13 +19,13 @@ struct Class {
  * @param me
  * @param name
  * @param objectSize
- * @param ops
+ * @param operations
  * @param superClass
  * @return Class*
  */
 Class * Class_init(
     Class * const me,
-    Any const * const ops,
+    Operations const * const operations,
     char const * const name,
     size_t const objectSize,
     Class const * const superClass
@@ -33,7 +34,27 @@ Class * Class_init(
 /**
  * @brief
  */
-#define initClass_(me, className, superClass) \
-    Class_init(toClass_(me), toAny_(className##Ops_()), #className, sizeof(className), toClass_(superClass))
+#define initClass_(me, className, superClass)    \
+    Class_init(                                  \
+        toClass_(me),                            \
+        toOperations_(className##Operations_()), \
+        #className,                              \
+        sizeof(className),                       \
+        toClass_(superClass)                     \
+    )
+
+/**
+ * @brief Declare a class
+ * @param name The class name
+ */
+#define class_(name)                                  \
+    typedef struct name##Operations name##Operations; \
+    typedef struct name##Class name##Class;           \
+    typedef struct name name
+
+/**
+ * @brief Cast to (Class *)
+ */
+#define toClass_(me) to_(Class, (me))
 
 #endif // CLASS_H

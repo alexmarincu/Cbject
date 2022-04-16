@@ -17,35 +17,27 @@ static Object * deinit(Object * me);
 static Object * copy(Object const * const me);
 static Application * init(Application * const me);
 
-ApplicationOps const * ApplicationOps_(void) {
-    static ApplicationOps ops;
+ApplicationOperations const * ApplicationOperations_(void) {
+    static ApplicationOperations operations;
 
     doOnce_ {
-        ops.xObjectOps = *ObjectOps_();
-        ops.xObjectOps.deinit = deinit;
-        ops.xObjectOps.copy = copy;
+        operations.xObjectOperations = *ObjectOperations_();
+        operations.xObjectOperations.deinit = deinit;
+        operations.xObjectOperations.copy = copy;
     }
 
-    return &ops;
+    return &operations;
 }
 
 ApplicationClass const * ApplicationClass_(void) {
     static ApplicationClass cls;
-
-    doOnce_ {
-        initClass_(&cls, Application, ObjectClass_());
-    }
-
+    doOnce_ { initClass_(&cls, Application, ObjectClass_()); }
     return &cls;
 }
 
 Application * Application_(void) {
     static Application me;
-
-    doOnce_ {
-        init(&me);
-    }
-
+    doOnce_ { init(&me); }
     return &me;
 }
 
@@ -151,26 +143,25 @@ static void polymorphismExample(Application * const me) {
         // Check class of object
         if (isOfClass_(Circle, object)) {
             // Get circle radius
-            uint32_t radius = cast_(Circle, object)->radius;
+            uint32_t radius = to_(Circle, object)->radius;
         } else if (isOfClass_(Rectangle, object)) {
             // Get rectangle width and height
-            uint32_t width = Rectangle_getWidth(cast_(Rectangle, object));
-            uint32_t height = Rectangle_getHeight(cast_(Rectangle, object));
+            uint32_t width = Rectangle_getWidth(to_(Rectangle, object));
+            uint32_t height = Rectangle_getHeight(to_(Rectangle, object));
         }
     }
 }
 
 static Object * deinit(Object * const me) {
-    Application * Me = cast_(Application, me);
+    Application * Me = to_(Application, me);
     dealloc_(Me->rectangle);
     dealloc_(Me->circle);
-    return ObjectOps_()->deinit(me);
+    return ObjectOperations_()->deinit(me);
 }
 
 /**
  * Override Object_copy to return the same singleton object instead of a copy
  */
 static Object * copy(Object const * const me) {
-    Application * Me = cast_(Application, me);
-    return toObject_(Me);
+    return toObject_(me);
 }

@@ -5,17 +5,17 @@ static Object * deinit(Object * me);
 static float area(Shape const * const me);
 static void draw(Drawable const * const me);
 
-CircleOps const * CircleOps_(void) {
-    static CircleOps ops;
+CircleOperations const * CircleOperations_(void) {
+    static CircleOperations operations;
 
     doOnce_ {
-        ops.xObjectOps = *ObjectOps_();
-        ops.xObjectOps.deinit = deinit;
-        ops.iShapeOps.area = area;
-        ops.iDrawableOps.draw = draw;
+        operations.xObjectOperations = *ObjectOperations_();
+        operations.xObjectOperations.deinit = deinit;
+        operations.iShapeOperations.area = area;
+        operations.iDrawableOperations.draw = draw;
     }
 
-    return &ops;
+    return &operations;
 }
 
 CircleClass const * CircleClass_(void) {
@@ -23,8 +23,8 @@ CircleClass const * CircleClass_(void) {
 
     doOnce_ {
         initClass_(&cls, Circle, ObjectClass_());
-        initInterface_(&cls.iShapeInterface, offsetof(Circle, iShape), &CircleOps_()->iShapeOps);
-        initInterface_(&cls.iDrawableInterface, offsetof(Circle, iDrawable), &CircleOps_()->iDrawableOps);
+        initInterface_(&cls.iShapeInterface, offsetof(Circle, iShape), &CircleOperations_()->iShapeOperations);
+        initInterface_(&cls.iDrawableInterface, offsetof(Circle, iDrawable), &CircleOperations_()->iDrawableOperations);
     }
 
     return &cls;
@@ -32,20 +32,20 @@ CircleClass const * CircleClass_(void) {
 
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
     initObject_(me, CircleClass_());
-    initObject_(&me->iShape, &((CircleClass *)CircleClass_())->iShapeInterface);
-    initObject_(&me->iDrawable, &((CircleClass *)CircleClass_())->iDrawableInterface);
+    initObject_(&me->iShape, &CircleClass_()->iShapeInterface);
+    initObject_(&me->iDrawable, &CircleClass_()->iDrawableInterface);
     me->iShape.origin = origin;
     me->radius = radius;
     return me;
 }
 
 static float area(Shape const * const me) {
-    Circle * Me = cast_(Circle, objectOf_(me));
+    Circle * Me = to_(Circle, objectOf_(me));
     return Me->radius * Me->radius * 3.14;
 }
 
 static void draw(Drawable const * const me) {
-    Circle * Me = cast_(Circle, objectOf_(me));
+    Circle * Me = to_(Circle, objectOf_(me));
     float const radius = Me->radius;
     float const tolerance = radius / 2;
 
@@ -60,5 +60,5 @@ static void draw(Drawable const * const me) {
 }
 
 static Object * deinit(Object * me) {
-    return ObjectOps_()->deinit(me);
+    return ObjectOperations_()->deinit(me);
 }

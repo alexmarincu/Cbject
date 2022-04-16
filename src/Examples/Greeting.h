@@ -5,10 +5,10 @@
 class_(Greeting);
 
 /**
- * @brief GreetingOps
+ * @brief GreetingOperations
  */
-struct GreetingOps {
-    extend_(ObjectOps);
+struct GreetingOperations {
+    extend_(ObjectOperations);
 };
 
 /**
@@ -19,10 +19,10 @@ struct GreetingClass {
 };
 
 /**
- * @brief Get GreetingOps
- * @return GreetingOps const*
+ * @brief Get GreetingOperations
+ * @return GreetingOperations const*
  */
-GreetingOps const * GreetingOps_(void);
+GreetingOperations const * GreetingOperations_(void);
 
 /**
  * @brief Get GreetingClass

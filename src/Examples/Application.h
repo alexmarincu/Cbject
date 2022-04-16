@@ -5,10 +5,10 @@
 class_(Application);
 
 /**
- * @brief ApplicationOps
+ * @brief ApplicationOperations
  */
-struct ApplicationOps {
-    extend_(ObjectOps);
+struct ApplicationOperations {
+    extend_(ObjectOperations);
 };
 
 /**
@@ -19,10 +19,10 @@ struct ApplicationClass {
 };
 
 /**
- * @brief Get ApplicationOps
- * @return ApplicationOps const*
+ * @brief Get ApplicationOperations
+ * @return ApplicationOperations const*
  */
-ApplicationOps const * ApplicationOps_(void);
+ApplicationOperations const * ApplicationOperations_(void);
 
 /**
  * @brief Get ApplicationClass

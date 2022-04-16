@@ -7,12 +7,12 @@
 class_(Rectangle);
 
 /**
- * @brief RectangleOps
+ * @brief RectangleOperations
  */
-struct RectangleOps {
-    extend_(ObjectOps);
-    inherit_(ShapeOps);
-    inherit_(DrawableOps);
+struct RectangleOperations {
+    extend_(ObjectOperations);
+    inherit_(ShapeOperations);
+    inherit_(DrawableOperations);
 };
 
 /**
@@ -25,10 +25,10 @@ struct RectangleClass {
 };
 
 /**
- * @brief Get RectangleOps
- * @return RectangleOps const*
+ * @brief Get RectangleOperations
+ * @return RectangleOperations const*
  */
-RectangleOps const * RectangleOps_(void);
+RectangleOperations const * RectangleOperations_(void);
 
 /**
  * @brief Get RectangleClass

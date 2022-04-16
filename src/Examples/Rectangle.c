@@ -16,17 +16,17 @@ static Object * deinit(Object * me);
 static float area(Shape const * const me);
 static void draw(Drawable const * const me);
 
-RectangleOps const * RectangleOps_(void) {
-    static RectangleOps ops;
+RectangleOperations const * RectangleOperations_(void) {
+    static RectangleOperations operations;
 
     doOnce_ {
-        ops.xObjectOps = *ObjectOps_();
-        ops.xObjectOps.deinit = deinit;
-        ops.iShapeOps.area = area;
-        ops.iDrawableOps.draw = draw;
+        operations.xObjectOperations = *ObjectOperations_();
+        operations.xObjectOperations.deinit = deinit;
+        operations.iShapeOperations.area = area;
+        operations.iDrawableOperations.draw = draw;
     }
 
-    return &ops;
+    return &operations;
 }
 
 RectangleClass const * RectangleClass_(void) {
@@ -34,8 +34,8 @@ RectangleClass const * RectangleClass_(void) {
 
     doOnce_ {
         initClass_(toClass_(&cls), Rectangle, ObjectClass_());
-        initInterface_(&to_(RectangleClass, &cls)->iShapeInterface, offsetof(Rectangle, iShape), &RectangleOps_()->iShapeOps);
-        initInterface_(&to_(RectangleClass, &cls)->iDrawableInterface, offsetof(Rectangle, iDrawable), &RectangleOps_()->iDrawableOps);
+        initInterface_(&cls.iShapeInterface, offsetof(Rectangle, iShape), &RectangleOperations_()->iShapeOperations);
+        initInterface_(&cls.iDrawableInterface, offsetof(Rectangle, iDrawable), &RectangleOperations_()->iDrawableOperations);
     }
 
     return &cls;
@@ -43,8 +43,8 @@ RectangleClass const * RectangleClass_(void) {
 
 Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_t height) {
     initObject_(me, RectangleClass_());
-    initObject_(&me->iShape, &((RectangleClass *)RectangleClass_())->iShapeInterface);
-    initObject_(&me->iDrawable, &((RectangleClass *)RectangleClass_())->iDrawableInterface);
+    initObject_(&me->iShape, &RectangleClass_()->iShapeInterface);
+    initObject_(&me->iDrawable, &RectangleClass_()->iDrawableInterface);
     me->iShape.origin = origin;
     me->width = width;
     me->height = height;
@@ -73,16 +73,16 @@ void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize) {
 }
 
 static Object * deinit(Object * me) {
-    return ObjectOps_()->deinit(me);
+    return ObjectOperations_()->deinit(me);
 }
 
 static float area(Shape const * const me) {
-    Rectangle * Me = cast_(Rectangle, objectOf_(me));
+    Rectangle * Me = to_(Rectangle, objectOf_(me));
     return Me->width * Me->height;
 }
 
 static void draw(Drawable const * const me) {
-    Rectangle * Me = cast_(Rectangle, objectOf_(me));
+    Rectangle * Me = to_(Rectangle, objectOf_(me));
 
     for (uint8_t i = 0; i < Me->width; i++) {
         printf("--");

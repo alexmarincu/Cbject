@@ -7,12 +7,12 @@
 class_(Circle);
 
 /**
- * @brief CircleOps
+ * @brief CircleOperations
  */
-struct CircleOps {
-    extend_(ObjectOps);
-    inherit_(ShapeOps);
-    inherit_(DrawableOps);
+struct CircleOperations {
+    extend_(ObjectOperations);
+    inherit_(ShapeOperations);
+    inherit_(DrawableOperations);
 };
 
 /**
@@ -35,10 +35,10 @@ struct Circle {
 };
 
 /**
- * @brief Get CircleOps
- * @return CircleOps const*
+ * @brief Get CircleOperations
+ * @return CircleOperations const*
  */
-CircleOps const * CircleOps_(void);
+CircleOperations const * CircleOperations_(void);
 
 /**
  * @brief Get CircleClass

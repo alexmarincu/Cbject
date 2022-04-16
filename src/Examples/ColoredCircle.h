@@ -7,10 +7,10 @@
 class_(ColoredCircle);
 
 /**
- * @brief ColoredCircleOps
+ * @brief ColoredCircleOperations
  */
-struct ColoredCircleOps {
-    extend_(CircleOps);
+struct ColoredCircleOperations {
+    extend_(CircleOperations);
 };
 
 /**
@@ -29,10 +29,10 @@ struct ColoredCircle {
 };
 
 /**
- * @brief ColoredCircleOps
- * @return ColoredCircleOps const*
+ * @brief ColoredCircleOperations
+ * @return ColoredCircleOperations const*
  */
-ColoredCircleOps const * ColoredCircleOps_(void);
+ColoredCircleOperations const * ColoredCircleOperations_(void);
 
 /**
  * @brief ColoredCircleClass

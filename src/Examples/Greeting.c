@@ -9,23 +9,19 @@ struct Greeting {
     char * text;
 };
 
-GreetingOps const * GreetingOps_(void) {
-    static GreetingOps ops;
+GreetingOperations const * GreetingOperations_(void) {
+    static GreetingOperations operations;
 
     doOnce_ {
-        ops.xObjectOps = *ObjectOps_();
+        operations.xObjectOperations = *ObjectOperations_();
     }
 
-    return &ops;
+    return &operations;
 }
 
 GreetingClass const * GreetingClass_(void) {
     static GreetingClass cls;
-
-    doOnce_ {
-        initClass_(&cls, Greeting, ObjectClass_());
-    }
-
+    doOnce_ { initClass_(&cls, Greeting, ObjectClass_()); }
     return &cls;
 }
 
