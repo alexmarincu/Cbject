@@ -11,8 +11,8 @@ class_(Circle);
  */
 struct CircleOperations {
     extend_(ObjectOperations);
-    inherit_(ShapeOperations);
-    inherit_(DrawableOperations);
+    implement_(ShapeOperations);
+    implement_(DrawableOperations);
 };
 
 /**
@@ -20,8 +20,8 @@ struct CircleOperations {
  */
 struct CircleClass {
     extend_(ObjectClass);
-    inherit_(ShapeInterface);
-    inherit_(DrawableInterface);
+    implement_(ShapeInterface);
+    implement_(DrawableInterface);
 };
 
 /**
@@ -29,8 +29,8 @@ struct CircleClass {
  */
 struct Circle {
     extend_(Object);
-    inherit_(Shape);
-    inherit_(Drawable);
+    implement_(Shape);
+    implement_(Drawable);
     uint32_t radius;
 };
 

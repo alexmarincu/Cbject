@@ -204,4 +204,13 @@ uint64_t Object_hashCode(Object const * const me);
  */
 #define toObject_(me) to_(Object, (me))
 
+#define inheritOperationsOf_(superClassName, operations) \
+    *to_(superClassName##Operations, operations) = *superClassName##Operations_()
+
+#define overrideInterfaceOperation_(className, interfaceName, operationName, operations) \
+    to_(className##Operations, operations)->i##interfaceName##Operations.operationName = operationName
+
+#define overrideOperation_(superClassName, operationName, operations) \
+    to_(superClassName##Operations, operations)->operationName = operationName
+
 #endif // OBJECT_H

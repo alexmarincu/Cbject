@@ -27,7 +27,7 @@ void test_Object_class(void) {
     Class const * objectClass = toClass_(ObjectClass_());
     TEST_ASSERT_EQUAL_STRING("Object", objectClass->name);
     TEST_ASSERT_EQUAL_size_t(sizeof(Object), objectClass->objectSize);
-    TEST_ASSERT_EQUAL_PTR(ObjectOperations_(), objectClass->xInterface.operations);
+    TEST_ASSERT_EQUAL_PTR(ObjectOperations_(), toInterface_(objectClass)->operations);
 }
 
 /**

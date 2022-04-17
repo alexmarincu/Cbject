@@ -7,8 +7,8 @@ ColoredCircleOperations const * ColoredCircleOperations_(void) {
     static ColoredCircleOperations operations;
 
     doOnce_ {
-        operations.xCircleOperations = *CircleOperations_();
-        operations.xCircleOperations.iDrawableOperations.draw = draw;
+        inheritOperationsOf_(Circle, &operations);
+        overrideInterfaceOperation_(Circle, Drawable, draw, &operations);
     }
 
     return &operations;
@@ -19,8 +19,8 @@ ColoredCircleClass const * ColoredCircleClass_(void) {
 
     doOnce_ {
         initClass_(&cls, ColoredCircle, Circle);
-        initInterface_(&to_(CircleClass, &cls)->iShapeInterface, offsetof(Circle, iShape), &to_(CircleOperations, ColoredCircleOperations_())->iShapeOperations);
-        initInterface_(&to_(CircleClass, &cls)->iDrawableInterface, offsetof(Circle, iDrawable), &to_(CircleOperations, ColoredCircleOperations_())->iDrawableOperations);
+        initChildInterface_(&cls, ColoredCircle, Circle, Shape);
+        initChildInterface_(&cls, ColoredCircle, Circle, Drawable);
     }
 
     return &cls;

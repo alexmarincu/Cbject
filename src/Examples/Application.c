@@ -21,9 +21,9 @@ ApplicationOperations const * ApplicationOperations_(void) {
     static ApplicationOperations operations;
 
     doOnce_ {
-        operations.xObjectOperations = *ObjectOperations_();
-        operations.xObjectOperations.deinit = deinit;
-        operations.xObjectOperations.copy = copy;
+        inheritOperationsOf_(Object, &operations);
+        overrideOperation_(Object, deinit, &operations);
+        overrideOperation_(Object, copy, &operations);
     }
 
     return &operations;

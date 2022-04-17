@@ -6,8 +6,8 @@
  */
 struct Rectangle {
     extend_(Object);
-    inherit_(Shape);
-    inherit_(Drawable);
+    implement_(Shape);
+    implement_(Drawable);
     uint32_t width;
     uint32_t height;
 };
@@ -20,10 +20,10 @@ RectangleOperations const * RectangleOperations_(void) {
     static RectangleOperations operations;
 
     doOnce_ {
-        operations.xObjectOperations = *ObjectOperations_();
-        operations.xObjectOperations.deinit = deinit;
-        operations.iShapeOperations.area = area;
-        operations.iDrawableOperations.draw = draw;
+        inheritOperationsOf_(Object, &operations);
+        overrideOperation_(Object, deinit, &operations);
+        overrideInterfaceOperation_(Rectangle, Shape, area, &operations);
+        overrideInterfaceOperation_(Rectangle, Drawable, draw, &operations);
     }
 
     return &operations;
@@ -34,8 +34,8 @@ RectangleClass const * RectangleClass_(void) {
 
     doOnce_ {
         initClass_(&cls, Rectangle, Object);
-        initInterface_(&cls.iShapeInterface, offsetof(Rectangle, iShape), &RectangleOperations_()->iShapeOperations);
-        initInterface_(&cls.iDrawableInterface, offsetof(Rectangle, iDrawable), &RectangleOperations_()->iDrawableOperations);
+        initChildInterface_(&cls, Rectangle, Rectangle, Shape);
+        initChildInterface_(&cls, Rectangle, Rectangle, Drawable);
     }
 
     return &cls;

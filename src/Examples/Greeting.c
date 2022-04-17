@@ -13,7 +13,7 @@ GreetingOperations const * GreetingOperations_(void) {
     static GreetingOperations operations;
 
     doOnce_ {
-        operations.xObjectOperations = *ObjectOperations_();
+        inheritOperationsOf_(Object, &operations);
     }
 
     return &operations;

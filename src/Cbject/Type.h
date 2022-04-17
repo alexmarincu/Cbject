@@ -51,16 +51,16 @@ typedef void Any;
     Type_init(toType_(me), offset)
 
 /**
- * @brief Extend an object
- * @param type The type of the parent object
+ * @brief Extend a class
+ * @param className The class to extend
  */
-#define extend_(type) type x##type
+#define extend_(className) className x##Super
 
 /**
- * @brief Inherit an interface
- * @param type The type of the interface
+ * @brief Implement an interface
+ * @param interfaceName The type to inherit
  */
-#define inherit_(type) type i##type
+#define implement_(interfaceName) interfaceName i##interfaceName
 
 /**
  * @brief Get length of an array

@@ -11,8 +11,8 @@ class_(Rectangle);
  */
 struct RectangleOperations {
     extend_(ObjectOperations);
-    inherit_(ShapeOperations);
-    inherit_(DrawableOperations);
+    implement_(ShapeOperations);
+    implement_(DrawableOperations);
 };
 
 /**
@@ -20,8 +20,8 @@ struct RectangleOperations {
  */
 struct RectangleClass {
     extend_(ObjectClass);
-    inherit_(ShapeInterface);
-    inherit_(DrawableInterface);
+    implement_(ShapeInterface);
+    implement_(DrawableInterface);
 };
 
 /**

@@ -41,6 +41,20 @@ Interface * Interface_init(
     Interface_init(toInterface_(me), offset, toOperations_(operations))
 
 /**
+ * @brief Initialize child interface
+ * @param me
+ * @param className
+ * @param interfaceClassName
+ * @param interfaceName
+ */
+#define initChildInterface_(me, className, interfaceClassName, interfaceName)                        \
+    initInterface_(                                                                                  \
+        &to_(interfaceClassName##Class, me)->i##interfaceName##Interface,                            \
+        offsetof(interfaceClassName, i##interfaceName),                                              \
+        &to_(interfaceClassName##Operations, className##Operations_())->i##interfaceName##Operations \
+    )
+
+/**
  * @brief Declare an interface
  * @param name The interface name
  */

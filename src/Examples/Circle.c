@@ -9,10 +9,10 @@ CircleOperations const * CircleOperations_(void) {
     static CircleOperations operations;
 
     doOnce_ {
-        operations.xObjectOperations = *ObjectOperations_();
-        operations.xObjectOperations.deinit = deinit;
-        operations.iShapeOperations.area = area;
-        operations.iDrawableOperations.draw = draw;
+        inheritOperationsOf_(Object, &operations);
+        overrideOperation_(Object, deinit, &operations);
+        overrideInterfaceOperation_(Circle, Shape, area, &operations);
+        overrideInterfaceOperation_(Circle, Drawable, draw, &operations);
     }
 
     return &operations;
@@ -23,8 +23,8 @@ CircleClass const * CircleClass_(void) {
 
     doOnce_ {
         initClass_(&cls, Circle, Object);
-        initInterface_(&cls.iShapeInterface, offsetof(Circle, iShape), &CircleOperations_()->iShapeOperations);
-        initInterface_(&cls.iDrawableInterface, offsetof(Circle, iDrawable), &CircleOperations_()->iDrawableOperations);
+        initChildInterface_(&cls, Circle, Circle, Shape);
+        initChildInterface_(&cls, Circle, Circle, Drawable);
     }
 
     return &cls;
