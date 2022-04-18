@@ -4,7 +4,7 @@
 #include "Class.h"
 
 TEST_FILE("Class.c")
-TEST_FILE("Interface.c")
+TEST_FILE("Mixin.c")
 TEST_FILE("Type.c")
 
 /**
@@ -21,15 +21,15 @@ void tearDown(void) {
 
 typedef int DontCare;
 typedef DontCare Test;
-typedef DontCare TestOperations;
+typedef DontCare TestInterface;
 
 /**
- * @brief Dummy operations function to use in test
- * @return TestOperations const * The reference to the TestOperations
+ * @brief Dummy interface function to use in test
+ * @return TestInterface const * The reference to the TestInterface
  */
-static TestOperations const * TestOperations_(void) {
-    static TestOperations operations;
-    return &operations;
+static TestInterface const * TestInterface_(void) {
+    static TestInterface interface;
+    return &interface;
 }
 
 static Class const * TestClass_(void) {
@@ -40,12 +40,12 @@ static Class const * TestClass_(void) {
 /**
  * @test Test class initialization
  * -# Allocate and initialize a Class
- * -# Check class name, object size, operations and super class
+ * -# Check class name, object size, interface and super class
  */
 void test_Class_init(void) {
     Class * cls = initClass_(salloc_(Class), Test, Test);
     TEST_ASSERT_EQUAL_STRING("Test", cls->name);
     TEST_ASSERT_EQUAL_size_t(sizeof(Test), cls->objectSize);
-    TEST_ASSERT_EQUAL_PTR(TestOperations_(), toInterface_(cls)->operations);
+    TEST_ASSERT_EQUAL_PTR(TestInterface_(), toMixin_(cls)->interface);
     TEST_ASSERT_EQUAL_PTR(TestClass_(), cls->superClass);
 }

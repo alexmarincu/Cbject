@@ -3,15 +3,15 @@
 
 static void draw(Drawable const * const me);
 
-ColoredCircleOperations const * ColoredCircleOperations_(void) {
-    static ColoredCircleOperations operations;
+ColoredCircleInterface const * ColoredCircleInterface_(void) {
+    static ColoredCircleInterface interface;
 
     doOnce_ {
-        inheritOperationsOf_(Circle, &operations);
-        overrideInterfaceOperation_(Circle, Drawable, draw, &operations);
+        inheritInterface_(&interface, Circle);
+        overrideMixinOperation_(&interface, Circle, Drawable, draw);
     }
 
-    return &operations;
+    return &interface;
 }
 
 ColoredCircleClass const * ColoredCircleClass_(void) {
@@ -19,8 +19,8 @@ ColoredCircleClass const * ColoredCircleClass_(void) {
 
     doOnce_ {
         initClass_(&cls, ColoredCircle, Circle);
-        initChildInterface_(&cls, ColoredCircle, Circle, Shape);
-        initChildInterface_(&cls, ColoredCircle, Circle, Drawable);
+        overrideMixin_(&cls, ColoredCircle, Circle, Shape);
+        overrideMixin_(&cls, ColoredCircle, Circle, Drawable);
     }
 
     return &cls;
@@ -28,14 +28,14 @@ ColoredCircleClass const * ColoredCircleClass_(void) {
 
 ColoredCircle * ColoredCircle_init(ColoredCircle * const me, Point const origin, uint32_t const radius, Color const color) {
     init_(Circle, me, origin, radius);
-    initObject_(me, ColoredCircle);
-    initChildObject_(me, ColoredCircle, Circle, Shape);
-    initChildObject_(me, ColoredCircle, Circle, Drawable);
+    overrideObject_(me, ColoredCircle);
+    overrideMixinObject_(me, ColoredCircle, Circle, Shape);
+    overrideMixinObject_(me, ColoredCircle, Circle, Drawable);
     me->color = color;
     return me;
 }
 
 static void draw(Drawable const * const me) {
     ColoredCircle * Me = to_(ColoredCircle, objectOf_(me));
-    CircleOperations_()->iDrawableOperations.draw(me);
+    CircleInterface_()->mDrawableInterface.draw(me);
 }

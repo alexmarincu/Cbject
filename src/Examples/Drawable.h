@@ -2,27 +2,27 @@
 #define DRAWABLE_H
 #include "Cbject.h"
 
-interface_(Drawable);
-
-/**
- * @brief DrawableOperations
- */
-struct DrawableOperations {
-    void (*draw)(Drawable const * const me);
-};
+defMixin_(Drawable);
 
 /**
  * @brief DrawableInterface
  */
 struct DrawableInterface {
-    extend_(Interface);
+    void (*draw)(Drawable const * const me);
+};
+
+/**
+ * @brief DrawableMixin
+ */
+struct DrawableMixin {
+    super_(Mixin);
 };
 
 /**
  * @brief Drawable
  */
 struct Drawable {
-    extend_(Object);
+    super_(Object);
 };
 
 /**

@@ -1,6 +1,6 @@
 #ifndef CLASS_H
 #define CLASS_H
-#include "Interface.h"
+#include "Mixin.h"
 
 typedef struct Class Class;
 
@@ -8,7 +8,7 @@ typedef struct Class Class;
  * @brief Class
  */
 struct Class {
-    extend_(Interface);
+    super_(Mixin);
     char const * name;
     size_t objectSize;
     Class const * superClass;
@@ -19,13 +19,13 @@ struct Class {
  * @param me
  * @param name
  * @param objectSize
- * @param operations
+ * @param interface
  * @param superClass
  * @return Class*
  */
 Class * Class_init(
     Class * const me,
-    Operations const * const operations,
+    Interface const * const interface,
     char const * const name,
     size_t const objectSize,
     Class const * const superClass
@@ -37,7 +37,7 @@ Class * Class_init(
 #define initClass_(me, className, superClassName) \
     Class_init(                                   \
         toClass_(me),                             \
-        toOperations_(className##Operations_()),  \
+        toInterface_(className##Interface_()),    \
         #className,                               \
         sizeof(className),                        \
         toClass_(superClassName##Class_())        \
@@ -47,9 +47,9 @@ Class * Class_init(
  * @brief Declare a class
  * @param name The class name
  */
-#define class_(name)                                  \
-    typedef struct name##Operations name##Operations; \
-    typedef struct name##Class name##Class;           \
+#define defClass_(name)                             \
+    typedef struct name##Interface name##Interface; \
+    typedef struct name##Class name##Class;         \
     typedef struct name name
 
 /**

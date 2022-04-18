@@ -54,13 +54,13 @@ typedef void Any;
  * @brief Extend a class
  * @param className The class to extend
  */
-#define extend_(className) className x##Super
+#define super_(className) className super
 
 /**
- * @brief Implement an interface
- * @param interfaceName The type to inherit
+ * @brief Implement a mixin
+ * @param mixinName The type to inherit
  */
-#define implement_(interfaceName) interfaceName i##interfaceName
+#define mixin_(mixinName) mixinName m##mixinName
 
 /**
  * @brief Get length of an array

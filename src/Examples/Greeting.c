@@ -5,18 +5,18 @@
  * @brief Greeting
  */
 struct Greeting {
-    extend_(Object);
+    super_(Object);
     char * text;
 };
 
-GreetingOperations const * GreetingOperations_(void) {
-    static GreetingOperations operations;
+GreetingInterface const * GreetingInterface_(void) {
+    static GreetingInterface interface;
 
     doOnce_ {
-        inheritOperationsOf_(Object, &operations);
+        inheritInterface_(&interface, Object);
     }
 
-    return &operations;
+    return &interface;
 }
 
 GreetingClass const * GreetingClass_(void) {

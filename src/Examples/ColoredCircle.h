@@ -4,35 +4,35 @@
 #include "Circle.h"
 #include "Color.h"
 
-class_(ColoredCircle);
+defClass_(ColoredCircle);
 
 /**
- * @brief ColoredCircleOperations
+ * @brief ColoredCircleInterface
  */
-struct ColoredCircleOperations {
-    extend_(CircleOperations);
+struct ColoredCircleInterface {
+    super_(CircleInterface);
 };
 
 /**
  * @brief ColoredCircleClass
  */
 struct ColoredCircleClass {
-    extend_(CircleClass);
+    super_(CircleClass);
 };
 
 /**
  * @brief ColoredCircle
  */
 struct ColoredCircle {
-    extend_(Circle);
+    super_(Circle);
     Color color;
 };
 
 /**
- * @brief ColoredCircleOperations
- * @return ColoredCircleOperations const*
+ * @brief ColoredCircleInterface
+ * @return ColoredCircleInterface const*
  */
-ColoredCircleOperations const * ColoredCircleOperations_(void);
+ColoredCircleInterface const * ColoredCircleInterface_(void);
 
 /**
  * @brief ColoredCircleClass

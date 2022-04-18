@@ -4,31 +4,31 @@
 #include "Drawable.h"
 #include "Shape.h"
 
-class_(Rectangle);
+defClass_(Rectangle);
 
 /**
- * @brief RectangleOperations
+ * @brief RectangleInterface
  */
-struct RectangleOperations {
-    extend_(ObjectOperations);
-    implement_(ShapeOperations);
-    implement_(DrawableOperations);
+struct RectangleInterface {
+    super_(ObjectInterface);
+    mixin_(ShapeInterface);
+    mixin_(DrawableInterface);
 };
 
 /**
  * @brief RectangleClass
  */
 struct RectangleClass {
-    extend_(ObjectClass);
-    implement_(ShapeInterface);
-    implement_(DrawableInterface);
+    super_(ObjectClass);
+    mixin_(ShapeMixin);
+    mixin_(DrawableMixin);
 };
 
 /**
- * @brief Get RectangleOperations
- * @return RectangleOperations const*
+ * @brief Get RectangleInterface
+ * @return RectangleInterface const*
  */
-RectangleOperations const * RectangleOperations_(void);
+RectangleInterface const * RectangleInterface_(void);
 
 /**
  * @brief Get RectangleClass

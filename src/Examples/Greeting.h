@@ -2,27 +2,27 @@
 #define GREETING_H
 #include "Cbject.h"
 
-class_(Greeting);
+defClass_(Greeting);
 
 /**
- * @brief GreetingOperations
+ * @brief GreetingInterface
  */
-struct GreetingOperations {
-    extend_(ObjectOperations);
+struct GreetingInterface {
+    super_(ObjectInterface);
 };
 
 /**
  * @brief GreetingClass
  */
 struct GreetingClass {
-    extend_(ObjectClass);
+    super_(ObjectClass);
 };
 
 /**
- * @brief Get GreetingOperations
- * @return GreetingOperations const*
+ * @brief Get GreetingInterface
+ * @return GreetingInterface const*
  */
-GreetingOperations const * GreetingOperations_(void);
+GreetingInterface const * GreetingInterface_(void);
 
 /**
  * @brief Get GreetingClass

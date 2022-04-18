@@ -1,9 +1,9 @@
 #include "CException.h"
 #include "unity.h"
 
-#include "Interface.h"
+#include "Mixin.h"
 
-TEST_FILE("Interface.c")
+TEST_FILE("Mixin.c")
 TEST_FILE("Type.c")
 
 /**
@@ -19,11 +19,11 @@ void tearDown(void) {
 }
 
 /**
- * @test Test Interface initialization
+ * @test Test Mixin initialization
  */
-void test_Interface_init(void) {
-    Operations * operations;
-    Interface * interface = Interface_init(salloc_(Interface), 5, operations);
-    TEST_ASSERT_EQUAL(5, toType_(interface)->offset);
-    TEST_ASSERT_EQUAL_PTR(operations, interface->operations);
+void test_Mixin_init(void) {
+    Interface * interface;
+    Mixin * mixin = Mixin_init(salloc_(Mixin), 5, interface);
+    TEST_ASSERT_EQUAL(5, toType_(mixin)->offset);
+    TEST_ASSERT_EQUAL_PTR(interface, mixin->interface);
 }

@@ -2,27 +2,27 @@
 #define APPLICATION_H
 #include "Cbject.h"
 
-class_(Application);
+defClass_(Application);
 
 /**
- * @brief ApplicationOperations
+ * @brief ApplicationInterface
  */
-struct ApplicationOperations {
-    extend_(ObjectOperations);
+struct ApplicationInterface {
+    super_(ObjectInterface);
 };
 
 /**
  * @brief ApplicationClass
  */
 struct ApplicationClass {
-    extend_(ObjectClass);
+    super_(ObjectClass);
 };
 
 /**
- * @brief Get ApplicationOperations
- * @return ApplicationOperations const*
+ * @brief Get ApplicationInterface
+ * @return ApplicationInterface const*
  */
-ApplicationOperations const * ApplicationOperations_(void);
+ApplicationInterface const * ApplicationInterface_(void);
 
 /**
  * @brief Get ApplicationClass

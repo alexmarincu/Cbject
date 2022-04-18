@@ -2,12 +2,12 @@
 
 Class * Class_init(
     Class * const me,
-    Operations const * const operations,
+    Interface const * const interface,
     char const * const name,
     size_t const objectSize,
     Class const * const superClass
 ) {
-    initInterface_(me, 0, operations);
+    initClassMixin_(me, interface);
     me->name = name;
     me->objectSize = objectSize;
     me->superClass = superClass;

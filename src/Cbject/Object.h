@@ -2,23 +2,23 @@
 #define OBJECT_H
 #include "Class.h"
 
-class_(Object);
+defClass_(Object);
 
 /**
- * @brief ObjectOperations
+ * @brief ObjectInterface
  */
-typedef struct ObjectOperations {
+typedef struct ObjectInterface {
     Object * (*deinit)(Object * me);
     uint64_t (*hashCode)(Object const * const me);
     Object * (*copy)(Object const * const me);
     bool (*equals)(Object const * const me, Object const * const other);
-} ObjectOperations;
+} ObjectInterface;
 
 /**
  * @brief ObjectClass
  */
 struct ObjectClass {
-    extend_(Class);
+    super_(Class);
 };
 
 /**
@@ -29,10 +29,10 @@ struct Object {
 };
 
 /**
- * @brief ObjectOperations
- * @return ObjectOperations const*
+ * @brief ObjectInterface
+ * @return ObjectInterface const*
  */
-ObjectOperations const * ObjectOperations_(void);
+ObjectInterface const * ObjectInterface_(void);
 
 /**
  * @brief ObjectClass
@@ -49,14 +49,37 @@ ObjectClass const * ObjectClass_(void);
 Object * Object_init(Object * const me, Type const * const type);
 
 /**
- * @brief Initialize the root object
+ * @brief Initialize an object
  * @param me
  * @param className
  */
 #define initObject_(me, className) Object_init(toObject_(me), toType_(className##Class_()))
 
-#define initChildObject_(me, className, superClassName, interfaceName) \
-    Object_init(toObject_(childOf_(superClassName, interfaceName, me)), toType_(&to_(superClassName##Class, className##Class_())->i##interfaceName##Interface))
+/**
+ * @brief Override an object
+ * @param me
+ * @param className
+ */
+#define overrideObject_(me, className) initObject_(me, className)
+
+/**
+ * @brief Override a mixin object
+ * @param me
+ * @param className
+ * @param mixinClassName
+ * @param mixinName
+ */
+#define overrideMixinObject_(me, className, mixinClassName, mixinName) \
+    Object_init(toObject_(childOf_(mixinClassName, mixinName, me)), toType_(&to_(mixinClassName##Class, className##Class_())->m##mixinName##Mixin))
+
+/**
+ * @brief Initialize a mixin object
+ * @param me
+ * @param className
+ * @param mixinName
+ */
+#define initMixinObject_(me, className, mixinName) \
+    overrideMixinObject_(me, className, className, mixinName)
 
 /**
  * @brief Initialize a derived object
@@ -72,20 +95,20 @@ Object * Object_init(Object * const me, Type const * const type);
 #define typeOf_(me) toObject_(me)->type
 
 /**
- * @brief Get object offset from object or interface
+ * @brief Get object offset from object or mixin
  */
 #define objectOffsetOf_(me) typeOf_(me)->offset
 
 /**
- * @brief Get parent object from object or interface
+ * @brief Get parent object from object or mixin
  */
 #define objectOf_(me) toObject_(toAny_(me) - objectOffsetOf_(me))
 
 /**
- * @brief Get child object from object or interface
+ * @brief Get child object from object or mixin
  */
-#define childOf_(className, interfaceName, me) \
-    to_(interfaceName, toAny_(me) + toType_(&to_(className##Class, classOf_(me))->i##interfaceName##Interface)->offset)
+#define childOf_(className, mixinName, me) \
+    to_(mixinName, toAny_(me) + toType_(&to_(className##Class, classOf_(me))->m##mixinName##Mixin)->offset)
 
 /**
  * @brief Get class of an object
@@ -93,9 +116,9 @@ Object * Object_init(Object * const me, Type const * const type);
 #define classOf_(me) toClass_(typeOf_(me))
 
 /**
- * @brief Get interface of an object
+ * @brief Get mixin of an object
  */
-#define interfaceOf_(me) toInterface_(typeOf_(me))
+#define mixinOf_(me) toMixin_(typeOf_(me))
 
 /**
  * @brief Get the class name of an object
@@ -111,7 +134,7 @@ Object * Object_init(Object * const me, Type const * const type);
  * @brief Call an object operation
  */
 #define call_(typeName, operationName, ...) \
-    to_(typeName##Operations, interfaceOf_(VaArgs_first_(__VA_ARGS__))->operations)->operationName(__VA_ARGS__)
+    to_(typeName##Interface, mixinOf_(VaArgs_first_(__VA_ARGS__))->interface)->operationName(__VA_ARGS__)
 
 /**
  * @brief
@@ -204,13 +227,13 @@ uint64_t Object_hashCode(Object const * const me);
  */
 #define toObject_(me) to_(Object, (me))
 
-#define inheritOperationsOf_(superClassName, operations) \
-    *to_(superClassName##Operations, operations) = *superClassName##Operations_()
+#define inheritInterface_(interface, superClassName) \
+    *to_(superClassName##Interface, interface) = *superClassName##Interface_()
 
-#define overrideInterfaceOperation_(className, interfaceName, operationName, operations) \
-    to_(className##Operations, operations)->i##interfaceName##Operations.operationName = operationName
+#define overrideMixinOperation_(interface, className, mixinName, operationName) \
+    to_(className##Interface, interface)->m##mixinName##Interface.operationName = operationName
 
-#define overrideOperation_(superClassName, operationName, operations) \
-    to_(superClassName##Operations, operations)->operationName = operationName
+#define overrideOperation_(interface, superClassName, operationName) \
+    to_(superClassName##Interface, interface)->operationName = operationName
 
 #endif // OBJECT_H

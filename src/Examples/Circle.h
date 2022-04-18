@@ -4,41 +4,41 @@
 #include "Drawable.h"
 #include "Shape.h"
 
-class_(Circle);
+defClass_(Circle);
 
 /**
- * @brief CircleOperations
+ * @brief CircleInterface
  */
-struct CircleOperations {
-    extend_(ObjectOperations);
-    implement_(ShapeOperations);
-    implement_(DrawableOperations);
+struct CircleInterface {
+    super_(ObjectInterface);
+    mixin_(ShapeInterface);
+    mixin_(DrawableInterface);
 };
 
 /**
  * @brief CircleClass
  */
 struct CircleClass {
-    extend_(ObjectClass);
-    implement_(ShapeInterface);
-    implement_(DrawableInterface);
+    super_(ObjectClass);
+    mixin_(ShapeMixin);
+    mixin_(DrawableMixin);
 };
 
 /**
  * @brief Circle
  */
 struct Circle {
-    extend_(Object);
-    implement_(Shape);
-    implement_(Drawable);
+    super_(Object);
+    mixin_(Shape);
+    mixin_(Drawable);
     uint32_t radius;
 };
 
 /**
- * @brief Get CircleOperations
- * @return CircleOperations const*
+ * @brief Get CircleInterface
+ * @return CircleInterface const*
  */
-CircleOperations const * CircleOperations_(void);
+CircleInterface const * CircleInterface_(void);
 
 /**
  * @brief Get CircleClass

@@ -3,27 +3,27 @@
 #include "Cbject.h"
 #include "Point.h"
 
-interface_(Shape);
-
-/**
- * @brief ShapeOperations
- */
-struct ShapeOperations {
-    float (*area)(Shape const * const me);
-};
+defMixin_(Shape);
 
 /**
  * @brief ShapeInterface
  */
 struct ShapeInterface {
-    extend_(Interface);
+    float (*area)(Shape const * const me);
+};
+
+/**
+ * @brief ShapeMixin
+ */
+struct ShapeMixin {
+    super_(Mixin);
 };
 
 /**
  * @brief Shape
  */
 struct Shape {
-    extend_(Object);
+    super_(Object);
     Point origin;
 };
 

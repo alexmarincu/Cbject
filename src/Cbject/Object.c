@@ -8,15 +8,15 @@ static Object * copy(Object const * const me);
 static bool equals(Object const * const me, Object const * const other);
 static uint64_t hashCode(Object const * const me);
 
-ObjectOperations const * ObjectOperations_(void) {
-    static ObjectOperations const operations = {
+ObjectInterface const * ObjectInterface_(void) {
+    static ObjectInterface const interface = {
         .deinit = deinit,
         .copy = copy,
         .equals = equals,
         .hashCode = hashCode
     };
 
-    return &operations;
+    return &interface;
 }
 
 ObjectClass const * ObjectClass_(void) {
@@ -25,7 +25,7 @@ ObjectClass const * ObjectClass_(void) {
     doOnce_ {
         Class_init(
             toClass_(&cls),
-            toOperations_(ObjectOperations_()),
+            toInterface_(ObjectInterface_()),
             "Object",
             sizeof(Object),
             NULL

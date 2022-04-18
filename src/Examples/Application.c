@@ -8,7 +8,7 @@
  * @brief Application
  */
 struct Application {
-    extend_(Object);
+    super_(Object);
     Circle * circle;
     Rectangle * rectangle;
 };
@@ -17,16 +17,16 @@ static Object * deinit(Object * me);
 static Object * copy(Object const * const me);
 static Application * init(Application * const me);
 
-ApplicationOperations const * ApplicationOperations_(void) {
-    static ApplicationOperations operations;
+ApplicationInterface const * ApplicationInterface_(void) {
+    static ApplicationInterface interface;
 
     doOnce_ {
-        inheritOperationsOf_(Object, &operations);
-        overrideOperation_(Object, deinit, &operations);
-        overrideOperation_(Object, copy, &operations);
+        inheritInterface_(&interface, Object);
+        overrideOperation_(&interface, Object, deinit);
+        overrideOperation_(&interface, Object, copy);
     }
 
-    return &operations;
+    return &interface;
 }
 
 ApplicationClass const * ApplicationClass_(void) {
@@ -78,7 +78,7 @@ static void circleExample(Application * const me) {
     // Set circle radius
     me->circle->radius = 3;
 
-    // Get circle area through Shape interface polymorphic call
+    // Get circle area through Shape mixin polymorphic call
     float area = Shape_area(childOf_(Circle, Shape, me->circle));
 
     // Get circle shape origin
@@ -87,7 +87,7 @@ static void circleExample(Application * const me) {
     // set circle shape origin
     childOf_(Circle, Shape, me->circle)->origin = (Point){ 4, 5 };
 
-    // Draw circle through Drawable interface polymorphic call
+    // Draw circle through Drawable mixin polymorphic call
     Drawable_draw(childOf_(Circle, Drawable, me->circle));
 }
 
@@ -103,7 +103,7 @@ static void rectangleExample(Application * const me) {
     Rectangle_setWidth(me->rectangle, 4);
     Rectangle_setHeight(me->rectangle, 5);
 
-    // Get rectangle area through Shape interface polymorphic call
+    // Get rectangle area through Shape mixin polymorphic call
     float area = Shape_area(childOf_(Rectangle, Shape, me->rectangle));
 
     // Get rectangle shape origin
@@ -112,7 +112,7 @@ static void rectangleExample(Application * const me) {
     // set rectangle shape origin
     childOf_(Rectangle, Shape, me->rectangle)->origin = (Point){ 6, 7 };
 
-    // Draw rectangle through Drawable interface polymorphic call
+    // Draw rectangle through Drawable mixin polymorphic call
     Drawable_draw(childOf_(Rectangle, Drawable, me->rectangle));
 }
 
@@ -125,10 +125,10 @@ static void polymorphismExample(Application * const me) {
 
     // Loop through the list of shapes and call various polymorphic functions
     for (uint8_t i = 0; i < lengthOf_(shapes); i++) {
-        // Get area through Shape interface polymorphic call
+        // Get area through Shape mixin polymorphic call
         float area = Shape_area(shapes[i]);
 
-        // Get object from interface
+        // Get object from mixin
         Object * object = objectOf_(shapes[i]);
 
         // Get size of object
@@ -156,7 +156,7 @@ static Object * deinit(Object * const me) {
     Application * Me = to_(Application, me);
     dealloc_(Me->rectangle);
     dealloc_(Me->circle);
-    return ObjectOperations_()->deinit(me);
+    return ObjectInterface_()->deinit(me);
 }
 
 /**

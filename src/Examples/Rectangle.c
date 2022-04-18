@@ -5,9 +5,9 @@
  * @brief Rectangle
  */
 struct Rectangle {
-    extend_(Object);
-    implement_(Shape);
-    implement_(Drawable);
+    super_(Object);
+    mixin_(Shape);
+    mixin_(Drawable);
     uint32_t width;
     uint32_t height;
 };
@@ -16,17 +16,17 @@ static Object * deinit(Object * me);
 static float area(Shape const * const me);
 static void draw(Drawable const * const me);
 
-RectangleOperations const * RectangleOperations_(void) {
-    static RectangleOperations operations;
+RectangleInterface const * RectangleInterface_(void) {
+    static RectangleInterface interface;
 
     doOnce_ {
-        inheritOperationsOf_(Object, &operations);
-        overrideOperation_(Object, deinit, &operations);
-        overrideInterfaceOperation_(Rectangle, Shape, area, &operations);
-        overrideInterfaceOperation_(Rectangle, Drawable, draw, &operations);
+        inheritInterface_(&interface, Object);
+        overrideOperation_(&interface, Object, deinit);
+        overrideMixinOperation_(&interface, Rectangle, Shape, area);
+        overrideMixinOperation_(&interface, Rectangle, Drawable, draw);
     }
 
-    return &operations;
+    return &interface;
 }
 
 RectangleClass const * RectangleClass_(void) {
@@ -34,8 +34,8 @@ RectangleClass const * RectangleClass_(void) {
 
     doOnce_ {
         initClass_(&cls, Rectangle, Object);
-        initChildInterface_(&cls, Rectangle, Rectangle, Shape);
-        initChildInterface_(&cls, Rectangle, Rectangle, Drawable);
+        initMixin_(&cls, Rectangle, Shape);
+        initMixin_(&cls, Rectangle, Drawable);
     }
 
     return &cls;
@@ -43,9 +43,9 @@ RectangleClass const * RectangleClass_(void) {
 
 Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_t height) {
     initObject_(me, Rectangle);
-    initChildObject_(me, Rectangle, Rectangle, Shape);
-    initChildObject_(me, Rectangle, Rectangle, Drawable);
-    me->iShape.origin = origin;
+    initMixinObject_(me, Rectangle, Shape);
+    initMixinObject_(me, Rectangle, Drawable);
+    me->mShape.origin = origin;
     me->width = width;
     me->height = height;
     return me;
@@ -73,7 +73,7 @@ void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize) {
 }
 
 static Object * deinit(Object * me) {
-    return ObjectOperations_()->deinit(me);
+    return ObjectInterface_()->deinit(me);
 }
 
 static float area(Shape const * const me) {

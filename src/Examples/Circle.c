@@ -5,17 +5,17 @@ static Object * deinit(Object * me);
 static float area(Shape const * const me);
 static void draw(Drawable const * const me);
 
-CircleOperations const * CircleOperations_(void) {
-    static CircleOperations operations;
+CircleInterface const * CircleInterface_(void) {
+    static CircleInterface interface;
 
     doOnce_ {
-        inheritOperationsOf_(Object, &operations);
-        overrideOperation_(Object, deinit, &operations);
-        overrideInterfaceOperation_(Circle, Shape, area, &operations);
-        overrideInterfaceOperation_(Circle, Drawable, draw, &operations);
+        inheritInterface_(&interface, Object);
+        overrideOperation_(&interface, Object, deinit);
+        overrideMixinOperation_(&interface, Circle, Shape, area);
+        overrideMixinOperation_(&interface, Circle, Drawable, draw);
     }
 
-    return &operations;
+    return &interface;
 }
 
 CircleClass const * CircleClass_(void) {
@@ -23,8 +23,8 @@ CircleClass const * CircleClass_(void) {
 
     doOnce_ {
         initClass_(&cls, Circle, Object);
-        initChildInterface_(&cls, Circle, Circle, Shape);
-        initChildInterface_(&cls, Circle, Circle, Drawable);
+        initMixin_(&cls, Circle, Shape);
+        initMixin_(&cls, Circle, Drawable);
     }
 
     return &cls;
@@ -32,9 +32,9 @@ CircleClass const * CircleClass_(void) {
 
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
     initObject_(me, Circle);
-    initChildObject_(me, Circle, Circle, Shape);
-    initChildObject_(me, Circle, Circle, Drawable);
-    me->iShape.origin = origin;
+    initMixinObject_(me, Circle, Shape);
+    initMixinObject_(me, Circle, Drawable);
+    me->mShape.origin = origin;
     me->radius = radius;
     return me;
 }
@@ -60,5 +60,5 @@ static void draw(Drawable const * const me) {
 }
 
 static Object * deinit(Object * me) {
-    return ObjectOperations_()->deinit(me);
+    return ObjectInterface_()->deinit(me);
 }
