@@ -2,7 +2,7 @@
 #define DRAWABLE_H
 #include "Cbject.h"
 
-defMixin_(Drawable);
+defineMixin_(Drawable);
 
 /**
  * @brief DrawableInterface

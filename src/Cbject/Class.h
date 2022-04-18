@@ -47,7 +47,7 @@ Class * Class_init(
  * @brief Declare a class
  * @param name The class name
  */
-#define defClass_(name)                             \
+#define defineClass_(name)                          \
     typedef struct name##Interface name##Interface; \
     typedef struct name##Class name##Class;         \
     typedef struct name name

@@ -67,7 +67,7 @@ Mixin * Mixin_init(
  * @brief Declare a mixin
  * @param name The mixin name
  */
-#define defMixin_(name)                             \
+#define defineMixin_(name)                          \
     typedef struct name##Interface name##Interface; \
     typedef struct name##Mixin name##Mixin;         \
     typedef struct name name

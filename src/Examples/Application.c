@@ -15,7 +15,7 @@ struct Application {
 
 static Object * deinit(Object * me);
 static Object * copy(Object const * const me);
-static Application * init(Application * const me);
+static void init(Application * const me);
 
 ApplicationInterface const * ApplicationInterface_(void) {
     static ApplicationInterface interface;
@@ -41,7 +41,7 @@ Application * Application_(void) {
     return &me;
 }
 
-static Application * init(Application * const me) {
+static void init(Application * const me) {
     initObject_(me, Application);
 }
 
@@ -79,16 +79,16 @@ static void circleExample(Application * const me) {
     me->circle->radius = 3;
 
     // Get circle area through Shape mixin polymorphic call
-    float area = Shape_area(childOf_(Circle, Shape, me->circle));
+    float area = Shape_area(mixinObjectOf_(Circle, Shape, me->circle));
 
     // Get circle shape origin
-    Point origin = childOf_(Circle, Shape, me->circle)->origin;
+    Point origin = mixinObjectOf_(Circle, Shape, me->circle)->origin;
 
     // set circle shape origin
-    childOf_(Circle, Shape, me->circle)->origin = (Point){ 4, 5 };
+    mixinObjectOf_(Circle, Shape, me->circle)->origin = (Point){ 4, 5 };
 
     // Draw circle through Drawable mixin polymorphic call
-    Drawable_draw(childOf_(Circle, Drawable, me->circle));
+    Drawable_draw(mixinObjectOf_(Circle, Drawable, me->circle));
 }
 
 static void rectangleExample(Application * const me) {
@@ -104,23 +104,23 @@ static void rectangleExample(Application * const me) {
     Rectangle_setHeight(me->rectangle, 5);
 
     // Get rectangle area through Shape mixin polymorphic call
-    float area = Shape_area(childOf_(Rectangle, Shape, me->rectangle));
+    float area = Shape_area(mixinObjectOf_(Rectangle, Shape, me->rectangle));
 
     // Get rectangle shape origin
-    Point origin = childOf_(Rectangle, Shape, me->rectangle)->origin;
+    Point origin = mixinObjectOf_(Rectangle, Shape, me->rectangle)->origin;
 
     // set rectangle shape origin
-    childOf_(Rectangle, Shape, me->rectangle)->origin = (Point){ 6, 7 };
+    mixinObjectOf_(Rectangle, Shape, me->rectangle)->origin = (Point){ 6, 7 };
 
     // Draw rectangle through Drawable mixin polymorphic call
-    Drawable_draw(childOf_(Rectangle, Drawable, me->rectangle));
+    Drawable_draw(mixinObjectOf_(Rectangle, Drawable, me->rectangle));
 }
 
 static void polymorphismExample(Application * const me) {
     // Prepare a list of shapes
     Shape * const shapes[] = {
-        childOf_(Circle, Shape, me->circle),
-        childOf_(Rectangle, Shape, me->rectangle),
+        mixinObjectOf_(Circle, Shape, me->circle),
+        mixinObjectOf_(Rectangle, Shape, me->rectangle),
     };
 
     // Loop through the list of shapes and call various polymorphic functions
@@ -160,8 +160,9 @@ static Object * deinit(Object * const me) {
 }
 
 /**
- * Override Object_copy to return the same singleton object instead of a copy
+ * Override Object_copy to assert if used. Cannot copy a singleton.
  */
 static Object * copy(Object const * const me) {
+    assert_(false);
     return toObject_(me);
 }

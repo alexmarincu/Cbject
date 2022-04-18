@@ -3,7 +3,7 @@
 #include "Cbject.h"
 #include "Point.h"
 
-defMixin_(Shape);
+defineMixin_(Shape);
 
 /**
  * @brief ShapeInterface

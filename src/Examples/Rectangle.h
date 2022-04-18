@@ -4,7 +4,7 @@
 #include "Drawable.h"
 #include "Shape.h"
 
-defClass_(Rectangle);
+defineClass_(Rectangle);
 
 /**
  * @brief RectangleInterface

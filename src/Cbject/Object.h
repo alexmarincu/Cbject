@@ -2,7 +2,7 @@
 #define OBJECT_H
 #include "Class.h"
 
-defClass_(Object);
+defineClass_(Object);
 
 /**
  * @brief ObjectInterface
@@ -70,7 +70,7 @@ Object * Object_init(Object * const me, Type const * const type);
  * @param mixinName
  */
 #define overrideMixinObject_(me, className, mixinClassName, mixinName) \
-    Object_init(toObject_(childOf_(mixinClassName, mixinName, me)), toType_(&to_(mixinClassName##Class, className##Class_())->m##mixinName##Mixin))
+    Object_init(toObject_(mixinObjectOf_(mixinClassName, mixinName, me)), toType_(&to_(mixinClassName##Class, className##Class_())->m##mixinName##Mixin))
 
 /**
  * @brief Initialize a mixin object
@@ -107,7 +107,7 @@ Object * Object_init(Object * const me, Type const * const type);
 /**
  * @brief Get child object from object or mixin
  */
-#define childOf_(className, mixinName, me) \
+#define mixinObjectOf_(className, mixinName, me) \
     to_(mixinName, toAny_(me) + toType_(&to_(className##Class, classOf_(me))->m##mixinName##Mixin)->offset)
 
 /**

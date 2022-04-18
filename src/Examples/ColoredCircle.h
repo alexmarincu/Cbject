@@ -4,7 +4,7 @@
 #include "Circle.h"
 #include "Color.h"
 
-defClass_(ColoredCircle);
+defineClass_(ColoredCircle);
 
 /**
  * @brief ColoredCircleInterface

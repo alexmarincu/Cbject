@@ -2,7 +2,7 @@
 #define GREETING_H
 #include "Cbject.h"
 
-defClass_(Greeting);
+defineClass_(Greeting);
 
 /**
  * @brief GreetingInterface

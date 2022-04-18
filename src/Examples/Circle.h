@@ -4,7 +4,7 @@
 #include "Drawable.h"
 #include "Shape.h"
 
-defClass_(Circle);
+defineClass_(Circle);
 
 /**
  * @brief CircleInterface

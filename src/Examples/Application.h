@@ -2,7 +2,7 @@
 #define APPLICATION_H
 #include "Cbject.h"
 
-defClass_(Application);
+defineClass_(Application);
 
 /**
  * @brief ApplicationInterface
