@@ -156,7 +156,7 @@ static Object * deinit(Object * const me) {
     Application * Me = to_(Application, me);
     dealloc_(Me->rectangle);
     dealloc_(Me->circle);
-    return ObjectInterface_()->deinit(me);
+    return superCall_(Object, deinit, me);
 }
 
 /**

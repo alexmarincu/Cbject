@@ -121,9 +121,19 @@ Object * Object_init(Object * const me, Type const * const type);
 #define mixinOf_(me) toMixin_(typeOf_(me))
 
 /**
+ * @brief Get interface of an object
+ */
+#define interfaceOf_(me) mixinOf_(me)->interface
+
+/**
  * @brief Get the class name of an object
  */
 #define classNameOf_(me) classOf_(me)->name
+
+/**
+ * @brief Get the superClass of an object
+ */
+#define superClassOf_(me) classOf_(me)->superClass
 
 /**
  * @brief Get the size in memory of an object
@@ -132,9 +142,31 @@ Object * Object_init(Object * const me, Type const * const type);
 
 /**
  * @brief Call an object operation
+ * @param typeName The type name
+ * @param operationName The operation name
+ * @param ... (me The object, ... The operation arguments)
  */
 #define call_(typeName, operationName, ...) \
-    to_(typeName##Interface, mixinOf_(VaArgs_first_(__VA_ARGS__))->interface)->operationName(__VA_ARGS__)
+    to_(typeName##Interface, interfaceOf_(VaArgs_first_(__VA_ARGS__)))->operationName(__VA_ARGS__)
+
+/**
+ * @brief Call a super object operation
+ * @param superClassName The superClass name
+ * @param operationName The operation name
+ * @param ... (me The object, ... The operation arguments)
+ */
+#define superCall_(superClassName, operationName, ...) \
+    to_(superClassName##Interface, toMixin_(superClassName##Class_())->interface)->operationName(__VA_ARGS__)
+
+/**
+ * @brief Call a super mixin object operation
+ * @param superClassName The superClass name
+ * @param mixinName The mixin name
+ * @param operationName The operation name
+ * @param ... (me The object, ... The operation arguments)
+ */
+#define superMixinCall_(superClassName, mixinName, operationName, ...) \
+    to_(superClassName##Interface, toMixin_(superClassName##Class_())->interface)->m##mixinName##Interface.operationName(__VA_ARGS__)
 
 /**
  * @brief

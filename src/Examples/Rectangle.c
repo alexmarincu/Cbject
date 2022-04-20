@@ -73,7 +73,7 @@ void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize) {
 }
 
 static Object * deinit(Object * me) {
-    return ObjectInterface_()->deinit(me);
+    return superCall_(Object, deinit, me);
 }
 
 static float area(Shape const * const me) {

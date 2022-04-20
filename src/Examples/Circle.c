@@ -60,5 +60,5 @@ static void draw(Drawable const * const me) {
 }
 
 static Object * deinit(Object * me) {
-    return ObjectInterface_()->deinit(me);
+    return superCall_(Object, deinit, me);
 }
