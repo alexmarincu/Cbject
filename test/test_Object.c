@@ -63,7 +63,7 @@ void test_Object_hashCode(void) {
  */
 void test_Object_isOfClass(void) {
     Object * object = initObject_(salloc_(Object), Object);
-    TEST_ASSERT_TRUE(isOfClass_(Object, object));
+    TEST_ASSERT_TRUE(isOfClass_(object, Object));
 }
 
 /**

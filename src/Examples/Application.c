@@ -141,10 +141,10 @@ static void polymorphismExample(Application * const me) {
         char const * className = classNameOf_(me->circle);
 
         // Check class of object
-        if (isOfClass_(Circle, object)) {
+        if (isOfClass_(object, Circle)) {
             // Get circle radius
             uint32_t radius = to_(Circle, object)->radius;
-        } else if (isOfClass_(Rectangle, object)) {
+        } else if (isOfClass_(object, Rectangle)) {
             // Get rectangle width and height
             uint32_t width = Rectangle_getWidth(to_(Rectangle, object));
             uint32_t height = Rectangle_getHeight(to_(Rectangle, object));

@@ -180,7 +180,7 @@ bool Object_isOfClass(Object const * const me, Class const * const cls);
 /**
  * @brief
  */
-#define isOfClass_(className, me) Object_isOfClass(toObject_(me), toClass_(className##Class_()))
+#define isOfClass_(me, className) Object_isOfClass(toObject_(me), toClass_(className##Class_()))
 
 /**
  * @brief
