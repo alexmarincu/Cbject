@@ -3,6 +3,7 @@
 #include "Class.h"
 
 defineClass_(Object);
+defineMixin_(Object);
 
 /**
  * @brief ObjectInterface
@@ -19,6 +20,13 @@ struct ObjectInterface {
  */
 struct ObjectClass {
     super_(Class);
+};
+
+/**
+ * @brief ObjectMixin
+ */
+struct ObjectMixin {
+    super_(Mixin);
 };
 
 /**

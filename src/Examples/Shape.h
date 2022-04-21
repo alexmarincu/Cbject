@@ -16,7 +16,7 @@ struct ShapeInterface {
  * @brief ShapeMixin
  */
 struct ShapeMixin {
-    super_(Mixin);
+    super_(ObjectMixin);
 };
 
 /**

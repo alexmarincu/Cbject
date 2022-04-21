@@ -15,7 +15,7 @@ struct DrawableInterface {
  * @brief DrawableMixin
  */
 struct DrawableMixin {
-    super_(Mixin);
+    super_(ObjectMixin);
 };
 
 /**
