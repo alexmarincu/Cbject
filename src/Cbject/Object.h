@@ -7,12 +7,12 @@ defineClass_(Object);
 /**
  * @brief ObjectInterface
  */
-typedef struct ObjectInterface {
+struct ObjectInterface {
     Object * (*deinit)(Object * me);
     uint64_t (*hashCode)(Object const * const me);
     Object * (*copy)(Object const * const me);
     bool (*equals)(Object const * const me, Object const * const other);
-} ObjectInterface;
+};
 
 /**
  * @brief ObjectClass
