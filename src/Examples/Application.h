@@ -1,22 +1,22 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
-#include "Cbject.h"
-
-defineClass_(Application);
-
-/**
- * @brief ApplicationInterface
- */
-struct ApplicationInterface {
-    super_(ObjectInterface);
-};
+#include "../Cbject/Cbject.h"
 
 /**
  * @brief ApplicationClass
  */
-struct ApplicationClass {
+typedef struct {
     super_(ObjectClass);
-};
+} ApplicationClass;
+
+typedef struct Application Application;
+
+/**
+ * @brief ApplicationInterface
+ */
+typedef struct {
+    super_(ObjectInterface);
+} ApplicationInterface;
 
 /**
  * @brief Get ApplicationInterface

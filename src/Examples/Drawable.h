@@ -1,29 +1,27 @@
 #ifndef DRAWABLE_H
 #define DRAWABLE_H
-#include "Cbject.h"
-
-defineMixin_(Drawable);
-
-/**
- * @brief DrawableInterface
- */
-struct DrawableInterface {
-    void (*draw)(Drawable const * const me);
-};
+#include "../Cbject/Cbject.h"
 
 /**
  * @brief DrawableMixin
  */
-struct DrawableMixin {
+typedef struct {
     super_(ObjectMixin);
-};
+} DrawableMixin;
 
 /**
  * @brief Drawable
  */
-struct Drawable {
+typedef struct {
     super_(Object);
-};
+} Drawable;
+
+/**
+ * @brief DrawableInterface
+ */
+typedef struct {
+    void (*draw)(Drawable const * const me);
+} DrawableInterface;
 
 /**
  * @brief Draw a drawable

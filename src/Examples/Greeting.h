@@ -1,22 +1,22 @@
 #ifndef GREETING_H
 #define GREETING_H
-#include "Cbject.h"
-
-defineClass_(Greeting);
-
-/**
- * @brief GreetingInterface
- */
-struct GreetingInterface {
-    super_(ObjectInterface);
-};
+#include "../Cbject/Cbject.h"
 
 /**
  * @brief GreetingClass
  */
-struct GreetingClass {
+typedef struct {
     super_(ObjectClass);
-};
+} GreetingClass;
+
+typedef struct Greeting Greeting;
+
+/**
+ * @brief GreetingInterface
+ */
+typedef struct {
+    super_(ObjectInterface);
+} GreetingInterface;
 
 /**
  * @brief Get GreetingInterface

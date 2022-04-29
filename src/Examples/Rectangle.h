@@ -1,28 +1,28 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
-#include "Cbject.h"
+#include "../Cbject/Cbject.h"
 #include "Drawable.h"
 #include "Shape.h"
-
-defineClass_(Rectangle);
-
-/**
- * @brief RectangleInterface
- */
-struct RectangleInterface {
-    super_(ObjectInterface);
-    mixin_(ShapeInterface);
-    mixin_(DrawableInterface);
-};
 
 /**
  * @brief RectangleClass
  */
-struct RectangleClass {
+typedef struct {
     super_(ObjectClass);
     mixin_(ShapeMixin);
     mixin_(DrawableMixin);
-};
+} RectangleClass;
+
+typedef struct Rectangle Rectangle;
+
+/**
+ * @brief RectangleInterface
+ */
+typedef struct {
+    super_(ObjectInterface);
+    mixin_(ShapeInterface);
+    mixin_(DrawableInterface);
+} RectangleInterface;
 
 /**
  * @brief Get RectangleInterface

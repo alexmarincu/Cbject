@@ -1,32 +1,30 @@
 #ifndef COLOREDCIRCLE_H
 #define COLOREDCIRCLE_H
-#include "Cbject.h"
+#include "../Cbject/Cbject.h"
 #include "Circle.h"
 #include "Color.h"
-
-defineClass_(ColoredCircle);
-
-/**
- * @brief ColoredCircleInterface
- */
-struct ColoredCircleInterface {
-    super_(CircleInterface);
-};
 
 /**
  * @brief ColoredCircleClass
  */
-struct ColoredCircleClass {
+typedef struct {
     super_(CircleClass);
-};
+} ColoredCircleClass;
 
 /**
  * @brief ColoredCircle
  */
-struct ColoredCircle {
+typedef struct {
     super_(Circle);
     Color color;
-};
+} ColoredCircle;
+
+/**
+ * @brief ColoredCircleInterface
+ */
+typedef struct {
+    super_(CircleInterface);
+} ColoredCircleInterface;
 
 /**
  * @brief ColoredCircleInterface

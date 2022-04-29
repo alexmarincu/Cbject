@@ -4,7 +4,7 @@
 /**
  * @brief
  */
-typedef enum Color {
+typedef enum {
     Color_red,
     Color_yellow,
     Color_blue

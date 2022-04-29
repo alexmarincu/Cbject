@@ -1,31 +1,29 @@
 #ifndef SHAPE_H
 #define SHAPE_H
-#include "Cbject.h"
+#include "../Cbject/Cbject.h"
 #include "Point.h"
-
-defineMixin_(Shape);
-
-/**
- * @brief ShapeInterface
- */
-struct ShapeInterface {
-    float (*area)(Shape const * const me);
-};
 
 /**
  * @brief ShapeMixin
  */
-struct ShapeMixin {
+typedef struct {
     super_(ObjectMixin);
-};
+} ShapeMixin;
 
 /**
  * @brief Shape
  */
-struct Shape {
+typedef struct {
     super_(Object);
     Point origin;
-};
+} Shape;
+
+/**
+ * @brief ShapeInterface
+ */
+typedef struct {
+    float (*area)(Shape const * const me);
+} ShapeInterface;
 
 /**
  * @brief Calculates area of a shape

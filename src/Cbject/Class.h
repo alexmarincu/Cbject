@@ -2,12 +2,11 @@
 #define CLASS_H
 #include "Mixin.h"
 
-typedef struct Class Class;
-
 /**
  * @brief Class
  */
-struct Class {
+typedef struct Class_ Class;
+struct Class_ {
     super_(Mixin);
     char const * name;
     size_t objectSize;
@@ -42,15 +41,6 @@ Class * Class_init(
         sizeof(className),                        \
         toClass_(superClassName##Class_())        \
     )
-
-/**
- * @brief Declare a class
- * @param name The class name
- */
-#define defineClass_(name)                          \
-    typedef struct name##Interface name##Interface; \
-    typedef struct name##Class name##Class;         \
-    typedef struct name name
 
 /**
  * @brief Cast to (Class *)

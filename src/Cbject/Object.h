@@ -2,39 +2,36 @@
 #define OBJECT_H
 #include "Class.h"
 
-defineClass_(Object);
-defineMixin_(Object);
-
-/**
- * @brief ObjectInterface
- */
-struct ObjectInterface {
-    Object * (*deinit)(Object * me);
-    uint64_t (*hashCode)(Object const * const me);
-    Object * (*copy)(Object const * const me);
-    bool (*equals)(Object const * const me, Object const * const other);
-};
-
 /**
  * @brief ObjectClass
  */
-struct ObjectClass {
+typedef struct {
     super_(Class);
-};
+} ObjectClass;
 
 /**
  * @brief ObjectMixin
  */
-struct ObjectMixin {
+typedef struct {
     super_(Mixin);
-};
+} ObjectMixin;
 
 /**
  * @brief Object
  */
-struct Object {
+typedef struct {
     Type const * type;
-};
+} Object;
+
+/**
+ * @brief ObjectInterface
+ */
+typedef struct {
+    Object * (*deinit)(Object * me);
+    uint64_t (*hashCode)(Object const * const me);
+    Object * (*copy)(Object const * const me);
+    bool (*equals)(Object const * const me, Object const * const other);
+} ObjectInterface;
 
 /**
  * @brief ObjectInterface

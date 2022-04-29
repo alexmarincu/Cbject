@@ -8,15 +8,13 @@
  */
 typedef void Interface;
 
-typedef struct Mixin Mixin;
-
 /**
  * @brief Mixin
  */
-struct Mixin {
+typedef struct {
     super_(Type);
     Interface const * interface;
-};
+} Mixin;
 
 /**
  * @brief
@@ -62,15 +60,6 @@ Mixin * Mixin_init(
  */
 #define initMixin_(me, className, mixinName) \
     overrideMixin_(me, className, className, mixinName)
-
-/**
- * @brief Declare a mixin
- * @param name The mixin name
- */
-#define defineMixin_(name)                          \
-    typedef struct name##Interface name##Interface; \
-    typedef struct name##Mixin name##Mixin;         \
-    typedef struct name name
 
 /**
  * @brief Cast to (Interface *)

@@ -1,38 +1,36 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
-#include "Cbject.h"
+#include "../Cbject/Cbject.h"
 #include "Drawable.h"
 #include "Shape.h"
-
-defineClass_(Circle);
-
-/**
- * @brief CircleInterface
- */
-struct CircleInterface {
-    super_(ObjectInterface);
-    mixin_(ShapeInterface);
-    mixin_(DrawableInterface);
-};
 
 /**
  * @brief CircleClass
  */
-struct CircleClass {
+typedef struct {
     super_(ObjectClass);
     mixin_(ShapeMixin);
     mixin_(DrawableMixin);
-};
+} CircleClass;
 
 /**
  * @brief Circle
  */
-struct Circle {
+typedef struct {
     super_(Object);
     mixin_(Shape);
     mixin_(Drawable);
     uint32_t radius;
-};
+} Circle;
+
+/**
+ * @brief CircleInterface
+ */
+typedef struct {
+    super_(ObjectInterface);
+    mixin_(ShapeInterface);
+    mixin_(DrawableInterface);
+} CircleInterface;
 
 /**
  * @brief Get CircleInterface

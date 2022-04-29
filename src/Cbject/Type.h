@@ -7,7 +7,7 @@
 /**
  * @brief Type
  */
-typedef struct Type {
+typedef struct {
     size_t offset;
 } Type;
 
