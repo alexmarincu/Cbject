@@ -93,9 +93,9 @@ bool Object_isOfClass(Object const * const me, Class const * const targetClass) 
 }
 
 Object * Object_alloc(Class const * const cls) {
-    Object * me = toObject_(calloc(1, cls->objectSize));
-    assert_(me);
-    return me;
+    Object * object = toObject_(calloc(1, cls->objectSize));
+    assert_(object);
+    return object;
 }
 
 Object * Object_dealloc(Object * const me) {
