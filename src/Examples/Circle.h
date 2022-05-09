@@ -8,18 +8,18 @@
  * @brief CircleClass
  */
 typedef struct {
-    super_(ObjectClass);
-    mixin_(ShapeMixin);
-    mixin_(DrawableMixin);
+    extends_(ObjectClass);
+    contains_(ShapeTrait);
+    contains_(DrawableTrait);
 } CircleClass;
 
 /**
  * @brief Circle
  */
 typedef struct {
-    super_(Object);
-    mixin_(Shape);
-    mixin_(Drawable);
+    extends_(Object);
+    contains_(Shape);
+    contains_(Drawable);
     uint32_t radius;
 } Circle;
 
@@ -27,9 +27,9 @@ typedef struct {
  * @brief CircleInterface
  */
 typedef struct {
-    super_(ObjectInterface);
-    mixin_(ShapeInterface);
-    mixin_(DrawableInterface);
+    extends_(ObjectInterface);
+    contains_(ShapeInterface);
+    contains_(DrawableInterface);
 } CircleInterface;
 
 /**

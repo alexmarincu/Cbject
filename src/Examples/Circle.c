@@ -11,8 +11,8 @@ CircleInterface const * CircleInterface_(void) {
     doOnce_ {
         inheritInterface_(&interface, Object);
         overrideOperation_(&interface, Object, deinit);
-        overrideMixinOperation_(&interface, Circle, Shape, area);
-        overrideMixinOperation_(&interface, Circle, Drawable, draw);
+        overrideOperationIn_(&interface, Circle, Shape, area);
+        overrideOperationIn_(&interface, Circle, Drawable, draw);
     }
 
     return &interface;
@@ -23,8 +23,8 @@ CircleClass const * CircleClass_(void) {
 
     doOnce_ {
         initClass_(&cls, Circle, Object);
-        initMixin_(&cls, Circle, Shape);
-        initMixin_(&cls, Circle, Drawable);
+        initTraitIn_(&cls, Circle, Shape);
+        initTraitIn_(&cls, Circle, Drawable);
     }
 
     return &cls;
@@ -32,8 +32,8 @@ CircleClass const * CircleClass_(void) {
 
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
     initObject_(me, Circle);
-    initMixinObject_(me, Circle, Shape);
-    initMixinObject_(me, Circle, Drawable);
+    initObjectIn_(me, Circle, Shape);
+    initObjectIn_(me, Circle, Drawable);
     me->mShape.origin = origin;
     me->radius = radius;
     return me;

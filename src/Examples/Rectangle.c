@@ -5,9 +5,9 @@
  * @brief Rectangle
  */
 struct Rectangle {
-    super_(Object);
-    mixin_(Shape);
-    mixin_(Drawable);
+    extends_(Object);
+    contains_(Shape);
+    contains_(Drawable);
     uint32_t width;
     uint32_t height;
 };
@@ -22,8 +22,8 @@ RectangleInterface const * RectangleInterface_(void) {
     doOnce_ {
         inheritInterface_(&interface, Object);
         overrideOperation_(&interface, Object, deinit);
-        overrideMixinOperation_(&interface, Rectangle, Shape, area);
-        overrideMixinOperation_(&interface, Rectangle, Drawable, draw);
+        overrideOperationIn_(&interface, Rectangle, Shape, area);
+        overrideOperationIn_(&interface, Rectangle, Drawable, draw);
     }
 
     return &interface;
@@ -34,8 +34,8 @@ RectangleClass const * RectangleClass_(void) {
 
     doOnce_ {
         initClass_(&cls, Rectangle, Object);
-        initMixin_(&cls, Rectangle, Shape);
-        initMixin_(&cls, Rectangle, Drawable);
+        initTraitIn_(&cls, Rectangle, Shape);
+        initTraitIn_(&cls, Rectangle, Drawable);
     }
 
     return &cls;
@@ -43,8 +43,8 @@ RectangleClass const * RectangleClass_(void) {
 
 Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_t height) {
     initObject_(me, Rectangle);
-    initMixinObject_(me, Rectangle, Shape);
-    initMixinObject_(me, Rectangle, Drawable);
+    initObjectIn_(me, Rectangle, Shape);
+    initObjectIn_(me, Rectangle, Drawable);
     me->mShape.origin = origin;
     me->width = width;
     me->height = height;

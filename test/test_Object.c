@@ -5,7 +5,7 @@
 
 TEST_FILE("Object.c")
 TEST_FILE("Class.c")
-TEST_FILE("Mixin.c")
+TEST_FILE("Trait.c")
 TEST_FILE("Type.c")
 
 /**
@@ -27,7 +27,7 @@ void test_Object_class(void) {
     Class const * objectClass = toClass_(ObjectClass_());
     TEST_ASSERT_EQUAL_STRING("Object", objectClass->name);
     TEST_ASSERT_EQUAL_size_t(sizeof(Object), objectClass->objectSize);
-    TEST_ASSERT_EQUAL_PTR(ObjectInterface_(), toMixin_(objectClass)->interface);
+    TEST_ASSERT_EQUAL_PTR(ObjectInterface_(), toTrait_(objectClass)->interface);
 }
 
 /**

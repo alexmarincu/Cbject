@@ -5,7 +5,7 @@
  * @brief Greeting
  */
 struct Greeting {
-    super_(Object);
+    extends_(Object);
     char * text;
 };
 
@@ -21,7 +21,11 @@ GreetingInterface const * GreetingInterface_(void) {
 
 GreetingClass const * GreetingClass_(void) {
     static GreetingClass cls;
-    doOnce_ { initClass_(&cls, Greeting, Object); }
+
+    doOnce_ {
+        initClass_(&cls, Greeting, Object);
+    }
+
     return &cls;
 }
 

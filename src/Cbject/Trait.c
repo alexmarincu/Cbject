@@ -1,7 +1,7 @@
-#include "Mixin.h"
+#include "Trait.h"
 
-Mixin * Mixin_init(
-    Mixin * const me,
+Trait * Trait_init(
+    Trait * const me,
     size_t const offset,
     Interface const * const interface
 ) {

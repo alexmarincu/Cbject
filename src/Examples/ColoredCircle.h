@@ -8,14 +8,14 @@
  * @brief ColoredCircleClass
  */
 typedef struct {
-    super_(CircleClass);
+    extends_(CircleClass);
 } ColoredCircleClass;
 
 /**
  * @brief ColoredCircle
  */
 typedef struct {
-    super_(Circle);
+    extends_(Circle);
     Color color;
 } ColoredCircle;
 
@@ -23,7 +23,7 @@ typedef struct {
  * @brief ColoredCircleInterface
  */
 typedef struct {
-    super_(CircleInterface);
+    extends_(CircleInterface);
 } ColoredCircleInterface;
 
 /**

@@ -6,7 +6,7 @@
  * @brief ApplicationClass
  */
 typedef struct {
-    super_(ObjectClass);
+    extends_(ObjectClass);
 } ApplicationClass;
 
 typedef struct Application Application;
@@ -15,7 +15,7 @@ typedef struct Application Application;
  * @brief ApplicationInterface
  */
 typedef struct {
-    super_(ObjectInterface);
+    extends_(ObjectInterface);
 } ApplicationInterface;
 
 /**

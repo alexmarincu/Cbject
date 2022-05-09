@@ -4,17 +4,17 @@
 #include "Point.h"
 
 /**
- * @brief ShapeMixin
+ * @brief ShapeTrait
  */
 typedef struct {
-    super_(ObjectMixin);
-} ShapeMixin;
+    extends_(ObjectTrait);
+} ShapeTrait;
 
 /**
  * @brief Shape
  */
 typedef struct {
-    super_(Object);
+    extends_(Object);
     Point origin;
 } Shape;
 

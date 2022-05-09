@@ -54,13 +54,13 @@ typedef void Any;
  * @brief Extend a class
  * @param className The class to extend
  */
-#define super_(className) className super
+#define extends_(className) className super
 
 /**
- * @brief Implement a mixin
- * @param mixinName The type to inherit
+ * @brief Implement a trait
+ * @param traitName The type to inherit
  */
-#define mixin_(mixinName) mixinName m##mixinName
+#define contains_(traitName) traitName m##traitName
 
 /**
  * @brief Get length of an array

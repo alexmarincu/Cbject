@@ -3,17 +3,17 @@
 #include "../Cbject/Cbject.h"
 
 /**
- * @brief DrawableMixin
+ * @brief DrawableTrait
  */
 typedef struct {
-    super_(ObjectMixin);
-} DrawableMixin;
+    extends_(ObjectTrait);
+} DrawableTrait;
 
 /**
  * @brief Drawable
  */
 typedef struct {
-    super_(Object);
+    extends_(Object);
 } Drawable;
 
 /**

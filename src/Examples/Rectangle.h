@@ -8,9 +8,9 @@
  * @brief RectangleClass
  */
 typedef struct {
-    super_(ObjectClass);
-    mixin_(ShapeMixin);
-    mixin_(DrawableMixin);
+    extends_(ObjectClass);
+    contains_(ShapeTrait);
+    contains_(DrawableTrait);
 } RectangleClass;
 
 typedef struct Rectangle Rectangle;
@@ -19,9 +19,9 @@ typedef struct Rectangle Rectangle;
  * @brief RectangleInterface
  */
 typedef struct {
-    super_(ObjectInterface);
-    mixin_(ShapeInterface);
-    mixin_(DrawableInterface);
+    extends_(ObjectInterface);
+    contains_(ShapeInterface);
+    contains_(DrawableInterface);
 } RectangleInterface;
 
 /**

@@ -6,7 +6,7 @@
  * @brief GreetingClass
  */
 typedef struct {
-    super_(ObjectClass);
+    extends_(ObjectClass);
 } GreetingClass;
 
 typedef struct Greeting Greeting;
@@ -15,7 +15,7 @@ typedef struct Greeting Greeting;
  * @brief GreetingInterface
  */
 typedef struct {
-    super_(ObjectInterface);
+    extends_(ObjectInterface);
 } GreetingInterface;
 
 /**

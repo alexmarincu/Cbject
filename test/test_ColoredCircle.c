@@ -9,7 +9,7 @@ TEST_FILE("Shape.c")
 TEST_FILE("Drawable.c")
 TEST_FILE("Object.c")
 TEST_FILE("Class.c")
-TEST_FILE("Mixin.c")
+TEST_FILE("Trait.c")
 TEST_FILE("Type.c")
 
 /**
@@ -29,6 +29,6 @@ void tearDown(void) {
  */
 void test_ColoredCircle_init(void) {
     ColoredCircle * c = init_(ColoredCircle, alloc_(ColoredCircle), (Point){ 0, 1 }, 2, Color_blue);
-    Drawable_draw(mixinObjectOf_(Circle, Drawable, c));
+    Drawable_draw(objectIn_(c, Circle, Drawable));
     dealloc_(c);
 }

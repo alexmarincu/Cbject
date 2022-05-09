@@ -8,7 +8,7 @@
  * @brief Application
  */
 struct Application {
-    super_(Object);
+    extends_(Object);
     Circle * circle;
     Rectangle * rectangle;
 };
@@ -31,13 +31,21 @@ ApplicationInterface const * ApplicationInterface_(void) {
 
 ApplicationClass const * ApplicationClass_(void) {
     static ApplicationClass cls;
-    doOnce_ { initClass_(&cls, Application, Object); }
+
+    doOnce_ {
+        initClass_(&cls, Application, Object);
+    }
+
     return &cls;
 }
 
 Application * Application_(void) {
     static Application me;
-    doOnce_ { init(&me); }
+
+    doOnce_ {
+        init(&me);
+    }
+
     return &me;
 }
 
@@ -78,17 +86,17 @@ static void circleExample(Application * const me) {
     // Set circle radius
     me->circle->radius = 3;
 
-    // Get circle area through Shape mixin polymorphic call
-    float area = Shape_area(mixinObjectOf_(Circle, Shape, me->circle));
+    // Get circle area through Shape trait polymorphic call
+    float area = Shape_area(objectIn_(me->circle, Circle, Shape));
 
     // Get circle shape origin
-    Point origin = mixinObjectOf_(Circle, Shape, me->circle)->origin;
+    Point origin = objectIn_(me->circle, Circle, Shape)->origin;
 
     // set circle shape origin
-    mixinObjectOf_(Circle, Shape, me->circle)->origin = (Point){ 4, 5 };
+    objectIn_(me->circle, Circle, Shape)->origin = (Point){ 4, 5 };
 
-    // Draw circle through Drawable mixin polymorphic call
-    Drawable_draw(mixinObjectOf_(Circle, Drawable, me->circle));
+    // Draw circle through Drawable trait polymorphic call
+    Drawable_draw(objectIn_(me->circle, Circle, Drawable));
 }
 
 static void rectangleExample(Application * const me) {
@@ -103,32 +111,32 @@ static void rectangleExample(Application * const me) {
     Rectangle_setWidth(me->rectangle, 4);
     Rectangle_setHeight(me->rectangle, 5);
 
-    // Get rectangle area through Shape mixin polymorphic call
-    float area = Shape_area(mixinObjectOf_(Rectangle, Shape, me->rectangle));
+    // Get rectangle area through Shape trait polymorphic call
+    float area = Shape_area(objectIn_(me->rectangle, Rectangle, Shape));
 
     // Get rectangle shape origin
-    Point origin = mixinObjectOf_(Rectangle, Shape, me->rectangle)->origin;
+    Point origin = objectIn_(me->rectangle, Rectangle, Shape)->origin;
 
     // set rectangle shape origin
-    mixinObjectOf_(Rectangle, Shape, me->rectangle)->origin = (Point){ 6, 7 };
+    objectIn_(me->rectangle, Rectangle, Shape)->origin = (Point){ 6, 7 };
 
-    // Draw rectangle through Drawable mixin polymorphic call
-    Drawable_draw(mixinObjectOf_(Rectangle, Drawable, me->rectangle));
+    // Draw rectangle through Drawable trait polymorphic call
+    Drawable_draw(objectIn_(me->rectangle, Rectangle, Drawable));
 }
 
 static void polymorphismExample(Application * const me) {
     // Prepare a list of shapes
     Shape * const shapes[] = {
-        mixinObjectOf_(Circle, Shape, me->circle),
-        mixinObjectOf_(Rectangle, Shape, me->rectangle),
+        objectIn_(me->circle, Circle, Shape),
+        objectIn_(me->rectangle, Rectangle, Shape),
     };
 
     // Loop through the list of shapes and call various polymorphic functions
     for (uint8_t i = 0; i < lengthOf_(shapes); i++) {
-        // Get area through Shape mixin polymorphic call
+        // Get area through Shape trait polymorphic call
         float area = Shape_area(shapes[i]);
 
-        // Get object from mixin
+        // Get object from trait
         Object * object = objectOf_(shapes[i]);
 
         // Get size of object

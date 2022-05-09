@@ -6,15 +6,15 @@
  * @brief ObjectClass
  */
 typedef struct {
-    super_(Class);
+    extends_(Class);
 } ObjectClass;
 
 /**
- * @brief ObjectMixin
+ * @brief ObjectTrait
  */
 typedef struct {
-    super_(Mixin);
-} ObjectMixin;
+    extends_(Trait);
+} ObjectTrait;
 
 /**
  * @brief Object
@@ -47,9 +47,9 @@ ObjectClass const * ObjectClass_(void);
 
 /**
  * @brief Initialize an object
- * @param me The object
- * @param cls The class
- * @return Object* The initialized object
+ * @param me Object reference
+ * @param type Type reference (Class or Trait)
+ * @return Object* Initialized object
  */
 Object * Object_init(Object * const me, Type const * const type);
 
@@ -68,23 +68,29 @@ Object * Object_init(Object * const me, Type const * const type);
 #define overrideObject_(me, className) initObject_(me, className)
 
 /**
- * @brief Override a mixin object
+ * @brief Override a trait object
  * @param me
  * @param className
- * @param mixinClassName
- * @param mixinName
+ * @param traitContainerClassName
+ * @param traitName
  */
-#define overrideMixinObject_(me, className, mixinClassName, mixinName) \
-    Object_init(toObject_(mixinObjectOf_(mixinClassName, mixinName, me)), toType_(&to_(mixinClassName##Class, className##Class_())->m##mixinName##Mixin))
+#define overrideObjectIn_(me, className, traitContainerClassName, traitName)                    \
+    Object_init(                                                                                \
+        toObject_(objectIn_(me, traitContainerClassName, traitName)),                           \
+        toType_(&to_(traitContainerClassName##Class, className##Class_())->m##traitName##Trait) \
+    )
 
 /**
- * @brief Initialize a mixin object
+ * @brief Initialize a trait object
  * @param me
  * @param className
- * @param mixinName
+ * @param traitName
  */
-#define initMixinObject_(me, className, mixinName) \
-    overrideMixinObject_(me, className, className, mixinName)
+#define initObjectIn_(me, className, traitName)                                   \
+    Object_init(                                                                  \
+        toObject_(objectIn_(me, className, traitName)),                           \
+        toType_(&to_(className##Class, className##Class_())->m##traitName##Trait) \
+    )
 
 /**
  * @brief Initialize a derived object
@@ -100,20 +106,20 @@ Object * Object_init(Object * const me, Type const * const type);
 #define typeOf_(me) toObject_(me)->type
 
 /**
- * @brief Get object offset from object or mixin
+ * @brief Get object offset from object or trait
  */
 #define objectOffsetOf_(me) typeOf_(me)->offset
 
 /**
- * @brief Get parent object from object or mixin
+ * @brief Get parent object from object or trait
  */
 #define objectOf_(me) toObject_(toAny_(me) - objectOffsetOf_(me))
 
 /**
- * @brief Get child object from object or mixin
+ * @brief Get child object from object or trait
  */
-#define mixinObjectOf_(className, mixinName, me) \
-    to_(mixinName, toAny_(me) + toType_(&to_(className##Class, classOf_(me))->m##mixinName##Mixin)->offset)
+#define objectIn_(me, className, traitName) \
+    to_(traitName, toAny_(me) + toType_(&to_(className##Class, classOf_(me))->m##traitName##Trait)->offset)
 
 /**
  * @brief Get class of an object
@@ -121,14 +127,14 @@ Object * Object_init(Object * const me, Type const * const type);
 #define classOf_(me) toClass_(typeOf_(me))
 
 /**
- * @brief Get mixin of an object
+ * @brief Get trait of an object
  */
-#define mixinOf_(me) toMixin_(typeOf_(me))
+#define traitOf_(me) toTrait_(typeOf_(me))
 
 /**
  * @brief Get interface of an object
  */
-#define interfaceOf_(me) mixinOf_(me)->interface
+#define interfaceOf_(me) traitOf_(me)->interface
 
 /**
  * @brief Get the class name of an object
@@ -161,17 +167,17 @@ Object * Object_init(Object * const me, Type const * const type);
  * @param ... (me The object, ... The operation arguments)
  */
 #define superCall_(superClassName, operationName, ...) \
-    to_(superClassName##Interface, toMixin_(superClassName##Class_())->interface)->operationName(__VA_ARGS__)
+    to_(superClassName##Interface, toTrait_(superClassName##Class_())->interface)->operationName(__VA_ARGS__)
 
 /**
- * @brief Call a super mixin object operation
+ * @brief Call a super trait object operation
  * @param superClassName The superClass name
- * @param mixinName The mixin name
+ * @param traitName The trait name
  * @param operationName The operation name
  * @param ... (me The object, ... The operation arguments)
  */
-#define superMixinCall_(superClassName, mixinName, operationName, ...) \
-    to_(superClassName##Interface, toMixin_(superClassName##Class_())->interface)->m##mixinName##Interface.operationName(__VA_ARGS__)
+#define superTraitCall_(superClassName, traitName, operationName, ...) \
+    to_(superClassName##Interface, toTrait_(superClassName##Class_())->interface)->m##traitName##Interface.operationName(__VA_ARGS__)
 
 /**
  * @brief
@@ -264,13 +270,13 @@ uint64_t Object_hashCode(Object const * const me);
  */
 #define toObject_(me) to_(Object, (me))
 
-#define inheritInterface_(interface, superClassName) \
-    *to_(superClassName##Interface, interface) = *superClassName##Interface_()
+#define inheritInterface_(me, superClassName) \
+    *to_(superClassName##Interface, me) = *superClassName##Interface_()
 
-#define overrideMixinOperation_(interface, className, mixinName, operationName) \
-    to_(className##Interface, interface)->m##mixinName##Interface.operationName = operationName
+#define overrideOperationIn_(me, className, traitName, operationName) \
+    to_(className##Interface, me)->m##traitName##Interface.operationName = operationName
 
-#define overrideOperation_(interface, superClassName, operationName) \
-    to_(superClassName##Interface, interface)->operationName = operationName
+#define overrideOperation_(me, superClassName, operationName) \
+    to_(superClassName##Interface, me)->operationName = operationName
 
 #endif // OBJECT_H
