@@ -10,13 +10,6 @@ typedef struct {
 } ObjectClass;
 
 /**
- * @brief ObjectTrait
- */
-typedef struct {
-    extends_(Trait);
-} ObjectTrait;
-
-/**
  * @brief Object
  */
 typedef struct {
@@ -48,15 +41,15 @@ ObjectClass const * ObjectClass_(void);
 /**
  * @brief Initialize an object
  * @param me Object reference
- * @param type Type reference (Class or Trait)
+ * @param type Type reference
  * @return Object* Initialized object
  */
 Object * Object_init(Object * const me, Type const * const type);
 
 /**
  * @brief Initialize an object
- * @param me
- * @param className
+ * @param me Object reference
+ * @param className Class name
  */
 #define initObject_(me, className) Object_init(toObject_(me), toType_(className##Class_()))
 
@@ -68,28 +61,28 @@ Object * Object_init(Object * const me, Type const * const type);
 #define overrideObject_(me, className) initObject_(me, className)
 
 /**
- * @brief Override a trait object
+ * @brief Override nested object
  * @param me
  * @param className
- * @param traitContainerClassName
- * @param traitName
+ * @param typeContainerClassName
+ * @param typeName
  */
-#define overrideObjectIn_(me, className, traitContainerClassName, traitName)                    \
-    Object_init(                                                                                \
-        toObject_(objectIn_(me, traitContainerClassName, traitName)),                           \
-        toType_(&to_(traitContainerClassName##Class, className##Class_())->m##traitName##Trait) \
+#define overrideNestedObject_(me, className, typeContainerClassName, typeName)               \
+    Object_init(                                                                             \
+        toObject_(nestedObjectOf_(me, typeContainerClassName, typeName)),                    \
+        toType_(&to_(typeContainerClassName##Class, className##Class_())->n##typeName##Type) \
     )
 
 /**
- * @brief Initialize a trait object
+ * @brief Initialize nested object
  * @param me
  * @param className
- * @param traitName
+ * @param typeName
  */
-#define initObjectIn_(me, className, traitName)                                   \
-    Object_init(                                                                  \
-        toObject_(objectIn_(me, className, traitName)),                           \
-        toType_(&to_(className##Class, className##Class_())->m##traitName##Trait) \
+#define initNestedObject_(me, className, typeName)                              \
+    Object_init(                                                                \
+        toObject_(nestedObjectOf_(me, className, typeName)),                    \
+        toType_(&to_(className##Class, className##Class_())->n##typeName##Type) \
     )
 
 /**
@@ -106,20 +99,20 @@ Object * Object_init(Object * const me, Type const * const type);
 #define typeOf_(me) toObject_(me)->type
 
 /**
- * @brief Get object offset from object or trait
+ * @brief Get offset from objecy
  */
-#define objectOffsetOf_(me) typeOf_(me)->offset
+#define offsetOf_(me) typeOf_(me)->offset
 
 /**
- * @brief Get parent object from object or trait
+ * @brief Get parent object from nested object
  */
-#define objectOf_(me) toObject_(toAny_(me) - objectOffsetOf_(me))
+#define parentObjectOf_(me) toObject_(toAny_(me) - offsetOf_(me))
 
 /**
- * @brief Get child object from object or trait
+ * @brief Get nested object from parent object
  */
-#define objectIn_(me, className, traitName) \
-    to_(traitName, toAny_(me) + toType_(&to_(className##Class, classOf_(me))->m##traitName##Trait)->offset)
+#define nestedObjectOf_(me, className, typeName) \
+    to_(typeName, toAny_(me) + toType_(&to_(className##Class, classOf_(me))->n##typeName##Type)->offset)
 
 /**
  * @brief Get class of an object
@@ -127,14 +120,9 @@ Object * Object_init(Object * const me, Type const * const type);
 #define classOf_(me) toClass_(typeOf_(me))
 
 /**
- * @brief Get trait of an object
- */
-#define traitOf_(me) toTrait_(typeOf_(me))
-
-/**
  * @brief Get interface of an object
  */
-#define interfaceOf_(me) traitOf_(me)->interface
+#define interfaceOf_(me) typeOf_(me)->interface
 
 /**
  * @brief Get the class name of an object
@@ -153,31 +141,31 @@ Object * Object_init(Object * const me, Type const * const type);
 
 /**
  * @brief Call an object operation
- * @param typeName The type name
- * @param operationName The operation name
- * @param ... (me The object, ... The operation arguments)
+ * @param typeName Type name of object
+ * @param operationName Operation name
+ * @param ... (me Object reference, ... Operation arguments)
  */
 #define call_(typeName, operationName, ...) \
     to_(typeName##Interface, interfaceOf_(VaArgs_first_(__VA_ARGS__)))->operationName(__VA_ARGS__)
 
 /**
- * @brief Call a super object operation
- * @param superClassName The superClass name
- * @param operationName The operation name
- * @param ... (me The object, ... The operation arguments)
+ * @brief Call a parent object operation
+ * @param superClassName Class name of parent object
+ * @param operationName Operation name
+ * @param ... (me Object reference, ... Operation arguments)
  */
 #define superCall_(superClassName, operationName, ...) \
-    to_(superClassName##Interface, toTrait_(superClassName##Class_())->interface)->operationName(__VA_ARGS__)
+    to_(superClassName##Interface, toType_(superClassName##Class_())->interface)->operationName(__VA_ARGS__)
 
 /**
- * @brief Call a super trait object operation
- * @param superClassName The superClass name
- * @param traitName The trait name
- * @param operationName The operation name
- * @param ... (me The object, ... The operation arguments)
+ * @brief Call a nested object of parent object operation
+ * @param superClassName Class name of parent object
+ * @param typeName Type name of nested object
+ * @param operationName Operation name
+ * @param ... (me Object reference, ... Operation arguments)
  */
-#define superTraitCall_(superClassName, traitName, operationName, ...) \
-    to_(superClassName##Interface, toTrait_(superClassName##Class_())->interface)->m##traitName##Interface.operationName(__VA_ARGS__)
+#define superNestedCall_(superClassName, typeName, operationName, ...) \
+    to_(superClassName##Interface, toType_(superClassName##Class_())->interface)->n##typeName##Interface.operationName(__VA_ARGS__)
 
 /**
  * @brief
@@ -273,8 +261,8 @@ uint64_t Object_hashCode(Object const * const me);
 #define inheritInterface_(me, superClassName) \
     *to_(superClassName##Interface, me) = *superClassName##Interface_()
 
-#define overrideOperationIn_(me, className, traitName, operationName) \
-    to_(className##Interface, me)->m##traitName##Interface.operationName = operationName
+#define overrideNestedOperation_(me, className, typeName, operationName) \
+    to_(className##Interface, me)->n##typeName##Interface.operationName = operationName
 
 #define overrideOperation_(me, superClassName, operationName) \
     to_(superClassName##Interface, me)->operationName = operationName

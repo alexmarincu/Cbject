@@ -22,8 +22,8 @@ RectangleInterface const * RectangleInterface_(void) {
     doOnce_ {
         inheritInterface_(&interface, Object);
         overrideOperation_(&interface, Object, deinit);
-        overrideOperationIn_(&interface, Rectangle, Shape, area);
-        overrideOperationIn_(&interface, Rectangle, Drawable, draw);
+        overrideNestedOperation_(&interface, Rectangle, Shape, area);
+        overrideNestedOperation_(&interface, Rectangle, Drawable, draw);
     }
 
     return &interface;
@@ -34,18 +34,23 @@ RectangleClass const * RectangleClass_(void) {
 
     doOnce_ {
         initClass_(&cls, Rectangle, Object);
-        initTraitIn_(&cls, Rectangle, Shape);
-        initTraitIn_(&cls, Rectangle, Drawable);
+        initNestedType_(&cls, Rectangle, Shape);
+        initNestedType_(&cls, Rectangle, Drawable);
     }
 
     return &cls;
 }
 
-Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_t height) {
+Rectangle * Rectangle_init(
+    Rectangle * me,
+    Point origin,
+    uint32_t width,
+    uint32_t height
+) {
     initObject_(me, Rectangle);
-    initObjectIn_(me, Rectangle, Shape);
-    initObjectIn_(me, Rectangle, Drawable);
-    me->mShape.origin = origin;
+    initNestedObject_(me, Rectangle, Shape);
+    initNestedObject_(me, Rectangle, Drawable);
+    nestedObjectOf_(me, Rectangle, Shape)->origin = origin;
     me->width = width;
     me->height = height;
     return me;
@@ -77,12 +82,12 @@ static Object * deinit(Object * me) {
 }
 
 static float area(Shape const * const me) {
-    Rectangle * Me = to_(Rectangle, objectOf_(me));
+    Rectangle * Me = to_(Rectangle, parentObjectOf_(me));
     return Me->width * Me->height;
 }
 
 static void draw(Drawable const * const me) {
-    Rectangle * Me = to_(Rectangle, objectOf_(me));
+    Rectangle * Me = to_(Rectangle, parentObjectOf_(me));
 
     for (uint8_t i = 0; i < Me->width; i++) {
         printf("--");

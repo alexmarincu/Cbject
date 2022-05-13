@@ -5,7 +5,6 @@
 
 TEST_FILE("Object.c")
 TEST_FILE("Class.c")
-TEST_FILE("Trait.c")
 TEST_FILE("Type.c")
 
 /**
@@ -27,7 +26,7 @@ void test_Object_class(void) {
     Class const * objectClass = toClass_(ObjectClass_());
     TEST_ASSERT_EQUAL_STRING("Object", objectClass->name);
     TEST_ASSERT_EQUAL_size_t(sizeof(Object), objectClass->objectSize);
-    TEST_ASSERT_EQUAL_PTR(ObjectInterface_(), toTrait_(objectClass)->interface);
+    TEST_ASSERT_EQUAL_PTR(ObjectInterface_(), toType_(objectClass)->interface);
 }
 
 /**
@@ -35,7 +34,7 @@ void test_Object_class(void) {
  */
 void test_Object_init(void) {
     Object * object = initObject_(salloc_(Object), Object);
-    TEST_ASSERT_EQUAL_PTR(objectOf_(object), object);
+    TEST_ASSERT_EQUAL_PTR(parentObjectOf_(object), object);
     TEST_ASSERT_EQUAL_PTR(classOf_(object), ObjectClass_());
 }
 

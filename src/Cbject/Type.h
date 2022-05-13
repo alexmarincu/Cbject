@@ -5,19 +5,67 @@
 #include <stdint.h>
 
 /**
+ * @brief Interface
+ * @remark To be used with pointers to Interface types
+ */
+typedef void Interface;
+
+/**
  * @brief Type
  */
 typedef struct {
     size_t offset;
+    Interface const * interface;
 } Type;
 
 /**
- * @brief Initialize a type
- * @param me The type reference
- * @param offset The offset of the object in the parent structure
- * @return Type* The initialized type
+ * @brief Initialize a Type
+ * @param me Type reference
+ * @param offset Offset of nested object inside parent object
+ * @param interface Type interface
+ * @return Type* Initialized type
  */
-Type * Type_init(Type * const me, size_t const offset);
+Type * Type_init(
+    Type * const me,
+    size_t const offset,
+    Interface const * const interface
+);
+
+/**
+ * @brief Initialize a type
+ * @param me Type reference
+ * @param offset Offset of nested object inside parent object
+ * @param interface Type interface
+ */
+#define initType_(me, offset, interface) \
+    Type_init(toType_(me), offset, toInterface_(interface))
+
+/**
+ * @brief Override a type contained in a class
+ * @param me
+ * @param className
+ * @param typeContainerClassName
+ * @param typeName
+ */
+#define overrideNestedType_(me, className, typeContainerClassName, typeName)                                   \
+    Type_init(                                                                                                 \
+        toType_(&to_(typeContainerClassName##Class, me)->n##typeName##Type),                                   \
+        offsetof(typeContainerClassName, n##typeName),                                                         \
+        toInterface_(&to_(typeContainerClassName##Interface, className##Interface_())->n##typeName##Interface) \
+    )
+
+/**
+ * @brief Initialize a type contained in a class
+ * @param me
+ * @param className
+ * @param typeName
+ */
+#define initNestedType_(me, className, typeName)                                                  \
+    Type_init(                                                                                    \
+        toType_(&to_(className##Class, me)->n##typeName##Type),                                   \
+        offsetof(className, n##typeName),                                                         \
+        toInterface_(&to_(className##Interface, className##Interface_())->n##typeName##Interface) \
+    )
 
 /**
  * @brief Any
@@ -43,24 +91,23 @@ typedef void Any;
 #define toType_(me) to_(Type, (me))
 
 /**
- * @brief Initialize a type
- * @param me
- * @param offset
+ * @brief Cast to (Interface *)
  */
-#define initType_(me, offset) \
-    Type_init(toType_(me), offset)
+#define toInterface_(me) to_(Interface, (me))
 
 /**
- * @brief Extend a class
- * @param className The class to extend
+ * @brief Add super member to a structure
+ * @remark Needs to be the first member in the structure
+ * @param typeName Type name of the super member
  */
-#define extends_(className) className super
+#define extends_(typeName) typeName super
 
 /**
- * @brief Implement a trait
- * @param traitName The type to inherit
+ * @brief Add nested member to a structure
+ * @remark Needs to be placed just after the super member
+ * @param typeName Type name of the nested member
  */
-#define contains_(traitName) traitName m##traitName
+#define contains_(typeName) typeName n##typeName
 
 /**
  * @brief Get length of an array

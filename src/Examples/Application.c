@@ -86,17 +86,17 @@ static void circleExample(Application * const me) {
     // Set circle radius
     me->circle->radius = 3;
 
-    // Get circle area through Shape trait polymorphic call
-    float area = Shape_area(objectIn_(me->circle, Circle, Shape));
+    // Get circle area through Shape object polymorphic call
+    float area = Shape_area(nestedObjectOf_(me->circle, Circle, Shape));
 
     // Get circle shape origin
-    Point origin = objectIn_(me->circle, Circle, Shape)->origin;
+    Point origin = nestedObjectOf_(me->circle, Circle, Shape)->origin;
 
     // set circle shape origin
-    objectIn_(me->circle, Circle, Shape)->origin = (Point){ 4, 5 };
+    nestedObjectOf_(me->circle, Circle, Shape)->origin = (Point){ 4, 5 };
 
-    // Draw circle through Drawable trait polymorphic call
-    Drawable_draw(objectIn_(me->circle, Circle, Drawable));
+    // Draw circle through Drawable object polymorphic call
+    Drawable_draw(nestedObjectOf_(me->circle, Circle, Drawable));
 }
 
 static void rectangleExample(Application * const me) {
@@ -111,33 +111,33 @@ static void rectangleExample(Application * const me) {
     Rectangle_setWidth(me->rectangle, 4);
     Rectangle_setHeight(me->rectangle, 5);
 
-    // Get rectangle area through Shape trait polymorphic call
-    float area = Shape_area(objectIn_(me->rectangle, Rectangle, Shape));
+    // Get rectangle area through Shape object polymorphic call
+    float area = Shape_area(nestedObjectOf_(me->rectangle, Rectangle, Shape));
 
     // Get rectangle shape origin
-    Point origin = objectIn_(me->rectangle, Rectangle, Shape)->origin;
+    Point origin = nestedObjectOf_(me->rectangle, Rectangle, Shape)->origin;
 
     // set rectangle shape origin
-    objectIn_(me->rectangle, Rectangle, Shape)->origin = (Point){ 6, 7 };
+    nestedObjectOf_(me->rectangle, Rectangle, Shape)->origin = (Point){ 6, 7 };
 
-    // Draw rectangle through Drawable trait polymorphic call
-    Drawable_draw(objectIn_(me->rectangle, Rectangle, Drawable));
+    // Draw rectangle through Drawable object polymorphic call
+    Drawable_draw(nestedObjectOf_(me->rectangle, Rectangle, Drawable));
 }
 
 static void polymorphismExample(Application * const me) {
     // Prepare a list of shapes
     Shape * const shapes[] = {
-        objectIn_(me->circle, Circle, Shape),
-        objectIn_(me->rectangle, Rectangle, Shape),
+        nestedObjectOf_(me->circle, Circle, Shape),
+        nestedObjectOf_(me->rectangle, Rectangle, Shape),
     };
 
     // Loop through the list of shapes and call various polymorphic functions
     for (uint8_t i = 0; i < lengthOf_(shapes); i++) {
-        // Get area through Shape trait polymorphic call
+        // Get area through Shape object polymorphic call
         float area = Shape_area(shapes[i]);
 
-        // Get object from trait
-        Object * object = objectOf_(shapes[i]);
+        // Get parent object from nested object
+        Object * object = parentObjectOf_(shapes[i]);
 
         // Get size of object
         size_t objectSize = objectSizeOf_(object);

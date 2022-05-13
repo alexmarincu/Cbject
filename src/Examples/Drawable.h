@@ -3,11 +3,11 @@
 #include "../Cbject/Cbject.h"
 
 /**
- * @brief DrawableTrait
+ * @brief DrawableType
  */
 typedef struct {
-    extends_(ObjectTrait);
-} DrawableTrait;
+    extends_(Type);
+} DrawableType;
 
 /**
  * @brief Drawable
@@ -25,7 +25,7 @@ typedef struct {
 
 /**
  * @brief Draw a drawable
- * @param me The drawable object
+ * @param me Drawable object reference
  */
 void Drawable_draw(Drawable const * const me);
 

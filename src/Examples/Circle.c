@@ -11,8 +11,8 @@ CircleInterface const * CircleInterface_(void) {
     doOnce_ {
         inheritInterface_(&interface, Object);
         overrideOperation_(&interface, Object, deinit);
-        overrideOperationIn_(&interface, Circle, Shape, area);
-        overrideOperationIn_(&interface, Circle, Drawable, draw);
+        overrideNestedOperation_(&interface, Circle, Shape, area);
+        overrideNestedOperation_(&interface, Circle, Drawable, draw);
     }
 
     return &interface;
@@ -23,8 +23,8 @@ CircleClass const * CircleClass_(void) {
 
     doOnce_ {
         initClass_(&cls, Circle, Object);
-        initTraitIn_(&cls, Circle, Shape);
-        initTraitIn_(&cls, Circle, Drawable);
+        initNestedType_(&cls, Circle, Shape);
+        initNestedType_(&cls, Circle, Drawable);
     }
 
     return &cls;
@@ -32,20 +32,20 @@ CircleClass const * CircleClass_(void) {
 
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
     initObject_(me, Circle);
-    initObjectIn_(me, Circle, Shape);
-    initObjectIn_(me, Circle, Drawable);
-    me->mShape.origin = origin;
+    initNestedObject_(me, Circle, Shape);
+    initNestedObject_(me, Circle, Drawable);
+    nestedObjectOf_(me, Circle, Shape)->origin = origin;
     me->radius = radius;
     return me;
 }
 
 static float area(Shape const * const me) {
-    Circle * Me = to_(Circle, objectOf_(me));
+    Circle * Me = to_(Circle, parentObjectOf_(me));
     return Me->radius * Me->radius * 3.14;
 }
 
 static void draw(Drawable const * const me) {
-    Circle * Me = to_(Circle, objectOf_(me));
+    Circle * Me = to_(Circle, parentObjectOf_(me));
     float const radius = Me->radius;
     float const tolerance = radius / 2;
 

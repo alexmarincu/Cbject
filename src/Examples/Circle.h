@@ -9,8 +9,8 @@
  */
 typedef struct {
     extends_(ObjectClass);
-    contains_(ShapeTrait);
-    contains_(DrawableTrait);
+    contains_(ShapeType);
+    contains_(DrawableType);
 } CircleClass;
 
 /**

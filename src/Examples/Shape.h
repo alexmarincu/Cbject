@@ -4,11 +4,11 @@
 #include "Point.h"
 
 /**
- * @brief ShapeTrait
+ * @brief ShapeType
  */
 typedef struct {
-    extends_(ObjectTrait);
-} ShapeTrait;
+    extends_(Type);
+} ShapeType;
 
 /**
  * @brief Shape
@@ -26,9 +26,9 @@ typedef struct {
 } ShapeInterface;
 
 /**
- * @brief Calculates area of a shape
- * @param me The shape object
- * @return float The area of the shape
+ * @brief Calculate area of a shape
+ * @param me Shape object reference
+ * @return float Area of the shape
  */
 float Shape_area(Shape const * const me);
 

@@ -1,13 +1,13 @@
 #ifndef CLASS_H
 #define CLASS_H
-#include "Trait.h"
+#include "Type.h"
 
 /**
  * @brief Class
  */
 typedef struct Class_ Class;
 struct Class_ {
-    extends_(Trait);
+    extends_(Type);
     char const * name;
     size_t objectSize;
     Class const * superClass;

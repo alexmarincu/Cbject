@@ -9,8 +9,8 @@
  */
 typedef struct {
     extends_(ObjectClass);
-    contains_(ShapeTrait);
-    contains_(DrawableTrait);
+    contains_(ShapeType);
+    contains_(DrawableType);
 } RectangleClass;
 
 typedef struct Rectangle Rectangle;
@@ -44,7 +44,12 @@ RectangleClass const * RectangleClass_(void);
  * @param height
  * @return Rectangle*
  */
-Rectangle * Rectangle_init(Rectangle * me, Point origin, uint32_t width, uint32_t height);
+Rectangle * Rectangle_init(
+    Rectangle * me,
+    Point origin,
+    uint32_t width,
+    uint32_t height
+);
 
 /**
  * @brief
