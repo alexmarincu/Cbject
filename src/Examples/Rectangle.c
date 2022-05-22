@@ -82,12 +82,12 @@ static Object * deinit(Object * me) {
 }
 
 static float area(Shape const * const me) {
-    Rectangle * Me = to_(Rectangle, parentObjectOf_(me));
+    Rectangle * Me = to_(Rectangle, objectOf_(me));
     return Me->width * Me->height;
 }
 
 static void draw(Drawable const * const me) {
-    Rectangle * Me = to_(Rectangle, parentObjectOf_(me));
+    Rectangle * Me = to_(Rectangle, objectOf_(me));
 
     for (uint8_t i = 0; i < Me->width; i++) {
         printf("--");

@@ -137,7 +137,7 @@ static void polymorphismExample(Application * const me) {
         float area = Shape_area(shapes[i]);
 
         // Get parent object from nested object
-        Object * object = parentObjectOf_(shapes[i]);
+        Object * object = objectOf_(shapes[i]);
 
         // Get size of object
         size_t objectSize = objectSizeOf_(object);

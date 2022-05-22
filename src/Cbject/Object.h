@@ -99,17 +99,17 @@ Object * Object_init(Object * const me, Type const * const type);
 #define typeOf_(me) toObject_(me)->type
 
 /**
- * @brief Get offset from objecy
+ * @brief Get offset from object
  */
 #define offsetOf_(me) typeOf_(me)->offset
 
 /**
- * @brief Get parent object from nested object
+ * @brief Get base object
  */
-#define parentObjectOf_(me) toObject_(toAny_(me) - offsetOf_(me))
+#define objectOf_(me) toObject_(toAny_(me) - offsetOf_(me))
 
 /**
- * @brief Get nested object from parent object
+ * @brief Get nested object
  */
 #define nestedObjectOf_(me, className, typeName) \
     to_(typeName, toAny_(me) + toType_(&to_(className##Class, classOf_(me))->n##typeName##Type)->offset)

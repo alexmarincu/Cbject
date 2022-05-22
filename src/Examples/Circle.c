@@ -40,12 +40,12 @@ Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
 }
 
 static float area(Shape const * const me) {
-    Circle * Me = to_(Circle, parentObjectOf_(me));
+    Circle * Me = to_(Circle, objectOf_(me));
     return Me->radius * Me->radius * 3.14;
 }
 
 static void draw(Drawable const * const me) {
-    Circle * Me = to_(Circle, parentObjectOf_(me));
+    Circle * Me = to_(Circle, objectOf_(me));
     float const radius = Me->radius;
     float const tolerance = radius / 2;
 
