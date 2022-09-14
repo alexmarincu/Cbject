@@ -41,7 +41,7 @@ Rectangle * Rectangle_init(
     Object_init((Object *)me, (Type *)Rectangle_Class_());
     initInterfaceObject_(me, Rectangle, Shape);
     initInterfaceObject_(me, Rectangle, Drawable);
-    me->nShape.origin = origin;
+    iObjectOf_(me, Rectangle, Shape)->origin = origin;
     me->width = width;
     me->height = height;
     return me;

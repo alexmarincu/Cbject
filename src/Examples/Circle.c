@@ -26,7 +26,7 @@ Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
     Object_init((Object *)me, (Type *)Circle_Class_());
     initInterfaceObject_(me, Circle, Shape);
     initInterfaceObject_(me, Circle, Drawable);
-    interfaceObjectOf_(me, Circle, Shape)->origin = origin;
+    iObjectOf_(me, Circle, Shape)->origin = origin;
     me->radius = radius;
     return me;
 }

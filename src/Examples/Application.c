@@ -68,15 +68,15 @@ static void circleExample(Application * const me) {
     // Set circle radius
     me->circle->radius = 3;
     // Get circle area through Shape object polymorphic call
-    float area = Shape_area(&me->circle->nShape);
+    float area = Shape_area(iObjectOf_(&me->circle, Circle, Shape));
     (void)area;
     // Get circle shape origin
-    Point origin = me->circle->nShape.origin;
+    Point origin = iObjectOf_(&me->circle, Circle, Shape)->origin;
     (void)origin;
     // set circle shape origin
-    me->circle->nShape.origin = (Point){ 4, 5 };
+    iObjectOf_(&me->circle, Circle, Shape)->origin = (Point){ 4, 5 };
     // Draw circle through Drawable object polymorphic call
-    Drawable_draw(&me->circle->nDrawable);
+    Drawable_draw(iObjectOf_(&me->circle, Circle, Drawable));
 }
 static void rectangleExample(Application * const me) {
     // Allocate and initialize a Rectangle object
@@ -90,21 +90,21 @@ static void rectangleExample(Application * const me) {
     Rectangle_setWidth(me->rectangle, 4);
     Rectangle_setHeight(me->rectangle, 5);
     // Get rectangle area through Shape object polymorphic call
-    float area = Shape_area(interfaceObjectOf_(me->rectangle, Rectangle, Shape));
+    float area = Shape_area(iObjectOf_(me->rectangle, Rectangle, Shape));
     (void)area;
     // Get rectangle shape origin
-    Point origin = interfaceObjectOf_(me->rectangle, Rectangle, Shape)->origin;
+    Point origin = iObjectOf_(me->rectangle, Rectangle, Shape)->origin;
     (void)origin;
     // set rectangle shape origin
-    interfaceObjectOf_(me->rectangle, Rectangle, Shape)->origin = (Point){ 6, 7 };
+    iObjectOf_(me->rectangle, Rectangle, Shape)->origin = (Point){ 6, 7 };
     // Draw rectangle through Drawable object polymorphic call
-    Drawable_draw(interfaceObjectOf_(me->rectangle, Rectangle, Drawable));
+    Drawable_draw(iObjectOf_(me->rectangle, Rectangle, Drawable));
 }
 static void polymorphismExample(Application * const me) {
     // Prepare a list of shapes
     Shape * const shapes[] = {
-        interfaceObjectOf_(me->circle, Circle, Shape),
-        interfaceObjectOf_(me->rectangle, Rectangle, Shape),
+        iObjectOf_(me->circle, Circle, Shape),
+        iObjectOf_(me->rectangle, Rectangle, Shape),
     };
     // Loop through the list of shapes and call various polymorphic functions
     for (uint8_t i = 0; i < lengthOf_(shapes); i++) {

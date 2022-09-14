@@ -36,9 +36,9 @@ Interface * Interface_init(
  */
 #define overrideIncludedInterface_(me, className, typeContainerClassName, typeName)                                 \
     Interface_init(                                                                                                 \
-        (Interface *)&((typeContainerClassName##_Class *)(me))->n##typeName##_Interface,                            \
-        offsetof(typeContainerClassName, n##typeName),                                                              \
-        (Operations *)&((typeContainerClassName##_Operations *)className##_Operations_())->n##typeName##_Operations \
+        (Interface *)&((typeContainerClassName##_Class *)(me))->i##typeName##_Interface,                            \
+        offsetof(typeContainerClassName, i##typeName),                                                              \
+        (Operations *)&((typeContainerClassName##_Operations *)className##_Operations_())->i##typeName##_Operations \
     )
 /**
  * @brief Initialize a type contained in a class
@@ -48,8 +48,8 @@ Interface * Interface_init(
  */
 #define initIncludedInterface_(me, className, typeName)                                                \
     Interface_init(                                                                                    \
-        (Interface *)&((className##_Class *)(me))->n##typeName##_Interface,                            \
-        offsetof(className, n##typeName),                                                              \
-        (Operations *)&((className##_Operations *)className##_Operations_())->n##typeName##_Operations \
+        (Interface *)&((className##_Class *)(me))->i##typeName##_Interface,                            \
+        offsetof(className, i##typeName),                                                              \
+        (Operations *)&((className##_Operations *)className##_Operations_())->i##typeName##_Operations \
     )
 #endif // INTERFACE_H

@@ -11,7 +11,7 @@
  * @remark Needs to be placed just after the super member
  * @param typeName Type name of the included member
  */
-#define implements_(typeName) typeName n##typeName
+#define implements_(typeName) typeName i##typeName
 /**
  * @brief Initialize a derived object
  * @param className The object class

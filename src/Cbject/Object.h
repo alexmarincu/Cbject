@@ -74,8 +74,8 @@ void Object_setType(Object * const me, Type const * const type);
  */
 #define overrideInterfaceObject_(me, className, typeContainerClassName, typeName)                  \
     Object_init(                                                                                   \
-        (Object *)interfaceObjectOf_(me, typeContainerClassName, typeName),                        \
-        (Type *)&((typeContainerClassName##_Class *)className##_Class_())->n##typeName##_Interface \
+        (Object *)iObjectOf_(me, typeContainerClassName, typeName),                                \
+        (Type *)&((typeContainerClassName##_Class *)className##_Class_())->i##typeName##_Interface \
     )
 /**
  * @brief Initialize included object
@@ -85,8 +85,8 @@ void Object_setType(Object * const me, Type const * const type);
  */
 #define initInterfaceObject_(me, className, typeName)                                 \
     Object_init(                                                                      \
-        (Object *)interfaceObjectOf_(me, className, typeName),                        \
-        (Type *)&((className##_Class *)className##_Class_())->n##typeName##_Interface \
+        (Object *)iObjectOf_(me, className, typeName),                                \
+        (Type *)&((className##_Class *)className##_Class_())->i##typeName##_Interface \
     )
 /**
  * @brief Get type of an object
@@ -103,8 +103,8 @@ void Object_setType(Object * const me, Type const * const type);
 /**
  * @brief Get included object
  */
-#define interfaceObjectOf_(me, className, typeName) \
-    ((typeName *)((Any *)(me) + ((Type *)&((className##_Class *)classOf_(me))->n##typeName##_Interface)->offset))
+#define iObjectOf_(me, className, typeName) \
+    ((typeName *)((Any *)(me) + ((Type *)&((className##_Class *)classOf_(me))->i##typeName##_Interface)->offset))
 /**
  * @brief Get class of an object
  */
@@ -149,7 +149,7 @@ void Object_setType(Object * const me, Type const * const type);
  * @param ... (me Object reference, ... Operation arguments)
  */
 #define superIncludedCall_(superClassName, typeName, operationName, ...) \
-    ((superClassName##_Operations *)((Type *)superClassName##_Class_())->operations)->n##typeName##_Operations.operationName(__VA_ARGS__)
+    ((superClassName##_Operations *)((Type *)superClassName##_Class_())->operations)->i##typeName##_Operations.operationName(__VA_ARGS__)
 /**
  * @brief
  * @param me
@@ -225,7 +225,7 @@ uint64_t Object_hashCode(Object const * const me);
 #define inheritOperations_(me, superClassName) \
     *(superClassName##_Operations *)(me) = *superClassName##_Operations_()
 #define overrideIncludedOperation_(me, className, typeName, operationName) \
-    ((className##_Operations *)(me))->n##typeName##_Operations.operationName = operationName
+    ((className##_Operations *)(me))->i##typeName##_Operations.operationName = operationName
 #define overrideOperation_(me, superClassName, operationName) \
     ((superClassName##_Operations *)(me))->operationName = operationName
 #endif // OBJECT_H

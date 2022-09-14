@@ -24,6 +24,6 @@ void tearDown(void) {
  */
 void test_ColoredCircle_init(void) {
     ColoredCircle * c = init_(ColoredCircle, alloc_(ColoredCircle), (Point){ 0, 1 }, 2, Color_blue);
-    Drawable_draw(&((Circle *)c)->nDrawable);
+    Drawable_draw(iObjectOf_(c, Circle, Drawable));
     dealloc_(c);
 }
