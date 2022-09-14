@@ -3,47 +3,41 @@
 #include "../Cbject/Cbject.h"
 #include "Drawable.h"
 #include "Shape.h"
-
 /**
- * @brief CircleClass
+ * @brief Circle_Class
  */
 typedef struct {
-    extends_(ObjectClass);
-    contains_(ShapeType);
-    contains_(DrawableType);
-} CircleClass;
-
+    extends_(Object_Class);
+    implements_(Shape_Interface);
+    implements_(Drawable_Interface);
+} Circle_Class;
 /**
  * @brief Circle
  */
 typedef struct {
     extends_(Object);
-    contains_(Shape);
-    contains_(Drawable);
+    implements_(Shape);
+    implements_(Drawable);
     uint32_t radius;
 } Circle;
-
 /**
- * @brief CircleInterface
+ * @brief Circle_Operations
  */
 typedef struct {
-    extends_(ObjectInterface);
-    contains_(ShapeInterface);
-    contains_(DrawableInterface);
-} CircleInterface;
-
+    extends_(Object_Operations);
+    implements_(Shape_Operations);
+    implements_(Drawable_Operations);
+} Circle_Operations;
 /**
- * @brief Get CircleInterface
- * @return CircleInterface const*
+ * @brief Get Circle_Operations
+ * @return Circle_Operations const*
  */
-CircleInterface const * CircleInterface_(void);
-
+Circle_Operations const * Circle_Operations_(void);
 /**
- * @brief Get CircleClass
+ * @brief Get Circle_Class
  * @return Class const*
  */
-CircleClass const * CircleClass_(void);
-
+Circle_Class const * Circle_Class_(void);
 /**
  * @brief Init Circle object
  * @param me
@@ -52,5 +46,4 @@ CircleClass const * CircleClass_(void);
  * @return Circle*
  */
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius);
-
 #endif // CIRCLE_H

@@ -3,14 +3,12 @@
 #include "../Cbject/Cbject.h"
 #include "Circle.h"
 #include "Color.h"
-
 /**
- * @brief ColoredCircleClass
+ * @brief ColoredCircle_Class
  */
 typedef struct {
-    extends_(CircleClass);
-} ColoredCircleClass;
-
+    extends_(Circle_Class);
+} ColoredCircle_Class;
 /**
  * @brief ColoredCircle
  */
@@ -18,26 +16,22 @@ typedef struct {
     extends_(Circle);
     Color color;
 } ColoredCircle;
-
 /**
- * @brief ColoredCircleInterface
+ * @brief ColoredCircle_Operations
  */
 typedef struct {
-    extends_(CircleInterface);
-} ColoredCircleInterface;
-
+    extends_(Circle_Operations);
+} ColoredCircle_Operations;
 /**
- * @brief ColoredCircleInterface
- * @return ColoredCircleInterface const*
+ * @brief ColoredCircle_Operations
+ * @return ColoredCircle_Operations const*
  */
-ColoredCircleInterface const * ColoredCircleInterface_(void);
-
+ColoredCircle_Operations const * ColoredCircle_Operations_(void);
 /**
- * @brief ColoredCircleClass
- * @return ColoredCircleClass const*
+ * @brief ColoredCircle_Class
+ * @return ColoredCircle_Class const*
  */
-ColoredCircleClass const * ColoredCircleClass_(void);
-
+ColoredCircle_Class const * ColoredCircle_Class_(void);
 /**
  * @brief
  * @param me
@@ -46,5 +40,4 @@ ColoredCircleClass const * ColoredCircleClass_(void);
  * @return ColoredCircle*
  */
 ColoredCircle * ColoredCircle_init(ColoredCircle * const me, Point const origin, uint32_t const radius, Color const color);
-
 #endif // COLOREDCIRCLE_H

@@ -44,6 +44,7 @@
       :*:
         # - -save-temps
         - -std=c99
+        - -Wall -Wextra -Werror
 
 :cmock:
   :mock_prefix: mock_

@@ -1,31 +1,23 @@
 #include "ColoredCircle.h"
 #include <stdio.h>
-
 static void draw(Drawable const * const me);
-
-ColoredCircleInterface const * ColoredCircleInterface_(void) {
-    static ColoredCircleInterface interface;
-
+ColoredCircle_Operations const * ColoredCircle_Operations_(void) {
+    static ColoredCircle_Operations operations;
     doOnce_ {
-        inheritInterface_(&interface, Circle);
-        overrideNestedOperation_(&interface, Circle, Drawable, draw);
+        inheritOperations_(&operations, Circle);
+        overrideIncludedOperation_(&operations, Circle, Drawable, draw);
     }
-
-    return &interface;
+    return &operations;
 }
-
-ColoredCircleClass const * ColoredCircleClass_(void) {
-    static ColoredCircleClass cls;
-
+ColoredCircle_Class const * ColoredCircle_Class_(void) {
+    static ColoredCircle_Class cls;
     doOnce_ {
         initClass_(&cls, ColoredCircle, Circle);
-        overrideNestedType_(&cls, ColoredCircle, Circle, Shape);
-        overrideNestedType_(&cls, ColoredCircle, Circle, Drawable);
+        overrideIncludedInterface_(&cls, ColoredCircle, Circle, Shape);
+        overrideIncludedInterface_(&cls, ColoredCircle, Circle, Drawable);
     }
-
     return &cls;
 }
-
 ColoredCircle * ColoredCircle_init(
     ColoredCircle * const me,
     Point const origin,
@@ -33,14 +25,14 @@ ColoredCircle * ColoredCircle_init(
     Color const color
 ) {
     init_(Circle, me, origin, radius);
-    overrideObject_(me, ColoredCircle);
-    overrideNestedObject_(me, ColoredCircle, Circle, Shape);
-    overrideNestedObject_(me, ColoredCircle, Circle, Drawable);
+    setClassOf_(me, ColoredCircle);
+    overrideInterfaceObject_(me, ColoredCircle, Circle, Shape);
+    overrideInterfaceObject_(me, ColoredCircle, Circle, Drawable);
     me->color = color;
     return me;
 }
-
 static void draw(Drawable const * const me) {
     ColoredCircle * Me = to_(ColoredCircle, objectOf_(me));
-    superNestedCall_(Circle, Drawable, draw, me);
+    (void)Me;
+    superIncludedCall_(Circle, Drawable, draw, me);
 }

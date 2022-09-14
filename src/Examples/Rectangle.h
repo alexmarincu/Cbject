@@ -3,39 +3,33 @@
 #include "../Cbject/Cbject.h"
 #include "Drawable.h"
 #include "Shape.h"
-
 /**
- * @brief RectangleClass
+ * @brief Rectangle_Class
  */
 typedef struct {
-    extends_(ObjectClass);
-    contains_(ShapeType);
-    contains_(DrawableType);
-} RectangleClass;
-
+    extends_(Object_Class);
+    implements_(Shape_Interface);
+    implements_(Drawable_Interface);
+} Rectangle_Class;
 typedef struct Rectangle Rectangle;
-
 /**
- * @brief RectangleInterface
+ * @brief Rectangle_Operations
  */
 typedef struct {
-    extends_(ObjectInterface);
-    contains_(ShapeInterface);
-    contains_(DrawableInterface);
-} RectangleInterface;
-
+    extends_(Object_Operations);
+    implements_(Shape_Operations);
+    implements_(Drawable_Operations);
+} Rectangle_Operations;
 /**
- * @brief Get RectangleInterface
- * @return RectangleInterface const*
+ * @brief Get Rectangle_Operations
+ * @return Rectangle_Operations const*
  */
-RectangleInterface const * RectangleInterface_(void);
-
+Rectangle_Operations const * Rectangle_Operations_(void);
 /**
- * @brief Get RectangleClass
- * @return RectangleClass const*
+ * @brief Get Rectangle_Class
+ * @return Rectangle_Class const*
  */
-RectangleClass const * RectangleClass_(void);
-
+Rectangle_Class const * Rectangle_Class_(void);
 /**
  * @brief
  * @param me
@@ -50,40 +44,34 @@ Rectangle * Rectangle_init(
     uint32_t width,
     uint32_t height
 );
-
 /**
  * @brief
  * @param me
  * @return uint32_t
  */
 uint32_t Rectangle_getWidth(Rectangle const * const me);
-
 /**
  * @brief
  * @param me
  * @param width
  */
 void Rectangle_setWidth(Rectangle * const me, uint32_t const width);
-
 /**
  * @brief
  * @param me
  * @return uint32_t
  */
 uint32_t Rectangle_getHeight(Rectangle const * const me);
-
 /**
  * @brief
  * @param me
  * @param height
  */
 void Rectangle_setHeight(Rectangle * const me, uint32_t const height);
-
 /**
  * @brief
  * @param me
  * @param edgeSize
  */
 void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize);
-
 #endif // RECTANGLE_H

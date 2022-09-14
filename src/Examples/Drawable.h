@@ -1,32 +1,27 @@
 #ifndef DRAWABLE_H
 #define DRAWABLE_H
 #include "../Cbject/Cbject.h"
-
 /**
- * @brief DrawableType
+ * @brief Drawable_Interface
  */
 typedef struct {
-    extends_(Type);
-} DrawableType;
-
+    extends_(Interface);
+} Drawable_Interface;
 /**
  * @brief Drawable
  */
 typedef struct {
     extends_(Object);
 } Drawable;
-
 /**
- * @brief DrawableInterface
+ * @brief Drawable_Operations
  */
 typedef struct {
     void (*draw)(Drawable const * const me);
-} DrawableInterface;
-
+} Drawable_Operations;
 /**
  * @brief Draw a drawable
  * @param me Drawable object reference
  */
 void Drawable_draw(Drawable const * const me);
-
 #endif // DRAWABLE_H

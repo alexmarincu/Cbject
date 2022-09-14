@@ -5,7 +5,6 @@
 #else
     #include <assert.h>
 #endif
-
 /**
  * @brief Run time assert
  */
@@ -15,10 +14,8 @@
 #else
     #define assert_(condition) assert(condition)
 #endif
-
 /**
  * @brief Compile time assert
  */
 #define assertStatic_(condition, identifier) typedef char identifier[(!!(condition)) * 2 - 1]
-
 #endif // ASSERT_H

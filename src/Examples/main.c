@@ -1,5 +1,4 @@
 #include "Application.h"
-
 /**
  * @brief
  * @return int
