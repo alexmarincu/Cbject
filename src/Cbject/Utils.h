@@ -1,12 +1,6 @@
 #ifndef UTILS_H
 #define UTILS_H
 /**
- * @brief Cast to a type
- * @param typeName
- * @param me
- */
-#define to_(typeName, me) ((typeName *)(me))
-/**
  * @brief Add super member to a structure
  * @remark Needs to be the first member in the structure
  * @param typeName Type name of the super member
@@ -24,7 +18,7 @@
  * @param ... (me The object to initialize, ... The init arguments)
  */
 #define init_(className, ...) \
-    className##_init(to_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
+    className##_init((className *)VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
 /**
  * @brief Get length of an array
  */

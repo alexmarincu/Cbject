@@ -3,6 +3,7 @@
 #include "unity.h"
 TEST_FILE("Class.c")
 TEST_FILE("Interface.c")
+TEST_FILE("Type.c")
 /**
  * @brief
  */
@@ -37,6 +38,6 @@ void test_Class_init(void) {
     Class * cls = initClass_(salloc_(Class), Test, Test);
     TEST_ASSERT_EQUAL_STRING("Test", cls->name);
     TEST_ASSERT_EQUAL_size_t(sizeof(Test), cls->objectSize);
-    TEST_ASSERT_EQUAL_PTR(Test_Operations_(), toInterface_(cls)->operations);
+    TEST_ASSERT_EQUAL_PTR(Test_Operations_(), ((Type *)cls)->operations);
     TEST_ASSERT_EQUAL_PTR(Test_Class_(), cls->superClass);
 }

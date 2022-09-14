@@ -38,7 +38,7 @@ Application * Application_(void) {
     return &me;
 }
 static void init(Application * const me) {
-    initObject_(me, Application);
+    Object_init((Object *)me, (Type *)Application_Class_());
 }
 static void circleExample(Application * const me);
 static void greetingExample(Application * const me);
@@ -68,15 +68,15 @@ static void circleExample(Application * const me) {
     // Set circle radius
     me->circle->radius = 3;
     // Get circle area through Shape object polymorphic call
-    float area = Shape_area(interfaceObjectOf_(me->circle, Circle, Shape));
+    float area = Shape_area(&me->circle->nShape);
     (void)area;
     // Get circle shape origin
-    Point origin = interfaceObjectOf_(me->circle, Circle, Shape)->origin;
+    Point origin = me->circle->nShape.origin;
     (void)origin;
     // set circle shape origin
-    interfaceObjectOf_(me->circle, Circle, Shape)->origin = (Point){ 4, 5 };
+    me->circle->nShape.origin = (Point){ 4, 5 };
     // Draw circle through Drawable object polymorphic call
-    Drawable_draw(interfaceObjectOf_(me->circle, Circle, Drawable));
+    Drawable_draw(&me->circle->nDrawable);
 }
 static void rectangleExample(Application * const me) {
     // Allocate and initialize a Rectangle object
@@ -125,19 +125,19 @@ static void polymorphismExample(Application * const me) {
         // Check class of object
         if (isOfClass_(object, Circle)) {
             // Get circle radius
-            uint32_t radius = to_(Circle, object)->radius;
+            uint32_t radius = ((Circle *)object)->radius;
             (void)radius;
         } else if (isOfClass_(object, Rectangle)) {
             // Get rectangle width and height
-            uint32_t width = Rectangle_getWidth(to_(Rectangle, object));
+            uint32_t width = Rectangle_getWidth((Rectangle *)object);
             (void)width;
-            uint32_t height = Rectangle_getHeight(to_(Rectangle, object));
+            uint32_t height = Rectangle_getHeight((Rectangle *)object);
             (void)height;
         }
     }
 }
 static Object * deinit(Object * const me) {
-    Application * Me = to_(Application, me);
+    Application * Me = (Application *)me;
     dealloc_(Me->rectangle);
     dealloc_(Me->circle);
     return superCall_(Object, deinit, me);
@@ -147,5 +147,5 @@ static Object * deinit(Object * const me) {
  */
 static Object * copy(Object const * const me) {
     assert_(false);
-    return toObject_(me);
+    return (Object *)me;
 }

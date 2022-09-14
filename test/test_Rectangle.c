@@ -7,6 +7,7 @@ TEST_FILE("Drawable.c")
 TEST_FILE("Object.c")
 TEST_FILE("Class.c")
 TEST_FILE("Interface.c")
+TEST_FILE("Type.c")
 /**
  * @brief
  */

@@ -19,8 +19,8 @@ Object_Class const * Object_Class_(void) {
     static Object_Class cls;
     doOnce_ {
         Class_init(
-            toClass_(&cls),
-            toOperations_(Object_Operations_()),
+            (Class *)&cls,
+            (Operations *)Object_Operations_(),
             "Object",
             sizeof(Object),
             NULL
@@ -28,12 +28,12 @@ Object_Class const * Object_Class_(void) {
     }
     return &cls;
 }
-Object * Object_init(Object * const me, Interface const * const interface) {
-    me->interface = interface;
+Object * Object_init(Object * const me, Type const * const type) {
+    me->type = type;
     return me;
 }
-void Object_setInterface(Object * const me, Interface const * const interface) {
-    me->interface = interface;
+void Object_setType(Object * const me, Type const * const type) {
+    me->type = type;
 }
 Object * Object_deinit(Object * me) {
     return call_(Object, deinit, me);
@@ -66,7 +66,7 @@ static uint64_t hashCode(Object const * const me) {
 bool Object_isOfClass(Object const * const me, Class const * const targetClass) {
     bool isOfClass = true;
     Class const * cls = classOf_(me);
-    if (targetClass != toClass_(Object_Class_())) {
+    if (targetClass != (Class *)Object_Class_()) {
         while ((isOfClass == true) && (cls != targetClass)) {
             cls = cls->superClass;
             if (cls == NULL) {
@@ -77,7 +77,7 @@ bool Object_isOfClass(Object const * const me, Class const * const targetClass) 
     return isOfClass;
 }
 Object * Object_alloc(Class const * const cls) {
-    Object * object = toObject_(calloc(1, cls->objectSize));
+    Object * object = (Object *)calloc(1, cls->objectSize);
     assert_(object);
     return object;
 }

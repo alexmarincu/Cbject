@@ -1,12 +1,12 @@
 #ifndef CLASS_H
 #define CLASS_H
-#include "Interface.h"
+#include "Type.h"
 /**
  * @brief Class
  */
 typedef struct Class_ Class;
 struct Class_ {
-    extends_(Interface);
+    extends_(Type);
     char const * name;
     size_t objectSize;
     Class const * superClass;
@@ -35,14 +35,10 @@ Class * Class_init(
  */
 #define initClass_(me, className, superClassName) \
     Class_init(                                   \
-        toClass_(me),                             \
-        toOperations_(className##_Operations_()), \
+        (Class *)(me),                            \
+        (Operations *)className##_Operations_(),  \
         #className,                               \
         sizeof(className),                        \
-        toClass_(superClassName##_Class_())       \
+        (Class *)superClassName##_Class_()        \
     )
-/**
- * @brief Cast to (Class *)
- */
-#define toClass_(me) to_(Class, (me))
 #endif // CLASS_H

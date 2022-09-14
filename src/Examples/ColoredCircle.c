@@ -32,7 +32,7 @@ ColoredCircle * ColoredCircle_init(
     return me;
 }
 static void draw(Drawable const * const me) {
-    ColoredCircle * Me = to_(ColoredCircle, objectOf_(me));
+    ColoredCircle * Me = (ColoredCircle *)objectOf_(me);
     (void)Me;
     superIncludedCall_(Circle, Drawable, draw, me);
 }

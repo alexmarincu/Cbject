@@ -38,10 +38,10 @@ Rectangle * Rectangle_init(
     uint32_t width,
     uint32_t height
 ) {
-    initObject_(me, Rectangle);
+    Object_init((Object *)me, (Type *)Rectangle_Class_());
     initInterfaceObject_(me, Rectangle, Shape);
     initInterfaceObject_(me, Rectangle, Drawable);
-    interfaceObjectOf_(me, Rectangle, Shape)->origin = origin;
+    me->nShape.origin = origin;
     me->width = width;
     me->height = height;
     return me;
@@ -66,11 +66,11 @@ static Object * deinit(Object * me) {
     return superCall_(Object, deinit, me);
 }
 static float area(Shape const * const me) {
-    Rectangle * Me = to_(Rectangle, objectOf_(me));
+    Rectangle * Me = (Rectangle *)objectOf_(me);
     return Me->width * Me->height;
 }
 static void draw(Drawable const * const me) {
-    Rectangle * Me = to_(Rectangle, objectOf_(me));
+    Rectangle * Me = (Rectangle *)objectOf_(me);
     for (uint8_t i = 0; i < Me->width; i++) {
         printf("--");
     }

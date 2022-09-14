@@ -7,7 +7,7 @@ Class * Class_init(
     size_t const objectSize,
     Class const * const superClass
 ) {
-    initInterface_(me, 0, operations);
+    Type_init((Type *)me, 0, operations);
     me->name = name;
     me->objectSize = objectSize;
     me->superClass = superClass;

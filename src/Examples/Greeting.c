@@ -22,7 +22,7 @@ Greeting_Class const * Greeting_Class_(void) {
     return &cls;
 }
 Greeting * Greeting_init(Greeting * me, char * const text) {
-    initObject_(me, Greeting);
+    Object_init((Object *)me, (Type *)Greeting_Class_());
     me->text = text;
     return me;
 }
