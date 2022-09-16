@@ -68,15 +68,15 @@ static void circleExample(Application * const me) {
     // Set circle radius
     me->circle->radius = 3;
     // Get circle area through Shape object polymorphic call
-    float area = Shape_area(iObjectOf_(&me->circle, Circle, Shape));
+    float area = Shape_area(iObjectOf_(me->circle, Circle, Shape));
     (void)area;
     // Get circle shape origin
-    Point origin = iObjectOf_(&me->circle, Circle, Shape)->origin;
+    Point origin = iObjectOf_(me->circle, Circle, Shape)->origin;
     (void)origin;
     // set circle shape origin
-    iObjectOf_(&me->circle, Circle, Shape)->origin = (Point){ 4, 5 };
+    iObjectOf_(me->circle, Circle, Shape)->origin = (Point){ 4, 5 };
     // Draw circle through Drawable object polymorphic call
-    Drawable_draw(iObjectOf_(&me->circle, Circle, Drawable));
+    Drawable_draw(iObjectOf_(me->circle, Circle, Drawable));
 }
 static void rectangleExample(Application * const me) {
     // Allocate and initialize a Rectangle object
