@@ -3,29 +3,29 @@
 static Object * deinit(Object * me);
 static float area(Shape const * const me);
 static void draw(Drawable const * const me);
+Circle_Class const * Circle_Class_(void) {
+    static Circle_Class cls;
+    doOnce_ {
+        initClass_(&cls, Circle, Object);
+        initInterface_(&cls, Circle, Shape);
+        initInterface_(&cls, Circle, Drawable);
+    }
+    return &cls;
+}
 Circle_Operations const * Circle_Operations_(void) {
     static Circle_Operations operations;
     doOnce_ {
         inheritOperations_(&operations, Object);
         overrideOperation_(&operations, Object, deinit);
-        overrideIncludedOperation_(&operations, Circle, Shape, area);
-        overrideIncludedOperation_(&operations, Circle, Drawable, draw);
+        overrideIOperation_(&operations, Circle, Shape, area);
+        overrideIOperation_(&operations, Circle, Drawable, draw);
     }
     return &operations;
 }
-Circle_Class const * Circle_Class_(void) {
-    static Circle_Class cls;
-    doOnce_ {
-        initClass_(&cls, Circle, Object);
-        initIncludedInterface_(&cls, Circle, Shape);
-        initIncludedInterface_(&cls, Circle, Drawable);
-    }
-    return &cls;
-}
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
     Object_init((Object *)me, (Type *)Circle_Class_());
-    initInterfaceObject_(me, Circle, Shape);
-    initInterfaceObject_(me, Circle, Drawable);
+    initIObject_(me, Circle, Shape);
+    initIObject_(me, Circle, Drawable);
     iObjectOf_(me, Circle, Shape)->origin = origin;
     me->radius = radius;
     return me;

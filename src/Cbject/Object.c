@@ -6,15 +6,6 @@ static Object * deinit(Object * me);
 static Object * copy(Object const * const me);
 static bool equals(Object const * const me, Object const * const other);
 static uint64_t hashCode(Object const * const me);
-Object_Operations const * Object_Operations_(void) {
-    static Object_Operations const operations = {
-        .deinit = deinit,
-        .copy = copy,
-        .equals = equals,
-        .hashCode = hashCode
-    };
-    return &operations;
-}
 Object_Class const * Object_Class_(void) {
     static Object_Class cls;
     doOnce_ {
@@ -28,12 +19,28 @@ Object_Class const * Object_Class_(void) {
     }
     return &cls;
 }
+Object_Operations const * Object_Operations_(void) {
+    static Object_Operations const operations = {
+        .deinit = deinit,
+        .copy = copy,
+        .equals = equals,
+        .hashCode = hashCode
+    };
+    return &operations;
+}
+Object * Object_alloc(Class const * const cls) {
+    Object * object = (Object *)calloc(1, cls->objectSize);
+    assert_(object);
+    return object;
+}
+Object * Object_dealloc(Object * const me) {
+    deinit_(me);
+    free(me);
+    return NULL;
+}
 Object * Object_init(Object * const me, Type const * const type) {
     me->type = type;
     return me;
-}
-void Object_setType(Object * const me, Type const * const type) {
-    me->type = type;
 }
 Object * Object_deinit(Object * me) {
     return call_(Object, deinit, me);
@@ -76,13 +83,6 @@ bool Object_isOfClass(Object const * const me, Class const * const targetClass) 
     }
     return isOfClass;
 }
-Object * Object_alloc(Class const * const cls) {
-    Object * object = (Object *)calloc(1, cls->objectSize);
-    assert_(object);
-    return object;
-}
-Object * Object_dealloc(Object * const me) {
-    deinit_(me);
-    free(me);
-    return NULL;
+void Object_setType(Object * const me, Type const * const type) {
+    me->type = type;
 }

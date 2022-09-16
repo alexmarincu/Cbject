@@ -1,13 +1,18 @@
 #ifndef GREETING_H
 #define GREETING_H
 #include "../Cbject/Cbject.h"
+typedef struct Greeting Greeting;
 /**
  * @brief Greeting_Class
  */
 typedef struct {
     extends_(Object_Class);
 } Greeting_Class;
-typedef struct Greeting Greeting;
+/**
+ * @brief Get Greeting_Class
+ * @return Greeting_Class const*
+ */
+Greeting_Class const * Greeting_Class_(void);
 /**
  * @brief Greeting_Operations
  */
@@ -19,11 +24,6 @@ typedef struct {
  * @return Greeting_Operations const*
  */
 Greeting_Operations const * Greeting_Operations_(void);
-/**
- * @brief Get Greeting_Class
- * @return Greeting_Class const*
- */
-Greeting_Class const * Greeting_Class_(void);
 /**
  * @brief
  * @param me

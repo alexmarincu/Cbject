@@ -2,17 +2,17 @@
 #define DRAWABLE_H
 #include "../Cbject/Cbject.h"
 /**
- * @brief Drawable_Interface
- */
-typedef struct {
-    extends_(Interface);
-} Drawable_Interface;
-/**
  * @brief Drawable
  */
 typedef struct {
     extends_(Object);
 } Drawable;
+/**
+ * @brief Drawable_Interface
+ */
+typedef struct {
+    extends_(Interface);
+} Drawable_Interface;
 /**
  * @brief Drawable_Operations
  */

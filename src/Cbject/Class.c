@@ -1,5 +1,4 @@
 #include "Class.h"
-
 Class * Class_init(
     Class * const me,
     Operations const * const operations,

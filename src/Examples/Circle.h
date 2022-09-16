@@ -4,14 +4,6 @@
 #include "Drawable.h"
 #include "Shape.h"
 /**
- * @brief Circle_Class
- */
-typedef struct {
-    extends_(Object_Class);
-    implements_(Shape_Interface);
-    implements_(Drawable_Interface);
-} Circle_Class;
-/**
  * @brief Circle
  */
 typedef struct {
@@ -20,6 +12,19 @@ typedef struct {
     implements_(Drawable);
     uint32_t radius;
 } Circle;
+/**
+ * @brief Circle_Class
+ */
+typedef struct {
+    extends_(Object_Class);
+    implements_(Shape_Interface);
+    implements_(Drawable_Interface);
+} Circle_Class;
+/**
+ * @brief Get Circle_Class
+ * @return Class const*
+ */
+Circle_Class const * Circle_Class_(void);
 /**
  * @brief Circle_Operations
  */
@@ -33,11 +38,6 @@ typedef struct {
  * @return Circle_Operations const*
  */
 Circle_Operations const * Circle_Operations_(void);
-/**
- * @brief Get Circle_Class
- * @return Class const*
- */
-Circle_Class const * Circle_Class_(void);
 /**
  * @brief Init Circle object
  * @param me

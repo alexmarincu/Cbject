@@ -7,15 +7,18 @@
 #endif
 /**
  * @brief Run time assert
+ * @param expression
  */
 #if TEST
-    #define assert_(condition) \
-        if (!(condition)) Throw(0)
+    #define assert_(expression) \
+        if (!(expression)) Throw(0)
 #else
-    #define assert_(condition) assert(condition)
+    #define assert_(expression) assert(expression)
 #endif
 /**
  * @brief Compile time assert
+ * @param expression
+ * @param identifier
  */
-#define assertStatic_(condition, identifier) typedef char identifier[(!!(condition)) * 2 - 1]
+#define assertStatic_(expression, identifier) typedef char identifier[(!!(expression)) * 2 - 1]
 #endif // ASSERT_H

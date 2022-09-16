@@ -4,5 +4,4 @@
 #include "Class.h"
 #include "Interface.h"
 #include "Object.h"
-
 #endif // CBJECT_H

@@ -20,21 +20,13 @@ Interface * Interface_init(
     Operations const * operations
 );
 /**
- * @brief Initialize a type
- * @param me Interface reference
- * @param offset Offset of included object inside parent object
- * @param operations Interface operations
- */
-#define initInterface_(me, offset, operations) \
-    Interface_init((Interface *)(me), offset, (Operations *)(operations))
-/**
  * @brief Override a type contained in a class
  * @param me
  * @param className
  * @param typeContainerClassName
  * @param typeName
  */
-#define overrideIncludedInterface_(me, className, typeContainerClassName, typeName)                                 \
+#define overrideInterface_(me, className, typeContainerClassName, typeName)                                         \
     Interface_init(                                                                                                 \
         (Interface *)&((typeContainerClassName##_Class *)(me))->i##typeName##_Interface,                            \
         offsetof(typeContainerClassName, i##typeName),                                                              \
@@ -46,7 +38,7 @@ Interface * Interface_init(
  * @param className
  * @param typeName
  */
-#define initIncludedInterface_(me, className, typeName)                                                \
+#define initInterface_(me, className, typeName)                                                        \
     Interface_init(                                                                                    \
         (Interface *)&((className##_Class *)(me))->i##typeName##_Interface,                            \
         offsetof(className, i##typeName),                                                              \

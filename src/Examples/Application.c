@@ -14,14 +14,12 @@ struct Application {
 static Object * deinit(Object * me);
 static Object * copy(Object const * const me);
 static void init(Application * const me);
-Application_Operations const * Application_Operations_(void) {
-    static Application_Operations operations;
+Application * Application_(void) {
+    static Application me;
     doOnce_ {
-        inheritOperations_(&operations, Object);
-        overrideOperation_(&operations, Object, deinit);
-        overrideOperation_(&operations, Object, copy);
+        init(&me);
     }
-    return &operations;
+    return &me;
 }
 Application_Class const * Application_Class_(void) {
     static Application_Class cls;
@@ -30,12 +28,14 @@ Application_Class const * Application_Class_(void) {
     }
     return &cls;
 }
-Application * Application_(void) {
-    static Application me;
+Application_Operations const * Application_Operations_(void) {
+    static Application_Operations operations;
     doOnce_ {
-        init(&me);
+        inheritOperations_(&operations, Object);
+        overrideOperation_(&operations, Object, deinit);
+        overrideOperation_(&operations, Object, copy);
     }
-    return &me;
+    return &operations;
 }
 static void init(Application * const me) {
     Object_init((Object *)me, (Type *)Application_Class_());

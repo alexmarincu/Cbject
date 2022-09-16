@@ -13,24 +13,24 @@ struct Rectangle {
 static Object * deinit(Object * me);
 static float area(Shape const * const me);
 static void draw(Drawable const * const me);
+Rectangle_Class const * Rectangle_Class_(void) {
+    static Rectangle_Class cls;
+    doOnce_ {
+        initClass_(&cls, Rectangle, Object);
+        initInterface_(&cls, Rectangle, Shape);
+        initInterface_(&cls, Rectangle, Drawable);
+    }
+    return &cls;
+}
 Rectangle_Operations const * Rectangle_Operations_(void) {
     static Rectangle_Operations operations;
     doOnce_ {
         inheritOperations_(&operations, Object);
         overrideOperation_(&operations, Object, deinit);
-        overrideIncludedOperation_(&operations, Rectangle, Shape, area);
-        overrideIncludedOperation_(&operations, Rectangle, Drawable, draw);
+        overrideIOperation_(&operations, Rectangle, Shape, area);
+        overrideIOperation_(&operations, Rectangle, Drawable, draw);
     }
     return &operations;
-}
-Rectangle_Class const * Rectangle_Class_(void) {
-    static Rectangle_Class cls;
-    doOnce_ {
-        initClass_(&cls, Rectangle, Object);
-        initIncludedInterface_(&cls, Rectangle, Shape);
-        initIncludedInterface_(&cls, Rectangle, Drawable);
-    }
-    return &cls;
 }
 Rectangle * Rectangle_init(
     Rectangle * me,
@@ -38,9 +38,9 @@ Rectangle * Rectangle_init(
     uint32_t width,
     uint32_t height
 ) {
-    Object_init((Object *)me, (Type *)Rectangle_Class_());
-    initInterfaceObject_(me, Rectangle, Shape);
-    initInterfaceObject_(me, Rectangle, Drawable);
+    initObject_(me, Rectangle);
+    initIObject_(me, Rectangle, Shape);
+    initIObject_(me, Rectangle, Drawable);
     iObjectOf_(me, Rectangle, Shape)->origin = origin;
     me->width = width;
     me->height = height;
