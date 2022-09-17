@@ -159,7 +159,7 @@ void Object_setType(Object * const me, Type const * const type);
  * @brief Get class of an object
  */
 #define classOf_(me) \
-    ((Class *)typeOf_(me))
+    ((Class *)typeOf_(objectOf_(me)))
 /**
  * @brief Get operations of an object
  */
