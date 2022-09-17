@@ -6,18 +6,31 @@ static Object * deinit(Object * me);
 static Object * copy(Object const * const me);
 static bool equals(Object const * const me, Object const * const other);
 static uint64_t hashCode(Object const * const me);
+Object_Class * Object_Class_init(
+    Object_Class * const me,
+    Operations const * const operations,
+    char const * const name,
+    size_t const objectSize,
+    Object_Class const * const superClass
+) {
+    Type_init((Type *)me, 0, operations);
+    me->name = name;
+    me->objectSize = objectSize;
+    me->superClass = superClass;
+    return me;
+}
 Object_Class const * Object_Class_(void) {
-    static Object_Class cls;
+    static Object_Class class;
     doOnce_ {
-        Class_init(
-            (Class *)&cls,
+        Object_Class_init(
+            (Object_Class *)&class,
             (Operations *)Object_Operations_(),
             "Object",
             sizeof(Object),
             NULL
         );
     }
-    return &cls;
+    return &class;
 }
 Object_Operations const * Object_Operations_(void) {
     static Object_Operations const operations = {
@@ -28,8 +41,8 @@ Object_Operations const * Object_Operations_(void) {
     };
     return &operations;
 }
-Object * Object_alloc(Class const * const cls) {
-    Object * object = (Object *)calloc(1, cls->objectSize);
+Object * Object_alloc(Object_Class const * const class) {
+    Object * object = (Object *)calloc(1, class->objectSize);
     assert_(object);
     return object;
 }
@@ -70,13 +83,13 @@ uint64_t Object_hashCode(Object const * const me) {
 static uint64_t hashCode(Object const * const me) {
     return (uint64_t)me;
 }
-bool Object_isOfClass(Object const * const me, Class const * const targetClass) {
+bool Object_isOfClass(Object const * const me, Object_Class const * const targetClass) {
     bool isOfClass = true;
-    Class const * cls = classOf_(me);
-    if (targetClass != (Class *)Object_Class_()) {
-        while ((isOfClass == true) && (cls != targetClass)) {
-            cls = cls->superClass;
-            if (cls == NULL) {
+    Object_Class const * class = classOf_(me);
+    if (targetClass != (Object_Class *)class_(Object)) {
+        while ((isOfClass == true) && (class != targetClass)) {
+            class = class->superClass;
+            if (class == NULL) {
                 isOfClass = false;
             }
         }

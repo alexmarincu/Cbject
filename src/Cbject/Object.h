@@ -1,6 +1,6 @@
 #ifndef OBJECT_H
 #define OBJECT_H
-#include "Class.h"
+#include "Type.h"
 #include <stdbool.h>
 #include <stdint.h>
 /**
@@ -12,9 +12,29 @@ typedef struct {
 /**
  * @brief Object_Class
  */
-typedef struct {
-    extends_(Class);
-} Object_Class;
+typedef struct Object_Class_t Object_Class;
+struct Object_Class_t {
+    extends_(Type);
+    char const * name;
+    size_t objectSize;
+    Object_Class const * superClass;
+};
+/**
+ * @brief Initialize a class
+ * @param me Class reference
+ * @param name String containing the class name
+ * @param objectSize Object instance size
+ * @param operations Class operations
+ * @param superClass Parent class
+ * @return Class* Initialized class
+ */
+Object_Class * Object_Class_init(
+    Object_Class * const me,
+    Operations const * const operations,
+    char const * const name,
+    size_t const objectSize,
+    Object_Class const * const superClass
+);
 /**
  * @brief Object_Class
  * @return Object_Class const*
@@ -39,7 +59,7 @@ Object_Operations const * Object_Operations_(void);
  * @param cls
  * @return Object*
  */
-Object * Object_alloc(Class const * const cls);
+Object * Object_alloc(Object_Class const * const cls);
 /**
  * @brief
  * @param me
@@ -84,13 +104,27 @@ uint64_t Object_hashCode(Object const * const me);
  * @return true
  * @return false
  */
-bool Object_isOfClass(Object const * const me, Class const * const cls);
+bool Object_isOfClass(Object const * const me, Object_Class const * const cls);
 /**
  * @brief Set interface of object
  * @param me Object reference
  * @param type Interface reference
  */
 void Object_setType(Object * const me, Type const * const type);
+/**
+ * @brief Initialize a class
+ * @param me Class reference
+ * @param className Class name
+ * @param superClassName Parent class name
+ */
+#define initClass_(me, className, superClassName) \
+    Object_Class_init(                            \
+        (Object_Class *)(me),                     \
+        (Operations *)className##_Operations_(),  \
+        #className,                               \
+        sizeof(className),                        \
+        (Object_Class *)superClassName##_Class_() \
+    )
 /**
  * @brief Initialize an object
  * @param me Object reference
@@ -159,7 +193,7 @@ void Object_setType(Object * const me, Type const * const type);
  * @brief Get class of an object
  */
 #define classOf_(me) \
-    ((Class *)typeOf_(objectOf_(me)))
+    ((Object_Class *)typeOf_(objectOf_(me)))
 /**
  * @brief Get operations of an object
  */
@@ -209,12 +243,12 @@ void Object_setType(Object * const me, Type const * const type);
  * @brief Syntactic sugar for Object_isOfClass method
  */
 #define isOfClass_(me, className) \
-    Object_isOfClass((Object *)(me), (Class *)className##_Class_())
+    Object_isOfClass((Object *)(me), (Object_Class *)className##_Class_())
 /**
  * @brief Syntactic sugar for Object_alloc method
  */
 #define alloc_(className) \
-    ((className *)Object_alloc((Class *)className##_Class_()))
+    ((className *)Object_alloc((Object_Class *)className##_Class_()))
 /**
  * @brief Syntactic sugar for Object_dealloc method
  */
@@ -264,4 +298,10 @@ void Object_setType(Object * const me, Type const * const type);
  */
 #define overrideIOperation_(me, className, interfaceName, operationName) \
     ((className##_Operations *)(me))->i##interfaceName##_Operations.operationName = operationName
+/**
+ * @brief
+ *
+ */
+#define class_(className) \
+    className##_Class_()
 #endif // OBJECT_H
