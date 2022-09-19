@@ -1,6 +1,12 @@
 #ifndef UTILS_H
 #define UTILS_H
 /**
+ * @brief Cast to a type
+ * @param typeName
+ * @param me
+ */
+#define to_(typeName, me) ((typeName *)(me))
+/**
  * @brief Add super member to a structure
  * @remark Needs to be the first member in the structure
  * @param typeName Type name of the super member
@@ -21,6 +27,43 @@
  */
 #define init_(className, ...) \
     className##_init((className *)VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
+
+/**
+ * @brief Inherit operations from super class
+ * @param me Object reference
+ * @param superClassName Super class name
+ */
+#define inheritOperations_(me, superClassName) \
+    *(superClassName##_Operations *)(me) = *superClassName##_Operations_()
+/**
+ * @brief Override inherited operation
+ * @param me Object reference
+ * @param superClassName Super class name
+ * @param operationName Operation name
+ */
+#define overrideOperation_(me, superClassName, operationName) \
+    ((superClassName##_Operations *)(me))->operationName = operationName
+/**
+ * @brief Override inherited operation
+ * @param me Object reference
+ * @param className Class name
+ * @param interfaceName Interface name
+ * @param operationName Operation name
+ */
+#define overrideIOperation_(me, className, interfaceName, operationName) \
+    ((className##_Operations *)(me))->i##interfaceName##_Operations.operationName = operationName
+/**
+ * @brief
+ *
+ */
+#define class_(className) \
+    className##_Class_()
+/**
+ * @brief
+ *
+ */
+#define interface_(interfaceName) \
+    interfaceName##_Interface_()
 /**
  * @brief Get length of an array
  */

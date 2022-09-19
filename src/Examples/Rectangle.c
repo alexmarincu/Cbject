@@ -14,13 +14,13 @@ static Object * deinit(Object * me);
 static float area(Shape const * const me);
 static void draw(Drawable const * const me);
 Rectangle_Class const * Rectangle_Class_(void) {
-    static Rectangle_Class cls;
+    static Rectangle_Class class;
     doOnce_ {
-        initClass_(&cls, Rectangle, Object);
-        initInterface_(&cls, Rectangle, Shape);
-        initInterface_(&cls, Rectangle, Drawable);
+        initClass_(&class, Rectangle, Object);
+        initInterfaceOf_(&class, Rectangle, Rectangle, Shape);
+        initInterfaceOf_(&class, Rectangle, Rectangle, Drawable);
     }
-    return &cls;
+    return &class;
 }
 Rectangle_Operations const * Rectangle_Operations_(void) {
     static Rectangle_Operations operations;
@@ -39,9 +39,9 @@ Rectangle * Rectangle_init(
     uint32_t height
 ) {
     initObject_(me, Rectangle);
-    initIObject_(me, Rectangle, Shape);
-    initIObject_(me, Rectangle, Drawable);
-    iObjectOf_(me, Rectangle, Shape)->origin = origin;
+    initIObjectOf_(me, Rectangle, Rectangle, Shape);
+    initIObjectOf_(me, Rectangle, Rectangle, Drawable);
+    me->iShape.origin = origin;
     me->width = width;
     me->height = height;
     return me;
@@ -66,11 +66,11 @@ static Object * deinit(Object * me) {
     return superCall_(Object, deinit, me);
 }
 static float area(Shape const * const me) {
-    Rectangle * Me = (Rectangle *)objectOf_(me);
+    Rectangle * Me = (Rectangle *)rObjectOf_(me);
     return Me->width * Me->height;
 }
 static void draw(Drawable const * const me) {
-    Rectangle * Me = (Rectangle *)objectOf_(me);
+    Rectangle * Me = (Rectangle *)rObjectOf_(me);
     for (uint8_t i = 0; i < Me->width; i++) {
         printf("--");
     }

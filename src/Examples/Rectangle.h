@@ -3,7 +3,6 @@
 #include "../Cbject/Cbject.h"
 #include "Drawable.h"
 #include "Shape.h"
-typedef struct Rectangle Rectangle;
 /**
  * @brief Rectangle_Class
  */
@@ -17,6 +16,7 @@ typedef struct {
  * @return Rectangle_Class const*
  */
 Rectangle_Class const * Rectangle_Class_(void);
+typedef struct Rectangle Rectangle;
 /**
  * @brief Rectangle_Operations
  */

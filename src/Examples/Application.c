@@ -22,11 +22,11 @@ Application * Application_(void) {
     return &me;
 }
 Application_Class const * Application_Class_(void) {
-    static Application_Class cls;
+    static Application_Class class;
     doOnce_ {
-        initClass_(&cls, Application, Object);
+        initClass_(&class, Application, Object);
     }
-    return &cls;
+    return &class;
 }
 Application_Operations const * Application_Operations_(void) {
     static Application_Operations operations;
@@ -38,7 +38,7 @@ Application_Operations const * Application_Operations_(void) {
     return &operations;
 }
 static void init(Application * const me) {
-    Object_init((Object *)me, (Type *)Application_Class_());
+    Object_init((Object *)me, (Object_Interface *)Application_Class_());
 }
 static void circleExample(Application * const me);
 static void greetingExample(Application * const me);
@@ -112,7 +112,7 @@ static void polymorphismExample(Application * const me) {
         float area = Shape_area(shapes[i]);
         (void)area;
         // Get parent object from included object
-        Object * object = objectOf_(shapes[i]);
+        Object * object = rObjectOf_(shapes[i]);
         // Get size of object
         size_t objectSize = objectSizeOf_(object);
         (void)objectSize;

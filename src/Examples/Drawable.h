@@ -11,7 +11,7 @@ typedef struct {
  * @brief Drawable_Interface
  */
 typedef struct {
-    extends_(Interface);
+    extends_(Object_Interface);
 } Drawable_Interface;
 /**
  * @brief Drawable_Operations

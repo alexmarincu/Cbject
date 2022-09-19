@@ -3,18 +3,18 @@
 #include "../Cbject/Cbject.h"
 #include "Point.h"
 /**
+ * @brief Shape_Interface
+ */
+typedef struct {
+    extends_(Object_Interface);
+} Shape_Interface;
+/**
  * @brief Shape
  */
 typedef struct {
     extends_(Object);
     Point origin;
 } Shape;
-/**
- * @brief Shape_Interface
- */
-typedef struct {
-    extends_(Interface);
-} Shape_Interface;
 /**
  * @brief Shape_Operations
  */

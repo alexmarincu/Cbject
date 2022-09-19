@@ -13,7 +13,7 @@ Object_Class * Object_Class_init(
     size_t const objectSize,
     Object_Class const * const superClass
 ) {
-    Type_init((Type *)me, 0, operations);
+    Object_Interface_init(to_(Object_Interface, me), 0, operations);
     me->name = name;
     me->objectSize = objectSize;
     me->superClass = superClass;
@@ -23,14 +23,23 @@ Object_Class const * Object_Class_(void) {
     static Object_Class class;
     doOnce_ {
         Object_Class_init(
-            (Object_Class *)&class,
-            (Operations *)Object_Operations_(),
+            to_(Object_Class, &class),
+            to_(Operations, Object_Operations_()),
             "Object",
             sizeof(Object),
             NULL
         );
     }
     return &class;
+}
+Object_Interface * Object_Interface_init(
+    Object_Interface * const me,
+    size_t offset,
+    Operations const * operations
+) {
+    me->offset = offset;
+    me->operations = operations;
+    return me;
 }
 Object_Operations const * Object_Operations_(void) {
     static Object_Operations const operations = {
@@ -42,7 +51,7 @@ Object_Operations const * Object_Operations_(void) {
     return &operations;
 }
 Object * Object_alloc(Object_Class const * const class) {
-    Object * object = (Object *)calloc(1, class->objectSize);
+    Object * object = to_(Object, calloc(1, class->objectSize));
     assert_(object);
     return object;
 }
@@ -51,8 +60,8 @@ Object * Object_dealloc(Object * const me) {
     free(me);
     return NULL;
 }
-Object * Object_init(Object * const me, Type const * const type) {
-    me->type = type;
+Object * Object_init(Object * const me, Object_Interface const * const interface) {
+    me->interface = interface;
     return me;
 }
 Object * Object_deinit(Object * me) {
@@ -86,7 +95,7 @@ static uint64_t hashCode(Object const * const me) {
 bool Object_isOfClass(Object const * const me, Object_Class const * const targetClass) {
     bool isOfClass = true;
     Object_Class const * class = classOf_(me);
-    if (targetClass != (Object_Class *)class_(Object)) {
+    if (targetClass != to_(Object_Class, class_(Object))) {
         while ((isOfClass == true) && (class != targetClass)) {
             class = class->superClass;
             if (class == NULL) {
@@ -96,6 +105,6 @@ bool Object_isOfClass(Object const * const me, Object_Class const * const target
     }
     return isOfClass;
 }
-void Object_setType(Object * const me, Type const * const type) {
-    me->type = type;
+void Object_setClass(Object * const me, Object_Class const * const class) {
+    me->interface = to_(Object_Interface, class);
 }

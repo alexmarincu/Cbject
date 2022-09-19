@@ -2,13 +2,13 @@
 #include <stdio.h>
 static void draw(Drawable const * const me);
 ColoredCircle_Class const * ColoredCircle_Class_(void) {
-    static ColoredCircle_Class cls;
+    static ColoredCircle_Class class;
     doOnce_ {
-        initClass_(&cls, ColoredCircle, Circle);
-        overrideInterface_(&cls, ColoredCircle, Circle, Shape);
-        overrideInterface_(&cls, ColoredCircle, Circle, Drawable);
+        initClass_(&class, ColoredCircle, Circle);
+        initInterfaceOf_(&class, ColoredCircle, Circle, Shape);
+        initInterfaceOf_(&class, ColoredCircle, Circle, Drawable);
     }
-    return &cls;
+    return &class;
 }
 ColoredCircle_Operations const * ColoredCircle_Operations_(void) {
     static ColoredCircle_Operations operations;
@@ -26,13 +26,13 @@ ColoredCircle * ColoredCircle_init(
 ) {
     init_(Circle, me, origin, radius);
     setClassOf_(me, ColoredCircle);
-    overrideIObject_(me, ColoredCircle, Circle, Shape);
-    overrideIObject_(me, ColoredCircle, Circle, Drawable);
+    initIObjectOf_(me, ColoredCircle, Circle, Shape);
+    initIObjectOf_(me, ColoredCircle, Circle, Drawable);
     me->color = color;
     return me;
 }
 static void draw(Drawable const * const me) {
-    ColoredCircle * Me = (ColoredCircle *)objectOf_(me);
+    ColoredCircle * Me = (ColoredCircle *)rObjectOf_(me);
     (void)Me;
     superICall_(Circle, Drawable, draw, me);
 }

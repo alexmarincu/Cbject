@@ -8,11 +8,11 @@ struct Greeting {
     char * text;
 };
 Greeting_Class const * Greeting_Class_(void) {
-    static Greeting_Class cls;
+    static Greeting_Class class;
     doOnce_ {
-        initClass_(&cls, Greeting, Object);
+        initClass_(&class, Greeting, Object);
     }
-    return &cls;
+    return &class;
 }
 Greeting_Operations const * Greeting_Operations_(void) {
     static Greeting_Operations operations;
@@ -22,7 +22,7 @@ Greeting_Operations const * Greeting_Operations_(void) {
     return &operations;
 }
 Greeting * Greeting_init(Greeting * me, char * const text) {
-    Object_init((Object *)me, (Type *)Greeting_Class_());
+    initObject_(me, Greeting);
     me->text = text;
     return me;
 }

@@ -1,60 +1,101 @@
 /* tag::overview[]
 == Cbject
-[plantuml, target=CbjectDiagram, format=png]
+[plantuml, target=ClassObject, format=png]
+.Object model with class
 ....
+hide circle
 together {
-object Object {
-    ..
-    Type * type;
+class Object {
+    Object_Interface * interface;
 }
-object Object_Interface {
-    ..
-    Interface super;
-}
-object Object_Class {
-    ..
-    Class super;
-}
-}
-together {
-object Interface {
-    ..
-    Type super;
-}
-object Class {
-    ..
-    Type super;
+class Object_Class {
+    Object_Interface super;
     char const * name;
     size_t objectSize;
     Class const * superClass;
 }
 }
 together {
-object Type {
-    ..
+class Object_Interface {
     size_t offset;
     Operations const * operations;
 }
-object Object_Operations {
-    ..
+class Object_Operations {
     Object * (*deinit)(Object * me);
     uint64_t (*hashCode)(Object const * const me);
     Object * (*copy)(Object const * const me);
     bool (*equals)(Object const * const me, Object const * const other);
 }
 }
-Object -l-> Object_Interface
 Object -r-> Object_Class
-Object_Interface *-u- Interface
-Object_Class *-u- Class
-Class *-u- Type
-Interface *-u- Type
-Type -r-> Object_Operations
+Object_Class -u-|> Object_Interface
+Object_Interface -r-> Object_Operations
+....
+
+[plantuml, target=InterfaceObject, format=png]
+.Object model with interface
+....
+hide circle
+together {
+class Object {
+    Object_Interface * interface;
+}
+class Object_Interface {
+    size_t offset;
+    Operations const * operations;
+}
+}
+Object -r-> Object_Interface
+....
+
+[plantuml, target=CustomClassObject, format=png]
+.Object model of a custom object with class
+....
+hide circle
+class Shape {
+    Object super;
+    Point origin;
+}
+together {
+class Object {
+    Object_Interface * interface;
+}
+class Shape_Class {
+    Object_Class super;
+}
+}
+class Object_Class {
+    Type super;
+    char const * name;
+    size_t objectSize;
+    Class const * superClass;
+}
+together {
+class Object_Interface {
+    size_t offset;
+    Operations const * operations;
+}
+class Shape_Operations {
+    Object_Operations super;
+    float (*area)(Shape const * const me);
+}
+}
+class Object_Operations {
+    Object * (*deinit)(Object * me);
+    uint64_t (*hashCode)(Object const * const me);
+    Object * (*copy)(Object const * const me);
+    bool (*equals)(Object const * const me, Object const * const other)
+}
+Shape -u-|> Object
+Object -r-> Shape_Class
+Shape_Class -u-|> Object_Class
+Object_Class -u-|> Object_Interface
+Object_Interface -r-> Shape_Operations
+Shape_Operations -u-|> Object_Operations
 ....
 end::overview[] */
 #ifndef CBJECT_H
 #define CBJECT_H
 #include "Assert.h"
-#include "Interface.h"
 #include "Object.h"
 #endif // CBJECT_H
