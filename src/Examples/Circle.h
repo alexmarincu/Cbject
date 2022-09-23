@@ -26,19 +26,6 @@ typedef struct {
  */
 Circle_Class const * Circle_Class_(void);
 /**
- * @brief Circle_Operations
- */
-typedef struct {
-    extends_(Object_Operations);
-    implements_(Shape_Operations);
-    implements_(Drawable_Operations);
-} Circle_Operations;
-/**
- * @brief Get Circle_Operations
- * @return Circle_Operations const*
- */
-Circle_Operations const * Circle_Operations_(void);
-/**
  * @brief Init Circle object
  * @param me
  * @param origin

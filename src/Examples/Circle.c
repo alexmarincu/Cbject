@@ -1,41 +1,34 @@
 #include "Circle.h"
 #include <stdio.h>
-static Object * deinit(Object * me);
+static Object * teardown(Object * me);
 static float area(Shape const * const me);
 static void draw(Drawable const * const me);
 Circle_Class const * Circle_Class_(void) {
     static Circle_Class class;
     doOnce_ {
-        initClass_(&class, Circle, Object);
-        initInterfaceOf_(&class, Circle, Circle, Shape);
-        initInterfaceOf_(&class, Circle, Circle, Drawable);
+        setUpClass_(Circle, Object, &class);
+        setUpInterface_(Circle, Drawable, &class);
+        setUpInterface_(Circle, Shape, &class);
+        overrideObjectMethod_(Object, &class, teardown);
+        overrideModuleMethod_(Circle, Drawable, &class, draw);
+        overrideModuleMethod_(Circle, Shape, &class, area);
     }
     return &class;
 }
-Circle_Operations const * Circle_Operations_(void) {
-    static Circle_Operations operations;
-    doOnce_ {
-        inheritOperations_(&operations, Object);
-        overrideOperation_(&operations, Object, deinit);
-        overrideIOperation_(&operations, Circle, Shape, area);
-        overrideIOperation_(&operations, Circle, Drawable, draw);
-    }
-    return &operations;
-}
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
-    Object_init((Object *)me, (Object_Interface *)Circle_Class_());
-    initIObjectOf_(me, Circle, Circle, Shape);
-    initIObjectOf_(me, Circle, Circle, Drawable);
-    iObjectOf_(me, Circle, Shape)->origin = origin;
+    setUpObject_(Circle, Object, me);
+    setUpModule_(Circle, Drawable, me);
+    setUpModule_(Circle, Shape, me, origin);
+    me->iShape.origin = origin;
     me->radius = radius;
     return me;
 }
 static float area(Shape const * const me) {
-    Circle * Me = (Circle *)rObjectOf_(me);
+    Circle * Me = to_(Circle, objectOf_(me));
     return Me->radius * Me->radius * 3.14;
 }
 static void draw(Drawable const * const me) {
-    Circle * Me = (Circle *)rObjectOf_(me);
+    Circle * Me = to_(Circle, objectOf_(me));
     float const radius = Me->radius;
     float const tolerance = radius / 2;
     for (int x = -radius; x <= radius; x++) {
@@ -46,6 +39,6 @@ static void draw(Drawable const * const me) {
         printf("\n");
     }
 }
-static Object * deinit(Object * me) {
-    return superCall_(Object, deinit, me);
+static Object * teardown(Object * me) {
+    return superObjectMethodCall_(Object, teardown, me);
 }

@@ -10,19 +10,14 @@ struct Greeting {
 Greeting_Class const * Greeting_Class_(void) {
     static Greeting_Class class;
     doOnce_ {
-        initClass_(&class, Greeting, Object);
+        setUpClass_(Greeting, Object, &class);
     }
     return &class;
 }
-Greeting_Operations const * Greeting_Operations_(void) {
-    static Greeting_Operations operations;
-    doOnce_ {
-        inheritOperations_(&operations, Object);
-    }
-    return &operations;
-}
 Greeting * Greeting_init(Greeting * me, char * const text) {
-    initObject_(me, Greeting);
+
+    setUpObject_(Greeting, Object, me);
+    initObject_(Object, me);
     me->text = text;
     return me;
 }

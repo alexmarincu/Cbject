@@ -14,17 +14,6 @@ typedef struct {
  */
 Greeting_Class const * Greeting_Class_(void);
 /**
- * @brief Greeting_Operations
- */
-typedef struct {
-    extends_(Object_Operations);
-} Greeting_Operations;
-/**
- * @brief Get Greeting_Operations
- * @return Greeting_Operations const*
- */
-Greeting_Operations const * Greeting_Operations_(void);
-/**
  * @brief
  * @param me
  * @param text

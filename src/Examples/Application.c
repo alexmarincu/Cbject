@@ -11,7 +11,7 @@ struct Application {
     Circle * circle;
     Rectangle * rectangle;
 };
-static Object * deinit(Object * me);
+static Object * teardown(Object * me);
 static Object * copy(Object const * const me);
 static void init(Application * const me);
 Application * Application_(void) {
@@ -24,21 +24,14 @@ Application * Application_(void) {
 Application_Class const * Application_Class_(void) {
     static Application_Class class;
     doOnce_ {
-        initClass_(&class, Application, Object);
+        setUpClass_(Application, Object, &class);
+        overrideObjectMethod_(Object, &class, teardown);
+        overrideObjectMethod_(Object, &class, copy);
     }
     return &class;
 }
-Application_Operations const * Application_Operations_(void) {
-    static Application_Operations operations;
-    doOnce_ {
-        inheritOperations_(&operations, Object);
-        overrideOperation_(&operations, Object, deinit);
-        overrideOperation_(&operations, Object, copy);
-    }
-    return &operations;
-}
 static void init(Application * const me) {
-    Object_init((Object *)me, (Object_Interface *)Application_Class_());
+    setUpObject_(Application, Object, me);
 }
 static void circleExample(Application * const me);
 static void greetingExample(Application * const me);
@@ -51,9 +44,9 @@ void Application_main(Application * const me) {
     polymorphismExample(me);
 }
 static void greetingExample(Application * const me) {
-    (void)me;
+    ignore_(me);
     // Allocate and initialize a Greeting object
-    Greeting * greeting = init_(Greeting, alloc_(Greeting), "Hello Cbject!");
+    Greeting * greeting = initObject_(Greeting, alloc_(Greeting), "Hello Cbject!");
     // Call Greeting print function on the greeting object
     Greeting_print(greeting);
     // Free memory allocated for the Greeting object
@@ -61,91 +54,88 @@ static void greetingExample(Application * const me) {
 }
 static void circleExample(Application * const me) {
     // Allocate and initialize a Circle object
-    me->circle = init_(Circle, alloc_(Circle), (Point){ 0, 1 }, 2);
+    me->circle = initObject_(Circle, alloc_(Circle), (Point){ 0, 1 }, 2);
     // Get circle radius
     uint32_t radius = me->circle->radius;
-    (void)radius;
+    ignore_(radius);
     // Set circle radius
     me->circle->radius = 3;
     // Get circle area through Shape object polymorphic call
-    float area = Shape_area(iObjectOf_(me->circle, Circle, Shape));
-    (void)area;
+    float area = Shape_area(moduleOf_(me->circle, Circle, Shape));
+    ignore_(area);
     // Get circle shape origin
-    Point origin = iObjectOf_(me->circle, Circle, Shape)->origin;
-    (void)origin;
+    Point origin = moduleOf_(me->circle, Circle, Shape)->origin;
+    ignore_(origin);
     // set circle shape origin
-    iObjectOf_(me->circle, Circle, Shape)->origin = (Point){ 4, 5 };
+    moduleOf_(me->circle, Circle, Shape)->origin = (Point){ 4, 5 };
     // Draw circle through Drawable object polymorphic call
-    Drawable_draw(iObjectOf_(me->circle, Circle, Drawable));
+    Drawable_draw(moduleOf_(me->circle, Circle, Drawable));
 }
 static void rectangleExample(Application * const me) {
     // Allocate and initialize a Rectangle object
-    me->rectangle = init_(Rectangle, alloc_(Rectangle), (Point){ 0, 1 }, 2, 3);
+    me->rectangle = initObject_(Rectangle, alloc_(Rectangle), (Point){ 0, 1 }, 2, 3);
     // Get rectangle width and height
     uint32_t width = Rectangle_getWidth(me->rectangle);
-    (void)width;
+    ignore_(width);
     uint32_t height = Rectangle_getHeight(me->rectangle);
-    (void)height;
+    ignore_(height);
     // Set rectangle with and height
     Rectangle_setWidth(me->rectangle, 4);
     Rectangle_setHeight(me->rectangle, 5);
     // Get rectangle area through Shape object polymorphic call
-    float area = Shape_area(iObjectOf_(me->rectangle, Rectangle, Shape));
-    (void)area;
+    float area = Shape_area(moduleOf_(me->rectangle, Rectangle, Shape));
+    ignore_(area);
     // Get rectangle shape origin
-    Point origin = iObjectOf_(me->rectangle, Rectangle, Shape)->origin;
-    (void)origin;
+    Point origin = moduleOf_(me->rectangle, Rectangle, Shape)->origin;
+    ignore_(origin);
     // set rectangle shape origin
-    iObjectOf_(me->rectangle, Rectangle, Shape)->origin = (Point){ 6, 7 };
+    moduleOf_(me->rectangle, Rectangle, Shape)->origin = (Point){ 6, 7 };
     // Draw rectangle through Drawable object polymorphic call
-    Drawable_draw(iObjectOf_(me->rectangle, Rectangle, Drawable));
+    Drawable_draw(moduleOf_(me->rectangle, Rectangle, Drawable));
 }
 static void polymorphismExample(Application * const me) {
     // Prepare a list of shapes
     Shape * const shapes[] = {
-        iObjectOf_(me->circle, Circle, Shape),
-        iObjectOf_(me->rectangle, Rectangle, Shape),
+        moduleOf_(me->circle, Circle, Shape),
+        moduleOf_(me->rectangle, Rectangle, Shape),
     };
     // Loop through the list of shapes and call various polymorphic functions
     for (uint8_t i = 0; i < lengthOf_(shapes); i++) {
         // Get area through Shape object polymorphic call
         float area = Shape_area(shapes[i]);
-        (void)area;
+        ignore_(area);
         // Get parent object from included object
-        Object * object = rObjectOf_(shapes[i]);
+        Object * object = objectOf_(shapes[i]);
         // Get size of object
         size_t objectSize = objectSizeOf_(object);
-        (void)objectSize;
+        ignore_(objectSize);
         // Get hash code of object
         uint64_t hashCode = hashCode_(object);
-        (void)hashCode;
-        // Get className of object
-        char const * className = classNameOf_(me->circle);
-        (void)className;
+        ignore_(hashCode);
         // Check class of object
         if (isOfClass_(object, Circle)) {
             // Get circle radius
-            uint32_t radius = ((Circle *)object)->radius;
-            (void)radius;
+            uint32_t radius = to_(Circle, object)->radius;
+            ignore_(radius);
         } else if (isOfClass_(object, Rectangle)) {
             // Get rectangle width and height
-            uint32_t width = Rectangle_getWidth((Rectangle *)object);
-            (void)width;
-            uint32_t height = Rectangle_getHeight((Rectangle *)object);
-            (void)height;
+            uint32_t width = Rectangle_getWidth(to_(Rectangle, object));
+            ignore_(width);
+            uint32_t height = Rectangle_getHeight(to_(Rectangle, object));
+            ignore_(height);
         }
     }
 }
-static Object * deinit(Object * const me) {
-    Application * Me = (Application *)me;
+static Object * teardown(Object * const me) {
+    Application * Me = to_(Application, me);
     dealloc_(Me->rectangle);
     dealloc_(Me->circle);
-    return superCall_(Object, deinit, me);
+    return superObjectMethodCall_(Object, teardown, me);
 }
 /**
  * Override Object_copy to assert if used. Cannot copy a singleton.
  */
 static Object * copy(Object const * const me) {
     assert_(false);
-    return (Object *)me;
+    return to_(Object, me);
 }

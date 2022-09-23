@@ -10,27 +10,20 @@ struct Rectangle {
     uint32_t width;
     uint32_t height;
 };
-static Object * deinit(Object * me);
+static Object * teardown(Object * me);
 static float area(Shape const * const me);
 static void draw(Drawable const * const me);
 Rectangle_Class const * Rectangle_Class_(void) {
     static Rectangle_Class class;
     doOnce_ {
-        initClass_(&class, Rectangle, Object);
-        initInterfaceOf_(&class, Rectangle, Rectangle, Shape);
-        initInterfaceOf_(&class, Rectangle, Rectangle, Drawable);
+        setUpClass_(Rectangle, Object, &class);
+        setUpInterface_(Rectangle, Drawable, &class);
+        setUpInterface_(Rectangle, Shape, &class);
+        overrideObjectMethod_(Object, &class, teardown);
+        overrideModuleMethod_(Rectangle, Drawable, &class, draw);
+        overrideModuleMethod_(Rectangle, Shape, &class, area);
     }
     return &class;
-}
-Rectangle_Operations const * Rectangle_Operations_(void) {
-    static Rectangle_Operations operations;
-    doOnce_ {
-        inheritOperations_(&operations, Object);
-        overrideOperation_(&operations, Object, deinit);
-        overrideIOperation_(&operations, Rectangle, Shape, area);
-        overrideIOperation_(&operations, Rectangle, Drawable, draw);
-    }
-    return &operations;
 }
 Rectangle * Rectangle_init(
     Rectangle * me,
@@ -38,10 +31,9 @@ Rectangle * Rectangle_init(
     uint32_t width,
     uint32_t height
 ) {
-    initObject_(me, Rectangle);
-    initIObjectOf_(me, Rectangle, Rectangle, Shape);
-    initIObjectOf_(me, Rectangle, Rectangle, Drawable);
-    me->iShape.origin = origin;
+    setUpObject_(Rectangle, Object, me);
+    setUpModule_(Rectangle, Drawable, me);
+    setUpModule_(Rectangle, Shape, me, origin);
     me->width = width;
     me->height = height;
     return me;
@@ -62,15 +54,15 @@ void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize) {
     me->height = edgeSize;
     me->width = edgeSize;
 }
-static Object * deinit(Object * me) {
-    return superCall_(Object, deinit, me);
+static Object * teardown(Object * me) {
+    return superObjectMethodCall_(Object, teardown, me);
 }
 static float area(Shape const * const me) {
-    Rectangle * Me = (Rectangle *)rObjectOf_(me);
+    Rectangle * Me = to_(Rectangle, objectOf_(me));
     return Me->width * Me->height;
 }
 static void draw(Drawable const * const me) {
-    Rectangle * Me = (Rectangle *)rObjectOf_(me);
+    Rectangle * Me = to_(Rectangle, objectOf_(me));
     for (uint8_t i = 0; i < Me->width; i++) {
         printf("--");
     }

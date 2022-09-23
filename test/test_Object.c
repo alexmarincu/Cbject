@@ -2,7 +2,6 @@
 #include "Object.h"
 #include "unity.h"
 TEST_FILE("Object.c")
-TEST_FILE("Type.c")
 /**
  * @brief
  */
@@ -18,46 +17,47 @@ void tearDown(void) {
  */
 void test_Object_class(void) {
     Object_Class const * objectClass = class_(Object);
-    TEST_ASSERT_EQUAL_STRING("Object", objectClass->name);
-    TEST_ASSERT_EQUAL_size_t(sizeof(Object), objectClass->objectSize);
-    TEST_ASSERT_EQUAL_PTR(Object_Operations_(), ((Object_Interface *)objectClass)->operations);
+    TEST_ASSERT_EQUAL_size_t(sizeof(Object), class_(Object)->objectSize);
+    TEST_ASSERT_NOT_NULL(class_(Object)->teardown);
+    TEST_ASSERT_NOT_NULL(class_(Object)->copy);
+    TEST_ASSERT_NOT_NULL(class_(Object)->equals);
+    TEST_ASSERT_NOT_NULL(class_(Object)->hashCode);
 }
 /**
  * @test
  */
 void test_Object_init(void) {
-    Object * object = Object_init(salloc_(Object), (Object_Interface *)class_(Object));
-    TEST_ASSERT_EQUAL_PTR(rObjectOf_(object), object);
+    Object * object = initObject_(Object, salloc_(Object));
     TEST_ASSERT_EQUAL_PTR(classOf_(object), class_(Object));
 }
 /**
  * @test
  */
 void test_Object_equals(void) {
-    Object * object = Object_init(salloc_(Object), (Object_Interface *)class_(Object));
+    Object * object = initObject_(Object, salloc_(Object));
     TEST_ASSERT_TRUE(equals_(object, object));
-    Object * otherObject = Object_init(salloc_(Object), (Object_Interface *)class_(Object));
+    Object * otherObject = initObject_(Object, salloc_(Object));
     TEST_ASSERT_FALSE(equals_(object, otherObject));
 }
 /**
  * @test
  */
 void test_Object_hashCode(void) {
-    Object * object = Object_init(salloc_(Object), (Object_Interface *)class_(Object));
+    Object * object = initObject_(Object, salloc_(Object));
     TEST_ASSERT_EQUAL_UINT64((uint64_t)object, hashCode_(object));
 }
 /**
  * @test
  */
 void test_Object_isOfClass(void) {
-    Object * object = Object_init(salloc_(Object), (Object_Interface *)class_(Object));
+    Object * object = initObject_(Object, salloc_(Object));
     TEST_ASSERT_TRUE(isOfClass_(object, Object));
 }
 /**
  * @test
  */
 void test_Object_copy(void) {
-    Object * object = Object_init(salloc_(Object), (Object_Interface *)class_(Object));
+    Object * object = initObject_(Object, salloc_(Object));
     Object * copyObject = copy_(Object, object);
     TEST_ASSERT_EQUAL_MEMORY(object, copyObject, class_(Object)->objectSize);
     dealloc_(copyObject);

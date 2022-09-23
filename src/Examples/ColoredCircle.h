@@ -22,17 +22,6 @@ typedef struct {
  */
 ColoredCircle_Class const * ColoredCircle_Class_(void);
 /**
- * @brief ColoredCircle_Operations
- */
-typedef struct {
-    extends_(Circle_Operations);
-} ColoredCircle_Operations;
-/**
- * @brief ColoredCircle_Operations
- * @return ColoredCircle_Operations const*
- */
-ColoredCircle_Operations const * ColoredCircle_Operations_(void);
-/**
  * @brief
  * @param me
  * @param origin

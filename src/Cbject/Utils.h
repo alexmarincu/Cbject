@@ -1,11 +1,16 @@
 #ifndef UTILS_H
 #define UTILS_H
 /**
+ * @brief Operations
+ * @remark To be used with pointers to Operations types
+ */
+// typedef Any Operations;
+/**
  * @brief Cast to a type
  * @param typeName
  * @param me
  */
-#define to_(typeName, me) ((typeName *)(me))
+#define to_(typeName, var) ((typeName *)(var))
 /**
  * @brief Add super member to a structure
  * @remark Needs to be the first member in the structure
@@ -20,50 +25,6 @@
  */
 #define implements_(typeName) \
     typeName i##typeName
-/**
- * @brief Initialize a derived object
- * @param className The object class
- * @param ... (me The object to initialize, ... The init arguments)
- */
-#define init_(className, ...) \
-    className##_init((className *)VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
-
-/**
- * @brief Inherit operations from super class
- * @param me Object reference
- * @param superClassName Super class name
- */
-#define inheritOperations_(me, superClassName) \
-    *(superClassName##_Operations *)(me) = *superClassName##_Operations_()
-/**
- * @brief Override inherited operation
- * @param me Object reference
- * @param superClassName Super class name
- * @param operationName Operation name
- */
-#define overrideOperation_(me, superClassName, operationName) \
-    ((superClassName##_Operations *)(me))->operationName = operationName
-/**
- * @brief Override inherited operation
- * @param me Object reference
- * @param className Class name
- * @param interfaceName Interface name
- * @param operationName Operation name
- */
-#define overrideIOperation_(me, className, interfaceName, operationName) \
-    ((className##_Operations *)(me))->i##interfaceName##_Operations.operationName = operationName
-/**
- * @brief
- *
- */
-#define class_(className) \
-    className##_Class_()
-/**
- * @brief
- *
- */
-#define interface_(interfaceName) \
-    interfaceName##_Interface_()
 /**
  * @brief Get length of an array
  */
@@ -82,6 +43,13 @@
 #define doOnce_               \
     static bool once = false; \
     for (; once == false; once = true)
+/**
+ * @name ignore_
+ * @brief Ignore a variable
+ * @param var The variable to be ignored
+ */
+#define ignore_(var) \
+    (void)var
 /**
  * @brief Get first argument from __VA_ARGS__
  */

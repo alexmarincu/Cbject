@@ -10,7 +10,6 @@ class Object {
 }
 class Object_Class {
     Object_Interface super;
-    char const * name;
     size_t objectSize;
     Class const * superClass;
 }
@@ -21,7 +20,7 @@ class Object_Interface {
     Operations const * operations;
 }
 class Object_Operations {
-    Object * (*deinit)(Object * me);
+    Object * (*teardown)(Object * me);
     uint64_t (*hashCode)(Object const * const me);
     Object * (*copy)(Object const * const me);
     bool (*equals)(Object const * const me, Object const * const other);
@@ -66,7 +65,6 @@ class Shape_Class {
 }
 class Object_Class {
     Type super;
-    char const * name;
     size_t objectSize;
     Class const * superClass;
 }
@@ -81,7 +79,7 @@ class Shape_Operations {
 }
 }
 class Object_Operations {
-    Object * (*deinit)(Object * me);
+    Object * (*teardown)(Object * me);
     uint64_t (*hashCode)(Object const * const me);
     Object * (*copy)(Object const * const me);
     bool (*equals)(Object const * const me, Object const * const other)
@@ -97,5 +95,6 @@ end::overview[] */
 #ifndef CBJECT_H
 #define CBJECT_H
 #include "Assert.h"
+#include "Module.h"
 #include "Object.h"
 #endif // CBJECT_H

@@ -5,56 +5,19 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-/**
- * @brief Operations
- * @remark To be used with pointers to Operations types
- */
-typedef Any Operations;
-/**
- * @brief Object_Interface
- */
-typedef struct {
-    size_t offset;
-    Operations const * operations;
-} Object_Interface;
-/**
- * @brief Initialize a Interface
- * @param me Interface reference
- * @param offset Offset of included object inside parent object
- * @param operations Interface operations
- * @return Interface* Initialized type
- */
-Object_Interface * Object_Interface_init(
-    Object_Interface * const me,
-    size_t offset,
-    Operations const * operations
-);
+typedef struct Object Object;
 /**
  * @brief Object_Class
  */
-typedef struct Object_Class_t Object_Class;
-struct Object_Class_t {
-    extends_(Object_Interface);
-    char const * name;
+typedef struct Object_Class Object_Class;
+struct Object_Class {
     size_t objectSize;
     Object_Class const * superClass;
+    Object * (*teardown)(Object * me);
+    uint64_t (*hashCode)(Object const * const me);
+    Object * (*copy)(Object const * const me);
+    bool (*equals)(Object const * const me, Object const * const other);
 };
-/**
- * @brief Initialize a class
- * @param me Class reference
- * @param name String containing the class name
- * @param objectSize Object instance size
- * @param operations Class operations
- * @param superClass Parent class
- * @return Class* Initialized class
- */
-Object_Class * Object_Class_init(
-    Object_Class * const me,
-    Operations const * const operations,
-    char const * const name,
-    size_t const objectSize,
-    Object_Class const * const superClass
-);
 /**
  * @brief Object_Class
  * @return Object_Class const*
@@ -63,23 +26,9 @@ Object_Class const * Object_Class_(void);
 /**
  * @brief Object
  */
-typedef struct {
-    Object_Interface const * interface;
-} Object;
-/**
- * @brief Object_Operations
- */
-typedef struct {
-    Object * (*deinit)(Object * me);
-    uint64_t (*hashCode)(Object const * const me);
-    Object * (*copy)(Object const * const me);
-    bool (*equals)(Object const * const me, Object const * const other);
-} Object_Operations;
-/**
- * @brief Object_Operations
- * @return Object_Operations const*
- */
-Object_Operations const * Object_Operations_(void);
+struct Object {
+    Object_Class const * class;
+};
 /**
  * @brief
  * @param class
@@ -97,12 +46,12 @@ Object * Object_dealloc(Object * const me);
  * @param type Interface reference
  * @return Object* Initialized object
  */
-Object * Object_init(Object * const me, Object_Interface const * const interface);
+Object * Object_init(Object * const me);
 /**
  * @brief
  * @param me
  */
-Object * Object_deinit(Object * me);
+Object * Object_teardown(Object * me);
 /**
  * @brief
  * @param me
@@ -132,94 +81,78 @@ uint64_t Object_hashCode(Object const * const me);
  */
 bool Object_isOfClass(Object const * const me, Object_Class const * const class);
 /**
- * @brief Set interface of object
- * @param me Object reference
- * @param type Interface reference
+ * @brief Initialize a class
+ * @param me Class reference
+ * @param className Class name
+ * @param superClassName Parent class name
  */
-void Object_setClass(Object * const me, Object_Class const * const class);
+#define initClass_(className, me) \
+    *to_(className##_Class, me) = *class_(className);
+
 /**
  * @brief Initialize a class
  * @param me Class reference
  * @param className Class name
  * @param superClassName Parent class name
  */
-#define initClass_(me, className, superClassName)   \
-    Object_Class_init(                              \
-        to_(Object_Class, me),                      \
-        to_(Operations, className##_Operations_()), \
-        #className,                                 \
-        sizeof(className),                          \
-        to_(Object_Class, class_(superClassName))   \
-    )
+#define setUpClass_(className, superClassName, me)         \
+    initClass_(superClassName, me);                        \
+    to_(Object_Class, me)->objectSize = sizeof(className); \
+    to_(Object_Class, me)->superClass = to_(Object_Class, class_(superClassName))
 /**
- * @brief Override a type contained in a class
- * @param me
- * @param className
- * @param interfaceClassName
- * @param interfaceName
+ * @brief
+ *
  */
-#define initInterfaceOf_(me, className, interfaceClassName, interfaceName)                                               \
-    Object_Interface_init(                                                                                               \
-        to_(Object_Interface, &to_(interfaceClassName##_Class, me)->i##interfaceName##_Interface),                       \
-        offsetof(interfaceClassName, i##interfaceName),                                                                  \
-        to_(Operations, &to_(interfaceClassName##_Operations, className##_Operations_())->i##interfaceName##_Operations) \
-    )
+#define overrideObjectMethod_(className, me, methodName) \
+    to_(className##_Class, me)->methodName = methodName
 /**
- * @brief Initialize an object
+ * @brief Initialize a derived object
+ * @param className The object class
+ * @param ... (me The object to initialize, ... The init arguments)
+ */
+#define initObject_(className, ...) \
+    className##_init(to_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
+/**
+ * @brief
+ *
+ */
+#define class_(className) \
+    className##_Class_()
+/**
+ * @brief Initialize a class
+ * @param me Class reference
+ * @param className Class name
+ * @param superClassName Parent class name
+ */
+#define initInterface_(interfaceName, me) \
+    *to_(interfaceName##_Interface, me) = *interface_(interfaceName);
+
+#define setUpInterface_(className, interfaceName, me)                   \
+    initInterface_(interfaceName, &(me)->i##interfaceName##_Interface); \
+    to_(Module_Interface, &(me)->i##interfaceName##_Interface)->offset = offsetof(className, i##interfaceName)
+/**
+ * @brief Set class of an object
  * @param me Object reference
  * @param className Class name
  */
-#define initObject_(me, className) \
-    Object_init(to_(Object, me), to_(Object_Interface, class_(className)))
+#define setUpObject_(className, superClassName, ...) \
+    initObject_(superClassName, __VA_ARGS__);        \
+    classOf_(VaArgs_first_(__VA_ARGS__)) = to_(Object_Class, class_(className))
 /**
- * @brief Override included object
- * @param me
- * @param className
- * @param interfaceClassName
- * @param typeName
+ * @brief Get object from a module
  */
-#define initIObjectOf_(me, className, interfaceClassName, interfaceName)                                         \
-    Object_init(                                                                                                 \
-        to_(Object, iObjectOf_(me, interfaceClassName, interfaceName)),                                          \
-        to_(Object_Interface, &to_(interfaceClassName##_Class, class_(className))->i##interfaceName##_Interface) \
-    )
-/**
- * @brief Set class of object
- * @param me Object reference
- * @param className Class name
- */
-#define setClassOf_(me, className) \
-    Object_setClass(to_(Object, me), to_(Object_Class, class_(className)))
-/**
- * @brief Get type of an object
- */
-#define interfaceOf_(me) \
-    to_(Object, me)->interface
-/**
- * @brief Get offset from object
- */
-#define offsetOf_(me) \
-    interfaceOf_(me)->offset
-/**
- * @brief Get base object
- */
-#define rObjectOf_(me) \
+#define objectOf_(me) \
     to_(Object, to_(Any, me) - offsetOf_(me))
 /**
- * @brief Get included object
+ * @brief Get module of an object
  */
-#define iObjectOf_(me, className, interfaceName) \
-    to_(interfaceName, (to_(Any, me) + to_(Object_Interface, &to_(className##_Class, classOf_(me))->i##interfaceName##_Interface)->offset))
+#define moduleOf_(me, className, interfaceName) \
+    to_(interfaceName, (to_(Any, me) + to_(Module_Interface, &to_(className##_Class, classOf_(me))->i##interfaceName##_Interface)->offset))
 /**
- * @brief Get class of an object
+ * @brief Get the class of an object
  */
 #define classOf_(me) \
-    to_(Object_Class, interfaceOf_(rObjectOf_(me)))
-/**
- * @brief Get operations of an object
- */
-#define operationsOf_(me) \
-    interfaceOf_(me)->operations
+    to_(Object, me)->class
 /**
  * @brief Get the class name of an object
  */
@@ -236,30 +169,38 @@ void Object_setClass(Object * const me, Object_Class const * const class);
 #define objectSizeOf_(me) \
     classOf_(me)->objectSize
 /**
- * @brief Call an object operation
- * @param typeName Type name
- * @param operationName Operation name
- * @param ... (me Object reference, ... Operation arguments)
+ * @brief Call an object method
+ * @param className Class name
+ * @param methodName Method name
+ * @param ... (me Object reference, ... Method arguments)
  */
-#define call_(typeName, operationName, ...) \
-    to_(typeName##_Operations, operationsOf_(VaArgs_first_(__VA_ARGS__)))->operationName(__VA_ARGS__)
+#define objectMethodCall_(className, methodName, ...) \
+    to_(className##_Class, classOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
 /**
- * @brief Call a super object operation
+ * @brief Call a super object method
  * @param superClassName Super class name
- * @param operationName Operation name
- * @param ... (me Object reference, ... Operation arguments)
+ * @param methodName Method name
+ * @param ... (me Object reference, ... Method arguments)
  */
-#define superCall_(superClassName, operationName, ...) \
-    to_(superClassName##_Operations, to_(Object_Interface, class_(superClassName))->operations)->operationName(__VA_ARGS__)
+#define superObjectMethodCall_(superClassName, methodName, ...) \
+    to_(superClassName##_Class, class_(superClassName))->methodName(__VA_ARGS__)
 /**
  * @brief Call a super interface object operation
  * @param superClassName Super class name
  * @param interfaceName Interface name
- * @param operationName Operation name
- * @param ... (me Object reference, ... Operation arguments)
+ * @param methodName Method name
+ * @param ... (me Object reference, ... Method arguments)
  */
-#define superICall_(superClassName, interfaceName, operationName, ...) \
-    to_(superClassName##_Operations, to_(Object_Interface, class_(superClassName))->operations)->i##interfaceName##_Operations.operationName(__VA_ARGS__)
+#define superICall_(superClassName, interfaceName, methodName, ...) \
+    to_(superClassName##_Operations, to_(Object_Interface, class_(superClassName))->operations)->i##interfaceName##_Operations.methodName(__VA_ARGS__)
+/**
+ * @brief Call a super object method
+ * @param superClassName Super class name
+ * @param methodName Method name
+ * @param ... (me Object reference, ... Method arguments)
+ */
+#define superModuleMethodCall_(superClassName, interfaceName, methodName, ...) \
+    to_(interfaceName##_Interface, &to_(superClassName##_Class, class_(superClassName))->i##interfaceName##_Interface)->methodName(__VA_ARGS__)
 /**
  * @brief Syntactic sugar for Object_isOfClass method
  */
@@ -276,10 +217,10 @@ void Object_setClass(Object * const me, Object_Class const * const class);
 #define dealloc_(me) \
     Object_dealloc(to_(Object, me))
 /**
- * @brief Syntactic sugar for Object_deinit method
+ * @brief Syntactic sugar for Object_teardown method
  */
-#define deinit_(me) \
-    to_(Any, (Object_deinit(to_(Object, me))))
+#define teardown_(me) \
+    to_(Any, (Object_teardown(to_(Object, me))))
 /**
  * @brief Syntactic sugar for Object_copy method
  */

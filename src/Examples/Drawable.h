@@ -5,23 +5,34 @@
  * @brief Drawable
  */
 typedef struct {
-    extends_(Object);
+    extends_(Module);
 } Drawable;
 /**
  * @brief Drawable_Interface
  */
 typedef struct {
-    extends_(Object_Interface);
+    extends_(Module_Interface);
+    void (*draw)(Drawable const * const me);
 } Drawable_Interface;
 /**
- * @brief Drawable_Operations
+ * @brief Drawable_Interface
+ * @return Drawable_Interface const*
  */
-typedef struct {
-    void (*draw)(Drawable const * const me);
-} Drawable_Operations;
+Drawable_Interface const * Drawable_Interface_(void);
 /**
  * @brief Draw a drawable
  * @param me Drawable object reference
  */
 void Drawable_draw(Drawable const * const me);
+/**
+ * @brief
+ * @param me
+ * @param origin
+ * @param width
+ * @param height
+ * @return Rectangle*
+ */
+Drawable * Drawable_init(
+    Drawable * me
+);
 #endif // DRAWABLE_H

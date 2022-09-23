@@ -14,17 +14,6 @@ typedef struct {
  */
 Application_Class const * Application_Class_(void);
 /**
- * @brief Application_Operations
- */
-typedef struct {
-    extends_(Object_Operations);
-} Application_Operations;
-/**
- * @brief Get Application_Operations
- * @return Application_Operations const*
- */
-Application_Operations const * Application_Operations_(void);
-/**
  * @brief Get Application singleton
  * @return Application*
  */

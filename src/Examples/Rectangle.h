@@ -18,19 +18,6 @@ typedef struct {
 Rectangle_Class const * Rectangle_Class_(void);
 typedef struct Rectangle Rectangle;
 /**
- * @brief Rectangle_Operations
- */
-typedef struct {
-    extends_(Object_Operations);
-    implements_(Shape_Operations);
-    implements_(Drawable_Operations);
-} Rectangle_Operations;
-/**
- * @brief Get Rectangle_Operations
- * @return Rectangle_Operations const*
- */
-Rectangle_Operations const * Rectangle_Operations_(void);
-/**
  * @brief
  * @param me
  * @param origin
