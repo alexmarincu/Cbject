@@ -46,12 +46,24 @@ void test_Object_hashCode(void) {
     Object * object = initObject_(Object, salloc_(Object));
     TEST_ASSERT_EQUAL_UINT64((uint64_t)object, hashCode_(object));
 }
+typedef struct {
+    extends_(Object_Class);
+} Test_Class;
+Test_Class * Test_Class_(void) {
+    static Test_Class class;
+    return &class;
+}
 /**
  * @test
  */
 void test_Object_isOfClass(void) {
     Object * object = initObject_(Object, salloc_(Object));
+    typedef struct {
+        extends_(Object_Class);
+    } Test_Class;
+    Test_Class testClass;
     TEST_ASSERT_TRUE(isOfClass_(object, Object));
+    TEST_ASSERT_FALSE(isOfClass_(object, Test));
 }
 /**
  * @test
