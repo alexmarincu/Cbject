@@ -1,3 +1,7 @@
+/* tag::overview[]
+asdfasfasdfasdf
+
+end::overview[] */
 #ifndef OBJECT_H
 #define OBJECT_H
 #include "Any.h"
@@ -5,11 +9,50 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+/* tag::type[]
+.Object
+====
+[source,c]
+----
 typedef struct Object Object;
-/**
- * @brief Object_Class
- */
+----
+Typedef for struct Object
+====
+end::type[] */
+typedef struct Object Object;
+/* tag::type[]
+.Object_Class
+====
+[source,c]
+----
 typedef struct Object_Class Object_Class;
+----
+Typedef for struct Object_Class
+====
+end::type[] */
+typedef struct Object_Class Object_Class;
+/* tag::type[]
+.struct Object
+====
+[source,c]
+----
+struct Object {
+    Object_Class const * class;
+};
+----
+Definition of struct Object
+
+.Members
+* class - Pointer to the class structure
+====
+end::type[] */
+struct Object {
+    Object_Class const * class;
+};
+/**
+ * @brief
+ *
+ */
 struct Object_Class {
     size_t objectSize;
     Object_Class const * superClass;
@@ -23,12 +66,7 @@ struct Object_Class {
  * @return Object_Class const*
  */
 Object_Class const * Object_Class_(void);
-/**
- * @brief Object
- */
-struct Object {
-    Object_Class const * class;
-};
+
 /**
  * @brief
  * @param class
@@ -154,11 +192,6 @@ bool Object_isOfClass(Object const * const me, Object_Class const * const class)
 #define classOf_(me) \
     to_(Object, me)->class
 /**
- * @brief Get the class name of an object
- */
-#define classNameOf_(me) \
-    classOf_(me)->name
-/**
  * @brief Get the superClass of an object
  */
 #define superClassOf_(me) \
@@ -184,15 +217,6 @@ bool Object_isOfClass(Object const * const me, Object_Class const * const class)
  */
 #define superObjectMethodCall_(superClassName, methodName, ...) \
     to_(superClassName##_Class, class_(superClassName))->methodName(__VA_ARGS__)
-/**
- * @brief Call a super interface object operation
- * @param superClassName Super class name
- * @param interfaceName Interface name
- * @param methodName Method name
- * @param ... (me Object reference, ... Method arguments)
- */
-#define superICall_(superClassName, interfaceName, methodName, ...) \
-    to_(superClassName##_Operations, to_(Object_Interface, class_(superClassName))->operations)->i##interfaceName##_Operations.methodName(__VA_ARGS__)
 /**
  * @brief Call a super object method
  * @param superClassName Super class name

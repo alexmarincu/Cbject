@@ -2,4 +2,13 @@
 :toc: right
 :sectnums:
 
+== Overview
 include::../src/Cbject/Cbject.h[tag=overview]
+
+== Packages
+=== Object
+==== Overview
+include::../src/Cbject/Object.h[tag=overview]
+
+==== Types
+include::../src/Cbject/Object.h[tag=type]
