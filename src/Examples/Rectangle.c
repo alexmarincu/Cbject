@@ -20,8 +20,8 @@ Rectangle_Class const * Rectangle_Class_(void) {
         setUpInterface_(Rectangle, Drawable, &class);
         setUpInterface_(Rectangle, Shape, &class);
         overrideObjectMethod_(Object, &class, teardown);
-        overrideModuleMethod_(Rectangle, Drawable, &class, draw);
-        overrideModuleMethod_(Rectangle, Shape, &class, area);
+        overrideTraitMethod_(Rectangle, Drawable, &class, draw);
+        overrideTraitMethod_(Rectangle, Shape, &class, area);
     }
     return &class;
 }
@@ -32,8 +32,8 @@ Rectangle * Rectangle_init(
     uint32_t height
 ) {
     setUpObject_(Rectangle, Object, me);
-    setUpModule_(Rectangle, Drawable, me);
-    setUpModule_(Rectangle, Shape, me, origin);
+    setUpTrait_(Rectangle, Drawable, me);
+    setUpTrait_(Rectangle, Shape, me, origin);
     me->width = width;
     me->height = height;
     return me;

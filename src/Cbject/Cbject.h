@@ -95,6 +95,6 @@ end::overview[] */
 #ifndef CBJECT_H
 #define CBJECT_H
 #include "Assert.h"
-#include "Module.h"
 #include "Object.h"
+#include "Trait.h"
 #endif // CBJECT_H

@@ -3,16 +3,16 @@
 Drawable_Interface const * Drawable_Interface_(void) {
     static Drawable_Interface interface;
     doOnce_ {
-        initInterface_(Module, &interface);
+        initInterface_(Trait, &interface);
     };
     return &interface;
 }
 void Drawable_draw(Drawable const * const me) {
-    return moduleMethodCall_(Drawable, draw, me);
+    return traitMethodCall_(Drawable, draw, me);
 }
 Drawable * Drawable_init(
     Drawable * me
 ) {
-    initModule_(Module, me);
+    initTrait_(Trait, me);
     return me;
 }

@@ -6,7 +6,7 @@ TEST_FILE("Circle.c")
 TEST_FILE("Shape.c")
 TEST_FILE("Drawable.c")
 TEST_FILE("Object.c")
-TEST_FILE("Module.c")
+TEST_FILE("Trait.c")
 /**
  * @brief
  */
@@ -22,6 +22,6 @@ void tearDown(void) {
  */
 void test_ColoredCircle_init(void) {
     ColoredCircle * c = initObject_(ColoredCircle, alloc_(ColoredCircle), (Point){ 0, 1 }, 2, Color_blue);
-    Drawable_draw(moduleOf_(c, Circle, Drawable));
+    Drawable_draw(traitOf_(c, Circle, Drawable));
     dealloc_(c);
 }

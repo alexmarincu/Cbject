@@ -167,7 +167,7 @@ bool Object_isOfClass(Object const * const me, Object_Class const * const class)
 
 #define setUpInterface_(className, interfaceName, me)                   \
     initInterface_(interfaceName, &(me)->i##interfaceName##_Interface); \
-    to_(Module_Interface, &(me)->i##interfaceName##_Interface)->offset = offsetof(className, i##interfaceName)
+    to_(Trait_Interface, &(me)->i##interfaceName##_Interface)->offset = offsetof(className, i##interfaceName)
 /**
  * @brief Set class of an object
  * @param me Object reference
@@ -177,15 +177,15 @@ bool Object_isOfClass(Object const * const me, Object_Class const * const class)
     initObject_(superClassName, __VA_ARGS__);        \
     classOf_(VaArgs_first_(__VA_ARGS__)) = to_(Object_Class, class_(className))
 /**
- * @brief Get object from a module
+ * @brief Get object from a trait
  */
 #define objectOf_(me) \
     to_(Object, to_(Any, me) - offsetOf_(me))
 /**
- * @brief Get module of an object
+ * @brief Get trait of an object
  */
-#define moduleOf_(me, className, interfaceName) \
-    to_(interfaceName, (to_(Any, me) + to_(Module_Interface, &to_(className##_Class, classOf_(me))->i##interfaceName##_Interface)->offset))
+#define traitOf_(me, className, interfaceName) \
+    to_(interfaceName, (to_(Any, me) + to_(Trait_Interface, &to_(className##_Class, classOf_(me))->i##interfaceName##_Interface)->offset))
 /**
  * @brief Get the class of an object
  */
@@ -223,7 +223,7 @@ bool Object_isOfClass(Object const * const me, Object_Class const * const class)
  * @param methodName Method name
  * @param ... (me Object reference, ... Method arguments)
  */
-#define superModuleMethodCall_(superClassName, interfaceName, methodName, ...) \
+#define superTraitMethodCall_(superClassName, interfaceName, methodName, ...) \
     to_(interfaceName##_Interface, &to_(superClassName##_Class, class_(superClassName))->i##interfaceName##_Interface)->methodName(__VA_ARGS__)
 /**
  * @brief Syntactic sugar for Object_isOfClass method

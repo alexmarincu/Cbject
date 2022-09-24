@@ -5,13 +5,13 @@
  * @brief Drawable
  */
 typedef struct {
-    extends_(Module);
+    extends_(Trait);
 } Drawable;
 /**
  * @brief Drawable_Interface
  */
 typedef struct {
-    extends_(Module_Interface);
+    extends_(Trait_Interface);
     void (*draw)(Drawable const * const me);
 } Drawable_Interface;
 /**

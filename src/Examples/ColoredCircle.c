@@ -5,7 +5,7 @@ ColoredCircle_Class const * ColoredCircle_Class_(void) {
     static ColoredCircle_Class class;
     doOnce_ {
         setUpClass_(ColoredCircle, Circle, &class);
-        overrideModuleMethod_(Circle, Drawable, &class, draw);
+        overrideTraitMethod_(Circle, Drawable, &class, draw);
     }
     return &class;
 }
@@ -22,5 +22,5 @@ ColoredCircle * ColoredCircle_init(
 static void draw(Drawable const * const me) {
     ColoredCircle * Me = to_(ColoredCircle, objectOf_(me));
     ignore_(Me);
-    superModuleMethodCall_(Circle, Drawable, draw, me);
+    superTraitMethodCall_(Circle, Drawable, draw, me);
 }

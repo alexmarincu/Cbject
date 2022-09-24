@@ -10,15 +10,15 @@ Circle_Class const * Circle_Class_(void) {
         setUpInterface_(Circle, Drawable, &class);
         setUpInterface_(Circle, Shape, &class);
         overrideObjectMethod_(Object, &class, teardown);
-        overrideModuleMethod_(Circle, Drawable, &class, draw);
-        overrideModuleMethod_(Circle, Shape, &class, area);
+        overrideTraitMethod_(Circle, Drawable, &class, draw);
+        overrideTraitMethod_(Circle, Shape, &class, area);
     }
     return &class;
 }
 Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
     setUpObject_(Circle, Object, me);
-    setUpModule_(Circle, Drawable, me);
-    setUpModule_(Circle, Shape, me, origin);
+    setUpTrait_(Circle, Drawable, me);
+    setUpTrait_(Circle, Shape, me, origin);
     me->iShape.origin = origin;
     me->radius = radius;
     return me;

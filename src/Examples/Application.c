@@ -61,15 +61,15 @@ static void circleExample(Application * const me) {
     // Set circle radius
     me->circle->radius = 3;
     // Get circle area through Shape object polymorphic call
-    float area = Shape_area(moduleOf_(me->circle, Circle, Shape));
+    float area = Shape_area(traitOf_(me->circle, Circle, Shape));
     ignore_(area);
     // Get circle shape origin
-    Point origin = moduleOf_(me->circle, Circle, Shape)->origin;
+    Point origin = traitOf_(me->circle, Circle, Shape)->origin;
     ignore_(origin);
     // set circle shape origin
-    moduleOf_(me->circle, Circle, Shape)->origin = (Point){ 4, 5 };
+    traitOf_(me->circle, Circle, Shape)->origin = (Point){ 4, 5 };
     // Draw circle through Drawable object polymorphic call
-    Drawable_draw(moduleOf_(me->circle, Circle, Drawable));
+    Drawable_draw(traitOf_(me->circle, Circle, Drawable));
 }
 static void rectangleExample(Application * const me) {
     // Allocate and initialize a Rectangle object
@@ -83,21 +83,21 @@ static void rectangleExample(Application * const me) {
     Rectangle_setWidth(me->rectangle, 4);
     Rectangle_setHeight(me->rectangle, 5);
     // Get rectangle area through Shape object polymorphic call
-    float area = Shape_area(moduleOf_(me->rectangle, Rectangle, Shape));
+    float area = Shape_area(traitOf_(me->rectangle, Rectangle, Shape));
     ignore_(area);
     // Get rectangle shape origin
-    Point origin = moduleOf_(me->rectangle, Rectangle, Shape)->origin;
+    Point origin = traitOf_(me->rectangle, Rectangle, Shape)->origin;
     ignore_(origin);
     // set rectangle shape origin
-    moduleOf_(me->rectangle, Rectangle, Shape)->origin = (Point){ 6, 7 };
+    traitOf_(me->rectangle, Rectangle, Shape)->origin = (Point){ 6, 7 };
     // Draw rectangle through Drawable object polymorphic call
-    Drawable_draw(moduleOf_(me->rectangle, Rectangle, Drawable));
+    Drawable_draw(traitOf_(me->rectangle, Rectangle, Drawable));
 }
 static void polymorphismExample(Application * const me) {
     // Prepare a list of shapes
     Shape * const shapes[] = {
-        moduleOf_(me->circle, Circle, Shape),
-        moduleOf_(me->rectangle, Rectangle, Shape),
+        traitOf_(me->circle, Circle, Shape),
+        traitOf_(me->rectangle, Rectangle, Shape),
     };
     // Loop through the list of shapes and call various polymorphic functions
     for (uint8_t i = 0; i < lengthOf_(shapes); i++) {

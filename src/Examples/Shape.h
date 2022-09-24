@@ -6,14 +6,14 @@
  * @brief Shape
  */
 typedef struct {
-    extends_(Module);
+    extends_(Trait);
     Point origin;
 } Shape;
 /**
  * @brief Shape_Interface
  */
 typedef struct {
-    extends_(Module_Interface);
+    extends_(Trait_Interface);
     float (*area)(Shape const * const me);
 } Shape_Interface;
 /**
