@@ -10,7 +10,7 @@ end::overview[] */
 #include <stddef.h>
 #include <stdint.h>
 /* tag::type[]
-.Object
+===== Object
 ====
 [source,c]
 ----
@@ -21,7 +21,7 @@ Typedef for struct Object
 end::type[] */
 typedef struct Object Object;
 /* tag::type[]
-.Object_Class
+===== Object_Class
 ====
 [source,c]
 ----
@@ -32,7 +32,7 @@ Typedef for struct Object_Class
 end::type[] */
 typedef struct Object_Class Object_Class;
 /* tag::type[]
-.struct Object
+===== struct Object
 ====
 [source,c]
 ----
@@ -49,10 +49,11 @@ end::type[] */
 struct Object {
     Object_Class const * class;
 };
-/**
- * @brief
- *
- */
+/* tag::type[]
+===== struct Object_Class
+====
+[source,c]
+----
 struct Object_Class {
     size_t objectSize;
     Object_Class const * superClass;
@@ -61,29 +62,81 @@ struct Object_Class {
     Object * (*copy)(Object const * const me);
     bool (*equals)(Object const * const me, Object const * const other);
 };
-/**
- * @brief Object_Class
- * @return Object_Class const*
- */
-Object_Class const * Object_Class_(void);
+----
+Definition of struct Object_Class
 
-/**
- * @brief
- * @param class
- * @return Object*
- */
+.Members
+* objectSize -
+* superClass -
+* teardown -
+* hashCode -
+* copy -
+* equals -
+====
+end::type[] */
+struct Object_Class {
+    size_t objectSize;
+    Object_Class const * superClass;
+    Object * (*teardown)(Object * me);
+    uint64_t (*hashCode)(Object const * const me);
+    Object * (*copy)(Object const * const me);
+    bool (*equals)(Object const * const me, Object const * const other);
+};
+/* tag::function[]
+===== Object_Class_
+====
+[source,c]
+----
+Object_Class const * Object_Class_(void);
+----
+Get Object_Class instance
+====
+end::function[] */
+Object_Class const * Object_Class_(void);
+/* tag::function[]
+===== Object_alloc
+====
+[source,c]
+----
 Object * Object_alloc(Object_Class const * const class);
-/**
- * @brief
- * @param me
- */
+----
+Allocate an object in heap memory
+
+.Params
+* class - Class reference
+====
+end::function[] */
+Object * Object_alloc(Object_Class const * const class);
+/* tag::function[]
+===== Object_dealloc
+====
+[source,c]
+----
 Object * Object_dealloc(Object * const me);
-/**
- * @brief Initialize an object
- * @param me Object reference
- * @param type Interface reference
- * @return Object* Initialized object
- */
+----
+Free memory allocated for an object
+
+.Params
+* me - Object reference
+====
+end::function[] */
+Object * Object_dealloc(Object * const me);
+/* tag::function[]
+===== Object_init
+====
+[source,c]
+----
+Object * Object_init(Object * const me);
+----
+Initialize an object
+
+.Params
+* me - Object reference
+
+.Return
+Initialized object
+====
+end::function[] */
 Object * Object_init(Object * const me);
 /**
  * @brief

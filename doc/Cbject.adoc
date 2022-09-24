@@ -1,5 +1,6 @@
 = Cbject
 :toc: right
+:toclevels: 10
 :sectnums:
 
 == Overview
@@ -12,3 +13,6 @@ include::../src/Cbject/Object.h[tag=overview]
 
 ==== Types
 include::../src/Cbject/Object.h[tag=type]
+
+==== Functions
+include::../src/Cbject/Object.h[tag=function]
