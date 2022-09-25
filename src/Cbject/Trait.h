@@ -1,3 +1,7 @@
+/* tag::overview[]
+TODO
+
+end::overview[] */
 #ifndef TRAIT_H
 #define TRAIT_H
 #include "Any.h"
@@ -13,14 +17,34 @@
 typedef struct {
     size_t offset;
 } Trait_Interface;
-/**
- * @brief Trait_Interface
- * @return Trait_Interface const*
- */
+/* tag::function[]
+===== Trait_Interface_
+====
+[source,c]
+----
 Trait_Interface const * Trait_Interface_(void);
-/**
- * @brief Trait
- */
+----
+Get Trait_Interface instance
+====
+end::function[] */
+Trait_Interface const * Trait_Interface_(void);
+/* tag::type[]
+===== Trait
+====
+[source,c]
+----
+typedef struct {
+    size_t offset;
+    size_t interfaceOffset;
+} Trait;
+----
+Typedef and definition of Trait
+
+.Members
+* offset - Offset of Trait in container Object
+* interfaceOffset - Offset of Trait_Interface in container Object_Class
+====
+end::type[] */
 typedef struct {
     size_t offset;
     size_t interfaceOffset;

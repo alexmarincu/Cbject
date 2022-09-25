@@ -1,4 +1,33 @@
 /* tag::overview[]
+Cbject makes it easier to write object oriented code in C.
+
+=== Features
+* Classes
+* Traits
+* Polymorphism
+
+=== Usage
+.How to add it to a project
+====
+Include the following header file:
+
+[source,c]
+----
+#include "Cbject.h"
+----
+====
+
+.How to create an object
+====
+[source,c]
+----
+Object * object = initObject_(Object, alloc_(Object));
+printf("%d\n", hashCode_(object));
+dealloc_(object);
+----
+====
+
+=== Object model
 [plantuml, target=diag-building-blocks, format=png]
 .Building blocks
 ----

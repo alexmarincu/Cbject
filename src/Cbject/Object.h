@@ -1,5 +1,5 @@
 /* tag::overview[]
-asdfasfasdfasdf
+TODO
 
 end::overview[] */
 #ifndef OBJECT_H

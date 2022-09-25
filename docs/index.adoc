@@ -3,11 +3,12 @@
 :toclevels: 10
 :sectnums:
 :imagesdir: media
+:source-highlighter: rouge
 
 == Overview
 include::../src/Cbject/Cbject.h[tag=overview]
 
-== Packages
+== API
 === Object
 ==== Overview
 include::../src/Cbject/Object.h[tag=overview]
@@ -17,3 +18,13 @@ include::../src/Cbject/Object.h[tag=type]
 
 ==== Functions
 include::../src/Cbject/Object.h[tag=function]
+
+=== Trait
+==== Overview
+include::../src/Cbject/Trait.h[tag=overview]
+
+==== Types
+include::../src/Cbject/Trait.h[tag=type]
+
+==== Functions
+include::../src/Cbject/Trait.h[tag=function]
