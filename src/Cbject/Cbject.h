@@ -1,96 +1,84 @@
 /* tag::overview[]
-== Cbject
-[plantuml, target=diag-object, format=png]
-.Object model with class
-....
-hide circle
-together {
-class Object {
-    Object_Interface * interface;
+[plantuml, target=diag-building-blocks, format=png]
+.Building blocks
+----
+object Object {
+    Object_Class const * class;
 }
-class Object_Class {
-    Object_Interface super;
+object Object_Class {
     size_t objectSize;
-    Class const * superClass;
-}
-}
-together {
-class Object_Interface {
-    size_t offset;
-    Operations const * operations;
-}
-class Object_Operations {
+    Object_Class const * superClass;
     Object * (*teardown)(Object * me);
     uint64_t (*hashCode)(Object const * const me);
     Object * (*copy)(Object const * const me);
     bool (*equals)(Object const * const me, Object const * const other);
 }
-}
 Object -r-> Object_Class
-Object_Class -u-|> Object_Interface
-Object_Interface -r-> Object_Operations
-....
-
-[plantuml, target=diag-trait, format=png]
-.Object model with interface
-....
-hide circle
-together {
-class Object {
-    Object_Interface * interface;
-}
-class Object_Interface {
+object Trait {
     size_t offset;
-    Operations const * operations;
+    size_t interfaceOffset;
 }
+object Trait_Interface {
+    size_t offset;
 }
-Object -r-> Object_Interface
-....
+----
 
-[plantuml, target=diag-custom-object, format=png]
-.Object model of a custom object with class
-....
-hide circle
-class Shape {
+[plantuml, target=diag-rectangle-class-example, format=png]
+.Rectangle class example
+----
+object Rectangle {
+    Shape super;
+    Drawable mDrawable;
+    uint32_t width;
+    uint32_t height;
+}
+object Shape {
     Object super;
     Point origin;
 }
-together {
-class Object {
-    Object_Interface * interface;
+object Drawable {
+    Trait super;
 }
-class Shape_Class {
-    Object_Class super;
+object Drawable_Interface {
+    Trait_Interface super;
+    void (*draw)(Drawable const * const me);
 }
-}
-class Object_Class {
-    Type super;
-    size_t objectSize;
-    Class const * superClass;
-}
-together {
-class Object_Interface {
+object Trait {
     size_t offset;
-    Operations const * operations;
+    size_t interfaceOffset;
 }
-class Shape_Operations {
-    Object_Operations super;
+object Rectangle_Class {
+    Shape_Class super;
+    Drawable_Interface mDrawable_Interface;
+}
+object Trait_Interface {
+    size_t offset;
+}
+object Object {
+    Object_Class const * class;
+}
+object Shape_Class {
+    Object_Class super;
     float (*area)(Shape const * const me);
 }
-}
-class Object_Operations {
+object Object_Class {
+    size_t objectSize;
+    Object_Class const * superClass;
     Object * (*teardown)(Object * me);
     uint64_t (*hashCode)(Object const * const me);
     Object * (*copy)(Object const * const me);
-    bool (*equals)(Object const * const me, Object const * const other)
+    bool (*equals)(Object const * const me, Object const * const other);
 }
+Rectangle -u-|> Shape
+Rectangle *-r- Drawable
+Rectangle_Class *-r- Drawable_Interface
+Drawable -u-|> Trait
+Drawable_Interface -u-|> Trait_Interface
+Rectangle_Class -u-|> Shape_Class
 Shape -u-|> Object
-Object -r-> Shape_Class
+Object -r-> Rectangle_Class
 Shape_Class -u-|> Object_Class
-Object_Class -u-|> Object_Interface
-Object_Interface -r-> Shape_Operations
-Shape_Operations -u-|> Object_Operations
-....
+----
 end::overview[] */
 #ifndef CBJECT_H
 #define CBJECT_H
