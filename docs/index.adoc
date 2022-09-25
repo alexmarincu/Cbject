@@ -1,9 +1,10 @@
 = Cbject
 :toc: right
+:docinfo: shared
 :toclevels: 10
 :sectnums:
 :imagesdir: media
-:source-highlighter: rouge
+:source-highlighter: pygments
 
 == Overview
 include::../src/Cbject/Cbject.h[tag=overview]
