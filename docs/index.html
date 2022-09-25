@@ -617,6 +617,13 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <li><a href="#_object_teardown">Object_teardown</a></li>
 <li><a href="#_object_copy">Object_copy</a></li>
 <li><a href="#_object_equals">Object_equals</a></li>
+<li><a href="#_object_hashcode">Object_hashCode</a></li>
+<li><a href="#_object_isofclass">Object_isOfClass</a></li>
+</ul>
+</li>
+<li><a href="#_defines">2.1.4. Defines</a>
+<ul class="sectlevel4">
+<li><a href="#_initclass">initClass_</a></li>
 </ul>
 </li>
 </ul>
@@ -990,10 +997,109 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </li>
 </ul>
 </div>
+<div class="ulist">
+<div class="title">Return</div>
+<ul>
+<li>
+<p>true - If the objects are equal</p>
+</li>
+<li>
+<p>false - If the objects are different</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_object_hashcode">Object_hashCode</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-kt">uint64_t</span><span class="tok-w"> </span><span class="tok-nf">Object_hashCode</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get hash code of object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>me - Object reference</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <div class="title">Return</div>
-<p>true if the object are equal
-false if the objects are different</p>
+<p>Object hash code</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_object_isofclass">Object_isOfClass</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-kt">bool</span><span class="tok-w"> </span><span class="tok-nf">Object_isOfClass</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">Object_Class</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">class</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get hash code of object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>me - Object reference</p>
+</li>
+<li>
+<p>class - Class reference</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Return</div>
+<ul>
+<li>
+<p>true - If the object is of the provided class</p>
+</li>
+<li>
+<p>false - If the object is of a different class</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_defines">2.1.4. Defines</h4>
+<div class="sect4">
+<h5 id="_initclass">initClass_</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define initClass_(className, me)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Initialize a class</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+<li>
+<p>me - Class reference</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1064,7 +1170,7 @@ false if the objects are different</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-09-25 16:07:13 +0300
+Last updated 2022-09-25 21:55:49 +0300
 </div>
 </div>
 </body>

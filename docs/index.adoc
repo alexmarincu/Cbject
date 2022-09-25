@@ -20,6 +20,9 @@ include::../src/Cbject/Object.h[tag=type]
 ==== Functions
 include::../src/Cbject/Object.h[tag=function]
 
+==== Defines
+include::../src/Cbject/Object.h[tag=define]
+
 === Trait
 ==== Overview
 include::../src/Cbject/Trait.h[tag=overview]

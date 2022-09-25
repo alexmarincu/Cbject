@@ -186,31 +186,61 @@ Make a copy of an object.
 * other - Reference for the compared object
 
 .Return
-true if the object are equal
-false if the objects are different
+* true - If the objects are equal
+* false - If the objects are different
 ====
 end::function[] */
 bool Object_equals(Object const * const me, Object const * const other);
-/**
- * @brief
- * @param me
- * @return uint64_t
- */
+/* tag::function[]
+===== Object_hashCode
+====
+[source,c]
+----
 uint64_t Object_hashCode(Object const * const me);
-/**
- * @brief
- * @param me
- * @param class
- * @return true
- * @return false
- */
+----
+Get hash code of object
+
+.Params
+* me - Object reference
+
+.Return
+Object hash code
+====
+end::function[] */
+uint64_t Object_hashCode(Object const * const me);
+/* tag::function[]
+===== Object_isOfClass
+====
+[source,c]
+----
 bool Object_isOfClass(Object const * const me, Object_Class const * const class);
-/**
- * @brief Initialize a class
- * @param me Class reference
- * @param className Class name
- * @param superClassName Parent class name
- */
+----
+Get hash code of object
+
+.Params
+* me - Object reference
+* class - Class reference
+
+.Return
+* true - If the object is of the provided class
+* false - If the object is of a different class
+====
+end::function[] */
+bool Object_isOfClass(Object const * const me, Object_Class const * const class);
+/* tag::define[]
+===== initClass_
+====
+[source,c]
+----
+#define initClass_(className, me)
+----
+Initialize a class
+
+.Params
+* className - Name of the class
+* me - Class reference
+====
+end::define[] */
 #define initClass_(className, me) \
     *to_(className##_Class, me) = *class_(className);
 
