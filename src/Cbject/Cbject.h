@@ -1,6 +1,6 @@
 /* tag::overview[]
 == Cbject
-[plantuml, target=ClassObject, format=png]
+[plantuml, target=diag-object, format=png]
 .Object model with class
 ....
 hide circle
@@ -31,7 +31,7 @@ Object_Class -u-|> Object_Interface
 Object_Interface -r-> Object_Operations
 ....
 
-[plantuml, target=InterfaceObject, format=png]
+[plantuml, target=diag-trait, format=png]
 .Object model with interface
 ....
 hide circle
@@ -47,7 +47,7 @@ class Object_Interface {
 Object -r-> Object_Interface
 ....
 
-[plantuml, target=CustomClassObject, format=png]
+[plantuml, target=diag-custom-object, format=png]
 .Object model of a custom object with class
 ....
 hide circle

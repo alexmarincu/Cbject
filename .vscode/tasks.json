@@ -56,7 +56,7 @@
             "group": "build",
             "problemMatcher": [],
             "options": {
-                "cwd": "./doc"
+                "cwd": "./docs"
             }
         }
     ]
