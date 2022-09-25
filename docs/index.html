@@ -614,6 +614,9 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <li><a href="#_object_alloc">Object_alloc</a></li>
 <li><a href="#_object_dealloc">Object_dealloc</a></li>
 <li><a href="#_object_init">Object_init</a></li>
+<li><a href="#_object_teardown">Object_teardown</a></li>
+<li><a href="#_object_copy">Object_copy</a></li>
+<li><a href="#_object_equals">Object_equals</a></li>
 </ul>
 </li>
 </ul>
@@ -797,22 +800,22 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="title">Members</div>
 <ul>
 <li>
-<p>objectSize -</p>
+<p>objectSize - Size in memory of object</p>
 </li>
 <li>
-<p>superClass -</p>
+<p>superClass - Super class of object</p>
 </li>
 <li>
-<p>teardown -</p>
+<p>teardown - Function pointer for the teardown method</p>
 </li>
 <li>
-<p>hashCode -</p>
+<p>hashCode - Function pointer for the hash code method</p>
 </li>
 <li>
-<p>copy -</p>
+<p>copy - Function pointer for the copy method</p>
 </li>
 <li>
-<p>equals -</p>
+<p>equals - Function pointer for the equals method</p>
 </li>
 </ul>
 </div>
@@ -906,6 +909,91 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="paragraph">
 <div class="title">Return</div>
 <p>Initialized object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_object_teardown">Object_teardown</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-nf">Object_teardown</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Teardown an object.</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>me - Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Always returns NULL</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_object_copy">Object_copy</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-nf">Object_copy</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Make a copy of an object.</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>me - Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Pointer to a new object (copy of the original one)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_object_equals">Object_equals</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-kt">bool</span><span class="tok-w"> </span><span class="tok-nf">Object_equals</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">other</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Make a copy of an object.</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>me - Object reference</p>
+</li>
+<li>
+<p>other - Reference for the compared object</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>true if the object are equal
+false if the objects are different</p>
 </div>
 </div>
 </div>

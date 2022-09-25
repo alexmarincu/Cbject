@@ -66,12 +66,12 @@ struct Object_Class {
 Definition of struct Object_Class
 
 .Members
-* objectSize -
-* superClass -
-* teardown -
-* hashCode -
-* copy -
-* equals -
+* objectSize - Size in memory of object
+* superClass - Super class of object
+* teardown - Function pointer for the teardown method
+* hashCode - Function pointer for the hash code method
+* copy - Function pointer for the copy method
+* equals - Function pointer for the equals method
 ====
 end::type[] */
 struct Object_Class {
@@ -138,24 +138,58 @@ Initialized object
 ====
 end::function[] */
 Object * Object_init(Object * const me);
-/**
- * @brief
- * @param me
- */
+/* tag::function[]
+===== Object_teardown
+====
+[source,c]
+----
 Object * Object_teardown(Object * me);
-/**
- * @brief
- * @param me
- * @return Object*
- */
+----
+Teardown an object.
+
+.Params
+* me - Object reference
+
+.Return
+Always returns NULL
+====
+end::function[] */
+Object * Object_teardown(Object * me);
+/* tag::function[]
+===== Object_copy
+====
+[source,c]
+----
 Object * Object_copy(Object const * const me);
-/**
- * @brief
- * @param me
- * @param other
- * @return true
- * @return false
- */
+----
+Make a copy of an object.
+
+.Params
+* me - Object reference
+
+.Return
+Pointer to a new object (copy of the original one)
+====
+end::function[] */
+Object * Object_copy(Object const * const me);
+/* tag::function[]
+===== Object_equals
+====
+[source,c]
+----
+bool Object_equals(Object const * const me, Object const * const other);
+----
+Make a copy of an object.
+
+.Params
+* me - Object reference
+* other - Reference for the compared object
+
+.Return
+true if the object are equal
+false if the objects are different
+====
+end::function[] */
 bool Object_equals(Object const * const me, Object const * const other);
 /**
  * @brief
