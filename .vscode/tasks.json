@@ -46,18 +46,18 @@
             "label": "Run All Tests with Coverage",
             "type": "shell",
             "command": "ceedling gcov:all utils:gcov",
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
+            "group": "test",
             "problemMatcher": []
         },
         {
-            "label": "Generate Docs",
+            "label": "Generate Doc",
             "type": "shell",
-            "command": "asciidoctor-pdf -r asciidoctor-diagram -o ./build/artifacts/doc/Cbject.pdf ./doc/Cbject.adoc; asciidoctor -r asciidoctor-diagram -o ./build/artifacts/doc/Cbject.html ./doc/Cbject.adoc",
+            "command": "rm -rf media; asciidoctor -r asciidoctor-diagram -o index.html index.adoc",
             "group": "build",
-            "problemMatcher": []
+            "problemMatcher": [],
+            "options": {
+                "cwd": "./doc"
+            }
         }
     ]
 }

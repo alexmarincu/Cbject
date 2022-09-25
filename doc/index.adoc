@@ -2,6 +2,7 @@
 :toc: right
 :toclevels: 10
 :sectnums:
+:imagesdir: media
 
 == Overview
 include::../src/Cbject/Cbject.h[tag=overview]
