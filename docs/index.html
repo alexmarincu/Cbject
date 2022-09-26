@@ -643,6 +643,13 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <li><a href="#_isofclass">isOfClass_()</a></li>
 </ul>
 </li>
+<li><a href="#_tests">2.1.5. Tests</a>
+<ul class="sectlevel4">
+<li><a href="#_test_object_class">test_Object_class</a></li>
+<li><a href="#_test_object_init">test_Object_init</a></li>
+<li><a href="#_test_object_equals">test_Object_equals</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_trait">2.2. Trait</a>
@@ -1698,6 +1705,81 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_tests">2.1.5. Tests</h4>
+<div class="sect4">
+<h5 id="_test_object_class">test_Object_class</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test setup of Object_Class</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Get Object_Class instance</p>
+</li>
+<li>
+<p>Check if object size stored in class is equal to the actual object size</p>
+</li>
+<li>
+<p>Check that the function pointers in the class are initialized</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_test_object_init">test_Object_init</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test initialization of Object</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Allocate object on stack an initialize it</p>
+</li>
+<li>
+<p>Check if object class points to Object_Class instance</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_test_object_equals">test_Object_equals</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test equals method</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Allocate object on stack an initialize it</p>
+</li>
+<li>
+<p>Check if equals method return true when comparing object to self</p>
+</li>
+<li>
+<p>Allocate another object on stack an initialize it</p>
+</li>
+<li>
+<p>Check if equals method return false when comparing the two objects</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_trait">2.2. Trait</h3>
@@ -1763,7 +1845,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-09-26 22:02:06 +0300
+Last updated 2022-09-26 22:59:47 +0300
 </div>
 </div>
 </body>

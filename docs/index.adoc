@@ -23,6 +23,9 @@ include::../src/Cbject/Object.h[tag=function]
 ==== Macros
 include::../src/Cbject/Object.h[tag=macro]
 
+==== Tests
+include::../test/test_Object.c[tag=test]
+
 === Trait
 ==== Overview
 include::../src/Cbject/Trait.h[tag=overview]
