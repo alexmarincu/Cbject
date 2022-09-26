@@ -121,4 +121,9 @@ Trait * Trait_init(Trait * const me);
 #define setUpInterface_(className, interfaceName, me)                   \
     initInterface_(interfaceName, &(me)->i##interfaceName##_Interface); \
     to_(Trait_Interface, &(me)->i##interfaceName##_Interface)->offset = offsetof(className, i##interfaceName)
+/**
+ * @brief Get object from a trait
+ */
+#define objectOf_(me) \
+    to_(Object, to_(Any, me) - offsetOf_(me))
 #endif // TRAIT_H

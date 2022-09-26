@@ -623,12 +623,15 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </li>
 <li><a href="#_defines">2.1.4. Defines</a>
 <ul class="sectlevel4">
+<li><a href="#_class">class_</a></li>
 <li><a href="#_initclass">initClass_</a></li>
 <li><a href="#_setupclass">setUpClass_</a></li>
 <li><a href="#_overrideobjectmethod">overrideObjectMethod_</a></li>
 <li><a href="#_initobject">initObject_</a></li>
-<li><a href="#_class">class_</a></li>
 <li><a href="#_setupobject">setUpObject_</a></li>
+<li><a href="#_traitof">traitOf_</a></li>
+<li><a href="#_classof">classOf_</a></li>
+<li><a href="#_objectsizeof">objectSizeOf_</a></li>
 </ul>
 </li>
 </ul>
@@ -1084,6 +1087,29 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="sect3">
 <h4 id="_defines">2.1.4. Defines</h4>
 <div class="sect4">
+<h5 id="_class">class_</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define class_(className)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to get class reference</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="_initclass">initClass_</h5>
 <div class="exampleblock">
 <div class="content">
@@ -1204,29 +1230,6 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 </div>
 <div class="sect4">
-<h5 id="_class">class_</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define class_(className)</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to get class reference</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>className - Name of the class</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
 <h5 id="_setupobject">setUpObject_</h5>
 <div class="exampleblock">
 <div class="content">
@@ -1259,6 +1262,81 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </li>
 </ul>
 </div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_traitof">traitOf_</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define traitOf_(me, className, interfaceName)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get trait of an object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>me - Object reference</p>
+</li>
+<li>
+<p>className - Name of the class</p>
+</li>
+<li>
+<p>interfaceName - Name of the interface</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_classof">classOf_</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define classOf_(me)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get the class of an object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>me - Object reference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_objectsizeof">objectSizeOf_</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define objectSizeOf_(me)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get the size in memory of an object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>me - Object reference</p>
 </li>
 </ul>
 </div>

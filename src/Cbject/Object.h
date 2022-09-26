@@ -228,6 +228,21 @@ Get hash code of object
 end::function[] */
 bool Object_isOfClass(Object const * const me, Object_Class const * const class);
 /* tag::define[]
+===== class_
+====
+[source,c]
+----
+#define class_(className)
+----
+Syntactic sugar to get class reference
+
+.Params
+* className - Name of the class
+====
+end::define[] */
+#define class_(className) \
+    className##_Class_()
+/* tag::define[]
 ===== initClass_
 ====
 [source,c]
@@ -298,21 +313,6 @@ end::define[] */
 #define initObject_(className, ...) \
     className##_init(to_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
 /* tag::define[]
-===== class_
-====
-[source,c]
-----
-#define class_(className)
-----
-Syntactic sugar to get class reference
-
-.Params
-* className - Name of the class
-====
-end::define[] */
-#define class_(className) \
-    className##_Class_()
-/* tag::define[]
 ===== setUpObject_
 ====
 [source,c]
@@ -332,29 +332,51 @@ end::define[] */
 #define setUpObject_(className, superClassName, ...) \
     initObject_(superClassName, __VA_ARGS__);        \
     classOf_(VaArgs_first_(__VA_ARGS__)) = to_(Object_Class, class_(className))
-/**
- * @brief Get object from a trait
- */
-#define objectOf_(me) \
-    to_(Object, to_(Any, me) - offsetOf_(me))
-/**
- * @brief Get trait of an object
- */
+/* tag::define[]
+===== traitOf_
+====
+[source,c]
+----
+#define traitOf_(me, className, interfaceName)
+----
+Get trait of an object
+
+.Params
+* me - Object reference
+* className - Name of the class
+* interfaceName - Name of the interface
+====
+end::define[] */
 #define traitOf_(me, className, interfaceName) \
     to_(interfaceName, (to_(Any, me) + to_(Trait_Interface, &to_(className##_Class, classOf_(me))->i##interfaceName##_Interface)->offset))
-/**
- * @brief Get the class of an object
- */
+/* tag::define[]
+===== classOf_
+====
+[source,c]
+----
+#define classOf_(me)
+----
+Get the class of an object
+
+.Params
+* me - Object reference
+====
+end::define[] */
 #define classOf_(me) \
     to_(Object, me)->class
-/**
- * @brief Get the superClass of an object
- */
-#define superClassOf_(me) \
-    classOf_(me)->superClass
-/**
- * @brief Get the size in memory of an object
- */
+/* tag::define[]
+===== objectSizeOf_
+====
+[source,c]
+----
+#define objectSizeOf_(me)
+----
+Get the size in memory of an object
+
+.Params
+* me - Object reference
+====
+end::define[] */
 #define objectSizeOf_(me) \
     classOf_(me)->objectSize
 /**
