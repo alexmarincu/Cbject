@@ -70,7 +70,6 @@ void test_Object_isOfClass(void) {
  */
 void test_Object_copy(void) {
     Object * object = initObject_(Object, salloc_(Object));
-    Object * copyObject = copy_(Object, object);
+    Object * copyObject = copy_(Object, object, salloc_(Object));
     TEST_ASSERT_EQUAL_MEMORY(object, copyObject, class_(Object)->objectSize);
-    dealloc_(copyObject);
 }

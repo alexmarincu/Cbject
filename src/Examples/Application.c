@@ -12,7 +12,7 @@ struct Application {
     Rectangle * rectangle;
 };
 static Object * teardown(Object * me);
-static Object * copy(Object const * const me);
+static Object * copy(Object const * const me, Object * const object);
 static void init(Application * const me);
 Application * Application_(void) {
     static Application me;
@@ -135,7 +135,8 @@ static Object * teardown(Object * const me) {
 /**
  * Override Object_copy to assert if used. Cannot copy a singleton.
  */
-static Object * copy(Object const * const me) {
+static Object * copy(Object const * const me, Object * const object) {
+    ignore_(object);
     assert_(false);
     return to_(Object, me);
 }

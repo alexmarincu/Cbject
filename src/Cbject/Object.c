@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 static Object * teardown(Object * me);
-static Object * copy(Object const * const me);
+static Object * copy(Object const * const me, Object * const object);
 static bool equals(Object const * const me, Object const * const other);
 static uint64_t hashCode(Object const * const me);
 Object_Class const * Object_Class_(void) {
@@ -41,13 +41,11 @@ static Object * teardown(Object * me) {
     ignore_(me);
     return NULL;
 }
-Object * Object_copy(Object const * const me) {
-    return objectMethodCall_(Object, copy, me);
+Object * Object_copy(Object const * const me, Object * const object) {
+    return objectMethodCall_(Object, copy, me, object);
 }
-static Object * copy(Object const * const me) {
-    Object * object = Object_alloc(me->class);
-    assert_(object);
-    object = memcpy(object, me, me->class->objectSize);
+static Object * copy(Object const * const me, Object * const object) {
+    memcpy(object, me, me->class->objectSize);
     return object;
 }
 bool Object_equals(Object const * const me, Object const * const other) {

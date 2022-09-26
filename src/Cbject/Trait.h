@@ -126,4 +126,13 @@ Trait * Trait_init(Trait * const me);
  */
 #define objectOf_(me) \
     to_(Object, to_(Any, me) - offsetOf_(me))
+/**
+ * @brief Call a super object method
+ * @param superClassName Super class name
+ * @param methodName Method name
+ * @param ... (me Object reference, ... Method arguments)
+ */
+#define superTraitMethodCall_(superClassName, interfaceName, methodName, ...) \
+    to_(interfaceName##_Interface, &to_(superClassName##_Class, class_(superClassName))->i##interfaceName##_Interface)->methodName(__VA_ARGS__)
+
 #endif // TRAIT_H
