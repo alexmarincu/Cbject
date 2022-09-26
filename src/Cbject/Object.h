@@ -243,53 +243,92 @@ Initialize a class
 end::define[] */
 #define initClass_(className, me) \
     *to_(className##_Class, me) = *class_(className);
+/* tag::define[]
+===== setUpClass_
+====
+[source,c]
+----
+#define setUpClass_(className, superClassName, me)
+----
+Class setup (initialize, set the object size and super class)
 
-/**
- * @brief Initialize a class
- * @param me Class reference
- * @param className Class name
- * @param superClassName Parent class name
- */
+.Params
+* className - Name of the class
+* superClassName - Name of the super class
+* me - Class reference
+====
+end::define[] */
 #define setUpClass_(className, superClassName, me)         \
     initClass_(superClassName, me);                        \
     to_(Object_Class, me)->objectSize = sizeof(className); \
     to_(Object_Class, me)->superClass = to_(Object_Class, class_(superClassName))
-/**
- * @brief
- *
- */
+/* tag::define[]
+===== overrideObjectMethod_
+====
+[source,c]
+----
+#define overrideObjectMethod_(className, me, methodName)
+----
+Override a method of a super class
+
+.Params
+* className - Name of the class
+* me - Class reference
+* methodName - Name of the method
+====
+end::define[] */
 #define overrideObjectMethod_(className, me, methodName) \
     to_(className##_Class, me)->methodName = methodName
-/**
- * @brief Initialize a derived object
- * @param className The object class
- * @param ... (me The object to initialize, ... The init arguments)
- */
+/* tag::define[]
+===== initObject_
+====
+[source,c]
+----
+#define initObject_(className, ...)
+----
+Syntactic sugar for object initialization
+
+.Params
+* className - Name of the class
+* ...
+** me - Object reference
+** ... - Init params
+====
+end::define[] */
 #define initObject_(className, ...) \
     className##_init(to_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
-/**
- * @brief
- *
- */
+/* tag::define[]
+===== class_
+====
+[source,c]
+----
+#define class_(className)
+----
+Syntactic sugar to get class reference
+
+.Params
+* className - Name of the class
+====
+end::define[] */
 #define class_(className) \
     className##_Class_()
-/**
- * @brief Initialize a class
- * @param me Class reference
- * @param className Class name
- * @param superClassName Parent class name
- */
-#define initInterface_(interfaceName, me) \
-    *to_(interfaceName##_Interface, me) = *interface_(interfaceName);
+/* tag::define[]
+===== setUpObject_
+====
+[source,c]
+----
+#define setUpObject_(className, superClassName, ...)
+----
+Object setup (initialize, set the object class)
 
-#define setUpInterface_(className, interfaceName, me)                   \
-    initInterface_(interfaceName, &(me)->i##interfaceName##_Interface); \
-    to_(Trait_Interface, &(me)->i##interfaceName##_Interface)->offset = offsetof(className, i##interfaceName)
-/**
- * @brief Set class of an object
- * @param me Object reference
- * @param className Class name
- */
+.Params
+* className - Name of the class
+* superClassName - Name of the super class
+* ...
+** me - Object reference
+** ... - Init params
+====
+end::define[] */
 #define setUpObject_(className, superClassName, ...) \
     initObject_(superClassName, __VA_ARGS__);        \
     classOf_(VaArgs_first_(__VA_ARGS__)) = to_(Object_Class, class_(className))

@@ -624,6 +624,11 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <li><a href="#_defines">2.1.4. Defines</a>
 <ul class="sectlevel4">
 <li><a href="#_initclass">initClass_</a></li>
+<li><a href="#_setupclass">setUpClass_</a></li>
+<li><a href="#_overrideobjectmethod">overrideObjectMethod_</a></li>
+<li><a href="#_initobject">initObject_</a></li>
+<li><a href="#_class">class_</a></li>
+<li><a href="#_setupobject">setUpObject_</a></li>
 </ul>
 </li>
 </ul>
@@ -1104,6 +1109,162 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="_setupclass">setUpClass_</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define setUpClass_(className, superClassName, me)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Class setup (initialize, set the object size and super class)</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+<li>
+<p>superClassName - Name of the super class</p>
+</li>
+<li>
+<p>me - Class reference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_overrideobjectmethod">overrideObjectMethod_</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define overrideObjectMethod_(className, me, methodName)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Override a method of a super class</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+<li>
+<p>me - Class reference</p>
+</li>
+<li>
+<p>methodName - Name of the method</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_initobject">initObject_</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define initObject_(className, ...)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar for object initialization</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>me - Object reference</p>
+</li>
+<li>
+<p>&#8230;&#8203; - Init params</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_class">class_</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define class_(className)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to get class reference</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_setupobject">setUpObject_</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define setUpObject_(className, superClassName, ...)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Object setup (initialize, set the object class)</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+<li>
+<p>superClassName - Name of the super class</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>me - Object reference</p>
+</li>
+<li>
+<p>&#8230;&#8203; - Init params</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1170,7 +1331,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-09-25 21:55:49 +0300
+Last updated 2022-09-26 18:27:55 +0300
 </div>
 </div>
 </body>

@@ -109,4 +109,16 @@ Trait * Trait_init(Trait * const me);
  */
 #define traitMethodCall_(interfaceName, methodName, ...) \
     to_(interfaceName##_Interface, interfaceOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
+/**
+ * @brief Initialize a class
+ * @param me Class reference
+ * @param className Class name
+ * @param superClassName Parent class name
+ */
+#define initInterface_(interfaceName, me) \
+    *to_(interfaceName##_Interface, me) = *interface_(interfaceName);
+
+#define setUpInterface_(className, interfaceName, me)                   \
+    initInterface_(interfaceName, &(me)->i##interfaceName##_Interface); \
+    to_(Trait_Interface, &(me)->i##interfaceName##_Interface)->offset = offsetof(className, i##interfaceName)
 #endif // TRAIT_H
