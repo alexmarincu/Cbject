@@ -433,7 +433,7 @@ end::macro[] */
 Call a super object method
 
 .Params
-* superClassName Super class name
+* superClassName - Super class name
 * methodName - Name of the method
 * ...
 ** me - Object reference
@@ -567,11 +567,8 @@ end::function[] */
 Syntactic sugar to check if an object is of a given class
 
 .Params
-* superClassName Super class name
-* methodName - Name of the method
-* ...
-** me - Object reference
-** ... - Method params
+* me - Object reference
+* className - Class name
 
 .Return
 * true - If the object is of the provided class
