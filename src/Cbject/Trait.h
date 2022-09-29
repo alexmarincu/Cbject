@@ -1,19 +1,29 @@
 /* tag::overview[]
 TODO
 
+
 end::overview[] */
 #ifndef TRAIT_H
 #define TRAIT_H
-#include "Any.h"
 #include "Utils.h"
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-/**
- * @name Trait_Interface
- * @brief Trait_Interface
- * @param
- */
+/* tag::type[]
+===== Trait_Interface
+====
+[source,c]
+----
+typedef struct {
+    size_t offset;
+} Trait_Interface;
+----
+Typedef and definition of Trait_Interface
+
+.Members
+* offset - Offset of trait in containing object
+====
+end::type[] */
 typedef struct {
     size_t offset;
 } Trait_Interface;
@@ -25,6 +35,9 @@ typedef struct {
 Trait_Interface const * Trait_Interface_(void);
 ----
 Get Trait_Interface instance
+
+.Return
+Reference of the trait interface
 ====
 end::function[] */
 Trait_Interface const * Trait_Interface_(void);
@@ -49,90 +62,253 @@ typedef struct {
     size_t offset;
     size_t interfaceOffset;
 } Trait;
-/**
- * @brief Initialize an Trait
- * @param me Trait reference
- * @param type Interface reference
- * @return Trait* Initialized Trait
- */
+/* tag::function[]
+===== Trait_init
+====
+[source,c]
+----
 Trait * Trait_init(Trait * const me);
-/**
- * @brief Get the interface of a trait
- */
-#define interfaceOf_(me) \
-    to_(Trait_Interface, to_(Any, classOf_(objectOf_(me))) + interfaceOffsetOf_(me))
-/**
- * @brief Get offset of a trait
- */
-#define offsetOf_(me) \
-    to_(Trait, me)->offset
-/**
- * @brief Get the interface offset of a trait
- */
-#define interfaceOffsetOf_(me) \
-    to_(Trait, me)->interfaceOffset
-/**
- * @brief
- *
- */
+----
+Initialize a trait
+
+.Params
+* me - Trait reference
+
+.Return
+Initialized trait
+====
+end::function[] */
+Trait * Trait_init(Trait * const me);
+/* tag::macro[]
+===== interface_()
+====
+[source,c]
+----
+#define interface_(interfaceName)
+----
+Syntactic sugar to get interface reference
+
+.Params
+* interfaceName - Name of the interface
+
+.Return
+Interface reference
+====
+end::macro[] */
 #define interface_(interfaceName) \
     interfaceName##_Interface_()
-/**
- * @brief Set class of object
- * @param me Object reference
- * @param className Class name
- */
+/* tag::macro[]
+===== initInterface_()
+====
+[source,c]
+----
+#define initInterface_(interfaceName, me)
+----
+Initialize an interface
+
+.Params
+* interfaceName - Name of the interface
+* me - Interface reference
+====
+end::macro[] */
+#define initInterface_(interfaceName, me) \
+    *to_(interfaceName##_Interface, me) = *interface_(interfaceName);
+/* tag::macro[]
+===== setUpInterface_()
+====
+[source,c]
+----
+#define setUpInterface_(className, interfaceName, me)
+----
+Interface setup (initialize, set the trait offset in container object)
+
+.Params
+* className - Name of the class
+* interfaceName - Name of the interface
+* me - Interface reference
+====
+end::macro[] */
+#define setUpInterface_(className, interfaceName, me)                   \
+    initInterface_(interfaceName, &(me)->i##interfaceName##_Interface); \
+    to_(Trait_Interface, &(me)->i##interfaceName##_Interface)->offset = offsetof(className, i##interfaceName)
+/* tag::macro[]
+===== overrideTraitMethod_()
+====
+[source,c]
+----
+#define overrideTraitMethod_(className, interfaceName, me, methodName)
+----
+Override a method of an interface
+
+.Params
+* className - Name of the class
+* interfaceName - Name of the interface
+* me - Interface reference
+* methodName - Name of the method
+====
+end::macro[] */
+#define overrideTraitMethod_(className, interfaceName, me, methodName) \
+    to_(interfaceName##_Interface, &to_(className##_Class, me)->i##interfaceName##_Interface)->methodName = methodName
+/* tag::macro[]
+===== offsetOf_()
+====
+[source,c]
+----
+#define offsetOf_(me)
+----
+Get offset of a trait in container object
+
+.Params
+* me - Trait reference
+
+.Return
+Offset of trait in container object
+====
+end::macro[] */
+#define offsetOf_(me) \
+    to_(Trait, me)->offset
+/* tag::macro[]
+===== objectOf_()
+====
+[source,c]
+----
+#define objectOf_(me)
+----
+Get container object from a trait
+
+.Params
+* me - Trait reference
+
+.Return
+Reference of the container object
+====
+end::macro[] */
+#define objectOf_(me) \
+    to_(Object, to_(Any, me) - offsetOf_(me))
+/* tag::macro[]
+===== interfaceOffsetOf_()
+====
+[source,c]
+----
+#define interfaceOffsetOf_(me)
+----
+Get the interface offset in container class
+
+.Params
+* me - Trait reference
+
+.Return
+Offset of interface in container class
+====
+end::macro[] */
+#define interfaceOffsetOf_(me) \
+    to_(Trait, me)->interfaceOffset
+/* tag::macro[]
+===== interfaceOf_()
+====
+[source,c]
+----
+#define interfaceOf_(me)
+----
+Get the interface of a trait
+
+.Params
+* me - Trait reference
+
+.Return
+Interface reference
+====
+end::macro[] */
+#define interfaceOf_(me)                                           \
+    to_(                                                           \
+        Trait_Interface,                                           \
+        to_(Any, classOf_(objectOf_(me))) + interfaceOffsetOf_(me) \
+    )
+/* tag::macro[]
+===== initTrait_()
+====
+[source,c]
+----
+#define initTrait_(interfaceName, ...)
+----
+Syntactic sugar for trait initialization
+
+.Params
+* interfaceName - Name of the interface
+* ...
+** me - Trait reference
+** ... - Init params
+
+.Return
+Initialized trait
+====
+end::macro[] */
+#define initTrait_(interfaceName, ...) \
+    interfaceName##_init(to_(interfaceName, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
+/* tag::macro[]
+===== setUpTrait_()
+====
+[source,c]
+----
+#define setUpTrait_(className, interfaceName, ...)
+----
+Trait setup (initialize, set the trait offset and interface offset)
+
+.Params
+* className - Name of the class
+* interfaceName - Name of the interface
+* ...
+** me - Trait reference
+** ... - Init params
+====
+end::macro[] */
 #define setUpTrait_(className, interfaceName, ...)                                                      \
     initTrait_(interfaceName, &VaArgs_first_(__VA_ARGS__)->i##interfaceName VaArgs_rest_(__VA_ARGS__)); \
     offsetOf_(&VaArgs_first_(__VA_ARGS__)->i##interfaceName) = offsetof(className, i##interfaceName);   \
     interfaceOffsetOf_(&VaArgs_first_(__VA_ARGS__)->i##interfaceName) = offsetof(className##_Class, i##interfaceName##_Interface)
-/**
- * @brief
- *
- */
-#define overrideTraitMethod_(className, interfaceName, me, methodName) \
-    to_(interfaceName##_Interface, &to_(className##_Class, me)->i##interfaceName##_Interface)->methodName = methodName
-/**
- * @brief Initialize an Trait
- * @param me
- * @param className
- * @param interfaceClassName
- * @param typeName
- */
-#define initTrait_(interfaceName, ...) \
-    interfaceName##_init(to_(interfaceName, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
-/**
- * @brief Call an interface method
- * @param interfaceName Interface name
- * @param methodName Method name
- * @param ... (me Trait reference, ... Method arguments)
- */
+/* tag::macro[]
+===== traitMethodCall_()
+====
+[source,c]
+----
+#define traitMethodCall_(interfaceName, methodName, ...)
+----
+Call a trait method
+
+.Params
+* interfaceName - Name of the interface
+* methodName - Name of the method
+* ...
+** me - Trait reference
+** ... - Method params
+
+.Return
+Depends on the called method
+====
+end::macro[] */
 #define traitMethodCall_(interfaceName, methodName, ...) \
     to_(interfaceName##_Interface, interfaceOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
-/**
- * @brief Initialize a class
- * @param me Class reference
- * @param className Class name
- * @param superClassName Parent class name
- */
-#define initInterface_(interfaceName, me) \
-    *to_(interfaceName##_Interface, me) = *interface_(interfaceName);
+/* tag::macro[]
+===== superTraitMethodCall_()
+====
+[source,c]
+----
+#define superTraitMethodCall_(superClassName, interfaceName, methodName, ...)
+----
+Call a super trait method
 
-#define setUpInterface_(className, interfaceName, me)                   \
-    initInterface_(interfaceName, &(me)->i##interfaceName##_Interface); \
-    to_(Trait_Interface, &(me)->i##interfaceName##_Interface)->offset = offsetof(className, i##interfaceName)
-/**
- * @brief Get object from a trait
- */
-#define objectOf_(me) \
-    to_(Object, to_(Any, me) - offsetOf_(me))
-/**
- * @brief Call a super object method
- * @param superClassName Super class name
- * @param methodName Method name
- * @param ... (me Object reference, ... Method arguments)
- */
+.Params
+* superClassName - Name of the super class
+* interfaceName - Name of the interface
+* methodName - Name of the method
+* ...
+** me - Trait reference
+** ... - Method params
+
+.Return
+Depends on the called method
+====
+end::macro[] */
 #define superTraitMethodCall_(superClassName, interfaceName, methodName, ...) \
     to_(interfaceName##_Interface, &to_(superClassName##_Class, class_(superClassName))->i##interfaceName##_Interface)->methodName(__VA_ARGS__)
-
 #endif // TRAIT_H

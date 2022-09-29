@@ -1,10 +1,12 @@
 #ifndef UTILS_H
 #define UTILS_H
+#define singleton_(className) \
+    className##_()
 /**
- * @brief Operations
- * @remark To be used with pointers to Operations types
+ * @brief Any
+ * @remark To be used with pointers to anything
  */
-// typedef Any Operations;
+typedef void Any;
 /**
  * @brief Cast to a type
  * @param typeName

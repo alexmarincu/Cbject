@@ -4,7 +4,6 @@ The building block. All objects defined in Cbject need to extend Object.
 end::overview[] */
 #ifndef OBJECT_H
 #define OBJECT_H
-#include "Any.h"
 #include "Utils.h"
 #include <stdbool.h>
 #include <stddef.h>
@@ -90,6 +89,9 @@ struct Object {
 Object_Class const * Object_Class_(void);
 ----
 Get Object_Class instance
+
+.Return
+Reference of the class instance
 ====
 end::function[] */
 Object_Class const * Object_Class_(void);

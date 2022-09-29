@@ -649,7 +649,8 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <li><a href="#_test_object_init">test_Object_init</a></li>
 <li><a href="#_test_object_equals">test_Object_equals</a></li>
 <li><a href="#_test_object_hashcode">test_Object_hashCode</a></li>
-<li><a href="#_test_object_hashcode_2">test_Object_hashCode</a></li>
+<li><a href="#_test_object_isofclass">test_Object_isOfClass</a></li>
+<li><a href="#_test_object_copy">test_Object_copy</a></li>
 </ul>
 </li>
 </ul>
@@ -659,12 +660,30 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <li><a href="#_overview_3">2.2.1. Overview</a></li>
 <li><a href="#_types_2">2.2.2. Types</a>
 <ul class="sectlevel4">
+<li><a href="#_trait_interface">Trait_Interface</a></li>
 <li><a href="#_trait_2">Trait</a></li>
 </ul>
 </li>
 <li><a href="#_functions_2">2.2.3. Functions</a>
 <ul class="sectlevel4">
-<li><a href="#_trait_interface">Trait_Interface_</a></li>
+<li><a href="#_trait_interface_2">Trait_Interface_</a></li>
+<li><a href="#_trait_init">Trait_init</a></li>
+</ul>
+</li>
+<li><a href="#_macros_2">2.2.4. Macros</a>
+<ul class="sectlevel4">
+<li><a href="#_interface">interface_()</a></li>
+<li><a href="#_initinterface">initInterface_()</a></li>
+<li><a href="#_setupinterface">setUpInterface_()</a></li>
+<li><a href="#_overridetraitmethod">overrideTraitMethod_()</a></li>
+<li><a href="#_offsetof">offsetOf_()</a></li>
+<li><a href="#_objectof">objectOf_()</a></li>
+<li><a href="#_interfaceoffsetof">interfaceOffsetOf_()</a></li>
+<li><a href="#_interfaceof">interfaceOf_()</a></li>
+<li><a href="#_inittrait">initTrait_()</a></li>
+<li><a href="#_setuptrait">setUpTrait_()</a></li>
+<li><a href="#_traitmethodcall">traitMethodCall_()</a></li>
+<li><a href="#_supertraitmethodcall">superTraitMethodCall_()</a></li>
 </ul>
 </li>
 </ul>
@@ -869,6 +888,10 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 <div class="paragraph">
 <p>Get Object_Class instance</p>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the class instance</p>
 </div>
 </div>
 </div>
@@ -1478,7 +1501,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="title">Params</div>
 <ul>
 <li>
-<p>superClassName Super class name</p>
+<p>superClassName - Super class name</p>
 </li>
 <li>
 <p>methodName - Name of the method</p>
@@ -1672,23 +1695,10 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="title">Params</div>
 <ul>
 <li>
-<p>superClassName Super class name</p>
-</li>
-<li>
-<p>methodName - Name of the method</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-<div class="ulist">
-<ul>
-<li>
 <p>me - Object reference</p>
 </li>
 <li>
-<p>&#8230;&#8203; - Method params</p>
-</li>
-</ul>
-</div>
+<p>className - Class name</p>
 </li>
 </ul>
 </div>
@@ -1803,11 +1813,19 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 </div>
 <div class="sect4">
-<h5 id="_test_object_hashcode_2">test_Object_hashCode</h5>
+<h5 id="_test_object_isofclass">test_Object_isOfClass</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
-<p>Test hashCode method</p>
+<p>Test isOfClass method</p>
+</div>
+<div class="olist arabic">
+<div class="title">Preconditions</div>
+<ol class="arabic">
+<li>
+<p>Define a dummy Test_Class which extends Object_Class</p>
+</li>
+</ol>
 </div>
 <div class="olist arabic">
 <div class="title">Steps</div>
@@ -1816,7 +1834,34 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <p>Allocate object on stack an initialize it</p>
 </li>
 <li>
-<p>Check if hashCode method returns the address in memory of the object</p>
+<p>Check if isOfClass method returns true when checked against Object</p>
+</li>
+<li>
+<p>Check if isOfClass method returns false when checked against Test</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_test_object_copy">test_Object_copy</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test copy method</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Allocate object on stack an initialize it</p>
+</li>
+<li>
+<p>Allocate another object on stack and copy the first object into it</p>
+</li>
+<li>
+<p>Check if the memory sections occupied by the two objects are equal</p>
 </li>
 </ol>
 </div>
@@ -1835,6 +1880,31 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 <div class="sect3">
 <h4 id="_types_2">2.2.2. Types</h4>
+<div class="sect4">
+<h5 id="_trait_interface">Trait_Interface</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-k">typedef</span><span class="tok-w"> </span><span class="tok-k">struct</span> <span class="tok-p">{</span><span class="tok-w"></span>
+<span class="tok-w">    </span><span class="tok-kt">size_t</span><span class="tok-w"> </span><span class="tok-n">offset</span><span class="tok-p">;</span><span class="tok-w"></span>
+<span class="tok-p">}</span><span class="tok-w"> </span><span class="tok-n">Trait_Interface</span><span class="tok-p">;</span><span class="tok-w"></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Typedef and definition of Trait_Interface</p>
+</div>
+<div class="ulist">
+<div class="title">Members</div>
+<ul>
+<li>
+<p>offset - Offset of trait in containing object</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="_trait_2">Trait</h5>
 <div class="exampleblock">
@@ -1868,7 +1938,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="sect3">
 <h4 id="_functions_2">2.2.3. Functions</h4>
 <div class="sect4">
-<h5 id="_trait_interface">Trait_Interface_</h5>
+<h5 id="_trait_interface_2">Trait_Interface_</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
@@ -1878,6 +1948,430 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 <div class="paragraph">
 <p>Get Trait_Interface instance</p>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the trait interface</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_trait_init">Trait_init</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-n">Trait</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-nf">Trait_init</span><span class="tok-p">(</span><span class="tok-n">Trait</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Initialize a trait</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>me - Trait reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Initialized trait</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_macros_2">2.2.4. Macros</h4>
+<div class="sect4">
+<h5 id="_interface">interface_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define interface_(interfaceName)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to get interface reference</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>interfaceName - Name of the interface</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Interface reference</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_initinterface">initInterface_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define initInterface_(interfaceName, me)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Initialize an interface</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>interfaceName - Name of the interface</p>
+</li>
+<li>
+<p>me - Interface reference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_setupinterface">setUpInterface_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define setUpInterface_(className, interfaceName, me)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Interface setup (initialize, set the trait offset in container object)</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+<li>
+<p>interfaceName - Name of the interface</p>
+</li>
+<li>
+<p>me - Interface reference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_overridetraitmethod">overrideTraitMethod_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define overrideTraitMethod_(className, interfaceName, me, methodName)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Override a method of an interface</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+<li>
+<p>interfaceName - Name of the interface</p>
+</li>
+<li>
+<p>me - Interface reference</p>
+</li>
+<li>
+<p>methodName - Name of the method</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_offsetof">offsetOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define offsetOf_(me)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get offset of a trait in container object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>me - Trait reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Offset of trait in container object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_objectof">objectOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define objectOf_(me)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get container object from a trait</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>me - Trait reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the container object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_interfaceoffsetof">interfaceOffsetOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define interfaceOffsetOf_(me)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get the interface offset in container class</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>me - Trait reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Offset of interface in container class</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_interfaceof">interfaceOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define interfaceOf_(me)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get the interface of a trait</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>me - Trait reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Interface reference</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_inittrait">initTrait_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define initTrait_(interfaceName, ...)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar for trait initialization</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>interfaceName - Name of the interface</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>me - Trait reference</p>
+</li>
+<li>
+<p>&#8230;&#8203; - Init params</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Initialized trait</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_setuptrait">setUpTrait_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define setUpTrait_(className, interfaceName, ...)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Trait setup (initialize, set the trait offset and interface offset)</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+<li>
+<p>interfaceName - Name of the interface</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>me - Trait reference</p>
+</li>
+<li>
+<p>&#8230;&#8203; - Init params</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_traitmethodcall">traitMethodCall_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define traitMethodCall_(interfaceName, methodName, ...)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Call a trait method</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>interfaceName - Name of the interface</p>
+</li>
+<li>
+<p>methodName - Name of the method</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>me - Trait reference</p>
+</li>
+<li>
+<p>&#8230;&#8203; - Method params</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Depends on the called method</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_supertraitmethodcall">superTraitMethodCall_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define superTraitMethodCall_(superClassName, interfaceName, methodName, ...)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Call a super trait method</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>superClassName - Name of the super class</p>
+</li>
+<li>
+<p>interfaceName - Name of the interface</p>
+</li>
+<li>
+<p>methodName - Name of the method</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>me - Trait reference</p>
+</li>
+<li>
+<p>&#8230;&#8203; - Method params</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Depends on the called method</p>
 </div>
 </div>
 </div>
@@ -1889,7 +2383,6 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-09-26 22:59:47 +0300
 </div>
 </div>
 </body>

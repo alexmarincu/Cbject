@@ -5,6 +5,7 @@
 :sectnums:
 :imagesdir: media
 :source-highlighter: pygments
+:last-update-label!:
 
 == Overview
 include::../src/Cbject/Cbject.h[tag=overview]
@@ -35,3 +36,6 @@ include::../src/Cbject/Trait.h[tag=type]
 
 ==== Functions
 include::../src/Cbject/Trait.h[tag=function]
+
+==== Macros
+include::../src/Cbject/Trait.h[tag=macro]
