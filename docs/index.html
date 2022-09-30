@@ -435,107 +435,30 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
-<style>
-pre.pygments .hll { background-color: #ffffcc }
-pre.pygments { background: #f8f8f8; }
-pre.pygments .tok-c { color: #408080; font-style: italic } /* Comment */
-pre.pygments .tok-err { border: 1px solid #FF0000 } /* Error */
-pre.pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
-pre.pygments .tok-o { color: #666666 } /* Operator */
-pre.pygments .tok-ch { color: #408080; font-style: italic } /* Comment.Hashbang */
-pre.pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
-pre.pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
-pre.pygments .tok-cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
-pre.pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
-pre.pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
-pre.pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
-pre.pygments .tok-ge { font-style: italic } /* Generic.Emph */
-pre.pygments .tok-gr { color: #FF0000 } /* Generic.Error */
-pre.pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
-pre.pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
-pre.pygments .tok-go { color: #888888 } /* Generic.Output */
-pre.pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
-pre.pygments .tok-gs { font-weight: bold } /* Generic.Strong */
-pre.pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-pre.pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
-pre.pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
-pre.pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
-pre.pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
-pre.pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
-pre.pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
-pre.pygments .tok-kt { color: #B00040 } /* Keyword.Type */
-pre.pygments .tok-m { color: #666666 } /* Literal.Number */
-pre.pygments .tok-s { color: #BA2121 } /* Literal.String */
-pre.pygments .tok-na { color: #7D9029 } /* Name.Attribute */
-pre.pygments .tok-nb { color: #008000 } /* Name.Builtin */
-pre.pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
-pre.pygments .tok-no { color: #880000 } /* Name.Constant */
-pre.pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
-pre.pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
-pre.pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
-pre.pygments .tok-nf { color: #0000FF } /* Name.Function */
-pre.pygments .tok-nl { color: #A0A000 } /* Name.Label */
-pre.pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
-pre.pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
-pre.pygments .tok-nv { color: #19177C } /* Name.Variable */
-pre.pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
-pre.pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
-pre.pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
-pre.pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
-pre.pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
-pre.pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
-pre.pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
-pre.pygments .tok-sa { color: #BA2121 } /* Literal.String.Affix */
-pre.pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
-pre.pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
-pre.pygments .tok-dl { color: #BA2121 } /* Literal.String.Delimiter */
-pre.pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
-pre.pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
-pre.pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
-pre.pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
-pre.pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
-pre.pygments .tok-sx { color: #008000 } /* Literal.String.Other */
-pre.pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
-pre.pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
-pre.pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
-pre.pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
-pre.pygments .tok-fm { color: #0000FF } /* Name.Function.Magic */
-pre.pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
-pre.pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
-pre.pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
-pre.pygments .tok-vm { color: #19177C } /* Name.Variable.Magic */
-pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
-</style>
 <!-- Generate a nice TOC -->
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tocify/1.9.0/javascripts/jquery.tocify.min.js"></script>
 <!-- We do not need the tocify CSS because the asciidoc CSS already provides most of what we neeed -->
-
 <style>
   .tocify-header {
     font-style: italic;
   }
-
   .tocify-subheader {
     font-style: normal;
     font-size: 90%;
   }
-
   .tocify ul {
     margin: 0;
   }
-
   .tocify-focus {
     color: #7a2518;
     background-color: rgba(0, 0, 0, 0.1);
   }
-
   .tocify-focus > a {
     color: #7a2518;
   }
 </style>
-
 <script type="text/javascript">
   $(function () {
     // Add a new container for the tocify toc into the existing toc so we can re-use its
@@ -560,7 +483,6 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
         $("#content").has("h1").size() > 0 ? "h1,h2,h3,h4,h5" : "h2,h3,h4,h5",
       ignoreSelector: ".discrete",
     });
-
     // Switch between static asciidoc toc and dynamic tocify toc based on browser size
     // This is set to match the media selectors in the asciidoc CSS
     // Without this, we keep the dynamic toc even if it is moved from the side to preamble
@@ -576,17 +498,30 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
         $(".sectlevel1").hide();
       }
     };
-
     $(window).resize(handleTocOnResize);
     handleTocOnResize();
   });
+</script>
+<link rel="stylesheet" href="./theme-dark.css" />
+<script>
+  function switch_style() {
+    let tag = document.getElementsByTagName("link");
+    for (let i = 0; i < tag.length; i++) {
+      if (
+        tag[i].rel.indexOf("stylesheet") != -1 &&
+        tag[i].href.includes("theme-dark.css")
+      ) {
+        tag[i].disabled = !tag[i].disabled;
+      }
+    }
+  }
 </script>
 </head>
 <body class="article toc2 toc-right">
 <div id="header">
 <h1>Cbject</h1>
 <div id="toc" class="toc2">
-<div id="toctitle">Table of Contents</div>
+<div id="toctitle"><div><input width="32" height="32" type="image" alt="Switch theme" src="./button-switch-theme.png" onclick="this.blur();switch_style();return false;"/></div></div>
 <ul class="sectlevel1">
 <li><a href="#_overview">1. Overview</a>
 <ul class="sectlevel2">
@@ -726,7 +661,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#include</span><span class="tok-w"> </span><span class="tok-cpf">&quot;Cbject.h&quot;</span><span class="tok-cp"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#include "Cbject.h"</code></pre>
 </div>
 </div>
 </div>
@@ -736,9 +671,9 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-n">object</span><span class="tok-w"> </span><span class="tok-o">=</span><span class="tok-w"> </span><span class="tok-n">initObject_</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">alloc_</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-p">));</span><span class="tok-w"></span>
-<span class="tok-n">printf</span><span class="tok-p">(</span><span class="tok-s">&quot;%d</span><span class="tok-se">\n</span><span class="tok-s">&quot;</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">hashCode_</span><span class="tok-p">(</span><span class="tok-n">object</span><span class="tok-p">));</span><span class="tok-w"></span>
-<span class="tok-n">dealloc_</span><span class="tok-p">(</span><span class="tok-n">object</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Object * object = initObject_(Object, alloc_(Object));
+printf("%d\n", hashCode_(object));
+dealloc_(object);</code></pre>
 </div>
 </div>
 </div>
@@ -780,7 +715,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-k">typedef</span><span class="tok-w"> </span><span class="tok-k">struct</span> <span class="tok-nc">Object_Class</span><span class="tok-w"> </span><span class="tok-n">Object_Class</span><span class="tok-p">;</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">typedef struct Object_Class Object_Class;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -795,7 +730,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-k">typedef</span><span class="tok-w"> </span><span class="tok-k">struct</span> <span class="tok-nc">Object</span><span class="tok-w"> </span><span class="tok-n">Object</span><span class="tok-p">;</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">typedef struct Object Object;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -810,14 +745,14 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-k">struct</span> <span class="tok-nc">Object_Class</span><span class="tok-w"> </span><span class="tok-p">{</span><span class="tok-w"></span>
-<span class="tok-w">    </span><span class="tok-kt">size_t</span><span class="tok-w"> </span><span class="tok-n">objectSize</span><span class="tok-p">;</span><span class="tok-w"></span>
-<span class="tok-w">    </span><span class="tok-n">Object_Class</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-n">superClass</span><span class="tok-p">;</span><span class="tok-w"></span>
-<span class="tok-w">    </span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-o">*</span><span class="tok-n">teardown</span><span class="tok-p">)(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">);</span><span class="tok-w"></span>
-<span class="tok-w">    </span><span class="tok-kt">uint64_t</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-o">*</span><span class="tok-n">hashCode</span><span class="tok-p">)(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">);</span><span class="tok-w"></span>
-<span class="tok-w">    </span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-o">*</span><span class="tok-n">copy</span><span class="tok-p">)(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">object</span><span class="tok-p">);</span><span class="tok-w"></span>
-<span class="tok-w">    </span><span class="tok-kt">bool</span><span class="tok-w"> </span><span class="tok-p">(</span><span class="tok-o">*</span><span class="tok-n">equals</span><span class="tok-p">)(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">other</span><span class="tok-p">);</span><span class="tok-w"></span>
-<span class="tok-p">};</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">struct Object_Class {
+    size_t objectSize;
+    Object_Class const * superClass;
+    Object * (*teardown)(Object * me);
+    uint64_t (*hashCode)(Object const * const me);
+    Object * (*copy)(Object const * const me, Object * const object);
+    bool (*equals)(Object const * const me, Object const * const other);
+};</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -855,9 +790,9 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-k">struct</span> <span class="tok-nc">Object</span><span class="tok-w"> </span><span class="tok-p">{</span><span class="tok-w"></span>
-<span class="tok-w">    </span><span class="tok-n">Object_Class</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-n">class</span><span class="tok-p">;</span><span class="tok-w"></span>
-<span class="tok-p">};</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">struct Object {
+    Object_Class const * class;
+};</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -883,7 +818,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-n">Object_Class</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-n">Object_Class_</span><span class="tok-p">(</span><span class="tok-kt">void</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Object_Class const * Object_Class_(void);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -902,7 +837,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-nf">Object_alloc</span><span class="tok-p">(</span><span class="tok-n">Object_Class</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">class</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_alloc(Object_Class const * const class);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -929,7 +864,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-nf">Object_dealloc</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_dealloc(Object * const me);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -956,7 +891,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-nf">Object_init</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_init(Object * const me);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -983,7 +918,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-nf">Object_teardown</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_teardown(Object * me);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1010,7 +945,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-nf">Object_copy</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">object</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_copy(Object const * const me, Object * const object);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1040,7 +975,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-kt">bool</span><span class="tok-w"> </span><span class="tok-nf">Object_equals</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">other</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">bool Object_equals(Object const * const me, Object const * const other);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1077,7 +1012,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-kt">uint64_t</span><span class="tok-w"> </span><span class="tok-nf">Object_hashCode</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">uint64_t Object_hashCode(Object const * const me);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1104,7 +1039,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-kt">bool</span><span class="tok-w"> </span><span class="tok-nf">Object_isOfClass</span><span class="tok-p">(</span><span class="tok-n">Object</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">,</span><span class="tok-w"> </span><span class="tok-n">Object_Class</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">class</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">bool Object_isOfClass(Object const * const me, Object_Class const * const class);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1141,7 +1076,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define hashCode_(me)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define hashCode_(me)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1171,7 +1106,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define class_(className)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define class_(className)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1198,7 +1133,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define initClass_(className, me)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define initClass_(className, me)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1224,7 +1159,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define setUpClass_(className, superClassName, me)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpClass_(className, superClassName, me)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1253,7 +1188,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define overrideObjectMethod_(className, me, methodName)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define overrideObjectMethod_(className, me, methodName)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1282,7 +1217,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define initObject_(className, ...)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define initObject_(className, ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1322,7 +1257,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define classOf_(me)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define classOf_(me)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1349,7 +1284,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define setUpObject_(className, superClassName, ...)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpObject_(className, superClassName, ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1388,7 +1323,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define objectSizeOf_(me)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define objectSizeOf_(me)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1415,7 +1350,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define traitOf_(me, className, interfaceName)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define traitOf_(me, className, interfaceName)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1448,7 +1383,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define objectMethodCall_(className, methodName, ...)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define objectMethodCall_(className, methodName, ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1491,7 +1426,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define superObjectMethodCall_(superClassName, methodName, ...)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define superObjectMethodCall_(superClassName, methodName, ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1534,7 +1469,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define alloc_(className)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define alloc_(className)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1561,7 +1496,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define dealloc_(me)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define dealloc_(me)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1588,7 +1523,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define teardown_(me)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define teardown_(me)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1615,7 +1550,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define copy_(className, me, object)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define copy_(className, me, object)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1648,7 +1583,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define equals_(me, other)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define equals_(me, other)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1685,7 +1620,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define isOfClass_(me, className)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define isOfClass_(me, className)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1886,9 +1821,9 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-k">typedef</span><span class="tok-w"> </span><span class="tok-k">struct</span> <span class="tok-p">{</span><span class="tok-w"></span>
-<span class="tok-w">    </span><span class="tok-kt">size_t</span><span class="tok-w"> </span><span class="tok-n">offset</span><span class="tok-p">;</span><span class="tok-w"></span>
-<span class="tok-p">}</span><span class="tok-w"> </span><span class="tok-n">Trait_Interface</span><span class="tok-p">;</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">typedef struct {
+    size_t offset;
+} Trait_Interface;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1911,10 +1846,10 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-k">typedef</span><span class="tok-w"> </span><span class="tok-k">struct</span> <span class="tok-p">{</span><span class="tok-w"></span>
-<span class="tok-w">    </span><span class="tok-kt">size_t</span><span class="tok-w"> </span><span class="tok-n">offset</span><span class="tok-p">;</span><span class="tok-w"></span>
-<span class="tok-w">    </span><span class="tok-kt">size_t</span><span class="tok-w"> </span><span class="tok-n">interfaceOffset</span><span class="tok-p">;</span><span class="tok-w"></span>
-<span class="tok-p">}</span><span class="tok-w"> </span><span class="tok-n">Trait</span><span class="tok-p">;</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">typedef struct {
+    size_t offset;
+    size_t interfaceOffset;
+} Trait;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1943,7 +1878,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-n">Trait_Interface</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-n">Trait_Interface_</span><span class="tok-p">(</span><span class="tok-kt">void</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Trait_Interface const * Trait_Interface_(void);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1962,7 +1897,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-n">Trait</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-nf">Trait_init</span><span class="tok-p">(</span><span class="tok-n">Trait</span><span class="tok-w"> </span><span class="tok-o">*</span><span class="tok-w"> </span><span class="tok-k">const</span><span class="tok-w"> </span><span class="tok-n">me</span><span class="tok-p">);</span><span class="tok-w"></span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Trait * Trait_init(Trait * const me);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1992,7 +1927,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define interface_(interfaceName)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define interface_(interfaceName)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2019,7 +1954,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define initInterface_(interfaceName, me)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define initInterface_(interfaceName, me)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2045,7 +1980,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define setUpInterface_(className, interfaceName, me)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterface_(className, interfaceName, me)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2074,7 +2009,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define overrideTraitMethod_(className, interfaceName, me, methodName)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define overrideTraitMethod_(className, interfaceName, me, methodName)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2106,7 +2041,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define offsetOf_(me)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define offsetOf_(me)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2133,7 +2068,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define objectOf_(me)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define objectOf_(me)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2160,7 +2095,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define interfaceOffsetOf_(me)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define interfaceOffsetOf_(me)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2187,7 +2122,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define interfaceOf_(me)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define interfaceOf_(me)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2214,7 +2149,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define initTrait_(interfaceName, ...)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define initTrait_(interfaceName, ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2254,7 +2189,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define setUpTrait_(className, interfaceName, ...)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpTrait_(className, interfaceName, ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2293,7 +2228,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define traitMethodCall_(interfaceName, methodName, ...)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define traitMethodCall_(interfaceName, methodName, ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2336,7 +2271,7 @@ pre.pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="c"><span></span><span class="tok-cp">#define superTraitMethodCall_(superClassName, interfaceName, methodName, ...)</span></code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define superTraitMethodCall_(superClassName, interfaceName, methodName, ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
