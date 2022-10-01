@@ -290,22 +290,22 @@ end::macro[] */
     to_(Object_Class, me)->objectSize = sizeof(className); \
     to_(Object_Class, me)->superClass = to_(Object_Class, class_(superClassName))
 /* tag::macro[]
-===== overrideObjectMethod_()
+===== overrideClassMethod_()
 ====
 [source,c]
 ----
-#define overrideObjectMethod_(className, me, methodName)
+#define overrideClassMethod_(className, class, methodName)
 ----
-Override a method of a super class
+Override a method of a class
 
 .Params
 * className - Name of the class
-* me - Class reference
+* class - Class reference
 * methodName - Name of the method
 ====
 end::macro[] */
-#define overrideObjectMethod_(className, me, methodName) \
-    to_(className##_Class, me)->methodName = methodName
+#define overrideClassMethod_(className, class, methodName) \
+    to_(className##_Class, class)->methodName = methodName
 /* tag::macro[]
 ===== initObject_()
 ====

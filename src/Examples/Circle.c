@@ -8,9 +8,9 @@ Circle_Class const * Circle_Class_(void) {
     doOnce_ {
         setUpClass_(Circle, Shape, &class);
         setUpInterface_(Circle, Drawable, &class);
-        overrideObjectMethod_(Object, &class, teardown);
-        overrideTraitMethod_(Circle, Drawable, &class, draw);
-        overrideObjectMethod_(Shape, &class, area);
+        overrideClassMethod_(Object, &class, teardown);
+        overrideInterfaceMethod_(Circle, Drawable, &class, draw);
+        overrideClassMethod_(Shape, &class, area);
     }
     return &class;
 }

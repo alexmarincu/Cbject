@@ -132,23 +132,23 @@ end::macro[] */
     initInterface_(interfaceName, &(me)->i##interfaceName##_Interface); \
     to_(Trait_Interface, &(me)->i##interfaceName##_Interface)->offset = offsetof(className, i##interfaceName)
 /* tag::macro[]
-===== overrideTraitMethod_()
+===== overrideInterfaceMethod_()
 ====
 [source,c]
 ----
-#define overrideTraitMethod_(className, interfaceName, me, methodName)
+#define overrideInterfaceMethod_(className, interfaceName, interface, methodName)
 ----
 Override a method of an interface
 
 .Params
 * className - Name of the class
 * interfaceName - Name of the interface
-* me - Interface reference
+* interface - Interface reference
 * methodName - Name of the method
 ====
 end::macro[] */
-#define overrideTraitMethod_(className, interfaceName, me, methodName) \
-    to_(interfaceName##_Interface, &to_(className##_Class, me)->i##interfaceName##_Interface)->methodName = methodName
+#define overrideInterfaceMethod_(className, interfaceName, interface, methodName) \
+    to_(interfaceName##_Interface, &to_(className##_Class, interface)->i##interfaceName##_Interface)->methodName = methodName
 /* tag::macro[]
 ===== offsetOf_()
 ====

@@ -22,8 +22,8 @@ Application_Class const * Application_Class_(void) {
     static Application_Class class;
     doOnce_ {
         setUpClass_(Application, Object, &class);
-        overrideObjectMethod_(Object, &class, teardown);
-        overrideObjectMethod_(Object, &class, copy);
+        overrideClassMethod_(Object, &class, teardown);
+        overrideClassMethod_(Object, &class, copy);
     }
     return &class;
 }

@@ -562,7 +562,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_class">class_()</a></li>
 <li><a href="#_initclass">initClass_()</a></li>
 <li><a href="#_setupclass">setUpClass_()</a></li>
-<li><a href="#_overrideobjectmethod">overrideObjectMethod_()</a></li>
+<li><a href="#_overrideclassmethod">overrideClassMethod_()</a></li>
 <li><a href="#_initobject">initObject_()</a></li>
 <li><a href="#_classof">classOf_()</a></li>
 <li><a href="#_setupobject">setUpObject_()</a></li>
@@ -610,7 +610,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_interface">interface_()</a></li>
 <li><a href="#_initinterface">initInterface_()</a></li>
 <li><a href="#_setupinterface">setUpInterface_()</a></li>
-<li><a href="#_overridetraitmethod">overrideTraitMethod_()</a></li>
+<li><a href="#_overrideinterfacemethod">overrideInterfaceMethod_()</a></li>
 <li><a href="#_offsetof">offsetOf_()</a></li>
 <li><a href="#_objectof">objectOf_()</a></li>
 <li><a href="#_interfaceoffsetof">interfaceOffsetOf_()</a></li>
@@ -1192,16 +1192,16 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_overrideobjectmethod">overrideObjectMethod_()</h5>
+<h5 id="_overrideclassmethod">overrideClassMethod_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define overrideObjectMethod_(className, me, methodName)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define overrideClassMethod_(className, class, methodName)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Override a method of a super class</p>
+<p>Override a method of a class</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
@@ -1210,7 +1210,7 @@ dealloc_(object);</code></pre>
 <p>className - Name of the class</p>
 </li>
 <li>
-<p>me - Class reference</p>
+<p>class - Class reference</p>
 </li>
 <li>
 <p>methodName - Name of the method</p>
@@ -2013,12 +2013,12 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_overridetraitmethod">overrideTraitMethod_()</h5>
+<h5 id="_overrideinterfacemethod">overrideInterfaceMethod_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define overrideTraitMethod_(className, interfaceName, me, methodName)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define overrideInterfaceMethod_(className, interfaceName, interface, methodName)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2034,7 +2034,7 @@ dealloc_(object);</code></pre>
 <p>interfaceName - Name of the interface</p>
 </li>
 <li>
-<p>me - Interface reference</p>
+<p>interface - Interface reference</p>
 </li>
 <li>
 <p>methodName - Name of the method</p>

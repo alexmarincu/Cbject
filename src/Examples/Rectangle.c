@@ -14,9 +14,9 @@ Rectangle_Class const * Rectangle_Class_(void) {
     doOnce_ {
         setUpClass_(Rectangle, Shape, &class);
         setUpInterface_(Rectangle, Drawable, &class);
-        overrideObjectMethod_(Object, &class, teardown);
-        overrideTraitMethod_(Rectangle, Drawable, &class, draw);
-        overrideObjectMethod_(Shape, &class, area);
+        overrideClassMethod_(Object, &class, teardown);
+        overrideInterfaceMethod_(Rectangle, Drawable, &class, draw);
+        overrideClassMethod_(Shape, &class, area);
     }
     return &class;
 }
