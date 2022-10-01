@@ -14,19 +14,73 @@ end::overview[] */
 ====
 [source,c]
 ----
-typedef struct {
-    size_t traitOffset;
-} Trait_Interface;
+typedef struct Trait_Interface Trait_Interface;
 ----
-Typedef and definition of Trait_Interface
+Typedef for struct Trait_Interface
+====
+end::type[] */
+typedef struct Trait_Interface Trait_Interface;
+/* tag::type[]
+===== Trait
+====
+[source,c]
+----
+typedef struct Trait Trait;
+----
+Typedef for struct Trait
+====
+end::type[] */
+typedef struct Trait Trait;
+/* tag::type[]
+===== struct Trait_Interface
+====
+[source,c]
+----
+struct Trait_Interface {
+    size_t traitOffset;
+};
+----
+Definition of struct Trait_Interface
 
 .Members
 * traitOffset - Offset of trait in containing object
 ====
 end::type[] */
-typedef struct {
+/* @startuml(id=Trait_Interface)
+object Trait_Interface {
     size_t traitOffset;
-} Trait_Interface;
+}
+@enduml */
+struct Trait_Interface {
+    size_t traitOffset;
+};
+/* tag::type[]
+===== struct Trait
+====
+[source,c]
+----
+struct Trait {
+    size_t offset;
+    size_t interfaceOffset;
+};
+----
+Definition of struct Trait
+
+.Members
+* offset - Offset of Trait in container Object
+* interfaceOffset - Offset of Trait_Interface in container Object_Class
+====
+end::type[] */
+/* @startuml(id=Trait)
+object Trait {
+    size_t offset;
+    size_t interfaceOffset;
+}
+@enduml */
+struct Trait {
+    size_t offset;
+    size_t interfaceOffset;
+};
 /* tag::function[]
 ===== Trait_Interface_
 ====
@@ -41,27 +95,6 @@ Reference of the trait interface
 ====
 end::function[] */
 Trait_Interface const * Trait_Interface_(void);
-/* tag::type[]
-===== Trait
-====
-[source,c]
-----
-typedef struct {
-    size_t offset;
-    size_t interfaceOffset;
-} Trait;
-----
-Typedef and definition of Trait
-
-.Members
-* offset - Offset of Trait in container Object
-* interfaceOffset - Offset of Trait_Interface in container Object_Class
-====
-end::type[] */
-typedef struct {
-    size_t offset;
-    size_t interfaceOffset;
-} Trait;
 /* tag::function[]
 ===== Trait_init
 ====

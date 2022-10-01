@@ -5,6 +5,12 @@
 #include "Shape.h"
 typedef struct Rectangle_Class Rectangle_Class;
 typedef struct Rectangle Rectangle;
+/* @startuml(id=Rectangle_Class)
+object Rectangle_Class {
+    Shape_Class super;
+    Drawable_Interface iDrawable_Interface;
+}
+@enduml */
 struct Rectangle_Class {
     extends_(Shape_Class);
     implements_(Drawable_Interface);

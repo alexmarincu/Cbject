@@ -1,5 +1,13 @@
 #include "Rectangle.h"
 #include <stdio.h>
+/* @startuml(id=Rectangle)
+object Rectangle {
+    Shape super;
+    Drawable iDrawable;
+    uint32_t width;
+    uint32_t height;
+}
+@enduml */
 struct Rectangle {
     extends_(Shape);
     implements_(Drawable);

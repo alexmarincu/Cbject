@@ -34,73 +34,26 @@ dealloc_(object);
 [plantuml, target=diag-building-blocks, format=png]
 .Building blocks
 ----
-object Object {
-    Object_Class const * class;
-}
-object Object_Class {
-    size_t objectSize;
-    Object_Class const * superClass;
-    Object * (*teardown)(Object * me);
-    uint64_t (*hashCode)(Object const * const me);
-    Object * (*copy)(Object const * const me);
-    bool (*equals)(Object const * const me, Object const * const other);
-}
+!include ../src/Cbject/Object.h!Object
+!include ../src/Cbject/Object.h!Object_Class
+!include ../src/Cbject/Trait.h!Trait
+!include ../src/Cbject/Trait.h!Trait_Interface
 Object -r-> Object_Class
-object Trait {
-    size_t offset;
-    size_t interfaceOffset;
-}
-object Trait_Interface {
-    size_t offset;
-}
 ----
 
 [plantuml, target=diag-rectangle-class-example, format=png]
 .Rectangle class example
 ----
-object Rectangle {
-    Shape super;
-    Drawable mDrawable;
-    uint32_t width;
-    uint32_t height;
-}
-object Shape {
-    Object super;
-    Point origin;
-}
-object Drawable {
-    Trait super;
-}
-object Drawable_Interface {
-    Trait_Interface super;
-    void (*draw)(Drawable const * const me);
-}
-object Trait {
-    size_t offset;
-    size_t interfaceOffset;
-}
-object Rectangle_Class {
-    Shape_Class super;
-    Drawable_Interface mDrawable_Interface;
-}
-object Trait_Interface {
-    size_t offset;
-}
-object Object {
-    Object_Class const * class;
-}
-object Shape_Class {
-    Object_Class super;
-    float (*area)(Shape const * const me);
-}
-object Object_Class {
-    size_t objectSize;
-    Object_Class const * superClass;
-    Object * (*teardown)(Object * me);
-    uint64_t (*hashCode)(Object const * const me);
-    Object * (*copy)(Object const * const me);
-    bool (*equals)(Object const * const me, Object const * const other);
-}
+!include ../src/Examples/Rectangle.c!Rectangle
+!include ../src/Examples/Shape.h!Shape
+!include ../src/Examples/Drawable.h!Drawable
+!include ../src/Examples/Drawable.h!Drawable_Interface
+!include ../src/Cbject/Trait.h!Trait
+!include ../src/Examples/Rectangle.h!Rectangle_Class
+!include ../src/Cbject/Trait.h!Trait_Interface
+!include ../src/Cbject/Object.h!Object
+!include ../src/Examples/Shape.h!Shape_Class
+!include ../src/Cbject/Object.h!Object_Class
 Rectangle -u-|> Shape
 Rectangle *-r- Drawable
 Rectangle_Class *-r- Drawable_Interface

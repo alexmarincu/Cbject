@@ -40,7 +40,7 @@ struct Object_Class {
     Object_Class const * superClass;
     Object * (*teardown)(Object * object);
     uint64_t (*hashCode)(Object const * const object);
-    Object * (*copy)(Object const * const object, Object * const object);
+    Object * (*copy)(Object const * const object, Object * const copyObject);
     bool (*equals)(Object const * const object, Object const * const otherObject);
 };
 ----
@@ -55,6 +55,18 @@ Definition of struct Object_Class
 * equals - Function pointer for the equals method
 ====
 end::type[] */
+/*
+@startuml(id=Object_Class)
+object Object_Class {
+    size_t objectSize;
+    Object_Class const * superClass;
+    Object * (*teardown)(Object * object);
+    uint64_t (*hashCode)(Object const * const object);
+    Object * (*copy)(Object const * const object, Object * const copyObject);
+    bool (*equals)(Object const * const object, Object const * const otherObject);
+}
+@enduml
+*/
 struct Object_Class {
     size_t objectSize;
     Object_Class const * superClass;
@@ -78,6 +90,11 @@ Definition of struct Object
 * class - Pointer to the class structure
 ====
 end::type[] */
+/* @startuml(id=Object)
+object Object {
+    Object_Class const * class;
+}
+@enduml */
 struct Object {
     Object_Class const * class;
 };
