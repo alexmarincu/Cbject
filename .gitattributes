@@ -45,3 +45,4 @@
 
 # Exceptions
 docs/*.png filter= diff= merge= binary
+docs/*.pdf filter= diff= merge= binary

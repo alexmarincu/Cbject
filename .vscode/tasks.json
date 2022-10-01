@@ -52,7 +52,7 @@
         {
             "label": "Generate Doc",
             "type": "shell",
-            "command": "rm -rf media; asciidoctor -r asciidoctor-diagram -o index.html index.adoc",
+            "command": "rm -rf media; asciidoctor -r asciidoctor-diagram -o index.html Cbject.adoc; asciidoctor-pdf -r asciidoctor-diagram -o Cbject.pdf Cbject.adoc",
             "group": "build",
             "problemMatcher": [],
             "options": {
