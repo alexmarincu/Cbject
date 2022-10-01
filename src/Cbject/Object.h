@@ -55,8 +55,7 @@ Definition of struct Object_Class
 * equals - Function pointer for the equals method
 ====
 end::type[] */
-/*
-@startuml(id=Object_Class)
+/* @startuml(id=Object_Class)
 object Object_Class {
     size_t objectSize;
     Object_Class const * superClass;
@@ -65,8 +64,7 @@ object Object_Class {
     Object * (*copy)(Object const * const object, Object * const copyObject);
     bool (*equals)(Object const * const object, Object const * const otherObject);
 }
-@enduml
-*/
+@enduml */
 struct Object_Class {
     size_t objectSize;
     Object_Class const * superClass;
