@@ -8,15 +8,15 @@ struct Application {
     Circle * circle;
     Rectangle * rectangle;
 };
-static Object * teardown(Object * me);
-static Object * copy(Object const * const me, Object * const object);
-static void init(Application * const me);
+static Object * teardown(Object * application);
+static Object * copy(Object const * const application, Object * const copyObject);
+static void init(Application * const application);
 Application * Application_(void) {
-    static Application me;
+    static Application application;
     doOnce_ {
-        init(&me);
+        init(&application);
     }
-    return &me;
+    return &application;
 }
 Application_Class const * Application_Class_(void) {
     static Application_Class class;
@@ -27,110 +27,111 @@ Application_Class const * Application_Class_(void) {
     }
     return &class;
 }
-static void init(Application * const me) {
-    setUpObject_(Application, Object, me);
+static void init(Application * const application) {
+    setUpObject_(Application, Object, application);
 }
-static void circleExample(Application * const me);
-static void greetingExample(Application * const me);
-static void rectangleExample(Application * const me);
-static void polymorphismExample(Application * const me);
-void Application_main(Application * const me) {
-    greetingExample(me);
-    circleExample(me);
-    rectangleExample(me);
-    polymorphismExample(me);
+static void circleExample(Application * const application);
+static void greetingExample(Application * const application);
+static void rectangleExample(Application * const application);
+static void polymorphismExample(Application * const application);
+void Application_main(Application * const application) {
+    greetingExample(application);
+    circleExample(application);
+    rectangleExample(application);
+    polymorphismExample(application);
 }
-static void greetingExample(Application * const me) {
-    ignore_(me);
-    // Allocate and initialize a Greeting object
+static void greetingExample(Application * const application) {
+    ignore_(application);
+    // Allocate and initialize a Greeting application
     Greeting * greeting = initObject_(Greeting, alloc_(Greeting), "Hello Cbject!");
-    // Call Greeting print function on the greeting object
+    // Call Greeting print function on the greeting application
     Greeting_print(greeting);
-    // Free memory allocated for the Greeting object
+    // Free memory allocated for the Greeting application
     dealloc_(greeting);
 }
-static void circleExample(Application * const me) {
-    // Allocate and initialize a Circle object
-    me->circle = initObject_(Circle, alloc_(Circle), (Point){ 0, 1 }, 2);
+static void circleExample(Application * const application) {
+    // Allocate and initialize a Circle application
+    application->circle = initObject_(Circle, alloc_(Circle), (Point){ 0, 1 }, 2);
     // Get circle radius
-    uint32_t radius = me->circle->radius;
+    uint32_t radius = application->circle->radius;
     ignore_(radius);
     // Set circle radius
-    me->circle->radius = 3;
-    // Get circle area through Shape object polymorphic call
-    float area = Shape_area(to_(Shape, me->circle));
+    application->circle->radius = 3;
+    // Get circle area through Shape application polymorphic call
+    float area = Shape_area(to_(Shape, application->circle));
     ignore_(area);
     // Get circle shape origin
-    Point origin = to_(Shape, me->circle)->origin;
+    Point origin = to_(Shape, application->circle)->origin;
     ignore_(origin);
     // set circle shape origin
-    to_(Shape, me->circle)->origin = (Point){ 4, 5 };
-    // Draw circle through Drawable object polymorphic call
-    Drawable_draw(traitOf_(me->circle, Circle, Drawable));
+    to_(Shape, application->circle)->origin = (Point){ 4, 5 };
+    // Draw circle through Drawable application polymorphic call
+    Drawable_draw(traitOf_(application->circle, Circle, Drawable));
 }
-static void rectangleExample(Application * const me) {
-    // Allocate and initialize a Rectangle object
-    me->rectangle = initObject_(Rectangle, alloc_(Rectangle), (Point){ 0, 1 }, 2, 3);
+static void rectangleExample(Application * const application) {
+    // Allocate and initialize a Rectangle application
+    application->rectangle = initObject_(Rectangle, alloc_(Rectangle), (Point){ 0, 1 }, 2, 3);
     // Get rectangle width and height
-    uint32_t width = Rectangle_getWidth(me->rectangle);
+    uint32_t width = Rectangle_getWidth(application->rectangle);
     ignore_(width);
-    uint32_t height = Rectangle_getHeight(me->rectangle);
+    uint32_t height = Rectangle_getHeight(application->rectangle);
     ignore_(height);
     // Set rectangle with and height
-    Rectangle_setWidth(me->rectangle, 4);
-    Rectangle_setHeight(me->rectangle, 5);
-    // Get rectangle area through Shape object polymorphic call
-    float area = Shape_area(to_(Shape, me->rectangle));
+    Rectangle_setWidth(application->rectangle, 4);
+    Rectangle_setHeight(application->rectangle, 5);
+    // Get rectangle area through Shape application polymorphic call
+    float area = Shape_area(to_(Shape, application->rectangle));
     ignore_(area);
     // Get rectangle shape origin
-    Point origin = to_(Shape, me->rectangle)->origin;
+    Point origin = to_(Shape, application->rectangle)->origin;
     ignore_(origin);
     // set rectangle shape origin
-    to_(Shape, me->rectangle)->origin = (Point){ 6, 7 };
-    // Draw rectangle through Drawable object polymorphic call
-    Drawable_draw(traitOf_(me->rectangle, Rectangle, Drawable));
+    to_(Shape, application->rectangle)->origin = (Point){ 6, 7 };
+    // Draw rectangle through Drawable application polymorphic call
+    Drawable_draw(traitOf_(application->rectangle, Rectangle, Drawable));
 }
-static void polymorphismExample(Application * const me) {
+static void polymorphismExample(Application * const application) {
     // Prepare a list of shapes
     Shape * const shapes[] = {
-        to_(Shape, me->circle),
-        to_(Shape, me->rectangle),
+        to_(Shape, application->circle),
+        to_(Shape, application->rectangle),
     };
     // Loop through the list of shapes and call various polymorphic functions
     for (uint8_t i = 0; i < lengthOf_(shapes); i++) {
-        // Get area through Shape object polymorphic call
+        // Get area through Shape application polymorphic call
         float area = Shape_area(shapes[i]);
         ignore_(area);
-        // Get parent object from included object
-        Object * object = objectOf_(shapes[i]);
-        // Get size of object
-        size_t objectSize = objectSizeOf_(object);
+        // Get parent application from included application
+        Object * application = objectOf_(shapes[i]);
+        // Get size of application
+        size_t objectSize = objectSizeOf_(application);
         ignore_(objectSize);
-        // Get hash code of object
-        uint64_t hashCode = hashCode_(object);
+        // Get hash code of application
+        uint64_t hashCode = hashCode_(application);
         ignore_(hashCode);
-        // Check class of object
-        if (isOfClass_(object, Circle)) {
+        // Check class of application
+        if (isOfClass_(application, Circle)) {
             // Get circle radius
-            uint32_t radius = to_(Circle, object)->radius;
+            uint32_t radius = to_(Circle, application)->radius;
             ignore_(radius);
-        } else if (isOfClass_(object, Rectangle)) {
+        } else if (isOfClass_(application, Rectangle)) {
             // Get rectangle width and height
-            uint32_t width = Rectangle_getWidth(to_(Rectangle, object));
+            uint32_t width = Rectangle_getWidth(to_(Rectangle, application));
             ignore_(width);
-            uint32_t height = Rectangle_getHeight(to_(Rectangle, object));
+            uint32_t height = Rectangle_getHeight(to_(Rectangle, application));
             ignore_(height);
         }
     }
 }
-static Object * teardown(Object * const me) {
-    Application * Me = to_(Application, me);
-    dealloc_(Me->rectangle);
-    dealloc_(Me->circle);
-    return classMethodCall_(Object, teardown, me);
+static Object * teardown(Object * const object) {
+    Application * application = to_(Application, object);
+    dealloc_(application->rectangle);
+    dealloc_(application->circle);
+    return classMethodCall_(Object, Object, teardown, object);
 }
-static Object * copy(Object const * const me, Object * const object) {
+static Object * copy(Object const * const object, Object * const copyObject) {
     ignore_(object);
+    ignore_(copyObject);
     assert_(false);
-    return to_(Object, me);
+    return NULL;
 }

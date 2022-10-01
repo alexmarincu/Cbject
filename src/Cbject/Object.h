@@ -430,12 +430,13 @@ end::macro[] */
 ====
 [source,c]
 ----
-#define classMethodCall_(className, methodName, ...)
+#define classMethodCall_(className, superClassName, methodName, ...)
 ----
 Call a method through a class
 
 .Params
-* className - Class name
+* className - Name of the class
+* superClassName - Name of the super class
 * methodName - Name of the method
 * ...
 ** object - Object reference
@@ -445,8 +446,8 @@ Call a method through a class
 Depends on the called method
 ====
 end::macro[] */
-#define classMethodCall_(className, methodName, ...) \
-    to_(className##_Class, class_(className))->methodName(__VA_ARGS__)
+#define classMethodCall_(className, superClassName, methodName, ...) \
+    to_(superClassName##_Class, class_(className))->methodName(__VA_ARGS__)
 /* tag::macro[]
 ===== alloc_()
 ====

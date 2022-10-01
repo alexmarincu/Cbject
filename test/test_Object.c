@@ -18,7 +18,6 @@ Test setup of Object_Class
 ====
 end::test[] */
 void test_Object_class(void) {
-    Object_Class const * objectClass = class_(Object);
     TEST_ASSERT_EQUAL_size_t(sizeof(Object), class_(Object)->objectSize);
     TEST_ASSERT_NOT_NULL(class_(Object)->teardown);
     TEST_ASSERT_NOT_NULL(class_(Object)->copy);

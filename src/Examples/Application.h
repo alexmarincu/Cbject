@@ -8,5 +8,5 @@ struct Application_Class {
 };
 Application_Class const * Application_Class_(void);
 Application * Application_(void);
-void Application_main(Application * const me);
+void Application_main(Application * const application);
 #endif // APPLICATION_H

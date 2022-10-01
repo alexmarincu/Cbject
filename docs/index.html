@@ -1435,7 +1435,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define classMethodCall_(className, methodName, ...)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define classMethodCall_(className, superClassName, methodName, ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1445,7 +1445,10 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>className - Class name</p>
+<p>className - Name of the class</p>
+</li>
+<li>
+<p>superClassName - Name of the super class</p>
 </li>
 <li>
 <p>methodName - Name of the method</p>

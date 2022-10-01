@@ -12,7 +12,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 void test_ColoredCircle_init(void) {
-    ColoredCircle * c = initObject_(ColoredCircle, alloc_(ColoredCircle), (Point){ 0, 1 }, 2, Color_blue);
-    Drawable_draw(traitOf_(c, Circle, Drawable));
-    dealloc_(c);
+    ColoredCircle * coloredCircle = initObject_(ColoredCircle, alloc_(ColoredCircle), (Point){ 0, 1 }, 2, Color_blue);
+    Drawable_draw(traitOf_(coloredCircle, Circle, Drawable));
+    dealloc_(coloredCircle);
 }

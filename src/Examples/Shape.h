@@ -6,7 +6,7 @@ typedef struct Shape_Class Shape_Class;
 typedef struct Shape Shape;
 struct Shape_Class {
     extends_(Object_Class);
-    float (*area)(Shape const * const me);
+    float (*area)(Shape const * const shape);
 };
 struct Shape {
     extends_(Object);
@@ -14,8 +14,8 @@ struct Shape {
 };
 Shape_Class const * Shape_Class_(void);
 Shape * Shape_init(
-    Shape * me,
+    Shape * shape,
     Point origin
 );
-float Shape_area(Shape const * const me);
+float Shape_area(Shape const * const shape);
 #endif // SHAPE_H

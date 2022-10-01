@@ -11,11 +11,11 @@ Greeting_Class const * Greeting_Class_(void) {
     }
     return &class;
 }
-Greeting * Greeting_init(Greeting * me, char * const text) {
-    setUpObject_(Greeting, Object, me);
-    me->text = text;
-    return me;
+Greeting * Greeting_init(Greeting * greeting, char * const text) {
+    setUpObject_(Greeting, Object, greeting);
+    greeting->text = text;
+    return greeting;
 }
-void Greeting_print(Greeting * const me) {
-    printf("%s\n", me->text);
+void Greeting_print(Greeting * const greeting) {
+    printf("%s\n", greeting->text);
 }
