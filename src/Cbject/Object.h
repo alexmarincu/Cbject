@@ -402,7 +402,7 @@ Trait reference
 ====
 end::macro[] */
 #define traitOf_(object, className, interfaceName) \
-    to_(interfaceName, (to_(Any, object) + to_(Trait_Interface, &to_(className##_Class, classOf_(object))->i##interfaceName##_Interface)->offset))
+    to_(interfaceName, (to_(Any, object) + to_(Trait_Interface, &to_(className##_Class, classOf_(object))->i##interfaceName##_Interface)->traitOffset))
 /* tag::macro[]
 ===== objectMethodCall_()
 ====

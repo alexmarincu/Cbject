@@ -7,17 +7,14 @@ static Object * copy(Object const * const object, Object * const copyObject);
 static bool equals(Object const * const object, Object const * const otherObject);
 static uint64_t hashCode(Object const * const object);
 Object_Class const * Object_Class_(void) {
-    static Object_Class class;
-    doOnce_ {
-        class = (Object_Class){
-            .objectSize = sizeof(Object),
-            .superClass = NULL,
-            .teardown = teardown,
-            .copy = copy,
-            .equals = equals,
-            .hashCode = hashCode
-        };
-    }
+    static Object_Class class = {
+        .objectSize = sizeof(Object),
+        .superClass = NULL,
+        .teardown = teardown,
+        .copy = copy,
+        .equals = equals,
+        .hashCode = hashCode
+    };
     return &class;
 }
 Object * Object_alloc(Object_Class const * const class) {

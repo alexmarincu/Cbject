@@ -757,10 +757,10 @@ dealloc_(object);</code></pre>
 <pre class="highlight"><code class="language-c" data-lang="c">struct Object_Class {
     size_t objectSize;
     Object_Class const * superClass;
-    Object * (*teardown)(Object * me);
-    uint64_t (*hashCode)(Object const * const me);
-    Object * (*copy)(Object const * const me, Object * const object);
-    bool (*equals)(Object const * const me, Object const * const other);
+    Object * (*teardown)(Object * object);
+    uint64_t (*hashCode)(Object const * const object);
+    Object * (*copy)(Object const * const object, Object * const object);
+    bool (*equals)(Object const * const object, Object const * const otherObject);
 };</code></pre>
 </div>
 </div>
@@ -873,7 +873,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_dealloc(Object * const me);</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_dealloc(Object * const object);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -883,7 +883,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 </ul>
 </div>
@@ -900,7 +900,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_init(Object * const me);</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_init(Object * const object);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -910,7 +910,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 </ul>
 </div>
@@ -927,7 +927,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_teardown(Object * me);</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_teardown(Object * object);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -937,7 +937,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 </ul>
 </div>
@@ -954,7 +954,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_copy(Object const * const me, Object * const object);</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_copy(Object const * const object, Object * const copyObject);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -964,10 +964,10 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 <li>
-<p>object - Reference of a new allocated object in which to copy the original one</p>
+<p>copyObject - Reference of a new allocated object in which to copy the original one</p>
 </li>
 </ul>
 </div>
@@ -984,7 +984,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">bool Object_equals(Object const * const me, Object const * const other);</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">bool Object_equals(Object const * const object, Object const * const otherObject);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -994,10 +994,10 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 <li>
-<p>other - Reference for the compared object</p>
+<p>otherObject - Reference for the compared object</p>
 </li>
 </ul>
 </div>
@@ -1021,7 +1021,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">uint64_t Object_hashCode(Object const * const me);</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">uint64_t Object_hashCode(Object const * const object);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1031,7 +1031,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 </ul>
 </div>
@@ -1048,7 +1048,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">bool Object_isOfClass(Object const * const me, Object_Class const * const class);</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">bool Object_isOfClass(Object const * const object, Object_Class const * const class);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1058,7 +1058,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 <li>
 <p>class - Class reference</p>
@@ -1085,7 +1085,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define hashCode_(me)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define hashCode_(object)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1095,7 +1095,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 </ul>
 </div>
@@ -1142,7 +1142,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define initClass_(className, me)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define initClass_(className, object)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1155,7 +1155,7 @@ dealloc_(object);</code></pre>
 <p>className - Name of the class</p>
 </li>
 <li>
-<p>me - Class reference</p>
+<p>object - Class reference</p>
 </li>
 </ul>
 </div>
@@ -1168,7 +1168,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpClass_(className, superClassName, me)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpClass_(className, superClassName, class)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1184,7 +1184,7 @@ dealloc_(object);</code></pre>
 <p>superClassName - Name of the super class</p>
 </li>
 <li>
-<p>me - Class reference</p>
+<p>class - Class reference</p>
 </li>
 </ul>
 </div>
@@ -1243,7 +1243,7 @@ dealloc_(object);</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 <li>
 <p>&#8230;&#8203; - Init params</p>
@@ -1266,7 +1266,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define classOf_(me)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define classOf_(object)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1276,7 +1276,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 </ul>
 </div>
@@ -1313,7 +1313,7 @@ dealloc_(object);</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 <li>
 <p>&#8230;&#8203; - Init params</p>
@@ -1332,7 +1332,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define objectSizeOf_(me)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define objectSizeOf_(object)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1342,7 +1342,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 </ul>
 </div>
@@ -1359,7 +1359,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define traitOf_(me, className, interfaceName)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define traitOf_(object, className, interfaceName)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1369,7 +1369,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 <li>
 <p>className - Name of the class</p>
@@ -1412,7 +1412,7 @@ dealloc_(object);</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 <li>
 <p>&#8230;&#8203; - Method params</p>
@@ -1455,7 +1455,7 @@ dealloc_(object);</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 <li>
 <p>&#8230;&#8203; - Method params</p>
@@ -1505,7 +1505,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define dealloc_(me)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define dealloc_(object)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1515,7 +1515,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 </ul>
 </div>
@@ -1532,7 +1532,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define teardown_(me)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define teardown_(object)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1542,7 +1542,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 </ul>
 </div>
@@ -1559,7 +1559,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define copy_(className, me, object)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define copy_(className, object, copyObject)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1572,10 +1572,10 @@ dealloc_(object);</code></pre>
 <p>className - Name of class</p>
 </li>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 <li>
-<p>object - Reference of a new allocated object in which to copy the original one</p>
+<p>copyObject - Reference of a new allocated object in which to copy the original one</p>
 </li>
 </ul>
 </div>
@@ -1592,7 +1592,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define equals_(me, other)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define equals_(object, otherObject)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1602,10 +1602,10 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 <li>
-<p>other - Reference for the compared object</p>
+<p>otherObject - Reference for the compared object</p>
 </li>
 </ul>
 </div>
@@ -1629,7 +1629,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define isOfClass_(me, className)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define isOfClass_(object, className)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1639,7 +1639,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Object reference</p>
+<p>object - Object reference</p>
 </li>
 <li>
 <p>className - Class name</p>
@@ -1831,7 +1831,7 @@ dealloc_(object);</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-c" data-lang="c">typedef struct {
-    size_t offset;
+    size_t traitOffset;
 } Trait_Interface;</code></pre>
 </div>
 </div>
@@ -1842,7 +1842,7 @@ dealloc_(object);</code></pre>
 <div class="title">Members</div>
 <ul>
 <li>
-<p>offset - Offset of trait in containing object</p>
+<p>traitOffset - Offset of trait in containing object</p>
 </li>
 </ul>
 </div>
@@ -1906,7 +1906,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">Trait * Trait_init(Trait * const me);</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">Trait * Trait_init(Trait * const trait);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1916,7 +1916,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Trait reference</p>
+<p>trait - Trait reference</p>
 </li>
 </ul>
 </div>
@@ -1963,7 +1963,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define initInterface_(interfaceName, me)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define initInterface_(interfaceName, interface)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1976,7 +1976,7 @@ dealloc_(object);</code></pre>
 <p>interfaceName - Name of the interface</p>
 </li>
 <li>
-<p>me - Interface reference</p>
+<p>interface - Interface reference</p>
 </li>
 </ul>
 </div>
@@ -1989,7 +1989,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterface_(className, interfaceName, me)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterface_(className, interfaceName, interface)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2005,7 +2005,7 @@ dealloc_(object);</code></pre>
 <p>interfaceName - Name of the interface</p>
 </li>
 <li>
-<p>me - Interface reference</p>
+<p>interface - Interface reference</p>
 </li>
 </ul>
 </div>
@@ -2050,7 +2050,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define offsetOf_(me)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define offsetOf_(trait)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2060,7 +2060,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Trait reference</p>
+<p>trait - Trait reference</p>
 </li>
 </ul>
 </div>
@@ -2077,7 +2077,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define objectOf_(me)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define objectOf_(trait)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2087,7 +2087,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Trait reference</p>
+<p>trait - Trait reference</p>
 </li>
 </ul>
 </div>
@@ -2104,7 +2104,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define interfaceOffsetOf_(me)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define interfaceOffsetOf_(trait)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2114,7 +2114,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Trait reference</p>
+<p>trait - Trait reference</p>
 </li>
 </ul>
 </div>
@@ -2131,7 +2131,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define interfaceOf_(me)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define interfaceOf_(trait)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2141,7 +2141,7 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>me - Trait reference</p>
+<p>trait - Trait reference</p>
 </li>
 </ul>
 </div>
@@ -2175,7 +2175,7 @@ dealloc_(object);</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>me - Trait reference</p>
+<p>trait - Trait reference</p>
 </li>
 <li>
 <p>&#8230;&#8203; - Init params</p>
@@ -2218,7 +2218,7 @@ dealloc_(object);</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>me - Trait reference</p>
+<p>trait - Trait reference</p>
 </li>
 <li>
 <p>&#8230;&#8203; - Init params</p>
@@ -2257,7 +2257,7 @@ dealloc_(object);</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>me - Trait reference</p>
+<p>trait - Trait reference</p>
 </li>
 <li>
 <p>&#8230;&#8203; - Method params</p>
@@ -2303,7 +2303,7 @@ dealloc_(object);</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>me - Trait reference</p>
+<p>trait - Trait reference</p>
 </li>
 <li>
 <p>&#8230;&#8203; - Method params</p>
