@@ -435,6 +435,20 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="./theme-dark.css" />
+<script>
+  function switch_style() {
+    let tag = document.getElementsByTagName("link");
+    for (let i = 0; i < tag.length; i++) {
+      if (
+        tag[i].rel.indexOf("stylesheet") != -1 &&
+        tag[i].href.includes("theme-dark.css")
+      ) {
+        tag[i].disabled = !tag[i].disabled;
+      }
+    }
+  }
+</script>
 <!-- Generate a nice TOC -->
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -452,11 +466,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     margin: 0;
   }
   .tocify-focus {
-    color: #7a2518;
+    color: #b54938;
     background-color: rgba(0, 0, 0, 0.1);
   }
   .tocify-focus > a {
-    color: #7a2518;
+    color: #b54938;
   }
 </style>
 <script type="text/javascript">
@@ -501,20 +515,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
     $(window).resize(handleTocOnResize);
     handleTocOnResize();
   });
-</script>
-<link rel="stylesheet" href="./theme-dark.css" />
-<script>
-  function switch_style() {
-    let tag = document.getElementsByTagName("link");
-    for (let i = 0; i < tag.length; i++) {
-      if (
-        tag[i].rel.indexOf("stylesheet") != -1 &&
-        tag[i].href.includes("theme-dark.css")
-      ) {
-        tag[i].disabled = !tag[i].disabled;
-      }
-    }
-  }
 </script>
 </head>
 <body class="article toc2 toc-right">

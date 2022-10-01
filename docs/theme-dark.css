@@ -41,9 +41,6 @@ h6 {
 p {
   font-family: "Noto Sans", sans-serif !important;
 }
-#toc.toc2 a:link {
-  color: var(--linkcolor);
-}
 blockquote {
   color: var(--tertiarycolor) !important;
 }
@@ -77,6 +74,11 @@ video {
   table {
     width: 55vw !important;
     font-size: 3vw;
+  }
+}
+@media screen and (max-width: 768px) {
+  #toc.toc2 {
+    background-color: var(--maincolor);
   }
 }
 .exampleblock > .content {
