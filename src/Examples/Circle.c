@@ -41,5 +41,5 @@ static void draw(Drawable const * const me) {
     }
 }
 static Object * teardown(Object * me) {
-    return superObjectMethodCall_(Object, teardown, me);
+    return classMethodCall_(Object, teardown, me);
 }

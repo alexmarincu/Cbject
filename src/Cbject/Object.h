@@ -410,7 +410,7 @@ end::macro[] */
 ----
 #define objectMethodCall_(className, methodName, ...)
 ----
-Call an object method
+Call a method through an object
 
 .Params
 * className - Name of the class
@@ -426,16 +426,16 @@ end::macro[] */
 #define objectMethodCall_(className, methodName, ...) \
     to_(className##_Class, classOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
 /* tag::macro[]
-===== superObjectMethodCall_()
+===== classMethodCall_()
 ====
 [source,c]
 ----
-#define superObjectMethodCall_(superClassName, methodName, ...)
+#define classMethodCall_(className, methodName, ...)
 ----
-Call a super object method
+Call a method through a class
 
 .Params
-* superClassName - Super class name
+* className - Class name
 * methodName - Name of the method
 * ...
 ** me - Object reference
@@ -445,8 +445,8 @@ Call a super object method
 Depends on the called method
 ====
 end::macro[] */
-#define superObjectMethodCall_(superClassName, methodName, ...) \
-    to_(superClassName##_Class, class_(superClassName))->methodName(__VA_ARGS__)
+#define classMethodCall_(className, methodName, ...) \
+    to_(className##_Class, class_(className))->methodName(__VA_ARGS__)
 /* tag::macro[]
 ===== alloc_()
 ====

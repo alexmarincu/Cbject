@@ -22,5 +22,5 @@ ColoredCircle * ColoredCircle_init(
 static void draw(Drawable const * const me) {
     ColoredCircle * Me = to_(ColoredCircle, objectOf_(me));
     ignore_(Me);
-    superTraitMethodCall_(Circle, Drawable, draw, me);
+    interfaceMethodCall_(Circle, Drawable, draw, me);
 }

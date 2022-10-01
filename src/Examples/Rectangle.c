@@ -49,7 +49,7 @@ void Rectangle_makeSquare(Rectangle * const me, uint32_t const edgeSize) {
     me->width = edgeSize;
 }
 static Object * teardown(Object * me) {
-    return superObjectMethodCall_(Object, teardown, me);
+    return classMethodCall_(Object, teardown, me);
 }
 static float area(Shape const * const me) {
     Rectangle * Me = to_(Rectangle, me);

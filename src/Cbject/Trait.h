@@ -273,7 +273,7 @@ end::macro[] */
 ----
 #define traitMethodCall_(interfaceName, methodName, ...)
 ----
-Call a trait method
+Call a method through a trait
 
 .Params
 * interfaceName - Name of the interface
@@ -289,16 +289,16 @@ end::macro[] */
 #define traitMethodCall_(interfaceName, methodName, ...) \
     to_(interfaceName##_Interface, interfaceOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
 /* tag::macro[]
-===== superTraitMethodCall_()
+===== interfaceMethodCall_()
 ====
 [source,c]
 ----
-#define superTraitMethodCall_(superClassName, interfaceName, methodName, ...)
+#define interfaceMethodCall_(className, interfaceName, methodName, ...)
 ----
-Call a super trait method
+Call a method through an interface
 
 .Params
-* superClassName - Name of the super class
+* className - Name of the class
 * interfaceName - Name of the interface
 * methodName - Name of the method
 * ...
@@ -309,6 +309,6 @@ Call a super trait method
 Depends on the called method
 ====
 end::macro[] */
-#define superTraitMethodCall_(superClassName, interfaceName, methodName, ...) \
-    to_(interfaceName##_Interface, &to_(superClassName##_Class, class_(superClassName))->i##interfaceName##_Interface)->methodName(__VA_ARGS__)
+#define interfaceMethodCall_(className, interfaceName, methodName, ...) \
+    to_(interfaceName##_Interface, &to_(className##_Class, class_(className))->i##interfaceName##_Interface)->methodName(__VA_ARGS__)
 #endif // TRAIT_H

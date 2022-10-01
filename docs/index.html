@@ -569,7 +569,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_objectsizeof">objectSizeOf_()</a></li>
 <li><a href="#_traitof">traitOf_()</a></li>
 <li><a href="#_objectmethodcall">objectMethodCall_()</a></li>
-<li><a href="#_superobjectmethodcall">superObjectMethodCall_()</a></li>
+<li><a href="#_classmethodcall">classMethodCall_()</a></li>
 <li><a href="#_alloc">alloc_()</a></li>
 <li><a href="#_dealloc">dealloc_()</a></li>
 <li><a href="#_teardown">teardown_()</a></li>
@@ -618,7 +618,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_inittrait">initTrait_()</a></li>
 <li><a href="#_setuptrait">setUpTrait_()</a></li>
 <li><a href="#_traitmethodcall">traitMethodCall_()</a></li>
-<li><a href="#_supertraitmethodcall">superTraitMethodCall_()</a></li>
+<li><a href="#_interfacemethodcall">interfaceMethodCall_()</a></li>
 </ul>
 </li>
 </ul>
@@ -1394,7 +1394,7 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Call an object method</p>
+<p>Call a method through an object</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
@@ -1428,22 +1428,22 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_superobjectmethodcall">superObjectMethodCall_()</h5>
+<h5 id="_classmethodcall">classMethodCall_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define superObjectMethodCall_(superClassName, methodName, ...)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define classMethodCall_(className, methodName, ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Call a super object method</p>
+<p>Call a method through a class</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
 <ul>
 <li>
-<p>superClassName - Super class name</p>
+<p>className - Class name</p>
 </li>
 <li>
 <p>methodName - Name of the method</p>
@@ -2239,7 +2239,7 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Call a trait method</p>
+<p>Call a method through a trait</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
@@ -2273,22 +2273,22 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_supertraitmethodcall">superTraitMethodCall_()</h5>
+<h5 id="_interfacemethodcall">interfaceMethodCall_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define superTraitMethodCall_(superClassName, interfaceName, methodName, ...)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define interfaceMethodCall_(className, interfaceName, methodName, ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Call a super trait method</p>
+<p>Call a method through an interface</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
 <ul>
 <li>
-<p>superClassName - Name of the super class</p>
+<p>className - Name of the class</p>
 </li>
 <li>
 <p>interfaceName - Name of the interface</p>

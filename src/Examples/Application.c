@@ -127,7 +127,7 @@ static Object * teardown(Object * const me) {
     Application * Me = to_(Application, me);
     dealloc_(Me->rectangle);
     dealloc_(Me->circle);
-    return superObjectMethodCall_(Object, teardown, me);
+    return classMethodCall_(Object, teardown, me);
 }
 static Object * copy(Object const * const me, Object * const object) {
     ignore_(object);
