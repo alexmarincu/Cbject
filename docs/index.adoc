@@ -1,13 +1,16 @@
 = Cbject
-:toc: right
-ifndef::backend-pdf[]
-:toc-title: pass:[<div><input width="32" height="32" type="image" alt="Switch theme" src="./button-switch-theme.png" onclick="this.blur();switch_style();return false;"/></div>]
-endif::[]
 :docinfo: shared
 :toclevels: 10
 :sectnums:
 :imagesdir: media
 :last-update-label!:
+:toc: right
+ifndef::backend-pdf[]
+:toc-title: pass:[<div><input width="32" height="32" type="image" alt="Switch theme" src="./button-switch-theme.png" onclick="this.blur();switch_style();return false;"/></div>]
+
+[.text-right]
+https://github.com/alexmarincu/Cbject[GitHub]
+endif::[]
 
 == Overview
 include::../src/Cbject/Cbject.h[tag=overview]
