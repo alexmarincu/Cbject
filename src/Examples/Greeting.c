@@ -1,8 +1,5 @@
 #include "Greeting.h"
 #include <stdio.h>
-/**
- * @brief Greeting
- */
 struct Greeting {
     extends_(Object);
     char * text;

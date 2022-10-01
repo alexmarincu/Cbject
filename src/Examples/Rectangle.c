@@ -1,11 +1,7 @@
 #include "Rectangle.h"
 #include <stdio.h>
-/**
- * @brief Rectangle
- */
 struct Rectangle {
-    extends_(Object);
-    implements_(Shape);
+    extends_(Shape);
     implements_(Drawable);
     uint32_t width;
     uint32_t height;
@@ -16,12 +12,11 @@ static void draw(Drawable const * const me);
 Rectangle_Class const * Rectangle_Class_(void) {
     static Rectangle_Class class;
     doOnce_ {
-        setUpClass_(Rectangle, Object, &class);
+        setUpClass_(Rectangle, Shape, &class);
         setUpInterface_(Rectangle, Drawable, &class);
-        setUpInterface_(Rectangle, Shape, &class);
         overrideObjectMethod_(Object, &class, teardown);
         overrideTraitMethod_(Rectangle, Drawable, &class, draw);
-        overrideTraitMethod_(Rectangle, Shape, &class, area);
+        overrideObjectMethod_(Shape, &class, area);
     }
     return &class;
 }
@@ -31,9 +26,8 @@ Rectangle * Rectangle_init(
     uint32_t width,
     uint32_t height
 ) {
-    setUpObject_(Rectangle, Object, me);
+    setUpObject_(Rectangle, Shape, me, origin);
     setUpTrait_(Rectangle, Drawable, me);
-    setUpTrait_(Rectangle, Shape, me, origin);
     me->width = width;
     me->height = height;
     return me;
@@ -58,7 +52,7 @@ static Object * teardown(Object * me) {
     return superObjectMethodCall_(Object, teardown, me);
 }
 static float area(Shape const * const me) {
-    Rectangle * Me = to_(Rectangle, objectOf_(me));
+    Rectangle * Me = to_(Rectangle, me);
     return Me->width * Me->height;
 }
 static void draw(Drawable const * const me) {

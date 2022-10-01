@@ -2,41 +2,20 @@
 #define SHAPE_H
 #include "../Cbject/Cbject.h"
 #include "Point.h"
-/**
- * @brief Shape
- */
-typedef struct {
-    extends_(Trait);
-    Point origin;
-} Shape;
-/**
- * @brief Shape_Interface
- */
-typedef struct {
-    extends_(Trait_Interface);
+typedef struct Shape_Class Shape_Class;
+typedef struct Shape Shape;
+struct Shape_Class {
+    extends_(Object_Class);
     float (*area)(Shape const * const me);
-} Shape_Interface;
-/**
- * @brief Shape_Interface
- * @return Shape_Interface const*
- */
-Shape_Interface const * Shape_Interface_(void);
-/**
- * @brief Calculate area of a shape
- * @param me Shape object reference
- * @return float Area of the shape
- */
-float Shape_area(Shape const * const me);
-/**
- * @brief
- * @param me
- * @param origin
- * @param width
- * @param height
- * @return Rectangle*
- */
+};
+struct Shape {
+    extends_(Object);
+    Point origin;
+};
+Shape_Class const * Shape_Class_(void);
 Shape * Shape_init(
     Shape * me,
     Point origin
 );
+float Shape_area(Shape const * const me);
 #endif // SHAPE_H

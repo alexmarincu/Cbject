@@ -7,12 +7,10 @@ Drawable_Interface const * Drawable_Interface_(void) {
     };
     return &interface;
 }
-void Drawable_draw(Drawable const * const me) {
-    return traitMethodCall_(Drawable, draw, me);
-}
-Drawable * Drawable_init(
-    Drawable * me
-) {
+Drawable * Drawable_init(Drawable * me) {
     initTrait_(Trait, me);
     return me;
+}
+void Drawable_draw(Drawable const * const me) {
+    return traitMethodCall_(Drawable, draw, me);
 }

@@ -6,25 +6,26 @@ static void draw(Drawable const * const me);
 Circle_Class const * Circle_Class_(void) {
     static Circle_Class class;
     doOnce_ {
-        setUpClass_(Circle, Object, &class);
+        setUpClass_(Circle, Shape, &class);
         setUpInterface_(Circle, Drawable, &class);
-        setUpInterface_(Circle, Shape, &class);
         overrideObjectMethod_(Object, &class, teardown);
         overrideTraitMethod_(Circle, Drawable, &class, draw);
-        overrideTraitMethod_(Circle, Shape, &class, area);
+        overrideObjectMethod_(Shape, &class, area);
     }
     return &class;
 }
-Circle * Circle_init(Circle * me, Point origin, uint32_t radius) {
-    setUpObject_(Circle, Object, me);
+Circle * Circle_init(
+    Circle * me,
+    Point origin,
+    uint32_t radius
+) {
+    setUpObject_(Circle, Shape, me, origin);
     setUpTrait_(Circle, Drawable, me);
-    setUpTrait_(Circle, Shape, me, origin);
-    me->iShape.origin = origin;
     me->radius = radius;
     return me;
 }
 static float area(Shape const * const me) {
-    Circle * Me = to_(Circle, objectOf_(me));
+    Circle * Me = to_(Circle, me);
     return Me->radius * Me->radius * 3.14;
 }
 static void draw(Drawable const * const me) {

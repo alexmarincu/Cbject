@@ -1,8 +1,5 @@
 #ifndef COLOR_H
 #define COLOR_H
-/**
- * @brief
- */
 typedef enum {
     Color_red,
     Color_yellow,

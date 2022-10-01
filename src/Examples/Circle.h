@@ -3,34 +3,21 @@
 #include "../Cbject/Cbject.h"
 #include "Drawable.h"
 #include "Shape.h"
-/**
- * @brief Circle
- */
-typedef struct {
-    extends_(Object);
-    implements_(Shape);
+typedef struct Circle_Class Circle_Class;
+typedef struct Circle Circle;
+struct Circle_Class {
+    extends_(Shape_Class);
+    implements_(Drawable_Interface);
+};
+struct Circle {
+    extends_(Shape);
     implements_(Drawable);
     uint32_t radius;
-} Circle;
-/**
- * @brief Circle_Class
- */
-typedef struct {
-    extends_(Object_Class);
-    implements_(Shape_Interface);
-    implements_(Drawable_Interface);
-} Circle_Class;
-/**
- * @brief Get Circle_Class
- * @return Class const*
- */
+};
 Circle_Class const * Circle_Class_(void);
-/**
- * @brief Init Circle object
- * @param me
- * @param origin
- * @param radius
- * @return Circle*
- */
-Circle * Circle_init(Circle * me, Point origin, uint32_t radius);
+Circle * Circle_init(
+    Circle * me,
+    Point origin,
+    uint32_t radius
+);
 #endif // CIRCLE_H

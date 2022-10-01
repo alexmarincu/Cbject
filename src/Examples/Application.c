@@ -3,9 +3,6 @@
 #include "Greeting.h"
 #include "Rectangle.h"
 #include <stdio.h>
-/**
- * @brief Application
- */
 struct Application {
     extends_(Object);
     Circle * circle;
@@ -61,13 +58,13 @@ static void circleExample(Application * const me) {
     // Set circle radius
     me->circle->radius = 3;
     // Get circle area through Shape object polymorphic call
-    float area = Shape_area(traitOf_(me->circle, Circle, Shape));
+    float area = Shape_area(to_(Shape, me->circle));
     ignore_(area);
     // Get circle shape origin
-    Point origin = traitOf_(me->circle, Circle, Shape)->origin;
+    Point origin = to_(Shape, me->circle)->origin;
     ignore_(origin);
     // set circle shape origin
-    traitOf_(me->circle, Circle, Shape)->origin = (Point){ 4, 5 };
+    to_(Shape, me->circle)->origin = (Point){ 4, 5 };
     // Draw circle through Drawable object polymorphic call
     Drawable_draw(traitOf_(me->circle, Circle, Drawable));
 }
@@ -83,21 +80,21 @@ static void rectangleExample(Application * const me) {
     Rectangle_setWidth(me->rectangle, 4);
     Rectangle_setHeight(me->rectangle, 5);
     // Get rectangle area through Shape object polymorphic call
-    float area = Shape_area(traitOf_(me->rectangle, Rectangle, Shape));
+    float area = Shape_area(to_(Shape, me->rectangle));
     ignore_(area);
     // Get rectangle shape origin
-    Point origin = traitOf_(me->rectangle, Rectangle, Shape)->origin;
+    Point origin = to_(Shape, me->rectangle)->origin;
     ignore_(origin);
     // set rectangle shape origin
-    traitOf_(me->rectangle, Rectangle, Shape)->origin = (Point){ 6, 7 };
+    to_(Shape, me->rectangle)->origin = (Point){ 6, 7 };
     // Draw rectangle through Drawable object polymorphic call
     Drawable_draw(traitOf_(me->rectangle, Rectangle, Drawable));
 }
 static void polymorphismExample(Application * const me) {
     // Prepare a list of shapes
     Shape * const shapes[] = {
-        traitOf_(me->circle, Circle, Shape),
-        traitOf_(me->rectangle, Rectangle, Shape),
+        to_(Shape, me->circle),
+        to_(Shape, me->rectangle),
     };
     // Loop through the list of shapes and call various polymorphic functions
     for (uint8_t i = 0; i < lengthOf_(shapes); i++) {
@@ -132,9 +129,6 @@ static Object * teardown(Object * const me) {
     dealloc_(Me->circle);
     return superObjectMethodCall_(Object, teardown, me);
 }
-/**
- * Override Object_copy to assert if used. Cannot copy a singleton.
- */
 static Object * copy(Object const * const me, Object * const object) {
     ignore_(object);
     assert_(false);
