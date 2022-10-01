@@ -1,4 +1,4 @@
-= Cbject
+= Cbject docs
 :docinfo: shared
 :toclevels: 10
 :sectnums:

@@ -3,7 +3,10 @@ Cbject makes it easier to write object oriented code in C.
 
 === Features
 * Classes
+* Objects
 * Traits
+* Interfaces
+* Inheritance
 * Polymorphism
 
 === Usage
