@@ -44,5 +44,6 @@
 *.exe filter=lfs diff=lfs merge=lfs -text
 
 # Exceptions
+docs/media/*.png filter= diff= merge= binary
 docs/*.png filter= diff= merge= binary
 docs/*.pdf filter= diff= merge= binary
