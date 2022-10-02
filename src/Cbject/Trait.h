@@ -8,7 +8,7 @@ end::overview[] */
 #include <stddef.h>
 #include <stdint.h>
 /* tag::type[]
-===== Trait_Interface
+= Trait_Interface
 ====
 [source,c]
 ----
@@ -19,7 +19,7 @@ Typedef for struct Trait_Interface
 end::type[] */
 typedef struct Trait_Interface Trait_Interface;
 /* tag::type[]
-===== Trait
+= Trait
 ====
 [source,c]
 ----
@@ -30,7 +30,7 @@ Typedef for struct Trait
 end::type[] */
 typedef struct Trait Trait;
 /* tag::type[]
-===== struct Trait_Interface
+= struct Trait_Interface
 ====
 [source,c]
 ----
@@ -53,7 +53,7 @@ struct Trait_Interface {
     size_t traitOffset;
 };
 /* tag::type[]
-===== struct Trait
+= struct Trait
 ====
 [source,c]
 ----
@@ -80,7 +80,7 @@ struct Trait {
     size_t interfaceOffset;
 };
 /* tag::function[]
-===== Trait_Interface_
+= Trait_Interface_
 ====
 [source,c]
 ----
@@ -94,7 +94,7 @@ Reference of the trait interface
 end::function[] */
 Trait_Interface const * Trait_Interface_(void);
 /* tag::function[]
-===== Trait_init
+= Trait_init
 ====
 [source,c]
 ----
@@ -111,7 +111,7 @@ Initialized trait
 end::function[] */
 Trait * Trait_init(Trait * const trait);
 /* tag::macro[]
-===== interface_()
+= interface_()
 ====
 [source,c]
 ----
@@ -129,7 +129,7 @@ end::macro[] */
 #define interface_(interfaceName) \
     interfaceName##_Interface_()
 /* tag::macro[]
-===== initInterface_()
+= initInterface_()
 ====
 [source,c]
 ----
@@ -145,7 +145,7 @@ end::macro[] */
 #define initInterface_(interfaceName, interface) \
     *to_(interfaceName##_Interface, interface) = *interface_(interfaceName);
 /* tag::macro[]
-===== setUpInterface_()
+= setUpInterface_()
 ====
 [source,c]
 ----
@@ -163,7 +163,7 @@ end::macro[] */
     initInterface_(interfaceName, &(interface)->i##interfaceName##_Interface); \
     to_(Trait_Interface, &(interface)->i##interfaceName##_Interface)->traitOffset = offsetof(className, i##interfaceName)
 /* tag::macro[]
-===== bindInterfaceMethod_()
+= bindInterfaceMethod_()
 ====
 [source,c]
 ----
@@ -181,7 +181,7 @@ end::macro[] */
 #define bindInterfaceMethod_(className, interfaceName, interface, methodName) \
     to_(interfaceName##_Interface, &to_(className##_Class, interface)->i##interfaceName##_Interface)->methodName = methodName
 /* tag::macro[]
-===== offsetOf_()
+= offsetOf_()
 ====
 [source,c]
 ----
@@ -199,7 +199,7 @@ end::macro[] */
 #define offsetOf_(trait) \
     to_(Trait, trait)->offset
 /* tag::macro[]
-===== objectOf_()
+= objectOf_()
 ====
 [source,c]
 ----
@@ -217,7 +217,7 @@ end::macro[] */
 #define objectOf_(trait) \
     to_(Object, to_(Any, trait) - offsetOf_(trait))
 /* tag::macro[]
-===== interfaceOffsetOf_()
+= interfaceOffsetOf_()
 ====
 [source,c]
 ----
@@ -235,7 +235,7 @@ end::macro[] */
 #define interfaceOffsetOf_(trait) \
     to_(Trait, trait)->interfaceOffset
 /* tag::macro[]
-===== interfaceOf_()
+= interfaceOf_()
 ====
 [source,c]
 ----
@@ -256,7 +256,7 @@ end::macro[] */
         to_(Any, classOf_(objectOf_(trait))) + interfaceOffsetOf_(trait) \
     )
 /* tag::macro[]
-===== initTrait_()
+= initTrait_()
 ====
 [source,c]
 ----
@@ -277,7 +277,7 @@ end::macro[] */
 #define initTrait_(interfaceName, ...) \
     interfaceName##_init(to_(interfaceName, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
 /* tag::macro[]
-===== setUpTrait_()
+= setUpTrait_()
 ====
 [source,c]
 ----
@@ -298,7 +298,7 @@ end::macro[] */
     offsetOf_(&VaArgs_first_(__VA_ARGS__)->i##interfaceName) = offsetof(className, i##interfaceName);   \
     interfaceOffsetOf_(&VaArgs_first_(__VA_ARGS__)->i##interfaceName) = offsetof(className##_Class, i##interfaceName##_Interface)
 /* tag::macro[]
-===== traitMethodCall_()
+= traitMethodCall_()
 ====
 [source,c]
 ----
@@ -320,7 +320,7 @@ end::macro[] */
 #define traitMethodCall_(interfaceName, methodName, ...) \
     to_(interfaceName##_Interface, interfaceOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
 /* tag::macro[]
-===== interfaceMethodCall_()
+= interfaceMethodCall_()
 ====
 [source,c]
 ----

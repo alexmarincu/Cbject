@@ -21,36 +21,36 @@ include::../src/Cbject/Cbject.h[tag=overview]
 == API
 === Object
 ==== Overview
-include::../src/Cbject/Object.h[tag=overview]
+include::../src/Cbject/Object.h[tag=overview, leveloffset=+4]
 
 ==== Types
-include::../src/Cbject/Object.h[tag=type]
+include::../src/Cbject/Object.h[tag=type, leveloffset=+4]
 
 ==== Functions
-include::../src/Cbject/Object.h[tag=function]
+include::../src/Cbject/Object.h[tag=function, leveloffset=+4]
 
 ==== Macros
-include::../src/Cbject/Object.h[tag=macro]
+include::../src/Cbject/Object.h[tag=macro, leveloffset=+4]
 
 ==== Tests
-include::../test/test_Object.c[tag=test]
+include::../test/test_Object.c[tag=test, leveloffset=+4]
 
 === Trait
 ==== Overview
-include::../src/Cbject/Trait.h[tag=overview]
+include::../src/Cbject/Trait.h[tag=overview, leveloffset=+4]
 
 ==== Types
-include::../src/Cbject/Trait.h[tag=type]
+include::../src/Cbject/Trait.h[tag=type, leveloffset=+4]
 
 ==== Functions
-include::../src/Cbject/Trait.h[tag=function]
+include::../src/Cbject/Trait.h[tag=function, leveloffset=+4]
 
 ==== Macros
-include::../src/Cbject/Trait.h[tag=macro]
+include::../src/Cbject/Trait.h[tag=macro, leveloffset=+4]
 
 === DoOnce
 ==== Overview
-include::../src/Cbject/DoOnce.h[tag=overview]
+include::../src/Cbject/DoOnce.h[tag=overview, leveloffset=+4]
 
 ==== Macros
-include::../src/Cbject/DoOnce.h[tag=macro]
+include::../src/Cbject/DoOnce.h[tag=macro, leveloffset=+4]

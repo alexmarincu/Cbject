@@ -8,7 +8,7 @@ end::overview[] */
 #include <stddef.h>
 #include <stdint.h>
 /* tag::type[]
-===== Object_Class
+= Object_Class
 ====
 [source,c]
 ----
@@ -19,7 +19,7 @@ Typedef for struct Object_Class
 end::type[] */
 typedef struct Object_Class Object_Class;
 /* tag::type[]
-===== Object
+= Object
 ====
 [source,c]
 ----
@@ -30,7 +30,7 @@ Typedef for struct Object
 end::type[] */
 typedef struct Object Object;
 /* tag::type[]
-===== struct Object_Class
+= struct Object_Class
 ====
 [source,c]
 ----
@@ -73,7 +73,7 @@ struct Object_Class {
     bool (*equals)(Object const * const object, Object const * const otherObject);
 };
 /* tag::type[]
-===== struct Object
+= struct Object
 ====
 [source,c]
 ----
@@ -96,7 +96,7 @@ struct Object {
     Object_Class const * class;
 };
 /* tag::function[]
-===== Object_Class_()
+= Object_Class_()
 ====
 [source,c]
 ----
@@ -110,7 +110,7 @@ Reference of the class instance
 end::function[] */
 Object_Class const * Object_Class_(void);
 /* tag::function[]
-===== Object_alloc()
+= Object_alloc()
 ====
 [source,c]
 ----
@@ -127,7 +127,7 @@ Reference of the allocated object
 end::function[] */
 Object * Object_alloc(Object_Class const * const class);
 /* tag::function[]
-===== Object_dealloc()
+= Object_dealloc()
 ====
 [source,c]
 ----
@@ -144,7 +144,7 @@ Always returns NULL
 end::function[] */
 Object * Object_dealloc(Object * const object);
 /* tag::function[]
-===== Object_init()
+= Object_init()
 ====
 [source,c]
 ----
@@ -161,7 +161,7 @@ Initialized object
 end::function[] */
 Object * Object_init(Object * const object);
 /* tag::function[]
-===== Object_teardown()
+= Object_teardown()
 ====
 [source,c]
 ----
@@ -178,7 +178,7 @@ Always returns NULL
 end::function[] */
 Object * Object_teardown(Object * object);
 /* tag::function[]
-===== Object_copy()
+= Object_copy()
 ====
 [source,c]
 ----
@@ -196,7 +196,7 @@ Pointer to a new object (copy of the original one)
 end::function[] */
 Object * Object_copy(Object const * const object, Object * const copyObject);
 /* tag::function[]
-===== Object_equals()
+= Object_equals()
 ====
 [source,c]
 ----
@@ -215,7 +215,7 @@ Compare two objects
 end::function[] */
 bool Object_equals(Object const * const object, Object const * const otherObject);
 /* tag::function[]
-===== Object_hashCode()
+= Object_hashCode()
 ====
 [source,c]
 ----
@@ -232,7 +232,7 @@ Object hash code
 end::function[] */
 uint64_t Object_hashCode(Object const * const object);
 /* tag::function[]
-===== Object_isOfClass()
+= Object_isOfClass()
 ====
 [source,c]
 ----
@@ -251,7 +251,7 @@ Check if an object is of a given class
 end::function[] */
 bool Object_isOfClass(Object const * const object, Object_Class const * const class);
 /* tag::macro[]
-===== class_()
+= class_()
 ====
 [source,c]
 ----
@@ -269,7 +269,7 @@ end::macro[] */
 #define class_(className) \
     className##_Class_()
 /* tag::macro[]
-===== initClass_()
+= initClass_()
 ====
 [source,c]
 ----
@@ -285,7 +285,7 @@ end::macro[] */
 #define initClass_(className, object) \
     *to_(className##_Class, object) = *class_(className);
 /* tag::macro[]
-===== setUpClass_()
+= setUpClass_()
 ====
 [source,c]
 ----
@@ -304,7 +304,7 @@ end::macro[] */
     to_(Object_Class, class)->objectSize = sizeof(className); \
     to_(Object_Class, class)->superClass = to_(Object_Class, class_(superClassName))
 /* tag::macro[]
-===== bindClassMethod_()
+= bindClassMethod_()
 ====
 [source,c]
 ----
@@ -321,7 +321,7 @@ end::macro[] */
 #define bindClassMethod_(className, class, methodName) \
     to_(className##_Class, class)->methodName = methodName
 /* tag::macro[]
-===== initObject_()
+= initObject_()
 ====
 [source,c]
 ----
@@ -342,7 +342,7 @@ end::macro[] */
 #define initObject_(className, ...) \
     className##_init(to_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
 /* tag::macro[]
-===== sallocInit_()
+= sallocInit_()
 ====
 [source,c]
 ----
@@ -364,7 +364,7 @@ end::macro[] */
 #define sallocInit_h0(className, ...) \
     initObject_(className, VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
 /* tag::macro[]
-===== classOf_()
+= classOf_()
 ====
 [source,c]
 ----
@@ -382,7 +382,7 @@ end::macro[] */
 #define classOf_(object) \
     to_(Object, object)->class
 /* tag::macro[]
-===== setUpObject_()
+= setUpObject_()
 ====
 [source,c]
 ----
@@ -402,7 +402,7 @@ end::macro[] */
     initObject_(superClassName, __VA_ARGS__);        \
     classOf_(VaArgs_first_(__VA_ARGS__)) = to_(Object_Class, class_(className))
 /* tag::macro[]
-===== objectSizeOf_()
+= objectSizeOf_()
 ====
 [source,c]
 ----
@@ -420,7 +420,7 @@ end::macro[] */
 #define objectSizeOf_(object) \
     classOf_(object)->objectSize
 /* tag::macro[]
-===== traitOf_()
+= traitOf_()
 ====
 [source,c]
 ----
@@ -440,7 +440,7 @@ end::macro[] */
 #define traitOf_(object, className, interfaceName) \
     to_(interfaceName, (to_(Any, object) + to_(Trait_Interface, &to_(className##_Class, classOf_(object))->i##interfaceName##_Interface)->traitOffset))
 /* tag::macro[]
-===== objectMethodCall_()
+= objectMethodCall_()
 ====
 [source,c]
 ----
@@ -462,7 +462,7 @@ end::macro[] */
 #define objectMethodCall_(className, methodName, ...) \
     to_(className##_Class, classOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
 /* tag::macro[]
-===== classMethodCall_()
+= classMethodCall_()
 ====
 [source,c]
 ----
@@ -485,7 +485,7 @@ end::macro[] */
 #define classMethodCall_(className, superClassName, methodName, ...) \
     to_(superClassName##_Class, class_(className))->methodName(__VA_ARGS__)
 /* tag::macro[]
-===== alloc_()
+= alloc_()
 ====
 [source,c]
 ----
@@ -503,7 +503,7 @@ end::macro[] */
 #define alloc_(className) \
     to_(className, Object_alloc(to_(Object_Class, class_(className))))
 /* tag::macro[]
-===== allocInit_()
+= allocInit_()
 ====
 [source,c]
 ----
@@ -525,7 +525,7 @@ end::macro[] */
 #define allocInit_h0(className, ...) \
     initObject_(className, VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
 /* tag::macro[]
-===== dealloc_()
+= dealloc_()
 ====
 [source,c]
 ----
@@ -543,7 +543,7 @@ end::macro[] */
 #define dealloc_(object) \
     to_(Any, Object_dealloc(to_(Object, object)))
 /* tag::macro[]
-===== teardown_()
+= teardown_()
 ====
 [source,c]
 ----
@@ -561,7 +561,7 @@ end::macro[] */
 #define teardown_(object) \
     to_(Any, Object_teardown(to_(Object, object)))
 /* tag::macro[]
-===== copy_()
+= copy_()
 ====
 [source,c]
 ----
@@ -581,7 +581,7 @@ end::macro[] */
 #define copy_(className, object, copyObject) \
     to_(className, Object_copy(to_(Object, object), to_(Object, copyObject)))
 /* tag::macro[]
-===== allocCopy_()
+= allocCopy_()
 ====
 [source,c]
 ----
@@ -600,7 +600,7 @@ end::macro[] */
 #define allocCopy_(className, object) \
     copy_(className, object, alloc_(className))
 /* tag::macro[]
-===== sallocCopy_()
+= sallocCopy_()
 ====
 [source,c]
 ----
@@ -619,7 +619,7 @@ end::macro[] */
 #define sallocCopy_(className, object) \
     copy_(className, object, salloc_(className))
 /* tag::macro[]
-===== equals_()
+= equals_()
 ====
 [source,c]
 ----
@@ -639,7 +639,7 @@ end::macro[] */
 #define equals_(object, otherObject) \
     Object_equals(to_(Object, object), to_(Object, otherObject))
 /* tag::macro[]
-===== hashCode_()
+= hashCode_()
 ====
 [source,c]
 ----
@@ -657,7 +657,7 @@ end::macro[] */
 #define hashCode_(object) \
     Object_hashCode(to_(Object, object))
 /* tag::macro[]
-===== isOfClass_()
+= isOfClass_()
 ====
 [source,c]
 ----

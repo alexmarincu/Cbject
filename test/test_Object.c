@@ -7,7 +7,7 @@ void setUp(void) {
 void tearDown(void) {
 }
 /* tag::test[]
-===== test_Object_class
+= test_Object_class
 ====
 Test setup of Object_Class
 
@@ -25,7 +25,7 @@ void test_Object_class(void) {
     TEST_ASSERT_NOT_NULL(class_(Object)->hashCode);
 }
 /* tag::test[]
-===== test_Object_init
+= test_Object_init
 ====
 Test initialization of Object
 
@@ -39,7 +39,7 @@ void test_Object_init(void) {
     TEST_ASSERT_EQUAL_PTR(classOf_(object), class_(Object));
 }
 /* tag::test[]
-===== test_Object_equals
+= test_Object_equals
 ====
 Test equals method
 
@@ -57,7 +57,7 @@ void test_Object_equals(void) {
     TEST_ASSERT_FALSE(equals_(object, otherObject));
 }
 /* tag::test[]
-===== test_Object_hashCode
+= test_Object_hashCode
 ====
 Test hashCode method
 
@@ -71,7 +71,7 @@ void test_Object_hashCode(void) {
     TEST_ASSERT_EQUAL_UINT64((uint64_t)object, hashCode_(object));
 }
 /* tag::test[]
-===== test_Object_isOfClass
+= test_Object_isOfClass
 ====
 Test isOfClass method
 
@@ -97,7 +97,7 @@ void test_Object_isOfClass(void) {
     TEST_ASSERT_FALSE(isOfClass_(object, Test));
 }
 /* tag::test[]
-===== test_Object_copy
+= test_Object_copy
 ====
 Test copy method
 

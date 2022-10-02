@@ -13,7 +13,7 @@ end::overview[] */
     pthread_mutex_unlock(doOnceMutex)
 typedef DoOnce_Mutex_type DoOnce_Mutex;
 /* tag::macro[]
-===== doOnce_()
+= doOnce_()
 ====
 [source,c]
 ----
