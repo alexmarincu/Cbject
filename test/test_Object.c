@@ -35,7 +35,7 @@ Test initialization of Object
 ====
 end::test[] */
 void test_Object_init(void) {
-    Object * object = initObject_(Object, salloc_(Object));
+    Object * object = sallocInit_(Object);
     TEST_ASSERT_EQUAL_PTR(classOf_(object), class_(Object));
 }
 /* tag::test[]
@@ -51,9 +51,9 @@ Test equals method
 ====
 end::test[] */
 void test_Object_equals(void) {
-    Object * object = initObject_(Object, salloc_(Object));
+    Object * object = sallocInit_(Object);
     TEST_ASSERT_TRUE(equals_(object, object));
-    Object * otherObject = initObject_(Object, salloc_(Object));
+    Object * otherObject = sallocInit_(Object);
     TEST_ASSERT_FALSE(equals_(object, otherObject));
 }
 /* tag::test[]
@@ -67,7 +67,7 @@ Test hashCode method
 ====
 end::test[] */
 void test_Object_hashCode(void) {
-    Object * object = initObject_(Object, salloc_(Object));
+    Object * object = sallocInit_(Object);
     TEST_ASSERT_EQUAL_UINT64((uint64_t)object, hashCode_(object));
 }
 /* tag::test[]
@@ -92,7 +92,7 @@ Test_Class * Test_Class_(void) {
     return &class;
 }
 void test_Object_isOfClass(void) {
-    Object * object = initObject_(Object, salloc_(Object));
+    Object * object = sallocInit_(Object);
     TEST_ASSERT_TRUE(isOfClass_(object, Object));
     TEST_ASSERT_FALSE(isOfClass_(object, Test));
 }
@@ -105,10 +105,16 @@ Test copy method
 . Allocate object on stack an initialize it
 . Allocate another object on stack and copy the first object into it
 . Check if the memory sections occupied by the two objects are equal
+. Allocate another object on heap and copy the first object into it
+. Check if the memory sections occupied by the two objects are equal
+. Deallocate the object from the heap memory
 ====
 end::test[] */
 void test_Object_copy(void) {
-    Object * object = initObject_(Object, salloc_(Object));
-    Object * copyObject = copy_(Object, object, salloc_(Object));
-    TEST_ASSERT_EQUAL_MEMORY(object, copyObject, objectSizeOf_(object));
+    Object * object = sallocInit_(Object);
+    Object * copyObjectInStack = sallocCopy_(Object, object);
+    TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInStack, objectSizeOf_(object));
+    Object * copyObjectInHeap = allocCopy_(Object, object);
+    TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInHeap, objectSizeOf_(object));
+    dealloc_(copyObjectInHeap);
 }

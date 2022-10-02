@@ -343,6 +343,28 @@ end::macro[] */
 #define initObject_(className, ...) \
     className##_init(to_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
 /* tag::macro[]
+===== sallocInit_()
+====
+[source,c]
+----
+#define sallocInit_(...)
+----
+Syntactic sugar to allocate and init an object in stack memory
+
+.Params
+* ...
+** className - Name of class
+** ... - Init params
+
+.Return
+Reference of the allocated and initialized object
+====
+end::macro[] */
+#define sallocInit_(...) \
+    sallocInit_h0(VaArgs_first_(__VA_ARGS__), salloc_(VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
+#define sallocInit_h0(className, ...) \
+    initObject_(className, VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
+/* tag::macro[]
 ===== classOf_()
 ====
 [source,c]
@@ -482,6 +504,28 @@ end::macro[] */
 #define alloc_(className) \
     to_(className, Object_alloc(to_(Object_Class, class_(className))))
 /* tag::macro[]
+===== allocInit_()
+====
+[source,c]
+----
+#define allocInit_(...)
+----
+Syntactic sugar to allocate and init an object in heap memory
+
+.Params
+* ...
+** className - Name of class
+** ... - Init params
+
+.Return
+Reference of the allocated and initialized object
+====
+end::macro[] */
+#define allocInit_(...) \
+    allocInit_h0(VaArgs_first_(__VA_ARGS__), alloc_(VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
+#define allocInit_h0(className, ...) \
+    initObject_(className, VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
+/* tag::macro[]
 ===== dealloc_()
 ====
 [source,c]
@@ -538,6 +582,44 @@ end::macro[] */
 #define copy_(className, object, copyObject) \
     to_(className, Object_copy(to_(Object, object), to_(Object, copyObject)))
 /* tag::macro[]
+===== allocCopy_()
+====
+[source,c]
+----
+#define allocCopy_(className, object)
+----
+Syntactic sugar to copy object in new object allocated in heap memory
+
+.Params
+* className - Name of class
+* object - Object reference
+
+.Return
+Reference of the allocated object (copy of the original one)
+====
+end::macro[] */
+#define allocCopy_(className, object) \
+    copy_(className, object, alloc_(className))
+/* tag::macro[]
+===== sallocCopy_()
+====
+[source,c]
+----
+#define sallocCopy_(className, object)
+----
+Syntactic sugar to copy object in new object allocated in stack memory
+
+.Params
+* className - Name of class
+* object - Object reference
+
+.Return
+Reference of the allocated object (copy of the original one)
+====
+end::macro[] */
+#define sallocCopy_(className, object) \
+    copy_(className, object, salloc_(className))
+/* tag::macro[]
 ===== equals_()
 ====
 [source,c]
@@ -557,7 +639,7 @@ Syntactic sugar to compare two objects
 end::macro[] */
 #define equals_(object, otherObject) \
     Object_equals(to_(Object, object), to_(Object, otherObject))
-/* tag::function[]
+/* tag::macro[]
 ===== hashCode_()
 ====
 [source,c]
@@ -572,7 +654,7 @@ Syntactic sugar to get hash code of object
 .Return
 Object hash code
 ====
-end::function[] */
+end::macro[] */
 #define hashCode_(object) \
     Object_hashCode(to_(Object, object))
 /* tag::macro[]

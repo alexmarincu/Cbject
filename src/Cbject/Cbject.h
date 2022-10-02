@@ -24,7 +24,7 @@ Include the following header file:
 ====
 [source,c]
 ----
-Object * object = initObject_(Object, alloc_(Object));
+Object * object = allocInit_(Object);
 printf("%d\n", hashCode_(object));
 dealloc_(object);
 ----

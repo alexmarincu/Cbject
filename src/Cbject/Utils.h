@@ -56,24 +56,24 @@ typedef void Any;
  * @brief Get first argument from __VA_ARGS__
  */
 #define VaArgs_first_(...) \
-    VaArgs_first__(__VA_ARGS__, discard)
-#define VaArgs_first__(first, ...) \
-    (first)
+    VaArgs_first_h0(__VA_ARGS__, discard)
+#define VaArgs_first_h0(first, ...) \
+    first
 /**
  * @brief Get list of arguments from __VA_ARGS__ except the first
  * @remark Comma is added before the list
  * @remark Supports max 10 arguments
  */
 #define VaArgs_rest_(...) \
-    VaArgs_rest__(VaArgs_number_(__VA_ARGS__), __VA_ARGS__)
-#define VaArgs_rest__(case, ...) \
-    VaArgs_rest___(case, __VA_ARGS__)
-#define VaArgs_rest___(case, ...) \
+    VaArgs_rest_h0(VaArgs_case_(__VA_ARGS__), __VA_ARGS__)
+#define VaArgs_rest_h0(case, ...) \
+    VaArgs_rest_h1(case, __VA_ARGS__)
+#define VaArgs_rest_h1(case, ...) \
     VaArgs_rest_case_##case (__VA_ARGS__)
 #define VaArgs_rest_case_one(first)
 #define VaArgs_rest_case_more(first, ...) \
     , __VA_ARGS__
-#define VaArgs_number_(...) \
+#define VaArgs_case_(...) \
     VaArgs_get10th_(__VA_ARGS__, more, more, more, more, more, more, more, more, one, discard)
 #define VaArgs_get10th_(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, ...) \
     a10

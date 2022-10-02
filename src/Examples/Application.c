@@ -43,7 +43,7 @@ void Application_main(Application * const application) {
 static void greetingExample(Application * const application) {
     ignore_(application);
     // Allocate and initialize a Greeting application
-    Greeting * greeting = initObject_(Greeting, alloc_(Greeting), "Hello Cbject!");
+    Greeting * greeting = allocInit_(Greeting, "Hello Cbject!");
     // Call Greeting print function on the greeting application
     Greeting_print(greeting);
     // Free memory allocated for the Greeting application
@@ -51,7 +51,7 @@ static void greetingExample(Application * const application) {
 }
 static void circleExample(Application * const application) {
     // Allocate and initialize a Circle application
-    application->circle = initObject_(Circle, alloc_(Circle), (Point){ 0, 1 }, 2);
+    application->circle = allocInit_(Circle, (Point){ 0, 1 }, 2);
     // Get circle radius
     uint32_t radius = application->circle->radius;
     ignore_(radius);
@@ -70,7 +70,7 @@ static void circleExample(Application * const application) {
 }
 static void rectangleExample(Application * const application) {
     // Allocate and initialize a Rectangle application
-    application->rectangle = initObject_(Rectangle, alloc_(Rectangle), (Point){ 0, 1 }, 2, 3);
+    application->rectangle = allocInit_(Rectangle, ((Point){ 0, 1 }), 2, 3);
     // Get rectangle width and height
     uint32_t width = Rectangle_getWidth(application->rectangle);
     ignore_(width);
