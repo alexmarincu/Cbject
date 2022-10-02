@@ -6,9 +6,9 @@ struct Greeting {
 };
 Greeting_Class const * Greeting_Class_(void) {
     static Greeting_Class class;
-    doOnce_ {
+    doOnce_({
         setUpClass_(Greeting, Object, &class);
-    }
+    });
     return &class;
 }
 Greeting * Greeting_init(Greeting * greeting, char * const text) {

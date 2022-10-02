@@ -1,6 +1,5 @@
 /* tag::overview[]
 The building block. All objects defined in Cbject need to extend Object.
-
 end::overview[] */
 #ifndef OBJECT_H
 #define OBJECT_H

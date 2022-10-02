@@ -1,7 +1,5 @@
 /* tag::overview[]
 TODO
-
-
 end::overview[] */
 #ifndef TRAIT_H
 #define TRAIT_H

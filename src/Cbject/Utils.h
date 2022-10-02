@@ -1,5 +1,6 @@
 #ifndef UTILS_H
 #define UTILS_H
+#include "DoOnce.h"
 #define singleton_(className) \
     className##_()
 /**
@@ -38,13 +39,6 @@ typedef void Any;
  */
 #define salloc_(typeName) \
     (&(typeName){ 0 })
-/**
- * @brief Run a block of code only once
- * @remark Not thread safe
- */
-#define doOnce_               \
-    static bool once = false; \
-    for (; once == false; once = true)
 /**
  * @name ignore_
  * @brief Ignore a variable

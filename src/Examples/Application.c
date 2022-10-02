@@ -13,18 +13,18 @@ static Object * copy(Object const * const application, Object * const copyObject
 static void init(Application * const application);
 Application * Application_(void) {
     static Application application;
-    doOnce_ {
+    doOnce_({
         init(&application);
-    }
+    });
     return &application;
 }
 Application_Class const * Application_Class_(void) {
     static Application_Class class;
-    doOnce_ {
+    doOnce_({
         setUpClass_(Application, Object, &class);
         overrideClassMethod_(Object, &class, teardown);
         overrideClassMethod_(Object, &class, copy);
-    }
+    });
     return &class;
 }
 static void init(Application * const application) {

@@ -629,6 +629,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
+<li><a href="#_doonce">2.3. DoOnce</a>
+<ul class="sectlevel3">
+<li><a href="#_overview_4">2.3.1. Overview</a></li>
+<li><a href="#_macros_3">2.3.2. Macros</a>
+<ul class="sectlevel4">
+<li><a href="#_doonce_2">doOnce_()</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -2507,6 +2517,53 @@ dealloc_(object);</code></pre>
 <div class="paragraph">
 <div class="title">Return</div>
 <p>Depends on the called method</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_doonce">2.3. DoOnce</h3>
+<div class="sect3">
+<h4 id="_overview_4">2.3.1. Overview</h4>
+<div class="paragraph">
+<p>Implementation for doOnce_() macro</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_macros_3">2.3.2. Macros</h4>
+<div class="sect4">
+<h5 id="_doonce_2">doOnce_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define doOnce_(block)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run a block of code only once</p>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>It uses a mutex to provide thread safety. The mutex settings need to be changed based on the concurency framework used. By default pthread is used.</p>
+</div>
+<div class="listingblock">
+<div class="title">Usage example</div>
+<div class="content">
+<pre>doOnce_({
+    functionCall();
+});</pre>
+</div>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>block - The block of code to be run</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

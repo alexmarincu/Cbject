@@ -19,13 +19,13 @@ static float area(Shape const * const shape);
 static void draw(Drawable const * const drawable);
 Rectangle_Class const * Rectangle_Class_(void) {
     static Rectangle_Class class;
-    doOnce_ {
+    doOnce_({
         setUpClass_(Rectangle, Shape, &class);
         setUpInterface_(Rectangle, Drawable, &class);
         overrideClassMethod_(Object, &class, teardown);
         overrideInterfaceMethod_(Rectangle, Drawable, &class, draw);
         overrideClassMethod_(Shape, &class, area);
-    }
+    });
     return &class;
 }
 Rectangle * Rectangle_init(

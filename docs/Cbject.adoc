@@ -47,3 +47,10 @@ include::../src/Cbject/Trait.h[tag=function]
 
 ==== Macros
 include::../src/Cbject/Trait.h[tag=macro]
+
+=== DoOnce
+==== Overview
+include::../src/Cbject/DoOnce.h[tag=overview]
+
+==== Macros
+include::../src/Cbject/DoOnce.h[tag=macro]

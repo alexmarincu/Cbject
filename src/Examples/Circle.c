@@ -5,13 +5,13 @@ static float area(Shape const * const shape);
 static void draw(Drawable const * const drawable);
 Circle_Class const * Circle_Class_(void) {
     static Circle_Class class;
-    doOnce_ {
+    doOnce_({
         setUpClass_(Circle, Shape, &class);
         setUpInterface_(Circle, Drawable, &class);
         overrideClassMethod_(Object, &class, teardown);
         overrideInterfaceMethod_(Circle, Drawable, &class, draw);
         overrideClassMethod_(Shape, &class, area);
-    }
+    });
     return &class;
 }
 Circle * Circle_init(
