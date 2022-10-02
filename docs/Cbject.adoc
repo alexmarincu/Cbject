@@ -10,7 +10,7 @@ ifndef::backend-pdf[]
 endif::[]
 
 <<<
-.OOP framework for C
+.OOP framework for standard C99
 
 [.text-right]
 https://github.com/alexmarincu/Cbject[GitHub] | link:./Cbject.pdf[PDF]
