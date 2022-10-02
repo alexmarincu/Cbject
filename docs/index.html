@@ -554,7 +554,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_object_equals">Object_equals()</a></li>
 <li><a href="#_object_hashcode">Object_hashCode()</a></li>
 <li><a href="#_object_isofclass">Object_isOfClass()</a></li>
-<li><a href="#_hashcode">hashCode_()</a></li>
 </ul>
 </li>
 <li><a href="#_macros">2.1.4. Macros</a>
@@ -564,6 +563,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_setupclass">setUpClass_()</a></li>
 <li><a href="#_overrideclassmethod">overrideClassMethod_()</a></li>
 <li><a href="#_initobject">initObject_()</a></li>
+<li><a href="#_sallocinit">sallocInit_()</a></li>
 <li><a href="#_classof">classOf_()</a></li>
 <li><a href="#_setupobject">setUpObject_()</a></li>
 <li><a href="#_objectsizeof">objectSizeOf_()</a></li>
@@ -571,10 +571,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_objectmethodcall">objectMethodCall_()</a></li>
 <li><a href="#_classmethodcall">classMethodCall_()</a></li>
 <li><a href="#_alloc">alloc_()</a></li>
+<li><a href="#_allocinit">allocInit_()</a></li>
 <li><a href="#_dealloc">dealloc_()</a></li>
 <li><a href="#_teardown">teardown_()</a></li>
 <li><a href="#_copy">copy_()</a></li>
+<li><a href="#_alloccopy">allocCopy_()</a></li>
+<li><a href="#_salloccopy">sallocCopy_()</a></li>
 <li><a href="#_equals">equals_()</a></li>
+<li><a href="#_hashcode">hashCode_()</a></li>
 <li><a href="#_isofclass">isOfClass_()</a></li>
 </ul>
 </li>
@@ -691,7 +695,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">Object * object = initObject_(Object, alloc_(Object));
+<pre class="highlight"><code class="language-c" data-lang="c">Object * object = allocInit_(Object);
 printf("%d\n", hashCode_(object));
 dealloc_(object);</code></pre>
 </div>
@@ -1090,33 +1094,6 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 </div>
-<div class="sect4">
-<h5 id="_hashcode">hashCode_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define hashCode_(object)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to get hash code of object</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>object - Object reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Object hash code</p>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="sect3">
 <h4 id="_macros">2.1.4. Macros</h4>
@@ -1267,6 +1244,43 @@ dealloc_(object);</code></pre>
 <div class="paragraph">
 <div class="title">Return</div>
 <p>Initialized object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_sallocinit">sallocInit_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define sallocInit_(...)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to allocate and init an object in stack memory</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>&#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>className - Name of class</p>
+</li>
+<li>
+<p>&#8230;&#8203; - Init params</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the allocated and initialized object</p>
 </div>
 </div>
 </div>
@@ -1514,6 +1528,43 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
+<h5 id="_allocinit">allocInit_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define allocInit_(...)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to allocate and init an object in heap memory</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>&#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>className - Name of class</p>
+</li>
+<li>
+<p>&#8230;&#8203; - Init params</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the allocated and initialized object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="_dealloc">dealloc_()</h5>
 <div class="exampleblock">
 <div class="content">
@@ -1601,6 +1652,66 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
+<h5 id="_alloccopy">allocCopy_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define allocCopy_(className, object)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to copy object in new object allocated in heap memory</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of class</p>
+</li>
+<li>
+<p>object - Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the allocated object (copy of the original one)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_salloccopy">sallocCopy_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define sallocCopy_(className, object)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to copy object in new object allocated in stack memory</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of class</p>
+</li>
+<li>
+<p>object - Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the allocated object (copy of the original one)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="_equals">equals_()</h5>
 <div class="exampleblock">
 <div class="content">
@@ -1633,6 +1744,33 @@ dealloc_(object);</code></pre>
 <p>false - If the objects are different</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_hashcode">hashCode_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define hashCode_(object)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to get hash code of object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Object hash code</p>
 </div>
 </div>
 </div>
@@ -1820,6 +1958,15 @@ dealloc_(object);</code></pre>
 </li>
 <li>
 <p>Check if the memory sections occupied by the two objects are equal</p>
+</li>
+<li>
+<p>Allocate another object on heap and copy the first object into it</p>
+</li>
+<li>
+<p>Check if the memory sections occupied by the two objects are equal</p>
+</li>
+<li>
+<p>Deallocate the object from the heap memory</p>
 </li>
 </ol>
 </div>
