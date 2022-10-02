@@ -561,7 +561,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_class">class_()</a></li>
 <li><a href="#_initclass">initClass_()</a></li>
 <li><a href="#_setupclass">setUpClass_()</a></li>
-<li><a href="#_overrideclassmethod">overrideClassMethod_()</a></li>
+<li><a href="#_bindclassmethod">bindClassMethod_()</a></li>
 <li><a href="#_initobject">initObject_()</a></li>
 <li><a href="#_sallocinit">sallocInit_()</a></li>
 <li><a href="#_classof">classOf_()</a></li>
@@ -616,7 +616,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_interface">interface_()</a></li>
 <li><a href="#_initinterface">initInterface_()</a></li>
 <li><a href="#_setupinterface">setUpInterface_()</a></li>
-<li><a href="#_overrideinterfacemethod">overrideInterfaceMethod_()</a></li>
+<li><a href="#_bindinterfacemethod">bindInterfaceMethod_()</a></li>
 <li><a href="#_offsetof">offsetOf_()</a></li>
 <li><a href="#_objectof">objectOf_()</a></li>
 <li><a href="#_interfaceoffsetof">interfaceOffsetOf_()</a></li>
@@ -1190,16 +1190,16 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_overrideclassmethod">overrideClassMethod_()</h5>
+<h5 id="_bindclassmethod">bindClassMethod_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define overrideClassMethod_(className, class, methodName)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define bindClassMethod_(className, class, methodName)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Override a method of a class</p>
+<p>Bind a method of a class</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
@@ -2214,16 +2214,16 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_overrideinterfacemethod">overrideInterfaceMethod_()</h5>
+<h5 id="_bindinterfacemethod">bindInterfaceMethod_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define overrideInterfaceMethod_(className, interfaceName, interface, methodName)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define bindInterfaceMethod_(className, interfaceName, interface, methodName)</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Override a method of an interface</p>
+<p>Bind a method of an interface</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
