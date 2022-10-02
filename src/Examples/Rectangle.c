@@ -21,7 +21,7 @@ Rectangle_Class const * Rectangle_Class_(void) {
     static Rectangle_Class class;
     doOnce_({
         setUpClass_(Rectangle, Shape, &class);
-        setUpInterface_(Rectangle, Drawable, &class);
+        setUpInterfaceOf_(Rectangle, Drawable, &class);
         bindClassMethod_(Object, &class, teardown);
         bindInterfaceMethod_(Rectangle, Drawable, &class, draw);
         bindClassMethod_(Shape, &class, area);
@@ -35,7 +35,7 @@ Rectangle * Rectangle_init(
     uint32_t height
 ) {
     setUpObject_(Rectangle, Shape, rectangle, origin);
-    setUpTrait_(Rectangle, Drawable, rectangle);
+    setUpTraitOf_(Rectangle, Drawable, rectangle);
     rectangle->width = width;
     rectangle->height = height;
     return rectangle;

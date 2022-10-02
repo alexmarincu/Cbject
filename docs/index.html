@@ -615,14 +615,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel4">
 <li><a href="#_interface">interface_()</a></li>
 <li><a href="#_initinterface">initInterface_()</a></li>
-<li><a href="#_setupinterface">setUpInterface_()</a></li>
+<li><a href="#_setupinterfaceof">setUpInterfaceOf_()</a></li>
 <li><a href="#_bindinterfacemethod">bindInterfaceMethod_()</a></li>
 <li><a href="#_offsetof">offsetOf_()</a></li>
 <li><a href="#_objectof">objectOf_()</a></li>
 <li><a href="#_interfaceoffsetof">interfaceOffsetOf_()</a></li>
 <li><a href="#_interfaceof">interfaceOf_()</a></li>
 <li><a href="#_inittrait">initTrait_()</a></li>
-<li><a href="#_setuptrait">setUpTrait_()</a></li>
+<li><a href="#_setuptraitof">setUpTraitOf_()</a></li>
 <li><a href="#_traitmethodcall">traitMethodCall_()</a></li>
 <li><a href="#_interfacemethodcall">interfaceMethodCall_()</a></li>
 </ul>
@@ -2185,12 +2185,12 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_setupinterface">setUpInterface_()</h5>
+<h5 id="_setupinterfaceof">setUpInterfaceOf_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterface_(className, interfaceName, interface)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterfaceOf_(className, interfaceName, class)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2206,7 +2206,7 @@ dealloc_(object);</code></pre>
 <p>interfaceName - Name of the interface</p>
 </li>
 <li>
-<p>interface - Interface reference</p>
+<p>class - Class reference</p>
 </li>
 </ul>
 </div>
@@ -2394,12 +2394,12 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_setuptrait">setUpTrait_()</h5>
+<h5 id="_setuptraitof">setUpTraitOf_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpTrait_(className, interfaceName, ...)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpTraitOf_(className, interfaceName, ...)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2419,7 +2419,7 @@ dealloc_(object);</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p>trait - Trait reference</p>
+<p>object - Object reference</p>
 </li>
 <li>
 <p>&#8230;&#8203; - Init params</p>

@@ -145,23 +145,23 @@ end::macro[] */
 #define initInterface_(interfaceName, interface) \
     *to_(interfaceName##_Interface, interface) = *interface_(interfaceName);
 /* tag::macro[]
-= setUpInterface_()
+= setUpInterfaceOf_()
 ====
 [source,c]
 ----
-#define setUpInterface_(className, interfaceName, interface)
+#define setUpInterfaceOf_(className, interfaceName, class)
 ----
 Interface setup (initialize, set the trait offset in container object)
 
 .Params
 * className - Name of the class
 * interfaceName - Name of the interface
-* interface - Interface reference
+* class - Class reference
 ====
 end::macro[] */
-#define setUpInterface_(className, interfaceName, interface)                   \
-    initInterface_(interfaceName, &(interface)->i##interfaceName##_Interface); \
-    to_(Trait_Interface, &(interface)->i##interfaceName##_Interface)->traitOffset = offsetof(className, i##interfaceName)
+#define setUpInterfaceOf_(className, interfaceName, class)                 \
+    initInterface_(interfaceName, &(class)->i##interfaceName##_Interface); \
+    to_(Trait_Interface, &(class)->i##interfaceName##_Interface)->traitOffset = offsetof(className, i##interfaceName)
 /* tag::macro[]
 = bindInterfaceMethod_()
 ====
@@ -277,11 +277,11 @@ end::macro[] */
 #define initTrait_(interfaceName, ...) \
     interfaceName##_init(to_(interfaceName, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
 /* tag::macro[]
-= setUpTrait_()
+= setUpTraitOf_()
 ====
 [source,c]
 ----
-#define setUpTrait_(className, interfaceName, ...)
+#define setUpTraitOf_(className, interfaceName, ...)
 ----
 Trait setup (initialize, set the trait offset and interface offset)
 
@@ -289,11 +289,11 @@ Trait setup (initialize, set the trait offset and interface offset)
 * className - Name of the class
 * interfaceName - Name of the interface
 * ...
-** trait - Trait reference
+** object - Object reference
 ** ... - Init params
 ====
 end::macro[] */
-#define setUpTrait_(className, interfaceName, ...)                                                      \
+#define setUpTraitOf_(className, interfaceName, ...)                                                    \
     initTrait_(interfaceName, &VaArgs_first_(__VA_ARGS__)->i##interfaceName VaArgs_rest_(__VA_ARGS__)); \
     offsetOf_(&VaArgs_first_(__VA_ARGS__)->i##interfaceName) = offsetof(className, i##interfaceName);   \
     interfaceOffsetOf_(&VaArgs_first_(__VA_ARGS__)->i##interfaceName) = offsetof(className##_Class, i##interfaceName##_Interface)
