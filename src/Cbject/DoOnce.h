@@ -4,14 +4,12 @@ end::overview[] */
 #ifndef DOONCE_H
 #define DOONCE_H
 #include "pthread.h"
-#define DoOnce_Mutex_type pthread_mutex_t
-#define DoOnce_Mutex_init(doOnceMutex) \
-    *doOnceMutex = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER
-#define DoOnce_Mutex_lock(doOnceMutex) \
-    pthread_mutex_lock(doOnceMutex)
-#define DoOnce_Mutex_unlock(doOnceMutex) \
-    pthread_mutex_unlock(doOnceMutex)
-typedef DoOnce_Mutex_type DoOnce_Mutex;
+#define DoOnce_Mutex_staticAllocInit() \
+    static pthread_mutex_t doOnceMutex = PTHREAD_MUTEX_INITIALIZER
+#define DoOnce_Mutex_lock() \
+    pthread_mutex_lock(&doOnceMutex)
+#define DoOnce_Mutex_unlock() \
+    pthread_mutex_unlock(&doOnceMutex)
 /* tag::macro[]
 = doOnce_()
 ====
@@ -37,10 +35,9 @@ doOnce_({
 end::macro[] */
 #define doOnce_(block)                     \
     static bool isDone = false;            \
-    static DoOnce_Mutex doOnceMutex;       \
-    DoOnce_Mutex_init(&doOnceMutex);       \
-    DoOnce_Mutex_lock(&doOnceMutex);       \
+    DoOnce_Mutex_staticAllocInit();        \
+    DoOnce_Mutex_lock();                   \
     for (; isDone == false; isDone = true) \
         do block while (0);                \
-    DoOnce_Mutex_unlock(&doOnceMutex)
+    DoOnce_Mutex_unlock()
 #endif // DOONCE_H
