@@ -616,7 +616,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_interface">interface_()</a></li>
 <li><a href="#_initinterface">initInterface_()</a></li>
 <li><a href="#_setupinterfaceof">setUpInterfaceOf_()</a></li>
-<li><a href="#_bindinterfacemethod">bindInterfaceMethod_()</a></li>
+<li><a href="#_bindinterfacemethodof">bindInterfaceMethodOf_()</a></li>
 <li><a href="#_offsetof">offsetOf_()</a></li>
 <li><a href="#_objectof">objectOf_()</a></li>
 <li><a href="#_interfaceoffsetof">interfaceOffsetOf_()</a></li>
@@ -2214,12 +2214,12 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_bindinterfacemethod">bindInterfaceMethod_()</h5>
+<h5 id="_bindinterfacemethodof">bindInterfaceMethodOf_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define bindInterfaceMethod_(className, interfaceName, interface, methodName)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define bindInterfaceMethodOf_(className, interfaceName, interface, methodName)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2235,7 +2235,7 @@ dealloc_(object);</code></pre>
 <p>interfaceName - Name of the interface</p>
 </li>
 <li>
-<p>interface - Interface reference</p>
+<p>class - Class reference</p>
 </li>
 <li>
 <p>methodName - Name of the method</p>

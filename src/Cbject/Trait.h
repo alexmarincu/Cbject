@@ -163,23 +163,23 @@ end::macro[] */
     initInterface_(interfaceName, &(class)->i##interfaceName##_Interface); \
     to_(Trait_Interface, &(class)->i##interfaceName##_Interface)->traitOffset = offsetof(className, i##interfaceName)
 /* tag::macro[]
-= bindInterfaceMethod_()
+= bindInterfaceMethodOf_()
 ====
 [source,c]
 ----
-#define bindInterfaceMethod_(className, interfaceName, interface, methodName)
+#define bindInterfaceMethodOf_(className, interfaceName, interface, methodName)
 ----
 Bind a method of an interface
 
 .Params
 * className - Name of the class
 * interfaceName - Name of the interface
-* interface - Interface reference
+* class - Class reference
 * methodName - Name of the method
 ====
 end::macro[] */
-#define bindInterfaceMethod_(className, interfaceName, interface, methodName) \
-    to_(interfaceName##_Interface, &to_(className##_Class, interface)->i##interfaceName##_Interface)->methodName = methodName
+#define bindInterfaceMethodOf_(className, interfaceName, class, methodName) \
+    to_(interfaceName##_Interface, &to_(className##_Class, class)->i##interfaceName##_Interface)->methodName = methodName
 /* tag::macro[]
 = offsetOf_()
 ====

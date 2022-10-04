@@ -23,7 +23,7 @@ Rectangle_Class const * Rectangle_Class_(void) {
         setUpClass_(Rectangle, Shape, &class);
         setUpInterfaceOf_(Rectangle, Drawable, &class);
         bindClassMethod_(Object, &class, teardown);
-        bindInterfaceMethod_(Rectangle, Drawable, &class, draw);
+        bindInterfaceMethodOf_(Rectangle, Drawable, &class, draw);
         bindClassMethod_(Shape, &class, area);
     });
     return &class;

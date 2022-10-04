@@ -9,7 +9,7 @@ Circle_Class const * Circle_Class_(void) {
         setUpClass_(Circle, Shape, &class);
         setUpInterfaceOf_(Circle, Drawable, &class);
         bindClassMethod_(Object, &class, teardown);
-        bindInterfaceMethod_(Circle, Drawable, &class, draw);
+        bindInterfaceMethodOf_(Circle, Drawable, &class, draw);
         bindClassMethod_(Shape, &class, area);
     });
     return &class;

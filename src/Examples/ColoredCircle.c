@@ -5,7 +5,7 @@ ColoredCircle_Class const * ColoredCircle_Class_(void) {
     static ColoredCircle_Class class;
     doOnce_({
         setUpClass_(ColoredCircle, Circle, &class);
-        bindInterfaceMethod_(Circle, Drawable, &class, draw);
+        bindInterfaceMethodOf_(Circle, Drawable, &class, draw);
     });
     return &class;
 }
