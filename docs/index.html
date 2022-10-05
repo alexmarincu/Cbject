@@ -610,8 +610,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_functions_2">2.2.3. Functions</a>
 <ul class="sectlevel4">
-<li><a href="#_traitinterface_2">TraitInterface_</a></li>
-<li><a href="#_trait_init">Trait_init</a></li>
+<li><a href="#_traitinterface_instance">TraitInterface_instance()</a></li>
+<li><a href="#_trait_init">Trait_init()</a></li>
 </ul>
 </li>
 <li><a href="#_macros_2">2.2.4. Macros</a>
@@ -631,6 +631,28 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_setuptraitof">setUpTraitOf_()</a></li>
 <li><a href="#_traitmethodcall">traitMethodCall_()</a></li>
 <li><a href="#_interfacemethodcall">interfaceMethodCall_()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_utils">2.3. Utils</a>
+<ul class="sectlevel3">
+<li><a href="#_overview_4">2.3.1. Overview</a></li>
+<li><a href="#_types_3">2.3.2. Types</a>
+<ul class="sectlevel4">
+<li><a href="#_any">Any</a></li>
+</ul>
+</li>
+<li><a href="#_macros_3">2.3.3. Macros</a>
+<ul class="sectlevel4">
+<li><a href="#_to">to_()</a></li>
+<li><a href="#_extends">extends_()</a></li>
+<li><a href="#_extends_2">extends_()</a></li>
+<li><a href="#_lengthof">lengthOf_()</a></li>
+<li><a href="#_lengthof_2">lengthOf_()</a></li>
+<li><a href="#_ignore">ignore_()</a></li>
+<li><a href="#_vaargs_first">VaArgs_first_()</a></li>
+<li><a href="#_vaargs_rest">VaArgs_rest_()</a></li>
 </ul>
 </li>
 </ul>
@@ -2146,7 +2168,7 @@ dealloc_(object);</code></pre>
 <div class="sect3">
 <h4 id="_functions_2">2.2.3. Functions</h4>
 <div class="sect4">
-<h5 id="_traitinterface_2">TraitInterface_</h5>
+<h5 id="_traitinterface_instance">TraitInterface_instance()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
@@ -2165,7 +2187,7 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_trait_init">Trait_init</h5>
+<h5 id="_trait_init">Trait_init()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
@@ -2656,6 +2678,250 @@ dealloc_(object);</code></pre>
 <div class="paragraph">
 <div class="title">Return</div>
 <p>Depends on the called method</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_utils">2.3. Utils</h3>
+<div class="sect3">
+<h4 id="_overview_4">2.3.1. Overview</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_types_3">2.3.2. Types</h4>
+<div class="sect4">
+<h5 id="_any">Any</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">typedef void Any;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Typedef for Any</p>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>To be used with pointers to anything</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_macros_3">2.3.3. Macros</h4>
+<div class="sect4">
+<h5 id="_to">to_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define to_(typeName, instance)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Cast an instance to the provided typeName</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>typeName - Name of the type (class or interface)</p>
+</li>
+<li>
+<p>instance - Instance to cast</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Instance cast to the provided typeName</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_extends">extends_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define extends_(typeName)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to extend a type (adds the member super to the structure)</p>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>Should be used as the first member in the structure</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>typeName - Name of the type</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_extends_2">extends_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define implements_(typeName)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to compose a type with the provided typeName</p>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>Should be used after extends_() macro</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>typeName - Name of the type</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_lengthof">lengthOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define lengthOf_(array)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get length of an array</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>array - Array for which to get the length</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_lengthof_2">lengthOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define salloc_(typeName)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to allocate memory on the stack</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>typeName - Name of type</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_ignore">ignore_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define ignore_(var)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to ignore unused variables</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>var - Variable to be ignored</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_vaargs_first">VaArgs_first_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define VaArgs_first_(...)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get first argument from <em>VA_ARGS</em></p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>&#8230;&#8203; - <em>VA_ARGS</em></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_vaargs_rest">VaArgs_rest_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define VaArgs_rest_(...)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get list of arguments from <em>VA_ARGS</em> except the first</p>
+</div>
+<div class="ulist">
+<div class="title">Remark</div>
+<ul>
+<li>
+<p>Comma is added before the list</p>
+</li>
+<li>
+<p>Supports max 10 arguments</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>&#8230;&#8203; - <em>VA_ARGS</em></p>
+</li>
+</ul>
 </div>
 </div>
 </div>

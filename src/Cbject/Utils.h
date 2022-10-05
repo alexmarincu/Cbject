@@ -1,60 +1,156 @@
+/* tag::overview[]
+TODO
+end::overview[] */
 #ifndef UTILS_H
 #define UTILS_H
-/**
- * @brief Any
- * @remark To be used with pointers to anything
- */
+/* tag::type[]
+= Any
+====
+[source,c]
+----
 typedef void Any;
-/**
- * @brief Cast to a type
- * @param typeName
- * @param me
- */
-#define to_(typeName, var) ((typeName *)(var))
-/**
- * @brief Add super member to a structure
- * @remark Needs to be the first member in the structure
- * @param typeName Type name of the super member
- */
+----
+Typedef for Any
+
+.Remark
+To be used with pointers to anything
+====
+end::type[] */
+typedef void Any;
+/* tag::macro[]
+= to_()
+====
+[source,c]
+----
+#define to_(typeName, instance)
+----
+Cast an instance to the provided typeName
+
+.Params
+* typeName - Name of the type (class or interface)
+* instance - Instance to cast
+
+.Return
+Instance cast to the provided typeName
+====
+end::macro[] */
+#define to_(typeName, instance) \
+    ((typeName *)(instance))
+/* tag::macro[]
+= extends_()
+====
+[source,c]
+----
+#define extends_(typeName)
+----
+Syntactic sugar to extend a type (adds the member super to the structure)
+
+.Remark
+Should be used as the first member in the structure
+
+.Params
+* typeName - Name of the type
+====
+end::macro[] */
 #define extends_(typeName) \
     typeName super
-/**
- * @brief Add included member to a structure
- * @remark Needs to be placed just after the super member
- * @param typeName Type name of the included member
- */
+/* tag::macro[]
+= extends_()
+====
+[source,c]
+----
+#define implements_(typeName)
+----
+Syntactic sugar to compose a type with the provided typeName
+
+.Remark
+Should be used after extends_() macro
+
+.Params
+* typeName - Name of the type
+====
+end::macro[] */
 #define implements_(typeName) \
     typeName i##typeName
-/**
- * @brief Get length of an array
- */
+/* tag::macro[]
+= lengthOf_()
+====
+[source,c]
+----
+#define lengthOf_(array)
+----
+Get length of an array
+
+.Params
+* array - Array for which to get the length
+====
+end::macro[] */
 #define lengthOf_(array) \
     (sizeof(array) / sizeof(array[0]))
-/**
- * @brief Allocate memory on stack
- * @param typeName The type to allocate memory for
- */
+/* tag::macro[]
+= lengthOf_()
+====
+[source,c]
+----
+#define salloc_(typeName)
+----
+Syntactic sugar to allocate memory on the stack
+
+.Params
+* typeName - Name of type
+====
+end::macro[] */
 #define salloc_(typeName) \
     (&(typeName){ 0 })
-/**
- * @name ignore_
- * @brief Ignore a variable
- * @param var The variable to be ignored
- */
+/* tag::macro[]
+= ignore_()
+====
+[source,c]
+----
+#define ignore_(var)
+----
+Syntactic sugar to ignore unused variables
+
+.Params
+* var - Variable to be ignored
+====
+end::macro[] */
 #define ignore_(var) \
     (void)var
-/**
- * @brief Get first argument from __VA_ARGS__
- */
+/* tag::macro[]
+= VaArgs_first_()
+====
+[source,c]
+----
+#define VaArgs_first_(...)
+----
+Get first argument from __VA_ARGS__
+
+.Params
+* ... - __VA_ARGS__
+====
+end::macro[] */
 #define VaArgs_first_(...) \
     VaArgs_first_h0(__VA_ARGS__, discard)
 #define VaArgs_first_h0(first, ...) \
     first
-/**
- * @brief Get list of arguments from __VA_ARGS__ except the first
- * @remark Comma is added before the list
- * @remark Supports max 10 arguments
- */
+/* tag::macro[]
+= VaArgs_rest_()
+====
+[source,c]
+----
+#define VaArgs_rest_(...)
+----
+Get list of arguments from __VA_ARGS__ except the first
+
+.Remark
+* Comma is added before the list
+* Supports max 10 arguments
+
+.Params
+* ... - __VA_ARGS__
+====
+end::macro[] */
 #define VaArgs_rest_(...) \
     VaArgs_rest_h0(VaArgs_case_(__VA_ARGS__), __VA_ARGS__)
 #define VaArgs_rest_h0(case, ...) \
@@ -64,8 +160,30 @@ typedef void Any;
 #define VaArgs_rest_case_one(first)
 #define VaArgs_rest_case_more(first, ...) \
     , __VA_ARGS__
-#define VaArgs_case_(...) \
-    VaArgs_get10th_(__VA_ARGS__, more, more, more, more, more, more, more, more, one, discard)
-#define VaArgs_get10th_(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, ...) \
-    a10
+#define VaArgs_case_(...)                                                  \
+    VaArgs_get99th_(                                                       \
+        __VA_ARGS__, more, more, more, more, more, more, more, more, more, \
+        more, more, more, more, more, more, more, more, more, more,        \
+        more, more, more, more, more, more, more, more, more, more,        \
+        more, more, more, more, more, more, more, more, more, more,        \
+        more, more, more, more, more, more, more, more, more, more,        \
+        more, more, more, more, more, more, more, more, more, more,        \
+        more, more, more, more, more, more, more, more, more, more,        \
+        more, more, more, more, more, more, more, more, more, more,        \
+        more, more, more, more, more, more, more, more, more, more,        \
+        more, more, more, more, more, more, more, more, one, discard       \
+    )
+#define VaArgs_get99th_(                              \
+    a01, a02, a03, a04, a05, a06, a07, a08, a09, a10, \
+    a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, \
+    a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, \
+    a31, a32, a33, a34, a35, a36, a37, a38, a39, a40, \
+    a41, a42, a43, a44, a45, a46, a47, a48, a49, a50, \
+    a51, a52, a53, a54, a55, a56, a57, a58, a59, a60, \
+    a61, a62, a63, a64, a65, a66, a67, a68, a69, a70, \
+    a71, a72, a73, a74, a75, a76, a77, a78, a79, a80, \
+    a81, a82, a83, a84, a85, a86, a87, a88, a89, a90, \
+    a91, a92, a93, a94, a95, a96, a97, a98, a99, ...  \
+)                                                     \
+    a99
 #endif // UTILS_H
