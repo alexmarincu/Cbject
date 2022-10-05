@@ -35,10 +35,10 @@ dealloc_(object);
 .Building blocks
 ----
 !include ../src/Cbject/Object.h!Object
-!include ../src/Cbject/Object.h!Object_Class
+!include ../src/Cbject/Object.h!ObjectClass
 !include ../src/Cbject/Trait.h!Trait
-!include ../src/Cbject/Trait.h!Trait_Interface
-Object -r-> Object_Class
+!include ../src/Cbject/Trait.h!TraitInterface
+Object -r-> ObjectClass
 ----
 
 [plantuml, target=diag-rectangle-class-example, format=png]
@@ -47,22 +47,22 @@ Object -r-> Object_Class
 !include ../src/Examples/Rectangle.c!Rectangle
 !include ../src/Examples/Shape.h!Shape
 !include ../src/Examples/Drawable.h!Drawable
-!include ../src/Examples/Drawable.h!Drawable_Interface
+!include ../src/Examples/Drawable.h!DrawableInterface
 !include ../src/Cbject/Trait.h!Trait
-!include ../src/Examples/Rectangle.h!Rectangle_Class
-!include ../src/Cbject/Trait.h!Trait_Interface
+!include ../src/Examples/Rectangle.h!RectangleClass
+!include ../src/Cbject/Trait.h!TraitInterface
 !include ../src/Cbject/Object.h!Object
-!include ../src/Examples/Shape.h!Shape_Class
-!include ../src/Cbject/Object.h!Object_Class
+!include ../src/Examples/Shape.h!ShapeClass
+!include ../src/Cbject/Object.h!ObjectClass
 Rectangle -u-|> Shape
 Rectangle *-r- Drawable
-Rectangle_Class *-r- Drawable_Interface
+RectangleClass *-r- DrawableInterface
 Drawable -u-|> Trait
-Drawable_Interface -u-|> Trait_Interface
-Rectangle_Class -u-|> Shape_Class
+DrawableInterface -u-|> TraitInterface
+RectangleClass -u-|> ShapeClass
 Shape -u-|> Object
-Object -r-> Rectangle_Class
-Shape_Class -u-|> Object_Class
+Object -r-> RectangleClass
+ShapeClass -u-|> ObjectClass
 ----
 end::overview[] */
 #ifndef CBJECT_H

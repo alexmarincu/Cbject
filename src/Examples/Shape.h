@@ -2,16 +2,16 @@
 #define SHAPE_H
 #include "../Cbject/Cbject.h"
 #include "Point.h"
-typedef struct Shape_Class Shape_Class;
+typedef struct ShapeClass ShapeClass;
 typedef struct Shape Shape;
-/* @startuml(id=Shape_Class)
-object Shape_Class {
-    Object_Class super;
+/* @startuml(id=ShapeClass)
+object ShapeClass {
+    ObjectClass super;
     float (*area)(Shape const * const shape);
 }
 @enduml */
-struct Shape_Class {
-    extends_(Object_Class);
+struct ShapeClass {
+    extends_(ObjectClass);
     float (*area)(Shape const * const shape);
 };
 /* @startuml(id=Shape)
@@ -24,7 +24,8 @@ struct Shape {
     extends_(Object);
     Point origin;
 };
-Shape_Class const * Shape_Class_(void);
+ShapeClass const * ShapeClass_instance(void);
+void ShapeClass_init(void);
 Shape * Shape_init(
     Shape * shape,
     Point origin

@@ -9,10 +9,10 @@ void tearDown(void) {
 /* tag::test[]
 = test_Object_class
 ====
-Test setup of Object_Class
+Test setup of ObjectClass
 
 .Steps
-. Get Object_Class instance
+. Get ObjectClass instance
 . Check if object size stored in class is equal to the actual object size
 . Check that the function pointers in the class are initialized
 ====
@@ -31,7 +31,7 @@ Test initialization of Object
 
 .Steps
 . Allocate object on stack an initialize it
-. Check if object class points to Object_Class instance
+. Check if object class points to ObjectClass instance
 ====
 end::test[] */
 void test_Object_init(void) {
@@ -76,7 +76,7 @@ void test_Object_hashCode(void) {
 Test isOfClass method
 
 .Preconditions
-. Define a dummy Test_Class which extends Object_Class
+. Define a dummy TestClass which extends ObjectClass
 
 .Steps
 . Allocate object on stack an initialize it
@@ -85,10 +85,10 @@ Test isOfClass method
 ====
 end::test[] */
 typedef struct {
-    extends_(Object_Class);
-} Test_Class;
-Test_Class * Test_Class_(void) {
-    static Test_Class class;
+    extends_(ObjectClass);
+} TestClass;
+TestClass * TestClass_instance(void) {
+    static TestClass class;
     return &class;
 }
 void test_Object_isOfClass(void) {

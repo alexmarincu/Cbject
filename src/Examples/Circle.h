@@ -3,18 +3,18 @@
 #include "../Cbject/Cbject.h"
 #include "Drawable.h"
 #include "Shape.h"
-typedef struct Circle_Class Circle_Class;
-typedef struct Circle Circle;
-struct Circle_Class {
-    extends_(Shape_Class);
-    implements_(Drawable_Interface);
+typedefClass_(Circle);
+struct CircleClass {
+    extends_(ShapeClass);
+    implements_(DrawableInterface);
 };
 struct Circle {
     extends_(Shape);
     implements_(Drawable);
     uint32_t radius;
 };
-Circle_Class const * Circle_Class_(void);
+CircleClass const * CircleClass_instance(void);
+void CircleClass_init(void);
 Circle * Circle_init(
     Circle * circle,
     Point origin,

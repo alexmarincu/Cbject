@@ -1,16 +1,22 @@
 #include "Drawable.h"
 #include <stdio.h>
-Drawable_Interface const * Drawable_Interface_(void) {
-    static Drawable_Interface interface;
-    doOnce_({
-        initInterface_(Trait, &interface);
-    });
+static void draw(Drawable const * const drawable);
+DrawableInterface const * DrawableInterface_instance(void) {
+    static DrawableInterface interface;
     return &interface;
 }
-Drawable * Drawable_init(Drawable * const drawable) {
+void DrawableInterface_init(void) {
+    setUpInterface_(Drawable, Trait);
+    bindInterfaceMethod_(Drawable, Drawable, draw);
+}
+void Drawable_init(Drawable * const drawable, uint16_t const scale) {
     initTrait_(Trait, drawable);
-    return drawable;
+    drawable->scale = scale;
 }
 void Drawable_draw(Drawable const * const drawable) {
-    return traitMethodCall_(Drawable, draw, drawable);
+    traitMethodCall_(Drawable, draw, drawable);
+}
+static void draw(Drawable const * const drawable) {
+    ignore_(drawable);
+    assert_("Drawable_draw not implemented" && false);
 }

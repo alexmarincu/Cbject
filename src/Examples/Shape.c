@@ -1,12 +1,12 @@
 #include "Shape.h"
 static float area(Shape const * const shape);
-Shape_Class const * Shape_Class_(void) {
-    static Shape_Class class;
-    doOnce_({
-        setUpClass_(Shape, Object, &class);
-        bindClassMethod_(Shape, &class, area);
-    });
+ShapeClass const * ShapeClass_instance(void) {
+    static ShapeClass class;
     return &class;
+}
+void ShapeClass_init(void) {
+    setUpClass_(Shape, Object);
+    bindClassMethod_(Shape, Shape, area);
 }
 Shape * Shape_init(
     Shape * shape,

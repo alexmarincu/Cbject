@@ -4,12 +4,12 @@ struct Greeting {
     extends_(Object);
     char * text;
 };
-Greeting_Class const * Greeting_Class_(void) {
-    static Greeting_Class class;
-    doOnce_({
-        setUpClass_(Greeting, Object, &class);
-    });
+GreetingClass const * GreetingClass_instance(void) {
+    static GreetingClass class;
     return &class;
+}
+void GreetingClass_init(void) {
+    setUpClass_(Greeting, Object);
 }
 Greeting * Greeting_init(Greeting * greeting, char * const text) {
     setUpObject_(Greeting, Object, greeting);

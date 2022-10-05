@@ -8,16 +8,16 @@ end::overview[] */
 #include <stddef.h>
 #include <stdint.h>
 /* tag::type[]
-= Object_Class
+= ObjectClass
 ====
 [source,c]
 ----
-typedef struct Object_Class Object_Class;
+typedef struct ObjectClass ObjectClass;
 ----
-Typedef for struct Object_Class
+Typedef for struct ObjectClass
 ====
 end::type[] */
-typedef struct Object_Class Object_Class;
+typedef struct ObjectClass ObjectClass;
 /* tag::type[]
 = Object
 ====
@@ -30,20 +30,20 @@ Typedef for struct Object
 end::type[] */
 typedef struct Object Object;
 /* tag::type[]
-= struct Object_Class
+= struct ObjectClass
 ====
 [source,c]
 ----
-struct Object_Class {
+struct ObjectClass {
     size_t objectSize;
-    Object_Class const * superClass;
+    ObjectClass const * superClass;
     Object * (*teardown)(Object * object);
     uint64_t (*hashCode)(Object const * const object);
     Object * (*copy)(Object const * const object, Object * const copyObject);
     bool (*equals)(Object const * const object, Object const * const otherObject);
 };
 ----
-Definition of struct Object_Class
+Definition of struct ObjectClass
 
 .Members
 * objectSize - Size in memory of object
@@ -54,19 +54,19 @@ Definition of struct Object_Class
 * equals - Function pointer for the equals method
 ====
 end::type[] */
-/* @startuml(id=Object_Class)
-object Object_Class {
+/* @startuml(id=ObjectClass)
+object ObjectClass {
     size_t objectSize;
-    Object_Class const * superClass;
+    ObjectClass const * superClass;
     Object * (*teardown)(Object * object);
     uint64_t (*hashCode)(Object const * const object);
     Object * (*copy)(Object const * const object, Object * const copyObject);
     bool (*equals)(Object const * const object, Object const * const otherObject);
 }
 @enduml */
-struct Object_Class {
+struct ObjectClass {
     size_t objectSize;
-    Object_Class const * superClass;
+    ObjectClass const * superClass;
     Object * (*teardown)(Object * object);
     uint64_t (*hashCode)(Object const * const object);
     Object * (*copy)(Object const * const object, Object * const copyObject);
@@ -78,7 +78,7 @@ struct Object_Class {
 [source,c]
 ----
 struct Object {
-    Object_Class const * class;
+    ObjectClass const * class;
 };
 ----
 Definition of struct Object
@@ -89,32 +89,32 @@ Definition of struct Object
 end::type[] */
 /* @startuml(id=Object)
 object Object {
-    Object_Class const * class;
+    ObjectClass const * class;
 }
 @enduml */
 struct Object {
-    Object_Class const * class;
+    ObjectClass const * class;
 };
 /* tag::function[]
-= Object_Class_()
+= ObjectClass_instance()
 ====
 [source,c]
 ----
-Object_Class const * Object_Class_(void);
+ObjectClass const * ObjectClass_instance(void);
 ----
-Get Object_Class instance
+Get ObjectClass instance
 
 .Return
 Reference of the class instance
 ====
 end::function[] */
-Object_Class const * Object_Class_(void);
+ObjectClass const * ObjectClass_instance(void);
 /* tag::function[]
 = Object_alloc()
 ====
 [source,c]
 ----
-Object * Object_alloc(Object_Class const * const class);
+Object * Object_alloc(ObjectClass const * const class);
 ----
 Allocate an object in heap memory
 
@@ -125,7 +125,7 @@ Allocate an object in heap memory
 Reference of the allocated object
 ====
 end::function[] */
-Object * Object_alloc(Object_Class const * const class);
+Object * Object_alloc(ObjectClass const * const class);
 /* tag::function[]
 = Object_dealloc()
 ====
@@ -236,7 +236,7 @@ uint64_t Object_hashCode(Object const * const object);
 ====
 [source,c]
 ----
-bool Object_isOfClass(Object const * const object, Object_Class const * const class);
+bool Object_isOfClass(Object const * const object, ObjectClass const * const class);
 ----
 Check if an object is of a given class
 
@@ -249,7 +249,23 @@ Check if an object is of a given class
 * false - If the object is of a different class
 ====
 end::function[] */
-bool Object_isOfClass(Object const * const object, Object_Class const * const class);
+bool Object_isOfClass(Object const * const object, ObjectClass const * const class);
+/* tag::macro[]
+= typedefClass_()
+====
+[source,c]
+----
+#define typedefClass_(className)
+----
+Syntactic sugar to typedef class types
+
+.Params
+* className - Name of the class
+====
+end::macro[] */
+#define typedefClass_(className)                      \
+    typedef struct className##Class className##Class; \
+    typedef struct className className
 /* tag::macro[]
 = class_()
 ====
@@ -267,59 +283,90 @@ Class reference
 ====
 end::macro[] */
 #define class_(className) \
-    className##_Class_()
+    className##Class_instance()
 /* tag::macro[]
 = initClass_()
 ====
 [source,c]
 ----
-#define initClass_(className, object)
+#define initClass_(className)
 ----
 Initialize a class
 
 .Params
 * className - Name of the class
-* object - Class reference
 ====
 end::macro[] */
-#define initClass_(className, object) \
-    *to_(className##_Class, object) = *class_(className);
+#define initClass_(className) \
+    className##Class_init()
 /* tag::macro[]
 = setUpClass_()
 ====
 [source,c]
 ----
-#define setUpClass_(className, superClassName, class)
+#define setUpClass_(className, superClassName)
 ----
-Class setup (initialize, set the object size and super class)
+Class setup (initialize super, set the object size and super class)
 
 .Params
 * className - Name of the class
 * superClassName - Name of the super class
-* class - Class reference
 ====
 end::macro[] */
-#define setUpClass_(className, superClassName, class)         \
-    initClass_(superClassName, class);                        \
-    to_(Object_Class, class)->objectSize = sizeof(className); \
-    to_(Object_Class, class)->superClass = to_(Object_Class, class_(superClassName))
+#define setUpClass_(className, superClassName)                                \
+    *to_(superClassName##Class, class_(className)) = *class_(superClassName); \
+    to_(ObjectClass, class_(className))->objectSize = sizeof(className);      \
+    to_(ObjectClass, class_(className))->superClass = to_(ObjectClass, class_(superClassName))
 /* tag::macro[]
 = bindClassMethod_()
 ====
 [source,c]
 ----
-#define bindClassMethod_(className, class, methodName)
+#define bindClassMethod_(className, superClassName, methodName)
 ----
 Bind a method of a class
 
 .Params
 * className - Name of the class
-* class - Class reference
+* superClassName - Name of the super class
 * methodName - Name of the method
 ====
 end::macro[] */
-#define bindClassMethod_(className, class, methodName) \
-    to_(className##_Class, class)->methodName = methodName
+#define bindClassMethod_(className, superClassName, methodName) \
+    to_(superClassName##Class, class_(className))->methodName = methodName
+/* tag::macro[]
+= singleton_()
+====
+[source,c]
+----
+#define singleton_(className)
+----
+Syntactic sugar to get a singleton reference
+
+.Params
+* className - Name of the class
+
+.Return
+Singleton reference
+====
+end::macro[] */
+#define singleton_(className) \
+    className##_instance()
+/* tag::macro[]
+= initSingleton_()
+====
+[source,c]
+----
+#define initSingleton_(className)
+----
+Initialize a singleton
+
+.Params
+* className - Name of the class
+====
+end::macro[] */
+#define initSingleton_(className) \
+    className##_init()
 /* tag::macro[]
 = initObject_()
 ====
@@ -400,7 +447,7 @@ Object setup (initialize, set the object class)
 end::macro[] */
 #define setUpObject_(className, superClassName, ...) \
     initObject_(superClassName, __VA_ARGS__);        \
-    classOf_(VaArgs_first_(__VA_ARGS__)) = to_(Object_Class, class_(className))
+    classOf_(VaArgs_first_(__VA_ARGS__)) = to_(ObjectClass, class_(className))
 /* tag::macro[]
 = objectSizeOf_()
 ====
@@ -438,7 +485,7 @@ Trait reference
 ====
 end::macro[] */
 #define traitOf_(object, className, interfaceName) \
-    to_(interfaceName, (to_(Any, object) + to_(Trait_Interface, &to_(className##_Class, classOf_(object))->i##interfaceName##_Interface)->traitOffset))
+    to_(interfaceName, (to_(Any, object) + to_(TraitInterface, &to_(className##Class, classOf_(object))->i##interfaceName##Interface)->traitOffset))
 /* tag::macro[]
 = objectMethodCall_()
 ====
@@ -460,7 +507,7 @@ Depends on the called method
 ====
 end::macro[] */
 #define objectMethodCall_(className, methodName, ...) \
-    to_(className##_Class, classOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
+    to_(className##Class, classOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
 /* tag::macro[]
 = classMethodCall_()
 ====
@@ -483,7 +530,7 @@ Depends on the called method
 ====
 end::macro[] */
 #define classMethodCall_(className, superClassName, methodName, ...) \
-    to_(superClassName##_Class, class_(className))->methodName(__VA_ARGS__)
+    to_(superClassName##Class, class_(className))->methodName(__VA_ARGS__)
 /* tag::macro[]
 = alloc_()
 ====
@@ -501,7 +548,7 @@ Reference of the allocated object
 ====
 end::macro[] */
 #define alloc_(className) \
-    to_(className, Object_alloc(to_(Object_Class, class_(className))))
+    to_(className, Object_alloc(to_(ObjectClass, class_(className))))
 /* tag::macro[]
 = allocInit_()
 ====
@@ -675,5 +722,5 @@ Syntactic sugar to check if an object is of a given class
 ====
 end::macro[] */
 #define isOfClass_(object, className) \
-    Object_isOfClass(to_(Object, object), to_(Object_Class, class_(className)))
+    Object_isOfClass(to_(Object, object), to_(ObjectClass, class_(className)))
 #endif // OBJECT_H

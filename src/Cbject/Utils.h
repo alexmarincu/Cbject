@@ -1,8 +1,5 @@
 #ifndef UTILS_H
 #define UTILS_H
-#include "DoOnce.h"
-#define singleton_(className) \
-    className##_()
 /**
  * @brief Any
  * @remark To be used with pointers to anything

@@ -17,16 +17,16 @@ struct Rectangle {
 static Object * teardown(Object * object);
 static float area(Shape const * const shape);
 static void draw(Drawable const * const drawable);
-Rectangle_Class const * Rectangle_Class_(void) {
-    static Rectangle_Class class;
-    doOnce_({
-        setUpClass_(Rectangle, Shape, &class);
-        setUpInterfaceOf_(Rectangle, Drawable, &class);
-        bindClassMethod_(Object, &class, teardown);
-        bindInterfaceMethodOf_(Rectangle, Drawable, &class, draw);
-        bindClassMethod_(Shape, &class, area);
-    });
+RectangleClass const * RectangleClass_instance(void) {
+    static RectangleClass class;
     return &class;
+}
+void RectangleClass_init(void) {
+    setUpClass_(Rectangle, Shape);
+    setUpInterfaceOf_(Rectangle, Drawable);
+    bindClassMethod_(Rectangle, Object, teardown);
+    bindInterfaceMethodOf_(Rectangle, Rectangle, Drawable, draw);
+    bindClassMethod_(Rectangle, Shape, area);
 }
 Rectangle * Rectangle_init(
     Rectangle * rectangle,
@@ -35,7 +35,7 @@ Rectangle * Rectangle_init(
     uint32_t height
 ) {
     setUpObject_(Rectangle, Shape, rectangle, origin);
-    setUpTraitOf_(Rectangle, Drawable, rectangle);
+    setUpTraitOf_(Rectangle, Drawable, rectangle, 0);
     rectangle->width = width;
     rectangle->height = height;
     return rectangle;

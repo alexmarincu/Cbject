@@ -8,16 +8,16 @@ end::overview[] */
 #include <stddef.h>
 #include <stdint.h>
 /* tag::type[]
-= Trait_Interface
+= TraitInterface
 ====
 [source,c]
 ----
-typedef struct Trait_Interface Trait_Interface;
+typedef struct TraitInterface TraitInterface;
 ----
-Typedef for struct Trait_Interface
+Typedef for struct TraitInterface
 ====
 end::type[] */
-typedef struct Trait_Interface Trait_Interface;
+typedef struct TraitInterface TraitInterface;
 /* tag::type[]
 = Trait
 ====
@@ -30,26 +30,26 @@ Typedef for struct Trait
 end::type[] */
 typedef struct Trait Trait;
 /* tag::type[]
-= struct Trait_Interface
+= struct TraitInterface
 ====
 [source,c]
 ----
-struct Trait_Interface {
+struct TraitInterface {
     size_t traitOffset;
 };
 ----
-Definition of struct Trait_Interface
+Definition of struct TraitInterface
 
 .Members
 * traitOffset - Offset of trait in containing object
 ====
 end::type[] */
-/* @startuml(id=Trait_Interface)
-object Trait_Interface {
+/* @startuml(id=TraitInterface)
+object TraitInterface {
     size_t traitOffset;
 }
 @enduml */
-struct Trait_Interface {
+struct TraitInterface {
     size_t traitOffset;
 };
 /* tag::type[]
@@ -66,7 +66,7 @@ Definition of struct Trait
 
 .Members
 * offset - Offset of Trait in container Object
-* interfaceOffset - Offset of Trait_Interface in container Object_Class
+* interfaceOffset - Offset of TraitInterface in container ObjectClass
 ====
 end::type[] */
 /* @startuml(id=Trait)
@@ -80,19 +80,19 @@ struct Trait {
     size_t interfaceOffset;
 };
 /* tag::function[]
-= Trait_Interface_
+= TraitInterface_
 ====
 [source,c]
 ----
-Trait_Interface const * Trait_Interface_(void);
+TraitInterface const * TraitInterface_instance(void);
 ----
-Get Trait_Interface instance
+Get TraitInterface instance
 
 .Return
 Reference of the trait interface
 ====
 end::function[] */
-Trait_Interface const * Trait_Interface_(void);
+TraitInterface const * TraitInterface_instance(void);
 /* tag::function[]
 = Trait_init
 ====
@@ -111,6 +111,25 @@ Initialized trait
 end::function[] */
 Trait * Trait_init(Trait * const trait);
 /* tag::macro[]
+= typedefInterface_()
+====
+[source,c]
+----
+#define typedefInterface_(interfaceName)
+----
+Syntactic sugar to typedef interface types
+
+.Params
+* interfaceName - Name of the interface
+
+.Return
+Interface reference
+====
+end::macro[] */
+#define typedefInterface_(interfaceName)                              \
+    typedef struct interfaceName##Interface interfaceName##Interface; \
+    typedef struct interfaceName interfaceName
+/* tag::macro[]
 = interface_()
 ====
 [source,c]
@@ -127,59 +146,90 @@ Interface reference
 ====
 end::macro[] */
 #define interface_(interfaceName) \
-    interfaceName##_Interface_()
+    interfaceName##Interface_instance()
 /* tag::macro[]
 = initInterface_()
 ====
 [source,c]
 ----
-#define initInterface_(interfaceName, interface)
+#define initInterface_(interfaceName)
 ----
-Initialize an interface
+Initialize a class
 
 .Params
 * interfaceName - Name of the interface
-* interface - Interface reference
 ====
 end::macro[] */
-#define initInterface_(interfaceName, interface) \
-    *to_(interfaceName##_Interface, interface) = *interface_(interfaceName);
+#define initInterface_(interfaceName) \
+    interfaceName##Interface_init()
+/* tag::macro[]
+= setUpInterface_()
+====
+[source,c]
+----
+#define setUpInterface_(interfaceName, superInterfaceName)
+----
+Interface setup (initialize super)
+
+.Params
+* interfaceName - Name of the interface
+* interfaceName - Name of the super interface
+====
+end::macro[] */
+#define setUpInterface_(interfaceName, superInterfaceName) \
+    *to_(superInterfaceName##Interface, interface_(interfaceName)) = *interface_(superInterfaceName)
+/* tag::macro[]
+= bindInterfaceMethod_()
+====
+[source,c]
+----
+#define bindInterfaceMethod_(interfaceName, superInterfaceName, methodName)
+----
+Bind a method of an interface
+
+.Params
+* interfaceName - Name of the interface
+* superInterfaceName - Name of the super interface
+* methodName - Name of the method
+====
+end::macro[] */
+#define bindInterfaceMethod_(interfaceName, superInterfaceName, methodName) \
+    to_(superInterfaceName##Interface, interface_(interfaceName))->methodName = methodName
 /* tag::macro[]
 = setUpInterfaceOf_()
 ====
 [source,c]
 ----
-#define setUpInterfaceOf_(className, interfaceName, class)
+#define setUpInterfaceOf_(className, interfaceName)
 ----
-Interface setup (initialize, set the trait offset in container object)
+Interface setup in class (initialize super, set the trait offset in container object)
 
 .Params
 * className - Name of the class
 * interfaceName - Name of the interface
-* class - Class reference
 ====
 end::macro[] */
-#define setUpInterfaceOf_(className, interfaceName, class)                 \
-    initInterface_(interfaceName, &(class)->i##interfaceName##_Interface); \
-    to_(Trait_Interface, &(class)->i##interfaceName##_Interface)->traitOffset = offsetof(className, i##interfaceName)
+#define setUpInterfaceOf_(className, interfaceName)                                                               \
+    *to_(interfaceName##Interface, &class_(className)->i##interfaceName##Interface) = *interface_(interfaceName); \
+    to_(TraitInterface, &class_(className)->i##interfaceName##Interface)->traitOffset = offsetof(className, i##interfaceName)
 /* tag::macro[]
 = bindInterfaceMethodOf_()
 ====
 [source,c]
 ----
-#define bindInterfaceMethodOf_(className, interfaceName, interface, methodName)
+#define bindInterfaceMethodOf_(className, superClassName, interfaceName, methodName)
 ----
 Bind a method of an interface
 
 .Params
 * className - Name of the class
+* superClassName - Name of the super class
 * interfaceName - Name of the interface
-* class - Class reference
 * methodName - Name of the method
 ====
 end::macro[] */
-#define bindInterfaceMethodOf_(className, interfaceName, class, methodName) \
-    to_(interfaceName##_Interface, &to_(className##_Class, class)->i##interfaceName##_Interface)->methodName = methodName
+#define bindInterfaceMethodOf_(className, superClassName, interfaceName, methodName) \
+    to_(interfaceName##Interface, &to_(superClassName##Class, class_(className))->i##interfaceName##Interface)->methodName = methodName
 /* tag::macro[]
 = offsetOf_()
 ====
@@ -252,7 +302,7 @@ Interface reference
 end::macro[] */
 #define interfaceOf_(trait)                                              \
     to_(                                                                 \
-        Trait_Interface,                                                 \
+        TraitInterface,                                                  \
         to_(Any, classOf_(objectOf_(trait))) + interfaceOffsetOf_(trait) \
     )
 /* tag::macro[]
@@ -296,7 +346,7 @@ end::macro[] */
 #define setUpTraitOf_(className, interfaceName, ...)                                                    \
     initTrait_(interfaceName, &VaArgs_first_(__VA_ARGS__)->i##interfaceName VaArgs_rest_(__VA_ARGS__)); \
     offsetOf_(&VaArgs_first_(__VA_ARGS__)->i##interfaceName) = offsetof(className, i##interfaceName);   \
-    interfaceOffsetOf_(&VaArgs_first_(__VA_ARGS__)->i##interfaceName) = offsetof(className##_Class, i##interfaceName##_Interface)
+    interfaceOffsetOf_(&VaArgs_first_(__VA_ARGS__)->i##interfaceName) = offsetof(className##Class, i##interfaceName##Interface)
 /* tag::macro[]
 = traitMethodCall_()
 ====
@@ -318,7 +368,7 @@ Depends on the called method
 ====
 end::macro[] */
 #define traitMethodCall_(interfaceName, methodName, ...) \
-    to_(interfaceName##_Interface, interfaceOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
+    to_(interfaceName##Interface, interfaceOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
 /* tag::macro[]
 = interfaceMethodCall_()
 ====
@@ -341,5 +391,5 @@ Depends on the called method
 ====
 end::macro[] */
 #define interfaceMethodCall_(className, interfaceName, methodName, ...) \
-    to_(interfaceName##_Interface, &to_(className##_Class, class_(className))->i##interfaceName##_Interface)->methodName(__VA_ARGS__)
+    to_(interfaceName##Interface, &to_(className##Class, class_(className))->i##interfaceName##Interface)->methodName(__VA_ARGS__)
 #endif // TRAIT_H

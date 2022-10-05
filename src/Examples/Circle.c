@@ -3,16 +3,16 @@
 static Object * teardown(Object * object);
 static float area(Shape const * const shape);
 static void draw(Drawable const * const drawable);
-Circle_Class const * Circle_Class_(void) {
-    static Circle_Class class;
-    doOnce_({
-        setUpClass_(Circle, Shape, &class);
-        setUpInterfaceOf_(Circle, Drawable, &class);
-        bindClassMethod_(Object, &class, teardown);
-        bindInterfaceMethodOf_(Circle, Drawable, &class, draw);
-        bindClassMethod_(Shape, &class, area);
-    });
+CircleClass const * CircleClass_instance(void) {
+    static CircleClass class;
     return &class;
+}
+void CircleClass_init(void) {
+    setUpClass_(Circle, Shape);
+    setUpInterfaceOf_(Circle, Drawable);
+    bindClassMethod_(Circle, Object, teardown);
+    bindInterfaceMethodOf_(Circle, Circle, Drawable, draw);
+    bindClassMethod_(Circle, Shape, area);
 }
 Circle * Circle_init(
     Circle * circle,
@@ -20,7 +20,7 @@ Circle * Circle_init(
     uint32_t radius
 ) {
     setUpObject_(Circle, Shape, circle, origin);
-    setUpTraitOf_(Circle, Drawable, circle);
+    setUpTraitOf_(Circle, Drawable, circle, 0);
     circle->radius = radius;
     return circle;
 }

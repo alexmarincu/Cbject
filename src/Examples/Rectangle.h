@@ -3,19 +3,19 @@
 #include "../Cbject/Cbject.h"
 #include "Drawable.h"
 #include "Shape.h"
-typedef struct Rectangle_Class Rectangle_Class;
-typedef struct Rectangle Rectangle;
-/* @startuml(id=Rectangle_Class)
-object Rectangle_Class {
-    Shape_Class super;
-    Drawable_Interface iDrawable_Interface;
+typedefClass_(Rectangle);
+/* @startuml(id=RectangleClass)
+object RectangleClass {
+    ShapeClass super;
+    DrawableInterface iDrawableInterface;
 }
 @enduml */
-struct Rectangle_Class {
-    extends_(Shape_Class);
-    implements_(Drawable_Interface);
+struct RectangleClass {
+    extends_(ShapeClass);
+    implements_(DrawableInterface);
 };
-Rectangle_Class const * Rectangle_Class_(void);
+RectangleClass const * RectangleClass_instance(void);
+void RectangleClass_init(void);
 Rectangle * Rectangle_init(
     Rectangle * rectangle,
     Point origin,

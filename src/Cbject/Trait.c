@@ -2,8 +2,8 @@
 #include "Assert.h"
 #include <stdlib.h>
 #include <string.h>
-Trait_Interface const * Trait_Interface_(void) {
-    static Trait_Interface interface = {
+TraitInterface const * TraitInterface_instance(void) {
+    static TraitInterface interface = {
         .traitOffset = 0
     };
     return &interface;

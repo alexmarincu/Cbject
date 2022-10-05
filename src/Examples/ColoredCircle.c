@@ -1,13 +1,13 @@
 #include "ColoredCircle.h"
 #include <stdio.h>
 static void draw(Drawable const * const drawable);
-ColoredCircle_Class const * ColoredCircle_Class_(void) {
-    static ColoredCircle_Class class;
-    doOnce_({
-        setUpClass_(ColoredCircle, Circle, &class);
-        bindInterfaceMethodOf_(Circle, Drawable, &class, draw);
-    });
+ColoredCircleClass const * ColoredCircleClass_instance(void) {
+    static ColoredCircleClass class;
     return &class;
+}
+void ColoredCircleClass_init(void) {
+    setUpClass_(ColoredCircle, Circle);
+    bindInterfaceMethodOf_(ColoredCircle, Circle, Drawable, draw);
 }
 ColoredCircle * ColoredCircle_init(
     ColoredCircle * const coloredCircle,

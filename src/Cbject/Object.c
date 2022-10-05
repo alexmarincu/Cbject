@@ -6,8 +6,8 @@ static Object * teardown(Object * object);
 static Object * copy(Object const * const object, Object * const copyObject);
 static bool equals(Object const * const object, Object const * const otherObject);
 static uint64_t hashCode(Object const * const object);
-Object_Class const * Object_Class_(void) {
-    static Object_Class class = {
+ObjectClass const * ObjectClass_instance(void) {
+    static ObjectClass class = {
         .objectSize = sizeof(Object),
         .superClass = NULL,
         .teardown = teardown,
@@ -17,7 +17,7 @@ Object_Class const * Object_Class_(void) {
     };
     return &class;
 }
-Object * Object_alloc(Object_Class const * const class) {
+Object * Object_alloc(ObjectClass const * const class) {
     Object * object = to_(Object, calloc(1, class->objectSize));
     assert_(object);
     return object;
@@ -57,10 +57,10 @@ uint64_t Object_hashCode(Object const * const object) {
 static uint64_t hashCode(Object const * const object) {
     return (uint64_t)object;
 }
-bool Object_isOfClass(Object const * const object, Object_Class const * const targetClass) {
+bool Object_isOfClass(Object const * const object, ObjectClass const * const targetClass) {
     bool isOfClass = true;
-    Object_Class const * class = object->class;
-    if (targetClass != to_(Object_Class, class_(Object))) {
+    ObjectClass const * class = object->class;
+    if (targetClass != to_(ObjectClass, class_(Object))) {
         while ((isOfClass == true) && (class != targetClass)) {
             class = class->superClass;
             if (class == NULL) {

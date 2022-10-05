@@ -1,12 +1,13 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 #include "../Cbject/Cbject.h"
-typedef struct Application Application;
-typedef struct Application_Class Application_Class;
-struct Application_Class {
-    extends_(Object_Class);
+typedefClass_(Application);
+struct ApplicationClass {
+    extends_(ObjectClass);
 };
-Application_Class const * Application_Class_(void);
-Application * Application_(void);
+ApplicationClass const * ApplicationClass_instance(void);
+void ApplicationClass_init(void);
+Application * Application_instance(void);
+void Application_init(void);
 void Application_main(Application * const application);
 #endif // APPLICATION_H

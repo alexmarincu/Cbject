@@ -10,25 +10,21 @@ struct Application {
 };
 static Object * teardown(Object * application);
 static Object * copy(Object const * const application, Object * const copyObject);
-static void init(Application * const application);
-Application * Application_(void) {
-    static Application application;
-    doOnce_({
-        init(&application);
-    });
-    return &application;
-}
-Application_Class const * Application_Class_(void) {
-    static Application_Class class;
-    doOnce_({
-        setUpClass_(Application, Object, &class);
-        bindClassMethod_(Object, &class, teardown);
-        bindClassMethod_(Object, &class, copy);
-    });
+ApplicationClass const * ApplicationClass_instance(void) {
+    static ApplicationClass class;
     return &class;
 }
-static void init(Application * const application) {
-    setUpObject_(Application, Object, application);
+void ApplicationClass_init(void) {
+    setUpClass_(Application, Object);
+    bindClassMethod_(Application, Object, teardown);
+    bindClassMethod_(Application, Object, copy);
+}
+Application * Application_instance(void) {
+    static Application application;
+    return &application;
+}
+void Application_init(void) {
+    setUpObject_(Application, Object, singleton_(Application));
 }
 static void circleExample(Application * const application);
 static void greetingExample(Application * const application);
