@@ -167,23 +167,23 @@ end::macro[] */
 ====
 [source,c]
 ----
-#define setUpInterface_(interfaceName, superInterfaceName)
+#define setUpInterface_(interfaceName, interfaceInstance)
 ----
 Interface setup (initialize super)
 
 .Params
 * interfaceName - Name of the interface
-* interfaceName - Name of the super interface
+* interfaceInstance - Interface instance
 ====
 end::macro[] */
-#define setUpInterface_(interfaceName, superInterfaceName) \
-    *to_(superInterfaceName##Interface, interface_(interfaceName)) = *interface_(superInterfaceName)
+#define setUpInterface_(interfaceName, interfaceInstance) \
+    *to_(interfaceName##Interface, interfaceInstance) = *interface_(interfaceName)
 /* tag::macro[]
 = bindInterfaceMethod_()
 ====
 [source,c]
 ----
-#define bindInterfaceMethod_(interfaceName, superInterfaceName, methodName)
+#define bindInterfaceMethod_(interfaceName, methodName, interfaceInstance)
 ----
 Bind a method of an interface
 
@@ -191,45 +191,47 @@ Bind a method of an interface
 * interfaceName - Name of the interface
 * superInterfaceName - Name of the super interface
 * methodName - Name of the method
+* interfaceInstance - Interface instance
 ====
 end::macro[] */
-#define bindInterfaceMethod_(interfaceName, superInterfaceName, methodName) \
-    to_(superInterfaceName##Interface, interface_(interfaceName))->methodName = methodName
+#define bindInterfaceMethod_(interfaceName, methodName, interfaceInstance) \
+    to_(interfaceName##Interface, interfaceInstance)->methodName = methodName
 /* tag::macro[]
 = setUpInterfaceOf_()
 ====
 [source,c]
 ----
-#define setUpInterfaceOf_(className, interfaceName)
+#define setUpInterfaceOf_(className, interfaceName, classInstance)
 ----
 Interface setup in class (initialize super, set the trait offset in container object)
 
 .Params
 * className - Name of the class
 * interfaceName - Name of the interface
+* classInstance - Class instance
 ====
 end::macro[] */
-#define setUpInterfaceOf_(className, interfaceName)                                                               \
-    *to_(interfaceName##Interface, &class_(className)->i##interfaceName##Interface) = *interface_(interfaceName); \
-    to_(TraitInterface, &class_(className)->i##interfaceName##Interface)->traitOffset = offsetof(className, i##interfaceName)
+#define setUpInterfaceOf_(className, interfaceName, classInstance)                                              \
+    *to_(interfaceName##Interface, &(classInstance)->i##interfaceName##Interface) = *interface_(interfaceName); \
+    to_(TraitInterface, &(classInstance)->i##interfaceName##Interface)->traitOffset = offsetof(className, i##interfaceName)
 /* tag::macro[]
 = bindInterfaceMethodOf_()
 ====
 [source,c]
 ----
-#define bindInterfaceMethodOf_(className, superClassName, interfaceName, methodName)
+#define bindInterfaceMethodOf_(className, interfaceName, methodName, classInstance)
 ----
 Bind a method of an interface
 
 .Params
 * className - Name of the class
-* superClassName - Name of the super class
 * interfaceName - Name of the interface
 * methodName - Name of the method
+* classInstance - Class instance
 ====
 end::macro[] */
-#define bindInterfaceMethodOf_(className, superClassName, interfaceName, methodName) \
-    to_(interfaceName##Interface, &to_(superClassName##Class, class_(className))->i##interfaceName##Interface)->methodName = methodName
+#define bindInterfaceMethodOf_(className, interfaceName, methodName, classInstance) \
+    to_(interfaceName##Interface, &to_(className##Class, classInstance)->i##interfaceName##Interface)->methodName = methodName
 /* tag::macro[]
 = offsetOf_()
 ====

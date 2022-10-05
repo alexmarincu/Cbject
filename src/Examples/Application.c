@@ -12,19 +12,19 @@ static Object * teardown(Object * application);
 static Object * copy(Object const * const application, Object * const copyObject);
 ApplicationClass const * ApplicationClass_instance(void) {
     static ApplicationClass class;
+    doOnce_ {
+        setUpClass_(Application, Object, &class);
+        bindClassMethod_(Object, teardown, &class);
+        bindClassMethod_(Object, copy, &class);
+    }
     return &class;
-}
-void ApplicationClass_init(void) {
-    setUpClass_(Application, Object);
-    bindClassMethod_(Application, Object, teardown);
-    bindClassMethod_(Application, Object, copy);
 }
 Application * Application_instance(void) {
     static Application application;
+    doOnce_ {
+        setUpObject_(Application, Object, &application);
+    }
     return &application;
-}
-void Application_init(void) {
-    setUpObject_(Application, Object, singleton_(Application));
 }
 static void circleExample(Application * const application);
 static void greetingExample(Application * const application);

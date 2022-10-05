@@ -6,10 +6,10 @@ struct Greeting {
 };
 GreetingClass const * GreetingClass_instance(void) {
     static GreetingClass class;
+    doOnce_ {
+        setUpClass_(Greeting, Object, &class);
+    }
     return &class;
-}
-void GreetingClass_init(void) {
-    setUpClass_(Greeting, Object);
 }
 Greeting * Greeting_init(Greeting * greeting, char * const text) {
     setUpObject_(Greeting, Object, greeting);

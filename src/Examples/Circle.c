@@ -5,14 +5,14 @@ static float area(Shape const * const shape);
 static void draw(Drawable const * const drawable);
 CircleClass const * CircleClass_instance(void) {
     static CircleClass class;
+    doOnce_ {
+        setUpClass_(Circle, Shape, &class);
+        setUpInterfaceOf_(Circle, Drawable, &class);
+        bindClassMethod_(Object, teardown, &class);
+        bindInterfaceMethodOf_(Circle, Drawable, draw, &class);
+        bindClassMethod_(Shape, area, &class);
+    }
     return &class;
-}
-void CircleClass_init(void) {
-    setUpClass_(Circle, Shape);
-    setUpInterfaceOf_(Circle, Drawable);
-    bindClassMethod_(Circle, Object, teardown);
-    bindInterfaceMethodOf_(Circle, Circle, Drawable, draw);
-    bindClassMethod_(Circle, Shape, area);
 }
 Circle * Circle_init(
     Circle * circle,

@@ -14,7 +14,6 @@ struct Circle {
     uint32_t radius;
 };
 CircleClass const * CircleClass_instance(void);
-void CircleClass_init(void);
 Circle * Circle_init(
     Circle * circle,
     Point origin,

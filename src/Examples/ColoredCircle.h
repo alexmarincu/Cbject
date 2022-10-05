@@ -12,7 +12,6 @@ struct ColoredCircle {
     Color color;
 };
 ColoredCircleClass const * ColoredCircleClass_instance(void);
-void ColoredCircleClass_init(void);
 ColoredCircle * ColoredCircle_init(
     ColoredCircle * const coloredCircle,
     Point const origin,

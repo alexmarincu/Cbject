@@ -7,8 +7,6 @@ TEST_FILE("Drawable.c")
 TEST_FILE("Object.c")
 TEST_FILE("Trait.c")
 void setUp(void) {
-    initClass_(Shape);
-    initClass_(Rectangle);
 }
 void tearDown(void) {
 }

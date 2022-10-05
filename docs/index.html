@@ -645,6 +645,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_macros_3">2.3.3. Macros</a>
 <ul class="sectlevel4">
+<li><a href="#_doonce">doOnce_</a></li>
 <li><a href="#_to">to_()</a></li>
 <li><a href="#_extends">extends_()</a></li>
 <li><a href="#_extends_2">extends_()</a></li>
@@ -1204,7 +1205,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpClass_(className, superClassName)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpClass_(className, superClassName, classInstance)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1219,6 +1220,9 @@ dealloc_(object);</code></pre>
 <li>
 <p>superClassName - Name of the super class</p>
 </li>
+<li>
+<p>classInstance - Class instance</p>
+</li>
 </ul>
 </div>
 </div>
@@ -1230,7 +1234,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define bindClassMethod_(className, superClassName, methodName)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define bindClassMethod_(className, methodName, classInstance)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1243,10 +1247,10 @@ dealloc_(object);</code></pre>
 <p>className - Name of the class</p>
 </li>
 <li>
-<p>superClassName - Name of the super class</p>
+<p>methodName - Name of the method</p>
 </li>
 <li>
-<p>methodName - Name of the method</p>
+<p>classInstance - Class instance</p>
 </li>
 </ul>
 </div>
@@ -2299,7 +2303,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterface_(interfaceName, superInterfaceName)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterface_(interfaceName, interfaceInstance)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2312,7 +2316,7 @@ dealloc_(object);</code></pre>
 <p>interfaceName - Name of the interface</p>
 </li>
 <li>
-<p>interfaceName - Name of the super interface</p>
+<p>interfaceInstance - Interface instance</p>
 </li>
 </ul>
 </div>
@@ -2325,7 +2329,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define bindInterfaceMethod_(interfaceName, superInterfaceName, methodName)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define bindInterfaceMethod_(interfaceName, methodName, interfaceInstance)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2343,6 +2347,9 @@ dealloc_(object);</code></pre>
 <li>
 <p>methodName - Name of the method</p>
 </li>
+<li>
+<p>interfaceInstance - Interface instance</p>
+</li>
 </ul>
 </div>
 </div>
@@ -2354,7 +2361,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterfaceOf_(className, interfaceName)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterfaceOf_(className, interfaceName, classInstance)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2369,6 +2376,9 @@ dealloc_(object);</code></pre>
 <li>
 <p>interfaceName - Name of the interface</p>
 </li>
+<li>
+<p>classInstance - Class instance</p>
+</li>
 </ul>
 </div>
 </div>
@@ -2380,7 +2390,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define bindInterfaceMethodOf_(className, superClassName, interfaceName, methodName)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define bindInterfaceMethodOf_(className, interfaceName, methodName, classInstance)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2393,13 +2403,13 @@ dealloc_(object);</code></pre>
 <p>className - Name of the class</p>
 </li>
 <li>
-<p>superClassName - Name of the super class</p>
-</li>
-<li>
 <p>interfaceName - Name of the interface</p>
 </li>
 <li>
 <p>methodName - Name of the method</p>
+</li>
+<li>
+<p>classInstance - Class instance</p>
 </li>
 </ul>
 </div>
@@ -2716,6 +2726,34 @@ dealloc_(object);</code></pre>
 </div>
 <div class="sect3">
 <h4 id="_macros_3">2.3.3. Macros</h4>
+<div class="sect4">
+<h5 id="_doonce">doOnce_</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define doOnce_</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run a block of code only once</p>
+</div>
+<div class="listingblock">
+<div class="title">Usage</div>
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">doOnce_ {
+    functionCall();
+    anotherFunctionCall();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>Not thread safe</p>
+</div>
+</div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="_to">to_()</h5>
 <div class="exampleblock">

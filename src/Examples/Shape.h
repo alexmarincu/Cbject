@@ -25,7 +25,6 @@ struct Shape {
     Point origin;
 };
 ShapeClass const * ShapeClass_instance(void);
-void ShapeClass_init(void);
 Shape * Shape_init(
     Shape * shape,
     Point origin

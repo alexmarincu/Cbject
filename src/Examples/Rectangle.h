@@ -15,7 +15,6 @@ struct RectangleClass {
     implements_(DrawableInterface);
 };
 RectangleClass const * RectangleClass_instance(void);
-void RectangleClass_init(void);
 Rectangle * Rectangle_init(
     Rectangle * rectangle,
     Point origin,

@@ -6,7 +6,6 @@ struct GreetingClass {
     extends_(ObjectClass);
 };
 GreetingClass const * GreetingClass_instance(void);
-void GreetingClass_init(void);
 Greeting * Greeting_init(Greeting * greeting, char * const text);
 void Greeting_print(Greeting * const greeting);
 #endif // GREETING_H

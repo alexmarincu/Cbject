@@ -19,14 +19,14 @@ static float area(Shape const * const shape);
 static void draw(Drawable const * const drawable);
 RectangleClass const * RectangleClass_instance(void) {
     static RectangleClass class;
+    doOnce_ {
+        setUpClass_(Rectangle, Shape, &class);
+        setUpInterfaceOf_(Rectangle, Drawable, &class);
+        bindClassMethod_(Object, teardown, &class);
+        bindInterfaceMethodOf_(Rectangle, Drawable, draw, &class);
+        bindClassMethod_(Shape, area, &class);
+    }
     return &class;
-}
-void RectangleClass_init(void) {
-    setUpClass_(Rectangle, Shape);
-    setUpInterfaceOf_(Rectangle, Drawable);
-    bindClassMethod_(Rectangle, Object, teardown);
-    bindInterfaceMethodOf_(Rectangle, Rectangle, Drawable, draw);
-    bindClassMethod_(Rectangle, Shape, area);
 }
 Rectangle * Rectangle_init(
     Rectangle * rectangle,

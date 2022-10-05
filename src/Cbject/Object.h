@@ -304,36 +304,37 @@ end::macro[] */
 ====
 [source,c]
 ----
-#define setUpClass_(className, superClassName)
+#define setUpClass_(className, superClassName, classInstance)
 ----
 Class setup (initialize super, set the object size and super class)
 
 .Params
 * className - Name of the class
 * superClassName - Name of the super class
+* classInstance - Class instance
 ====
 end::macro[] */
-#define setUpClass_(className, superClassName)                                \
-    *to_(superClassName##Class, class_(className)) = *class_(superClassName); \
-    to_(ObjectClass, class_(className))->objectSize = sizeof(className);      \
-    to_(ObjectClass, class_(className))->superClass = to_(ObjectClass, class_(superClassName))
+#define setUpClass_(className, superClassName, classInstance)             \
+    *to_(superClassName##Class, classInstance) = *class_(superClassName); \
+    to_(ObjectClass, classInstance)->objectSize = sizeof(className);      \
+    to_(ObjectClass, classInstance)->superClass = to_(ObjectClass, class_(superClassName))
 /* tag::macro[]
 = bindClassMethod_()
 ====
 [source,c]
 ----
-#define bindClassMethod_(className, superClassName, methodName)
+#define bindClassMethod_(className, methodName, classInstance)
 ----
 Bind a method of a class
 
 .Params
 * className - Name of the class
-* superClassName - Name of the super class
 * methodName - Name of the method
+* classInstance - Class instance
 ====
 end::macro[] */
-#define bindClassMethod_(className, superClassName, methodName) \
-    to_(superClassName##Class, class_(className))->methodName = methodName
+#define bindClassMethod_(className, methodName, classInstance) \
+    to_(className##Class, classInstance)->methodName = methodName
 /* tag::macro[]
 = singleton_()
 ====

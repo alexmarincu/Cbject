@@ -2,11 +2,11 @@
 static float area(Shape const * const shape);
 ShapeClass const * ShapeClass_instance(void) {
     static ShapeClass class;
+    doOnce_ {
+        setUpClass_(Shape, Object, &class);
+        bindClassMethod_(Shape, area, &class);
+    }
     return &class;
-}
-void ShapeClass_init(void) {
-    setUpClass_(Shape, Object);
-    bindClassMethod_(Shape, Shape, area);
 }
 Shape * Shape_init(
     Shape * shape,

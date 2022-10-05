@@ -18,6 +18,31 @@ To be used with pointers to anything
 end::type[] */
 typedef void Any;
 /* tag::macro[]
+= doOnce_
+====
+[source,c]
+----
+#define doOnce_
+----
+Run a block of code only once
+
+.Usage
+[source,c]
+----
+doOnce_ {
+    functionCall();
+    anotherFunctionCall();
+}
+----
+
+.Remark
+Not thread safe
+====
+end::macro[] */
+#define doOnce_                 \
+    static bool isDone = false; \
+    for (; isDone == false; isDone = true)
+/* tag::macro[]
 = to_()
 ====
 [source,c]

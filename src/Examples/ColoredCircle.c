@@ -3,11 +3,11 @@
 static void draw(Drawable const * const drawable);
 ColoredCircleClass const * ColoredCircleClass_instance(void) {
     static ColoredCircleClass class;
+    doOnce_ {
+        setUpClass_(ColoredCircle, Circle, &class);
+        bindInterfaceMethodOf_(Circle, Drawable, draw, &class);
+    }
     return &class;
-}
-void ColoredCircleClass_init(void) {
-    setUpClass_(ColoredCircle, Circle);
-    bindInterfaceMethodOf_(ColoredCircle, Circle, Drawable, draw);
 }
 ColoredCircle * ColoredCircle_init(
     ColoredCircle * const coloredCircle,

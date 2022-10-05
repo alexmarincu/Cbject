@@ -22,7 +22,6 @@ struct Drawable {
     uint16_t scale;
 };
 DrawableInterface const * DrawableInterface_instance(void);
-void DrawableInterface_init(void);
 void Drawable_init(Drawable * const drawable, uint16_t const scale);
 void Drawable_draw(Drawable const * const drawable);
 #endif // DRAWABLE_H
