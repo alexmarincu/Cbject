@@ -80,7 +80,7 @@ struct Trait {
     size_t interfaceOffset;
 };
 /* tag::function[]
-= TraitInterface_
+= TraitInterface_instance()
 ====
 [source,c]
 ----
@@ -94,7 +94,7 @@ Reference of the trait interface
 end::function[] */
 TraitInterface const * TraitInterface_instance(void);
 /* tag::function[]
-= Trait_init
+= Trait_init()
 ====
 [source,c]
 ----
