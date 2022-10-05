@@ -148,21 +148,6 @@ end::macro[] */
 #define interface_(interfaceName) \
     interfaceName##Interface_instance()
 /* tag::macro[]
-= initInterface_()
-====
-[source,c]
-----
-#define initInterface_(interfaceName)
-----
-Initialize a class
-
-.Params
-* interfaceName - Name of the interface
-====
-end::macro[] */
-#define initInterface_(interfaceName) \
-    interfaceName##Interface_init()
-/* tag::macro[]
 = setUpInterface_()
 ====
 [source,c]

@@ -58,14 +58,14 @@ static uint64_t hashCode(Object const * const object) {
     return (uint64_t)object;
 }
 bool Object_isOfClass(Object const * const object, ObjectClass const * const targetClass) {
-    bool isOfClass = true;
-    ObjectClass const * class = object->class;
-    if (targetClass != to_(ObjectClass, class_(Object))) {
-        while ((isOfClass == true) && (class != targetClass)) {
+    bool isOfClass = false;
+    ObjectClass const * class = classOf_(object);
+    while (class != NULL) {
+        if (class == targetClass) {
+            isOfClass = true;
+            class = NULL;
+        } else {
             class = class->superClass;
-            if (class == NULL) {
-                isOfClass = false;
-            }
         }
     }
     return isOfClass;

@@ -285,21 +285,6 @@ end::macro[] */
 #define class_(className) \
     className##Class_instance()
 /* tag::macro[]
-= initClass_()
-====
-[source,c]
-----
-#define initClass_(className)
-----
-Initialize a class
-
-.Params
-* className - Name of the class
-====
-end::macro[] */
-#define initClass_(className) \
-    className##Class_init()
-/* tag::macro[]
 = setUpClass_()
 ====
 [source,c]
@@ -353,21 +338,6 @@ Singleton reference
 end::macro[] */
 #define singleton_(className) \
     className##_instance()
-/* tag::macro[]
-= initSingleton_()
-====
-[source,c]
-----
-#define initSingleton_(className)
-----
-Initialize a singleton
-
-.Params
-* className - Name of the class
-====
-end::macro[] */
-#define initSingleton_(className) \
-    className##_init()
 /* tag::macro[]
 = initObject_()
 ====

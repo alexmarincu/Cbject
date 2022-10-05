@@ -560,11 +560,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel4">
 <li><a href="#_typedefclass">typedefClass_()</a></li>
 <li><a href="#_class">class_()</a></li>
-<li><a href="#_initclass">initClass_()</a></li>
 <li><a href="#_setupclass">setUpClass_()</a></li>
 <li><a href="#_bindclassmethod">bindClassMethod_()</a></li>
 <li><a href="#_singleton">singleton_()</a></li>
-<li><a href="#_initsingleton">initSingleton_()</a></li>
 <li><a href="#_initobject">initObject_()</a></li>
 <li><a href="#_sallocinit">sallocInit_()</a></li>
 <li><a href="#_classof">classOf_()</a></li>
@@ -618,7 +616,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel4">
 <li><a href="#_typedefinterface">typedefInterface_()</a></li>
 <li><a href="#_interface">interface_()</a></li>
-<li><a href="#_initinterface">initInterface_()</a></li>
 <li><a href="#_setupinterface">setUpInterface_()</a></li>
 <li><a href="#_bindinterfacemethod">bindInterfaceMethod_()</a></li>
 <li><a href="#_setupinterfaceof">setUpInterfaceOf_()</a></li>
@@ -1177,29 +1174,6 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_initclass">initClass_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define initClass_(className)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Initialize a class</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>className - Name of the class</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
 <h5 id="_setupclass">setUpClass_()</h5>
 <div class="exampleblock">
 <div class="content">
@@ -1280,29 +1254,6 @@ dealloc_(object);</code></pre>
 <div class="paragraph">
 <div class="title">Return</div>
 <p>Singleton reference</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_initsingleton">initSingleton_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define initSingleton_(className)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Initialize a singleton</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>className - Name of the class</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -2270,29 +2221,6 @@ dealloc_(object);</code></pre>
 <div class="paragraph">
 <div class="title">Return</div>
 <p>Interface reference</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_initinterface">initInterface_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define initInterface_(interfaceName)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Initialize a class</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>interfaceName - Name of the interface</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
