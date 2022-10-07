@@ -289,37 +289,37 @@ end::macro[] */
 ====
 [source,c]
 ----
-#define setUpClass_(className, superClassName, classInstance)
+#define setUpClass_(className, superClassName, class)
 ----
 Class setup (initialize super, set the object size and super class)
 
 .Params
 * className - Name of the class
 * superClassName - Name of the super class
-* classInstance - Class instance
+* class - Class instance
 ====
 end::macro[] */
-#define setUpClass_(className, superClassName, classInstance)             \
-    *to_(superClassName##Class, classInstance) = *class_(superClassName); \
-    to_(ObjectClass, classInstance)->objectSize = sizeof(className);      \
-    to_(ObjectClass, classInstance)->superClass = to_(ObjectClass, class_(superClassName))
+#define setUpClass_(className, superClassName, class)             \
+    *to_(superClassName##Class, class) = *class_(superClassName); \
+    to_(ObjectClass, class)->objectSize = sizeof(className);      \
+    to_(ObjectClass, class)->superClass = to_(ObjectClass, class_(superClassName))
 /* tag::macro[]
 = bindClassMethod_()
 ====
 [source,c]
 ----
-#define bindClassMethod_(className, methodName, classInstance)
+#define bindClassMethod_(className, methodName, class)
 ----
 Bind a method of a class
 
 .Params
 * className - Name of the class
 * methodName - Name of the method
-* classInstance - Class instance
+* class - Class instance
 ====
 end::macro[] */
-#define bindClassMethod_(className, methodName, classInstance) \
-    to_(className##Class, classInstance)->methodName = methodName
+#define bindClassMethod_(className, methodName, class) \
+    to_(className##Class, class)->methodName = methodName
 /* tag::macro[]
 = singleton_()
 ====
@@ -442,20 +442,20 @@ end::macro[] */
 ====
 [source,c]
 ----
-#define traitOf_(object, className, interfaceName)
+#define traitOf_(className, interfaceName, object)
 ----
 Get trait of an object
 
 .Params
-* object - Object reference
 * className - Name of the class
 * interfaceName - Name of the interface
+* object - Object reference
 
 .Return
 Trait reference
 ====
 end::macro[] */
-#define traitOf_(object, className, interfaceName) \
+#define traitOf_(className, interfaceName, object) \
     to_(interfaceName, (to_(Any, object) + to_(TraitInterface, &to_(className##Class, classOf_(object))->i##interfaceName##Interface)->traitOffset))
 /* tag::macro[]
 = objectMethodCall_()

@@ -1179,7 +1179,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpClass_(className, superClassName, classInstance)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpClass_(className, superClassName, class)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1195,7 +1195,7 @@ dealloc_(object);</code></pre>
 <p>superClassName - Name of the super class</p>
 </li>
 <li>
-<p>classInstance - Class instance</p>
+<p>class - Class instance</p>
 </li>
 </ul>
 </div>
@@ -1208,7 +1208,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define bindClassMethod_(className, methodName, classInstance)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define bindClassMethod_(className, methodName, class)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1224,7 +1224,7 @@ dealloc_(object);</code></pre>
 <p>methodName - Name of the method</p>
 </li>
 <li>
-<p>classInstance - Class instance</p>
+<p>class - Class instance</p>
 </li>
 </ul>
 </div>
@@ -1434,7 +1434,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define traitOf_(object, className, interfaceName)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define traitOf_(className, interfaceName, object)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1444,13 +1444,13 @@ dealloc_(object);</code></pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - Object reference</p>
-</li>
-<li>
 <p>className - Name of the class</p>
 </li>
 <li>
 <p>interfaceName - Name of the interface</p>
+</li>
+<li>
+<p>object - Object reference</p>
 </li>
 </ul>
 </div>
@@ -2231,7 +2231,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterface_(interfaceName, interfaceInstance)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterface_(interfaceName, interface)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2244,7 +2244,7 @@ dealloc_(object);</code></pre>
 <p>interfaceName - Name of the interface</p>
 </li>
 <li>
-<p>interfaceInstance - Interface instance</p>
+<p>interface - Interface instance</p>
 </li>
 </ul>
 </div>
@@ -2257,7 +2257,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define bindInterfaceMethod_(interfaceName, methodName, interfaceInstance)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define bindInterfaceMethod_(interfaceName, methodName, interface)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2276,7 +2276,7 @@ dealloc_(object);</code></pre>
 <p>methodName - Name of the method</p>
 </li>
 <li>
-<p>interfaceInstance - Interface instance</p>
+<p>interface - Interface instance</p>
 </li>
 </ul>
 </div>
@@ -2289,7 +2289,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterfaceOf_(className, interfaceName, classInstance)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterfaceOf_(className, interfaceName, class)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2305,7 +2305,7 @@ dealloc_(object);</code></pre>
 <p>interfaceName - Name of the interface</p>
 </li>
 <li>
-<p>classInstance - Class instance</p>
+<p>class - Class instance</p>
 </li>
 </ul>
 </div>
@@ -2318,7 +2318,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define bindInterfaceMethodOf_(className, interfaceName, methodName, classInstance)</code></pre>
+<pre class="highlight"><code class="language-c" data-lang="c">#define bindInterfaceMethodOf_(className, interfaceName, methodName, class)</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2337,7 +2337,7 @@ dealloc_(object);</code></pre>
 <p>methodName - Name of the method</p>
 </li>
 <li>
-<p>classInstance - Class instance</p>
+<p>class - Class instance</p>
 </li>
 </ul>
 </div>

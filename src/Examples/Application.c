@@ -62,7 +62,7 @@ static void circleExample(Application * const application) {
     // set circle shape origin
     to_(Shape, application->circle)->origin = (Point){ 4, 5 };
     // Draw circle through Drawable application polymorphic call
-    Drawable_draw(traitOf_(application->circle, Circle, Drawable));
+    Drawable_draw(traitOf_(Circle, Drawable, application->circle));
 }
 static void rectangleExample(Application * const application) {
     // Allocate and initialize a Rectangle application
@@ -84,7 +84,7 @@ static void rectangleExample(Application * const application) {
     // set rectangle shape origin
     to_(Shape, application->rectangle)->origin = (Point){ 6, 7 };
     // Draw rectangle through Drawable application polymorphic call
-    Drawable_draw(traitOf_(application->rectangle, Rectangle, Drawable));
+    Drawable_draw(traitOf_(Rectangle, Drawable, application->rectangle));
 }
 static void polymorphismExample(Application * const application) {
     // Prepare a list of shapes

@@ -13,6 +13,6 @@ void tearDown(void) {
 }
 void test_ColoredCircle_init(void) {
     ColoredCircle * coloredCircle = allocInit_(ColoredCircle, (Point){ 0, 1 }, 2, Color_blue);
-    Drawable_draw(traitOf_(coloredCircle, Circle, Drawable));
+    Drawable_draw(traitOf_(Circle, Drawable, coloredCircle));
     dealloc_(coloredCircle);
 }
