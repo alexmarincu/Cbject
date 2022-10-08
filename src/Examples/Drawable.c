@@ -18,5 +18,5 @@ void Drawable_draw(Drawable const * const drawable) {
 }
 static void draw(Drawable const * const drawable) {
     ignore_(drawable);
-    assert_("Drawable_draw not implemented" && false);
+    assert("Drawable_draw not implemented" && false);
 }

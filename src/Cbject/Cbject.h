@@ -67,7 +67,6 @@ ShapeClass -u-|> ObjectClass
 end::overview[] */
 #ifndef CBJECT_H
 #define CBJECT_H
-#include "Assert.h"
 #include "Object.h"
 #include "Trait.h"
 #endif // CBJECT_H

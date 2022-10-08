@@ -643,6 +643,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_macros_3">2.3.3. Macros</a>
 <ul class="sectlevel4">
 <li><a href="#_doonce">doOnce_</a></li>
+<li><a href="#_assertstatic">assertStatic_()</a></li>
 <li><a href="#_to">to_()</a></li>
 <li><a href="#_extends">extends_()</a></li>
 <li><a href="#_extends_2">extends_()</a></li>
@@ -2678,6 +2679,32 @@ dealloc_(object);</code></pre>
 <div class="paragraph">
 <div class="title">Remark</div>
 <p>Not thread safe</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_assertstatic">assertStatic_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-c" data-lang="c">#define assertStatic_(expression, identifier)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Compile time assert</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>expression - Expression to assert</p>
+</li>
+<li>
+<p>identifier - An identifier to describe the assertion</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

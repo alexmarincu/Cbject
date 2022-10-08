@@ -1,5 +1,4 @@
 #include "Trait.h"
-#include "Assert.h"
 #include <stdlib.h>
 #include <string.h>
 TraitInterface const * TraitInterface_instance(void) {

@@ -128,6 +128,6 @@ static Object * teardown(Object * const object) {
 static Object * copy(Object const * const object, Object * const copyObject) {
     ignore_(object);
     ignore_(copyObject);
-    assert_(false);
+    assert(false);
     return NULL;
 }

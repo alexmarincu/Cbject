@@ -3,6 +3,7 @@ TODO
 end::overview[] */
 #ifndef UTILS_H
 #define UTILS_H
+#include <assert.h>
 /* tag::type[]
 = Any
 ====
@@ -42,6 +43,22 @@ end::macro[] */
 #define doOnce_                 \
     static bool isDone = false; \
     for (; isDone == false; isDone = true)
+/* tag::macro[]
+= assertStatic_()
+====
+[source,c]
+----
+#define assertStatic_(expression, identifier)
+----
+Compile time assert
+
+.Params
+* expression - Expression to assert
+* identifier - An identifier to describe the assertion
+====
+end::macro[] */
+#define assertStatic_(expression, identifier) \
+    typedef char identifier[(!!(expression)) * 2 - 1]
 /* tag::macro[]
 = to_()
 ====

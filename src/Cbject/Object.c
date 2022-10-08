@@ -1,5 +1,4 @@
 #include "Object.h"
-#include "Assert.h"
 #include <stdlib.h>
 #include <string.h>
 static Object * teardown(Object * object);
@@ -19,7 +18,7 @@ ObjectClass const * ObjectClass_instance(void) {
 }
 Object * Object_alloc(ObjectClass const * const class) {
     Object * object = to_(Object, calloc(1, class->objectSize));
-    assert_(object);
+    assert(object);
     return object;
 }
 Object * Object_dealloc(Object * const object) {
