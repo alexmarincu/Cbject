@@ -25,9 +25,6 @@ struct Shape {
     Point origin;
 };
 ShapeClass const * ShapeClass_instance(void);
-Shape * Shape_init(
-    Shape * shape,
-    Point origin
-);
+Shape * Shape_init(Shape * const shape, Point origin);
 float Shape_area(Shape const * const shape);
 #endif // SHAPE_H

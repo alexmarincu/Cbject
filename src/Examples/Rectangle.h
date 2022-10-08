@@ -16,7 +16,7 @@ struct RectangleClass {
 };
 RectangleClass const * RectangleClass_instance(void);
 Rectangle * Rectangle_init(
-    Rectangle * rectangle,
+    Rectangle * const rectangle,
     Point origin,
     uint32_t width,
     uint32_t height

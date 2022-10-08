@@ -8,10 +8,7 @@ ShapeClass const * ShapeClass_instance(void) {
     }
     return &class;
 }
-Shape * Shape_init(
-    Shape * shape,
-    Point origin
-) {
+Shape * Shape_init(Shape * const shape, Point origin) {
     setUpObject_(Shape, Object, shape);
     shape->origin = origin;
     return shape;

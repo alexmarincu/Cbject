@@ -11,7 +11,7 @@ GreetingClass const * GreetingClass_instance(void) {
     }
     return &class;
 }
-Greeting * Greeting_init(Greeting * greeting, char * const text) {
+Greeting * Greeting_init(Greeting * const greeting, char * const text) {
     setUpObject_(Greeting, Object, greeting);
     greeting->text = text;
     return greeting;

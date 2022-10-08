@@ -356,7 +356,7 @@ Syntactic sugar to free memory allocated for an object
 * object - Object reference
 
 .Return
-Always returns NULL
+NULL
 ====
 end::macro[] */
 #define dealloc_(object) \
@@ -474,7 +474,7 @@ Syntactic sugar to teardown an object.
 * object - Object reference
 
 .Return
-Always returns NULL
+NULL
 ====
 end::macro[] */
 #define teardown_(object) \

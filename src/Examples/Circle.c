@@ -15,7 +15,7 @@ CircleClass const * CircleClass_instance(void) {
     return &class;
 }
 Circle * Circle_init(
-    Circle * circle,
+    Circle * const circle,
     Point origin,
     uint32_t radius
 ) {
