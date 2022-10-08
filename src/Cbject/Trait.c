@@ -3,6 +3,7 @@
 #include <string.h>
 TraitInterface const * TraitInterface_instance(void) {
     static TraitInterface interface = {
+        .name = "Trait",
         .traitOffset = 0
     };
     return &interface;

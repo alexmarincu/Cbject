@@ -4,7 +4,7 @@ static void draw(Drawable const * const drawable);
 DrawableInterface const * DrawableInterface_instance(void) {
     static DrawableInterface interface;
     doOnce_ {
-        setUpInterface_(Trait, &interface);
+        setUpInterface_(Drawable, Trait, &interface);
         bindInterfaceMethod_(Drawable, draw, &interface);
     }
     return &interface;

@@ -7,6 +7,7 @@ static bool equals(Object const * const object, Object const * const otherObject
 static uint64_t hashCode(Object const * const object);
 ObjectClass const * ObjectClass_instance(void) {
     static ObjectClass class = {
+        .name = "Object",
         .objectSize = sizeof(Object),
         .superClass = NULL,
         .teardown = teardown,

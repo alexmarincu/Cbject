@@ -46,14 +46,14 @@ static void greetingExample(Application * const application) {
     dealloc_(greeting);
 }
 static void circleExample(Application * const application) {
-    // Allocate and initialize a Circle application
+    // Allocate and initialize a Circle object
     application->circle = allocInit_(Circle, (Point){ 0, 1 }, 2);
     // Get circle radius
     uint32_t radius = application->circle->radius;
     ignore_(radius);
     // Set circle radius
     application->circle->radius = 3;
-    // Get circle area through Shape application polymorphic call
+    // Get circle area through Shape object polymorphic call
     float area = Shape_area(to_(Shape, application->circle));
     ignore_(area);
     // Get circle shape origin
@@ -61,11 +61,11 @@ static void circleExample(Application * const application) {
     ignore_(origin);
     // set circle shape origin
     to_(Shape, application->circle)->origin = (Point){ 4, 5 };
-    // Draw circle through Drawable application polymorphic call
+    // Draw circle through Drawable trait polymorphic call
     Drawable_draw(traitOf_(Circle, Drawable, application->circle));
 }
 static void rectangleExample(Application * const application) {
-    // Allocate and initialize a Rectangle application
+    // Allocate and initialize a Rectangle object
     application->rectangle = allocInit_(Rectangle, ((Point){ 0, 1 }), 2, 3);
     // Get rectangle width and height
     uint32_t width = Rectangle_getWidth(application->rectangle);
@@ -75,7 +75,7 @@ static void rectangleExample(Application * const application) {
     // Set rectangle with and height
     Rectangle_setWidth(application->rectangle, 4);
     Rectangle_setHeight(application->rectangle, 5);
-    // Get rectangle area through Shape application polymorphic call
+    // Get rectangle area through Shape object polymorphic call
     float area = Shape_area(to_(Shape, application->rectangle));
     ignore_(area);
     // Get rectangle shape origin
@@ -83,7 +83,7 @@ static void rectangleExample(Application * const application) {
     ignore_(origin);
     // set rectangle shape origin
     to_(Shape, application->rectangle)->origin = (Point){ 6, 7 };
-    // Draw rectangle through Drawable application polymorphic call
+    // Draw rectangle through Drawable trait polymorphic call
     Drawable_draw(traitOf_(Rectangle, Drawable, application->rectangle));
 }
 static void polymorphismExample(Application * const application) {
@@ -94,27 +94,25 @@ static void polymorphismExample(Application * const application) {
     };
     // Loop through the list of shapes and call various polymorphic functions
     for (uint8_t i = 0; i < lengthOf_(shapes); i++) {
-        // Get area through Shape application polymorphic call
+        // Get area through Shape object polymorphic call
         float area = Shape_area(shapes[i]);
         ignore_(area);
-        // Get parent application from included application
-        Object * application = objectOf_(shapes[i]);
-        // Get size of application
-        size_t objectSize = objectSizeOf_(application);
+        // Get size of shape object
+        size_t objectSize = objectSizeOf_(shapes[i]);
         ignore_(objectSize);
-        // Get hash code of application
-        uint64_t hashCode = hashCode_(application);
+        // Get hash code of shape object
+        uint64_t hashCode = hashCode_(shapes[i]);
         ignore_(hashCode);
-        // Check class of application
-        if (isOfClass_(application, Circle)) {
+        // Check class of chape object
+        if (isOfClass_(shapes[i], Circle)) {
             // Get circle radius
-            uint32_t radius = to_(Circle, application)->radius;
+            uint32_t radius = to_(Circle, shapes[i])->radius;
             ignore_(radius);
-        } else if (isOfClass_(application, Rectangle)) {
+        } else if (isOfClass_(shapes[i], Rectangle)) {
             // Get rectangle width and height
-            uint32_t width = Rectangle_getWidth(to_(Rectangle, application));
+            uint32_t width = Rectangle_getWidth(to_(Rectangle, shapes[i]));
             ignore_(width);
-            uint32_t height = Rectangle_getHeight(to_(Rectangle, application));
+            uint32_t height = Rectangle_getHeight(to_(Rectangle, shapes[i]));
             ignore_(height);
         }
     }

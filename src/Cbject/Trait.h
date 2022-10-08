@@ -50,6 +50,7 @@ object TraitInterface {
 }
 @enduml */
 struct TraitInterface {
+    char * name;
     size_t traitOffset;
 };
 /* tag::type[]
@@ -161,8 +162,9 @@ Interface setup (initialize super)
 * interface - Interface instance
 ====
 end::macro[] */
-#define setUpInterface_(interfaceName, interface) \
-    *to_(interfaceName##Interface, interface) = *interface_(interfaceName)
+#define setUpInterface_(interfaceName, superInterfaceName, interface)                 \
+    *to_(superInterfaceName##Interface, interface) = *interface_(superInterfaceName); \
+    to_(TraitInterface, interface)->name = #interfaceName
 /* tag::macro[]
 = bindInterfaceMethod_()
 ====
@@ -198,6 +200,7 @@ Interface setup in class (initialize super, set the trait offset in container ob
 end::macro[] */
 #define setUpInterfaceOf_(className, interfaceName, class)                                              \
     *to_(interfaceName##Interface, &(class)->i##interfaceName##Interface) = *interface_(interfaceName); \
+    to_(TraitInterface, &(class)->i##interfaceName##Interface)->name = #interfaceName;                  \
     to_(TraitInterface, &(class)->i##interfaceName##Interface)->traitOffset = offsetof(className, i##interfaceName)
 /* tag::macro[]
 = bindInterfaceMethodOf_()

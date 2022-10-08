@@ -35,6 +35,7 @@ typedef struct Object Object;
 [source,c]
 ----
 struct ObjectClass {
+    char * name;
     size_t objectSize;
     ObjectClass const * superClass;
     Object * (*teardown)(Object * object);
@@ -46,6 +47,7 @@ struct ObjectClass {
 Definition of struct ObjectClass
 
 .Members
+* name - Name of the class
 * objectSize - Size in memory of object
 * superClass - Super class of object
 * teardown - Function pointer for the teardown method
@@ -56,8 +58,9 @@ Definition of struct ObjectClass
 end::type[] */
 /* @startuml(id=ObjectClass)
 object ObjectClass {
+    char * name;
     size_t objectSize;
-    ObjectClass const * superClass;
+    ObjectClass * superClass;
     Object * (*teardown)(Object * object);
     uint64_t (*hashCode)(Object const * const object);
     Object * (*copy)(Object const * const object, Object * const copyObject);
@@ -65,8 +68,9 @@ object ObjectClass {
 }
 @enduml */
 struct ObjectClass {
+    char * name;
     size_t objectSize;
-    ObjectClass const * superClass;
+    ObjectClass * superClass;
     Object * (*teardown)(Object * object);
     uint64_t (*hashCode)(Object const * const object);
     Object * (*copy)(Object const * const object, Object * const copyObject);
@@ -301,6 +305,7 @@ Class setup (initialize super, set the object size and super class)
 end::macro[] */
 #define setUpClass_(className, superClassName, class)             \
     *to_(superClassName##Class, class) = *class_(superClassName); \
+    to_(ObjectClass, class)->name = #className;                   \
     to_(ObjectClass, class)->objectSize = sizeof(className);      \
     to_(ObjectClass, class)->superClass = to_(ObjectClass, class_(superClassName))
 /* tag::macro[]
@@ -419,6 +424,24 @@ end::macro[] */
 #define setUpObject_(className, superClassName, ...) \
     initObject_(superClassName, __VA_ARGS__);        \
     classOf_(VaArgs_first_(__VA_ARGS__)) = to_(ObjectClass, class_(className))
+/* tag::macro[]
+= classNameOf_()
+====
+[source,c]
+----
+#define classNameOf_(object)
+----
+Get the class name of an object
+
+.Params
+* object - Object reference
+
+.Return
+(char *) Name of the class
+====
+end::macro[] */
+#define classNameOf_(object) \
+    classOf_(object)->name
 /* tag::macro[]
 = objectSizeOf_()
 ====
