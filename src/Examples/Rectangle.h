@@ -6,7 +6,7 @@
 typedefClass_(Rectangle);
 /* @startuml(id=RectangleClass)
 object RectangleClass {
-    ShapeClass super;
+    ShapeClass eShapeClass;
     DrawableInterface iDrawableInterface;
 }
 @enduml */

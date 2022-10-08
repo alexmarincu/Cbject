@@ -2,7 +2,7 @@
 #include <stdio.h>
 /* @startuml(id=Rectangle)
 object Rectangle {
-    Shape super;
+    Shape eShape;
     Drawable iDrawable;
     uint32_t width;
     uint32_t height;

@@ -85,7 +85,7 @@ end::macro[] */
 ----
 #define extends_(typeName)
 ----
-Syntactic sugar to extend a type (adds the member super to the structure)
+Syntactic sugar to extend a type
 
 .Remark
 Should be used as the first member in the structure
@@ -95,7 +95,7 @@ Should be used as the first member in the structure
 ====
 end::macro[] */
 #define extends_(typeName) \
-    typeName super
+    typeName e##typeName
 /* tag::macro[]
 = extends_()
 ====

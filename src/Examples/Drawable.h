@@ -4,7 +4,7 @@
 typedefInterface_(Drawable);
 /* @startuml(id=DrawableInterface)
 object DrawableInterface {
-    TraitInterface super;
+    TraitInterface eTraitInterface;
     void (*draw)(Drawable const * const drawable);
 }
 @enduml */
@@ -14,7 +14,7 @@ struct DrawableInterface {
 };
 /* @startuml(id=Drawable)
 object Drawable {
-    Trait super;
+    Trait eTrait;
 }
 @enduml */
 struct Drawable {

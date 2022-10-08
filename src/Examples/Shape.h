@@ -6,7 +6,7 @@ typedef struct ShapeClass ShapeClass;
 typedef struct Shape Shape;
 /* @startuml(id=ShapeClass)
 object ShapeClass {
-    ObjectClass super;
+    ObjectClass eObjectClass;
     float (*area)(Shape const * const shape);
 }
 @enduml */
@@ -16,7 +16,7 @@ struct ShapeClass {
 };
 /* @startuml(id=Shape)
 object Shape {
-    Object super;
+    Object eObject;
     Point origin;
 }
 @enduml */
