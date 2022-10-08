@@ -7,7 +7,6 @@ end::overview[] */
 /* tag::type[]
 = Any
 ====
-[source,c]
 ----
 typedef void Any;
 ----
@@ -21,14 +20,12 @@ typedef void Any;
 /* tag::macro[]
 = doOnce_
 ====
-[source,c]
 ----
 #define doOnce_
 ----
 Run a block of code only once
 
 .Usage
-[source,c]
 ----
 doOnce_ {
     functionCall();
@@ -46,7 +43,6 @@ end::macro[] */
 /* tag::macro[]
 = assertStatic_()
 ====
-[source,c]
 ----
 #define assertStatic_(expression, identifier)
 ----
@@ -62,7 +58,6 @@ end::macro[] */
 /* tag::macro[]
 = to_()
 ====
-[source,c]
 ----
 #define to_(typeName, instance)
 ----
@@ -79,9 +74,53 @@ end::macro[] */
 #define to_(typeName, instance) \
     ((typeName *)(instance))
 /* tag::macro[]
+= lengthOf_()
+====
+----
+#define lengthOf_(array)
+----
+Get length of an array
+
+.Params
+* array - Array for which to get the length
+====
+end::macro[] */
+#define lengthOf_(array) \
+    (sizeof(array) / sizeof(array[0]))
+/* tag::macro[]
+= salloc_()
+====
+----
+#define salloc_(typeName)
+----
+Syntactic sugar to allocate memory on the stack
+
+.Params
+* typeName - Name of type
+
+.Return
+Reference of the allocated memory
+====
+end::macro[] */
+#define salloc_(typeName) \
+    (&(typeName){ 0 })
+/* tag::macro[]
+= ignore_()
+====
+----
+#define ignore_(var)
+----
+Syntactic sugar to ignore unused variables
+
+.Params
+* var - Variable to be ignored
+====
+end::macro[] */
+#define ignore_(var) \
+    (void)var
+/* tag::macro[]
 = extends_()
 ====
-[source,c]
 ----
 #define extends_(typeName)
 ----
@@ -97,9 +136,8 @@ end::macro[] */
 #define extends_(typeName) \
     typeName e##typeName
 /* tag::macro[]
-= extends_()
+= implements_()
 ====
-[source,c]
 ----
 #define implements_(typeName)
 ----
@@ -115,54 +153,266 @@ end::macro[] */
 #define implements_(typeName) \
     typeName i##typeName
 /* tag::macro[]
-= lengthOf_()
+= class_()
 ====
-[source,c]
 ----
-#define lengthOf_(array)
+#define class_(className)
 ----
-Get length of an array
+Syntactic sugar to get class reference
 
 .Params
-* array - Array for which to get the length
+* className - Name of the class
+
+.Return
+Class reference
 ====
 end::macro[] */
-#define lengthOf_(array) \
-    (sizeof(array) / sizeof(array[0]))
+#define class_(className) \
+    className##Class_instance()
 /* tag::macro[]
-= lengthOf_()
+= singleton_()
 ====
-[source,c]
 ----
-#define salloc_(typeName)
+#define singleton_(className)
 ----
-Syntactic sugar to allocate memory on the stack
+Syntactic sugar to get a singleton reference
 
 .Params
-* typeName - Name of type
+* className - Name of the class
+
+.Return
+Singleton reference
 ====
 end::macro[] */
-#define salloc_(typeName) \
-    (&(typeName){ 0 })
+#define singleton_(className) \
+    className##_instance()
 /* tag::macro[]
-= ignore_()
+= classOf_()
 ====
-[source,c]
 ----
-#define ignore_(var)
+#define classOf_(object)
 ----
-Syntactic sugar to ignore unused variables
+Get the class of an object
 
 .Params
-* var - Variable to be ignored
+* object - Object reference
+
+.Return
+Class reference
 ====
 end::macro[] */
-#define ignore_(var) \
-    (void)var
+#define classOf_(object) \
+    to_(Object, object)->class
+/* tag::macro[]
+= objectSizeOf_()
+====
+----
+#define objectSizeOf_(object)
+----
+Get the size in memory of an object
+
+.Params
+* object - Object reference
+
+.Return
+Object size
+====
+end::macro[] */
+#define objectSizeOf_(object) \
+    classOf_(object)->objectSize
+/* tag::macro[]
+= traitOf_()
+====
+----
+#define traitOf_(className, interfaceName, object)
+----
+Get trait of an object
+
+.Params
+* className - Name of the class
+* interfaceName - Name of the interface
+* object - Object reference
+
+.Return
+Trait reference
+====
+end::macro[] */
+#define traitOf_(className, interfaceName, object) \
+    to_(interfaceName, (to_(Any, object) + to_(TraitInterface, &to_(className##Class, classOf_(object))->i##interfaceName##Interface)->traitOffset))
+/* tag::macro[]
+= objectMethodCall_()
+====
+----
+#define objectMethodCall_(className, methodName, ...)
+----
+Call a method through an object
+
+.Params
+* className - Name of the class
+* methodName - Name of the method
+* ...
+** object - Object reference
+** ... - Method params
+
+.Return
+Depends on the called method
+====
+end::macro[] */
+#define objectMethodCall_(className, methodName, ...) \
+    to_(className##Class, classOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
+/* tag::macro[]
+= classMethodCall_()
+====
+----
+#define classMethodCall_(className, superClassName, methodName, ...)
+----
+Call a method through a class
+
+.Params
+* className - Name of the class
+* superClassName - Name of the super class
+* methodName - Name of the method
+* ...
+** object - Object reference
+** ... - Method params
+
+.Return
+Depends on the called method
+====
+end::macro[] */
+#define classMethodCall_(className, superClassName, methodName, ...) \
+    to_(superClassName##Class, class_(className))->methodName(__VA_ARGS__)
+/* tag::macro[]
+= offsetOf_()
+====
+----
+#define offsetOf_(trait)
+----
+Get offset of a trait in container object
+
+.Params
+* trait - Trait reference
+
+.Return
+Offset of trait in container object
+====
+end::macro[] */
+#define offsetOf_(trait) \
+    to_(Trait, trait)->offset
+/* tag::macro[]
+= interfaceOffsetOf_()
+====
+----
+#define interfaceOffsetOf_(trait)
+----
+Get the interface offset in container class
+
+.Params
+* trait - Trait reference
+
+.Return
+Offset of interface in container class
+====
+end::macro[] */
+#define interfaceOffsetOf_(trait) \
+    to_(Trait, trait)->interfaceOffset
+/* tag::macro[]
+= objectOf_()
+====
+----
+#define objectOf_(trait)
+----
+Get container object from a trait
+
+.Params
+* trait - Trait reference
+
+.Return
+Reference of the container object
+====
+end::macro[] */
+#define objectOf_(trait) \
+    to_(Object, to_(Any, trait) - offsetOf_(trait))
+/* tag::macro[]
+= interfaceOf_()
+====
+----
+#define interfaceOf_(trait)
+----
+Get the interface of a trait
+
+.Params
+* trait - Trait reference
+
+.Return
+Interface reference
+====
+end::macro[] */
+#define interfaceOf_(trait) \
+    to_(TraitInterface, to_(Any, classOf_(objectOf_(trait))) + interfaceOffsetOf_(trait))
+/* tag::macro[]
+= interface_()
+====
+----
+#define interface_(interfaceName)
+----
+Syntactic sugar to get interface reference
+
+.Params
+* interfaceName - Name of the interface
+
+.Return
+Interface reference
+====
+end::macro[] */
+#define interface_(interfaceName) \
+    interfaceName##Interface_instance()
+/* tag::macro[]
+= traitMethodCall_()
+====
+----
+#define traitMethodCall_(interfaceName, methodName, ...)
+----
+Call a method through a trait
+
+.Params
+* interfaceName - Name of the interface
+* methodName - Name of the method
+* ...
+** trait - Trait reference
+** ... - Method params
+
+.Return
+Depends on the called method
+====
+end::macro[] */
+#define traitMethodCall_(interfaceName, methodName, ...) \
+    to_(interfaceName##Interface, interfaceOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
+/* tag::macro[]
+= interfaceMethodCall_()
+====
+----
+#define interfaceMethodCall_(className, interfaceName, methodName, ...)
+----
+Call a method through an interface
+
+.Params
+* className - Name of the class
+* interfaceName - Name of the interface
+* methodName - Name of the method
+* ...
+** trait - Trait reference
+** ... - Method params
+
+.Return
+Depends on the called method
+====
+end::macro[] */
+#define interfaceMethodCall_(className, interfaceName, methodName, ...) \
+    to_(interfaceName##Interface, &to_(className##Class, class_(className))->i##interfaceName##Interface)->methodName(__VA_ARGS__)
 /* tag::macro[]
 = VaArgs_first_()
 ====
-[source,c]
 ----
 #define VaArgs_first_(...)
 ----
@@ -179,7 +429,6 @@ end::macro[] */
 /* tag::macro[]
 = VaArgs_rest_()
 ====
-[source,c]
 ----
 #define VaArgs_rest_(...)
 ----

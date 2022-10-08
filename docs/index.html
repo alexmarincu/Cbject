@@ -559,22 +559,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_macros">2.1.4. Macros</a>
 <ul class="sectlevel4">
 <li><a href="#_typedefclass">typedefClass_()</a></li>
-<li><a href="#_class">class_()</a></li>
 <li><a href="#_setupclass">setUpClass_()</a></li>
 <li><a href="#_bindclassmethod">bindClassMethod_()</a></li>
-<li><a href="#_singleton">singleton_()</a></li>
-<li><a href="#_initobject">initObject_()</a></li>
-<li><a href="#_sallocinit">sallocInit_()</a></li>
-<li><a href="#_classof">classOf_()</a></li>
-<li><a href="#_setupobject">setUpObject_()</a></li>
-<li><a href="#_classnameof">classNameOf_()</a></li>
-<li><a href="#_objectsizeof">objectSizeOf_()</a></li>
-<li><a href="#_traitof">traitOf_()</a></li>
-<li><a href="#_objectmethodcall">objectMethodCall_()</a></li>
-<li><a href="#_classmethodcall">classMethodCall_()</a></li>
+<li><a href="#_setupinterfaceof">setUpInterfaceOf_()</a></li>
+<li><a href="#_bindinterfacemethodof">bindInterfaceMethodOf_()</a></li>
 <li><a href="#_alloc">alloc_()</a></li>
-<li><a href="#_allocinit">allocInit_()</a></li>
 <li><a href="#_dealloc">dealloc_()</a></li>
+<li><a href="#_init">init_()</a></li>
+<li><a href="#_setupobject">setUpObject_()</a></li>
+<li><a href="#_setuptraitof">setUpTraitOf_()</a></li>
+<li><a href="#_allocinit">allocInit_()</a></li>
+<li><a href="#_sallocinit">sallocInit_()</a></li>
 <li><a href="#_teardown">teardown_()</a></li>
 <li><a href="#_copy">copy_()</a></li>
 <li><a href="#_alloccopy">allocCopy_()</a></li>
@@ -616,19 +611,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_macros_2">2.2.4. Macros</a>
 <ul class="sectlevel4">
 <li><a href="#_typedefinterface">typedefInterface_()</a></li>
-<li><a href="#_interface">interface_()</a></li>
 <li><a href="#_setupinterface">setUpInterface_()</a></li>
 <li><a href="#_bindinterfacemethod">bindInterfaceMethod_()</a></li>
-<li><a href="#_setupinterfaceof">setUpInterfaceOf_()</a></li>
-<li><a href="#_bindinterfacemethodof">bindInterfaceMethodOf_()</a></li>
-<li><a href="#_offsetof">offsetOf_()</a></li>
-<li><a href="#_objectof">objectOf_()</a></li>
-<li><a href="#_interfaceoffsetof">interfaceOffsetOf_()</a></li>
-<li><a href="#_interfaceof">interfaceOf_()</a></li>
 <li><a href="#_inittrait">initTrait_()</a></li>
-<li><a href="#_setuptraitof">setUpTraitOf_()</a></li>
-<li><a href="#_traitmethodcall">traitMethodCall_()</a></li>
-<li><a href="#_interfacemethodcall">interfaceMethodCall_()</a></li>
 </ul>
 </li>
 </ul>
@@ -646,11 +631,25 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_doonce">doOnce_</a></li>
 <li><a href="#_assertstatic">assertStatic_()</a></li>
 <li><a href="#_to">to_()</a></li>
-<li><a href="#_extends">extends_()</a></li>
-<li><a href="#_extends_2">extends_()</a></li>
 <li><a href="#_lengthof">lengthOf_()</a></li>
-<li><a href="#_lengthof_2">lengthOf_()</a></li>
+<li><a href="#_salloc">salloc_()</a></li>
 <li><a href="#_ignore">ignore_()</a></li>
+<li><a href="#_extends">extends_()</a></li>
+<li><a href="#_implements">implements_()</a></li>
+<li><a href="#_class">class_()</a></li>
+<li><a href="#_singleton">singleton_()</a></li>
+<li><a href="#_classof">classOf_()</a></li>
+<li><a href="#_objectsizeof">objectSizeOf_()</a></li>
+<li><a href="#_traitof">traitOf_()</a></li>
+<li><a href="#_objectmethodcall">objectMethodCall_()</a></li>
+<li><a href="#_classmethodcall">classMethodCall_()</a></li>
+<li><a href="#_offsetof">offsetOf_()</a></li>
+<li><a href="#_interfaceoffsetof">interfaceOffsetOf_()</a></li>
+<li><a href="#_objectof">objectOf_()</a></li>
+<li><a href="#_interfaceof">interfaceOf_()</a></li>
+<li><a href="#_interface">interface_()</a></li>
+<li><a href="#_traitmethodcall">traitMethodCall_()</a></li>
+<li><a href="#_interfacemethodcall">interfaceMethodCall_()</a></li>
 <li><a href="#_vaargs_first">VaArgs_first_()</a></li>
 <li><a href="#_vaargs_rest">VaArgs_rest_()</a></li>
 </ul>
@@ -713,7 +712,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#include "Cbject.h"</code></pre>
+<pre>#include "Cbject.h"</pre>
 </div>
 </div>
 </div>
@@ -723,9 +722,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">Object * object = allocInit_(Object);
+<pre>Object * object = allocInit_(Object);
 printf("%d\n", hashCode_(object));
-dealloc_(object);</code></pre>
+dealloc_(object);</pre>
 </div>
 </div>
 </div>
@@ -767,7 +766,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">typedef struct ObjectClass ObjectClass;</code></pre>
+<pre>typedef struct ObjectClass ObjectClass;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -782,7 +781,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">typedef struct Object Object;</code></pre>
+<pre>typedef struct Object Object;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -797,7 +796,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">struct ObjectClass {
+<pre>struct ObjectClass {
     char * name;
     size_t objectSize;
     ObjectClass const * superClass;
@@ -805,7 +804,7 @@ dealloc_(object);</code></pre>
     uint64_t (*hashCode)(Object const * const object);
     Object * (*copy)(Object const * const object, Object * const copyObject);
     bool (*equals)(Object const * const object, Object const * const otherObject);
-};</code></pre>
+};</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -846,9 +845,9 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">struct Object {
+<pre>struct Object {
     ObjectClass const * class;
-};</code></pre>
+};</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -874,7 +873,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">ObjectClass const * ObjectClass_instance(void);</code></pre>
+<pre>ObjectClass const * ObjectClass_instance(void);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -893,7 +892,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_alloc(ObjectClass const * const class);</code></pre>
+<pre>Object * Object_alloc(ObjectClass const * const class);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -920,7 +919,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_dealloc(Object * const object);</code></pre>
+<pre>Object * Object_dealloc(Object * const object);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -936,7 +935,7 @@ dealloc_(object);</code></pre>
 </div>
 <div class="paragraph">
 <div class="title">Return</div>
-<p>Always returns NULL</p>
+<p>NULL</p>
 </div>
 </div>
 </div>
@@ -947,7 +946,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_init(Object * const object);</code></pre>
+<pre>Object * Object_init(Object * const object);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -974,7 +973,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_teardown(Object * object);</code></pre>
+<pre>Object * Object_teardown(Object * object);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -990,7 +989,7 @@ dealloc_(object);</code></pre>
 </div>
 <div class="paragraph">
 <div class="title">Return</div>
-<p>Always returns NULL</p>
+<p>NULL</p>
 </div>
 </div>
 </div>
@@ -1001,7 +1000,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">Object * Object_copy(Object const * const object, Object * const copyObject);</code></pre>
+<pre>Object * Object_copy(Object const * const object, Object * const copyObject);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1031,7 +1030,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">bool Object_equals(Object const * const object, Object const * const otherObject);</code></pre>
+<pre>bool Object_equals(Object const * const object, Object const * const otherObject);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1068,7 +1067,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">uint64_t Object_hashCode(Object const * const object);</code></pre>
+<pre>uint64_t Object_hashCode(Object const * const object);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1095,7 +1094,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">bool Object_isOfClass(Object const * const object, ObjectClass const * const class);</code></pre>
+<pre>bool Object_isOfClass(Object const * const object, ObjectClass const * const class);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1135,7 +1134,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define typedefClass_(className)</code></pre>
+<pre>#define typedefClass_(className)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1153,39 +1152,12 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_class">class_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define class_(className)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to get class reference</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>className - Name of the class</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Class reference</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
 <h5 id="_setupclass">setUpClass_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpClass_(className, superClassName, class)</code></pre>
+<pre>#define setUpClass_(className, superClassName, class)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1214,7 +1186,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define bindClassMethod_(className, methodName, class)</code></pre>
+<pre>#define bindClassMethod_(className, methodName, class)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1238,16 +1210,16 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_singleton">singleton_()</h5>
+<h5 id="_setupinterfaceof">setUpInterfaceOf_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define singleton_(className)</code></pre>
+<pre>#define setUpInterfaceOf_(className, interfaceName, class)</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Syntactic sugar to get a singleton reference</p>
+<p>Interface setup in class (initialize super, set the trait offset in container object)</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
@@ -1255,22 +1227,110 @@ dealloc_(object);</code></pre>
 <li>
 <p>className - Name of the class</p>
 </li>
+<li>
+<p>interfaceName - Name of the interface</p>
+</li>
+<li>
+<p>class - Class instance</p>
+</li>
 </ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Singleton reference</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_initobject">initObject_()</h5>
+<h5 id="_bindinterfacemethodof">bindInterfaceMethodOf_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define initObject_(className, ...)</code></pre>
+<pre>#define bindInterfaceMethodOf_(className, interfaceName, methodName, class)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bind a method of an interface</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+<li>
+<p>interfaceName - Name of the interface</p>
+</li>
+<li>
+<p>methodName - Name of the method</p>
+</li>
+<li>
+<p>class - Class instance</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_alloc">alloc_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define alloc_(className)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to allocate an object in heap memory</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of class</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the allocated object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_dealloc">dealloc_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define dealloc_(object)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to free memory allocated for an object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Always returns NULL</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_init">init_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define init_(className, ...)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1305,76 +1365,12 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_sallocinit">sallocInit_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define sallocInit_(...)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to allocate and init an object in stack memory</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>&#8230;&#8203;</p>
-<div class="ulist">
-<ul>
-<li>
-<p>className - Name of class</p>
-</li>
-<li>
-<p>&#8230;&#8203; - Init params</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Reference of the allocated and initialized object</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_classof">classOf_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define classOf_(object)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Get the class of an object</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>object - Object reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Class reference</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
 <h5 id="_setupobject">setUpObject_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpObject_(className, superClassName, ...)</code></pre>
+<pre>#define setUpObject_(className, superClassName, ...)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1408,70 +1404,16 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_classnameof">classNameOf_()</h5>
+<h5 id="_setuptraitof">setUpTraitOf_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define classNameOf_(object)</code></pre>
+<pre>#define setUpTraitOf_(className, interfaceName, ...)</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Get the class name of an object</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>object - Object reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>(char *) Name of the class</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_objectsizeof">objectSizeOf_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define objectSizeOf_(object)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Get the size in memory of an object</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>object - Object reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Object size</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_traitof">traitOf_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define traitOf_(className, interfaceName, object)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Get trait of an object</p>
+<p>Trait setup (initialize, set the trait offset and interface offset)</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
@@ -1483,39 +1425,6 @@ dealloc_(object);</code></pre>
 <p>interfaceName - Name of the interface</p>
 </li>
 <li>
-<p>object - Object reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Trait reference</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_objectmethodcall">objectMethodCall_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define objectMethodCall_(className, methodName, ...)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Call a method through an object</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>className - Name of the class</p>
-</li>
-<li>
-<p>methodName - Name of the method</p>
-</li>
-<li>
 <p>&#8230;&#8203;</p>
 <div class="ulist">
 <ul>
@@ -1523,89 +1432,12 @@ dealloc_(object);</code></pre>
 <p>object - Object reference</p>
 </li>
 <li>
-<p>&#8230;&#8203; - Method params</p>
+<p>&#8230;&#8203; - Init params</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Depends on the called method</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_classmethodcall">classMethodCall_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define classMethodCall_(className, superClassName, methodName, ...)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Call a method through a class</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>className - Name of the class</p>
-</li>
-<li>
-<p>superClassName - Name of the super class</p>
-</li>
-<li>
-<p>methodName - Name of the method</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-<div class="ulist">
-<ul>
-<li>
-<p>object - Object reference</p>
-</li>
-<li>
-<p>&#8230;&#8203; - Method params</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Depends on the called method</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_alloc">alloc_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define alloc_(className)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to allocate an object in heap memory</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>className - Name of class</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Reference of the allocated object</p>
 </div>
 </div>
 </div>
@@ -1616,7 +1448,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define allocInit_(...)</code></pre>
+<pre>#define allocInit_(...)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1648,28 +1480,38 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_dealloc">dealloc_()</h5>
+<h5 id="_sallocinit">sallocInit_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define dealloc_(object)</code></pre>
+<pre>#define sallocInit_(...)</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Syntactic sugar to free memory allocated for an object</p>
+<p>Syntactic sugar to allocate and init an object in stack memory</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - Object reference</p>
+<p>&#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>className - Name of class</p>
+</li>
+<li>
+<p>&#8230;&#8203; - Init params</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <div class="title">Return</div>
-<p>Always returns NULL</p>
+<p>Reference of the allocated and initialized object</p>
 </div>
 </div>
 </div>
@@ -1680,7 +1522,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define teardown_(object)</code></pre>
+<pre>#define teardown_(object)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1707,7 +1549,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define copy_(className, object, copyObject)</code></pre>
+<pre>#define copy_(className, object, copyObject)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1740,7 +1582,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define allocCopy_(className, object)</code></pre>
+<pre>#define allocCopy_(className, object)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1770,7 +1612,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define sallocCopy_(className, object)</code></pre>
+<pre>#define sallocCopy_(className, object)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1800,7 +1642,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define equals_(object, otherObject)</code></pre>
+<pre>#define equals_(object, otherObject)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1837,7 +1679,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define hashCode_(object)</code></pre>
+<pre>#define hashCode_(object)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1864,7 +1706,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define isOfClass_(object, className)</code></pre>
+<pre>#define isOfClass_(object, className)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2074,7 +1916,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">typedef struct TraitInterface TraitInterface;</code></pre>
+<pre>typedef struct TraitInterface TraitInterface;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2089,7 +1931,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">typedef struct Trait Trait;</code></pre>
+<pre>typedef struct Trait Trait;</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2104,9 +1946,10 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">struct TraitInterface {
+<pre>struct TraitInterface {
+    char * name;
     size_t traitOffset;
-};</code></pre>
+};</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2129,10 +1972,10 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">struct Trait {
+<pre>struct Trait {
     size_t offset;
     size_t interfaceOffset;
-};</code></pre>
+};</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2161,7 +2004,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">TraitInterface const * TraitInterface_instance(void);</code></pre>
+<pre>TraitInterface const * TraitInterface_instance(void);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2180,7 +2023,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">Trait * Trait_init(Trait * const trait);</code></pre>
+<pre>Trait * Trait_init(Trait * const trait);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2210,38 +2053,11 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define typedefInterface_(interfaceName)</code></pre>
+<pre>#define typedefInterface_(interfaceName)</pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Syntactic sugar to typedef interface types</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>interfaceName - Name of the interface</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Interface reference</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_interface">interface_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define interface_(interfaceName)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to get interface reference</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
@@ -2264,7 +2080,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterface_(interfaceName, interface)</code></pre>
+<pre>#define setUpInterface_(interfaceName, interface)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2290,7 +2106,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define bindInterfaceMethod_(interfaceName, methodName, interface)</code></pre>
+<pre>#define bindInterfaceMethod_(interfaceName, methodName, interface)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2317,181 +2133,12 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_setupinterfaceof">setUpInterfaceOf_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpInterfaceOf_(className, interfaceName, class)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Interface setup in class (initialize super, set the trait offset in container object)</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>className - Name of the class</p>
-</li>
-<li>
-<p>interfaceName - Name of the interface</p>
-</li>
-<li>
-<p>class - Class instance</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_bindinterfacemethodof">bindInterfaceMethodOf_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define bindInterfaceMethodOf_(className, interfaceName, methodName, class)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Bind a method of an interface</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>className - Name of the class</p>
-</li>
-<li>
-<p>interfaceName - Name of the interface</p>
-</li>
-<li>
-<p>methodName - Name of the method</p>
-</li>
-<li>
-<p>class - Class instance</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_offsetof">offsetOf_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define offsetOf_(trait)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Get offset of a trait in container object</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>trait - Trait reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Offset of trait in container object</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_objectof">objectOf_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define objectOf_(trait)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Get container object from a trait</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>trait - Trait reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Reference of the container object</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_interfaceoffsetof">interfaceOffsetOf_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define interfaceOffsetOf_(trait)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Get the interface offset in container class</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>trait - Trait reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Offset of interface in container class</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_interfaceof">interfaceOf_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define interfaceOf_(trait)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Get the interface of a trait</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>trait - Trait reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Interface reference</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
 <h5 id="_inittrait">initTrait_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define initTrait_(interfaceName, ...)</code></pre>
+<pre>#define initTrait_(interfaceName, ...)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2525,17 +2172,370 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_utils">2.3. Utils</h3>
+<div class="sect3">
+<h4 id="_overview_4">2.3.1. Overview</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_types_3">2.3.2. Types</h4>
 <div class="sect4">
-<h5 id="_setuptraitof">setUpTraitOf_()</h5>
+<h5 id="_any">Any</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define setUpTraitOf_(className, interfaceName, ...)</code></pre>
+<pre>typedef void Any;</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Trait setup (initialize, set the trait offset and interface offset)</p>
+<p>Typedef for Any</p>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>To be used with pointers to anything</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_macros_3">2.3.3. Macros</h4>
+<div class="sect4">
+<h5 id="_doonce">doOnce_</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define doOnce_</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run a block of code only once</p>
+</div>
+<div class="listingblock">
+<div class="title">Usage</div>
+<div class="content">
+<pre>doOnce_ {
+    functionCall();
+    anotherFunctionCall();
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>Not thread safe</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_assertstatic">assertStatic_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define assertStatic_(expression, identifier)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Compile time assert</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>expression - Expression to assert</p>
+</li>
+<li>
+<p>identifier - An identifier to describe the assertion</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_to">to_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define to_(typeName, instance)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Cast an instance to the provided typeName</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>typeName - Name of the type (class or interface)</p>
+</li>
+<li>
+<p>instance - Instance to cast</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Instance cast to the provided typeName</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_lengthof">lengthOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define lengthOf_(array)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get length of an array</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>array - Array for which to get the length</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_salloc">salloc_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define salloc_(typeName)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to allocate memory on the stack</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>typeName - Name of type</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the allocated memory</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_ignore">ignore_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define ignore_(var)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to ignore unused variables</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>var - Variable to be ignored</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_extends">extends_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define extends_(typeName)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to extend a type</p>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>Should be used as the first member in the structure</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>typeName - Name of the type</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_implements">implements_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define implements_(typeName)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to compose a type with the provided typeName</p>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>Should be used after extends_() macro</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>typeName - Name of the type</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_class">class_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define class_(className)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to get class reference</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Class reference</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_singleton">singleton_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define singleton_(className)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to get a singleton reference</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Singleton reference</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_classof">classOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define classOf_(object)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get the class of an object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Class reference</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_objectsizeof">objectSizeOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define objectSizeOf_(object)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get the size in memory of an object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Object size</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_traitof">traitOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define traitOf_(className, interfaceName, object)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get trait of an object</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
@@ -2547,6 +2547,39 @@ dealloc_(object);</code></pre>
 <p>interfaceName - Name of the interface</p>
 </li>
 <li>
+<p>object - Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Trait reference</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_objectmethodcall">objectMethodCall_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define objectMethodCall_(className, methodName, ...)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Call a method through an object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+<li>
+<p>methodName - Name of the method</p>
+</li>
+<li>
 <p>&#8230;&#8203;</p>
 <div class="ulist">
 <ul>
@@ -2554,12 +2587,197 @@ dealloc_(object);</code></pre>
 <p>object - Object reference</p>
 </li>
 <li>
-<p>&#8230;&#8203; - Init params</p>
+<p>&#8230;&#8203; - Method params</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Depends on the called method</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_classmethodcall">classMethodCall_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define classMethodCall_(className, superClassName, methodName, ...)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Call a method through a class</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>className - Name of the class</p>
+</li>
+<li>
+<p>superClassName - Name of the super class</p>
+</li>
+<li>
+<p>methodName - Name of the method</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>object - Object reference</p>
+</li>
+<li>
+<p>&#8230;&#8203; - Method params</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Depends on the called method</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_offsetof">offsetOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define offsetOf_(trait)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get offset of a trait in container object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>trait - Trait reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Offset of trait in container object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_interfaceoffsetof">interfaceOffsetOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define interfaceOffsetOf_(trait)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get the interface offset in container class</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>trait - Trait reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Offset of interface in container class</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_objectof">objectOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define objectOf_(trait)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get container object from a trait</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>trait - Trait reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the container object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_interfaceof">interfaceOf_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define interfaceOf_(trait)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get the interface of a trait</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>trait - Trait reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Interface reference</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_interface">interface_()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define interface_(interfaceName)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to get interface reference</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>interfaceName - Name of the interface</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Interface reference</p>
 </div>
 </div>
 </div>
@@ -2570,7 +2788,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define traitMethodCall_(interfaceName, methodName, ...)</code></pre>
+<pre>#define traitMethodCall_(interfaceName, methodName, ...)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2613,7 +2831,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define interfaceMethodCall_(className, interfaceName, methodName, ...)</code></pre>
+<pre>#define interfaceMethodCall_(className, interfaceName, methodName, ...)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2653,254 +2871,13 @@ dealloc_(object);</code></pre>
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_utils">2.3. Utils</h3>
-<div class="sect3">
-<h4 id="_overview_4">2.3.1. Overview</h4>
-<div class="paragraph">
-<p>TODO</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_types_3">2.3.2. Types</h4>
-<div class="sect4">
-<h5 id="_any">Any</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">typedef void Any;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Typedef for Any</p>
-</div>
-<div class="paragraph">
-<div class="title">Remark</div>
-<p>To be used with pointers to anything</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_macros_3">2.3.3. Macros</h4>
-<div class="sect4">
-<h5 id="_doonce">doOnce_</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define doOnce_</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Run a block of code only once</p>
-</div>
-<div class="listingblock">
-<div class="title">Usage</div>
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">doOnce_ {
-    functionCall();
-    anotherFunctionCall();
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<div class="title">Remark</div>
-<p>Not thread safe</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_assertstatic">assertStatic_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define assertStatic_(expression, identifier)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Compile time assert</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>expression - Expression to assert</p>
-</li>
-<li>
-<p>identifier - An identifier to describe the assertion</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_to">to_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define to_(typeName, instance)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Cast an instance to the provided typeName</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>typeName - Name of the type (class or interface)</p>
-</li>
-<li>
-<p>instance - Instance to cast</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Instance cast to the provided typeName</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_extends">extends_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define extends_(typeName)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to extend a type</p>
-</div>
-<div class="paragraph">
-<div class="title">Remark</div>
-<p>Should be used as the first member in the structure</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>typeName - Name of the type</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_extends_2">extends_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define implements_(typeName)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to compose a type with the provided typeName</p>
-</div>
-<div class="paragraph">
-<div class="title">Remark</div>
-<p>Should be used after extends_() macro</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>typeName - Name of the type</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_lengthof">lengthOf_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define lengthOf_(array)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Get length of an array</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>array - Array for which to get the length</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_lengthof_2">lengthOf_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define salloc_(typeName)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to allocate memory on the stack</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>typeName - Name of type</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_ignore">ignore_()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define ignore_(var)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to ignore unused variables</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>var - Variable to be ignored</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
 <div class="sect4">
 <h5 id="_vaargs_first">VaArgs_first_()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define VaArgs_first_(...)</code></pre>
+<pre>#define VaArgs_first_(...)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2923,7 +2900,7 @@ dealloc_(object);</code></pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-c" data-lang="c">#define VaArgs_rest_(...)</code></pre>
+<pre>#define VaArgs_rest_(...)</pre>
 </div>
 </div>
 <div class="paragraph">

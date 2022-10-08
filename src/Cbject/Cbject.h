@@ -14,7 +14,6 @@ Cbject makes it easier to write object oriented code in C.
 ====
 Include the following header file:
 
-[source,c]
 ----
 #include "Cbject.h"
 ----
@@ -22,7 +21,6 @@ Include the following header file:
 
 .How to create an object
 ====
-[source,c]
 ----
 Object * object = allocInit_(Object);
 printf("%d\n", hashCode_(object));

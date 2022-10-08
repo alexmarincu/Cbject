@@ -3,6 +3,7 @@ The building block. All objects defined in Cbject need to extend Object.
 end::overview[] */
 #ifndef OBJECT_H
 #define OBJECT_H
+// #include "Trait.h"
 #include "Utils.h"
 #include <stdbool.h>
 #include <stddef.h>
@@ -10,7 +11,6 @@ end::overview[] */
 /* tag::type[]
 = ObjectClass
 ====
-[source,c]
 ----
 typedef struct ObjectClass ObjectClass;
 ----
@@ -21,7 +21,6 @@ typedef struct ObjectClass ObjectClass;
 /* tag::type[]
 = Object
 ====
-[source,c]
 ----
 typedef struct Object Object;
 ----
@@ -32,7 +31,6 @@ typedef struct Object Object;
 /* tag::type[]
 = struct ObjectClass
 ====
-[source,c]
 ----
 struct ObjectClass {
     char * name;
@@ -79,7 +77,6 @@ struct ObjectClass {
 /* tag::type[]
 = struct Object
 ====
-[source,c]
 ----
 struct Object {
     ObjectClass const * class;
@@ -102,7 +99,6 @@ struct Object {
 /* tag::function[]
 = ObjectClass_instance()
 ====
-[source,c]
 ----
 ObjectClass const * ObjectClass_instance(void);
 ----
@@ -116,7 +112,6 @@ ObjectClass const * ObjectClass_instance(void);
 /* tag::function[]
 = Object_alloc()
 ====
-[source,c]
 ----
 Object * Object_alloc(ObjectClass const * const class);
 ----
@@ -133,7 +128,6 @@ Object * Object_alloc(ObjectClass const * const class);
 /* tag::function[]
 = Object_dealloc()
 ====
-[source,c]
 ----
 Object * Object_dealloc(Object * const object);
 ----
@@ -143,14 +137,13 @@ Free memory allocated for an object
 * object - Object reference
 
 .Return
-Always returns NULL
+NULL
 ====
 end::function[] */
 Object * Object_dealloc(Object * const object);
 /* tag::function[]
 = Object_init()
 ====
-[source,c]
 ----
 Object * Object_init(Object * const object);
 ----
@@ -167,7 +160,6 @@ Object * Object_init(Object * const object);
 /* tag::function[]
 = Object_teardown()
 ====
-[source,c]
 ----
 Object * Object_teardown(Object * object);
 ----
@@ -177,14 +169,13 @@ Teardown an object.
 * object - Object reference
 
 .Return
-Always returns NULL
+NULL
 ====
 end::function[] */
 Object * Object_teardown(Object * object);
 /* tag::function[]
 = Object_copy()
 ====
-[source,c]
 ----
 Object * Object_copy(Object const * const object, Object * const copyObject);
 ----
@@ -202,7 +193,6 @@ Object * Object_copy(Object const * const object, Object * const copyObject);
 /* tag::function[]
 = Object_equals()
 ====
-[source,c]
 ----
 bool Object_equals(Object const * const object, Object const * const otherObject);
 ----
@@ -221,7 +211,6 @@ bool Object_equals(Object const * const object, Object const * const otherObject
 /* tag::function[]
 = Object_hashCode()
 ====
-[source,c]
 ----
 uint64_t Object_hashCode(Object const * const object);
 ----
@@ -238,7 +227,6 @@ uint64_t Object_hashCode(Object const * const object);
 /* tag::function[]
 = Object_isOfClass()
 ====
-[source,c]
 ----
 bool Object_isOfClass(Object const * const object, ObjectClass const * const class);
 ----
@@ -257,7 +245,6 @@ bool Object_isOfClass(Object const * const object, ObjectClass const * const cla
 /* tag::macro[]
 = typedefClass_()
 ====
-[source,c]
 ----
 #define typedefClass_(className)
 ----
@@ -271,27 +258,8 @@ end::macro[] */
     typedef struct className##Class className##Class; \
     typedef struct className className
 /* tag::macro[]
-= class_()
-====
-[source,c]
-----
-#define class_(className)
-----
-Syntactic sugar to get class reference
-
-.Params
-* className - Name of the class
-
-.Return
-Class reference
-====
-end::macro[] */
-#define class_(className) \
-    className##Class_instance()
-/* tag::macro[]
 = setUpClass_()
 ====
-[source,c]
 ----
 #define setUpClass_(className, superClassName, class)
 ----
@@ -311,7 +279,6 @@ end::macro[] */
 /* tag::macro[]
 = bindClassMethod_()
 ====
-[source,c]
 ----
 #define bindClassMethod_(className, methodName, class)
 ----
@@ -326,209 +293,43 @@ end::macro[] */
 #define bindClassMethod_(className, methodName, class) \
     to_(className##Class, class)->methodName = methodName
 /* tag::macro[]
-= singleton_()
+= setUpInterfaceOf_()
 ====
-[source,c]
 ----
-#define singleton_(className)
+#define setUpInterfaceOf_(className, interfaceName, class)
 ----
-Syntactic sugar to get a singleton reference
-
-.Params
-* className - Name of the class
-
-.Return
-Singleton reference
-====
-end::macro[] */
-#define singleton_(className) \
-    className##_instance()
-/* tag::macro[]
-= initObject_()
-====
-[source,c]
-----
-#define initObject_(className, ...)
-----
-Syntactic sugar for object initialization
-
-.Params
-* className - Name of the class
-* ...
-** object - Object reference
-** ... - Init params
-
-.Return
-Initialized object
-====
-end::macro[] */
-#define initObject_(className, ...) \
-    className##_init(to_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
-/* tag::macro[]
-= sallocInit_()
-====
-[source,c]
-----
-#define sallocInit_(...)
-----
-Syntactic sugar to allocate and init an object in stack memory
-
-.Params
-* ...
-** className - Name of class
-** ... - Init params
-
-.Return
-Reference of the allocated and initialized object
-====
-end::macro[] */
-#define sallocInit_(...) \
-    sallocInit_h0(VaArgs_first_(__VA_ARGS__), salloc_(VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
-#define sallocInit_h0(className, ...) \
-    initObject_(className, VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
-/* tag::macro[]
-= classOf_()
-====
-[source,c]
-----
-#define classOf_(object)
-----
-Get the class of an object
-
-.Params
-* object - Object reference
-
-.Return
-Class reference
-====
-end::macro[] */
-#define classOf_(object) \
-    to_(Object, object)->class
-/* tag::macro[]
-= setUpObject_()
-====
-[source,c]
-----
-#define setUpObject_(className, superClassName, ...)
-----
-Object setup (initialize, set the object class)
-
-.Params
-* className - Name of the class
-* superClassName - Name of the super class
-* ...
-** object - Object reference
-** ... - Init params
-====
-end::macro[] */
-#define setUpObject_(className, superClassName, ...) \
-    initObject_(superClassName, __VA_ARGS__);        \
-    classOf_(VaArgs_first_(__VA_ARGS__)) = to_(ObjectClass, class_(className))
-/* tag::macro[]
-= classNameOf_()
-====
-[source,c]
-----
-#define classNameOf_(object)
-----
-Get the class name of an object
-
-.Params
-* object - Object reference
-
-.Return
-(char *) Name of the class
-====
-end::macro[] */
-#define classNameOf_(object) \
-    classOf_(object)->name
-/* tag::macro[]
-= objectSizeOf_()
-====
-[source,c]
-----
-#define objectSizeOf_(object)
-----
-Get the size in memory of an object
-
-.Params
-* object - Object reference
-
-.Return
-Object size
-====
-end::macro[] */
-#define objectSizeOf_(object) \
-    classOf_(object)->objectSize
-/* tag::macro[]
-= traitOf_()
-====
-[source,c]
-----
-#define traitOf_(className, interfaceName, object)
-----
-Get trait of an object
+Interface setup in class (initialize super, set the trait offset in container object)
 
 .Params
 * className - Name of the class
 * interfaceName - Name of the interface
-* object - Object reference
-
-.Return
-Trait reference
+* class - Class instance
 ====
 end::macro[] */
-#define traitOf_(className, interfaceName, object) \
-    to_(interfaceName, (to_(Any, object) + to_(TraitInterface, &to_(className##Class, classOf_(object))->i##interfaceName##Interface)->traitOffset))
+#define setUpInterfaceOf_(className, interfaceName, class)                                              \
+    *to_(interfaceName##Interface, &(class)->i##interfaceName##Interface) = *interface_(interfaceName); \
+    to_(TraitInterface, &(class)->i##interfaceName##Interface)->name = #interfaceName;                  \
+    to_(TraitInterface, &(class)->i##interfaceName##Interface)->traitOffset = offsetof(className, i##interfaceName)
 /* tag::macro[]
-= objectMethodCall_()
+= bindInterfaceMethodOf_()
 ====
-[source,c]
 ----
-#define objectMethodCall_(className, methodName, ...)
+#define bindInterfaceMethodOf_(className, interfaceName, methodName, class)
 ----
-Call a method through an object
+Bind a method of an interface
 
 .Params
 * className - Name of the class
+* interfaceName - Name of the interface
 * methodName - Name of the method
-* ...
-** object - Object reference
-** ... - Method params
-
-.Return
-Depends on the called method
+* class - Class instance
 ====
 end::macro[] */
-#define objectMethodCall_(className, methodName, ...) \
-    to_(className##Class, classOf_(VaArgs_first_(__VA_ARGS__)))->methodName(__VA_ARGS__)
-/* tag::macro[]
-= classMethodCall_()
-====
-[source,c]
-----
-#define classMethodCall_(className, superClassName, methodName, ...)
-----
-Call a method through a class
-
-.Params
-* className - Name of the class
-* superClassName - Name of the super class
-* methodName - Name of the method
-* ...
-** object - Object reference
-** ... - Method params
-
-.Return
-Depends on the called method
-====
-end::macro[] */
-#define classMethodCall_(className, superClassName, methodName, ...) \
-    to_(superClassName##Class, class_(className))->methodName(__VA_ARGS__)
+#define bindInterfaceMethodOf_(className, interfaceName, methodName, class) \
+    to_(interfaceName##Interface, &to_(className##Class, class)->i##interfaceName##Interface)->methodName = methodName
 /* tag::macro[]
 = alloc_()
 ====
-[source,c]
 ----
 #define alloc_(className)
 ----
@@ -544,9 +345,84 @@ end::macro[] */
 #define alloc_(className) \
     to_(className, Object_alloc(to_(ObjectClass, class_(className))))
 /* tag::macro[]
+= dealloc_()
+====
+----
+#define dealloc_(object)
+----
+Syntactic sugar to free memory allocated for an object
+
+.Params
+* object - Object reference
+
+.Return
+Always returns NULL
+====
+end::macro[] */
+#define dealloc_(object) \
+    to_(Any, Object_dealloc(to_(Object, object)))
+/* tag::macro[]
+= init_()
+====
+----
+#define init_(className, ...)
+----
+Syntactic sugar for object initialization
+
+.Params
+* className - Name of the class
+* ...
+** object - Object reference
+** ... - Init params
+
+.Return
+Initialized object
+====
+end::macro[] */
+#define init_(className, ...) \
+    className##_init(to_(className, VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
+/* tag::macro[]
+= setUpObject_()
+====
+----
+#define setUpObject_(className, superClassName, ...)
+----
+Object setup (initialize, set the object class)
+
+.Params
+* className - Name of the class
+* superClassName - Name of the super class
+* ...
+** object - Object reference
+** ... - Init params
+====
+end::macro[] */
+#define setUpObject_(className, superClassName, ...) \
+    init_(superClassName, __VA_ARGS__);              \
+    classOf_(VaArgs_first_(__VA_ARGS__)) = to_(ObjectClass, class_(className))
+/* tag::macro[]
+= setUpTraitOf_()
+====
+----
+#define setUpTraitOf_(className, interfaceName, ...)
+----
+Trait setup (initialize, set the trait offset and interface offset)
+
+.Params
+* className - Name of the class
+* interfaceName - Name of the interface
+* ...
+** object - Object reference
+** ... - Init params
+====
+end::macro[] */
+#define setUpTraitOf_(className, interfaceName, ...)                                                    \
+    initTrait_(interfaceName, &VaArgs_first_(__VA_ARGS__)->i##interfaceName VaArgs_rest_(__VA_ARGS__)); \
+    offsetOf_(&VaArgs_first_(__VA_ARGS__)->i##interfaceName) = offsetof(className, i##interfaceName);   \
+    interfaceOffsetOf_(&VaArgs_first_(__VA_ARGS__)->i##interfaceName) = offsetof(className##Class, i##interfaceName##Interface)
+/* tag::macro[]
 = allocInit_()
 ====
-[source,c]
 ----
 #define allocInit_(...)
 ----
@@ -564,29 +440,31 @@ end::macro[] */
 #define allocInit_(...) \
     allocInit_h0(VaArgs_first_(__VA_ARGS__), alloc_(VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
 #define allocInit_h0(className, ...) \
-    initObject_(className, VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
+    init_(className, VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
 /* tag::macro[]
-= dealloc_()
+= sallocInit_()
 ====
-[source,c]
 ----
-#define dealloc_(object)
+#define sallocInit_(...)
 ----
-Syntactic sugar to free memory allocated for an object
+Syntactic sugar to allocate and init an object in stack memory
 
 .Params
-* object - Object reference
+* ...
+** className - Name of class
+** ... - Init params
 
 .Return
-Always returns NULL
+Reference of the allocated and initialized object
 ====
 end::macro[] */
-#define dealloc_(object) \
-    to_(Any, Object_dealloc(to_(Object, object)))
+#define sallocInit_(...) \
+    sallocInit_h0(VaArgs_first_(__VA_ARGS__), salloc_(VaArgs_first_(__VA_ARGS__)) VaArgs_rest_(__VA_ARGS__))
+#define sallocInit_h0(className, ...) \
+    init_(className, VaArgs_first_(__VA_ARGS__) VaArgs_rest_(__VA_ARGS__))
 /* tag::macro[]
 = teardown_()
 ====
-[source,c]
 ----
 #define teardown_(object)
 ----
@@ -604,7 +482,6 @@ end::macro[] */
 /* tag::macro[]
 = copy_()
 ====
-[source,c]
 ----
 #define copy_(className, object, copyObject)
 ----
@@ -624,7 +501,6 @@ end::macro[] */
 /* tag::macro[]
 = allocCopy_()
 ====
-[source,c]
 ----
 #define allocCopy_(className, object)
 ----
@@ -643,7 +519,6 @@ end::macro[] */
 /* tag::macro[]
 = sallocCopy_()
 ====
-[source,c]
 ----
 #define sallocCopy_(className, object)
 ----
@@ -662,7 +537,6 @@ end::macro[] */
 /* tag::macro[]
 = equals_()
 ====
-[source,c]
 ----
 #define equals_(object, otherObject)
 ----
@@ -682,7 +556,6 @@ end::macro[] */
 /* tag::macro[]
 = hashCode_()
 ====
-[source,c]
 ----
 #define hashCode_(object)
 ----
@@ -700,7 +573,6 @@ end::macro[] */
 /* tag::macro[]
 = isOfClass_()
 ====
-[source,c]
 ----
 #define isOfClass_(object, className)
 ----
