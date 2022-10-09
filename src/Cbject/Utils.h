@@ -436,7 +436,7 @@ Get list of arguments from __VA_ARGS__ except the first
 
 .Remark
 * Comma is added before the list
-* Supports max 10 arguments
+* Supports max 99 arguments
 
 .Params
 * ... - __VA_ARGS__
