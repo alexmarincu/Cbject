@@ -88,3 +88,4 @@
     - module_generator
     - gcov
     - xml_tests_report
+    - compile_commands_json
