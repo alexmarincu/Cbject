@@ -2,12 +2,12 @@
 #include <stdio.h>
 static void draw(Drawable const * const drawable);
 ColoredCircleClass const * ColoredCircleClass_instance(void) {
-    static ColoredCircleClass class;
-    doOnce_ {
-        setUpClass_(ColoredCircle, Circle, &class);
-        bindInterfaceMethodOf_(Circle, Drawable, draw, &class);
+    static ColoredCircleClass coloredCircleClass;
+    x_doOnce {
+        x_setUpClass(ColoredCircle, Circle, &coloredCircleClass);
+        x_bindInterfaceMethodOf(Circle, Drawable, draw, &coloredCircleClass);
     }
-    return &class;
+    return &coloredCircleClass;
 }
 ColoredCircle * ColoredCircle_init(
     ColoredCircle * const coloredCircle,
@@ -15,10 +15,10 @@ ColoredCircle * ColoredCircle_init(
     uint32_t const radius,
     Color const color
 ) {
-    setUpObject_(ColoredCircle, Circle, coloredCircle, origin, radius);
+    x_setUpObject(ColoredCircle, Circle, coloredCircle, origin, radius);
     coloredCircle->color = color;
     return coloredCircle;
 }
 static void draw(Drawable const * const drawable) {
-    interfaceMethodCall_(Circle, Drawable, draw, drawable);
+    x_callInterfaceMethod(Circle, Drawable, draw, drawable);
 }

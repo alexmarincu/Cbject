@@ -3,14 +3,14 @@
 #include "../Cbject/Cbject.h"
 #include "Drawable.h"
 #include "Shape.h"
-typedefClass_(Circle);
+x_typedefClass(Circle);
 struct CircleClass {
-    extends_(ShapeClass);
-    implements_(DrawableInterface);
+    x_extends(ShapeClass);
+    x_implements(DrawableInterface);
 };
 struct Circle {
-    extends_(Shape);
-    implements_(Drawable);
+    x_extends(Shape);
+    x_implements(Drawable);
     uint32_t radius;
 };
 CircleClass const * CircleClass_instance(void);

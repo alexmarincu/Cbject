@@ -1,9 +1,9 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 #include "../Cbject/Cbject.h"
-typedefClass_(Application);
+x_typedefClass(Application);
 struct ApplicationClass {
-    extends_(ObjectClass);
+    x_extends(x_ObjectClass);
 };
 ApplicationClass const * ApplicationClass_instance(void);
 Application * Application_instance(void);

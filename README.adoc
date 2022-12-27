@@ -6,7 +6,9 @@ OOP framework for standard C99
 
 https://github.com/alexmarincu/Cbject/actions/workflows/ci.yml[image:https://github.com/alexmarincu/Cbject/actions/workflows/ci.yml/badge.svg[CI]] https://github.com/alexmarincu/Cbject/releases[image:https://img.shields.io/github/v/release/alexmarincu/Cbject?include_prereleases[GitHub release (latest by date including pre-releases)]] https://github.com/alexmarincu/Cbject/blob/master/LICENSE[image:https://img.shields.io/github/license/alexmarincu/Cbject[GitHub]]
 
-https://ko-fi.com/H2H36Z43N[image:https://ko-fi.com/img/githubbutton_sm.svg[ko-fi]]
+https://ko-fi.com/alexmarincu[image:https://ko-fi.com/img/githubbutton_sm.svg[ko-fi alexmarincu]]
+
+https://www.buymeacoffee.com/alexmarincu[image:https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png[buymeacoffee alexmarincu]]
 
 Cbject makes it easier to write object oriented code in C.
 

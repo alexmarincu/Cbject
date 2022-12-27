@@ -19,41 +19,42 @@ https://github.com/alexmarincu/Cbject[GitHub] | link:./Cbject.pdf[PDF]
 include::../src/Cbject/Cbject.h[tag=overview]
 
 == API
-=== Object
+=== Cbject_Object
 ==== Overview
-include::../src/Cbject/Object.h[tag=overview, leveloffset=+4]
+include::../src/Cbject/Cbject_Object.h[tag=overview, leveloffset=+4]
 
 ==== Types
-include::../src/Cbject/Object.h[tag=type, leveloffset=+4]
+include::../src/Cbject/Cbject_Object.h[tag=type, leveloffset=+4]
 
 ==== Functions
-include::../src/Cbject/Object.h[tag=function, leveloffset=+4]
-
-==== Macros
-include::../src/Cbject/Object.h[tag=macro, leveloffset=+4]
+include::../src/Cbject/Cbject_Object.h[tag=function, leveloffset=+4]
 
 ==== Tests
-include::../test/test_Object.c[tag=test, leveloffset=+4]
+include::../test/test_Cbject_Object.c[tag=test, leveloffset=+4]
 
-=== Trait
+=== Cbject_Trait
 ==== Overview
-include::../src/Cbject/Trait.h[tag=overview, leveloffset=+4]
+include::../src/Cbject/Cbject_Trait.h[tag=overview, leveloffset=+4]
 
 ==== Types
-include::../src/Cbject/Trait.h[tag=type, leveloffset=+4]
+include::../src/Cbject/Cbject_Trait.h[tag=type, leveloffset=+4]
 
 ==== Functions
-include::../src/Cbject/Trait.h[tag=function, leveloffset=+4]
+include::../src/Cbject/Cbject_Trait.h[tag=function, leveloffset=+4]
 
-==== Macros
-include::../src/Cbject/Trait.h[tag=macro, leveloffset=+4]
-
-=== Utils
+=== Cbject_Utils
 ==== Overview
-include::../src/Cbject/Utils.h[tag=overview, leveloffset=+4]
+include::../src/Cbject/Cbject_Utils.h[tag=overview, leveloffset=+4]
 
 ==== Types
-include::../src/Cbject/Utils.h[tag=type, leveloffset=+4]
+include::../src/Cbject/Cbject_Utils.h[tag=type, leveloffset=+4]
 
 ==== Macros
-include::../src/Cbject/Utils.h[tag=macro, leveloffset=+4]
+include::../src/Cbject/Cbject_Utils.h[tag=macro, leveloffset=+4]
+
+=== Cbject_Settings
+==== Overview
+include::../src/Cbject/Cbject_Settings.h[tag=overview, leveloffset=+4]
+
+==== Macros
+include::../src/Cbject/Cbject_Settings.h[tag=macro, leveloffset=+4]

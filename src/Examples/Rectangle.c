@@ -9,24 +9,24 @@ object Rectangle {
 }
 @enduml */
 struct Rectangle {
-    extends_(Shape);
-    implements_(Drawable);
+    x_extends(Shape);
+    x_implements(Drawable);
     uint32_t width;
     uint32_t height;
 };
-static Object * teardown(Object * object);
+static x_Object * teardown(x_Object * object);
 static float area(Shape const * const shape);
 static void draw(Drawable const * const drawable);
 RectangleClass const * RectangleClass_instance(void) {
-    static RectangleClass class;
-    doOnce_ {
-        setUpClass_(Rectangle, Shape, &class);
-        setUpInterfaceOf_(Rectangle, Drawable, &class);
-        bindClassMethod_(Object, teardown, &class);
-        bindInterfaceMethodOf_(Rectangle, Drawable, draw, &class);
-        bindClassMethod_(Shape, area, &class);
+    static RectangleClass rectangleClass;
+    x_doOnce {
+        x_setUpClass(Rectangle, Shape, &rectangleClass);
+        x_setUpInterfaceOf(Rectangle, Drawable, &rectangleClass);
+        x_bindClassMethod(x_Object, teardown, &rectangleClass);
+        x_bindInterfaceMethodOf(Rectangle, Drawable, draw, &rectangleClass);
+        x_bindClassMethod(Shape, area, &rectangleClass);
     }
-    return &class;
+    return &rectangleClass;
 }
 Rectangle * Rectangle_init(
     Rectangle * const rectangle,
@@ -34,8 +34,8 @@ Rectangle * Rectangle_init(
     uint32_t width,
     uint32_t height
 ) {
-    setUpObject_(Rectangle, Shape, rectangle, origin);
-    setUpTraitOf_(Rectangle, Drawable, rectangle, 0);
+    x_setUpObject(Rectangle, Shape, rectangle, origin);
+    x_setUpTraitOf(Rectangle, Drawable, rectangle, 0);
     rectangle->width = width;
     rectangle->height = height;
     return rectangle;
@@ -56,15 +56,15 @@ void Rectangle_makeSquare(Rectangle * const rectangle, uint32_t const edgeSize) 
     rectangle->height = edgeSize;
     rectangle->width = edgeSize;
 }
-static Object * teardown(Object * object) {
-    return classMethodCall_(Shape, Object, teardown, object);
+static x_Object * teardown(x_Object * object) {
+    return x_callClassMethod(Shape, x_Object, teardown, object);
 }
 static float area(Shape const * const shape) {
-    Rectangle * rectangle = to_(Rectangle, shape);
+    Rectangle * rectangle = x_castTo(Rectangle, shape);
     return rectangle->width * rectangle->height;
 }
 static void draw(Drawable const * const drawable) {
-    Rectangle * rectangle = to_(Rectangle, objectOf_(drawable));
+    Rectangle * rectangle = x_castTo(Rectangle, x_objectOf(drawable));
     for (uint8_t i = 0; i < rectangle->width; i++) {
         printf("--");
     }

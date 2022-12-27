@@ -1,18 +1,18 @@
 #include "Greeting.h"
 #include <stdio.h>
 struct Greeting {
-    extends_(Object);
+    x_extends(x_Object);
     char * text;
 };
 GreetingClass const * GreetingClass_instance(void) {
-    static GreetingClass class;
-    doOnce_ {
-        setUpClass_(Greeting, Object, &class);
+    static GreetingClass greetingClass;
+    x_doOnce {
+        x_setUpClass(Greeting, x_Object, &greetingClass);
     }
-    return &class;
+    return &greetingClass;
 }
 Greeting * Greeting_init(Greeting * const greeting, char * const text) {
-    setUpObject_(Greeting, Object, greeting);
+    x_setUpObject(Greeting, x_Object, greeting);
     greeting->text = text;
     return greeting;
 }

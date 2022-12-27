@@ -2,8 +2,8 @@
 Cbject makes it easier to write object oriented code in C.
 
 === Features
-* Classes
 * Objects
+* Classes
 * Traits
 * Interfaces
 * Inheritance
@@ -22,21 +22,21 @@ Include the following header file:
 .How to create an object
 ====
 ----
-Object * object = allocInit_(Object);
-printf("%d\n", hashCode_(object));
-dealloc_(object);
+Cbject_Object * object = Cbject_allocInit(Cbject_Object);
+printf("%d\n", Cbject_hashCode(object));
+Cbject_dealloc(object);
 ----
 ====
 
-=== Object model
+=== Cbject_Object model
 [plantuml, target=diag-building-blocks, format=png]
 .Building blocks
 ----
-!include ../src/Cbject/Object.h!Object
-!include ../src/Cbject/Object.h!ObjectClass
-!include ../src/Cbject/Trait.h!Trait
-!include ../src/Cbject/Trait.h!TraitInterface
-Object -r-> ObjectClass
+!include ../src/Cbject/Cbject_Object.h!Cbject_Object
+!include ../src/Cbject/Cbject_Object.h!Cbject_ObjectClass
+!include ../src/Cbject/Cbject_Trait.h!Cbject_Trait
+!include ../src/Cbject/Cbject_Trait.h!Cbject_TraitInterface
+Cbject_Object -r-> Cbject_ObjectClass
 ----
 
 [plantuml, target=diag-rectangle-class-example, format=png]
@@ -46,25 +46,26 @@ Object -r-> ObjectClass
 !include ../src/Examples/Shape.h!Shape
 !include ../src/Examples/Drawable.h!Drawable
 !include ../src/Examples/Drawable.h!DrawableInterface
-!include ../src/Cbject/Trait.h!Trait
+!include ../src/Cbject/Cbject_Trait.h!Cbject_Trait
 !include ../src/Examples/Rectangle.h!RectangleClass
-!include ../src/Cbject/Trait.h!TraitInterface
-!include ../src/Cbject/Object.h!Object
+!include ../src/Cbject/Cbject_Trait.h!Cbject_TraitInterface
+!include ../src/Cbject/Cbject_Object.h!Cbject_Object
 !include ../src/Examples/Shape.h!ShapeClass
-!include ../src/Cbject/Object.h!ObjectClass
+!include ../src/Cbject/Cbject_Object.h!Cbject_ObjectClass
 Rectangle -u-|> Shape
 Rectangle *-r- Drawable
 RectangleClass *-r- DrawableInterface
-Drawable -u-|> Trait
-DrawableInterface -u-|> TraitInterface
+Drawable -u-|> Cbject_Trait
+DrawableInterface -u-|> Cbject_TraitInterface
 RectangleClass -u-|> ShapeClass
-Shape -u-|> Object
-Object -r-> RectangleClass
-ShapeClass -u-|> ObjectClass
+Shape -u-|> Cbject_Object
+Cbject_Object -r-> RectangleClass
+ShapeClass -u-|> Cbject_ObjectClass
 ----
 end::overview[] */
 #ifndef CBJECT_H
 #define CBJECT_H
-#include "Object.h"
-#include "Trait.h"
+#include "Cbject_Object.h"
+#include "Cbject_Settings.h"
+#include "Cbject_Trait.h"
 #endif // CBJECT_H

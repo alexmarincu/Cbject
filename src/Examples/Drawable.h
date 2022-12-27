@@ -1,24 +1,24 @@
 #ifndef DRAWABLE_H
 #define DRAWABLE_H
 #include "../Cbject/Cbject.h"
-typedefInterface_(Drawable);
+x_typedefInterface(Drawable);
 /* @startuml(id=DrawableInterface)
 object DrawableInterface {
-    TraitInterface eTraitInterface;
+    x_TraitInterface eTraitInterface;
     void (*draw)(Drawable const * const drawable);
 }
 @enduml */
 struct DrawableInterface {
-    extends_(TraitInterface);
+    x_extends(x_TraitInterface);
     void (*draw)(Drawable const * const drawable);
 };
 /* @startuml(id=Drawable)
 object Drawable {
-    Trait eTrait;
+    x_Trait eTrait;
 }
 @enduml */
 struct Drawable {
-    extends_(Trait);
+    x_extends(x_Trait);
     uint16_t scale;
 };
 DrawableInterface const * DrawableInterface_instance(void);

@@ -1,9 +1,9 @@
 #ifndef GREETING_H
 #define GREETING_H
 #include "../Cbject/Cbject.h"
-typedefClass_(Greeting);
+x_typedefClass(Greeting);
 struct GreetingClass {
-    extends_(ObjectClass);
+    x_extends(x_ObjectClass);
 };
 GreetingClass const * GreetingClass_instance(void);
 Greeting * Greeting_init(Greeting * const greeting, char * const text);

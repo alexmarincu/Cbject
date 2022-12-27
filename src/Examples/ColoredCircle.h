@@ -3,12 +3,12 @@
 #include "../Cbject/Cbject.h"
 #include "Circle.h"
 #include "Color.h"
-typedefClass_(ColoredCircle);
+x_typedefClass(ColoredCircle);
 struct ColoredCircleClass {
-    extends_(CircleClass);
+    x_extends(CircleClass);
 };
 struct ColoredCircle {
-    extends_(Circle);
+    x_extends(Circle);
     Color color;
 };
 ColoredCircleClass const * ColoredCircleClass_instance(void);

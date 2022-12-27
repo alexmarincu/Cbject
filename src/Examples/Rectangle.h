@@ -3,7 +3,7 @@
 #include "../Cbject/Cbject.h"
 #include "Drawable.h"
 #include "Shape.h"
-typedefClass_(Rectangle);
+x_typedefClass(Rectangle);
 /* @startuml(id=RectangleClass)
 object RectangleClass {
     ShapeClass eShapeClass;
@@ -11,8 +11,8 @@ object RectangleClass {
 }
 @enduml */
 struct RectangleClass {
-    extends_(ShapeClass);
-    implements_(DrawableInterface);
+    x_extends(ShapeClass);
+    x_implements(DrawableInterface);
 };
 RectangleClass const * RectangleClass_instance(void);
 Rectangle * Rectangle_init(
