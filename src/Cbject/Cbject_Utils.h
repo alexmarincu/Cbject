@@ -71,10 +71,10 @@ Interface setup in class (initialize super, set the trait offset in container ob
 * objectClass - Class instance
 ====
 end::macro[] */
-#define Cbject_setUpInterfaceOf(className, interfaceName, objectClass)                                                        \
-    *Cbject_castTo(interfaceName##Interface, &(objectClass)->i##interfaceName##Interface) = *Cbject_interface(interfaceName); \
-    Cbject_castTo(Cbject_TraitInterface, &(objectClass)->i##interfaceName##Interface)->name = #interfaceName;                 \
-    Cbject_castTo(Cbject_TraitInterface, &(objectClass)->i##interfaceName##Interface)->traitOffset = offsetof(className, i##interfaceName)
+#define Cbject_setUpInterfaceOf(className, interfaceName, objectClass)                                                          \
+    *Cbject_castTo(interfaceName##Interface, &(objectClass)->ss_##interfaceName##Interface) = *Cbject_interface(interfaceName); \
+    Cbject_castTo(Cbject_TraitInterface, &(objectClass)->ss_##interfaceName##Interface)->name = #interfaceName;                 \
+    Cbject_castTo(Cbject_TraitInterface, &(objectClass)->ss_##interfaceName##Interface)->traitOffset = offsetof(className, ss_##interfaceName)
 /* tag::macro[]
 = Cbject_bindInterfaceMethodOf()
 ====
@@ -91,7 +91,7 @@ Bind a method of an interface
 ====
 end::macro[] */
 #define Cbject_bindInterfaceMethodOf(className, interfaceName, methodName, objectClass) \
-    Cbject_castTo(interfaceName##Interface, &Cbject_castTo(className##Class, objectClass)->i##interfaceName##Interface)->methodName = methodName
+    Cbject_castTo(interfaceName##Interface, &Cbject_castTo(className##Class, objectClass)->ss_##interfaceName##Interface)->methodName = methodName
 /* tag::macro[]
 = Cbject_alloc()
 ====
@@ -181,10 +181,10 @@ Cbject_Trait setup (initialize, set the trait offset and interface offset)
 ** ... - Init params
 ====
 end::macro[] */
-#define Cbject_setUpTraitOf(className, interfaceName, ...)                                                                \
-    Cbject_initTrait(interfaceName, &Cbject_VaArgs_first(__VA_ARGS__)->i##interfaceName Cbject_VaArgs_rest(__VA_ARGS__)); \
-    Cbject_offsetOf(&Cbject_VaArgs_first(__VA_ARGS__)->i##interfaceName) = offsetof(className, i##interfaceName);         \
-    Cbject_interfaceOffsetOf(&Cbject_VaArgs_first(__VA_ARGS__)->i##interfaceName) = offsetof(className##Class, i##interfaceName##Interface)
+#define Cbject_setUpTraitOf(className, interfaceName, ...)                                                                  \
+    Cbject_initTrait(interfaceName, &Cbject_VaArgs_first(__VA_ARGS__)->ss_##interfaceName Cbject_VaArgs_rest(__VA_ARGS__)); \
+    Cbject_offsetOf(&Cbject_VaArgs_first(__VA_ARGS__)->ss_##interfaceName) = offsetof(className, ss_##interfaceName);       \
+    Cbject_interfaceOffsetOf(&Cbject_VaArgs_first(__VA_ARGS__)->ss_##interfaceName) = offsetof(className##Class, ss_##interfaceName##Interface)
 /* tag::macro[]
 = Cbject_allocInit()
 ====
@@ -537,10 +537,10 @@ end::macro[] */
 #define Cbject_ignore(var) \
     (void)var
 /* tag::macro[]
-= Cbject_extends()
+= Cbject_is()
 ====
 ----
-#define Cbject_extends(typeName)
+#define Cbject_is(typeName)
 ----
 Syntactic sugar to extend a type
 
@@ -551,25 +551,25 @@ Should be used as the first member in the structure
 * typeName - Name of the type
 ====
 end::macro[] */
-#define Cbject_extends(typeName) \
-    typeName e##typeName
+#define Cbject_is(typeName) \
+    typeName s_##typeName
 /* tag::macro[]
-= Cbject_implements()
+= Cbject_has()
 ====
 ----
-#define Cbject_implements(typeName)
+#define Cbject_has(typeName)
 ----
 Syntactic sugar to compose a type with the provided typeName
 
 .Remark
-Should be used after Cbject_extends() macro
+Should be used after Cbject_is() macro
 
 .Params
 * typeName - Name of the type
 ====
 end::macro[] */
-#define Cbject_implements(typeName) \
-    typeName i##typeName
+#define Cbject_has(typeName) \
+    typeName ss_##typeName
 /* tag::macro[]
 = Cbject_class()
 ====
@@ -656,7 +656,7 @@ Cbject_Trait reference
 ====
 end::macro[] */
 #define Cbject_traitOf(className, interfaceName, object) \
-    Cbject_castTo(interfaceName, (Cbject_castTo(Cbject_Any, object) + Cbject_castTo(Cbject_TraitInterface, &Cbject_castTo(className##Class, Cbject_classOf(object))->i##interfaceName##Interface)->traitOffset))
+    Cbject_castTo(interfaceName, (Cbject_castTo(Cbject_Any, object) + Cbject_castTo(Cbject_TraitInterface, &Cbject_castTo(className##Class, Cbject_classOf(object))->ss_##interfaceName##Interface)->traitOffset))
 /* tag::macro[]
 = Cbject_callObjectMethod()
 ====
@@ -827,7 +827,7 @@ Depends on the called method
 ====
 end::macro[] */
 #define Cbject_callInterfaceMethod(className, interfaceName, methodName, ...) \
-    Cbject_castTo(interfaceName##Interface, &Cbject_castTo(className##Class, Cbject_class(className))->i##interfaceName##Interface)->methodName(__VA_ARGS__)
+    Cbject_castTo(interfaceName##Interface, &Cbject_castTo(className##Class, Cbject_class(className))->ss_##interfaceName##Interface)->methodName(__VA_ARGS__)
 /* tag::macro[]
 = Cbject_VaArgs_first()
 ====

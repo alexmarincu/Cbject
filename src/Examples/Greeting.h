@@ -3,7 +3,7 @@
 #include "../Cbject/Cbject.h"
 x_typedefClass(Greeting);
 struct GreetingClass {
-    x_extends(x_ObjectClass);
+    x_is(x_ObjectClass);
 };
 GreetingClass const * GreetingClass_instance(void);
 Greeting * Greeting_init(Greeting * const greeting, char * const text);

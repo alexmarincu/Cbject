@@ -5,10 +5,10 @@
 #include "Color.h"
 x_typedefClass(ColoredCircle);
 struct ColoredCircleClass {
-    x_extends(CircleClass);
+    x_is(CircleClass);
 };
 struct ColoredCircle {
-    x_extends(Circle);
+    x_is(Circle);
     Color color;
 };
 ColoredCircleClass const * ColoredCircleClass_instance(void);

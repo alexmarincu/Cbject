@@ -4,21 +4,21 @@
 x_typedefInterface(Drawable);
 /* @startuml(id=DrawableInterface)
 object DrawableInterface {
-    x_TraitInterface eTraitInterface;
+    Cbject_TraitInterface s_Cbject_TraitInterface;
     void (*draw)(Drawable const * const drawable);
 }
 @enduml */
 struct DrawableInterface {
-    x_extends(x_TraitInterface);
+    x_is(x_TraitInterface);
     void (*draw)(Drawable const * const drawable);
 };
 /* @startuml(id=Drawable)
 object Drawable {
-    x_Trait eTrait;
+    Cbject_Trait s_Cbject_Trait;
 }
 @enduml */
 struct Drawable {
-    x_extends(x_Trait);
+    x_is(x_Trait);
     uint16_t scale;
 };
 DrawableInterface const * DrawableInterface_instance(void);

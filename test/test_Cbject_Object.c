@@ -90,7 +90,7 @@ Test isOfClass method
 ====
 end::test[] */
 typedef struct {
-    x_extends(x_ObjectClass);
+    x_is(x_ObjectClass);
 } TestClass;
 TestClass * TestClass_instance(void) {
     static TestClass testClass;

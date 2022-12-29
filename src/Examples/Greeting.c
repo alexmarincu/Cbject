@@ -1,7 +1,7 @@
 #include "Greeting.h"
 #include <stdio.h>
 struct Greeting {
-    x_extends(x_Object);
+    x_is(x_Object);
     char * text;
 };
 GreetingClass const * GreetingClass_instance(void) {

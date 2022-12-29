@@ -626,8 +626,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_lengthof">Cbject_lengthOf()</a></li>
 <li><a href="#_cbject_salloc">Cbject_salloc()</a></li>
 <li><a href="#_cbject_ignore">Cbject_ignore()</a></li>
-<li><a href="#_cbject_extends">Cbject_extends()</a></li>
-<li><a href="#_cbject_implements">Cbject_implements()</a></li>
+<li><a href="#_cbject_is">Cbject_is()</a></li>
+<li><a href="#_cbject_has">Cbject_has()</a></li>
 <li><a href="#_cbject_class">Cbject_class()</a></li>
 <li><a href="#_cbject_singleton">Cbject_singleton()</a></li>
 <li><a href="#_cbject_classof">Cbject_classOf()</a></li>
@@ -742,7 +742,7 @@ Cbject_dealloc(object);</pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-rectangle-class-example.png" alt="diag rectangle class example" width="732" height="634">
+<img src="media/diag-rectangle-class-example.png" alt="diag rectangle class example" width="743" height="634">
 </div>
 <div class="title">Figure 2. Rectangle class example</div>
 </div>
@@ -2356,12 +2356,12 @@ Cbject_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_extends">Cbject_extends()</h5>
+<h5 id="_cbject_is">Cbject_is()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>#define Cbject_extends(typeName)</pre>
+<pre>#define Cbject_is(typeName)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2383,12 +2383,12 @@ Cbject_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_implements">Cbject_implements()</h5>
+<h5 id="_cbject_has">Cbject_has()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>#define Cbject_implements(typeName)</pre>
+<pre>#define Cbject_has(typeName)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2396,7 +2396,7 @@ Cbject_dealloc(object);</pre>
 </div>
 <div class="paragraph">
 <div class="title">Remark</div>
-<p>Should be used after Cbject_extends() macro</p>
+<p>Should be used after Cbject_is() macro</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>

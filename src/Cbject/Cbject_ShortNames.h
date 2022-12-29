@@ -51,8 +51,8 @@ end::overview[] */
 #define x_lengthOf Cbject_lengthOf
 #define x_salloc Cbject_salloc
 #define x_ignore Cbject_ignore
-#define x_extends Cbject_extends
-#define x_implements Cbject_implements
+#define x_is Cbject_is
+#define x_has Cbject_has
 #define x_class Cbject_class
 #define x_singleton Cbject_singleton
 #define x_classOf Cbject_classOf

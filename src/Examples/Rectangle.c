@@ -2,15 +2,15 @@
 #include <stdio.h>
 /* @startuml(id=Rectangle)
 object Rectangle {
-    Shape eShape;
-    Drawable iDrawable;
+    Shape s_Shape;
+    Drawable ss_Drawable;
     uint32_t width;
     uint32_t height;
 }
 @enduml */
 struct Rectangle {
-    x_extends(Shape);
-    x_implements(Drawable);
+    x_is(Shape);
+    x_has(Drawable);
     uint32_t width;
     uint32_t height;
 };

@@ -5,12 +5,12 @@
 #include "Shape.h"
 x_typedefClass(Circle);
 struct CircleClass {
-    x_extends(ShapeClass);
-    x_implements(DrawableInterface);
+    x_is(ShapeClass);
+    x_has(DrawableInterface);
 };
 struct Circle {
-    x_extends(Shape);
-    x_implements(Drawable);
+    x_is(Shape);
+    x_has(Drawable);
     uint32_t radius;
 };
 CircleClass const * CircleClass_instance(void);

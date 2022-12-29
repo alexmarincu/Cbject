@@ -4,7 +4,7 @@
 #include "Rectangle.h"
 #include <stdio.h>
 struct Application {
-    x_extends(x_Object);
+    x_is(x_Object);
     Circle * circle;
     Rectangle * rectangle;
 };

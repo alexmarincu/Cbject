@@ -6,13 +6,13 @@
 x_typedefClass(Rectangle);
 /* @startuml(id=RectangleClass)
 object RectangleClass {
-    ShapeClass eShapeClass;
-    DrawableInterface iDrawableInterface;
+    ShapeClass s_ShapeClass;
+    DrawableInterface ss_DrawableInterface;
 }
 @enduml */
 struct RectangleClass {
-    x_extends(ShapeClass);
-    x_implements(DrawableInterface);
+    x_is(ShapeClass);
+    x_has(DrawableInterface);
 };
 RectangleClass const * RectangleClass_instance(void);
 Rectangle * Rectangle_init(
