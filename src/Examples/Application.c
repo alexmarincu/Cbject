@@ -2,27 +2,29 @@
 #include "Circle.h"
 #include "Greeting.h"
 #include "Rectangle.h"
+#include "cbject_Object.h"
+#include "cbject_utils.h"
 #include <stdio.h>
 struct Application {
-    x_is(x_Object);
+    cbject_is(cbject_Object);
     Circle * circle;
     Rectangle * rectangle;
 };
-static x_Object * teardown(x_Object * object);
-static x_Object * copy(x_Object const * const object, x_Object * const copyObject);
-ApplicationClass const * ApplicationClass_instance(void) {
+static cbject_Object * teardown(cbject_Object * object);
+static cbject_Object * copy(cbject_Object const * const object, cbject_Object * const copyObject);
+ApplicationClass const * ApplicationClass_getInstance(void) {
     static ApplicationClass applicationClass;
-    x_doOnce {
-        x_setUpClass(Application, x_Object, &applicationClass);
-        x_bindClassMethod(x_Object, teardown, &applicationClass);
-        x_bindClassMethod(x_Object, copy, &applicationClass);
+    cbject_doOnce {
+        cbject_setUpClass(Application, cbject_Object, &applicationClass);
+        cbject_bindClassMethod(cbject_Object, teardown, &applicationClass);
+        cbject_bindClassMethod(cbject_Object, copy, &applicationClass);
     }
     return &applicationClass;
 }
-Application * Application_instance(void) {
+Application * Application_getInstance(void) {
     static Application application;
-    x_doOnce {
-        x_setUpObject(Application, x_Object, &application);
+    cbject_doOnce {
+        cbject_Object_init((cbject_Object *)&application);
     }
     return &application;
 }
@@ -37,95 +39,95 @@ void Application_main(Application * const application) {
     polymorphismExample(application);
 }
 static void greetingExample(Application * const application) {
-    x_ignore(application);
+    (void)(application);
     // Allocate and initialize a Greeting application
-    Greeting * greeting = x_allocInit(Greeting, "Hello Cbject!");
+    Greeting * greeting = Greeting_init(cbject_alloc(Greeting), "Hello Cbject!");
     // Call Greeting print function on the greeting application
     Greeting_print(greeting);
     // Free memory allocated for the Greeting application
-    x_dealloc(greeting);
+    cbject_dealloc(greeting);
 }
 static void circleExample(Application * const application) {
     // Allocate and initialize a Circle object
-    application->circle = x_allocInit(Circle, (Point){ 0, 1 }, 2);
+    application->circle = Circle_init(cbject_alloc(Circle), (Point){ 0, 1 }, 2);
     // Get circle radius
     uint32_t radius = application->circle->radius;
-    x_ignore(radius);
+    (void)(radius);
     // Set circle radius
     application->circle->radius = 3;
     // Get circle area through Shape object polymorphic call
-    float area = Shape_area(x_castTo(Shape, application->circle));
-    x_ignore(area);
+    float area = Shape_area((Shape *)application->circle);
+    (void)(area);
     // Get circle shape origin
-    Point origin = x_castTo(Shape, application->circle)->origin;
-    x_ignore(origin);
+    Point origin = ((Shape *)application->circle)->origin;
+    (void)(origin);
     // set circle shape origin
-    x_castTo(Shape, application->circle)->origin = (Point){ 4, 5 };
+    ((Shape *)application->circle)->origin = (Point){ 4, 5 };
     // Draw circle through Drawable trait polymorphic call
-    Drawable_draw(x_traitOf(Circle, Drawable, application->circle));
+    Drawable_draw(cbject_getTraitOfObject(Circle, Drawable, application->circle));
 }
 static void rectangleExample(Application * const application) {
     // Allocate and initialize a Rectangle object
-    application->rectangle = x_allocInit(Rectangle, ((Point){ 0, 1 }), 2, 3);
+    application->rectangle = Rectangle_init(cbject_alloc(Rectangle), ((Point){ 0, 1 }), 2, 3);
     // Get rectangle width and height
     uint32_t width = Rectangle_getWidth(application->rectangle);
-    x_ignore(width);
+    (void)(width);
     uint32_t height = Rectangle_getHeight(application->rectangle);
-    x_ignore(height);
+    (void)(height);
     // Set rectangle with and height
     Rectangle_setWidth(application->rectangle, 4);
     Rectangle_setHeight(application->rectangle, 5);
     // Get rectangle area through Shape object polymorphic call
-    float area = Shape_area(x_castTo(Shape, application->rectangle));
-    x_ignore(area);
+    float area = Shape_area((Shape *)application->rectangle);
+    (void)(area);
     // Get rectangle shape origin
-    Point origin = x_castTo(Shape, application->rectangle)->origin;
-    x_ignore(origin);
+    Point origin = ((Shape *)application->rectangle)->origin;
+    (void)(origin);
     // set rectangle shape origin
-    x_castTo(Shape, application->rectangle)->origin = (Point){ 6, 7 };
+    ((Shape *)application->rectangle)->origin = (Point){ 6, 7 };
     // Draw rectangle through Drawable trait polymorphic call
-    Drawable_draw(x_traitOf(Rectangle, Drawable, application->rectangle));
+    Drawable_draw(cbject_getTraitOfObject(Rectangle, Drawable, application->rectangle));
 }
 static void polymorphismExample(Application * const application) {
     // Prepare a list of shapes
     Shape * const shapes[] = {
-        x_castTo(Shape, application->circle),
-        x_castTo(Shape, application->rectangle),
+        (Shape *)application->circle,
+        (Shape *)application->rectangle,
     };
     // Loop through the list of shapes and call various polymorphic functions
-    for (uint8_t i = 0; i < x_lengthOf(shapes); i++) {
+    for (uint8_t i = 0; i < cbject_lengthOfArray(shapes); i++) {
         // Get area through Shape object polymorphic call
         float area = Shape_area(shapes[i]);
-        x_ignore(area);
+        (void)(area);
         // Get size of shape object
-        size_t objectSize = x_objectSizeOf(shapes[i]);
-        x_ignore(objectSize);
+        size_t objectSize = cbject_getSizeOfObject(shapes[i]);
+        (void)(objectSize);
         // Get hash code of shape object
-        uint64_t hashCode = x_hashCode(shapes[i]);
-        x_ignore(hashCode);
+        uint64_t hashCode = cbject_hashCode(shapes[i]);
+        (void)(hashCode);
         // Check class of chape object
-        if (x_isOfClass(shapes[i], Circle)) {
+        if (cbject_isOfClass(shapes[i], Circle)) {
             // Get circle radius
-            uint32_t radius = x_castTo(Circle, shapes[i])->radius;
-            x_ignore(radius);
-        } else if (x_isOfClass(shapes[i], Rectangle)) {
+            uint32_t radius = ((Circle *)shapes[i])->radius;
+            (void)(radius);
+        } else if (cbject_isOfClass(shapes[i], Rectangle)) {
             // Get rectangle width and height
-            uint32_t width = Rectangle_getWidth(x_castTo(Rectangle, shapes[i]));
-            x_ignore(width);
-            uint32_t height = Rectangle_getHeight(x_castTo(Rectangle, shapes[i]));
-            x_ignore(height);
+            uint32_t width = Rectangle_getWidth((Rectangle *)shapes[i]);
+            (void)(width);
+            uint32_t height = Rectangle_getHeight((Rectangle *)shapes[i]);
+            (void)(height);
         }
     }
 }
-static x_Object * teardown(x_Object * const object) {
-    Application * application = x_castTo(Application, object);
-    x_dealloc(application->rectangle);
-    x_dealloc(application->circle);
-    return x_callClassMethod(x_Object, x_Object, teardown, object);
+static cbject_Object * teardown(cbject_Object * const object) {
+    Application * application = (Application *)object;
+    cbject_dealloc(application->rectangle);
+    cbject_dealloc(application->circle);
+    return cbject_callMethodOfClass(cbject_Object, cbject_Object, teardown, object);
 }
-static x_Object * copy(x_Object const * const object, x_Object * const copyObject) {
-    x_ignore(object);
-    x_ignore(copyObject);
+static cbject_Object * copy(cbject_Object const * const object, cbject_Object * const copyObject) {
+    (void)(object);
+    (void)(copyObject);
     assert(false);
     return NULL;
 }

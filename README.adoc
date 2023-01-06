@@ -4,7 +4,7 @@
 
 OOP framework for standard C99
 
-https://github.com/alexmarincu/Cbject/actions/workflows/ci.yml[image:https://github.com/alexmarincu/Cbject/actions/workflows/ci.yml/badge.svg[CI]] https://github.com/alexmarincu/Cbject/releases[image:https://img.shields.io/github/v/release/alexmarincu/Cbject?include_prereleases[GitHub release (latest by date including pre-releases)]] https://github.com/alexmarincu/Cbject/blob/master/LICENSE[image:https://img.shields.io/github/license/alexmarincu/Cbject[GitHub]]
+https://github.com/alexmarincu/cbject/actions/workflows/ci.yml[image:https://github.com/alexmarincu/cbject/actions/workflows/ci.yml/badge.svg[CI]] https://github.com/alexmarincu/cbject/releases[image:https://img.shields.io/github/v/release/alexmarincu/Cbject?include_prereleases[GitHub release (latest by date including pre-releases)]] https://github.com/alexmarincu/cbject/blob/master/LICENSE[image:https://img.shields.io/github/license/alexmarincu/Cbject[GitHub]]
 
 https://ko-fi.com/alexmarincu[image:https://ko-fi.com/img/githubbutton_sm.svg[ko-fi alexmarincu]]
 
@@ -12,4 +12,4 @@ https://www.buymeacoffee.com/alexmarincu[image:https://www.buymeacoffee.com/asse
 
 Cbject makes it easier to write object oriented code in C.
 
-To dive right in check the https://github.com/alexmarincu/Cbject/tree/master/src[src] and the https://github.com/alexmarincu/Cbject/tree/master/test[test] folder, or read the https://cbject.swdevstudio.com[docs].
+To dive right in check the https://github.com/alexmarincu/cbject/tree/master/src[src] and the https://github.com/alexmarincu/cbject/tree/master/test[test] folder, or read the https://cbject.swdevstudio.com[docs].

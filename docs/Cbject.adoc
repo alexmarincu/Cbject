@@ -16,45 +16,42 @@ endif::[]
 https://github.com/alexmarincu/Cbject[GitHub] | link:./Cbject.pdf[PDF]
 
 == Overview
-include::../src/Cbject/Cbject.h[tag=overview]
+include::../src/cbject/cbject.h[tag=overview]
 
 == API
-=== Cbject_Object
+=== cbject_Object
 ==== Overview
-include::../src/Cbject/Cbject_Object.h[tag=overview, leveloffset=+4]
+include::../src/cbject/cbject_Object.h[tag=overview, leveloffset=+4]
 
 ==== Types
-include::../src/Cbject/Cbject_Object.h[tag=type, leveloffset=+4]
+include::../src/cbject/cbject_Object.h[tag=type, leveloffset=+4]
 
 ==== Functions
-include::../src/Cbject/Cbject_Object.h[tag=function, leveloffset=+4]
+include::../src/cbject/cbject_Object.h[tag=function, leveloffset=+4]
 
 ==== Tests
-include::../test/test_Cbject_Object.c[tag=test, leveloffset=+4]
+include::../test/test_cbject_Object.c[tag=test, leveloffset=+4]
 
-=== Cbject_Trait
+=== cbject_Trait
 ==== Overview
-include::../src/Cbject/Cbject_Trait.h[tag=overview, leveloffset=+4]
+include::../src/cbject/cbject_Trait.h[tag=overview, leveloffset=+4]
 
 ==== Types
-include::../src/Cbject/Cbject_Trait.h[tag=type, leveloffset=+4]
+include::../src/cbject/cbject_Trait.h[tag=type, leveloffset=+4]
 
 ==== Functions
-include::../src/Cbject/Cbject_Trait.h[tag=function, leveloffset=+4]
+include::../src/cbject/cbject_Trait.h[tag=function, leveloffset=+4]
 
-=== Cbject_Utils
+=== cbject_utils
 ==== Overview
-include::../src/Cbject/Cbject_Utils.h[tag=overview, leveloffset=+4]
-
-==== Types
-include::../src/Cbject/Cbject_Utils.h[tag=type, leveloffset=+4]
+include::../src/cbject/cbject_utils.h[tag=overview, leveloffset=+4]
 
 ==== Macros
-include::../src/Cbject/Cbject_Utils.h[tag=macro, leveloffset=+4]
+include::../src/cbject/cbject_utils.h[tag=macro, leveloffset=+4]
 
-=== Cbject_Settings
+=== cbject_settings
 ==== Overview
-include::../src/Cbject/Cbject_Settings.h[tag=overview, leveloffset=+4]
+include::../src/cbject/cbject_settings.h[tag=overview, leveloffset=+4]
 
 ==== Macros
-include::../src/Cbject/Cbject_Settings.h[tag=macro, leveloffset=+4]
+include::../src/cbject/cbject_settings.h[tag=macro, leveloffset=+4]

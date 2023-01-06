@@ -1,29 +1,29 @@
 #ifndef SHAPE_H
 #define SHAPE_H
-#include "../Cbject/Cbject.h"
+#include "../cbject/cbject.h"
 #include "Point.h"
-x_typedefClass(Shape);
+cbject_typedefClass(Shape);
 /* @startuml(id=ShapeClass)
 object ShapeClass {
-    Cbject_ObjectClass s_Cbject_ObjectClass;
+    cbject_ObjectClass s_cbject_ObjectClass;
     float (*area)(Shape const * const shape);
 }
 @enduml */
 struct ShapeClass {
-    x_is(x_ObjectClass);
+    cbject_is(cbject_ObjectClass);
     float (*area)(Shape const * const shape);
 };
 /* @startuml(id=Shape)
 object Shape {
-    Cbject_Object s_Cbject_Object;
+    cbject_Object s_cbject_Object;
     Point origin;
 }
 @enduml */
 struct Shape {
-    x_is(x_Object);
+    cbject_is(cbject_Object);
     Point origin;
 };
-ShapeClass const * ShapeClass_instance(void);
+ShapeClass const * ShapeClass_getInstance(void);
 Shape * Shape_init(Shape * const shape, Point origin);
 float Shape_area(Shape const * const shape);
 #endif // SHAPE_H

@@ -1,9 +1,9 @@
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
-#include "../Cbject/Cbject.h"
+#include "../cbject/cbject.h"
 #include "Drawable.h"
 #include "Shape.h"
-x_typedefClass(Rectangle);
+cbject_typedefClass(Rectangle);
 /* @startuml(id=RectangleClass)
 object RectangleClass {
     ShapeClass s_ShapeClass;
@@ -11,10 +11,10 @@ object RectangleClass {
 }
 @enduml */
 struct RectangleClass {
-    x_is(ShapeClass);
-    x_has(DrawableInterface);
+    cbject_is(ShapeClass);
+    cbject_has(DrawableInterface);
 };
-RectangleClass const * RectangleClass_instance(void);
+RectangleClass const * RectangleClass_getInstance(void);
 Rectangle * Rectangle_init(
     Rectangle * const rectangle,
     Point origin,

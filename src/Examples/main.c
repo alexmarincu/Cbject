@@ -1,6 +1,6 @@
 #include "Application.h"
 int main(void) {
-    Application_main(x_singleton(Application));
-    x_teardown(x_singleton(Application));
+    Application_main(Application_getInstance());
+    cbject_teardown(Application_getInstance());
     return 0;
 }

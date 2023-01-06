@@ -9,22 +9,22 @@ object Rectangle {
 }
 @enduml */
 struct Rectangle {
-    x_is(Shape);
-    x_has(Drawable);
+    cbject_is(Shape);
+    cbject_has(Drawable);
     uint32_t width;
     uint32_t height;
 };
-static x_Object * teardown(x_Object * object);
+static cbject_Object * teardown(cbject_Object * object);
 static float area(Shape const * const shape);
 static void draw(Drawable const * const drawable);
-RectangleClass const * RectangleClass_instance(void) {
+RectangleClass const * RectangleClass_getInstance(void) {
     static RectangleClass rectangleClass;
-    x_doOnce {
-        x_setUpClass(Rectangle, Shape, &rectangleClass);
-        x_setUpInterfaceOf(Rectangle, Drawable, &rectangleClass);
-        x_bindClassMethod(x_Object, teardown, &rectangleClass);
-        x_bindInterfaceMethodOf(Rectangle, Drawable, draw, &rectangleClass);
-        x_bindClassMethod(Shape, area, &rectangleClass);
+    cbject_doOnce {
+        cbject_setUpClass(Rectangle, Shape, &rectangleClass);
+        cbject_setUpInterfaceOf(Rectangle, Drawable, &rectangleClass);
+        cbject_bindClassMethod(cbject_Object, teardown, &rectangleClass);
+        cbject_bindInterfaceMethodOf(Rectangle, Drawable, draw, &rectangleClass);
+        cbject_bindClassMethod(Shape, area, &rectangleClass);
     }
     return &rectangleClass;
 }
@@ -34,8 +34,8 @@ Rectangle * Rectangle_init(
     uint32_t width,
     uint32_t height
 ) {
-    x_setUpObject(Rectangle, Shape, rectangle, origin);
-    x_setUpTraitOf(Rectangle, Drawable, rectangle, 0);
+    Shape_init((Shape *)rectangle, origin);
+    cbject_setUpTraitOf(Rectangle, Drawable, rectangle, 0);
     rectangle->width = width;
     rectangle->height = height;
     return rectangle;
@@ -56,15 +56,15 @@ void Rectangle_makeSquare(Rectangle * const rectangle, uint32_t const edgeSize) 
     rectangle->height = edgeSize;
     rectangle->width = edgeSize;
 }
-static x_Object * teardown(x_Object * object) {
-    return x_callClassMethod(Shape, x_Object, teardown, object);
+static cbject_Object * teardown(cbject_Object * object) {
+    return cbject_callMethodOfClass(Shape, cbject_Object, teardown, object);
 }
 static float area(Shape const * const shape) {
-    Rectangle * rectangle = x_castTo(Rectangle, shape);
+    Rectangle * rectangle = (Rectangle *)shape;
     return rectangle->width * rectangle->height;
 }
 static void draw(Drawable const * const drawable) {
-    Rectangle * rectangle = x_castTo(Rectangle, x_objectOf(drawable));
+    Rectangle * rectangle = (Rectangle *)cbject_getObjectOfTrait(drawable);
     for (uint8_t i = 0; i < rectangle->width; i++) {
         printf("--");
     }

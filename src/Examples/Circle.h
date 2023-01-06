@@ -1,19 +1,19 @@
 #ifndef CIRCLE_H
 #define CIRCLE_H
-#include "../Cbject/Cbject.h"
+#include "../cbject/cbject.h"
 #include "Drawable.h"
 #include "Shape.h"
-x_typedefClass(Circle);
+cbject_typedefClass(Circle);
 struct CircleClass {
-    x_is(ShapeClass);
-    x_has(DrawableInterface);
+    cbject_is(ShapeClass);
+    cbject_has(DrawableInterface);
 };
 struct Circle {
-    x_is(Shape);
-    x_has(Drawable);
+    cbject_is(Shape);
+    cbject_has(Drawable);
     uint32_t radius;
 };
-CircleClass const * CircleClass_instance(void);
+CircleClass const * CircleClass_getInstance(void);
 Circle * Circle_init(
     Circle * const circle,
     Point origin,

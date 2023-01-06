@@ -1,18 +1,19 @@
 #include "Greeting.h"
+#include "cbject_Object.h"
 #include <stdio.h>
 struct Greeting {
-    x_is(x_Object);
+    cbject_is(cbject_Object);
     char * text;
 };
-GreetingClass const * GreetingClass_instance(void) {
+GreetingClass const * GreetingClass_getInstance(void) {
     static GreetingClass greetingClass;
-    x_doOnce {
-        x_setUpClass(Greeting, x_Object, &greetingClass);
+    cbject_doOnce {
+        cbject_setUpClass(Greeting, cbject_Object, &greetingClass);
     }
     return &greetingClass;
 }
 Greeting * Greeting_init(Greeting * const greeting, char * const text) {
-    x_setUpObject(Greeting, x_Object, greeting);
+    cbject_Object_init((cbject_Object *)greeting);
     greeting->text = text;
     return greeting;
 }

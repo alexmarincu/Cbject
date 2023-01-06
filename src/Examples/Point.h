@@ -1,6 +1,6 @@
 #ifndef POINT_H
 #define POINT_H
-#include "../Cbject/Cbject.h"
+#include "../cbject/cbject.h"
 typedef struct {
     uint32_t x;
     uint32_t y;
