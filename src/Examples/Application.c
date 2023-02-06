@@ -2,42 +2,24 @@
 #include "Circle.h"
 #include "Greeting.h"
 #include "Rectangle.h"
-#include "cbject_Object.h"
-#include "cbject_utils.h"
 #include <stdio.h>
+
+#define cbject_Class (Application, cbject_Singleton)
+
 struct Application {
-    cbject_is(cbject_Object);
+    cbject_Singleton singleton;
     Circle * circle;
     Rectangle * rectangle;
 };
-static cbject_Object * teardown(cbject_Object * object);
-static cbject_Object * copy(cbject_Object const * const object, cbject_Object * const copyObject);
-ApplicationClass const * ApplicationClass_getInstance(void) {
-    static ApplicationClass applicationClass;
-    cbject_doOnce {
-        cbject_setUpClass(Application, cbject_Object, &applicationClass);
-        cbject_bindClassMethod(cbject_Object, teardown, &applicationClass);
-        cbject_bindClassMethod(cbject_Object, copy, &applicationClass);
-    }
-    return &applicationClass;
-}
-Application * Application_getInstance(void) {
+
+Application * Application_instance(void) {
     static Application application;
     cbject_doOnce {
-        cbject_Object_init((cbject_Object *)&application);
+        cbject_Singleton_init((cbject_Singleton *)&application);
     }
     return &application;
 }
-static void circleExample(Application * const application);
-static void greetingExample(Application * const application);
-static void rectangleExample(Application * const application);
-static void polymorphismExample(Application * const application);
-void Application_main(Application * const application) {
-    greetingExample(application);
-    circleExample(application);
-    rectangleExample(application);
-    polymorphismExample(application);
-}
+
 static void greetingExample(Application * const application) {
     (void)(application);
     // Allocate and initialize a Greeting application
@@ -47,6 +29,7 @@ static void greetingExample(Application * const application) {
     // Free memory allocated for the Greeting application
     cbject_dealloc(greeting);
 }
+
 static void circleExample(Application * const application) {
     // Allocate and initialize a Circle object
     application->circle = Circle_init(cbject_alloc(Circle), (Point){ 0, 1 }, 2);
@@ -64,8 +47,9 @@ static void circleExample(Application * const application) {
     // set circle shape origin
     ((Shape *)application->circle)->origin = (Point){ 4, 5 };
     // Draw circle through Drawable trait polymorphic call
-    Drawable_draw(cbject_getTraitOfObject(Circle, Drawable, application->circle));
+    Drawable_draw(&application->circle->drawable);
 }
+
 static void rectangleExample(Application * const application) {
     // Allocate and initialize a Rectangle object
     application->rectangle = Rectangle_init(cbject_alloc(Rectangle), ((Point){ 0, 1 }), 2, 3);
@@ -86,8 +70,9 @@ static void rectangleExample(Application * const application) {
     // set rectangle shape origin
     ((Shape *)application->rectangle)->origin = (Point){ 6, 7 };
     // Draw rectangle through Drawable trait polymorphic call
-    Drawable_draw(cbject_getTraitOfObject(Rectangle, Drawable, application->rectangle));
+    Drawable_draw(&application->rectangle->drawable);
 }
+
 static void polymorphismExample(Application * const application) {
     // Prepare a list of shapes
     Shape * const shapes[] = {
@@ -95,22 +80,22 @@ static void polymorphismExample(Application * const application) {
         (Shape *)application->rectangle,
     };
     // Loop through the list of shapes and call various polymorphic functions
-    for (uint8_t i = 0; i < cbject_lengthOfArray(shapes); i++) {
+    for (uint8_t i = 0; i < cbject_Array_length(shapes); i++) {
         // Get area through Shape object polymorphic call
         float area = Shape_area(shapes[i]);
         (void)(area);
         // Get size of shape object
-        size_t objectSize = cbject_getSizeOfObject(shapes[i]);
-        (void)(objectSize);
+        size_t instanceSize = cbject_Object_instanceSize(shapes[i]);
+        (void)(instanceSize);
         // Get hash code of shape object
         uint64_t hashCode = cbject_hashCode(shapes[i]);
         (void)(hashCode);
         // Check class of chape object
-        if (cbject_isOfClass(shapes[i], Circle)) {
+        if (cbject_Object_isOfClass(&shapes[i]->object, (cbject_ObjectClass *)CircleClass_instance())) {
             // Get circle radius
             uint32_t radius = ((Circle *)shapes[i])->radius;
             (void)(radius);
-        } else if (cbject_isOfClass(shapes[i], Rectangle)) {
+        } else if (cbject_Object_isOfClass(&shapes[i]->object, (cbject_ObjectClass *)RectangleClass_instance())) {
             // Get rectangle width and height
             uint32_t width = Rectangle_getWidth((Rectangle *)shapes[i]);
             (void)(width);
@@ -119,15 +104,28 @@ static void polymorphismExample(Application * const application) {
         }
     }
 }
-static cbject_Object * teardown(cbject_Object * const object) {
+
+void Application_main(Application * const application) {
+    greetingExample(application);
+    circleExample(application);
+    rectangleExample(application);
+    polymorphismExample(application);
+}
+
+static cbject_Object * terminate(cbject_Object * const object) {
     Application * application = (Application *)object;
     cbject_dealloc(application->rectangle);
     cbject_dealloc(application->circle);
-    return cbject_callMethodOfClass(cbject_Object, cbject_Object, teardown, object);
+    return cbject_invokeSuperMethod(cbject_Object, terminate, object);
 }
-static cbject_Object * copy(cbject_Object const * const object, cbject_Object * const copyObject) {
-    (void)(object);
-    (void)(copyObject);
-    assert(false);
-    return NULL;
+
+ApplicationClass const * ApplicationClass_instance(void) {
+    static ApplicationClass klass;
+    cbject_doOnce {
+        cbject_Class_setup(&klass);
+        klass.singletonClass.objectClass.terminate = terminate;
+    }
+    return &klass;
 }
+
+#undef cbject_Class

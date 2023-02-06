@@ -1,27 +1,38 @@
 #ifndef DRAWABLE_H
 #define DRAWABLE_H
-#include "../cbject/cbject.h"
-cbject_typedefInterface(Drawable);
-/* @startuml(id=DrawableInterface)
-object DrawableInterface {
-    cbject_TraitInterface s_cbject_TraitInterface;
-    void (*draw)(Drawable const * const drawable);
-}
-@enduml */
-struct DrawableInterface {
-    cbject_is(cbject_TraitInterface);
-    void (*draw)(Drawable const * const drawable);
-};
-/* @startuml(id=Drawable)
+#include "Shape.h"
+
+typedef struct Drawable Drawable;
+typedef struct DrawableClass DrawableClass;
+
+/************************************************* @startuml(id=Drawable)
 object Drawable {
-    cbject_Trait s_cbject_Trait;
+    Shape shape;
+    uint16_t scale;
 }
-@enduml */
+@enduml *************************************************/
 struct Drawable {
-    cbject_is(cbject_Trait);
+    Shape shape;
     uint16_t scale;
 };
-DrawableInterface const * DrawableInterface_getInstance(void);
-void Drawable_init(Drawable * const drawable, uint16_t const scale);
+
+/************************************************* @startuml(id=DrawableClass)
+object DrawableClass {
+    ShapeClass shapeClass;
+    void (*draw)(Drawable const * const drawable);
+}
+@enduml *************************************************/
+struct DrawableClass {
+    ShapeClass shapeClass;
+    void (*draw)(Drawable const * const drawable);
+};
+
+void Drawable_init(
+    Drawable * const drawable,
+    Point origin,
+    uint16_t const scale
+);
 void Drawable_draw(Drawable const * const drawable);
+DrawableClass const * DrawableClass_instance(void);
+
 #endif // DRAWABLE_H

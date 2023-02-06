@@ -1,11 +1,16 @@
 #ifndef GREETING_H
 #define GREETING_H
 #include "../cbject/cbject.h"
-cbject_typedefClass(Greeting);
+
+typedef struct Greeting Greeting;
+typedef struct GreetingClass GreetingClass;
+
 struct GreetingClass {
-    cbject_is(cbject_ObjectClass);
+    cbject_ObjectClass objectClass;
 };
-GreetingClass const * GreetingClass_getInstance(void);
+
 Greeting * Greeting_init(Greeting * const greeting, char * const text);
 void Greeting_print(Greeting * const greeting);
+GreetingClass const * GreetingClass_instance(void);
+
 #endif // GREETING_H

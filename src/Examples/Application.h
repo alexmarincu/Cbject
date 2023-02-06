@@ -1,11 +1,16 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 #include "../cbject/cbject.h"
-cbject_typedefClass(Application);
+
+typedef struct Application Application;
+typedef struct ApplicationClass ApplicationClass;
+
 struct ApplicationClass {
-    cbject_is(cbject_ObjectClass);
+    cbject_SingletonClass singletonClass;
 };
-ApplicationClass const * ApplicationClass_getInstance(void);
-Application * Application_getInstance(void);
+
+Application * Application_instance(void);
 void Application_main(Application * const application);
+ApplicationClass const * ApplicationClass_instance(void);
+
 #endif // APPLICATION_H

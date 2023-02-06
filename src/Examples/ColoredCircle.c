@@ -1,15 +1,7 @@
 #include "ColoredCircle.h"
-#include "Circle.h"
-#include <stdio.h>
-static void draw(Drawable const * const drawable);
-ColoredCircleClass const * ColoredCircleClass_getInstance(void) {
-    static ColoredCircleClass coloredCircleClass;
-    cbject_doOnce {
-        cbject_setUpClass(ColoredCircle, Circle, &coloredCircleClass);
-        cbject_bindInterfaceMethodOf(Circle, Drawable, draw, &coloredCircleClass);
-    }
-    return &coloredCircleClass;
-}
+
+#define cbject_Class (ColoredCircle, Circle)
+
 ColoredCircle * ColoredCircle_init(
     ColoredCircle * const coloredCircle,
     Point const origin,
@@ -20,6 +12,18 @@ ColoredCircle * ColoredCircle_init(
     coloredCircle->color = color;
     return coloredCircle;
 }
+
 static void draw(Drawable const * const drawable) {
-    cbject_callMethodOfInterface(Circle, Drawable, draw, drawable);
+    cbject_invokeSuperMethod(Drawable, draw, drawable);
 }
+
+ColoredCircleClass const * ColoredCircleClass_instance(void) {
+    static ColoredCircleClass klass;
+    cbject_doOnce {
+        cbject_Class_setup(&klass);
+        klass.circleClass.drawableClass.draw = draw;
+    }
+    return &klass;
+}
+
+#undef cbject_Class

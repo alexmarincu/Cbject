@@ -16,7 +16,61 @@ endif::[]
 https://github.com/alexmarincu/Cbject[GitHub] | link:./Cbject.pdf[PDF]
 
 == Overview
-include::../src/cbject/cbject.h[tag=overview]
+Cbject makes it easier to write object oriented code in C.
+
+=== Features
+* Objects
+* Classes
+* Inheritance
+* Polymorphism
+
+=== Usage
+.How to add it to a project
+====
+Include the following header file:
+
+----
+#include "cbject.h"
+----
+====
+
+.How to create an object
+====
+----
+cbject_Object * object = cbject_Object_init(cbject_alloc(cbject_Object));
+printf("%d\n", cbject_Object_hashCode(object));
+cbject_dealloc(object);
+----
+====
+
+=== cbject_Object model
+[plantuml, target=diag-building-blocks, format=png]
+.Building blocks
+----
+!include ../src/cbject/cbject_Object.h!cbject_Object
+!include ../src/cbject/cbject_Object.h!cbject_ObjectClass
+cbject_Object -r-> cbject_ObjectClass
+----
+
+[plantuml, target=diag-rectangle-class-example, format=png]
+.Rectangle class example
+----
+!include ../src/Examples/Rectangle.h!Rectangle
+!include ../src/Examples/Rectangle.h!RectangleClass
+!include ../src/Examples/Drawable.h!Drawable
+!include ../src/Examples/Drawable.h!DrawableClass
+!include ../src/Examples/Shape.h!Shape
+!include ../src/Examples/Shape.h!ShapeClass
+!include ../src/cbject/cbject_Object.h!cbject_Object
+!include ../src/cbject/cbject_Object.h!cbject_ObjectClass
+Rectangle -u-|> Drawable
+RectangleClass -u-|> DrawableClass
+Drawable -u-|> Shape
+DrawableClass -u-|> ShapeClass
+Shape -u-|> cbject_Object
+ShapeClass -u-|> cbject_ObjectClass
+cbject_Object -r-> RectangleClass
+----
 
 == API
 === cbject_Object
@@ -29,18 +83,21 @@ include::../src/cbject/cbject_Object.h[tag=type, leveloffset=+4]
 ==== Functions
 include::../src/cbject/cbject_Object.h[tag=function, leveloffset=+4]
 
+==== Macros
+include::../src/cbject/cbject_Object.h[tag=macro, leveloffset=+4]
+
 ==== Tests
 include::../test/test_cbject_Object.c[tag=test, leveloffset=+4]
 
-=== cbject_Trait
+=== cbject_Singleton
 ==== Overview
-include::../src/cbject/cbject_Trait.h[tag=overview, leveloffset=+4]
+include::../src/cbject/cbject_Singleton.h[tag=overview, leveloffset=+4]
 
 ==== Types
-include::../src/cbject/cbject_Trait.h[tag=type, leveloffset=+4]
+include::../src/cbject/cbject_Singleton.h[tag=type, leveloffset=+4]
 
 ==== Functions
-include::../src/cbject/cbject_Trait.h[tag=function, leveloffset=+4]
+include::../src/cbject/cbject_Singleton.h[tag=function, leveloffset=+4]
 
 === cbject_utils
 ==== Overview
@@ -49,9 +106,9 @@ include::../src/cbject/cbject_utils.h[tag=overview, leveloffset=+4]
 ==== Macros
 include::../src/cbject/cbject_utils.h[tag=macro, leveloffset=+4]
 
-=== cbject_settings
+=== cbject
 ==== Overview
-include::../src/cbject/cbject_settings.h[tag=overview, leveloffset=+4]
+include::../src/cbject/cbject.h[tag=overview, leveloffset=+4]
 
 ==== Macros
-include::../src/cbject/cbject_settings.h[tag=macro, leveloffset=+4]
+include::../src/cbject/cbject.h[tag=macro, leveloffset=+4]

@@ -1,21 +1,26 @@
 #ifndef COLOREDCIRCLE_H
 #define COLOREDCIRCLE_H
-#include "../cbject/cbject.h"
 #include "Circle.h"
 #include "Color.h"
-cbject_typedefClass(ColoredCircle);
-struct ColoredCircleClass {
-    cbject_is(CircleClass);
-};
+
+typedef struct ColoredCircle ColoredCircle;
+typedef struct ColoredCircleClass ColoredCircleClass;
+
 struct ColoredCircle {
-    cbject_is(Circle);
+    Circle circle;
     Color color;
 };
-ColoredCircleClass const * ColoredCircleClass_getInstance(void);
+
+struct ColoredCircleClass {
+    CircleClass circleClass;
+};
+
 ColoredCircle * ColoredCircle_init(
     ColoredCircle * const coloredCircle,
     Point const origin,
     uint32_t const radius,
     Color const color
 );
+ColoredCircleClass const * ColoredCircleClass_instance(void);
+
 #endif // COLOREDCIRCLE_H
