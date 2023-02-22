@@ -52,8 +52,8 @@ cbject_dealloc(object);
 cbject_Object -r-> cbject_ObjectClass
 ----
 
-[plantuml, target=diag-building-blocks, format=png]
-.Building blocks
+[plantuml, target=diag-demo, format=png]
+.demo sequence diagram
 ----
 Alice -> Bob: Authentication Request
 Bob --> Alice: Authentication Response
