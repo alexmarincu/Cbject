@@ -1,5 +1,25 @@
 /************************************************* tag::overview[]
 The building block. All objects defined in Cbject need to extend cbject_Object.
+
+.demo sequence diagram
+[plantuml]
+----
+Alice -> Bob: Authentication Request
+alt successful case
+    Bob -> Alice: Authentication Accepted
+else some kind of failure
+    Bob -> Alice: Authentication Failure
+    group My own label
+    Alice -> Log : Log attack start
+        loop 1000 times
+            Alice -> Bob: DNS Attack
+        end
+    Alice -> Log : Log attack end
+    end
+else Another type of failure
+   Bob -> Alice: Please repeat
+end
+----
 end::overview[] *************************************************/
 #ifndef CBJECT_OBJECT_H
 #define CBJECT_OBJECT_H
@@ -237,6 +257,23 @@ void * cbject_Object_dealloc(cbject_Object * const object);
 bool cbject_Object_isOfClass(cbject_Object const * const object, cbject_ObjectClass const * const objectClass);
 ----
 Checks if an object is of a given class
+
+[plantuml]
+----
+start
+:isOfClass = false;
+:_objectClass = object->objectClass;
+while (_objectClass != NULL) is (true)
+    if (_objectClass == objectClass) then (true)
+        :isOfClass = true;
+        :_objectClass = NULL;
+    else (false)
+        :_objectClass = _objectClass->superClass;
+    endif
+endwhile (false)
+:return isOfClass;
+stop
+----
 
 .Params
 * object - cbject_Object reference

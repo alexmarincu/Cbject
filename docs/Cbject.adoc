@@ -44,26 +44,16 @@ cbject_dealloc(object);
 ====
 
 === cbject_Object model
-[plantuml, target=diag-building-blocks, format=png]
 .Building blocks
+[plantuml]
 ----
 !include ../src/cbject/cbject_Object.h!cbject_Object
 !include ../src/cbject/cbject_Object.h!cbject_ObjectClass
 cbject_Object -r-> cbject_ObjectClass
 ----
 
-[plantuml, target=diag-demo, format=png]
-.demo sequence diagram
-----
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
-
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: Another authentication Response
-----
-
-[plantuml, target=diag-rectangle-class-example, format=png]
 .Rectangle class example
+[plantuml]
 ----
 !include ../src/Examples/Rectangle.h!Rectangle
 !include ../src/Examples/Rectangle.h!RectangleClass

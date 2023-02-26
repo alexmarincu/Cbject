@@ -1,5 +1,15 @@
 /************************************************* tag::overview[]
-The building block. All objects defined in Cbject need to extend cbject_Singleton.
+.Singleton
+[plantuml]
+----
+!include ../src/cbject/cbject_Object.h!cbject_Object
+!include ../src/cbject/cbject_Object.h!cbject_ObjectClass
+!include ../src/cbject/cbject_Singleton.h!cbject_Singleton
+!include ../src/cbject/cbject_Singleton.h!cbject_SingletonClass
+cbject_Singleton -u-|> cbject_Object
+cbject_Object -r-> cbject_SingletonClass
+cbject_SingletonClass -u-|> cbject_ObjectClass
+----
 end::overview[] *************************************************/
 #ifndef CBJECT_SINGLETON_H
 #define CBJECT_SINGLETON_H
