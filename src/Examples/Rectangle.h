@@ -5,24 +5,24 @@
 typedef struct Rectangle Rectangle;
 typedef struct RectangleClass RectangleClass;
 
-/************************************************* @startuml(id=Rectangle)
+/*************************************************************************** @startuml(id=Rectangle)
 object Rectangle {
     Drawable drawable;
     uint32_t width;
     uint32_t height;
 }
-@enduml *************************************************/
+@enduml *******************************************************************************************/
 struct Rectangle {
     Drawable drawable;
     uint32_t width;
     uint32_t height;
 };
 
-/************************************************* @startuml(id=RectangleClass)
+/********************************************************************** @startuml(id=RectangleClass)
 object RectangleClass {
     DrawableClass drawableClass;
 }
-@enduml *************************************************/
+@enduml *******************************************************************************************/
 struct RectangleClass {
     DrawableClass drawableClass;
 };

@@ -1,12 +1,12 @@
-/************************************************* tag::overview[]
+/*********************************************************************************** tag::overview[]
 todo
-end::overview[] *************************************************/
+end::overview[] ***********************************************************************************/
 #ifndef CBJECT_H
 #define CBJECT_H
 #include "cbject_Object.h"
 #include "cbject_Singleton.h"
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_alloc()
 ====
 ----
@@ -20,11 +20,11 @@ Syntactic sugar to allocate an object in heap memory
 .Return
 Reference of the allocated object
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_alloc(klass) \
     ((klass *)cbject_Object_alloc((cbject_ObjectClass *)klass##Class_instance()))
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_salloc()
 ====
 ----
@@ -38,11 +38,11 @@ Syntactic sugar to allocate object on the stack
 .Return
 Reference of the allocated memory
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_salloc(klass) \
     (&(klass){ .objectClass = klass##Class_instance() })
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_hashCode()
 ====
 ----
@@ -56,11 +56,11 @@ Syntactic sugar to get the hash code of the object
 .Return
 The hash code of the object
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_hashCode(object) \
     cbject_Object_hashCode((cbject_Object *)(object))
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_equals()
 ====
 ----
@@ -76,11 +76,11 @@ Syntactic sugar to compare two objects
 * true - If the objects are equal
 * false - If the objects are different
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_equals(object, otherObject) \
     cbject_Object_equals((cbject_Object *)(object), (cbject_Object *)(otherObject))
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_copy()
 ====
 ----
@@ -95,11 +95,11 @@ Syntactic sugar to copy the object to the provided instance.
 .Return
 Reference of copyObject
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_copy(object, copyObject) \
     cbject_Object_copy((cbject_Object *)(object), (cbject_Object *)(copyObject))
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_terminate()
 ====
 ----
@@ -113,11 +113,11 @@ Syntactic sugar to terminate an object.
 .Return
 NULL
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_terminate(object) \
     cbject_Object_terminate((cbject_Object *)(object))
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_dealloc()
 ====
 ----
@@ -131,11 +131,11 @@ Syntactic sugar to free memory allocated for an object
 .Return
 NULL
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_dealloc(object) \
     cbject_Object_dealloc((cbject_Object *)(object))
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_Array_length()
 ====
 ----
@@ -146,11 +146,11 @@ Gets length of an array
 .Params
 * array - Array for which to get the length
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_Array_length(array) \
     cbject_utils_Array_length(array)
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_assertStatic()
 ====
 ----
@@ -162,11 +162,11 @@ Compile time assert
 * expression - Expression to assert
 * identifier - An identifier to describe the assertion
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_assertStatic(expression, identifier) \
     cbject_utils_assertStatic(expression, identifier)
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_doOnce
 ====
 ----
@@ -185,11 +185,11 @@ cbject_doOnce {
 .Remark
 Not thread safe
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_doOnce \
     cbject_utils_doOnce
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_invokeMethod()
 ====
 ----
@@ -209,11 +209,11 @@ cbject_Class must be defined before using this macro
 .Return
 Depends on the called method
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_invokeMethod(method, ...) \
     cbject_utils_invokeMethod(method, __VA_ARGS__)
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_invokeClassMethod()
 ====
 ----
@@ -231,11 +231,11 @@ cbject_Class must be defined before using this macro
 .Return
 Depends on the called method
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_invokeClassMethod(method, ...) \
     cbject_utils_invokeClassMethod(method, __VA_ARGS__)
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_invokeSuperMethod()
 ====
 ----
@@ -256,7 +256,7 @@ cbject_Class must be defined before using this macro
 .Return
 Depends on the called method
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_invokeSuperMethod(klass, method, ...) \
     cbject_utils_invokeSuperMethod(klass, method, __VA_ARGS__)
 

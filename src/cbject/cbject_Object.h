@@ -1,6 +1,6 @@
-/************************************************* tag::overview[]
+/*********************************************************************************** tag::overview[]
 The building block. All objects defined in Cbject need to extend cbject_Object.
-end::overview[] *************************************************/
+end::overview[] ***********************************************************************************/
 #ifndef CBJECT_OBJECT_H
 #define CBJECT_OBJECT_H
 #include "cbject_utils.h"
@@ -8,7 +8,7 @@ end::overview[] *************************************************/
 #include <stddef.h>
 #include <stdint.h>
 
-/************************************************* tag::type[]
+/*************************************************************************************** tag::type[]
 = cbject_Object
 ====
 ----
@@ -16,10 +16,10 @@ typedef struct cbject_Object cbject_Object;
 ----
 Typedef for struct cbject_Object
 ====
-end::type[] *************************************************/
+end::type[] ***************************************************************************************/
 typedef struct cbject_Object cbject_Object;
 
-/************************************************* tag::type[]
+/*************************************************************************************** tag::type[]
 = cbject_ObjectClass
 ====
 ----
@@ -27,10 +27,10 @@ typedef struct cbject_ObjectClass cbject_ObjectClass;
 ----
 Typedef for struct cbject_ObjectClass
 ====
-end::type[] *************************************************/
+end::type[] ***************************************************************************************/
 typedef struct cbject_ObjectClass cbject_ObjectClass;
 
-/************************************************* tag::type[]
+/*************************************************************************************** tag::type[]
 = struct cbject_Object
 ====
 ----
@@ -43,17 +43,17 @@ Definition of struct cbject_Object
 .Members
 * objectClass - cbject_ObjectClass reference
 ====
-end::type[] *************************************************/
-/************************************************* @startuml(id=cbject_Object)
+end::type[] ***************************************************************************************/
+/*********************************************************************** @startuml(id=cbject_Object)
 object cbject_Object {
     cbject_ObjectClass const * objectClass;
 }
-@enduml *************************************************/
+@enduml *******************************************************************************************/
 struct cbject_Object {
     cbject_ObjectClass const * objectClass;
 };
 
-/************************************************* tag::type[]
+/*************************************************************************************** tag::type[]
 = struct cbject_ObjectClass
 ====
 ----
@@ -82,8 +82,8 @@ Definition of struct cbject_ObjectClass
 * terminate - Terminate method reference
 * dealloc - Dealloc method reference
 ====
-end::type[] *************************************************/
-/************************************************* @startuml(id=cbject_ObjectClass)
+end::type[] ***************************************************************************************/
+/****************************************************************** @startuml(id=cbject_ObjectClass)
 object cbject_ObjectClass {
     char const * name;
     size_t instanceSize;
@@ -95,7 +95,7 @@ object cbject_ObjectClass {
     cbject_Object * (*terminate)(cbject_Object * object);
     void * (*dealloc)(cbject_Object * const object);
 }
-@enduml *************************************************/
+@enduml *******************************************************************************************/
 struct cbject_ObjectClass {
     char const * name;
     size_t instanceSize;
@@ -108,7 +108,7 @@ struct cbject_ObjectClass {
     void * (*dealloc)(cbject_Object * const object);
 };
 
-/************************************************* tag::function[]
+/*********************************************************************************** tag::function[]
 = cbject_Object_alloc()
 ====
 ----
@@ -122,10 +122,10 @@ Allocates an object in heap memory
 .Return
 Reference of the allocated object
 ====
-end::function[] *************************************************/
+end::function[] ***********************************************************************************/
 cbject_Object * cbject_Object_alloc(cbject_ObjectClass const * const objectClass);
 
-/************************************************* tag::function[]
+/*********************************************************************************** tag::function[]
 = cbject_Object_init()
 ====
 ----
@@ -139,10 +139,10 @@ Initializes an object
 .Return
 Initialized object
 ====
-end::function[] *************************************************/
+end::function[] ***********************************************************************************/
 cbject_Object * cbject_Object_init(cbject_Object * const object);
 
-/************************************************* tag::function[]
+/*********************************************************************************** tag::function[]
 = cbject_Object_copy()
 ====
 ----
@@ -157,10 +157,10 @@ Copies the object to the provided instance.
 .Return
 Reference of copyObject
 ====
-end::function[] *************************************************/
+end::function[] ***********************************************************************************/
 cbject_Object * cbject_Object_copy(cbject_Object const * const object, cbject_Object * const copyObject);
 
-/************************************************* tag::function[]
+/*********************************************************************************** tag::function[]
 = cbject_Object_equals()
 ====
 ----
@@ -176,10 +176,10 @@ Compares two objects
 * true - If the objects are equal
 * false - If the objects are different
 ====
-end::function[] *************************************************/
+end::function[] ***********************************************************************************/
 bool cbject_Object_equals(cbject_Object const * const object, cbject_Object const * const otherObject);
 
-/************************************************* tag::function[]
+/*********************************************************************************** tag::function[]
 = cbject_Object_hashCode()
 ====
 ----
@@ -193,10 +193,10 @@ Gets the hash code of the object
 .Return
 The hash code of the object
 ====
-end::function[] *************************************************/
+end::function[] ***********************************************************************************/
 uint64_t cbject_Object_hashCode(cbject_Object const * const object);
 
-/************************************************* tag::function[]
+/*********************************************************************************** tag::function[]
 = cbject_Object_terminate()
 ====
 ----
@@ -210,10 +210,10 @@ Terminates an object.
 .Return
 NULL
 ====
-end::function[] *************************************************/
+end::function[] ***********************************************************************************/
 cbject_Object * cbject_Object_terminate(cbject_Object * const object);
 
-/************************************************* tag::function[]
+/*********************************************************************************** tag::function[]
 = cbject_Object_dealloc()
 ====
 ----
@@ -227,10 +227,10 @@ Deallocates memory for an object
 .Return
 NULL
 ====
-end::function[] *************************************************/
+end::function[] ***********************************************************************************/
 void * cbject_Object_dealloc(cbject_Object * const object);
 
-/************************************************* tag::function[]
+/*********************************************************************************** tag::function[]
 = cbject_Object_isOfClass()
 ====
 ----
@@ -246,10 +246,10 @@ Checks if an object is of a given class
 * true - If the object is of the provided class
 * false - If the object is of a different class
 ====
-end::function[] *************************************************/
+end::function[] ***********************************************************************************/
 bool cbject_Object_isOfClass(cbject_Object const * const object, cbject_ObjectClass const * const objectClass);
 
-/************************************************* tag::function[]
+/*********************************************************************************** tag::function[]
 = cbject_ObjectClass_instance()
 ====
 ----
@@ -260,10 +260,10 @@ Gets cbject_ObjectClass instance
 .Return
 Reference of the class instance
 ====
-end::function[] *************************************************/
+end::function[] ***********************************************************************************/
 cbject_ObjectClass const * cbject_ObjectClass_instance(void);
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_Class_setup()
 ====
 ----
@@ -277,7 +277,7 @@ cbject_Class must be defined before using this macro
 .Params
 * klass - Class reference
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_Class_setup(klass)                                                                                   \
     *((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class) *)(klass)) =             \
         *cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance());            \
@@ -285,7 +285,7 @@ end::macro[] *************************************************/
     ((cbject_ObjectClass *)(klass))->instanceSize = sizeof(cbject_utils_Pair_getFirst(cbject_Class));               \
     ((cbject_ObjectClass *)(klass))->superClass = (cbject_ObjectClass *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance());
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_Object_class()
 ====
 ----
@@ -299,11 +299,11 @@ Gets the class of an object
 .Return
 Class reference
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_Object_class(object) \
     ((cbject_Object *)(object))->objectClass
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_Object_instanceSize()
 ====
 ----
@@ -317,7 +317,7 @@ Gets the size in memory of an object
 .Return
 The size in memory of the object
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_Object_instanceSize(object) \
     cbject_Object_class(object)->instanceSize
 

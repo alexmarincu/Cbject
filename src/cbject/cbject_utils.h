@@ -1,6 +1,6 @@
-/************************************************* tag::overview[]
+/*********************************************************************************** tag::overview[]
 TODO
-end::overview[] *************************************************/
+end::overview[] ***********************************************************************************/
 #ifndef CBJECT_UTILS_H
 #define CBJECT_UTILS_H
 #include <assert.h>
@@ -24,7 +24,7 @@ end::overview[] *************************************************/
 #define cbject_utils_assertStatic(expression, identifier) \
     typedef char identifier[(!!(expression)) * 2 - 1]
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_utils_Token_concat()
 ====
 ----
@@ -36,11 +36,11 @@ Concatenates otherToken after the provided token
 * token - Token
 * otherToken - Token to add after the provided token
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_utils_Token_concat(token, otherToken) \
     token##otherToken
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_utils_Token_concatIndirect()
 ====
 ----
@@ -52,11 +52,11 @@ Concatenates otherToken after the provided token indirectly
 * token - Token
 * otherToken - Token to add after the provided token
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_utils_Token_concatIndirect(token, otherToken) \
     cbject_utils_Token_concat(token, otherToken)
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_utils_Token_stringify()
 ====
 ----
@@ -67,11 +67,11 @@ Stringifies the provided token
 .Params
 * token - Token
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_utils_Token_stringify(token) \
     #token
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_utils_Token_stringifyIndirect()
 ====
 ----
@@ -82,11 +82,11 @@ Stringifies the provided token indirectly
 .Params
 * token - Token
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_utils_Token_stringifyIndirect(token) \
     cbject_utils_Token_stringify(token)
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_utils_VaArgs_getFirst()
 ====
 ----
@@ -97,13 +97,13 @@ Gets first argument from __VA_ARGS__
 .Params
 * ... - __VA_ARGS__
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_utils_VaArgs_getFirst(...) \
     cbject_utils_VaArgs_getFirst_(__VA_ARGS__, discard)
 #define cbject_utils_VaArgs_getFirst_(first, ...) \
     first
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_utils_VaArgs_getSecond()
 ====
 ----
@@ -114,13 +114,13 @@ Gets second argument from __VA_ARGS__
 .Params
 * ... - __VA_ARGS__
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_utils_VaArgs_getSecond(...) \
     cbject_utils_VaArgs_getSecond_(__VA_ARGS__, discard)
 #define cbject_utils_VaArgs_getSecond_(first, second, ...) \
     second
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_utils_VaArgs_getRest()
 ====
 ----
@@ -135,13 +135,13 @@ Gets list of arguments from __VA_ARGS__ except the first
 .Params
 * ... - __VA_ARGS__
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_utils_VaArgs_getRest(...) \
     cbject_utils_VaArgs_getRest_(cbject_utils_VaArgs_case(__VA_ARGS__), __VA_ARGS__)
 #define cbject_utils_VaArgs_getRest_(case, ...) \
     cbject_utils_VaArgs_getRest__(case, __VA_ARGS__)
 #define cbject_utils_VaArgs_getRest__(case, ...) \
-    cbject_utils_VaArgs_getRest_case_##case (__VA_ARGS__)
+cbject_utils_VaArgs_getRest_case_##case (__VA_ARGS__)
 #define cbject_utils_VaArgs_getRest_case_one(first)
 #define cbject_utils_VaArgs_getRest_case_more(first, ...) \
     , __VA_ARGS__
@@ -172,7 +172,7 @@ end::macro[] *************************************************/
 )                                                     \
     a99
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_utils_Pair_getFirst()
 ====
 ----
@@ -183,11 +183,11 @@ Gets first element from pair
 .Params
 * pair - (first, second)
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_utils_Pair_getFirst(pair) \
     cbject_utils_VaArgs_getFirst pair
 
-/************************************************* tag::macro[]
+/************************************************************************************** tag::macro[]
 = cbject_utils_Pair_getSecond()
 ====
 ----
@@ -198,7 +198,7 @@ Gets second element from pair
 .Params
 * pair - (first, second)
 ====
-end::macro[] *************************************************/
+end::macro[] **************************************************************************************/
 #define cbject_utils_Pair_getSecond(pair) \
     cbject_utils_VaArgs_getSecond pair
 

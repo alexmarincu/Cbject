@@ -1,11 +1,11 @@
-/************************************************* tag::overview[]
+/*********************************************************************************** tag::overview[]
 The building block. All objects defined in Cbject need to extend cbject_Singleton.
-end::overview[] *************************************************/
+end::overview[] ***********************************************************************************/
 #ifndef CBJECT_SINGLETON_H
 #define CBJECT_SINGLETON_H
 #include "cbject_Object.h"
 
-/************************************************* tag::type[]
+/*************************************************************************************** tag::type[]
 = cbject_Singleton
 ====
 ----
@@ -13,10 +13,10 @@ typedef struct cbject_Singleton cbject_Singleton;
 ----
 Typedef for struct cbject_Singleton
 ====
-end::type[] *************************************************/
+end::type[] ***************************************************************************************/
 typedef struct cbject_Singleton cbject_Singleton;
 
-/************************************************* tag::type[]
+/*************************************************************************************** tag::type[]
 = cbject_SingletonClass
 ====
 ----
@@ -24,10 +24,10 @@ typedef struct cbject_SingletonClass cbject_SingletonClass;
 ----
 Typedef for struct cbject_SingletonClass
 ====
-end::type[] *************************************************/
+end::type[] ***************************************************************************************/
 typedef struct cbject_SingletonClass cbject_SingletonClass;
 
-/************************************************* tag::type[]
+/*************************************************************************************** tag::type[]
 = struct cbject_Singleton
 ====
 ----
@@ -41,17 +41,17 @@ Definition of struct cbject_Singleton
 .Members
 * object - Parent
 ====
-end::type[] *************************************************/
-/************************************************* @startuml(id=cbject_Singleton)
+end::type[] ***************************************************************************************/
+/******************************************************************** @startuml(id=cbject_Singleton)
 object cbject_Singleton {
     cbject_Object object;
 }
-@enduml *************************************************/
+@enduml *******************************************************************************************/
 struct cbject_Singleton {
     cbject_Object object;
 };
 
-/************************************************* tag::type[]
+/*************************************************************************************** tag::type[]
 = struct cbject_SingletonClass
 ====
 ----
@@ -64,17 +64,17 @@ Definition of struct cbject_SingletonClass
 .Members
 * cbject_ObjectCLass - class of parent
 ====
-end::type[] *************************************************/
-/************************************************* @startuml(id=cbject_SingletonClass)
+end::type[] ***************************************************************************************/
+/*************************************************************** @startuml(id=cbject_SingletonClass)
 object cbject_SingletonClass {
     cbject_ObjectClass objectClass;
 }
-@enduml *************************************************/
+@enduml *******************************************************************************************/
 struct cbject_SingletonClass {
     cbject_ObjectClass objectClass;
 };
 
-/************************************************* tag::function[]
+/*********************************************************************************** tag::function[]
 = cbject_Singleton_init()
 ====
 ----
@@ -88,10 +88,10 @@ Initializes a singleton
 .Return
 Initialized singleton
 ====
-end::function[] *************************************************/
+end::function[] ***********************************************************************************/
 cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const singleton);
 
-/************************************************* tag::function[]
+/*********************************************************************************** tag::function[]
 = cbject_SingletonClass_instance()
 ====
 ----
@@ -102,7 +102,7 @@ Gets cbject_SingletonClass instance
 .Return
 Reference of the class instance
 ====
-end::function[] *************************************************/
+end::function[] ***********************************************************************************/
 cbject_SingletonClass const * cbject_SingletonClass_instance(void);
 
 #endif // CBJECT_SINGLETON_H

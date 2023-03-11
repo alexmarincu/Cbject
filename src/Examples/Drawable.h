@@ -5,23 +5,23 @@
 typedef struct Drawable Drawable;
 typedef struct DrawableClass DrawableClass;
 
-/************************************************* @startuml(id=Drawable)
+/**************************************************************************** @startuml(id=Drawable)
 object Drawable {
     Shape shape;
     uint16_t scale;
 }
-@enduml *************************************************/
+@enduml *******************************************************************************************/
 struct Drawable {
     Shape shape;
     uint16_t scale;
 };
 
-/************************************************* @startuml(id=DrawableClass)
+/*********************************************************************** @startuml(id=DrawableClass)
 object DrawableClass {
     ShapeClass shapeClass;
     void (*draw)(Drawable const * const drawable);
 }
-@enduml *************************************************/
+@enduml *******************************************************************************************/
 struct DrawableClass {
     ShapeClass shapeClass;
     void (*draw)(Drawable const * const drawable);

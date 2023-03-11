@@ -10,7 +10,7 @@ void setUp(void) {
 void terminate(void) {
 }
 
-/************************************************* tag::test[]
+/*************************************************************************************** tag::test[]
 = test_cbject_ObjectClass
 ====
 Test setup of ObjectClass
@@ -20,14 +20,14 @@ Test setup of ObjectClass
 . Check if object size stored in class is equal to the actual object size
 . Check that the function pointers in the class are initialized
 ====
-end::test[] *************************************************/
+end::test[] ***************************************************************************************/
 void test_cbject_ObjectClass_instance(void) {
     TEST_ASSERT_EQUAL_STRING("cbject_Object", cbject_ObjectClass_instance()->name);
     TEST_ASSERT_EQUAL_size_t(sizeof(cbject_Object), cbject_ObjectClass_instance()->instanceSize);
     TEST_ASSERT_NULL(cbject_ObjectClass_instance()->superClass);
 }
 
-/************************************************* tag::test[]
+/*************************************************************************************** tag::test[]
 = test_cbject_Object_init
 ====
 Test initialization of cbject_Object
@@ -36,13 +36,13 @@ Test initialization of cbject_Object
 . Allocate object on stack an initialize it
 . Check if object class points to cbject_ObjectClass instance
 ====
-end::test[] *************************************************/
+end::test[] ***************************************************************************************/
 void test_cbject_Object_init(void) {
     cbject_Object * object = cbject_Object_init(cbject_salloc(cbject_Object));
     TEST_ASSERT_EQUAL_PTR(cbject_Object_class(object), cbject_ObjectClass_instance());
 }
 
-/************************************************* tag::test[]
+/*************************************************************************************** tag::test[]
 = test_cbject_Object_equals
 ====
 Test equals method
@@ -53,7 +53,7 @@ Test equals method
 . Allocate another object on stack an initialize it
 . Check if equals method returns false when comparing the two objects
 ====
-end::test[] *************************************************/
+end::test[] ***************************************************************************************/
 void test_cbject_Object_equals(void) {
     cbject_Object * object = cbject_Object_init(cbject_salloc(cbject_Object));
     TEST_ASSERT_TRUE(cbject_equals(object, object));
@@ -61,7 +61,7 @@ void test_cbject_Object_equals(void) {
     TEST_ASSERT_FALSE(cbject_equals(object, otherObject));
 }
 
-/************************************************* tag::test[]
+/*************************************************************************************** tag::test[]
 = test_cbject_Object_hashCode
 ====
 Test hashCode method
@@ -70,13 +70,13 @@ Test hashCode method
 . Allocate object on stack an initialize it
 . Check if hashCode method returns the address in memory of the object
 ====
-end::test[] *************************************************/
+end::test[] ***************************************************************************************/
 void test_cbject_Object_hashCode(void) {
     cbject_Object * object = cbject_Object_init(cbject_salloc(cbject_Object));
     TEST_ASSERT_EQUAL_UINT64((uint64_t)object, cbject_hashCode(object));
 }
 
-/************************************************* tag::test[]
+/*************************************************************************************** tag::test[]
 = test_cbject_Object_isOfClass
 ====
 Test isOfClass method
@@ -89,7 +89,7 @@ Test isOfClass method
 . Check if isOfClass method returns true when checked against cbject_Object
 . Check if isOfClass method returns false when checked against Test
 ====
-end::test[] *************************************************/
+end::test[] ***************************************************************************************/
 #define cbject_Class (Test, cbject_Object)
 typedef struct Test Test;
 typedef struct TestClass TestClass;
@@ -114,7 +114,7 @@ void test_cbject_Object_isOfClass(void) {
     TEST_ASSERT_FALSE(cbject_Object_isOfClass(object, TestClass_instance()));
 }
 
-/************************************************* tag::test[]
+/*************************************************************************************** tag::test[]
 = test_cbject_Object_copy
 ====
 Test copy method
@@ -127,7 +127,7 @@ Test copy method
 . Check if the memory sections occupied by the two objects are equal
 . Deallocate the object from the heap memory
 ====
-end::test[] *************************************************/
+end::test[] ***************************************************************************************/
 void test_cbject_Object_copy(void) {
     cbject_Object * object = cbject_Object_init(cbject_salloc(cbject_Object));
     cbject_Object * copyObjectInStack = cbject_copy(object, cbject_salloc(cbject_Object));

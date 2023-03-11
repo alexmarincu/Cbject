@@ -6,23 +6,23 @@
 typedef struct Shape Shape;
 typedef struct ShapeClass ShapeClass;
 
-/************************************************* @startuml(id=Shape)
+/******************************************************************************* @startuml(id=Shape)
 object Shape {
     cbject_Object object;
     Point origin;
 }
-@enduml *************************************************/
+@enduml *******************************************************************************************/
 struct Shape {
     cbject_Object object;
     Point origin;
 };
 
-/************************************************* @startuml(id=ShapeClass)
+/************************************************************************** @startuml(id=ShapeClass)
 object ShapeClass {
     cbject_ObjectClass objectClass;
     float (*area)(Shape const * const shape);
 }
-@enduml *************************************************/
+@enduml *******************************************************************************************/
 struct ShapeClass {
     cbject_ObjectClass objectClass;
     float (*area)(Shape const * const shape);
