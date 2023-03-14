@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #define cbject_Class (Circle, Drawable)
+static Circle Circle_pool[10];
 
 Circle * Circle_init(
     Circle * const circle,

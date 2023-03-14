@@ -12,6 +12,8 @@ struct Application {
     Rectangle * rectangle;
 };
 
+static Application Application_pool[0];
+
 Application * Application_instance(void) {
     static Application application;
     cbject_doOnce {

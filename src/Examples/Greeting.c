@@ -8,6 +8,8 @@ struct Greeting {
     char * text;
 };
 
+static Greeting Greeting_pool[10];
+
 Greeting * Greeting_init(Greeting * const greeting, char * const text) {
     cbject_Object_init((cbject_Object *)greeting);
     greeting->text = text;

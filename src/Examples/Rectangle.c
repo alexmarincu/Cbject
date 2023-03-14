@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #define cbject_Class (Rectangle, Drawable)
+static Rectangle Rectangle_pool[10];
 
 Rectangle * Rectangle_init(
     Rectangle * const rectangle,

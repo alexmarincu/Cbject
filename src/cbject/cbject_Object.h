@@ -30,6 +30,11 @@ Typedef for struct cbject_ObjectClass
 end::type[] ***************************************************************************************/
 typedef struct cbject_ObjectClass cbject_ObjectClass;
 
+typedef enum {
+    cbject_Object_UsageStatus_free = 0,
+    cbject_Object_UsageStatus_inUse
+} cbject_Object_UsageStatus;
+
 /*************************************************************************************** tag::type[]
 = struct cbject_Object
 ====
@@ -51,6 +56,7 @@ object cbject_Object {
 @enduml *******************************************************************************************/
 struct cbject_Object {
     cbject_ObjectClass const * objectClass;
+    cbject_Object_UsageStatus usageStatus;
 };
 
 /*************************************************************************************** tag::type[]
@@ -100,13 +106,34 @@ struct cbject_ObjectClass {
     char const * name;
     size_t instanceSize;
     cbject_ObjectClass const * superClass;
+    cbject_Object * pool;
+    uint64_t poolSize;
+    cbject_Object * (*acquire)(cbject_ObjectClass const * const objectClass);
     cbject_Object * (*alloc)(cbject_ObjectClass const * const objectClass);
     uint64_t (*hashCode)(cbject_Object const * const object);
     cbject_Object * (*copy)(cbject_Object const * const object, cbject_Object * const copyObject);
     bool (*equals)(cbject_Object const * const object, cbject_Object const * const otherObject);
     cbject_Object * (*terminate)(cbject_Object * object);
+    void * (*release)(cbject_Object * const object);
     void * (*dealloc)(cbject_Object * const object);
 };
+
+/*********************************************************************************** tag::function[]
+= cbject_Object_acquire()
+====
+----
+cbject_Object * cbject_Object_acquire(cbject_ObjectClass const * const objectClass);
+----
+Acquires an object from the static pool
+
+.Params
+* objectClass - cbject_ObjectClass reference
+
+.Return
+Reference of the acquired object
+====
+end::function[] ***********************************************************************************/
+cbject_Object * cbject_Object_acquire(cbject_ObjectClass const * const objectClass);
 
 /*********************************************************************************** tag::function[]
 = cbject_Object_alloc()
@@ -214,6 +241,23 @@ end::function[] ****************************************************************
 cbject_Object * cbject_Object_terminate(cbject_Object * const object);
 
 /*********************************************************************************** tag::function[]
+= cbject_Object_release()
+====
+----
+void * cbject_Object_release(cbject_Object * const object);
+----
+Releases the object in the static pool
+
+.Params
+* object - cbject_Object reference
+
+.Return
+NULL
+====
+end::function[] ***********************************************************************************/
+void * cbject_Object_release(cbject_Object * const object);
+
+/*********************************************************************************** tag::function[]
 = cbject_Object_dealloc()
 ====
 ----
@@ -278,12 +322,14 @@ cbject_Class must be defined before using this macro
 * klass - Class reference
 ====
 end::macro[] **************************************************************************************/
-#define cbject_Class_setup(klass)                                                                                   \
-    *((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class) *)(klass)) =             \
-        *cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance());            \
-    ((cbject_ObjectClass *)(klass))->name = cbject_utils_Token_stringify(cbject_utils_Pair_getFirst(cbject_Class)); \
-    ((cbject_ObjectClass *)(klass))->instanceSize = sizeof(cbject_utils_Pair_getFirst(cbject_Class));               \
-    ((cbject_ObjectClass *)(klass))->superClass = (cbject_ObjectClass *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance());
+#define cbject_Class_setup(klass)                                                                                                                                       \
+    *((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class) *)(klass)) =                                                                 \
+        *cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance());                                                                \
+    ((cbject_ObjectClass *)(klass))->name = cbject_utils_Token_stringify(cbject_utils_Pair_getFirst(cbject_Class));                                                     \
+    ((cbject_ObjectClass *)(klass))->instanceSize = sizeof(cbject_utils_Pair_getFirst(cbject_Class));                                                                   \
+    ((cbject_ObjectClass *)(klass))->superClass = (cbject_ObjectClass *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance()); \
+    ((cbject_ObjectClass *)(klass))->pool = (cbject_Object *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool);                        \
+    ((cbject_ObjectClass *)(klass))->poolSize = cbject_utils_Array_length(cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool))
 
 /************************************************************************************** tag::macro[]
 = cbject_Object_class()

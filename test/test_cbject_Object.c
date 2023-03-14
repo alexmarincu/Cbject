@@ -96,6 +96,7 @@ typedef struct TestClass TestClass;
 struct Test {
     cbject_Object object;
 };
+static Test Test_pool[0];
 struct TestClass {
     cbject_ObjectClass objectClass;
 };

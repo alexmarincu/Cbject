@@ -1,6 +1,7 @@
 #include "ColoredCircle.h"
 
 #define cbject_Class (ColoredCircle, Circle)
+static ColoredCircle ColoredCircle_pool[10];
 
 ColoredCircle * ColoredCircle_init(
     ColoredCircle * const coloredCircle,

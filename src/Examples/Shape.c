@@ -1,6 +1,7 @@
 #include "Shape.h"
 
 #define cbject_Class (Shape, cbject_Object)
+static Shape Shape_pool[0];
 
 Shape * Shape_init(Shape * const shape, Point origin) {
     cbject_Object_init((cbject_Object *)shape);

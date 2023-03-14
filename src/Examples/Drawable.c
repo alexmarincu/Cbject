@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #define cbject_Class (Drawable, Shape)
+static Drawable Drawable_pool[0];
 
 void Drawable_init(
     Drawable * const drawable,
