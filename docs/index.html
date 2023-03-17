@@ -545,12 +545,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_functions">2.1.3. Functions</a>
 <ul class="sectlevel4">
+<li><a href="#_cbject_object_acquire">cbject_Object_acquire()</a></li>
 <li><a href="#_cbject_object_alloc">cbject_Object_alloc()</a></li>
 <li><a href="#_cbject_object_init">cbject_Object_init()</a></li>
 <li><a href="#_cbject_object_copy">cbject_Object_copy()</a></li>
 <li><a href="#_cbject_object_equals">cbject_Object_equals()</a></li>
 <li><a href="#_cbject_object_hashcode">cbject_Object_hashCode()</a></li>
 <li><a href="#_cbject_object_terminate">cbject_Object_terminate()</a></li>
+<li><a href="#_cbject_object_release">cbject_Object_release()</a></li>
 <li><a href="#_cbject_object_dealloc">cbject_Object_dealloc()</a></li>
 <li><a href="#_cbject_object_isofclass">cbject_Object_isOfClass()</a></li>
 <li><a href="#_cbject_objectclass_instance">cbject_ObjectClass_instance()</a></li>
@@ -617,12 +619,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_overview_5">2.4.1. Overview</a></li>
 <li><a href="#_macros_3">2.4.2. Macros</a>
 <ul class="sectlevel4">
+<li><a href="#_cbject_acquire">cbject_acquire()</a></li>
 <li><a href="#_cbject_alloc">cbject_alloc()</a></li>
-<li><a href="#_cbject_salloc">cbject_salloc()</a></li>
+<li><a href="#_cbject_stackalloc">cbject_stackalloc()</a></li>
 <li><a href="#_cbject_hashcode">cbject_hashCode()</a></li>
 <li><a href="#_cbject_equals">cbject_equals()</a></li>
 <li><a href="#_cbject_copy">cbject_copy()</a></li>
 <li><a href="#_cbject_terminate">cbject_terminate()</a></li>
+<li><a href="#_cbject_release">cbject_release()</a></li>
 <li><a href="#_cbject_dealloc">cbject_dealloc()</a></li>
 <li><a href="#_cbject_array_length">cbject_Array_length()</a></li>
 <li><a href="#_cbject_assertstatic">cbject_assertStatic()</a></li>
@@ -630,6 +634,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_invokemethod">cbject_invokeMethod()</a></li>
 <li><a href="#_cbject_invokeclassmethod">cbject_invokeClassMethod()</a></li>
 <li><a href="#_cbject_invokesupermethod">cbject_invokeSuperMethod()</a></li>
+<li><a href="#_cbject_allocpool">cbject_allocPool()</a></li>
 </ul>
 </li>
 </ul>
@@ -706,13 +711,13 @@ cbject_dealloc(object);</pre>
 <h3 id="_cbject_object_model">1.3. cbject_Object model</h3>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-building-blocks.png" alt="diag building blocks" width="719" height="170">
+<img src="media/diag-bb7272de8110207b1e5018ec874caed5.png" alt="Diagram" width="719" height="239">
 </div>
 <div class="title">Figure 1. Building blocks</div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-rectangle-class-example.png" alt="diag rectangle class example" width="567" height="866">
+<img src="media/diag-3b2a34e86534ad868ccb58092e86e597.png" alt="Diagram" width="567" height="934">
 </div>
 <div class="title">Figure 2. Rectangle class example</div>
 </div>
@@ -726,6 +731,12 @@ cbject_dealloc(object);</pre>
 <h3 id="_cbject_object">2.1. cbject_Object</h3>
 <div class="sect3">
 <h4 id="_overview_2">2.1.1. Overview</h4>
+<div class="imageblock">
+<div class="content">
+<img src="media/diag-e0aaa6128e7e8ef16fa4fdd4f1036289.png" alt="Diagram" width="719" height="239">
+</div>
+<div class="title">Figure 3. Context diagram</div>
+</div>
 <div class="paragraph">
 <p>The building block. All objects defined in Cbject need to extend cbject_Object.</p>
 </div>
@@ -769,7 +780,8 @@ cbject_dealloc(object);</pre>
 <div class="listingblock">
 <div class="content">
 <pre>struct cbject_Object {
-    cbject_ObjectClass const * objectClass;
+    cbject_ObjectClass * objectClass;
+    cbject_Object_UsageStatus usageStatus;
 };</pre>
 </div>
 </div>
@@ -781,6 +793,9 @@ cbject_dealloc(object);</pre>
 <ul>
 <li>
 <p>objectClass - cbject_ObjectClass reference</p>
+</li>
+<li>
+<p>usageStatus - Usage status of object (free/inUse)</p>
 </li>
 </ul>
 </div>
@@ -797,11 +812,16 @@ cbject_dealloc(object);</pre>
     char const * name;
     size_t instanceSize;
     cbject_ObjectClass const * superClass;
-    cbject_Object * (*alloc)(cbject_ObjectClass const * const objectClass);
+    cbject_Object * pool;
+    uint64_t poolSize;
+    cbject_Object * firstFreeObject;
+    cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
+    cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
     uint64_t (*hashCode)(cbject_Object const * const object);
     cbject_Object * (*copy)(cbject_Object const * const object, cbject_Object * const copyObject);
     bool (*equals)(cbject_Object const * const object, cbject_Object const * const otherObject);
     cbject_Object * (*terminate)(cbject_Object * object);
+    void * (*release)(cbject_Object * const object);
     void * (*dealloc)(cbject_Object * const object);
 };</pre>
 </div>
@@ -822,6 +842,18 @@ cbject_dealloc(object);</pre>
 <p>superClass - Super class reference</p>
 </li>
 <li>
+<p>pool - Reference to the object static pool</p>
+</li>
+<li>
+<p>poolSize - Size of pool (number of objects in pool)</p>
+</li>
+<li>
+<p>firstFreeObject - Reference to the first free object in the pool</p>
+</li>
+<li>
+<p>acquire - Acquire method reference</p>
+</li>
+<li>
 <p>alloc - Alloc method reference</p>
 </li>
 <li>
@@ -837,6 +869,9 @@ cbject_dealloc(object);</pre>
 <p>terminate - Terminate method reference</p>
 </li>
 <li>
+<p>release - Release method reference</p>
+</li>
+<li>
 <p>dealloc - Dealloc method reference</p>
 </li>
 </ul>
@@ -848,12 +883,39 @@ cbject_dealloc(object);</pre>
 <div class="sect3">
 <h4 id="_functions">2.1.3. Functions</h4>
 <div class="sect4">
+<h5 id="_cbject_object_acquire">cbject_Object_acquire()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_Object * cbject_Object_acquire(cbject_ObjectClass * const objectClass);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Acquires an object from the static pool</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>objectClass - cbject_ObjectClass reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the acquired object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="_cbject_object_alloc">cbject_Object_alloc()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_Object_alloc(cbject_ObjectClass const * const objectClass);</pre>
+<pre>cbject_Object * cbject_Object_alloc(cbject_ObjectClass * const objectClass);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1023,6 +1085,33 @@ cbject_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
+<h5 id="_cbject_object_release">cbject_Object_release()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>void * cbject_Object_release(cbject_Object * const object);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Releases the object in the static pool</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - cbject_Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>NULL</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="_cbject_object_dealloc">cbject_Object_dealloc()</h5>
 <div class="exampleblock">
 <div class="content">
@@ -1092,7 +1181,7 @@ cbject_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_ObjectClass const * cbject_ObjectClass_instance(void);</pre>
+<pre>cbject_ObjectClass * cbject_ObjectClass_instance(void);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1356,8 +1445,11 @@ cbject_dealloc(object);</pre>
 <h3 id="_cbject_singleton">2.2. cbject_Singleton</h3>
 <div class="sect3">
 <h4 id="_overview_3">2.2.1. Overview</h4>
-<div class="paragraph">
-<p>The building block. All objects defined in Cbject need to extend cbject_Singleton.</p>
+<div class="imageblock">
+<div class="content">
+<img src="media/diag-859fb69b0e284738fab3788cc203de93.png" alt="Diagram" width="569" height="442">
+</div>
+<div class="title">Figure 4. Context diagram</div>
 </div>
 </div>
 <div class="sect3">
@@ -1741,6 +1833,33 @@ cbject_dealloc(object);</pre>
 <div class="sect3">
 <h4 id="_macros_3">2.4.2. Macros</h4>
 <div class="sect4">
+<h5 id="_cbject_acquire">cbject_acquire()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_acquire(klass)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to acquire an object from the static pool</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>klass - Name of class</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the acquired object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="_cbject_alloc">cbject_alloc()</h5>
 <div class="exampleblock">
 <div class="content">
@@ -1768,12 +1887,12 @@ cbject_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_salloc">cbject_salloc()</h5>
+<h5 id="_cbject_stackalloc">cbject_stackalloc()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_salloc(klass)</pre>
+<pre>cbject_stackalloc(klass)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1899,6 +2018,33 @@ cbject_dealloc(object);</pre>
 </div>
 <div class="paragraph">
 <p>Syntactic sugar to terminate an object.</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - cbject_Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>NULL</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_release">cbject_release()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_release(object)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to release an object in the static pool</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
@@ -2140,6 +2286,33 @@ cbject_dealloc(object);</pre>
 <div class="paragraph">
 <div class="title">Return</div>
 <p>Depends on the called method</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_allocpool">cbject_allocPool()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_allocPool(poolSize)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Allocates a static pool</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>cbject_Class must be defined before using this macro</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>poolSize - Size of pool (number of objects in pool)</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

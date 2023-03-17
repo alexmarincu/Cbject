@@ -7,7 +7,7 @@ cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const singleton) {
     return singleton;
 }
 
-static cbject_Object * alloc(cbject_ObjectClass const * const objectClass) {
+static cbject_Object * alloc(cbject_ObjectClass * const objectClass) {
     assert("Singleton cannot be allocated" && false);
     (void)objectClass;
     return NULL;

@@ -12,7 +12,7 @@ struct Application {
     Rectangle * rectangle;
 };
 
-static Application Application_pool[0];
+cbject_allocPool(0);
 
 Application * Application_instance(void) {
     static Application application;
@@ -121,7 +121,7 @@ static cbject_Object * terminate(cbject_Object * const object) {
     return cbject_invokeSuperMethod(cbject_Object, terminate, object);
 }
 
-ApplicationClass const * ApplicationClass_instance(void) {
+ApplicationClass * ApplicationClass_instance(void) {
     static ApplicationClass klass;
     cbject_doOnce {
         cbject_Class_setup(&klass);

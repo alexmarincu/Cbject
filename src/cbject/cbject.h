@@ -7,6 +7,24 @@ end::overview[] ****************************************************************
 #include "cbject_Singleton.h"
 
 /************************************************************************************** tag::macro[]
+= cbject_acquire()
+====
+----
+cbject_acquire(klass)
+----
+Syntactic sugar to acquire an object from the static pool
+
+.Params
+* klass - Name of class
+
+.Return
+Reference of the acquired object
+====
+end::macro[] **************************************************************************************/
+#define cbject_acquire(klass) \
+    ((klass *)cbject_Object_acquire((cbject_ObjectClass *)klass##Class_instance()))
+
+/************************************************************************************** tag::macro[]
 = cbject_alloc()
 ====
 ----
@@ -25,10 +43,10 @@ end::macro[] *******************************************************************
     ((klass *)cbject_Object_alloc((cbject_ObjectClass *)klass##Class_instance()))
 
 /************************************************************************************** tag::macro[]
-= cbject_salloc()
+= cbject_stackalloc()
 ====
 ----
-cbject_salloc(klass)
+cbject_stackalloc(klass)
 ----
 Syntactic sugar to allocate object on the stack
 
@@ -39,7 +57,7 @@ Syntactic sugar to allocate object on the stack
 Reference of the allocated memory
 ====
 end::macro[] **************************************************************************************/
-#define cbject_salloc(klass) \
+#define cbject_stackalloc(klass) \
     (&(klass){ .objectClass = klass##Class_instance() })
 
 /************************************************************************************** tag::macro[]
@@ -116,6 +134,24 @@ NULL
 end::macro[] **************************************************************************************/
 #define cbject_terminate(object) \
     cbject_Object_terminate((cbject_Object *)(object))
+
+/************************************************************************************** tag::macro[]
+= cbject_release()
+====
+----
+cbject_release(object)
+----
+Syntactic sugar to release an object in the static pool
+
+.Params
+* object - cbject_Object reference
+
+.Return
+NULL
+====
+end::macro[] **************************************************************************************/
+#define cbject_release(object) \
+    cbject_Object_release((cbject_Object *)(object))
 
 /************************************************************************************** tag::macro[]
 = cbject_dealloc()
@@ -259,5 +295,23 @@ Depends on the called method
 end::macro[] **************************************************************************************/
 #define cbject_invokeSuperMethod(klass, method, ...) \
     cbject_utils_invokeSuperMethod(klass, method, __VA_ARGS__)
+
+/************************************************************************************** tag::macro[]
+= cbject_allocPool()
+====
+----
+cbject_allocPool(poolSize)
+----
+Allocates a static pool
+
+.Remarks
+cbject_Class must be defined before using this macro
+
+.Params
+* poolSize - Size of pool (number of objects in pool)
+====
+end::macro[] **************************************************************************************/
+#define cbject_allocPool(poolSize) \
+    cbject_utils_allocPool(poolSize)
 
 #endif // CBJECT_H

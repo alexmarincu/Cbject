@@ -38,7 +38,7 @@ Test initialization of cbject_Object
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_init(void) {
-    cbject_Object * object = cbject_Object_init(cbject_salloc(cbject_Object));
+    cbject_Object * object = cbject_Object_init(cbject_stackalloc(cbject_Object));
     TEST_ASSERT_EQUAL_PTR(cbject_Object_class(object), cbject_ObjectClass_instance());
 }
 
@@ -55,9 +55,9 @@ Test equals method
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_equals(void) {
-    cbject_Object * object = cbject_Object_init(cbject_salloc(cbject_Object));
+    cbject_Object * object = cbject_Object_init(cbject_stackalloc(cbject_Object));
     TEST_ASSERT_TRUE(cbject_equals(object, object));
-    cbject_Object * otherObject = cbject_Object_init(cbject_salloc(cbject_Object));
+    cbject_Object * otherObject = cbject_Object_init(cbject_stackalloc(cbject_Object));
     TEST_ASSERT_FALSE(cbject_equals(object, otherObject));
 }
 
@@ -72,7 +72,7 @@ Test hashCode method
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_hashCode(void) {
-    cbject_Object * object = cbject_Object_init(cbject_salloc(cbject_Object));
+    cbject_Object * object = cbject_Object_init(cbject_stackalloc(cbject_Object));
     TEST_ASSERT_EQUAL_UINT64((uint64_t)object, cbject_hashCode(object));
 }
 
@@ -110,7 +110,7 @@ cbject_ObjectClass * TestClass_instance(void) {
 #undef cbject_Class
 
 void test_cbject_Object_isOfClass(void) {
-    cbject_Object * object = cbject_Object_init(cbject_salloc(cbject_Object));
+    cbject_Object * object = cbject_Object_init(cbject_stackalloc(cbject_Object));
     TEST_ASSERT_TRUE(cbject_Object_isOfClass(object, cbject_ObjectClass_instance()));
     TEST_ASSERT_FALSE(cbject_Object_isOfClass(object, TestClass_instance()));
 }
@@ -130,8 +130,8 @@ Test copy method
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_copy(void) {
-    cbject_Object * object = cbject_Object_init(cbject_salloc(cbject_Object));
-    cbject_Object * copyObjectInStack = cbject_copy(object, cbject_salloc(cbject_Object));
+    cbject_Object * object = cbject_Object_init(cbject_stackalloc(cbject_Object));
+    cbject_Object * copyObjectInStack = cbject_copy(object, cbject_stackalloc(cbject_Object));
     TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInStack, cbject_Object_instanceSize(object));
     cbject_Object * copyObjectInHeap = cbject_copy(object, cbject_alloc(cbject_Object));
     TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInHeap, cbject_Object_instanceSize(object));

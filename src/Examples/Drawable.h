@@ -33,6 +33,6 @@ void Drawable_init(
     uint16_t const scale
 );
 void Drawable_draw(Drawable const * const drawable);
-DrawableClass const * DrawableClass_instance(void);
+DrawableClass * DrawableClass_instance(void);
 
 #endif // DRAWABLE_H

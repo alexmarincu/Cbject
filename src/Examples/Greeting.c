@@ -8,7 +8,7 @@ struct Greeting {
     char * text;
 };
 
-static Greeting Greeting_pool[10];
+cbject_allocPool(0);
 
 Greeting * Greeting_init(Greeting * const greeting, char * const text) {
     cbject_Object_init((cbject_Object *)greeting);
@@ -20,7 +20,7 @@ void Greeting_print(Greeting * const greeting) {
     printf("%s\n", greeting->text);
 }
 
-GreetingClass const * GreetingClass_instance(void) {
+GreetingClass * GreetingClass_instance(void) {
     static GreetingClass klass;
     cbject_doOnce {
         cbject_Class_setup(&klass);

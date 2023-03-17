@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #define cbject_Class (Rectangle, Drawable)
-static Rectangle Rectangle_pool[10];
+cbject_allocPool(0);
 
 Rectangle * Rectangle_init(
     Rectangle * const rectangle,
@@ -68,7 +68,7 @@ static void draw(Drawable const * const drawable) {
     printf("\n");
 }
 
-RectangleClass const * RectangleClass_instance(void) {
+RectangleClass * RectangleClass_instance(void) {
     static RectangleClass klass;
     cbject_doOnce {
         cbject_Class_setup(&klass);

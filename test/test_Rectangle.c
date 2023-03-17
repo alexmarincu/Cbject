@@ -18,6 +18,11 @@ void test_Rectangle_init(void) {
     TEST_ASSERT_EQUAL_UINT32(3, Rectangle_getHeight(rectangle));
     TEST_ASSERT_EQUAL_UINT8(2 * 3, Shape_area((Shape *)rectangle));
     cbject_dealloc(rectangle);
+    Rectangle * rectangle2 = Rectangle_init(cbject_acquire(Rectangle), (Point){ 0, 1 }, 2, 3);
+    TEST_ASSERT_EQUAL_UINT32(2, Rectangle_getWidth(rectangle2));
+    TEST_ASSERT_EQUAL_UINT32(3, Rectangle_getHeight(rectangle2));
+    TEST_ASSERT_EQUAL_UINT8(2 * 3, Shape_area((Shape *)rectangle2));
+    cbject_release(rectangle2);
 }
 
 void test_Rectangle_setters(void) {

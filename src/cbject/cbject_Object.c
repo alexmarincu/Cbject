@@ -4,29 +4,33 @@
 #include <string.h>
 
 #define cbject_Class (cbject_Object, NULL)
-static cbject_Object cbject_Object_pool[0];
+cbject_utils_allocPool(0);
 
-cbject_Object * cbject_Object_acquire(cbject_ObjectClass const * const objectClass) {
+cbject_Object * cbject_Object_acquire(cbject_ObjectClass * const objectClass) {
     return cbject_utils_invokeClassMethod(acquire, objectClass);
 }
 
-static cbject_Object * acquire(cbject_ObjectClass const * const objectClass) {
-    for (uint64_t i = 0; i < objectClass->poolSize; i++) {
-        cbject_Object * object = &objectClass->pool[i];
-        if (object->usageStatus == cbject_Object_UsageStatus_free) {
-            memset(object, 0, objectClass->instanceSize);
-            object->usageStatus = cbject_Object_UsageStatus_inUse;
-            return object;
-        }
+static cbject_Object * acquire(cbject_ObjectClass * const objectClass) {
+    cbject_Object * object = NULL;
+    if (objectClass->firstFreeObject != &objectClass->pool[objectClass->poolSize]) {
+        object = objectClass->firstFreeObject;
+        memset(object, 0, objectClass->instanceSize);
+        object->objectClass = objectClass;
+        object->usageStatus = cbject_Object_UsageStatus_inUse;
+        do {
+            objectClass->firstFreeObject = objectClass->firstFreeObject + objectClass->instanceSize;
+        } while ((objectClass->firstFreeObject->usageStatus != cbject_Object_UsageStatus_free) //
+                 && (objectClass->firstFreeObject != &objectClass->pool[objectClass->poolSize])
+        );
     }
-    return NULL;
+    return object;
 }
 
-cbject_Object * cbject_Object_alloc(cbject_ObjectClass const * const objectClass) {
+cbject_Object * cbject_Object_alloc(cbject_ObjectClass * const objectClass) {
     return cbject_utils_invokeClassMethod(alloc, objectClass);
 }
 
-static cbject_Object * alloc(cbject_ObjectClass const * const objectClass) {
+static cbject_Object * alloc(cbject_ObjectClass * const objectClass) {
     cbject_Object * object = (cbject_Object *)calloc(1, objectClass->instanceSize);
     assert(object);
     object->objectClass = objectClass;
@@ -78,6 +82,9 @@ void * cbject_Object_release(cbject_Object * const object) {
 static void * release(cbject_Object * const object) {
     cbject_Object_terminate((cbject_Object *)object);
     object->usageStatus = cbject_Object_UsageStatus_free;
+    if (object < object->objectClass->firstFreeObject) {
+        object->objectClass->firstFreeObject = object;
+    }
     return NULL;
 }
 
@@ -105,7 +112,7 @@ bool cbject_Object_isOfClass(cbject_Object const * const object, cbject_ObjectCl
     return isOfClass;
 }
 
-cbject_ObjectClass const * cbject_ObjectClass_instance(void) {
+cbject_ObjectClass * cbject_ObjectClass_instance(void) {
     static cbject_ObjectClass klass;
     cbject_utils_doOnce {
         klass.name = "cbject_Object";
@@ -113,6 +120,7 @@ cbject_ObjectClass const * cbject_ObjectClass_instance(void) {
         klass.superClass = NULL;
         klass.pool = cbject_Object_pool;
         klass.poolSize = cbject_utils_Array_length(cbject_Object_pool);
+        klass.firstFreeObject = cbject_Object_pool;
         klass.acquire = acquire;
         klass.alloc = alloc;
         klass.copy = copy;

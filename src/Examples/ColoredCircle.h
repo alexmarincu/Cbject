@@ -21,6 +21,6 @@ ColoredCircle * ColoredCircle_init(
     uint32_t const radius,
     Color const color
 );
-ColoredCircleClass const * ColoredCircleClass_instance(void);
+ColoredCircleClass * ColoredCircleClass_instance(void);
 
 #endif // COLOREDCIRCLE_H

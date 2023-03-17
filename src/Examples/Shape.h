@@ -30,6 +30,6 @@ struct ShapeClass {
 
 Shape * Shape_init(Shape * const shape, Point origin);
 float Shape_area(Shape const * const shape);
-ShapeClass const * ShapeClass_instance(void);
+ShapeClass * ShapeClass_instance(void);
 
 #endif // SHAPE_H

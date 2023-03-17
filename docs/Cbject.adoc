@@ -44,7 +44,7 @@ cbject_dealloc(object);
 ====
 
 === cbject_Object model
-[plantuml, target=diag-building-blocks, format=png]
+[plantuml]
 .Building blocks
 ----
 !include ../src/cbject/cbject_Object.h!cbject_Object
@@ -52,7 +52,7 @@ cbject_dealloc(object);
 cbject_Object -r-> cbject_ObjectClass
 ----
 
-[plantuml, target=diag-rectangle-class-example, format=png]
+[plantuml]
 .Rectangle class example
 ----
 !include ../src/Examples/Rectangle.h!Rectangle

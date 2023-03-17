@@ -11,6 +11,6 @@ struct ApplicationClass {
 
 Application * Application_instance(void);
 void Application_main(Application * const application);
-ApplicationClass const * ApplicationClass_instance(void);
+ApplicationClass * ApplicationClass_instance(void);
 
 #endif // APPLICATION_H

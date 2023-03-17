@@ -1,7 +1,7 @@
 #include "Shape.h"
 
 #define cbject_Class (Shape, cbject_Object)
-static Shape Shape_pool[0];
+cbject_allocPool(0);
 
 Shape * Shape_init(Shape * const shape, Point origin) {
     cbject_Object_init((cbject_Object *)shape);
@@ -18,7 +18,7 @@ static float area(Shape const * const shape) {
     return 0;
 }
 
-ShapeClass const * ShapeClass_instance(void) {
+ShapeClass * ShapeClass_instance(void) {
     static ShapeClass klass;
     cbject_doOnce {
         cbject_Class_setup(&klass);

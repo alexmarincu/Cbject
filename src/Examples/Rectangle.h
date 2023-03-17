@@ -38,6 +38,6 @@ void Rectangle_setWidth(Rectangle * const rectangle, uint32_t const width);
 uint32_t Rectangle_getHeight(Rectangle const * const rectangle);
 void Rectangle_setHeight(Rectangle * const rectangle, uint32_t const height);
 void Rectangle_makeSquare(Rectangle * const rectangle, uint32_t const edgeSize);
-RectangleClass const * RectangleClass_instance(void);
+RectangleClass * RectangleClass_instance(void);
 
 #endif // RECTANGLE_H

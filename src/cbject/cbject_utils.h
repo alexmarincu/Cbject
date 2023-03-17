@@ -5,6 +5,9 @@ end::overview[] ****************************************************************
 #define CBJECT_UTILS_H
 #include <assert.h>
 
+#define cbject_utils_allocPool(poolSize) \
+    static cbject_utils_Pair_getFirst(cbject_Class) cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool)[poolSize]
+
 #define cbject_utils_doOnce     \
     static bool isDone = false; \
     for (; isDone == false; isDone = true)

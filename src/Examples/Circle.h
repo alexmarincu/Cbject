@@ -19,6 +19,6 @@ Circle * Circle_init(
     Point origin,
     uint32_t radius
 );
-CircleClass const * CircleClass_instance(void);
+CircleClass * CircleClass_instance(void);
 
 #endif // CIRCLE_H
