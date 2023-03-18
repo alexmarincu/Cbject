@@ -12,11 +12,11 @@ struct Application {
     Rectangle * rectangle;
 };
 
-cbject_allocPool(0);
+cbject_utils_allocPool(0);
 
 Application * Application_instance(void) {
     static Application application;
-    cbject_doOnce {
+    cbject_utils_doOnce {
         cbject_Singleton_init((cbject_Singleton *)&application);
     }
     return &application;
@@ -25,16 +25,16 @@ Application * Application_instance(void) {
 static void greetingExample(Application * const application) {
     (void)(application);
     // Allocate and initialize a Greeting application
-    Greeting * greeting = Greeting_init(cbject_alloc(Greeting), "Hello Cbject!");
+    Greeting * greeting = Greeting_init(cbject_utils_alloc(Greeting), "Hello Cbject!");
     // Call Greeting print function on the greeting application
     Greeting_print(greeting);
     // Free memory allocated for the Greeting application
-    cbject_dealloc(greeting);
+    cbject_utils_dealloc(greeting);
 }
 
 static void circleExample(Application * const application) {
     // Allocate and initialize a Circle object
-    application->circle = Circle_init(cbject_alloc(Circle), (Point){ 0, 1 }, 2);
+    application->circle = Circle_init(cbject_utils_alloc(Circle), (Point){ 0, 1 }, 2);
     // Get circle radius
     uint32_t radius = application->circle->radius;
     (void)(radius);
@@ -54,7 +54,7 @@ static void circleExample(Application * const application) {
 
 static void rectangleExample(Application * const application) {
     // Allocate and initialize a Rectangle object
-    application->rectangle = Rectangle_init(cbject_alloc(Rectangle), ((Point){ 0, 1 }), 2, 3);
+    application->rectangle = Rectangle_init(cbject_utils_alloc(Rectangle), ((Point){ 0, 1 }), 2, 3);
     // Get rectangle width and height
     uint32_t width = Rectangle_getWidth(application->rectangle);
     (void)(width);
@@ -82,7 +82,7 @@ static void polymorphismExample(Application * const application) {
         (Shape *)application->rectangle,
     };
     // Loop through the list of shapes and call various polymorphic functions
-    for (uint8_t i = 0; i < cbject_Array_length(shapes); i++) {
+    for (uint8_t i = 0; i < cbject_utils_Array_length(shapes); i++) {
         // Get area through Shape object polymorphic call
         float area = Shape_area(shapes[i]);
         (void)(area);
@@ -90,14 +90,14 @@ static void polymorphismExample(Application * const application) {
         size_t instanceSize = cbject_Object_instanceSize(shapes[i]);
         (void)(instanceSize);
         // Get hash code of shape object
-        uint64_t hashCode = cbject_hashCode(shapes[i]);
+        uint64_t hashCode = cbject_utils_hashCode(shapes[i]);
         (void)(hashCode);
         // Check class of chape object
-        if (cbject_Object_isOfClass(&shapes[i]->object, (cbject_ObjectClass *)CircleClass_instance())) {
+        if (cbject_utils_isOfClass(shapes[i], Circle)) {
             // Get circle radius
             uint32_t radius = ((Circle *)shapes[i])->radius;
             (void)(radius);
-        } else if (cbject_Object_isOfClass(&shapes[i]->object, (cbject_ObjectClass *)RectangleClass_instance())) {
+        } else if (cbject_utils_isOfClass(shapes[i], Rectangle)) {
             // Get rectangle width and height
             uint32_t width = Rectangle_getWidth((Rectangle *)shapes[i]);
             (void)(width);
@@ -116,15 +116,15 @@ void Application_main(Application * const application) {
 
 static cbject_Object * terminate(cbject_Object * const object) {
     Application * application = (Application *)object;
-    cbject_dealloc(application->rectangle);
-    cbject_dealloc(application->circle);
-    return cbject_invokeSuperMethod(cbject_Object, terminate, object);
+    cbject_utils_dealloc(application->rectangle);
+    cbject_utils_dealloc(application->circle);
+    return cbject_utils_invokeSuperMethod(cbject_Object, terminate, object);
 }
 
 ApplicationClass * ApplicationClass_instance(void) {
     static ApplicationClass klass;
-    cbject_doOnce {
-        cbject_Class_setup(&klass);
+    cbject_utils_doOnce {
+        cbject_ObjectClass_setup(&klass);
         klass.singletonClass.objectClass.terminate = terminate;
     }
     return &klass;

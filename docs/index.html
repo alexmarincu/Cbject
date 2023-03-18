@@ -560,7 +560,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_macros">2.1.4. Macros</a>
 <ul class="sectlevel4">
-<li><a href="#_cbject_class_setup">cbject_Class_setup()</a></li>
+<li><a href="#_cbject_objectclass_setup">cbject_ObjectClass_setup()</a></li>
 <li><a href="#_cbject_object_class">cbject_Object_class()</a></li>
 <li><a href="#_cbject_object_instancesize">cbject_Object_instanceSize()</a></li>
 </ul>
@@ -601,6 +601,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_overview_4">2.3.1. Overview</a></li>
 <li><a href="#_macros_2">2.3.2. Macros</a>
 <ul class="sectlevel4">
+<li><a href="#_cbject_utils_acquire">cbject_utils_acquire()</a></li>
+<li><a href="#_cbject_utils_alloc">cbject_utils_alloc()</a></li>
+<li><a href="#_cbject_utils_stackalloc">cbject_utils_stackalloc()</a></li>
+<li><a href="#_cbject_utils_hashcode">cbject_utils_hashCode()</a></li>
+<li><a href="#_cbject_utils_equals">cbject_utils_equals()</a></li>
+<li><a href="#_cbject_utils_copy">cbject_utils_copy()</a></li>
+<li><a href="#_cbject_utils_terminate">cbject_utils_terminate()</a></li>
+<li><a href="#_cbject_utils_release">cbject_utils_release()</a></li>
+<li><a href="#_cbject_utils_dealloc">cbject_utils_dealloc()</a></li>
+<li><a href="#_cbject_utils_allocpool">cbject_utils_allocPool()</a></li>
+<li><a href="#_cbject_utils_doonce">cbject_utils_doOnce</a></li>
+<li><a href="#_cbject_utils_invokemethod">cbject_utils_invokeMethod()</a></li>
+<li><a href="#_cbject_utils_invokeclassmethod">cbject_utils_invokeClassMethod()</a></li>
+<li><a href="#_cbject_utils_invokesupermethod">cbject_utils_invokeSuperMethod()</a></li>
+<li><a href="#_cbject_utils_array_length">cbject_utils_Array_length()</a></li>
+<li><a href="#_cbject_utils_assertstatic">cbject_utils_assertStatic()</a></li>
 <li><a href="#_cbject_utils_token_concat">cbject_utils_Token_concat()</a></li>
 <li><a href="#_cbject_utils_token_concatindirect">cbject_utils_Token_concatIndirect()</a></li>
 <li><a href="#_cbject_utils_token_stringify">cbject_utils_Token_stringify()</a></li>
@@ -617,26 +633,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject">2.4. cbject</a>
 <ul class="sectlevel3">
 <li><a href="#_overview_5">2.4.1. Overview</a></li>
-<li><a href="#_macros_3">2.4.2. Macros</a>
-<ul class="sectlevel4">
-<li><a href="#_cbject_acquire">cbject_acquire()</a></li>
-<li><a href="#_cbject_alloc">cbject_alloc()</a></li>
-<li><a href="#_cbject_stackalloc">cbject_stackalloc()</a></li>
-<li><a href="#_cbject_hashcode">cbject_hashCode()</a></li>
-<li><a href="#_cbject_equals">cbject_equals()</a></li>
-<li><a href="#_cbject_copy">cbject_copy()</a></li>
-<li><a href="#_cbject_terminate">cbject_terminate()</a></li>
-<li><a href="#_cbject_release">cbject_release()</a></li>
-<li><a href="#_cbject_dealloc">cbject_dealloc()</a></li>
-<li><a href="#_cbject_array_length">cbject_Array_length()</a></li>
-<li><a href="#_cbject_assertstatic">cbject_assertStatic()</a></li>
-<li><a href="#_cbject_doonce">cbject_doOnce</a></li>
-<li><a href="#_cbject_invokemethod">cbject_invokeMethod()</a></li>
-<li><a href="#_cbject_invokeclassmethod">cbject_invokeClassMethod()</a></li>
-<li><a href="#_cbject_invokesupermethod">cbject_invokeSuperMethod()</a></li>
-<li><a href="#_cbject_allocpool">cbject_allocPool()</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -699,9 +695,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * object = cbject_Object_init(cbject_alloc(cbject_Object));
+<pre>cbject_Object * object = cbject_Object_init(cbject_Object_alloc(cbject_Object));
 printf("%d\n", cbject_Object_hashCode(object));
-cbject_dealloc(object);</pre>
+cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 </div>
@@ -733,7 +729,7 @@ cbject_dealloc(object);</pre>
 <h4 id="_overview_2">2.1.1. Overview</h4>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-e0aaa6128e7e8ef16fa4fdd4f1036289.png" alt="Diagram" width="719" height="239">
+<img src="media/diag-4cf4d0c1c86ef8e9f690a8f4a511d0b0.png" alt="Diagram" width="719" height="239">
 </div>
 <div class="title">Figure 3. Context diagram</div>
 </div>
@@ -982,7 +978,7 @@ cbject_dealloc(object);</pre>
 <p>object - cbject_Object reference</p>
 </li>
 <li>
-<p>copyObject - Reference of a new allocated object in which to copy the original one</p>
+<p>copyObject - Reference of a new object in which to copy the original one</p>
 </li>
 </ul>
 </div>
@@ -1198,12 +1194,12 @@ cbject_dealloc(object);</pre>
 <div class="sect3">
 <h4 id="_macros">2.1.4. Macros</h4>
 <div class="sect4">
-<h5 id="_cbject_class_setup">cbject_Class_setup()</h5>
+<h5 id="_cbject_objectclass_setup">cbject_ObjectClass_setup()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Class_setup(klass)</pre>
+<pre>cbject_ObjectClass_setup(klass)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1447,7 +1443,7 @@ cbject_dealloc(object);</pre>
 <h4 id="_overview_3">2.2.1. Overview</h4>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-859fb69b0e284738fab3788cc203de93.png" alt="Diagram" width="569" height="442">
+<img src="media/diag-06bea69b0a11b93119b85837b612f6d6.png" alt="Diagram" width="569" height="442">
 </div>
 <div class="title">Figure 4. Context diagram</div>
 </div>
@@ -1596,6 +1592,523 @@ cbject_dealloc(object);</pre>
 </div>
 <div class="sect3">
 <h4 id="_macros_2">2.3.2. Macros</h4>
+<div class="sect4">
+<h5 id="_cbject_utils_acquire">cbject_utils_acquire()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_acquire(klass)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Acquires an object from the static pool</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>Calls cbject_Object_acquire() and does the necessary casting</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>klass - Name of class</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the acquired object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_alloc">cbject_utils_alloc()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_alloc(klass)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Allocates an object in heap memory</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>Calls cbject_Object_alloc() and does the necessary casting</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>klass - Name of class</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the allocated object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_stackalloc">cbject_utils_stackalloc()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_stackalloc(klass)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Allocates an object on the stack</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>klass - Name of class</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the allocated memory</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_hashcode">cbject_utils_hashCode()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_hashCode(object)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets the hash code of the object</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>Calls cbject_Object_hashCode() and does the necessary casting</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - cbject_Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>The hash code of the object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_equals">cbject_utils_equals()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_equals(object, otherObject)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Compares two objects</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>Calls cbject_Object_equals() and does the necessary casting</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - cbject_Object reference</p>
+</li>
+<li>
+<p>otherObject - Reference for the compared object</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Return</div>
+<ul>
+<li>
+<p>true - If the objects are equal</p>
+</li>
+<li>
+<p>false - If the objects are different</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_copy">cbject_utils_copy()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_copy(object, copyObject)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Copies the object to the provided instance.</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>Calls cbject_Object_copy() and does the necessary casting</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - cbject_Object reference</p>
+</li>
+<li>
+<p>copyObject - Reference of a new object in which to copy the original one</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of copyObject</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_terminate">cbject_utils_terminate()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_terminate(object)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Terminates an object.</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>Calls cbject_Object_terminate() and does the necessary casting</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - cbject_Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>NULL</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_release">cbject_utils_release()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_release(object)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Releases the object in the static pool</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>Calls cbject_Object_release() and does the necessary casting</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - cbject_Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>NULL</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_dealloc">cbject_utils_dealloc()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_dealloc(object)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Deallocates memory for an object</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>Calls cbject_Object_dealloc() and does the necessary casting</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - cbject_Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>NULL</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_allocpool">cbject_utils_allocPool()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_allocPool(poolSize)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Allocates a static pool</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>cbject_Class must be defined before using this macro</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>poolSize - Size of pool (number of objects in pool)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_doonce">cbject_utils_doOnce</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_doOnce</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Runs a block of code only once</p>
+</div>
+<div class="listingblock">
+<div class="title">Usage</div>
+<div class="content">
+<pre>cbject_utils_doOnce {
+    functionCall();
+    anotherFunctionCall();
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>Not thread safe</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_invokemethod">cbject_utils_invokeMethod()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_invokeMethod(method, ...)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Polymorphic call of an object method</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>cbject_Class must be defined before using this macro</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>method - Name of the method</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>object - cbject_Object reference</p>
+</li>
+<li>
+<p>&#8230;&#8203; - Method params</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Depends on the called method</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_invokeclassmethod">cbject_utils_invokeClassMethod()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_invokeClassMethod(method, ...)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Polymorphic call of a class method</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>cbject_Class must be defined before using this macro</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>method - Name of the method</p>
+</li>
+<li>
+<p>&#8230;&#8203; - Method params</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Depends on the called method</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_invokesupermethod">cbject_utils_invokeSuperMethod()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_invokeSuperMethod(type, method, ...)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Polymorphic call of a super method (object or class)</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>cbject_Class must be defined before using this macro</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>klass - Name of the class</p>
+</li>
+<li>
+<p>method - Name of the method</p>
+</li>
+<li>
+<p>&#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>object - cbject_Object reference (optional - in case of object method)</p>
+</li>
+<li>
+<p>&#8230;&#8203; - Method params</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Depends on the called method</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_array_length">cbject_utils_Array_length()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_Array_length(array)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets length of an array</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>array - Array for which to get the length</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_assertstatic">cbject_utils_assertStatic()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_assertStatic(expression, identifier)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Compile time assert</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>expression - Expression to assert</p>
+</li>
+<li>
+<p>identifier - An identifier to describe the assertion</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="_cbject_utils_token_concat">cbject_utils_Token_concat()</h5>
 <div class="exampleblock">
@@ -1828,494 +2341,6 @@ cbject_dealloc(object);</pre>
 <h4 id="_overview_5">2.4.1. Overview</h4>
 <div class="paragraph">
 <p>todo</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_macros_3">2.4.2. Macros</h4>
-<div class="sect4">
-<h5 id="_cbject_acquire">cbject_acquire()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_acquire(klass)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to acquire an object from the static pool</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>klass - Name of class</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Reference of the acquired object</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_alloc">cbject_alloc()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_alloc(klass)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to allocate an object in heap memory</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>klass - Name of class</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Reference of the allocated object</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_stackalloc">cbject_stackalloc()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_stackalloc(klass)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to allocate object on the stack</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>klass - Name of class</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Reference of the allocated memory</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_hashcode">cbject_hashCode()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_hashCode(object)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to get the hash code of the object</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>object - cbject_Object reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>The hash code of the object</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_equals">cbject_equals()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_equals(object, otherObject)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to compare two objects</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>object - cbject_Object reference</p>
-</li>
-<li>
-<p>otherObject - Reference for the compared object</p>
-</li>
-</ul>
-</div>
-<div class="ulist">
-<div class="title">Return</div>
-<ul>
-<li>
-<p>true - If the objects are equal</p>
-</li>
-<li>
-<p>false - If the objects are different</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_copy">cbject_copy()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_copy(object, copyObject)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to copy the object to the provided instance.</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>object - cbject_Object reference</p>
-</li>
-<li>
-<p>copyObject - Reference of a new allocated object in which to copy the original one</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Reference of copyObject</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_terminate">cbject_terminate()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_terminate(object)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to terminate an object.</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>object - cbject_Object reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>NULL</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_release">cbject_release()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_release(object)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to release an object in the static pool</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>object - cbject_Object reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>NULL</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_dealloc">cbject_dealloc()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_dealloc(object)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Syntactic sugar to free memory allocated for an object</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>object - cbject_Object reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>NULL</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_array_length">cbject_Array_length()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_Array_length(array)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Gets length of an array</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>array - Array for which to get the length</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_assertstatic">cbject_assertStatic()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_assertStatic(expression, identifier)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Compile time assert</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>expression - Expression to assert</p>
-</li>
-<li>
-<p>identifier - An identifier to describe the assertion</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_doonce">cbject_doOnce</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_doOnce</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Runs a block of code only once</p>
-</div>
-<div class="listingblock">
-<div class="title">Usage</div>
-<div class="content">
-<pre>cbject_doOnce {
-    functionCall();
-    anotherFunctionCall();
-}</pre>
-</div>
-</div>
-<div class="paragraph">
-<div class="title">Remark</div>
-<p>Not thread safe</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_invokemethod">cbject_invokeMethod()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_invokeMethod(method, ...)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Polymorphic call of an object method</p>
-</div>
-<div class="paragraph">
-<div class="title">Remarks</div>
-<p>cbject_Class must be defined before using this macro</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>method - Name of the method</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-<div class="ulist">
-<ul>
-<li>
-<p>object - cbject_Object reference</p>
-</li>
-<li>
-<p>&#8230;&#8203; - Method params</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Depends on the called method</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_invokeclassmethod">cbject_invokeClassMethod()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_invokeClassMethod(method, ...)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Polymorphic call of a class method</p>
-</div>
-<div class="paragraph">
-<div class="title">Remarks</div>
-<p>cbject_Class must be defined before using this macro</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>method - Name of the method</p>
-</li>
-<li>
-<p>&#8230;&#8203; - Method params</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Depends on the called method</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_invokesupermethod">cbject_invokeSuperMethod()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_invokeSuperMethod(type, method, ...)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Polymorphic call of a super method (object or class)</p>
-</div>
-<div class="paragraph">
-<div class="title">Remarks</div>
-<p>cbject_Class must be defined before using this macro</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>klass - Name of the class</p>
-</li>
-<li>
-<p>method - Name of the method</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-<div class="ulist">
-<ul>
-<li>
-<p>object - cbject_Object reference (optional - in case of object method)</p>
-</li>
-<li>
-<p>&#8230;&#8203; - Method params</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Depends on the called method</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_allocpool">cbject_allocPool()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_allocPool(poolSize)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Allocates a static pool</p>
-</div>
-<div class="paragraph">
-<div class="title">Remarks</div>
-<p>cbject_Class must be defined before using this macro</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>poolSize - Size of pool (number of objects in pool)</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
 </div>
 </div>
 </div>

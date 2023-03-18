@@ -1,9 +1,11 @@
 #include "cbject_Singleton.h"
+#include "cbject_utils.h"
 
 #define cbject_Class (cbject_Singleton, cbject_Object)
+cbject_utils_allocPool(0);
 
 cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const singleton) {
-    cbject_Object_init((cbject_Object *)singleton);
+    cbject_utils_init(singleton);
     return singleton;
 }
 
@@ -29,10 +31,7 @@ static void * dealloc(cbject_Object * const object) {
 cbject_SingletonClass const * cbject_SingletonClass_instance(void) {
     static cbject_SingletonClass klass;
     cbject_utils_doOnce {
-        klass.objectClass = *cbject_ObjectClass_instance();
-        klass.objectClass.name = "cbject_Singleton";
-        klass.objectClass.instanceSize = sizeof(cbject_Singleton);
-        klass.objectClass.superClass = cbject_ObjectClass_instance();
+        cbject_ObjectClass_setup(&klass);
         klass.objectClass.alloc = alloc;
         klass.objectClass.copy = copy;
         klass.objectClass.dealloc = dealloc;

@@ -205,7 +205,7 @@ Copies the object to the provided instance.
 
 .Params
 * object - cbject_Object reference
-* copyObject - Reference of a new allocated object in which to copy the original one
+* copyObject - Reference of a new object in which to copy the original one
 
 .Return
 Reference of copyObject
@@ -334,10 +334,10 @@ end::function[] ****************************************************************
 cbject_ObjectClass * cbject_ObjectClass_instance(void);
 
 /************************************************************************************** tag::macro[]
-= cbject_Class_setup()
+= cbject_ObjectClass_setup()
 ====
 ----
-cbject_Class_setup(klass)
+cbject_ObjectClass_setup(klass)
 ----
 Populates the class instance
 
@@ -348,7 +348,7 @@ cbject_Class must be defined before using this macro
 * klass - Class reference
 ====
 end::macro[] **************************************************************************************/
-#define cbject_Class_setup(klass)                                                                                                                                       \
+#define cbject_ObjectClass_setup(klass)                                                                                                                                 \
     *((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class) *)(klass)) =                                                                 \
         *cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance());                                                                \
     ((cbject_ObjectClass *)(klass))->name = cbject_utils_Token_stringify(cbject_utils_Pair_getFirst(cbject_Class));                                                     \

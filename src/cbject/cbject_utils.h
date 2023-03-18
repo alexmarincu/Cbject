@@ -5,25 +5,380 @@ end::overview[] ****************************************************************
 #define CBJECT_UTILS_H
 #include <assert.h>
 
+/************************************************************************************** tag::macro[]
+= cbject_utils_acquire()
+====
+----
+cbject_utils_acquire(klass)
+----
+Acquires an object from the static pool
+
+.Remarks
+Calls cbject_Object_acquire() and does the necessary casting
+
+.Params
+* klass - Name of class
+
+.Return
+Reference of the acquired object
+====
+end::macro[] **************************************************************************************/
+#define cbject_utils_acquire(klass) \
+    ((klass *)cbject_Object_acquire((cbject_ObjectClass *)klass##Class_instance()))
+
+/************************************************************************************** tag::macro[]
+= cbject_utils_alloc()
+====
+----
+cbject_utils_alloc(klass)
+----
+Allocates an object in heap memory
+
+.Remarks
+Calls cbject_Object_alloc() and does the necessary casting
+
+.Params
+* klass - Name of class
+
+.Return
+Reference of the allocated object
+====
+end::macro[] **************************************************************************************/
+#define cbject_utils_alloc(klass) \
+    ((klass *)cbject_Object_alloc((cbject_ObjectClass *)klass##Class_instance()))
+
+/************************************************************************************** tag::macro[]
+= cbject_utils_stackalloc()
+====
+----
+cbject_utils_stackalloc(klass)
+----
+Allocates an object on the stack
+
+.Params
+* klass - Name of class
+
+.Return
+Reference of the allocated memory
+====
+end::macro[] **************************************************************************************/
+#define cbject_utils_stackalloc(klass) \
+    (&(klass){ .objectClass = klass##Class_instance() })
+
+/*********************************************************************************** tag::function[]
+= cbject_utils_init()
+====
+----
+cbject_utils_init(object)
+----
+Initializes an object
+
+.Remarks
+Calls cbject_Object_init() and does the necessary casting
+
+.Params
+* object - cbject_Object reference
+
+.Return
+Initialized object
+====
+end::function[] ***********************************************************************************/
+#define cbject_utils_init(object) \
+    cbject_Object_init((cbject_Object *)(object))
+
+/************************************************************************************** tag::macro[]
+= cbject_utils_hashCode()
+====
+----
+cbject_utils_hashCode(object)
+----
+Gets the hash code of the object
+
+.Remarks
+Calls cbject_Object_hashCode() and does the necessary casting
+
+.Params
+* object - cbject_Object reference
+
+.Return
+The hash code of the object
+====
+end::macro[] **************************************************************************************/
+#define cbject_utils_hashCode(object) \
+    cbject_Object_hashCode((cbject_Object *)(object))
+
+/************************************************************************************** tag::macro[]
+= cbject_utils_equals()
+====
+----
+cbject_utils_equals(object, otherObject)
+----
+Compares two objects
+
+.Remarks
+Calls cbject_Object_equals() and does the necessary casting
+
+.Params
+* object - cbject_Object reference
+* otherObject - Reference for the compared object
+
+.Return
+* true - If the objects are equal
+* false - If the objects are different
+====
+end::macro[] **************************************************************************************/
+#define cbject_utils_equals(object, otherObject) \
+    cbject_Object_equals((cbject_Object *)(object), (cbject_Object *)(otherObject))
+
+/************************************************************************************** tag::macro[]
+= cbject_utils_copy()
+====
+----
+cbject_utils_copy(object, copyObject)
+----
+Copies the object to the provided instance.
+
+.Remarks
+Calls cbject_Object_copy() and does the necessary casting
+
+.Params
+* object - cbject_Object reference
+* copyObject - Reference of a new object in which to copy the original one
+
+.Return
+Reference of copyObject
+====
+end::macro[] **************************************************************************************/
+#define cbject_utils_copy(object, copyObject) \
+    cbject_Object_copy((cbject_Object *)(object), (cbject_Object *)(copyObject))
+
+/************************************************************************************** tag::macro[]
+= cbject_utils_terminate()
+====
+----
+cbject_utils_terminate(object)
+----
+Terminates an object.
+
+.Remarks
+Calls cbject_Object_terminate() and does the necessary casting
+
+.Params
+* object - cbject_Object reference
+
+.Return
+NULL
+====
+end::macro[] **************************************************************************************/
+#define cbject_utils_terminate(object) \
+    cbject_Object_terminate((cbject_Object *)(object))
+
+/************************************************************************************** tag::macro[]
+= cbject_utils_release()
+====
+----
+cbject_utils_release(object)
+----
+Releases the object in the static pool
+
+.Remarks
+Calls cbject_Object_release() and does the necessary casting
+
+.Params
+* object - cbject_Object reference
+
+.Return
+NULL
+====
+end::macro[] **************************************************************************************/
+#define cbject_utils_release(object) \
+    cbject_Object_release((cbject_Object *)(object))
+
+/************************************************************************************** tag::macro[]
+= cbject_utils_dealloc()
+====
+----
+cbject_utils_dealloc(object)
+----
+Deallocates memory for an object
+
+.Remarks
+Calls cbject_Object_dealloc() and does the necessary casting
+
+.Params
+* object - cbject_Object reference
+
+.Return
+NULL
+====
+end::macro[] **************************************************************************************/
+#define cbject_utils_dealloc(object) \
+    cbject_Object_dealloc((cbject_Object *)(object))
+
+/*********************************************************************************** tag::function[]
+= cbject_utils_isOfClass()
+====
+----
+cbject_utils_isOfClass(object, klass)
+----
+Checks if an object is of a given class
+
+.Remarks
+Calls cbject_Object_isOfClass() and does the necessary casting
+
+.Params
+* object - cbject_Object reference
+* klass - Name of class
+
+.Return
+* true - If the object is of the provided class
+* false - If the object is of a different class
+====
+end::function[] ***********************************************************************************/
+#define cbject_utils_isOfClass(object, klass) \
+    cbject_Object_isOfClass((cbject_Object *)(object), (cbject_ObjectClass *)klass##Class_instance())
+
+/************************************************************************************** tag::macro[]
+= cbject_utils_allocPool()
+====
+----
+cbject_utils_allocPool(poolSize)
+----
+Allocates a static pool
+
+.Remarks
+cbject_Class must be defined before using this macro
+
+.Params
+* poolSize - Size of pool (number of objects in pool)
+====
+end::macro[] **************************************************************************************/
 #define cbject_utils_allocPool(poolSize) \
     static cbject_utils_Pair_getFirst(cbject_Class) cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool)[poolSize]
 
+/************************************************************************************** tag::macro[]
+= cbject_utils_doOnce
+====
+----
+cbject_utils_doOnce
+----
+Runs a block of code only once
+
+.Usage
+----
+cbject_utils_doOnce {
+    functionCall();
+    anotherFunctionCall();
+}
+----
+
+.Remark
+Not thread safe
+====
+end::macro[] **************************************************************************************/
 #define cbject_utils_doOnce     \
     static bool isDone = false; \
     for (; isDone == false; isDone = true)
 
+/************************************************************************************** tag::macro[]
+= cbject_utils_invokeMethod()
+====
+----
+cbject_utils_invokeMethod(method, ...)
+----
+Polymorphic call of an object method
+
+.Remarks
+cbject_Class must be defined before using this macro
+
+.Params
+* method - Name of the method
+* ...
+** object - cbject_Object reference
+** ... - Method params
+
+.Return
+Depends on the called method
+====
+end::macro[] **************************************************************************************/
 #define cbject_utils_invokeMethod(method, ...) \
     ((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), Class) *)((cbject_Object *)cbject_utils_VaArgs_getFirst(__VA_ARGS__))->objectClass)->method(__VA_ARGS__)
 
+/************************************************************************************** tag::macro[]
+= cbject_utils_invokeClassMethod()
+====
+----
+cbject_utils_invokeClassMethod(method, ...)
+----
+Polymorphic call of a class method
+
+.Remarks
+cbject_Class must be defined before using this macro
+
+.Params
+* method - Name of the method
+* ... - Method params
+
+.Return
+Depends on the called method
+====
+end::macro[] **************************************************************************************/
 #define cbject_utils_invokeClassMethod(method, ...) \
     ((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), Class) *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), Class_instance()))->method(__VA_ARGS__)
 
+/************************************************************************************** tag::macro[]
+= cbject_utils_invokeSuperMethod()
+====
+----
+cbject_utils_invokeSuperMethod(type, method, ...)
+----
+Polymorphic call of a super method (object or class)
+
+.Remarks
+cbject_Class must be defined before using this macro
+
+.Params
+* klass - Name of the class
+* method - Name of the method
+* ...
+** object - cbject_Object reference (optional - in case of object method)
+** ... - Method params
+
+.Return
+Depends on the called method
+====
+end::macro[] **************************************************************************************/
 #define cbject_utils_invokeSuperMethod(klass, method, ...) \
     ((klass##Class *)((cbject_ObjectClass *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), Class_instance()))->superClass)->method(__VA_ARGS__)
 
+/************************************************************************************** tag::macro[]
+= cbject_utils_Array_length()
+====
+----
+cbject_utils_Array_length(array)
+----
+Gets length of an array
+
+.Params
+* array - Array for which to get the length
+====
+end::macro[] **************************************************************************************/
 #define cbject_utils_Array_length(array) \
     (sizeof(array) / sizeof(array[0]))
 
+/************************************************************************************** tag::macro[]
+= cbject_utils_assertStatic()
+====
+----
+cbject_utils_assertStatic(expression, identifier)
+----
+Compile time assert
+
+.Params
+* expression - Expression to assert
+* identifier - An identifier to describe the assertion
+====
+end::macro[] **************************************************************************************/
 #define cbject_utils_assertStatic(expression, identifier) \
     typedef char identifier[(!!(expression)) * 2 - 1]
 

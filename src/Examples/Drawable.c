@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #define cbject_Class (Drawable, Shape)
-cbject_allocPool(0);
+cbject_utils_allocPool(0);
 
 void Drawable_init(
     Drawable * const drawable,
@@ -14,7 +14,7 @@ void Drawable_init(
 }
 
 void Drawable_draw(Drawable const * const drawable) {
-    cbject_invokeMethod(draw, drawable);
+    cbject_utils_invokeMethod(draw, drawable);
 }
 
 static void draw(Drawable const * const drawable) {
@@ -24,8 +24,8 @@ static void draw(Drawable const * const drawable) {
 
 DrawableClass * DrawableClass_instance(void) {
     static DrawableClass klass;
-    cbject_doOnce {
-        cbject_Class_setup(&klass);
+    cbject_utils_doOnce {
+        cbject_ObjectClass_setup(&klass);
         klass.draw = draw;
     }
     return &klass;

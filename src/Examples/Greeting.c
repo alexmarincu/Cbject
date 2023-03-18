@@ -8,10 +8,10 @@ struct Greeting {
     char * text;
 };
 
-cbject_allocPool(0);
+cbject_utils_allocPool(0);
 
 Greeting * Greeting_init(Greeting * const greeting, char * const text) {
-    cbject_Object_init((cbject_Object *)greeting);
+    cbject_utils_init(greeting);
     greeting->text = text;
     return greeting;
 }
@@ -22,8 +22,8 @@ void Greeting_print(Greeting * const greeting) {
 
 GreetingClass * GreetingClass_instance(void) {
     static GreetingClass klass;
-    cbject_doOnce {
-        cbject_Class_setup(&klass);
+    cbject_utils_doOnce {
+        cbject_ObjectClass_setup(&klass);
     }
     return &klass;
 }

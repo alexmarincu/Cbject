@@ -37,9 +37,9 @@ Include the following header file:
 .How to create an object
 ====
 ----
-cbject_Object * object = cbject_Object_init(cbject_alloc(cbject_Object));
+cbject_Object * object = cbject_Object_init(cbject_Object_alloc(cbject_Object));
 printf("%d\n", cbject_Object_hashCode(object));
-cbject_dealloc(object);
+cbject_utils_dealloc(object);
 ----
 ====
 
@@ -109,6 +109,3 @@ include::../src/cbject/cbject_utils.h[tag=macro, leveloffset=+4]
 === cbject
 ==== Overview
 include::../src/cbject/cbject.h[tag=overview, leveloffset=+4]
-
-==== Macros
-include::../src/cbject/cbject.h[tag=macro, leveloffset=+4]

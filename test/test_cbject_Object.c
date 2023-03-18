@@ -7,7 +7,7 @@ TEST_FILE("cbject_Object.c")
 
 void setUp(void) {
 }
-void terminate(void) {
+void tearDown(void) {
 }
 
 /*************************************************************************************** tag::test[]
@@ -38,7 +38,7 @@ Test initialization of cbject_Object
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_init(void) {
-    cbject_Object * object = cbject_Object_init(cbject_stackalloc(cbject_Object));
+    cbject_Object * object = cbject_utils_init(cbject_utils_stackalloc(cbject_Object));
     TEST_ASSERT_EQUAL_PTR(cbject_Object_class(object), cbject_ObjectClass_instance());
 }
 
@@ -55,10 +55,10 @@ Test equals method
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_equals(void) {
-    cbject_Object * object = cbject_Object_init(cbject_stackalloc(cbject_Object));
-    TEST_ASSERT_TRUE(cbject_equals(object, object));
-    cbject_Object * otherObject = cbject_Object_init(cbject_stackalloc(cbject_Object));
-    TEST_ASSERT_FALSE(cbject_equals(object, otherObject));
+    cbject_Object * object = cbject_utils_init(cbject_utils_stackalloc(cbject_Object));
+    TEST_ASSERT_TRUE(cbject_utils_equals(object, object));
+    cbject_Object * otherObject = cbject_utils_init(cbject_utils_stackalloc(cbject_Object));
+    TEST_ASSERT_FALSE(cbject_utils_equals(object, otherObject));
 }
 
 /*************************************************************************************** tag::test[]
@@ -72,8 +72,8 @@ Test hashCode method
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_hashCode(void) {
-    cbject_Object * object = cbject_Object_init(cbject_stackalloc(cbject_Object));
-    TEST_ASSERT_EQUAL_UINT64((uint64_t)object, cbject_hashCode(object));
+    cbject_Object * object = cbject_utils_init(cbject_utils_stackalloc(cbject_Object));
+    TEST_ASSERT_EQUAL_UINT64((uint64_t)object, cbject_utils_hashCode(object));
 }
 
 /*************************************************************************************** tag::test[]
@@ -102,17 +102,17 @@ struct TestClass {
 };
 cbject_ObjectClass * TestClass_instance(void) {
     static cbject_ObjectClass klass;
-    cbject_doOnce {
-        cbject_Class_setup(&klass);
+    cbject_utils_doOnce {
+        cbject_ObjectClass_setup(&klass);
     }
     return &klass;
 }
 #undef cbject_Class
 
 void test_cbject_Object_isOfClass(void) {
-    cbject_Object * object = cbject_Object_init(cbject_stackalloc(cbject_Object));
-    TEST_ASSERT_TRUE(cbject_Object_isOfClass(object, cbject_ObjectClass_instance()));
-    TEST_ASSERT_FALSE(cbject_Object_isOfClass(object, TestClass_instance()));
+    cbject_Object * object = cbject_utils_init(cbject_utils_stackalloc(cbject_Object));
+    TEST_ASSERT_TRUE(cbject_utils_isOfClass(object, cbject_Object));
+    TEST_ASSERT_FALSE(cbject_utils_isOfClass(object, Test));
 }
 
 /*************************************************************************************** tag::test[]
@@ -130,10 +130,10 @@ Test copy method
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_copy(void) {
-    cbject_Object * object = cbject_Object_init(cbject_stackalloc(cbject_Object));
-    cbject_Object * copyObjectInStack = cbject_copy(object, cbject_stackalloc(cbject_Object));
+    cbject_Object * object = cbject_utils_init(cbject_utils_stackalloc(cbject_Object));
+    cbject_Object * copyObjectInStack = cbject_utils_copy(object, cbject_utils_stackalloc(cbject_Object));
     TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInStack, cbject_Object_instanceSize(object));
-    cbject_Object * copyObjectInHeap = cbject_copy(object, cbject_alloc(cbject_Object));
+    cbject_Object * copyObjectInHeap = cbject_utils_copy(object, cbject_utils_alloc(cbject_Object));
     TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInHeap, cbject_Object_instanceSize(object));
-    cbject_dealloc(copyObjectInHeap);
+    cbject_utils_dealloc(copyObjectInHeap);
 }

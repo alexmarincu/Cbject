@@ -1,7 +1,7 @@
 #include "ColoredCircle.h"
 
 #define cbject_Class (ColoredCircle, Circle)
-cbject_allocPool(0);
+cbject_utils_allocPool(0);
 
 ColoredCircle * ColoredCircle_init(
     ColoredCircle * const coloredCircle,
@@ -15,13 +15,13 @@ ColoredCircle * ColoredCircle_init(
 }
 
 static void draw(Drawable const * const drawable) {
-    cbject_invokeSuperMethod(Drawable, draw, drawable);
+    cbject_utils_invokeSuperMethod(Drawable, draw, drawable);
 }
 
 ColoredCircleClass * ColoredCircleClass_instance(void) {
     static ColoredCircleClass klass;
-    cbject_doOnce {
-        cbject_Class_setup(&klass);
+    cbject_utils_doOnce {
+        cbject_ObjectClass_setup(&klass);
         klass.circleClass.drawableClass.draw = draw;
     }
     return &klass;

@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #define cbject_Class (Rectangle, Drawable)
-cbject_allocPool(0);
+cbject_utils_allocPool(0);
 
 Rectangle * Rectangle_init(
     Rectangle * const rectangle,
@@ -41,7 +41,7 @@ void Rectangle_makeSquare(Rectangle * const rectangle, uint32_t const edgeSize) 
 }
 
 static cbject_Object * terminate(cbject_Object * object) {
-    return cbject_invokeSuperMethod(cbject_Object, terminate, object);
+    return cbject_utils_invokeSuperMethod(cbject_Object, terminate, object);
 }
 
 static float area(Shape const * const shape) {
@@ -70,8 +70,8 @@ static void draw(Drawable const * const drawable) {
 
 RectangleClass * RectangleClass_instance(void) {
     static RectangleClass klass;
-    cbject_doOnce {
-        cbject_Class_setup(&klass);
+    cbject_utils_doOnce {
+        cbject_ObjectClass_setup(&klass);
         klass.drawableClass.shapeClass.objectClass.terminate = terminate;
         klass.drawableClass.shapeClass.area = area;
         klass.drawableClass.draw = draw;
