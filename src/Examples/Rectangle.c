@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #define cbject_Class (Rectangle, Drawable)
-cbject_utils_allocPool(0);
+cbject_utils_allocPool(1);
 
 Rectangle * Rectangle_init(
     Rectangle * const rectangle,

@@ -1,4 +1,4 @@
-/*********************************************************************************** tag::overview[]
+/*************************************************************************************************** tag::overview[]
 [plantuml]
 .Context diagram
 ----
@@ -11,12 +11,12 @@ The building block. All objects defined in Cbject need to extend cbject_Object.
 end::overview[] ***********************************************************************************/
 #ifndef CBJECT_OBJECT_H
 #define CBJECT_OBJECT_H
-#include "cbject_utils.h"
+#include "cbject_config.h"
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 
-/*************************************************************************************** tag::type[]
+/*************************************************************************************************** tag::type[]
 = cbject_Object
 ====
 ----
@@ -27,7 +27,7 @@ Typedef for struct cbject_Object
 end::type[] ***************************************************************************************/
 typedef struct cbject_Object cbject_Object;
 
-/*************************************************************************************** tag::type[]
+/*************************************************************************************************** tag::type[]
 = cbject_ObjectClass
 ====
 ----
@@ -38,12 +38,34 @@ Typedef for struct cbject_ObjectClass
 end::type[] ***************************************************************************************/
 typedef struct cbject_ObjectClass cbject_ObjectClass;
 
+/*************************************************************************************************** tag::type[]
+= cbject_ObjectClass
+====
+----
 typedef enum {
     cbject_Object_UsageStatus_free = 0,
     cbject_Object_UsageStatus_inUse
 } cbject_Object_UsageStatus;
+----
+Typedef and struct definition for cbject_Object_UsageStatus
 
-/*************************************************************************************** tag::type[]
+.Remark
+Used for static pool functionality
+
+.Values
+* free
+* inUse
+
+====
+end::type[] ***************************************************************************************/
+#if cbject_config_useStaticPool == true
+typedef enum {
+    cbject_Object_UsageStatus_free = 0,
+    cbject_Object_UsageStatus_inUse
+} cbject_Object_UsageStatus;
+#endif
+
+/*************************************************************************************************** tag::type[]
 = struct cbject_Object
 ====
 ----
@@ -59,17 +81,20 @@ Definition of struct cbject_Object
 * usageStatus - Usage status of object (free/inUse)
 ====
 end::type[] ***************************************************************************************/
-/*********************************************************************** @startuml(id=cbject_Object)
+/*************************************************************************************************** @startuml(id=cbject_Object)
 object cbject_Object {
-    cbject_ObjectClass const * objectClass;
+    cbject_ObjectClass * objectClass;
+    cbject_Object_UsageStatus usageStatus;
 }
 @enduml *******************************************************************************************/
 struct cbject_Object {
     cbject_ObjectClass * objectClass;
+#if cbject_config_useStaticPool == true
     cbject_Object_UsageStatus usageStatus;
+#endif
 };
 
-/*************************************************************************************** tag::type[]
+/*************************************************************************************************** tag::type[]
 = struct cbject_ObjectClass
 ====
 ----
@@ -81,13 +106,13 @@ struct cbject_ObjectClass {
     uint64_t poolSize;
     cbject_Object * firstFreeObject;
     cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
+    void * (*release)(cbject_Object * const object);
     cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
+    void * (*dealloc)(cbject_Object * const object);
     uint64_t (*hashCode)(cbject_Object const * const object);
     cbject_Object * (*copy)(cbject_Object const * const object, cbject_Object * const copyObject);
     bool (*equals)(cbject_Object const * const object, cbject_Object const * const otherObject);
     cbject_Object * (*terminate)(cbject_Object * object);
-    void * (*release)(cbject_Object * const object);
-    void * (*dealloc)(cbject_Object * const object);
 };
 ----
 Definition of struct cbject_ObjectClass
@@ -100,16 +125,16 @@ Definition of struct cbject_ObjectClass
 * poolSize - Size of pool (number of objects in pool)
 * firstFreeObject - Reference to the first free object in the pool
 * acquire - Acquire method reference
+* release - Release method reference
 * alloc - Alloc method reference
+* dealloc - Dealloc method reference
 * hashCode - Hash code method reference
 * copy - Copy method reference
 * equals - Equals method reference
 * terminate - Terminate method reference
-* release - Release method reference
-* dealloc - Dealloc method reference
 ====
 end::type[] ***************************************************************************************/
-/****************************************************************** @startuml(id=cbject_ObjectClass)
+/*************************************************************************************************** @startuml(id=cbject_ObjectClass)
 object cbject_ObjectClass {
     char const * name;
     size_t instanceSize;
@@ -118,33 +143,37 @@ object cbject_ObjectClass {
     uint64_t poolSize;
     cbject_Object * firstFreeObject;
     cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
+    void * (*release)(cbject_Object * const object);
     cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
+    void * (*dealloc)(cbject_Object * const object);
     uint64_t (*hashCode)(cbject_Object const * const object);
     cbject_Object * (*copy)(cbject_Object const * const object, cbject_Object * const copyObject);
     bool (*equals)(cbject_Object const * const object, cbject_Object const * const otherObject);
     cbject_Object * (*terminate)(cbject_Object * object);
-    void * (*release)(cbject_Object * const object);
-    void * (*dealloc)(cbject_Object * const object);
 }
 @enduml *******************************************************************************************/
 struct cbject_ObjectClass {
     char const * name;
     size_t instanceSize;
     cbject_ObjectClass const * superClass;
+#if cbject_config_useStaticPool == true
     cbject_Object * pool;
     uint64_t poolSize;
     cbject_Object * firstFreeObject;
     cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
+    void * (*release)(cbject_Object * const object);
+#endif
+#if cbject_config_useHeap == true
     cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
+    void * (*dealloc)(cbject_Object * const object);
+#endif
     uint64_t (*hashCode)(cbject_Object const * const object);
     cbject_Object * (*copy)(cbject_Object const * const object, cbject_Object * const copyObject);
     bool (*equals)(cbject_Object const * const object, cbject_Object const * const otherObject);
     cbject_Object * (*terminate)(cbject_Object * object);
-    void * (*release)(cbject_Object * const object);
-    void * (*dealloc)(cbject_Object * const object);
 };
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_Object_acquire()
 ====
 ----
@@ -159,9 +188,11 @@ Acquires an object from the static pool
 Reference of the acquired object
 ====
 end::function[] ***********************************************************************************/
+#if cbject_config_useStaticPool == true
 cbject_Object * cbject_Object_acquire(cbject_ObjectClass * const objectClass);
+#endif
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_Object_alloc()
 ====
 ----
@@ -176,9 +207,11 @@ Allocates an object in heap memory
 Reference of the allocated object
 ====
 end::function[] ***********************************************************************************/
+#if cbject_config_useHeap == true
 cbject_Object * cbject_Object_alloc(cbject_ObjectClass * const objectClass);
+#endif
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_Object_init()
 ====
 ----
@@ -195,7 +228,25 @@ Initialized object
 end::function[] ***********************************************************************************/
 cbject_Object * cbject_Object_init(cbject_Object * const object);
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
+= cbject_Object_setClass()
+====
+----
+cbject_Object * cbject_Object_setClass(cbject_Object * const object, cbject_ObjectClass * const objectClass);
+----
+Sets the class of the object
+
+.Params
+* object - cbject_Object reference
+* objectClass - cbject_ObjectClass reference
+
+.Return
+Reference to the object
+====
+end::function[] ***********************************************************************************/
+cbject_Object * cbject_Object_setClass(cbject_Object * const object, cbject_ObjectClass * const objectClass);
+
+/*************************************************************************************************** tag::function[]
 = cbject_Object_copy()
 ====
 ----
@@ -213,7 +264,7 @@ Reference of copyObject
 end::function[] ***********************************************************************************/
 cbject_Object * cbject_Object_copy(cbject_Object const * const object, cbject_Object * const copyObject);
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_Object_equals()
 ====
 ----
@@ -232,7 +283,7 @@ Compares two objects
 end::function[] ***********************************************************************************/
 bool cbject_Object_equals(cbject_Object const * const object, cbject_Object const * const otherObject);
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_Object_hashCode()
 ====
 ----
@@ -249,7 +300,7 @@ The hash code of the object
 end::function[] ***********************************************************************************/
 uint64_t cbject_Object_hashCode(cbject_Object const * const object);
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_Object_terminate()
 ====
 ----
@@ -266,7 +317,7 @@ NULL
 end::function[] ***********************************************************************************/
 cbject_Object * cbject_Object_terminate(cbject_Object * const object);
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_Object_release()
 ====
 ----
@@ -281,9 +332,11 @@ Releases the object in the static pool
 NULL
 ====
 end::function[] ***********************************************************************************/
+#if cbject_config_useStaticPool == true
 void * cbject_Object_release(cbject_Object * const object);
+#endif
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_Object_dealloc()
 ====
 ----
@@ -298,9 +351,11 @@ Deallocates memory for an object
 NULL
 ====
 end::function[] ***********************************************************************************/
+#if cbject_config_useHeap == true
 void * cbject_Object_dealloc(cbject_Object * const object);
+#endif
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_Object_isOfClass()
 ====
 ----
@@ -319,7 +374,7 @@ Checks if an object is of a given class
 end::function[] ***********************************************************************************/
 bool cbject_Object_isOfClass(cbject_Object const * const object, cbject_ObjectClass const * const objectClass);
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_ObjectClass_instance()
 ====
 ----
@@ -333,7 +388,7 @@ Reference of the class instance
 end::function[] ***********************************************************************************/
 cbject_ObjectClass * cbject_ObjectClass_instance(void);
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_ObjectClass_setup()
 ====
 ----
@@ -348,16 +403,26 @@ cbject_Class must be defined before using this macro
 * klass - Class reference
 ====
 end::macro[] **************************************************************************************/
-#define cbject_ObjectClass_setup(klass)                                                                                                                                 \
-    *((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class) *)(klass)) =                                                                 \
-        *cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance());                                                                \
-    ((cbject_ObjectClass *)(klass))->name = cbject_utils_Token_stringify(cbject_utils_Pair_getFirst(cbject_Class));                                                     \
-    ((cbject_ObjectClass *)(klass))->instanceSize = sizeof(cbject_utils_Pair_getFirst(cbject_Class));                                                                   \
-    ((cbject_ObjectClass *)(klass))->superClass = (cbject_ObjectClass *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance()); \
-    ((cbject_ObjectClass *)(klass))->pool = (cbject_Object *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool);                        \
-    ((cbject_ObjectClass *)(klass))->poolSize = cbject_utils_Array_length(cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool))
+#if cbject_config_useStaticPool == true
+    #define cbject_ObjectClass_setup(klass)                                                                                                                                 \
+        *((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class) *)(klass)) =                                                                 \
+            *cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance());                                                                \
+        ((cbject_ObjectClass *)(klass))->name = cbject_utils_Token_stringify(cbject_utils_Pair_getFirst(cbject_Class));                                                     \
+        ((cbject_ObjectClass *)(klass))->instanceSize = sizeof(cbject_utils_Pair_getFirst(cbject_Class));                                                                   \
+        ((cbject_ObjectClass *)(klass))->superClass = (cbject_ObjectClass *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance()); \
+        ((cbject_ObjectClass *)(klass))->pool = (cbject_Object *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool);                        \
+        ((cbject_ObjectClass *)(klass))->poolSize = cbject_utils_Array_length(cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool));          \
+        ((cbject_ObjectClass *)(klass))->firstFreeObject = (cbject_Object *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool)
+#else
+    #define cbject_ObjectClass_setup(klass)                                                                             \
+        *((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class) *)(klass)) =             \
+            *cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance());            \
+        ((cbject_ObjectClass *)(klass))->name = cbject_utils_Token_stringify(cbject_utils_Pair_getFirst(cbject_Class)); \
+        ((cbject_ObjectClass *)(klass))->instanceSize = sizeof(cbject_utils_Pair_getFirst(cbject_Class));               \
+        ((cbject_ObjectClass *)(klass))->superClass = (cbject_ObjectClass *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance())
+#endif
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_Object_class()
 ====
 ----
@@ -375,7 +440,7 @@ end::macro[] *******************************************************************
 #define cbject_Object_class(object) \
     ((cbject_Object *)(object))->objectClass
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_Object_instanceSize()
 ====
 ----

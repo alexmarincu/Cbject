@@ -532,22 +532,29 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_api">2. API</a>
 <ul class="sectlevel2">
-<li><a href="#_cbject_object">2.1. cbject_Object</a>
+<li><a href="#_cbject">2.1. cbject</a>
 <ul class="sectlevel3">
 <li><a href="#_overview_2">2.1.1. Overview</a></li>
-<li><a href="#_types">2.1.2. Types</a>
+</ul>
+</li>
+<li><a href="#_cbject_object">2.2. cbject_Object</a>
+<ul class="sectlevel3">
+<li><a href="#_overview_3">2.2.1. Overview</a></li>
+<li><a href="#_types">2.2.2. Types</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_object_2">cbject_Object</a></li>
 <li><a href="#_cbject_objectclass">cbject_ObjectClass</a></li>
+<li><a href="#_cbject_objectclass_2">cbject_ObjectClass</a></li>
 <li><a href="#_struct_cbject_object">struct cbject_Object</a></li>
 <li><a href="#_struct_cbject_objectclass">struct cbject_ObjectClass</a></li>
 </ul>
 </li>
-<li><a href="#_functions">2.1.3. Functions</a>
+<li><a href="#_functions">2.2.3. Functions</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_object_acquire">cbject_Object_acquire()</a></li>
 <li><a href="#_cbject_object_alloc">cbject_Object_alloc()</a></li>
 <li><a href="#_cbject_object_init">cbject_Object_init()</a></li>
+<li><a href="#_cbject_object_setclass">cbject_Object_setClass()</a></li>
 <li><a href="#_cbject_object_copy">cbject_Object_copy()</a></li>
 <li><a href="#_cbject_object_equals">cbject_Object_equals()</a></li>
 <li><a href="#_cbject_object_hashcode">cbject_Object_hashCode()</a></li>
@@ -558,14 +565,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_objectclass_instance">cbject_ObjectClass_instance()</a></li>
 </ul>
 </li>
-<li><a href="#_macros">2.1.4. Macros</a>
+<li><a href="#_macros">2.2.4. Macros</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_objectclass_setup">cbject_ObjectClass_setup()</a></li>
 <li><a href="#_cbject_object_class">cbject_Object_class()</a></li>
 <li><a href="#_cbject_object_instancesize">cbject_Object_instanceSize()</a></li>
 </ul>
 </li>
-<li><a href="#_tests">2.1.5. Tests</a>
+<li><a href="#_tests">2.2.5. Tests</a>
 <ul class="sectlevel4">
 <li><a href="#_test_cbject_objectclass">test_cbject_ObjectClass</a></li>
 <li><a href="#_test_cbject_object_init">test_cbject_Object_init</a></li>
@@ -577,10 +584,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#_cbject_singleton">2.2. cbject_Singleton</a>
+<li><a href="#_cbject_singleton">2.3. cbject_Singleton</a>
 <ul class="sectlevel3">
-<li><a href="#_overview_3">2.2.1. Overview</a></li>
-<li><a href="#_types_2">2.2.2. Types</a>
+<li><a href="#_overview_4">2.3.1. Overview</a></li>
+<li><a href="#_types_2">2.3.2. Types</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_singleton_2">cbject_Singleton</a></li>
 <li><a href="#_cbject_singletonclass">cbject_SingletonClass</a></li>
@@ -588,7 +595,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_struct_cbject_singletonclass">struct cbject_SingletonClass</a></li>
 </ul>
 </li>
-<li><a href="#_functions_2">2.2.3. Functions</a>
+<li><a href="#_functions_2">2.3.3. Functions</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_singleton_init">cbject_Singleton_init()</a></li>
 <li><a href="#_cbject_singletonclass_instance">cbject_SingletonClass_instance()</a></li>
@@ -596,14 +603,82 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#_cbject_utils">2.3. cbject_utils</a>
+<li><a href="#_cbject_node">2.4. cbject_Node</a>
 <ul class="sectlevel3">
-<li><a href="#_overview_4">2.3.1. Overview</a></li>
-<li><a href="#_macros_2">2.3.2. Macros</a>
+<li><a href="#_overview_5">2.4.1. Overview</a></li>
+<li><a href="#_types_3">2.4.2. Types</a>
+<ul class="sectlevel4">
+<li><a href="#_cbject_node_2">cbject_Node</a></li>
+<li><a href="#_cbject_nodeclass">cbject_NodeClass</a></li>
+<li><a href="#_struct_cbject_node">struct cbject_Node</a></li>
+<li><a href="#_struct_cbject_nodeclass">struct cbject_NodeClass</a></li>
+</ul>
+</li>
+<li><a href="#_functions_3">2.4.3. Functions</a>
+<ul class="sectlevel4">
+<li><a href="#_cbject_node_init">cbject_Node_init()</a></li>
+<li><a href="#_cbject_node_getdataobject">cbject_Node_getDataObject()</a></li>
+<li><a href="#_cbject_node_getprevious">cbject_Node_getPrevious()</a></li>
+<li><a href="#_cbject_node_setprevious">cbject_Node_setPrevious()</a></li>
+<li><a href="#_cbject_node_getnext">cbject_Node_getNext()</a></li>
+<li><a href="#_cbject_node_setnext">cbject_Node_setNext()</a></li>
+<li><a href="#_cbject_nodeclass_instance">cbject_NodeClass_instance()</a></li>
+</ul>
+</li>
+<li><a href="#_tests_2">2.4.4. Tests</a>
+<ul class="sectlevel4">
+<li><a href="#_test_cbject_node_init">test_cbject_Node_init</a></li>
+<li><a href="#_test_cbject_node_setters">test_cbject_Node_setters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_cbject_linkedlist">2.5. cbject_LinkedList</a>
+<ul class="sectlevel3">
+<li><a href="#_overview_6">2.5.1. Overview</a></li>
+<li><a href="#_types_4">2.5.2. Types</a>
+<ul class="sectlevel4">
+<li><a href="#_cbject_linkedlist_2">cbject_LinkedList</a></li>
+<li><a href="#_cbject_linkedlistclass">cbject_LinkedListClass</a></li>
+<li><a href="#_struct_cbject_linkedlist">struct cbject_LinkedList</a></li>
+<li><a href="#_struct_cbject_linkedlistclass">struct cbject_LinkedListClass</a></li>
+</ul>
+</li>
+<li><a href="#_functions_4">2.5.3. Functions</a>
+<ul class="sectlevel4">
+<li><a href="#_cbject_linkedlist_init">cbject_LinkedList_init()</a></li>
+<li><a href="#_cbject_linkedlist_isempty">cbject_LinkedList_isEmpty()</a></li>
+<li><a href="#_cbject_linkedlist_addlast">cbject_LinkedList_addLast()</a></li>
+<li><a href="#_cbject_linkedlist_addfirst">cbject_LinkedList_addFirst()</a></li>
+<li><a href="#_cbject_linkedlist_removelast">cbject_LinkedList_removeLast()</a></li>
+<li><a href="#_cbject_linkedlist_removefirst">cbject_LinkedList_removeFirst()</a></li>
+<li><a href="#_cbject_linkedlist_clear">cbject_LinkedList_clear()</a></li>
+<li><a href="#_cbject_linkedlist_getfirst">cbject_LinkedList_getFirst()</a></li>
+<li><a href="#_cbject_linkedlist_getlast">cbject_LinkedList_getLast()</a></li>
+<li><a href="#_cbject_linkedlist_getsize">cbject_LinkedList_getSize()</a></li>
+<li><a href="#_cbject_linkedlistclass_instance">cbject_LinkedListClass_instance()</a></li>
+</ul>
+</li>
+<li><a href="#_tests_3">2.5.4. Tests</a>
+<ul class="sectlevel4">
+<li><a href="#_test_cbject_linkedlist_init">test_cbject_LinkedList_init</a></li>
+<li><a href="#_test_cbject_linkedlist_addfirst">test_cbject_LinkedList_addFirst</a></li>
+<li><a href="#_test_cbject_linkedlist_addlast">test_cbject_LinkedList_addLast</a></li>
+<li><a href="#_test_cbject_linkedlist_removefirst">test_cbject_LinkedList_removeFirst</a></li>
+<li><a href="#_test_cbject_linkedlist_removelast">test_cbject_LinkedList_removeLast</a></li>
+<li><a href="#_test_cbject_linkedlist_clear">test_cbject_LinkedList_clear</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_cbject_utils">2.6. cbject_utils</a>
+<ul class="sectlevel3">
+<li><a href="#_overview_7">2.6.1. Overview</a></li>
+<li><a href="#_macros_2">2.6.2. Macros</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_utils_acquire">cbject_utils_acquire()</a></li>
 <li><a href="#_cbject_utils_alloc">cbject_utils_alloc()</a></li>
-<li><a href="#_cbject_utils_stackalloc">cbject_utils_stackalloc()</a></li>
+<li><a href="#_cbject_utils_stackalloc">cbject_utils_stackAlloc()</a></li>
 <li><a href="#_cbject_utils_hashcode">cbject_utils_hashCode()</a></li>
 <li><a href="#_cbject_utils_equals">cbject_utils_equals()</a></li>
 <li><a href="#_cbject_utils_copy">cbject_utils_copy()</a></li>
@@ -628,11 +703,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_utils_pair_getsecond">cbject_utils_Pair_getSecond()</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#_cbject">2.4. cbject</a>
-<ul class="sectlevel3">
-<li><a href="#_overview_5">2.4.1. Overview</a></li>
 </ul>
 </li>
 </ul>
@@ -707,13 +777,13 @@ cbject_utils_dealloc(object);</pre>
 <h3 id="_cbject_object_model">1.3. cbject_Object model</h3>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-bb7272de8110207b1e5018ec874caed5.png" alt="Diagram" width="719" height="239">
+<img src="media/diag-bb7272de8110207b1e5018ec874caed5.png" alt="Diagram" width="724" height="239">
 </div>
 <div class="title">Figure 1. Building blocks</div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-3b2a34e86534ad868ccb58092e86e597.png" alt="Diagram" width="567" height="934">
+<img src="media/diag-3b2a34e86534ad868ccb58092e86e597.png" alt="Diagram" width="572" height="948">
 </div>
 <div class="title">Figure 2. Rectangle class example</div>
 </div>
@@ -724,12 +794,21 @@ cbject_utils_dealloc(object);</pre>
 <h2 id="_api">2. API</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_cbject_object">2.1. cbject_Object</h3>
+<h3 id="_cbject">2.1. cbject</h3>
 <div class="sect3">
 <h4 id="_overview_2">2.1.1. Overview</h4>
+<div class="paragraph">
+<p>Cbject framework</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cbject_object">2.2. cbject_Object</h3>
+<div class="sect3">
+<h4 id="_overview_3">2.2.1. Overview</h4>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-4cf4d0c1c86ef8e9f690a8f4a511d0b0.png" alt="Diagram" width="719" height="239">
+<img src="media/diag-b733fd6bec96a444b6b85d3521c27ebe.png" alt="Diagram" width="724" height="239">
 </div>
 <div class="title">Figure 3. Context diagram</div>
 </div>
@@ -738,7 +817,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_types">2.1.2. Types</h4>
+<h4 id="_types">2.2.2. Types</h4>
 <div class="sect4">
 <h5 id="_cbject_object_2">cbject_Object</h5>
 <div class="exampleblock">
@@ -765,6 +844,39 @@ cbject_utils_dealloc(object);</pre>
 </div>
 <div class="paragraph">
 <p>Typedef for struct cbject_ObjectClass</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_objectclass_2">cbject_ObjectClass</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>typedef enum {
+    cbject_Object_UsageStatus_free = 0,
+    cbject_Object_UsageStatus_inUse
+} cbject_Object_UsageStatus;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Typedef and struct definition for cbject_Object_UsageStatus</p>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>Used for static pool functionality</p>
+</div>
+<div class="ulist">
+<div class="title">Values</div>
+<ul>
+<li>
+<p>free</p>
+</li>
+<li>
+<p>inUse</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -812,13 +924,13 @@ cbject_utils_dealloc(object);</pre>
     uint64_t poolSize;
     cbject_Object * firstFreeObject;
     cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
+    void * (*release)(cbject_Object * const object);
     cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
+    void * (*dealloc)(cbject_Object * const object);
     uint64_t (*hashCode)(cbject_Object const * const object);
     cbject_Object * (*copy)(cbject_Object const * const object, cbject_Object * const copyObject);
     bool (*equals)(cbject_Object const * const object, cbject_Object const * const otherObject);
     cbject_Object * (*terminate)(cbject_Object * object);
-    void * (*release)(cbject_Object * const object);
-    void * (*dealloc)(cbject_Object * const object);
 };</pre>
 </div>
 </div>
@@ -850,7 +962,13 @@ cbject_utils_dealloc(object);</pre>
 <p>acquire - Acquire method reference</p>
 </li>
 <li>
+<p>release - Release method reference</p>
+</li>
+<li>
 <p>alloc - Alloc method reference</p>
+</li>
+<li>
+<p>dealloc - Dealloc method reference</p>
 </li>
 <li>
 <p>hashCode - Hash code method reference</p>
@@ -864,12 +982,6 @@ cbject_utils_dealloc(object);</pre>
 <li>
 <p>terminate - Terminate method reference</p>
 </li>
-<li>
-<p>release - Release method reference</p>
-</li>
-<li>
-<p>dealloc - Dealloc method reference</p>
-</li>
 </ul>
 </div>
 </div>
@@ -877,7 +989,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_functions">2.1.3. Functions</h4>
+<h4 id="_functions">2.2.3. Functions</h4>
 <div class="sect4">
 <h5 id="_cbject_object_acquire">cbject_Object_acquire()</h5>
 <div class="exampleblock">
@@ -955,6 +1067,36 @@ cbject_utils_dealloc(object);</pre>
 <div class="paragraph">
 <div class="title">Return</div>
 <p>Initialized object</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_object_setclass">cbject_Object_setClass()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_Object * cbject_Object_setClass(cbject_Object * const object, cbject_ObjectClass * const objectClass);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sets the class of the object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - cbject_Object reference</p>
+</li>
+<li>
+<p>objectClass - cbject_ObjectClass reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference to the object</p>
 </div>
 </div>
 </div>
@@ -1192,7 +1334,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_macros">2.1.4. Macros</h4>
+<h4 id="_macros">2.2.4. Macros</h4>
 <div class="sect4">
 <h5 id="_cbject_objectclass_setup">cbject_ObjectClass_setup()</h5>
 <div class="exampleblock">
@@ -1276,7 +1418,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_tests">2.1.5. Tests</h4>
+<h4 id="_tests">2.2.5. Tests</h4>
 <div class="sect4">
 <h5 id="_test_cbject_objectclass">test_cbject_ObjectClass</h5>
 <div class="exampleblock">
@@ -1438,18 +1580,18 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_cbject_singleton">2.2. cbject_Singleton</h3>
+<h3 id="_cbject_singleton">2.3. cbject_Singleton</h3>
 <div class="sect3">
-<h4 id="_overview_3">2.2.1. Overview</h4>
+<h4 id="_overview_4">2.3.1. Overview</h4>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-06bea69b0a11b93119b85837b612f6d6.png" alt="Diagram" width="569" height="442">
+<img src="media/diag-34b36c4a33b760dfaa59cbf855274895.png" alt="Diagram" width="574" height="456">
 </div>
 <div class="title">Figure 4. Context diagram</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_types_2">2.2.2. Types</h4>
+<h4 id="_types_2">2.3.2. Types</h4>
 <div class="sect4">
 <h5 id="_cbject_singleton_2">cbject_Singleton</h5>
 <div class="exampleblock">
@@ -1533,7 +1675,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_functions_2">2.2.3. Functions</h4>
+<h4 id="_functions_2">2.3.3. Functions</h4>
 <div class="sect4">
 <h5 id="_cbject_singleton_init">cbject_Singleton_init()</h5>
 <div class="exampleblock">
@@ -1567,7 +1709,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_SingletonClass const * cbject_SingletonClass_instance(void);</pre>
+<pre>cbject_SingletonClass * cbject_SingletonClass_instance(void);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1583,15 +1725,919 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_cbject_utils">2.3. cbject_utils</h3>
+<h3 id="_cbject_node">2.4. cbject_Node</h3>
 <div class="sect3">
-<h4 id="_overview_4">2.3.1. Overview</h4>
+<h4 id="_overview_5">2.4.1. Overview</h4>
+<div class="paragraph">
+<p>Node data structure used in linked lists</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/diag-a1be9081dcd020cf4154188503f98364.png" alt="Diagram" width="574" height="497">
+</div>
+<div class="title">Figure 5. Context diagram</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_types_3">2.4.2. Types</h4>
+<div class="sect4">
+<h5 id="_cbject_node_2">cbject_Node</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>typedef struct cbject_Node cbject_Node;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Typedef for struct cbject_Node</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_nodeclass">cbject_NodeClass</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>typedef struct cbject_NodeClass cbject_NodeClass;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Typedef for struct cbject_NodeClass</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_struct_cbject_node">struct cbject_Node</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>struct cbject_Node {
+    cbject_Object object;
+    cbject_Object * dataObject;
+    cbject_Node * previous;
+    cbject_Node * next;
+
+};</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Definition of struct cbject_Node</p>
+</div>
+<div class="ulist">
+<div class="title">Members</div>
+<ul>
+<li>
+<p>object - Parent</p>
+</li>
+<li>
+<p>dataObject - Reference to the data object</p>
+</li>
+<li>
+<p>previous - Reference to the previous node</p>
+</li>
+<li>
+<p>next - Reference to the next node</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_struct_cbject_nodeclass">struct cbject_NodeClass</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>struct cbject_NodeClass {
+    cbject_ObjectClass objectClass;
+};</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Definition of struct cbject_NodeClass</p>
+</div>
+<div class="ulist">
+<div class="title">Members</div>
+<ul>
+<li>
+<p>cbject_ObjectCLass - class of parent</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_functions_3">2.4.3. Functions</h4>
+<div class="sect4">
+<h5 id="_cbject_node_init">cbject_Node_init()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_Node * cbject_Node_init(cbject_Node * const node, cbject_Object * const object);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Initializes a Node</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>node - cbject_Node reference</p>
+</li>
+<li>
+<p>object - Object to store in the node</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Initialized Node</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_node_getdataobject">cbject_Node_getDataObject()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_Object * cbject_Node_getDataObject(cbject_Node const * const node);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets the data object contained in the node</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>node - cbject_Node reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Data object in the node</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_node_getprevious">cbject_Node_getPrevious()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_Node * cbject_Node_getPrevious(cbject_Node const * const node);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets the previous node</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>node - cbject_Node reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>The previous node</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_node_setprevious">cbject_Node_setPrevious()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>void cbject_Node_setPrevious(cbject_Node * const node, cbject_Node * const previousNode);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sets the previous node</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>node - cbject_Node reference</p>
+</li>
+<li>
+<p>previousNode - cbject_Node reference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_node_getnext">cbject_Node_getNext()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_Node * cbject_Node_getNext(cbject_Node const * const node);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets the next node</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>node - cbject_Node reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>The next node</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_node_setnext">cbject_Node_setNext()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>void cbject_Node_setNext(cbject_Node * const node, cbject_Node * const nextNode);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sets the next node</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>node - cbject_Node reference</p>
+</li>
+<li>
+<p>nextNode - cbject_Node reference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_nodeclass_instance">cbject_NodeClass_instance()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_NodeClass * cbject_NodeClass_instance(void);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets cbject_NodeClass instance</p>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the class instance</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_tests_2">2.4.4. Tests</h4>
+<div class="sect4">
+<h5 id="_test_cbject_node_init">test_cbject_Node_init</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test Node initialization</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Create an object and a node which takes the object as input</p>
+</li>
+<li>
+<p>Check node state</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_test_cbject_node_setters">test_cbject_Node_setters</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test Node setters</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Create 3 nodes (node, previousNode, nextNode)</p>
+</li>
+<li>
+<p>Set previous and next nodes to the first node</p>
+</li>
+<li>
+<p>Check the node state</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cbject_linkedlist">2.5. cbject_LinkedList</h3>
+<div class="sect3">
+<h4 id="_overview_6">2.5.1. Overview</h4>
+<div class="paragraph">
+<p>Linked list data structure</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="media/diag-ffaa869248eb57687b44897bf078b32f.png" alt="Diagram" width="654" height="525">
+</div>
+<div class="title">Figure 6. Context diagram</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_types_4">2.5.2. Types</h4>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_2">cbject_LinkedList</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>typedef struct cbject_LinkedList cbject_LinkedList;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Typedef for struct cbject_LinkedList</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlistclass">cbject_LinkedListClass</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>typedef struct cbject_LinkedListClass cbject_LinkedListClass;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Typedef for struct cbject_LinkedListClass</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_struct_cbject_linkedlist">struct cbject_LinkedList</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>struct cbject_LinkedList {
+    cbject_Object object;
+    cbject_Object * (*nodeConstruct)(cbject_ObjectClass * const objectClass);
+    void * (*nodeDestruct)(cbject_Object * const object);
+    cbject_Node * first;
+    cbject_Node * last;
+    uint64_t size;
+};</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Definition of struct cbject_LinkedList</p>
+</div>
+<div class="ulist">
+<div class="title">Members</div>
+<ul>
+<li>
+<p>object - Parent</p>
+</li>
+<li>
+<p>nodeConstruct - Reference to Node constructor method (alloc or acquire)</p>
+</li>
+<li>
+<p>nodeDestruct - Reference to Node destructor method (dealloc or release)</p>
+</li>
+<li>
+<p>first - Reference to the first node in the list</p>
+</li>
+<li>
+<p>last - Reference to the last node in the list</p>
+</li>
+<li>
+<p>size - Size of the list (number of elements)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_struct_cbject_linkedlistclass">struct cbject_LinkedListClass</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>struct cbject_LinkedListClass {
+    cbject_ObjectClass objectClass;
+};</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Definition of struct cbject_LinkedListClass</p>
+</div>
+<div class="ulist">
+<div class="title">Members</div>
+<ul>
+<li>
+<p>cbject_ObjectCLass - class of parent</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_functions_4">2.5.3. Functions</h4>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_init">cbject_LinkedList_init()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_LinkedList * cbject_LinkedList_init(
+    cbject_LinkedList * const linkedList,
+    cbject_Object * (*nodeConstruct)(cbject_ObjectClass * const objectClass),
+    void * (*nodeDestruct)(cbject_Object * const object)
+);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Initializes a LinkedList</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>linkedList - cbject_LinkedList reference</p>
+</li>
+<li>
+<p>nodeConstruct - Reference to Node constructor method (alloc or acquire)</p>
+</li>
+<li>
+<p>nodeDestruct - Reference to Node destructor method (dealloc or release)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Initialized and empty LinkedList</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_isempty">cbject_LinkedList_isEmpty()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const linkedList);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Checks if list is empty</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>linkedList - cbject_LinkedList reference</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Return</div>
+<ul>
+<li>
+<p>true - if list is empty</p>
+</li>
+<li>
+<p>false - if list is not empty</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_addlast">cbject_LinkedList_addLast()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>void cbject_LinkedList_addLast(cbject_LinkedList * const linkedList, cbject_Object * const object);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Adds an element to the end of the list</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>linkedList - cbject_LinkedList reference</p>
+</li>
+<li>
+<p>object - Object to be added in the list</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_addfirst">cbject_LinkedList_addFirst()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>void cbject_LinkedList_addFirst(cbject_LinkedList * const linkedList, cbject_Object * const object);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Adds an element at the beginning of the list</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>linkedList - cbject_LinkedList reference</p>
+</li>
+<li>
+<p>object - Object to be added in the list</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_removelast">cbject_LinkedList_removeLast()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>void cbject_LinkedList_removeLast(cbject_LinkedList * const linkedList);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Removes last element in the list</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>linkedList - cbject_LinkedList reference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_removefirst">cbject_LinkedList_removeFirst()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>void cbject_LinkedList_removeFirst(cbject_LinkedList * const linkedList);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Removes first element in the list</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>linkedList - cbject_LinkedList reference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_clear">cbject_LinkedList_clear()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>void cbject_LinkedList_clear(cbject_LinkedList * const linkedList);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Removes all elements from the list</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>linkedList - cbject_LinkedList reference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_getfirst">cbject_LinkedList_getFirst()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_Node * cbject_LinkedList_getFirst(cbject_LinkedList const * const linkedList);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets the first element in the list</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>linkedList - cbject_LinkedList reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>First element in list</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_getlast">cbject_LinkedList_getLast()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_Node * cbject_LinkedList_getLast(cbject_LinkedList const * const linkedList);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets the last element in the list</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>linkedList - cbject_LinkedList reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Last element in list</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_getsize">cbject_LinkedList_getSize()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const linkedList);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets the size of the list (number of elements)</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>linkedList - cbject_LinkedList reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Size of list (number of elements)</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlistclass_instance">cbject_LinkedListClass_instance()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_LinkedListClass * cbject_LinkedListClass_instance(void);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets cbject_LinkedListClass instance</p>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Reference of the class instance</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_tests_3">2.5.4. Tests</h4>
+<div class="sect4">
+<h5 id="_test_cbject_linkedlist_init">test_cbject_LinkedList_init</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test LinkedList initialization</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Create a linked list</p>
+</li>
+<li>
+<p>Check class and members</p>
+</li>
+<li>
+<p>Terminate the linked list</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_test_cbject_linkedlist_addfirst">test_cbject_LinkedList_addFirst</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test adding elements at beginning of LinkedList</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Create a linked list and some objects</p>
+</li>
+<li>
+<p>Add the objects to the list and check the list and nodes states</p>
+</li>
+<li>
+<p>Terminate the linked list</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_test_cbject_linkedlist_addlast">test_cbject_LinkedList_addLast</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test adding elements at the end of LinkedList</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Create a linked list and some objects</p>
+</li>
+<li>
+<p>Add the objects to the list and check the list and nodes states</p>
+</li>
+<li>
+<p>Terminate the linked list</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_test_cbject_linkedlist_removefirst">test_cbject_LinkedList_removeFirst</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test removing elements at the beginning of the list</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Create a linked list and some objects</p>
+</li>
+<li>
+<p>Add the objects to the list, remove them from the list and check the list and nodes states</p>
+</li>
+<li>
+<p>Terminate the linked list</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_test_cbject_linkedlist_removelast">test_cbject_LinkedList_removeLast</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test removing elements at the end of the list</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Create a linked list and some objects</p>
+</li>
+<li>
+<p>Add the objects to the list, remove them from the list and check the list and nodes states</p>
+</li>
+<li>
+<p>Terminate the linked list</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_test_cbject_linkedlist_clear">test_cbject_LinkedList_clear</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test clearing elements from a list</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Create a linked list and some objects</p>
+</li>
+<li>
+<p>Add the objects to the list, clear the list and check the list and nodes states</p>
+</li>
+<li>
+<p>Terminate the linked list</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cbject_utils">2.6. cbject_utils</h3>
+<div class="sect3">
+<h4 id="_overview_7">2.6.1. Overview</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_macros_2">2.3.2. Macros</h4>
+<h4 id="_macros_2">2.6.2. Macros</h4>
 <div class="sect4">
 <h5 id="_cbject_utils_acquire">cbject_utils_acquire()</h5>
 <div class="exampleblock">
@@ -1655,12 +2701,12 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_stackalloc">cbject_utils_stackalloc()</h5>
+<h5 id="_cbject_utils_stackalloc">cbject_utils_stackAlloc()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_stackalloc(klass)</pre>
+<pre>cbject_utils_stackAlloc(klass)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2332,15 +3378,6 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_cbject">2.4. cbject</h3>
-<div class="sect3">
-<h4 id="_overview_5">2.4.1. Overview</h4>
-<div class="paragraph">
-<p>todo</p>
 </div>
 </div>
 </div>

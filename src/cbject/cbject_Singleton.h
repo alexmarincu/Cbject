@@ -1,4 +1,4 @@
-/*********************************************************************************** tag::overview[]
+/*************************************************************************************************** tag::overview[]
 [plantuml]
 .Context diagram
 ----
@@ -15,7 +15,7 @@ end::overview[] ****************************************************************
 #define CBJECT_SINGLETON_H
 #include "cbject_Object.h"
 
-/*************************************************************************************** tag::type[]
+/*************************************************************************************************** tag::type[]
 = cbject_Singleton
 ====
 ----
@@ -26,7 +26,7 @@ Typedef for struct cbject_Singleton
 end::type[] ***************************************************************************************/
 typedef struct cbject_Singleton cbject_Singleton;
 
-/*************************************************************************************** tag::type[]
+/*************************************************************************************************** tag::type[]
 = cbject_SingletonClass
 ====
 ----
@@ -37,7 +37,7 @@ Typedef for struct cbject_SingletonClass
 end::type[] ***************************************************************************************/
 typedef struct cbject_SingletonClass cbject_SingletonClass;
 
-/*************************************************************************************** tag::type[]
+/*************************************************************************************************** tag::type[]
 = struct cbject_Singleton
 ====
 ----
@@ -61,7 +61,7 @@ struct cbject_Singleton {
     cbject_Object object;
 };
 
-/*************************************************************************************** tag::type[]
+/*************************************************************************************************** tag::type[]
 = struct cbject_SingletonClass
 ====
 ----
@@ -84,7 +84,7 @@ struct cbject_SingletonClass {
     cbject_ObjectClass objectClass;
 };
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_Singleton_init()
 ====
 ----
@@ -101,11 +101,11 @@ Initialized singleton
 end::function[] ***********************************************************************************/
 cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const singleton);
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_SingletonClass_instance()
 ====
 ----
-cbject_SingletonClass const * cbject_SingletonClass_instance(void);
+cbject_SingletonClass * cbject_SingletonClass_instance(void);
 ----
 Gets cbject_SingletonClass instance
 
@@ -113,6 +113,6 @@ Gets cbject_SingletonClass instance
 Reference of the class instance
 ====
 end::function[] ***********************************************************************************/
-cbject_SingletonClass const * cbject_SingletonClass_instance(void);
+cbject_SingletonClass * cbject_SingletonClass_instance(void);
 
 #endif // CBJECT_SINGLETON_H

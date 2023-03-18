@@ -1,11 +1,11 @@
-/*********************************************************************************** tag::overview[]
+/*************************************************************************************************** tag::overview[]
 TODO
 end::overview[] ***********************************************************************************/
 #ifndef CBJECT_UTILS_H
 #define CBJECT_UTILS_H
 #include <assert.h>
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_acquire()
 ====
 ----
@@ -26,7 +26,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_acquire(klass) \
     ((klass *)cbject_Object_acquire((cbject_ObjectClass *)klass##Class_instance()))
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_alloc()
 ====
 ----
@@ -47,11 +47,11 @@ end::macro[] *******************************************************************
 #define cbject_utils_alloc(klass) \
     ((klass *)cbject_Object_alloc((cbject_ObjectClass *)klass##Class_instance()))
 
-/************************************************************************************** tag::macro[]
-= cbject_utils_stackalloc()
+/*************************************************************************************************** tag::macro[]
+= cbject_utils_stackAlloc()
 ====
 ----
-cbject_utils_stackalloc(klass)
+cbject_utils_stackAlloc(klass)
 ----
 Allocates an object on the stack
 
@@ -62,10 +62,10 @@ Allocates an object on the stack
 Reference of the allocated memory
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_stackalloc(klass) \
-    (&(klass){ .objectClass = klass##Class_instance() })
+#define cbject_utils_stackAlloc(klass) \
+    ((klass *)cbject_Object_setClass((cbject_Object *)&(klass){}, (cbject_ObjectClass *)klass##Class_instance()))
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_utils_init()
 ====
 ----
@@ -86,7 +86,7 @@ end::function[] ****************************************************************
 #define cbject_utils_init(object) \
     cbject_Object_init((cbject_Object *)(object))
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_hashCode()
 ====
 ----
@@ -107,7 +107,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_hashCode(object) \
     cbject_Object_hashCode((cbject_Object *)(object))
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_equals()
 ====
 ----
@@ -130,7 +130,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_equals(object, otherObject) \
     cbject_Object_equals((cbject_Object *)(object), (cbject_Object *)(otherObject))
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_copy()
 ====
 ----
@@ -152,7 +152,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_copy(object, copyObject) \
     cbject_Object_copy((cbject_Object *)(object), (cbject_Object *)(copyObject))
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_terminate()
 ====
 ----
@@ -173,7 +173,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_terminate(object) \
     cbject_Object_terminate((cbject_Object *)(object))
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_release()
 ====
 ----
@@ -194,7 +194,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_release(object) \
     cbject_Object_release((cbject_Object *)(object))
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_dealloc()
 ====
 ----
@@ -215,7 +215,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_dealloc(object) \
     cbject_Object_dealloc((cbject_Object *)(object))
 
-/*********************************************************************************** tag::function[]
+/*************************************************************************************************** tag::function[]
 = cbject_utils_isOfClass()
 ====
 ----
@@ -238,7 +238,7 @@ end::function[] ****************************************************************
 #define cbject_utils_isOfClass(object, klass) \
     cbject_Object_isOfClass((cbject_Object *)(object), (cbject_ObjectClass *)klass##Class_instance())
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_allocPool()
 ====
 ----
@@ -256,7 +256,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_allocPool(poolSize) \
     static cbject_utils_Pair_getFirst(cbject_Class) cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool)[poolSize]
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_doOnce
 ====
 ----
@@ -280,7 +280,7 @@ end::macro[] *******************************************************************
     static bool isDone = false; \
     for (; isDone == false; isDone = true)
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_invokeMethod()
 ====
 ----
@@ -304,7 +304,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_invokeMethod(method, ...) \
     ((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), Class) *)((cbject_Object *)cbject_utils_VaArgs_getFirst(__VA_ARGS__))->objectClass)->method(__VA_ARGS__)
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_invokeClassMethod()
 ====
 ----
@@ -326,7 +326,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_invokeClassMethod(method, ...) \
     ((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), Class) *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), Class_instance()))->method(__VA_ARGS__)
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_invokeSuperMethod()
 ====
 ----
@@ -351,7 +351,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_invokeSuperMethod(klass, method, ...) \
     ((klass##Class *)((cbject_ObjectClass *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), Class_instance()))->superClass)->method(__VA_ARGS__)
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_Array_length()
 ====
 ----
@@ -366,7 +366,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_Array_length(array) \
     (sizeof(array) / sizeof(array[0]))
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_assertStatic()
 ====
 ----
@@ -382,7 +382,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_assertStatic(expression, identifier) \
     typedef char identifier[(!!(expression)) * 2 - 1]
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_Token_concat()
 ====
 ----
@@ -398,7 +398,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_Token_concat(token, otherToken) \
     token##otherToken
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_Token_concatIndirect()
 ====
 ----
@@ -414,7 +414,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_Token_concatIndirect(token, otherToken) \
     cbject_utils_Token_concat(token, otherToken)
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_Token_stringify()
 ====
 ----
@@ -429,7 +429,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_Token_stringify(token) \
     #token
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_Token_stringifyIndirect()
 ====
 ----
@@ -444,7 +444,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_Token_stringifyIndirect(token) \
     cbject_utils_Token_stringify(token)
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_VaArgs_getFirst()
 ====
 ----
@@ -461,7 +461,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_VaArgs_getFirst_(first, ...) \
     first
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_VaArgs_getSecond()
 ====
 ----
@@ -478,7 +478,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_VaArgs_getSecond_(first, second, ...) \
     second
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_VaArgs_getRest()
 ====
 ----
@@ -530,7 +530,7 @@ cbject_utils_VaArgs_getRest_case_##case (__VA_ARGS__)
 )                                                     \
     a99
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_Pair_getFirst()
 ====
 ----
@@ -545,7 +545,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_Pair_getFirst(pair) \
     cbject_utils_VaArgs_getFirst pair
 
-/************************************************************************************** tag::macro[]
+/*************************************************************************************************** tag::macro[]
 = cbject_utils_Pair_getSecond()
 ====
 ----

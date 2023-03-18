@@ -2,6 +2,7 @@
     "C_Cpp.intelliSenseEngine": "disabled",
     "clangd.arguments": [
         "--query-driver=/usr/bin/gcc", //for cross compile usage
-        "--compile-commands-dir=build/artifacts"
+        "--compile-commands-dir=build/artifacts",
+        "--header-insertion=never"
     ]
 }
