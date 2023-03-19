@@ -1,5 +1,5 @@
 /*************************************************************************************************** tag::overview[]
-[plantuml]
+[plantuml, target=diag-object]
 .Context diagram
 ----
 !include ../src/cbject/cbject_Object.h!cbject_Object

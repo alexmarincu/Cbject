@@ -1,7 +1,7 @@
 /*************************************************************************************************** tag::overview[]
 Linked list data structure
 
-[plantuml]
+[plantuml, target=diag-linkedList]
 .Context diagram
 ----
 !include ../src/cbject/cbject_LinkedList.h!cbject_LinkedList

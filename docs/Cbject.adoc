@@ -45,7 +45,7 @@ cbject_utils_dealloc(object);
 ====
 
 === cbject_Object model
-[plantuml]
+[plantuml, target=diag-building-blocks]
 .Building blocks
 ----
 !include ../src/cbject/cbject_Object.h!cbject_Object
@@ -53,7 +53,7 @@ cbject_utils_dealloc(object);
 cbject_Object -r-> cbject_ObjectClass
 ----
 
-[plantuml]
+[plantuml, target=diag-rectangle-class-example]
 .Rectangle class example
 ----
 !include ../src/Examples/Rectangle.h!Rectangle
@@ -77,6 +77,13 @@ cbject_Object -r-> RectangleClass
 === cbject
 ==== Overview
 include::../src/cbject/cbject.h[tag=overview, leveloffset=+4]
+
+=== cbject_config
+==== Overview
+include::../src/cbject/cbject_config.h[tag=overview, leveloffset=+4]
+
+==== Macros
+include::../src/cbject/cbject_config.h[tag=macro, leveloffset=+4]
 
 === cbject_Object
 ==== Overview

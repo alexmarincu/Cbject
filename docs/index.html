@@ -537,10 +537,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_overview_2">2.1.1. Overview</a></li>
 </ul>
 </li>
-<li><a href="#_cbject_object">2.2. cbject_Object</a>
+<li><a href="#_cbject_config">2.2. cbject_config</a>
 <ul class="sectlevel3">
 <li><a href="#_overview_3">2.2.1. Overview</a></li>
-<li><a href="#_types">2.2.2. Types</a>
+<li><a href="#_macros">2.2.2. Macros</a>
+<ul class="sectlevel4">
+<li><a href="#_cbject_config_useheap">cbject_config_useHeap</a></li>
+<li><a href="#_cbject_config_usestaticpool">cbject_config_useStaticPool</a></li>
+<li><a href="#_cbject_config_uselinkedlist">cbject_config_useLinkedList</a></li>
+<li><a href="#_cbject_config_linkedlistpoolsize">cbject_config_linkedListPoolSize</a></li>
+<li><a href="#_cbject_config_usenode">cbject_config_useNode</a></li>
+<li><a href="#_cbject_config_nodepoolsize">cbject_config_nodePoolSize</a></li>
+<li><a href="#_cbject_config_usesingleton">cbject_config_useSingleton</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_cbject_object">2.3. cbject_Object</a>
+<ul class="sectlevel3">
+<li><a href="#_overview_4">2.3.1. Overview</a></li>
+<li><a href="#_types">2.3.2. Types</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_object_2">cbject_Object</a></li>
 <li><a href="#_cbject_objectclass">cbject_ObjectClass</a></li>
@@ -550,7 +566,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_struct_cbject_objectclass">struct cbject_ObjectClass</a></li>
 </ul>
 </li>
-<li><a href="#_functions">2.2.3. Functions</a>
+<li><a href="#_functions">2.3.3. Functions</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_object_acquire">cbject_Object_acquire()</a></li>
 <li><a href="#_cbject_object_alloc">cbject_Object_alloc()</a></li>
@@ -566,14 +582,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_objectclass_instance">cbject_ObjectClass_instance()</a></li>
 </ul>
 </li>
-<li><a href="#_macros">2.2.4. Macros</a>
+<li><a href="#_macros_2">2.3.4. Macros</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_objectclass_setup">cbject_ObjectClass_setup()</a></li>
 <li><a href="#_cbject_object_class">cbject_Object_class()</a></li>
 <li><a href="#_cbject_object_instancesize">cbject_Object_instanceSize()</a></li>
 </ul>
 </li>
-<li><a href="#_tests">2.2.5. Tests</a>
+<li><a href="#_tests">2.3.5. Tests</a>
 <ul class="sectlevel4">
 <li><a href="#_test_cbject_objectclass">test_cbject_ObjectClass</a></li>
 <li><a href="#_test_cbject_object_init">test_cbject_Object_init</a></li>
@@ -585,10 +601,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#_cbject_singleton">2.3. cbject_Singleton</a>
+<li><a href="#_cbject_singleton">2.4. cbject_Singleton</a>
 <ul class="sectlevel3">
-<li><a href="#_overview_4">2.3.1. Overview</a></li>
-<li><a href="#_types_2">2.3.2. Types</a>
+<li><a href="#_overview_5">2.4.1. Overview</a></li>
+<li><a href="#_types_2">2.4.2. Types</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_singleton_2">cbject_Singleton</a></li>
 <li><a href="#_cbject_singletonclass">cbject_SingletonClass</a></li>
@@ -596,7 +612,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_struct_cbject_singletonclass">struct cbject_SingletonClass</a></li>
 </ul>
 </li>
-<li><a href="#_functions_2">2.3.3. Functions</a>
+<li><a href="#_functions_2">2.4.3. Functions</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_singleton_init">cbject_Singleton_init()</a></li>
 <li><a href="#_cbject_singletonclass_instance">cbject_SingletonClass_instance()</a></li>
@@ -604,10 +620,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#_cbject_node">2.4. cbject_Node</a>
+<li><a href="#_cbject_node">2.5. cbject_Node</a>
 <ul class="sectlevel3">
-<li><a href="#_overview_5">2.4.1. Overview</a></li>
-<li><a href="#_types_3">2.4.2. Types</a>
+<li><a href="#_overview_6">2.5.1. Overview</a></li>
+<li><a href="#_types_3">2.5.2. Types</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_node_2">cbject_Node</a></li>
 <li><a href="#_cbject_nodeclass">cbject_NodeClass</a></li>
@@ -615,7 +631,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_struct_cbject_nodeclass">struct cbject_NodeClass</a></li>
 </ul>
 </li>
-<li><a href="#_functions_3">2.4.3. Functions</a>
+<li><a href="#_functions_3">2.5.3. Functions</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_node_init">cbject_Node_init()</a></li>
 <li><a href="#_cbject_node_getdataobject">cbject_Node_getDataObject()</a></li>
@@ -626,7 +642,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_nodeclass_instance">cbject_NodeClass_instance()</a></li>
 </ul>
 </li>
-<li><a href="#_tests_2">2.4.4. Tests</a>
+<li><a href="#_tests_2">2.5.4. Tests</a>
 <ul class="sectlevel4">
 <li><a href="#_test_cbject_node_init">test_cbject_Node_init</a></li>
 <li><a href="#_test_cbject_node_setters">test_cbject_Node_setters</a></li>
@@ -634,10 +650,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#_cbject_linkedlist">2.5. cbject_LinkedList</a>
+<li><a href="#_cbject_linkedlist">2.6. cbject_LinkedList</a>
 <ul class="sectlevel3">
-<li><a href="#_overview_6">2.5.1. Overview</a></li>
-<li><a href="#_types_4">2.5.2. Types</a>
+<li><a href="#_overview_7">2.6.1. Overview</a></li>
+<li><a href="#_types_4">2.6.2. Types</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_linkedlist_2">cbject_LinkedList</a></li>
 <li><a href="#_cbject_linkedlistclass">cbject_LinkedListClass</a></li>
@@ -646,7 +662,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_struct_cbject_linkedlistclass">struct cbject_LinkedListClass</a></li>
 </ul>
 </li>
-<li><a href="#_functions_4">2.5.3. Functions</a>
+<li><a href="#_functions_4">2.6.3. Functions</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_linkedlist_init">cbject_LinkedList_init()</a></li>
 <li><a href="#_cbject_linkedlist_isempty">cbject_LinkedList_isEmpty()</a></li>
@@ -661,7 +677,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_linkedlistclass_instance">cbject_LinkedListClass_instance()</a></li>
 </ul>
 </li>
-<li><a href="#_tests_3">2.5.4. Tests</a>
+<li><a href="#_tests_3">2.6.4. Tests</a>
 <ul class="sectlevel4">
 <li><a href="#_test_cbject_linkedlist_init">test_cbject_LinkedList_init</a></li>
 <li><a href="#_test_cbject_linkedlist_addfirst">test_cbject_LinkedList_addFirst</a></li>
@@ -673,10 +689,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#_cbject_utils">2.6. cbject_utils</a>
+<li><a href="#_cbject_utils">2.7. cbject_utils</a>
 <ul class="sectlevel3">
-<li><a href="#_overview_7">2.6.1. Overview</a></li>
-<li><a href="#_macros_2">2.6.2. Macros</a>
+<li><a href="#_overview_8">2.7.1. Overview</a></li>
+<li><a href="#_macros_3">2.7.2. Macros</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_utils_acquire">cbject_utils_acquire()</a></li>
 <li><a href="#_cbject_utils_alloc">cbject_utils_alloc()</a></li>
@@ -782,13 +798,13 @@ cbject_utils_dealloc(object);</pre>
 <h3 id="_cbject_object_model">1.3. cbject_Object model</h3>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-bb7272de8110207b1e5018ec874caed5.png" alt="Diagram" width="767" height="239">
+<img src="media/diag-building-blocks.png" alt="diag building blocks" width="767" height="239">
 </div>
 <div class="title">Figure 1. Building blocks</div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-3b2a34e86534ad868ccb58092e86e597.png" alt="Diagram" width="615" height="961">
+<img src="media/diag-rectangle-class-example.png" alt="diag rectangle class example" width="615" height="961">
 </div>
 <div class="title">Figure 2. Rectangle class example</div>
 </div>
@@ -808,12 +824,200 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_cbject_object">2.2. cbject_Object</h3>
+<h3 id="_cbject_config">2.2. cbject_config</h3>
 <div class="sect3">
 <h4 id="_overview_3">2.2.1. Overview</h4>
+<div class="paragraph">
+<p>Cbject configuration</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_macros">2.2.2. Macros</h4>
+<div class="sect4">
+<h5 id="_cbject_config_useheap">cbject_config_useHeap</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define cbject_config_useHeap configValue</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Heap config</p>
+</div>
+<div class="ulist">
+<div class="title">Values</div>
+<ul>
+<li>
+<p>true</p>
+</li>
+<li>
+<p>false</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_config_usestaticpool">cbject_config_useStaticPool</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define cbject_config_useStaticPool configValue</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Static pool config</p>
+</div>
+<div class="ulist">
+<div class="title">Values</div>
+<ul>
+<li>
+<p>true</p>
+</li>
+<li>
+<p>false</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_config_uselinkedlist">cbject_config_useLinkedList</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define cbject_config_useLinkedList configValue</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>LinkedList config</p>
+</div>
+<div class="ulist">
+<div class="title">Values</div>
+<ul>
+<li>
+<p>true</p>
+</li>
+<li>
+<p>false</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_config_linkedlistpoolsize">cbject_config_linkedListPoolSize</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define cbject_config_linkedListPoolSize configValue</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>LinkedList pool size config</p>
+</div>
+<div class="ulist">
+<div class="title">Values</div>
+<ul>
+<li>
+<p>&gt;= 0</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_config_usenode">cbject_config_useNode</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define cbject_config_useNode configValue</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Node config</p>
+</div>
+<div class="ulist">
+<div class="title">Values</div>
+<ul>
+<li>
+<p>true</p>
+</li>
+<li>
+<p>false</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_config_nodepoolsize">cbject_config_nodePoolSize</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define cbject_config_nodePoolSize configValue</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Node pool size config</p>
+</div>
+<div class="ulist">
+<div class="title">Values</div>
+<ul>
+<li>
+<p>&gt;= 0</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_config_usesingleton">cbject_config_useSingleton</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#define cbject_config_useSingleton configValue</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Singleton config</p>
+</div>
+<div class="ulist">
+<div class="title">Values</div>
+<ul>
+<li>
+<p>true</p>
+</li>
+<li>
+<p>false</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cbject_object">2.3. cbject_Object</h3>
+<div class="sect3">
+<h4 id="_overview_4">2.3.1. Overview</h4>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-1a5930be2e41229ac49432df0a3a8860.png" alt="Diagram" width="767" height="239">
+<img src="media/diag-object.png" alt="diag object" width="767" height="239">
 </div>
 <div class="title">Figure 3. Context diagram</div>
 </div>
@@ -822,7 +1026,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_types">2.2.2. Types</h4>
+<h4 id="_types">2.3.2. Types</h4>
 <div class="sect4">
 <h5 id="_cbject_object_2">cbject_Object</h5>
 <div class="exampleblock">
@@ -1032,7 +1236,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_functions">2.2.3. Functions</h4>
+<h4 id="_functions">2.3.3. Functions</h4>
 <div class="sect4">
 <h5 id="_cbject_object_acquire">cbject_Object_acquire()</h5>
 <div class="exampleblock">
@@ -1377,7 +1581,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_macros">2.2.4. Macros</h4>
+<h4 id="_macros_2">2.3.4. Macros</h4>
 <div class="sect4">
 <h5 id="_cbject_objectclass_setup">cbject_ObjectClass_setup()</h5>
 <div class="exampleblock">
@@ -1461,7 +1665,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_tests">2.2.5. Tests</h4>
+<h4 id="_tests">2.3.5. Tests</h4>
 <div class="sect4">
 <h5 id="_test_cbject_objectclass">test_cbject_ObjectClass</h5>
 <div class="exampleblock">
@@ -1623,18 +1827,18 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_cbject_singleton">2.3. cbject_Singleton</h3>
+<h3 id="_cbject_singleton">2.4. cbject_Singleton</h3>
 <div class="sect3">
-<h4 id="_overview_4">2.3.1. Overview</h4>
+<h4 id="_overview_5">2.4.1. Overview</h4>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-48cee4d679dca47851c26955f98452eb.png" alt="Diagram" width="617" height="469">
+<img src="media/diag-singleton.png" alt="diag singleton" width="617" height="469">
 </div>
 <div class="title">Figure 4. Context diagram</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_types_2">2.3.2. Types</h4>
+<h4 id="_types_2">2.4.2. Types</h4>
 <div class="sect4">
 <h5 id="_cbject_singleton_2">cbject_Singleton</h5>
 <div class="exampleblock">
@@ -1718,7 +1922,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_functions_2">2.3.3. Functions</h4>
+<h4 id="_functions_2">2.4.3. Functions</h4>
 <div class="sect4">
 <h5 id="_cbject_singleton_init">cbject_Singleton_init()</h5>
 <div class="exampleblock">
@@ -1768,21 +1972,21 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_cbject_node">2.4. cbject_Node</h3>
+<h3 id="_cbject_node">2.5. cbject_Node</h3>
 <div class="sect3">
-<h4 id="_overview_5">2.4.1. Overview</h4>
+<h4 id="_overview_6">2.5.1. Overview</h4>
 <div class="paragraph">
 <p>Node data structure used in linked lists</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-a1be9081dcd020cf4154188503f98364.png" alt="Diagram" width="617" height="510">
+<img src="media/diag-node.png" alt="diag node" width="617" height="510">
 </div>
 <div class="title">Figure 5. Context diagram</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_types_3">2.4.2. Types</h4>
+<h4 id="_types_3">2.5.2. Types</h4>
 <div class="sect4">
 <h5 id="_cbject_node_2">cbject_Node</h5>
 <div class="exampleblock">
@@ -1878,7 +2082,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_functions_3">2.4.3. Functions</h4>
+<h4 id="_functions_3">2.5.3. Functions</h4>
 <div class="sect4">
 <h5 id="_cbject_node_init">cbject_Node_init()</h5>
 <div class="exampleblock">
@@ -2063,7 +2267,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_tests_2">2.4.4. Tests</h4>
+<h4 id="_tests_2">2.5.4. Tests</h4>
 <div class="sect4">
 <h5 id="_test_cbject_node_init">test_cbject_Node_init</h5>
 <div class="exampleblock">
@@ -2112,21 +2316,21 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_cbject_linkedlist">2.5. cbject_LinkedList</h3>
+<h3 id="_cbject_linkedlist">2.6. cbject_LinkedList</h3>
 <div class="sect3">
-<h4 id="_overview_6">2.5.1. Overview</h4>
+<h4 id="_overview_7">2.6.1. Overview</h4>
 <div class="paragraph">
 <p>Linked list data structure</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-ffaa869248eb57687b44897bf078b32f.png" alt="Diagram" width="617" height="524">
+<img src="media/diag-linkedList.png" alt="diag linkedList" width="617" height="524">
 </div>
 <div class="title">Figure 6. Context diagram</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_types_4">2.5.2. Types</h4>
+<h4 id="_types_4">2.6.2. Types</h4>
 <div class="sect4">
 <h5 id="_cbject_linkedlist_2">cbject_LinkedList</h5>
 <div class="exampleblock">
@@ -2258,7 +2462,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_functions_4">2.5.3. Functions</h4>
+<h4 id="_functions_4">2.6.3. Functions</h4>
 <div class="sect4">
 <h5 id="_cbject_linkedlist_init">cbject_LinkedList_init()</h5>
 <div class="exampleblock">
@@ -2547,7 +2751,7 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_tests_3">2.5.4. Tests</h4>
+<h4 id="_tests_3">2.6.4. Tests</h4>
 <div class="sect4">
 <h5 id="_test_cbject_linkedlist_init">test_cbject_LinkedList_init</h5>
 <div class="exampleblock">
@@ -2703,15 +2907,15 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_cbject_utils">2.6. cbject_utils</h3>
+<h3 id="_cbject_utils">2.7. cbject_utils</h3>
 <div class="sect3">
-<h4 id="_overview_7">2.6.1. Overview</h4>
+<h4 id="_overview_8">2.7.1. Overview</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_macros_2">2.6.2. Macros</h4>
+<h4 id="_macros_3">2.7.2. Macros</h4>
 <div class="sect4">
 <h5 id="_cbject_utils_acquire">cbject_utils_acquire()</h5>
 <div class="exampleblock">

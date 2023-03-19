@@ -29,7 +29,7 @@ end::macro[] *******************************************************************
 ----
 #define cbject_config_useStaticPool configValue
 ----
-Heap config
+Static pool config
 
 .Values
 * true
@@ -44,7 +44,7 @@ end::macro[] *******************************************************************
 ----
 #define cbject_config_useLinkedList configValue
 ----
-Heap config
+LinkedList config
 
 .Values
 * true
@@ -59,7 +59,7 @@ end::macro[] *******************************************************************
 ----
 #define cbject_config_linkedListPoolSize configValue
 ----
-Heap config
+LinkedList pool size config
 
 .Values
 * >= 0
@@ -75,7 +75,7 @@ end::macro[] *******************************************************************
 ----
 #define cbject_config_useNode configValue
 ----
-Heap config
+Node config
 
 .Values
 * true
@@ -90,7 +90,7 @@ end::macro[] *******************************************************************
 ----
 #define cbject_config_nodePoolSize configValue
 ----
-Heap config
+Node pool size config
 
 .Values
 * >= 0
@@ -106,7 +106,7 @@ end::macro[] *******************************************************************
 ----
 #define cbject_config_useSingleton configValue
 ----
-Heap config
+Singleton config
 
 .Values
 * true

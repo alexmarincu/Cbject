@@ -1,7 +1,7 @@
 /*************************************************************************************************** tag::overview[]
 Node data structure used in linked lists
 
-[plantuml]
+[plantuml, target=diag-node]
 .Context diagram
 ----
 !include ../src/cbject/cbject_Node.h!cbject_Node

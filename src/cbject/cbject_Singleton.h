@@ -1,5 +1,5 @@
 /*************************************************************************************************** tag::overview[]
-[plantuml]
+[plantuml, target=diag-singleton]
 .Context diagram
 ----
 !include ../src/cbject/cbject_Singleton.h!cbject_Singleton
