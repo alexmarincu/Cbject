@@ -107,7 +107,6 @@ cbject_ObjectClass * TestClass_instance(void) {
     return &klass;
 }
 #undef cbject_Class
-
 void test_cbject_Object_isOfClass(void) {
     cbject_Object * object = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
     TEST_ASSERT_TRUE(cbject_utils_isOfClass(object, cbject_Object));

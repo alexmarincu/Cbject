@@ -544,7 +544,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel4">
 <li><a href="#_cbject_object_2">cbject_Object</a></li>
 <li><a href="#_cbject_objectclass">cbject_ObjectClass</a></li>
-<li><a href="#_cbject_objectclass_2">cbject_ObjectClass</a></li>
+<li><a href="#_cbject_object_poolusagestatus">cbject_Object_PoolUsageStatus</a></li>
+<li><a href="#_cbject_object_source">cbject_Object_Source</a></li>
 <li><a href="#_struct_cbject_object">struct cbject_Object</a></li>
 <li><a href="#_struct_cbject_objectclass">struct cbject_ObjectClass</a></li>
 </ul>
@@ -640,6 +641,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel4">
 <li><a href="#_cbject_linkedlist_2">cbject_LinkedList</a></li>
 <li><a href="#_cbject_linkedlistclass">cbject_LinkedListClass</a></li>
+<li><a href="#_cbject_linkedlist_nodesource">cbject_LinkedList_NodeSource</a></li>
 <li><a href="#_struct_cbject_linkedlist">struct cbject_LinkedList</a></li>
 <li><a href="#_struct_cbject_linkedlistclass">struct cbject_LinkedListClass</a></li>
 </ul>
@@ -742,6 +744,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li>
 <p>Polymorphism</p>
 </li>
+<li>
+<p>Linked lists</p>
+</li>
 </ul>
 </div>
 </div>
@@ -777,13 +782,13 @@ cbject_utils_dealloc(object);</pre>
 <h3 id="_cbject_object_model">1.3. cbject_Object model</h3>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-bb7272de8110207b1e5018ec874caed5.png" alt="Diagram" width="724" height="239">
+<img src="media/diag-bb7272de8110207b1e5018ec874caed5.png" alt="Diagram" width="767" height="239">
 </div>
 <div class="title">Figure 1. Building blocks</div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-3b2a34e86534ad868ccb58092e86e597.png" alt="Diagram" width="572" height="948">
+<img src="media/diag-3b2a34e86534ad868ccb58092e86e597.png" alt="Diagram" width="615" height="961">
 </div>
 <div class="title">Figure 2. Rectangle class example</div>
 </div>
@@ -808,7 +813,7 @@ cbject_utils_dealloc(object);</pre>
 <h4 id="_overview_3">2.2.1. Overview</h4>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-b733fd6bec96a444b6b85d3521c27ebe.png" alt="Diagram" width="724" height="239">
+<img src="media/diag-1a5930be2e41229ac49432df0a3a8860.png" alt="Diagram" width="767" height="239">
 </div>
 <div class="title">Figure 3. Context diagram</div>
 </div>
@@ -849,23 +854,57 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_objectclass_2">cbject_ObjectClass</h5>
+<h5 id="_cbject_object_poolusagestatus">cbject_Object_PoolUsageStatus</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
 <pre>typedef enum {
-    cbject_Object_UsageStatus_free = 0,
-    cbject_Object_UsageStatus_inUse
-} cbject_Object_UsageStatus;</pre>
+    cbject_Object_PoolUsageStatus_free = 0,
+    cbject_Object_PoolUsageStatus_inUse
+} cbject_Object_PoolUsageStatus;</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Typedef and struct definition for cbject_Object_UsageStatus</p>
+<p>Typedef and struct definition for cbject_Object_PoolUsageStatus</p>
 </div>
 <div class="paragraph">
 <div class="title">Remark</div>
 <p>Used for static pool functionality</p>
+</div>
+<div class="ulist">
+<div class="title">Values</div>
+<ul>
+<li>
+<p>free</p>
+</li>
+<li>
+<p>inUse</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_object_source">cbject_Object_Source</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>typedef enum {
+    cbject_Object_Source_stack,
+    cbject_Object_Source_heap,
+    cbject_Object_Source_staticPool
+} cbject_Object_Source;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Typedef and struct definition for cbject_Object_Source</p>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>Used if heap or static pool usage is activated</p>
 </div>
 <div class="ulist">
 <div class="title">Values</div>
@@ -889,7 +928,8 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <pre>struct cbject_Object {
     cbject_ObjectClass * objectClass;
-    cbject_Object_UsageStatus usageStatus;
+    cbject_Object_Source source;
+    cbject_Object_PoolUsageStatus poolUsageStatus;
 };</pre>
 </div>
 </div>
@@ -903,7 +943,10 @@ cbject_utils_dealloc(object);</pre>
 <p>objectClass - cbject_ObjectClass reference</p>
 </li>
 <li>
-<p>usageStatus - Usage status of object (free/inUse)</p>
+<p>source - Source from where the object was created (stack/heap/staticPool)</p>
+</li>
+<li>
+<p>poolUsageStatus - Usage status of object (free/inUse)</p>
 </li>
 </ul>
 </div>
@@ -922,7 +965,7 @@ cbject_utils_dealloc(object);</pre>
     cbject_ObjectClass const * superClass;
     cbject_Object * pool;
     uint64_t poolSize;
-    cbject_Object * firstFreeObject;
+    cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
     void * (*release)(cbject_Object * const object);
     cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
@@ -956,7 +999,7 @@ cbject_utils_dealloc(object);</pre>
 <p>poolSize - Size of pool (number of objects in pool)</p>
 </li>
 <li>
-<p>firstFreeObject - Reference to the first free object in the pool</p>
+<p>poolFirstFreeObject - Reference to the first free object in the pool</p>
 </li>
 <li>
 <p>acquire - Acquire method reference</p>
@@ -1585,7 +1628,7 @@ cbject_utils_dealloc(object);</pre>
 <h4 id="_overview_4">2.3.1. Overview</h4>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-34b36c4a33b760dfaa59cbf855274895.png" alt="Diagram" width="574" height="456">
+<img src="media/diag-48cee4d679dca47851c26955f98452eb.png" alt="Diagram" width="617" height="469">
 </div>
 <div class="title">Figure 4. Context diagram</div>
 </div>
@@ -1733,7 +1776,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-a1be9081dcd020cf4154188503f98364.png" alt="Diagram" width="574" height="497">
+<img src="media/diag-a1be9081dcd020cf4154188503f98364.png" alt="Diagram" width="617" height="510">
 </div>
 <div class="title">Figure 5. Context diagram</div>
 </div>
@@ -2077,7 +2120,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-ffaa869248eb57687b44897bf078b32f.png" alt="Diagram" width="654" height="525">
+<img src="media/diag-ffaa869248eb57687b44897bf078b32f.png" alt="Diagram" width="617" height="524">
 </div>
 <div class="title">Figure 6. Context diagram</div>
 </div>
@@ -2115,6 +2158,39 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
+<h5 id="_cbject_linkedlist_nodesource">cbject_LinkedList_NodeSource</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>typedef enum {
+    cbject_LinkedList_NodeSource_heap,
+    cbject_LinkedList_NodeSource_staticPool
+} cbject_LinkedList_NodeSource;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Typedef and struct definition for cbject_LinkedList_NodeSource</p>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>Used for linked list functionality</p>
+</div>
+<div class="ulist">
+<div class="title">Values</div>
+<ul>
+<li>
+<p>heap</p>
+</li>
+<li>
+<p>staticPool</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="_struct_cbject_linkedlist">struct cbject_LinkedList</h5>
 <div class="exampleblock">
 <div class="content">
@@ -2122,8 +2198,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <pre>struct cbject_LinkedList {
     cbject_Object object;
-    cbject_Object * (*nodeConstruct)(cbject_ObjectClass * const objectClass);
-    void * (*nodeDestruct)(cbject_Object * const object);
+    cbject_LinkedList_NodeSource nodeSource;
     cbject_Node * first;
     cbject_Node * last;
     uint64_t size;
@@ -2140,10 +2215,7 @@ cbject_utils_dealloc(object);</pre>
 <p>object - Parent</p>
 </li>
 <li>
-<p>nodeConstruct - Reference to Node constructor method (alloc or acquire)</p>
-</li>
-<li>
-<p>nodeDestruct - Reference to Node destructor method (dealloc or release)</p>
+<p>nodeSource - Source for node creation (heap/staticPool)</p>
 </li>
 <li>
 <p>first - Reference to the first node in the list</p>
@@ -2195,8 +2267,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <pre>cbject_LinkedList * cbject_LinkedList_init(
     cbject_LinkedList * const linkedList,
-    cbject_Object * (*nodeConstruct)(cbject_ObjectClass * const objectClass),
-    void * (*nodeDestruct)(cbject_Object * const object)
+    cbject_LinkedList_NodeSource const nodeSource
 );</pre>
 </div>
 </div>
@@ -2210,16 +2281,11 @@ cbject_utils_dealloc(object);</pre>
 <p>linkedList - cbject_LinkedList reference</p>
 </li>
 <li>
-<p>nodeConstruct - Reference to Node constructor method (alloc or acquire)</p>
-</li>
-<li>
-<p>nodeDestruct - Reference to Node destructor method (dealloc or release)</p>
+<p>nodeSource - Source for node creation (heap/staticPool)
+.Return
+Initialized and empty LinkedList</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Initialized and empty LinkedList</p>
 </div>
 </div>
 </div>
@@ -2514,13 +2580,21 @@ cbject_utils_dealloc(object);</pre>
 <p>Test adding elements at beginning of LinkedList</p>
 </div>
 <div class="olist arabic">
+<div class="title">Preconditions</div>
+<ol class="arabic">
+<li>
+<p>Define a DataClass which extends cbject_ObjectClass</p>
+</li>
+</ol>
+</div>
+<div class="olist arabic">
 <div class="title">Steps</div>
 <ol class="arabic">
 <li>
-<p>Create a linked list and some objects</p>
+<p>Create a linked list and some data objects</p>
 </li>
 <li>
-<p>Add the objects to the list and check the list and nodes states</p>
+<p>Add the objects to the list and check the state of the list and the nodes</p>
 </li>
 <li>
 <p>Terminate the linked list</p>
@@ -2544,7 +2618,7 @@ cbject_utils_dealloc(object);</pre>
 <p>Create a linked list and some objects</p>
 </li>
 <li>
-<p>Add the objects to the list and check the list and nodes states</p>
+<p>Add the objects to the list and check the state of the list and the nodes</p>
 </li>
 <li>
 <p>Terminate the linked list</p>
@@ -2568,7 +2642,7 @@ cbject_utils_dealloc(object);</pre>
 <p>Create a linked list and some objects</p>
 </li>
 <li>
-<p>Add the objects to the list, remove them from the list and check the list and nodes states</p>
+<p>Add the objects to the list, remove them from the list and check the state of the list and the nodes</p>
 </li>
 <li>
 <p>Terminate the linked list</p>
@@ -2592,7 +2666,7 @@ cbject_utils_dealloc(object);</pre>
 <p>Create a linked list and some objects</p>
 </li>
 <li>
-<p>Add the objects to the list, remove them from the list and check the list and nodes states</p>
+<p>Add the objects to the list, remove them from the list and check the state of the list and the nodes</p>
 </li>
 <li>
 <p>Terminate the linked list</p>
@@ -2616,7 +2690,7 @@ cbject_utils_dealloc(object);</pre>
 <p>Create a linked list and some objects</p>
 </li>
 <li>
-<p>Add the objects to the list, clear the list and check the list and nodes states</p>
+<p>Add the objects to the list, clear the list and check the state of the list and the nodes</p>
 </li>
 <li>
 <p>Terminate the linked list</p>

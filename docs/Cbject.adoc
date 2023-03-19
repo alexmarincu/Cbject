@@ -23,6 +23,7 @@ Cbject makes it easier to write object oriented code in C.
 * Classes
 * Inheritance
 * Polymorphism
+* Linked lists
 
 === Usage
 .How to add it to a project

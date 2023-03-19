@@ -13,6 +13,8 @@ cbject_SingletonClass -u-|> cbject_ObjectClass
 end::overview[] ***********************************************************************************/
 #ifndef CBJECT_SINGLETON_H
 #define CBJECT_SINGLETON_H
+#include "cbject_config.h"
+#if (cbject_config_useSingleton == true)
 #include "cbject_Object.h"
 
 /*************************************************************************************************** tag::type[]
@@ -115,4 +117,5 @@ Reference of the class instance
 end::function[] ***********************************************************************************/
 cbject_SingletonClass * cbject_SingletonClass_instance(void);
 
+#endif // (cbject_config_useSingleton == true)
 #endif // CBJECT_SINGLETON_H

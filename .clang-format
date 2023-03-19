@@ -13,7 +13,7 @@
   AllowShortBlocksOnASingleLine: true,
   AllowShortLoopsOnASingleLine: true,
   SpaceAfterCStyleCast: false,
-  IndentPPDirectives: BeforeHash,
+  IndentPPDirectives: None,
   AlignAfterOpenBracket: BlockIndent,
   Cpp11BracedListStyle: false,
 }

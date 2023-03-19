@@ -15,6 +15,8 @@ cbject_NodeClass -u-|> cbject_ObjectClass
 end::overview[] ***********************************************************************************/
 #ifndef CBJECT_NODE_H
 #define CBJECT_NODE_H
+#include "cbject_config.h"
+#if (cbject_config_useLinkedList == true) || (cbject_config_useNode == true)
 #include "cbject_Object.h"
 
 /*************************************************************************************************** tag::type[]
@@ -211,4 +213,5 @@ Reference of the class instance
 end::function[] ***********************************************************************************/
 cbject_NodeClass * cbject_NodeClass_instance(void);
 
+#endif // (cbject_config_useLinkedList == true) || (cbject_config_useNode == true)
 #endif // CBJECT_NODE_H
