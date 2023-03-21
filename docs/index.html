@@ -634,7 +634,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_functions_3">2.5.3. Functions</a>
 <ul class="sectlevel4">
 <li><a href="#_cbject_node_init">cbject_Node_init()</a></li>
-<li><a href="#_cbject_node_getdataobject">cbject_Node_getDataObject()</a></li>
+<li><a href="#_cbject_node_getelement">cbject_Node_getElement()</a></li>
 <li><a href="#_cbject_node_getprevious">cbject_Node_getPrevious()</a></li>
 <li><a href="#_cbject_node_setprevious">cbject_Node_setPrevious()</a></li>
 <li><a href="#_cbject_node_getnext">cbject_Node_getNext()</a></li>
@@ -673,6 +673,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_linkedlist_clear">cbject_LinkedList_clear()</a></li>
 <li><a href="#_cbject_linkedlist_getfirst">cbject_LinkedList_getFirst()</a></li>
 <li><a href="#_cbject_linkedlist_getlast">cbject_LinkedList_getLast()</a></li>
+<li><a href="#_cbject_linkedlist_get">cbject_LinkedList_get()</a></li>
 <li><a href="#_cbject_linkedlist_getsize">cbject_LinkedList_getSize()</a></li>
 <li><a href="#_cbject_linkedlistclass_instance">cbject_LinkedListClass_instance()</a></li>
 </ul>
@@ -2025,7 +2026,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <pre>struct cbject_Node {
     cbject_Object object;
-    cbject_Object * dataObject;
+    cbject_Object * element;
     cbject_Node * previous;
     cbject_Node * next;
 
@@ -2042,7 +2043,7 @@ cbject_utils_dealloc(object);</pre>
 <p>object - Parent</p>
 </li>
 <li>
-<p>dataObject - Reference to the data object</p>
+<p>element - Reference to the element</p>
 </li>
 <li>
 <p>previous - Reference to the previous node</p>
@@ -2114,12 +2115,12 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_node_getdataobject">cbject_Node_getDataObject()</h5>
+<h5 id="_cbject_node_getelement">cbject_Node_getElement()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_Node_getDataObject(cbject_Node const * const node);</pre>
+<pre>cbject_Object * cbject_Node_getElement(cbject_Node const * const node);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2324,7 +2325,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-linkedList.png" alt="diag linkedList" width="617" height="524">
+<img src="media/diag-linkedList.png" alt="diag linkedList" width="617" height="538">
 </div>
 <div class="title">Figure 6. Context diagram</div>
 </div>
@@ -2402,10 +2403,11 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <pre>struct cbject_LinkedList {
     cbject_Object object;
-    cbject_LinkedList_NodeSource nodeSource;
+    cbject_ObjectClass const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
     uint64_t size;
+    cbject_LinkedList_NodeSource nodeSource;
 };</pre>
 </div>
 </div>
@@ -2419,7 +2421,7 @@ cbject_utils_dealloc(object);</pre>
 <p>object - Parent</p>
 </li>
 <li>
-<p>nodeSource - Source for node creation (heap/staticPool)</p>
+<p>elementClass - Class of the elements stored in the list</p>
 </li>
 <li>
 <p>first - Reference to the first node in the list</p>
@@ -2429,6 +2431,9 @@ cbject_utils_dealloc(object);</pre>
 </li>
 <li>
 <p>size - Size of the list (number of elements)</p>
+</li>
+<li>
+<p>nodeSource - Source for node creation (heap/staticPool)</p>
 </li>
 </ul>
 </div>
@@ -2655,7 +2660,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Node * cbject_LinkedList_getFirst(cbject_LinkedList const * const linkedList);</pre>
+<pre>cbject_Object * cbject_LinkedList_getFirst(cbject_LinkedList const * const linkedList);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2682,7 +2687,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Node * cbject_LinkedList_getLast(cbject_LinkedList const * const linkedList);</pre>
+<pre>cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const linkedList);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2699,6 +2704,36 @@ Initialized and empty LinkedList</p>
 <div class="paragraph">
 <div class="title">Return</div>
 <p>Last element in list</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_get">cbject_LinkedList_get()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const linkedList, uint64_t index);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets element at specified index</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>linkedList - cbject_LinkedList reference</p>
+</li>
+<li>
+<p>index - index of the element to return</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Element at specified index</p>
 </div>
 </div>
 </div>

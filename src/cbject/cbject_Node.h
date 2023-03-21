@@ -47,7 +47,7 @@ typedef struct cbject_NodeClass cbject_NodeClass;
 ----
 struct cbject_Node {
     cbject_Object object;
-    cbject_Object * dataObject;
+    cbject_Object * element;
     cbject_Node * previous;
     cbject_Node * next;
 
@@ -57,7 +57,7 @@ Definition of struct cbject_Node
 
 .Members
 * object - Parent
-* dataObject - Reference to the data object
+* element - Reference to the element
 * previous - Reference to the previous node
 * next - Reference to the next node
 ====
@@ -65,14 +65,14 @@ end::type[] ********************************************************************
 /*************************************************************************************************** @startuml(id=cbject_Node)
 object cbject_Node {
     cbject_Object object;
-    cbject_Object * dataObject;
+    cbject_Object * element;
     cbject_Node * previous;
     cbject_Node * next;
 }
 @enduml *******************************************************************************************/
 struct cbject_Node {
     cbject_Object object;
-    cbject_Object * dataObject;
+    cbject_Object * element;
     cbject_Node * previous;
     cbject_Node * next;
 };
@@ -119,10 +119,10 @@ end::function[] ****************************************************************
 cbject_Node * cbject_Node_init(cbject_Node * const node, cbject_Object * const object);
 
 /*************************************************************************************************** tag::function[]
-= cbject_Node_getDataObject()
+= cbject_Node_getElement()
 ====
 ----
-cbject_Object * cbject_Node_getDataObject(cbject_Node const * const node);
+cbject_Object * cbject_Node_getElement(cbject_Node const * const node);
 ----
 Gets the data object contained in the node
 
@@ -133,7 +133,7 @@ Gets the data object contained in the node
 Data object in the node
 ====
 end::function[] ***********************************************************************************/
-cbject_Object * cbject_Node_getDataObject(cbject_Node const * const node);
+cbject_Object * cbject_Node_getElement(cbject_Node const * const node);
 
 /*************************************************************************************************** tag::function[]
 = cbject_Node_getPrevious()

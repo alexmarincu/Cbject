@@ -24,7 +24,7 @@ void test_cbject_Node_init(void) {
     cbject_Object * object = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
     cbject_Node * node = cbject_Node_init(cbject_utils_stackAlloc(cbject_Node), object);
     TEST_ASSERT(cbject_utils_isOfClass(node, cbject_Node));
-    TEST_ASSERT(cbject_Node_getDataObject(node) == object);
+    TEST_ASSERT(cbject_Node_getElement(node) == object);
     TEST_ASSERT(cbject_Node_getPrevious(node) == NULL);
     TEST_ASSERT(cbject_Node_getNext(node) == NULL);
 }

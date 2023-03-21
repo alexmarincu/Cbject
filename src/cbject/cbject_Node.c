@@ -9,14 +9,14 @@ cbject_utils_allocPool(cbject_config_nodePoolSize);
 
 cbject_Node * cbject_Node_init(cbject_Node * const node, cbject_Object * const object) {
     cbject_utils_init(node);
-    node->dataObject = object;
+    node->element = object;
     node->previous = NULL;
     node->next = NULL;
     return node;
 }
 
-cbject_Object * cbject_Node_getDataObject(cbject_Node const * const node) {
-    return node->dataObject;
+cbject_Object * cbject_Node_getElement(cbject_Node const * const node) {
+    return node->element;
 }
 
 cbject_Node * cbject_Node_getPrevious(cbject_Node const * const node) {
@@ -38,15 +38,15 @@ void cbject_Node_setNext(cbject_Node * const node, cbject_Node * const nextNode)
 static cbject_Object * terminate(cbject_Object * const object) {
     cbject_Node * node = (cbject_Node *)object;
 #if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
-    switch (node->dataObject->source) {
+    switch (node->element->source) {
 #if (cbject_config_useHeap == true)
         case cbject_Object_Source_heap:
-            cbject_utils_dealloc(node->dataObject);
+            cbject_utils_dealloc(node->element);
             break;
 #endif
 #if (cbject_config_useStaticPool == true)
         case cbject_Object_Source_staticPool:
-            cbject_utils_release(node->dataObject);
+            cbject_utils_release(node->element);
             break;
 #endif
         case cbject_Object_Source_stack:

@@ -10,17 +10,19 @@ cbject_utils_allocPool(cbject_config_linkedListPoolSize);
 
 cbject_LinkedList * cbject_LinkedList_init(
     cbject_LinkedList * const linkedList,
+    cbject_ObjectClass const * const elementClass,
 #if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
     cbject_LinkedList_NodeSource const nodeSource
 #endif
 ) {
     cbject_utils_init(linkedList);
-#if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
-    linkedList->nodeSource = nodeSource;
-#endif
+    linkedList->elementClass = elementClass;
     linkedList->size = 0;
     linkedList->first = NULL;
     linkedList->last = NULL;
+#if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
+    linkedList->nodeSource = nodeSource;
+#endif
     return linkedList;
 }
 
@@ -29,6 +31,7 @@ bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const linkedList) {
 }
 
 static cbject_Node * cbject_LinkedList_createNode(cbject_LinkedList * const linkedList, cbject_Object * const object) {
+    assert(cbject_Object_isOfClass(object, linkedList->elementClass));
     cbject_Node * node;
 #if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
     if (linkedList->nodeSource == cbject_LinkedList_NodeSource_staticPool) {
@@ -120,12 +123,23 @@ void cbject_LinkedList_clear(cbject_LinkedList * const linkedList) {
     }
 }
 
-cbject_Node * cbject_LinkedList_getFirst(cbject_LinkedList const * const linkedList) {
-    return linkedList->first;
+cbject_Object * cbject_LinkedList_getFirst(cbject_LinkedList const * const linkedList) {
+    assert(linkedList->first);
+    return cbject_Node_getElement(linkedList->first);
 }
 
-cbject_Node * cbject_LinkedList_getLast(cbject_LinkedList const * const linkedList) {
-    return linkedList->last;
+cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const linkedList) {
+    assert(linkedList->first);
+    return cbject_Node_getElement(linkedList->last);
+}
+
+cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const linkedList, uint64_t index) {
+    assert(index < linkedList->size);
+    cbject_Node * node = linkedList->first;
+    for (uint64_t i = 0; i < index; i++) {
+        node = cbject_Node_getNext(node);
+    }
+    return cbject_Node_getElement(node);
 }
 
 uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const linkedList) {

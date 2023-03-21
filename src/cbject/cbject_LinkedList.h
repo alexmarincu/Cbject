@@ -75,39 +75,43 @@ typedef enum {
 ----
 struct cbject_LinkedList {
     cbject_Object object;
-    cbject_LinkedList_NodeSource nodeSource;
+    cbject_ObjectClass const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
     uint64_t size;
+    cbject_LinkedList_NodeSource nodeSource;
 };
 ----
 Definition of struct cbject_LinkedList
 
 .Members
 * object - Parent
-* nodeSource - Source for node creation (heap/staticPool)
+* elementClass - Class of the elements stored in the list
 * first - Reference to the first node in the list
 * last - Reference to the last node in the list
 * size - Size of the list (number of elements)
+* nodeSource - Source for node creation (heap/staticPool)
 ====
 end::type[] ***************************************************************************************/
 /*************************************************************************************************** @startuml(id=cbject_LinkedList)
 object cbject_LinkedList {
     cbject_Object object;
-    cbject_LinkedList_NodeSource nodeSource;
+    cbject_ObjectClass const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
     uint64_t size;
+    cbject_LinkedList_NodeSource nodeSource;
 }
 @enduml *******************************************************************************************/
 struct cbject_LinkedList {
     cbject_Object object;
-#if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
-    cbject_LinkedList_NodeSource nodeSource;
-#endif
+    cbject_ObjectClass const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
     uint64_t size;
+#if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
+    cbject_LinkedList_NodeSource nodeSource;
+#endif
 };
 
 /*************************************************************************************************** tag::type[]
@@ -153,6 +157,7 @@ Initialized and empty LinkedList
 end::function[] ***********************************************************************************/
 cbject_LinkedList * cbject_LinkedList_init(
     cbject_LinkedList * const linkedList,
+    cbject_ObjectClass const * const elementClass,
 #if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
     cbject_LinkedList_NodeSource const nodeSource
 #endif
@@ -252,7 +257,7 @@ void cbject_LinkedList_clear(cbject_LinkedList * const linkedList);
 = cbject_LinkedList_getFirst()
 ====
 ----
-cbject_Node * cbject_LinkedList_getFirst(cbject_LinkedList const * const linkedList);
+cbject_Object * cbject_LinkedList_getFirst(cbject_LinkedList const * const linkedList);
 ----
 Gets the first element in the list
 
@@ -263,13 +268,13 @@ Gets the first element in the list
 First element in list
 ====
 end::function[] ***********************************************************************************/
-cbject_Node * cbject_LinkedList_getFirst(cbject_LinkedList const * const linkedList);
+cbject_Object * cbject_LinkedList_getFirst(cbject_LinkedList const * const linkedList);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_getLast()
 ====
 ----
-cbject_Node * cbject_LinkedList_getLast(cbject_LinkedList const * const linkedList);
+cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const linkedList);
 ----
 Gets the last element in the list
 
@@ -280,7 +285,25 @@ Gets the last element in the list
 Last element in list
 ====
 end::function[] ***********************************************************************************/
-cbject_Node * cbject_LinkedList_getLast(cbject_LinkedList const * const linkedList);
+cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const linkedList);
+
+/*************************************************************************************************** tag::function[]
+= cbject_LinkedList_get()
+====
+----
+cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const linkedList, uint64_t index);
+----
+Gets element at specified index
+
+.Params
+* linkedList - cbject_LinkedList reference
+* index - index of the element to return
+
+.Return
+Element at specified index
+====
+end::function[] ***********************************************************************************/
+cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const linkedList, uint64_t index);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_getSize()
