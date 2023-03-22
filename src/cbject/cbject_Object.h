@@ -143,7 +143,7 @@ struct cbject_ObjectClass {
     uint64_t poolSize;
     cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
-    void * (*release)(cbject_Object * const object);
+    void * (*dispose)(cbject_Object * const object);
     cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
     void * (*dealloc)(cbject_Object * const object);
     uint64_t (*hashCode)(cbject_Object const * const object);
@@ -162,7 +162,7 @@ Definition of struct cbject_ObjectClass
 * poolSize - Size of pool (number of objects in pool)
 * poolFirstFreeObject - Reference to the first free object in the pool
 * acquire - Acquire method reference
-* release - Release method reference
+* dispose - Dispose method reference
 * alloc - Alloc method reference
 * dealloc - Dealloc method reference
 * hashCode - Hash code method reference
@@ -180,7 +180,7 @@ object cbject_ObjectClass {
     uint64_t poolSize;
     cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
-    void * (*release)(cbject_Object * const object);
+    void * (*dispose)(cbject_Object * const object);
     cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
     void * (*dealloc)(cbject_Object * const object);
     uint64_t (*hashCode)(cbject_Object const * const object);
@@ -198,7 +198,7 @@ struct cbject_ObjectClass {
     uint64_t poolSize;
     cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
-    void * (*release)(cbject_Object * const object);
+    void * (*dispose)(cbject_Object * const object);
 #endif
 #if (cbject_config_useHeap == true)
     cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
@@ -355,12 +355,12 @@ end::function[] ****************************************************************
 cbject_Object * cbject_Object_terminate(cbject_Object * const object);
 
 /*************************************************************************************************** tag::function[]
-= cbject_Object_release()
+= cbject_Object_dispose()
 ====
 ----
-void * cbject_Object_release(cbject_Object * const object);
+void * cbject_Object_dispose(cbject_Object * const object);
 ----
-Releases the object in the static pool
+Disposes an object acquired from the static pool
 
 .Params
 * object - cbject_Object reference
@@ -370,7 +370,7 @@ NULL
 ====
 end::function[] ***********************************************************************************/
 #if (cbject_config_useStaticPool == true)
-void * cbject_Object_release(cbject_Object * const object);
+void * cbject_Object_dispose(cbject_Object * const object);
 #endif
 
 /*************************************************************************************************** tag::function[]

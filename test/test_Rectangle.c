@@ -22,7 +22,7 @@ void test_Rectangle_init(void) {
     TEST_ASSERT_EQUAL_UINT32(2, Rectangle_getWidth(rectangle2));
     TEST_ASSERT_EQUAL_UINT32(3, Rectangle_getHeight(rectangle2));
     TEST_ASSERT_EQUAL_UINT8(2 * 3, Shape_area((Shape *)rectangle2));
-    cbject_utils_release(rectangle2);
+    cbject_utils_dispose(rectangle2);
 }
 
 void test_Rectangle_setters(void) {

@@ -576,7 +576,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_object_equals">cbject_Object_equals()</a></li>
 <li><a href="#_cbject_object_hashcode">cbject_Object_hashCode()</a></li>
 <li><a href="#_cbject_object_terminate">cbject_Object_terminate()</a></li>
-<li><a href="#_cbject_object_release">cbject_Object_release()</a></li>
+<li><a href="#_cbject_object_dispose">cbject_Object_dispose()</a></li>
 <li><a href="#_cbject_object_dealloc">cbject_Object_dealloc()</a></li>
 <li><a href="#_cbject_object_isofclass">cbject_Object_isOfClass()</a></li>
 <li><a href="#_cbject_objectclass_instance">cbject_ObjectClass_instance()</a></li>
@@ -702,7 +702,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_utils_equals">cbject_utils_equals()</a></li>
 <li><a href="#_cbject_utils_copy">cbject_utils_copy()</a></li>
 <li><a href="#_cbject_utils_terminate">cbject_utils_terminate()</a></li>
-<li><a href="#_cbject_utils_release">cbject_utils_release()</a></li>
+<li><a href="#_cbject_utils_dispose">cbject_utils_dispose()</a></li>
 <li><a href="#_cbject_utils_dealloc">cbject_utils_dealloc()</a></li>
 <li><a href="#_cbject_utils_allocpool">cbject_utils_allocPool()</a></li>
 <li><a href="#_cbject_utils_doonce">cbject_utils_doOnce</a></li>
@@ -1172,7 +1172,7 @@ cbject_utils_dealloc(object);</pre>
     uint64_t poolSize;
     cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
-    void * (*release)(cbject_Object * const object);
+    void * (*dispose)(cbject_Object * const object);
     cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
     void * (*dealloc)(cbject_Object * const object);
     uint64_t (*hashCode)(cbject_Object const * const object);
@@ -1210,7 +1210,7 @@ cbject_utils_dealloc(object);</pre>
 <p>acquire - Acquire method reference</p>
 </li>
 <li>
-<p>release - Release method reference</p>
+<p>dispose - Dispose method reference</p>
 </li>
 <li>
 <p>alloc - Alloc method reference</p>
@@ -1471,16 +1471,16 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_object_release">cbject_Object_release()</h5>
+<h5 id="_cbject_object_dispose">cbject_Object_dispose()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>void * cbject_Object_release(cbject_Object * const object);</pre>
+<pre>void * cbject_Object_dispose(cbject_Object * const object);</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Releases the object in the static pool</p>
+<p>Disposes an object acquired from the static pool</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
@@ -3178,20 +3178,20 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_release">cbject_utils_release()</h5>
+<h5 id="_cbject_utils_dispose">cbject_utils_dispose()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_release(object)</pre>
+<pre>cbject_utils_dispose(object)</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Releases the object in the static pool</p>
+<p>Disposes an object acquired from a static pool</p>
 </div>
 <div class="paragraph">
 <div class="title">Remarks</div>
-<p>Calls cbject_Object_release() and does the necessary casting</p>
+<p>Calls cbject_Object_dispose() and does the necessary casting</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>

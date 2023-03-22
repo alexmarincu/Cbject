@@ -51,12 +51,12 @@ static cbject_Node * cbject_LinkedList_createNode(cbject_LinkedList * const link
 static void * cbject_LinkedList_destroyNode(cbject_LinkedList * const linkedList, cbject_Node * const node) {
 #if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
     if (linkedList->nodeSource == cbject_LinkedList_NodeSource_staticPool) {
-        cbject_utils_release(node);
+        cbject_utils_dispose(node);
     } else {
         cbject_utils_dealloc(node);
     }
 #elif (cbject_config_useStaticPool == true)
-    cbject_utils_release(node);
+    cbject_utils_dispose(node);
 #elif (cbject_config_useHeap == true)
     cbject_utils_dealloc(node);
 #endif

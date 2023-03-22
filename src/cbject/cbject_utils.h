@@ -174,15 +174,15 @@ end::macro[] *******************************************************************
     cbject_Object_terminate((cbject_Object *)(object))
 
 /*************************************************************************************************** tag::macro[]
-= cbject_utils_release()
+= cbject_utils_dispose()
 ====
 ----
-cbject_utils_release(object)
+cbject_utils_dispose(object)
 ----
-Releases the object in the static pool
+Disposes an object acquired from a static pool
 
 .Remarks
-Calls cbject_Object_release() and does the necessary casting
+Calls cbject_Object_dispose() and does the necessary casting
 
 .Params
 * object - cbject_Object reference
@@ -191,8 +191,8 @@ Calls cbject_Object_release() and does the necessary casting
 NULL
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_release(object) \
-    cbject_Object_release((cbject_Object *)(object))
+#define cbject_utils_dispose(object) \
+    cbject_Object_dispose((cbject_Object *)(object))
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_dealloc()
@@ -427,7 +427,7 @@ Stringifies the provided token
 ====
 end::macro[] **************************************************************************************/
 #define cbject_utils_Token_stringify(token) \
-    #token
+#token
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_Token_stringifyIndirect()
@@ -499,7 +499,7 @@ end::macro[] *******************************************************************
 #define cbject_utils_VaArgs_getRest_(case, ...) \
     cbject_utils_VaArgs_getRest__(case, __VA_ARGS__)
 #define cbject_utils_VaArgs_getRest__(case, ...) \
-cbject_utils_VaArgs_getRest_case_##case (__VA_ARGS__)
+    cbject_utils_VaArgs_getRest_case_##case (__VA_ARGS__)
 #define cbject_utils_VaArgs_getRest_case_one(first)
 #define cbject_utils_VaArgs_getRest_case_more(first, ...) \
     , __VA_ARGS__

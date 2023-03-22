@@ -31,11 +31,11 @@ static cbject_Object * acquire(cbject_ObjectClass * const objectClass) {
     return object;
 }
 
-void * cbject_Object_release(cbject_Object * const object) {
-    return cbject_utils_invokeMethod(release, object);
+void * cbject_Object_dispose(cbject_Object * const object) {
+    return cbject_utils_invokeMethod(dispose, object);
 }
 
-static void * release(cbject_Object * const object) {
+static void * dispose(cbject_Object * const object) {
     cbject_Object_terminate((cbject_Object *)object);
     object->poolUsageStatus = cbject_Object_PoolUsageStatus_free;
     if (object < object->objectClass->poolFirstFreeObject) {
@@ -140,7 +140,7 @@ cbject_ObjectClass * cbject_ObjectClass_instance(void) {
         klass.poolSize = cbject_utils_Array_length(cbject_Object_pool);
         klass.poolFirstFreeObject = cbject_Object_pool;
         klass.acquire = acquire;
-        klass.release = release;
+        klass.dispose = dispose;
 #endif
 #if (cbject_config_useHeap == true)
         klass.alloc = alloc;

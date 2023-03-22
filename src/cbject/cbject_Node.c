@@ -46,7 +46,7 @@ static cbject_Object * terminate(cbject_Object * const object) {
 #endif
 #if (cbject_config_useStaticPool == true)
         case cbject_Object_Source_staticPool:
-            cbject_utils_release(node->element);
+            cbject_utils_dispose(node->element);
             break;
 #endif
         case cbject_Object_Source_stack:
