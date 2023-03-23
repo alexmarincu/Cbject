@@ -63,7 +63,7 @@ Reference of the allocated memory
 ====
 end::macro[] **************************************************************************************/
 #define cbject_utils_stackAlloc(klass) \
-    ((klass *)cbject_Object_setClass((cbject_Object *)&(klass){}, (cbject_ObjectClass *)klass##Class_instance()))
+    ((klass *)cbject_Object_allocHelper((cbject_Object *)&(klass){}, (cbject_ObjectClass *)klass##Class_instance()))
 
 /*************************************************************************************************** tag::function[]
 = cbject_utils_init()
@@ -153,36 +153,36 @@ end::macro[] *******************************************************************
     cbject_Object_copy((cbject_Object *)(object), (cbject_Object *)(copyObject))
 
 /*************************************************************************************************** tag::macro[]
-= cbject_utils_terminate()
+= cbject_utils_retain()
 ====
 ----
-cbject_utils_terminate(object)
+cbject_utils_retain(object)
 ----
-Terminates an object.
+Increases the reference count of the object
 
 .Remarks
-Calls cbject_Object_terminate() and does the necessary casting
+Calls cbject_Object_retain() and does the necessary casting
 
 .Params
 * object - cbject_Object reference
 
 .Return
-NULL
+Reference to object
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_terminate(object) \
-    cbject_Object_terminate((cbject_Object *)(object))
+#define cbject_utils_retain(object) \
+    cbject_Object_retain((cbject_Object *)(object))
 
 /*************************************************************************************************** tag::macro[]
-= cbject_utils_dispose()
+= cbject_utils_release()
 ====
 ----
-cbject_utils_dispose(object)
+cbject_utils_release(object)
 ----
-Disposes an object acquired from a static pool
+Decreases the reference count of the object and performs deallocation if reference count reaches 0
 
 .Remarks
-Calls cbject_Object_dispose() and does the necessary casting
+Calls cbject_Object_release() and does the necessary casting
 
 .Params
 * object - cbject_Object reference
@@ -191,29 +191,8 @@ Calls cbject_Object_dispose() and does the necessary casting
 NULL
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_dispose(object) \
-    cbject_Object_dispose((cbject_Object *)(object))
-
-/*************************************************************************************************** tag::macro[]
-= cbject_utils_dealloc()
-====
-----
-cbject_utils_dealloc(object)
-----
-Deallocates memory for an object
-
-.Remarks
-Calls cbject_Object_dealloc() and does the necessary casting
-
-.Params
-* object - cbject_Object reference
-
-.Return
-NULL
-====
-end::macro[] **************************************************************************************/
-#define cbject_utils_dealloc(object) \
-    cbject_Object_dealloc((cbject_Object *)(object))
+#define cbject_utils_release(object) \
+    cbject_Object_release((cbject_Object *)(object))
 
 /*************************************************************************************************** tag::function[]
 = cbject_utils_isOfClass()

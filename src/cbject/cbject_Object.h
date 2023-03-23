@@ -102,6 +102,7 @@ typedef enum {
 ----
 struct cbject_Object {
     cbject_ObjectClass * objectClass;
+    uint64_t referenceCount;
     cbject_Object_Source source;
     cbject_Object_PoolUsageStatus poolUsageStatus;
 };
@@ -110,6 +111,7 @@ Definition of struct cbject_Object
 
 .Members
 * objectClass - cbject_ObjectClass reference
+* referenceCount - The reference count (number of owners of the object)
 * source - Source from where the object was created (stack/heap/staticPool)
 * poolUsageStatus - Usage status of object (free/inUse)
 ====
@@ -117,12 +119,14 @@ end::type[] ********************************************************************
 /*************************************************************************************************** @startuml(id=cbject_Object)
 object cbject_Object {
     cbject_ObjectClass * objectClass;
+    uint64_t referenceCount;
     cbject_Object_Source source;
     cbject_Object_PoolUsageStatus poolUsageStatus;
 }
 @enduml *******************************************************************************************/
 struct cbject_Object {
     cbject_ObjectClass * objectClass;
+    uint64_t referenceCount;
 #if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
     cbject_Object_Source source;
 #if (cbject_config_useStaticPool == true)
@@ -143,9 +147,7 @@ struct cbject_ObjectClass {
     uint64_t poolSize;
     cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
-    void * (*dispose)(cbject_Object * const object);
     cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
-    void * (*dealloc)(cbject_Object * const object);
     uint64_t (*hashCode)(cbject_Object const * const object);
     cbject_Object * (*copy)(cbject_Object const * const object, cbject_Object * const copyObject);
     bool (*equals)(cbject_Object const * const object, cbject_Object const * const otherObject);
@@ -162,9 +164,7 @@ Definition of struct cbject_ObjectClass
 * poolSize - Size of pool (number of objects in pool)
 * poolFirstFreeObject - Reference to the first free object in the pool
 * acquire - Acquire method reference
-* dispose - Dispose method reference
 * alloc - Alloc method reference
-* dealloc - Dealloc method reference
 * hashCode - Hash code method reference
 * copy - Copy method reference
 * equals - Equals method reference
@@ -180,9 +180,7 @@ object cbject_ObjectClass {
     uint64_t poolSize;
     cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
-    void * (*dispose)(cbject_Object * const object);
     cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
-    void * (*dealloc)(cbject_Object * const object);
     uint64_t (*hashCode)(cbject_Object const * const object);
     cbject_Object * (*copy)(cbject_Object const * const object, cbject_Object * const copyObject);
     bool (*equals)(cbject_Object const * const object, cbject_Object const * const otherObject);
@@ -198,11 +196,9 @@ struct cbject_ObjectClass {
     uint64_t poolSize;
     cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
-    void * (*dispose)(cbject_Object * const object);
 #endif
 #if (cbject_config_useHeap == true)
     cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
-    void * (*dealloc)(cbject_Object * const object);
 #endif
     uint64_t (*hashCode)(cbject_Object const * const object);
     cbject_Object * (*copy)(cbject_Object const * const object, cbject_Object * const copyObject);
@@ -266,12 +262,12 @@ end::function[] ****************************************************************
 cbject_Object * cbject_Object_init(cbject_Object * const object);
 
 /*************************************************************************************************** tag::function[]
-= cbject_Object_setClass()
+= cbject_Object_allocHelper()
 ====
 ----
-cbject_Object * cbject_Object_setClass(cbject_Object * const object, cbject_ObjectClass * const objectClass);
+cbject_Object * cbject_Object_allocHelper(cbject_Object * const object, cbject_ObjectClass * const objectClass);
 ----
-Sets the class of the object
+Sets the class of the object and other proprieties needed for allocation
 
 .Params
 * object - cbject_Object reference
@@ -281,7 +277,7 @@ Sets the class of the object
 Reference to the object
 ====
 end::function[] ***********************************************************************************/
-cbject_Object * cbject_Object_setClass(cbject_Object * const object, cbject_ObjectClass * const objectClass);
+cbject_Object * cbject_Object_allocHelper(cbject_Object * const object, cbject_ObjectClass * const objectClass);
 
 /*************************************************************************************************** tag::function[]
 = cbject_Object_copy()
@@ -338,29 +334,29 @@ end::function[] ****************************************************************
 uint64_t cbject_Object_hashCode(cbject_Object const * const object);
 
 /*************************************************************************************************** tag::function[]
-= cbject_Object_terminate()
+= cbject_Object_retain()
 ====
 ----
-cbject_Object * cbject_Object_terminate(cbject_Object * const object);
+cbject_Object * cbject_Object_retain(cbject_Object * const object);
 ----
-Terminates an object.
+Increases the reference count of the object
 
 .Params
 * object - cbject_Object reference
 
 .Return
-NULL
+Reference to object
 ====
 end::function[] ***********************************************************************************/
-cbject_Object * cbject_Object_terminate(cbject_Object * const object);
+cbject_Object * cbject_Object_retain(cbject_Object * const object);
 
 /*************************************************************************************************** tag::function[]
-= cbject_Object_dispose()
+= cbject_Object_release()
 ====
 ----
-void * cbject_Object_dispose(cbject_Object * const object);
+void * cbject_Object_release(cbject_Object * const object);
 ----
-Disposes an object acquired from the static pool
+Decreases the reference count of the object and performs deallocation if reference count reaches 0
 
 .Params
 * object - cbject_Object reference
@@ -369,28 +365,7 @@ Disposes an object acquired from the static pool
 NULL
 ====
 end::function[] ***********************************************************************************/
-#if (cbject_config_useStaticPool == true)
-void * cbject_Object_dispose(cbject_Object * const object);
-#endif
-
-/*************************************************************************************************** tag::function[]
-= cbject_Object_dealloc()
-====
-----
-void * cbject_Object_dealloc(cbject_Object * const object);
-----
-Deallocates memory for an object
-
-.Params
-* object - cbject_Object reference
-
-.Return
-NULL
-====
-end::function[] ***********************************************************************************/
-#if (cbject_config_useHeap == true)
-void * cbject_Object_dealloc(cbject_Object * const object);
-#endif
+void * cbject_Object_release(cbject_Object * const object);
 
 /*************************************************************************************************** tag::function[]
 = cbject_Object_isOfClass()

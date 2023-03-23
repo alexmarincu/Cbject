@@ -29,7 +29,7 @@ static void greetingExample(Application * const application) {
     // Call Greeting print function on the greeting application
     Greeting_print(greeting);
     // Free memory allocated for the Greeting application
-    cbject_utils_dealloc(greeting);
+    cbject_utils_release(greeting);
 }
 
 static void circleExample(Application * const application) {
@@ -116,8 +116,8 @@ void Application_main(Application * const application) {
 
 static cbject_Object * terminate(cbject_Object * const object) {
     Application * application = (Application *)object;
-    cbject_utils_dealloc(application->rectangle);
-    cbject_utils_dealloc(application->circle);
+    cbject_utils_release(application->rectangle);
+    cbject_utils_release(application->circle);
     return cbject_utils_invokeSuperMethod(cbject_Object, terminate, object);
 }
 

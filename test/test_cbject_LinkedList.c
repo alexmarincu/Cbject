@@ -35,7 +35,7 @@ void test_cbject_LinkedList_init(void) {
     TEST_ASSERT(cbject_utils_isOfClass(linkedList, cbject_LinkedList));
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == true);
-    cbject_utils_terminate(linkedList);
+    cbject_utils_release(linkedList);
 }
 
 /*************************************************************************************************** tag::test[]
@@ -118,7 +118,11 @@ void test_cbject_LinkedList_addFirst(void) {
         TEST_ASSERT(cbject_LinkedList_get(linkedLists[i], 3) == data1);
         TEST_ASSERT(cbject_LinkedList_getSize(linkedLists[i]) == 4);
         TEST_ASSERT(cbject_LinkedList_isEmpty(linkedLists[i]) == false);
-        cbject_utils_terminate(linkedLists[i]);
+        cbject_utils_release(linkedLists[i]);
+        cbject_utils_release(data1);
+        cbject_utils_release(data2);
+        cbject_utils_release(data3);
+        cbject_utils_release(data4);
     }
 }
 
@@ -170,7 +174,7 @@ void test_cbject_LinkedList_addLast(void) {
     TEST_ASSERT(cbject_LinkedList_get(linkedList, 3) == object4);
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 4);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == false);
-    cbject_utils_terminate(linkedList);
+    cbject_utils_release(linkedList);
 }
 
 /*************************************************************************************************** tag::test[]
@@ -220,7 +224,7 @@ void test_cbject_LinkedList_removeFirst(void) {
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == true);
     cbject_LinkedList_removeFirst(linkedList);
-    cbject_utils_terminate(linkedList);
+    cbject_utils_release(linkedList);
 }
 
 /*************************************************************************************************** tag::test[]
@@ -270,7 +274,7 @@ void test_cbject_LinkedList_removeLast(void) {
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == true);
     cbject_LinkedList_removeLast(linkedList);
-    cbject_utils_terminate(linkedList);
+    cbject_utils_release(linkedList);
 }
 
 /*************************************************************************************************** tag::test[]
@@ -301,5 +305,5 @@ void test_cbject_LinkedList_clear(void) {
     cbject_LinkedList_clear(linkedList);
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == true);
-    cbject_utils_terminate(linkedList);
+    cbject_utils_release(linkedList);
 }

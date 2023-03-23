@@ -19,6 +19,7 @@ static cbject_Object * acquire(cbject_ObjectClass * const objectClass) {
         object = objectClass->poolFirstFreeObject;
         memset(object, 0, objectClass->instanceSize);
         object->objectClass = objectClass;
+        object->referenceCount = 1;
         object->source = cbject_Object_Source_staticPool;
         object->poolUsageStatus = cbject_Object_PoolUsageStatus_inUse;
         do {
@@ -31,17 +32,11 @@ static cbject_Object * acquire(cbject_ObjectClass * const objectClass) {
     return object;
 }
 
-void * cbject_Object_dispose(cbject_Object * const object) {
-    return cbject_utils_invokeMethod(dispose, object);
-}
-
-static void * dispose(cbject_Object * const object) {
-    cbject_Object_terminate((cbject_Object *)object);
+static void dispose(cbject_Object * const object) {
     object->poolUsageStatus = cbject_Object_PoolUsageStatus_free;
     if (object < object->objectClass->poolFirstFreeObject) {
         object->objectClass->poolFirstFreeObject = object;
     }
-    return NULL;
 }
 #endif // (cbject_config_useStaticPool == true)
 
@@ -54,27 +49,53 @@ static cbject_Object * alloc(cbject_ObjectClass * const objectClass) {
     cbject_Object * object = (cbject_Object *)calloc(1, objectClass->instanceSize);
     assert(object);
     object->objectClass = objectClass;
+    object->referenceCount = 1;
     object->source = cbject_Object_Source_heap;
     return object;
 }
 
-void * cbject_Object_dealloc(cbject_Object * const object) {
-    return cbject_utils_invokeMethod(dealloc, object);
-}
-
-static void * dealloc(cbject_Object * const object) {
-    cbject_Object_terminate((cbject_Object *)object);
+static void dealloc(cbject_Object * const object) {
     free(object);
-    return NULL;
 }
 #endif // (cbject_config_useHeap == true)
+
+cbject_Object * cbject_Object_retain(cbject_Object * const object) {
+    object->referenceCount++;
+    return object;
+}
+
+void * cbject_Object_release(cbject_Object * const object) {
+    object->referenceCount--;
+    if (object->referenceCount == 0) {
+        cbject_utils_invokeMethod(terminate, object);
+#if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
+        switch (object->source) {
+#if (cbject_config_useHeap == true)
+            case cbject_Object_Source_heap:
+                dealloc(object);
+                break;
+#endif
+#if (cbject_config_useStaticPool == true)
+            case cbject_Object_Source_staticPool:
+                dispose(object);
+                break;
+#endif
+            case cbject_Object_Source_stack:
+            default:
+                break;
+        }
+#endif
+    }
+    return NULL;
+}
 
 cbject_Object * cbject_Object_init(cbject_Object * const object) {
     return object;
 }
 
-cbject_Object * cbject_Object_setClass(cbject_Object * const object, cbject_ObjectClass * const objectClass) {
+cbject_Object * cbject_Object_allocHelper(cbject_Object * const object, cbject_ObjectClass * const objectClass) {
     object->objectClass = objectClass;
+    object->referenceCount = 1;
 #if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
     object->source = cbject_Object_Source_stack;
 #endif
@@ -104,10 +125,6 @@ uint64_t cbject_Object_hashCode(cbject_Object const * const object) {
 
 static uint64_t hashCode(cbject_Object const * const object) {
     return (uint64_t)object;
-}
-
-cbject_Object * cbject_Object_terminate(cbject_Object * const object) {
-    return cbject_utils_invokeMethod(terminate, object);
 }
 
 static cbject_Object * terminate(cbject_Object * const object) {
@@ -140,11 +157,9 @@ cbject_ObjectClass * cbject_ObjectClass_instance(void) {
         klass.poolSize = cbject_utils_Array_length(cbject_Object_pool);
         klass.poolFirstFreeObject = cbject_Object_pool;
         klass.acquire = acquire;
-        klass.dispose = dispose;
 #endif
 #if (cbject_config_useHeap == true)
         klass.alloc = alloc;
-        klass.dealloc = dealloc;
 #endif
         klass.copy = copy;
         klass.equals = equals;

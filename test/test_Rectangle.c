@@ -17,12 +17,12 @@ void test_Rectangle_init(void) {
     TEST_ASSERT_EQUAL_UINT32(2, Rectangle_getWidth(rectangle));
     TEST_ASSERT_EQUAL_UINT32(3, Rectangle_getHeight(rectangle));
     TEST_ASSERT_EQUAL_UINT8(2 * 3, Shape_area((Shape *)rectangle));
-    cbject_utils_dealloc(rectangle);
+    cbject_utils_release(rectangle);
     Rectangle * rectangle2 = Rectangle_init(cbject_utils_acquire(Rectangle), (Point){ 0, 1 }, 2, 3);
     TEST_ASSERT_EQUAL_UINT32(2, Rectangle_getWidth(rectangle2));
     TEST_ASSERT_EQUAL_UINT32(3, Rectangle_getHeight(rectangle2));
     TEST_ASSERT_EQUAL_UINT8(2 * 3, Shape_area((Shape *)rectangle2));
-    cbject_utils_dispose(rectangle2);
+    cbject_utils_release(rectangle2);
 }
 
 void test_Rectangle_setters(void) {
@@ -32,7 +32,7 @@ void test_Rectangle_setters(void) {
     TEST_ASSERT_EQUAL_UINT32(4, Rectangle_getWidth(rectangle));
     TEST_ASSERT_EQUAL_UINT32(5, Rectangle_getHeight(rectangle));
     TEST_ASSERT_EQUAL_UINT8(4 * 5, Shape_area((Shape *)rectangle));
-    cbject_utils_dealloc(rectangle);
+    cbject_utils_release(rectangle);
 }
 
 void test_Rectangle_makeSquare(void) {
@@ -41,5 +41,5 @@ void test_Rectangle_makeSquare(void) {
     TEST_ASSERT_EQUAL_UINT32(4, Rectangle_getWidth(rectangle));
     TEST_ASSERT_EQUAL_UINT32(4, Rectangle_getHeight(rectangle));
     TEST_ASSERT_EQUAL_UINT8(4 * 4, Shape_area((Shape *)rectangle));
-    cbject_utils_dealloc(rectangle);
+    cbject_utils_release(rectangle);
 }

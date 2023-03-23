@@ -18,12 +18,6 @@ static cbject_Object * alloc(cbject_ObjectClass * const objectClass) {
     (void)objectClass;
     return NULL;
 }
-
-static void * dealloc(cbject_Object * const object) {
-    assert("Singleton cannot be deallocated" && false);
-    (void)object;
-    return NULL;
-}
 #endif // (cbject_config_useHeap == true)
 
 static cbject_Object * copy(cbject_Object const * const object, cbject_Object * const copyObject) {
@@ -39,7 +33,6 @@ cbject_SingletonClass * cbject_SingletonClass_instance(void) {
         cbject_ObjectClass_setup(&klass);
 #if (cbject_config_useHeap == true)
         klass.objectClass.alloc = alloc;
-        klass.objectClass.dealloc = dealloc;
 #endif
         klass.objectClass.copy = copy;
     }

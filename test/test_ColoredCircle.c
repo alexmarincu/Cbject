@@ -16,5 +16,5 @@ void tearDown(void) {
 void test_ColoredCircle_init(void) {
     ColoredCircle * coloredCircle = ColoredCircle_init(cbject_utils_alloc(ColoredCircle), (Point){ 0, 1 }, 2, Color_blue);
     Drawable_draw(&coloredCircle->circle.drawable);
-    cbject_utils_dealloc(coloredCircle);
+    cbject_utils_release(coloredCircle);
 }

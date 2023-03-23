@@ -50,4 +50,5 @@ void test_cbject_Node_setters(void) {
     TEST_ASSERT(cbject_Node_getNext(node) == NULL);
     cbject_Node_setNext(node, nextNode);
     TEST_ASSERT(cbject_Node_getNext(node) == nextNode);
+    cbject_utils_release(node);
 }

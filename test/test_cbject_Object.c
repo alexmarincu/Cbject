@@ -133,5 +133,5 @@ void test_cbject_Object_copy(void) {
     TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInStack, cbject_Object_instanceSize(object));
     cbject_Object * copyObjectInHeap = cbject_utils_copy(object, cbject_utils_alloc(cbject_Object));
     TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInHeap, cbject_Object_instanceSize(object));
-    cbject_utils_dealloc(copyObjectInHeap);
+    cbject_utils_release(copyObjectInHeap);
 }

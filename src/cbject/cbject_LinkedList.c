@@ -48,21 +48,6 @@ static cbject_Node * cbject_LinkedList_createNode(cbject_LinkedList * const link
     return node;
 }
 
-static void * cbject_LinkedList_destroyNode(cbject_LinkedList * const linkedList, cbject_Node * const node) {
-#if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
-    if (linkedList->nodeSource == cbject_LinkedList_NodeSource_staticPool) {
-        cbject_utils_dispose(node);
-    } else {
-        cbject_utils_dealloc(node);
-    }
-#elif (cbject_config_useStaticPool == true)
-    cbject_utils_dispose(node);
-#elif (cbject_config_useHeap == true)
-    cbject_utils_dealloc(node);
-#endif
-    return NULL;
-}
-
 void cbject_LinkedList_addLast(cbject_LinkedList * const linkedList, cbject_Object * const object) {
     cbject_Node * node = cbject_LinkedList_createNode(linkedList, object);
     if (linkedList->last != NULL) {
@@ -99,7 +84,7 @@ void cbject_LinkedList_removeLast(cbject_LinkedList * const linkedList) {
             linkedList->first = NULL;
         }
         linkedList->size--;
-        cbject_LinkedList_destroyNode(linkedList, node);
+        cbject_utils_release(node);
     }
 }
 
@@ -113,7 +98,7 @@ void cbject_LinkedList_removeFirst(cbject_LinkedList * const linkedList) {
             linkedList->last = NULL;
         }
         linkedList->size--;
-        cbject_LinkedList_destroyNode(linkedList, node);
+        cbject_utils_release(node);
     }
 }
 
