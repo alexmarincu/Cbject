@@ -44,23 +44,23 @@ typedef struct cbject_SingletonClass cbject_SingletonClass;
 ====
 ----
 struct cbject_Singleton {
-    cbject_Object object;
+    cbject_Object super;
 
 };
 ----
 Definition of struct cbject_Singleton
 
 .Members
-* object - Parent
+* super - Parent
 ====
 end::type[] ***************************************************************************************/
 /******************************************************************** @startuml(id=cbject_Singleton)
 object cbject_Singleton {
-    cbject_Object object;
+    cbject_Object super;
 }
 @enduml *******************************************************************************************/
 struct cbject_Singleton {
-    cbject_Object object;
+    cbject_Object super;
 };
 
 /*************************************************************************************************** tag::type[]
@@ -68,40 +68,40 @@ struct cbject_Singleton {
 ====
 ----
 struct cbject_SingletonClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass super;
 };
 ----
 Definition of struct cbject_SingletonClass
 
 .Members
-* cbject_ObjectCLass - class of parent
+* super - Parent
 ====
 end::type[] ***************************************************************************************/
 /*************************************************************** @startuml(id=cbject_SingletonClass)
 object cbject_SingletonClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass super;
 }
 @enduml *******************************************************************************************/
 struct cbject_SingletonClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass super;
 };
 
 /*************************************************************************************************** tag::function[]
 = cbject_Singleton_init()
 ====
 ----
-cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const singleton);
+cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const self);
 ----
 Initializes a singleton
 
 .Params
-* singleton - cbject_Singleton reference
+* self - cbject_Singleton reference
 
 .Return
 Initialized singleton
 ====
 end::function[] ***********************************************************************************/
-cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const singleton);
+cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const self);
 
 /*************************************************************************************************** tag::function[]
 = cbject_SingletonClass_instance()

@@ -7,32 +7,32 @@ typedef struct DrawableClass DrawableClass;
 
 /**************************************************************************** @startuml(id=Drawable)
 object Drawable {
-    Shape shape;
+    Shape super;
     uint16_t scale;
 }
 @enduml *******************************************************************************************/
 struct Drawable {
-    Shape shape;
+    Shape super;
     uint16_t scale;
 };
 
 /*********************************************************************** @startuml(id=DrawableClass)
 object DrawableClass {
-    ShapeClass shapeClass;
-    void (*draw)(Drawable const * const drawable);
+    ShapeClass super;
+    void (*draw)(Drawable const * const self);
 }
 @enduml *******************************************************************************************/
 struct DrawableClass {
-    ShapeClass shapeClass;
-    void (*draw)(Drawable const * const drawable);
+    ShapeClass super;
+    void (*draw)(Drawable const * const self);
 };
 
 void Drawable_init(
-    Drawable * const drawable,
+    Drawable * const self,
     Point origin,
     uint16_t const scale
 );
-void Drawable_draw(Drawable const * const drawable);
+void Drawable_draw(Drawable const * const self);
 DrawableClass * DrawableClass_instance(void);
 
 #endif // DRAWABLE_H

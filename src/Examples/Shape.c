@@ -1,30 +1,30 @@
 #include "Shape.h"
 
 #define cbject_Class (Shape, cbject_Object)
-cbject_utils_allocPool(0);
+cbject_utils_nullPool;
 
-Shape * Shape_init(Shape * const shape, Point origin) {
-    cbject_utils_init(shape);
-    shape->origin = origin;
-    return shape;
+Shape * Shape_init(Shape * const self, Point origin) {
+    cbject_utils_init(self);
+    self->origin = origin;
+    return self;
 }
 
-float Shape_area(Shape const * const shape) {
-    return cbject_utils_invokeMethod(area, shape);
+float Shape_area(Shape const * const self) {
+    return cbject_utils_invokeMethod(area, self);
 }
 
-static float area(Shape const * const shape) {
-    (void)shape;
+static float area(Shape const * const self) {
+    (void)self;
     return 0;
 }
 
 ShapeClass * ShapeClass_instance(void) {
-    static ShapeClass klass;
+    static ShapeClass self;
     cbject_utils_doOnce {
-        cbject_ObjectClass_setup(&klass);
-        klass.area = area;
+        cbject_ObjectClass_setup(&self);
+        self.area = area;
     }
-    return &klass;
+    return &self;
 }
 
 #undef cbject_Class

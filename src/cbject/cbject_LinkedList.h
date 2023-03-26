@@ -74,7 +74,7 @@ typedef enum {
 ====
 ----
 struct cbject_LinkedList {
-    cbject_Object object;
+    cbject_Object super;
     cbject_ObjectClass const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
@@ -85,7 +85,7 @@ struct cbject_LinkedList {
 Definition of struct cbject_LinkedList
 
 .Members
-* object - Parent
+* super - Parent
 * elementClass - Class of the elements stored in the list
 * first - Reference to the first node in the list
 * last - Reference to the last node in the list
@@ -95,7 +95,7 @@ Definition of struct cbject_LinkedList
 end::type[] ***************************************************************************************/
 /*************************************************************************************************** @startuml(id=cbject_LinkedList)
 object cbject_LinkedList {
-    cbject_Object object;
+    cbject_Object super;
     cbject_ObjectClass const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
@@ -104,7 +104,7 @@ object cbject_LinkedList {
 }
 @enduml *******************************************************************************************/
 struct cbject_LinkedList {
-    cbject_Object object;
+    cbject_Object super;
     cbject_ObjectClass const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
@@ -119,22 +119,22 @@ struct cbject_LinkedList {
 ====
 ----
 struct cbject_LinkedListClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass super;
 };
 ----
 Definition of struct cbject_LinkedListClass
 
 .Members
-* cbject_ObjectCLass - class of parent
+* super - Parent
 ====
 end::type[] ***************************************************************************************/
 /*************************************************************************************************** @startuml(id=cbject_LinkedListClass)
 object cbject_LinkedListClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass super;
 }
 @enduml *******************************************************************************************/
 struct cbject_LinkedListClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass super;
 };
 
 /*************************************************************************************************** tag::function[]
@@ -142,21 +142,21 @@ struct cbject_LinkedListClass {
 ====
 ----
 cbject_LinkedList * cbject_LinkedList_init(
-    cbject_LinkedList * const linkedList,
+    cbject_LinkedList * const self,
     cbject_LinkedList_NodeSource const nodeSource
 );
 ----
 Initializes a LinkedList
 
 .Params
-* linkedList - cbject_LinkedList reference
+* self - cbject_LinkedList reference
 * nodeSource - Source for node creation (heap/staticPool)
 .Return
 Initialized and empty LinkedList
 ====
 end::function[] ***********************************************************************************/
 cbject_LinkedList * cbject_LinkedList_init(
-    cbject_LinkedList * const linkedList,
+    cbject_LinkedList * const self,
     cbject_ObjectClass const * const elementClass,
 #if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
     cbject_LinkedList_NodeSource const nodeSource
@@ -167,160 +167,160 @@ cbject_LinkedList * cbject_LinkedList_init(
 = cbject_LinkedList_isEmpty()
 ====
 ----
-bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const linkedList);
+bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const self);
 ----
 Checks if list is empty
 
 .Params
-* linkedList - cbject_LinkedList reference
+* self - cbject_LinkedList reference
 
 .Return
 * true - if list is empty
 * false - if list is not empty
 ====
 end::function[] ***********************************************************************************/
-bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const linkedList);
+bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const self);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_addLast()
 ====
 ----
-void cbject_LinkedList_addLast(cbject_LinkedList * const linkedList, cbject_Object * const object);
+void cbject_LinkedList_addLast(cbject_LinkedList * const self, cbject_Object * const object);
 ----
 Adds an element to the end of the list
 
 .Params
-* linkedList - cbject_LinkedList reference
+* self - cbject_LinkedList reference
 * object - Object to be added in the list
 ====
 end::function[] ***********************************************************************************/
-void cbject_LinkedList_addLast(cbject_LinkedList * const linkedList, cbject_Object * const object);
+void cbject_LinkedList_addLast(cbject_LinkedList * const self, cbject_Object * const object);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_addFirst()
 ====
 ----
-void cbject_LinkedList_addFirst(cbject_LinkedList * const linkedList, cbject_Object * const object);
+void cbject_LinkedList_addFirst(cbject_LinkedList * const self, cbject_Object * const object);
 ----
 Adds an element at the beginning of the list
 
 .Params
-* linkedList - cbject_LinkedList reference
+* self - cbject_LinkedList reference
 * object - Object to be added in the list
 ====
 end::function[] ***********************************************************************************/
-void cbject_LinkedList_addFirst(cbject_LinkedList * const linkedList, cbject_Object * const object);
+void cbject_LinkedList_addFirst(cbject_LinkedList * const self, cbject_Object * const object);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_removeLast()
 ====
 ----
-void cbject_LinkedList_removeLast(cbject_LinkedList * const linkedList);
+void cbject_LinkedList_removeLast(cbject_LinkedList * const self);
 ----
 Removes last element in the list
 
 .Params
-* linkedList - cbject_LinkedList reference
+* self - cbject_LinkedList reference
 ====
 end::function[] ***********************************************************************************/
-void cbject_LinkedList_removeLast(cbject_LinkedList * const linkedList);
+void cbject_LinkedList_removeLast(cbject_LinkedList * const self);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_removeFirst()
 ====
 ----
-void cbject_LinkedList_removeFirst(cbject_LinkedList * const linkedList);
+void cbject_LinkedList_removeFirst(cbject_LinkedList * const self);
 ----
 Removes first element in the list
 
 .Params
-* linkedList - cbject_LinkedList reference
+* self - cbject_LinkedList reference
 ====
 end::function[] ***********************************************************************************/
-void cbject_LinkedList_removeFirst(cbject_LinkedList * const linkedList);
+void cbject_LinkedList_removeFirst(cbject_LinkedList * const self);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_clear()
 ====
 ----
-void cbject_LinkedList_clear(cbject_LinkedList * const linkedList);
+void cbject_LinkedList_clear(cbject_LinkedList * const self);
 ----
 Removes all elements from the list
 
 .Params
-* linkedList - cbject_LinkedList reference
+* self - cbject_LinkedList reference
 ====
 end::function[] ***********************************************************************************/
-void cbject_LinkedList_clear(cbject_LinkedList * const linkedList);
+void cbject_LinkedList_clear(cbject_LinkedList * const self);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_getFirst()
 ====
 ----
-cbject_Object * cbject_LinkedList_getFirst(cbject_LinkedList const * const linkedList);
+cbject_Object * cbject_LinkedList_getFirst(cbject_LinkedList const * const self);
 ----
 Gets the first element in the list
 
 .Params
-* linkedList - cbject_LinkedList reference
+* self - cbject_LinkedList reference
 
 .Return
 First element in list
 ====
 end::function[] ***********************************************************************************/
-cbject_Object * cbject_LinkedList_getFirst(cbject_LinkedList const * const linkedList);
+cbject_Object * cbject_LinkedList_getFirst(cbject_LinkedList const * const self);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_getLast()
 ====
 ----
-cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const linkedList);
+cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const self);
 ----
 Gets the last element in the list
 
 .Params
-* linkedList - cbject_LinkedList reference
+* self - cbject_LinkedList reference
 
 .Return
 Last element in list
 ====
 end::function[] ***********************************************************************************/
-cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const linkedList);
+cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const self);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_get()
 ====
 ----
-cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const linkedList, uint64_t index);
+cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index);
 ----
 Gets element at specified index
 
 .Params
-* linkedList - cbject_LinkedList reference
+* self - cbject_LinkedList reference
 * index - index of the element to return
 
 .Return
 Element at specified index
 ====
 end::function[] ***********************************************************************************/
-cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const linkedList, uint64_t index);
+cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_getSize()
 ====
 ----
-uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const linkedList);
+uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const self);
 ----
 Gets the size of the list (number of elements)
 
 .Params
-* linkedList - cbject_LinkedList reference
+* self - cbject_LinkedList reference
 
 .Return
 Size of list (number of elements)
 ====
 end::function[] ***********************************************************************************/
-uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const linkedList);
+uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const self);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedListClass_instance()

@@ -5,52 +5,52 @@
 cbject_utils_allocPool(1);
 
 Rectangle * Rectangle_init(
-    Rectangle * const rectangle,
+    Rectangle * const self,
     Point origin,
     uint32_t width,
     uint32_t height
 ) {
     Drawable_init(
-        &rectangle->drawable,
+        (Drawable *)self,
         origin,
         0
     );
-    rectangle->width = width;
-    rectangle->height = height;
-    return rectangle;
+    self->width = width;
+    self->height = height;
+    return self;
 }
 
-uint32_t Rectangle_getWidth(Rectangle const * const rectangle) {
-    return rectangle->width;
+uint32_t Rectangle_getWidth(Rectangle const * const self) {
+    return self->width;
 }
 
-void Rectangle_setWidth(Rectangle * const rectangle, uint32_t const width) {
-    rectangle->width = width;
+void Rectangle_setWidth(Rectangle * const self, uint32_t const width) {
+    self->width = width;
 }
-uint32_t Rectangle_getHeight(Rectangle const * const rectangle) {
-    return rectangle->height;
-}
-
-void Rectangle_setHeight(Rectangle * const rectangle, uint32_t const height) {
-    rectangle->height = height;
+uint32_t Rectangle_getHeight(Rectangle const * const self) {
+    return self->height;
 }
 
-void Rectangle_makeSquare(Rectangle * const rectangle, uint32_t const edgeSize) {
-    rectangle->height = edgeSize;
-    rectangle->width = edgeSize;
+void Rectangle_setHeight(Rectangle * const self, uint32_t const height) {
+    self->height = height;
 }
 
-static cbject_Object * terminate(cbject_Object * object) {
-    return cbject_utils_invokeSuperMethod(cbject_Object, terminate, object);
+void Rectangle_makeSquare(Rectangle * const self, uint32_t const edgeSize) {
+    self->height = edgeSize;
+    self->width = edgeSize;
 }
 
-static float area(Shape const * const shape) {
-    Rectangle * rectangle = (Rectangle *)shape;
+static cbject_Object * terminate(cbject_Object * self) {
+    return cbject_utils_invokeSuperMethod(cbject_Object, terminate, self);
+}
+
+static float area(Shape const * const self) {
+    Rectangle * rectangle = (Rectangle *)self;
     return rectangle->width * rectangle->height;
 }
 
-static void draw(Drawable const * const drawable) {
-    Rectangle * rectangle = (Rectangle *)drawable;
+static void draw(Drawable const * const self) {
+    Rectangle * rectangle = (Rectangle *)self;
     for (uint8_t i = 0; i < rectangle->width; i++) {
         printf("--");
     }
@@ -69,14 +69,14 @@ static void draw(Drawable const * const drawable) {
 }
 
 RectangleClass * RectangleClass_instance(void) {
-    static RectangleClass klass;
+    static RectangleClass self;
     cbject_utils_doOnce {
-        cbject_ObjectClass_setup(&klass);
-        klass.drawableClass.shapeClass.objectClass.terminate = terminate;
-        klass.drawableClass.shapeClass.area = area;
-        klass.drawableClass.draw = draw;
+        cbject_ObjectClass_setup(&self);
+        ((cbject_ObjectClass *)&self)->terminate = terminate;
+        ((ShapeClass *)&self)->area = area;
+        ((DrawableClass *)&self)->draw = draw;
     }
-    return &klass;
+    return &self;
 }
 
 #undef cbject_Class

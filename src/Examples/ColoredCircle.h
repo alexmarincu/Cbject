@@ -7,16 +7,16 @@ typedef struct ColoredCircle ColoredCircle;
 typedef struct ColoredCircleClass ColoredCircleClass;
 
 struct ColoredCircle {
-    Circle circle;
+    Circle super;
     Color color;
 };
 
 struct ColoredCircleClass {
-    CircleClass circleClass;
+    CircleClass super;
 };
 
 ColoredCircle * ColoredCircle_init(
-    ColoredCircle * const coloredCircle,
+    ColoredCircle * const self,
     Point const origin,
     uint32_t const radius,
     Color const color

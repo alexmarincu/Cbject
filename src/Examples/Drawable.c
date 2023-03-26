@@ -2,33 +2,33 @@
 #include <stdio.h>
 
 #define cbject_Class (Drawable, Shape)
-cbject_utils_allocPool(0);
+cbject_utils_nullPool;
 
 void Drawable_init(
-    Drawable * const drawable,
+    Drawable * const self,
     Point origin,
     uint16_t const scale
 ) {
-    Shape_init((Shape *)drawable, origin);
-    drawable->scale = scale;
+    Shape_init((Shape *)self, origin);
+    self->scale = scale;
 }
 
-void Drawable_draw(Drawable const * const drawable) {
-    cbject_utils_invokeMethod(draw, drawable);
+void Drawable_draw(Drawable const * const self) {
+    cbject_utils_invokeMethod(draw, self);
 }
 
-static void draw(Drawable const * const drawable) {
+static void draw(Drawable const * const self) {
     assert("not implemented" && false);
-    (void)(drawable);
+    (void)(self);
 }
 
 DrawableClass * DrawableClass_instance(void) {
-    static DrawableClass klass;
+    static DrawableClass self;
     cbject_utils_doOnce {
-        cbject_ObjectClass_setup(&klass);
-        klass.draw = draw;
+        cbject_ObjectClass_setup(&self);
+        self.draw = draw;
     }
-    return &klass;
+    return &self;
 }
 
 #undef cbject_Class

@@ -46,7 +46,7 @@ typedef struct cbject_NodeClass cbject_NodeClass;
 ====
 ----
 struct cbject_Node {
-    cbject_Object object;
+    cbject_Object super;
     cbject_Object * element;
     cbject_Node * previous;
     cbject_Node * next;
@@ -56,7 +56,7 @@ struct cbject_Node {
 Definition of struct cbject_Node
 
 .Members
-* object - Parent
+* super - Parent
 * element - Reference to the element
 * previous - Reference to the previous node
 * next - Reference to the next node
@@ -64,14 +64,14 @@ Definition of struct cbject_Node
 end::type[] ***************************************************************************************/
 /*************************************************************************************************** @startuml(id=cbject_Node)
 object cbject_Node {
-    cbject_Object object;
+    cbject_Object super;
     cbject_Object * element;
     cbject_Node * previous;
     cbject_Node * next;
 }
 @enduml *******************************************************************************************/
 struct cbject_Node {
-    cbject_Object object;
+    cbject_Object super;
     cbject_Object * element;
     cbject_Node * previous;
     cbject_Node * next;
@@ -88,116 +88,116 @@ struct cbject_NodeClass {
 Definition of struct cbject_NodeClass
 
 .Members
-* cbject_ObjectCLass - class of parent
+* super - Parent
 ====
 end::type[] ***************************************************************************************/
 /*************************************************************************************************** @startuml(id=cbject_NodeClass)
 object cbject_NodeClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass super;
 }
 @enduml *******************************************************************************************/
 struct cbject_NodeClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass super;
 };
 
 /*************************************************************************************************** tag::function[]
 = cbject_Node_init()
 ====
 ----
-cbject_Node * cbject_Node_init(cbject_Node * const node, cbject_Object * const object);
+cbject_Node * cbject_Node_init(cbject_Node * const self, cbject_Object * const object);
 ----
 Initializes a Node
 
 .Params
-* node - cbject_Node reference
+* self - cbject_Node reference
 * object - Object to store in the node
 
 .Return
 Initialized Node
 ====
 end::function[] ***********************************************************************************/
-cbject_Node * cbject_Node_init(cbject_Node * const node, cbject_Object * const object);
+cbject_Node * cbject_Node_init(cbject_Node * const self, cbject_Object * const object);
 
 /*************************************************************************************************** tag::function[]
 = cbject_Node_getElement()
 ====
 ----
-cbject_Object * cbject_Node_getElement(cbject_Node const * const node);
+cbject_Object * cbject_Node_getElement(cbject_Node const * const self);
 ----
 Gets the data object contained in the node
 
 .Params
-* node - cbject_Node reference
+* self - cbject_Node reference
 
 .Return
 Data object in the node
 ====
 end::function[] ***********************************************************************************/
-cbject_Object * cbject_Node_getElement(cbject_Node const * const node);
+cbject_Object * cbject_Node_getElement(cbject_Node const * const self);
 
 /*************************************************************************************************** tag::function[]
 = cbject_Node_getPrevious()
 ====
 ----
-cbject_Node * cbject_Node_getPrevious(cbject_Node const * const node);
+cbject_Node * cbject_Node_getPrevious(cbject_Node const * const self);
 ----
 Gets the previous node
 
 .Params
-* node - cbject_Node reference
+* self - cbject_Node reference
 
 .Return
 The previous node
 ====
 end::function[] ***********************************************************************************/
-cbject_Node * cbject_Node_getPrevious(cbject_Node const * const node);
+cbject_Node * cbject_Node_getPrevious(cbject_Node const * const self);
 
 /*************************************************************************************************** tag::function[]
 = cbject_Node_setPrevious()
 ====
 ----
-void cbject_Node_setPrevious(cbject_Node * const node, cbject_Node * const previousNode);
+void cbject_Node_setPrevious(cbject_Node * const self, cbject_Node * const previousNode);
 ----
 Sets the previous node
 
 .Params
-* node - cbject_Node reference
+* self - cbject_Node reference
 * previousNode - cbject_Node reference
 ====
 end::function[] ***********************************************************************************/
-void cbject_Node_setPrevious(cbject_Node * const node, cbject_Node * const previousNode);
+void cbject_Node_setPrevious(cbject_Node * const self, cbject_Node * const previousNode);
 
 /*************************************************************************************************** tag::function[]
 = cbject_Node_getNext()
 ====
 ----
-cbject_Node * cbject_Node_getNext(cbject_Node const * const node);
+cbject_Node * cbject_Node_getNext(cbject_Node const * const self);
 ----
 Gets the next node
 
 .Params
-* node - cbject_Node reference
+* self - cbject_Node reference
 
 .Return
 The next node
 ====
 end::function[] ***********************************************************************************/
-cbject_Node * cbject_Node_getNext(cbject_Node const * const node);
+cbject_Node * cbject_Node_getNext(cbject_Node const * const self);
 
 /*************************************************************************************************** tag::function[]
 = cbject_Node_setNext()
 ====
 ----
-void cbject_Node_setNext(cbject_Node * const node, cbject_Node * const nextNode);
+void cbject_Node_setNext(cbject_Node * const self, cbject_Node * const nextNode);
 ----
 Sets the next node
 
 .Params
-* node - cbject_Node reference
+* self - cbject_Node reference
 * nextNode - cbject_Node reference
 ====
 end::function[] ***********************************************************************************/
-void cbject_Node_setNext(cbject_Node * const node, cbject_Node * const nextNode);
+void cbject_Node_setNext(cbject_Node * const self, cbject_Node * const nextNode);
 
 /*************************************************************************************************** tag::function[]
 = cbject_NodeClass_instance()

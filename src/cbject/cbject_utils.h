@@ -9,67 +9,67 @@ end::overview[] ****************************************************************
 = cbject_utils_acquire()
 ====
 ----
-cbject_utils_acquire(klass)
+cbject_utils_acquire(type)
 ----
 Acquires an object from the static pool
 
 .Remarks
-Calls cbject_Object_acquire() and does the necessary casting
+Calls cbject_ObjectClass_acquire() and does the necessary casting
 
 .Params
-* klass - Name of class
+* type - Name of class
 
 .Return
 Reference of the acquired object
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_acquire(klass) \
-    ((klass *)cbject_Object_acquire((cbject_ObjectClass *)klass##Class_instance()))
+#define cbject_utils_acquire(type) \
+    ((type *)cbject_ObjectClass_acquire((cbject_ObjectClass *)type##Class_instance()))
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_alloc()
 ====
 ----
-cbject_utils_alloc(klass)
+cbject_utils_alloc(type)
 ----
 Allocates an object in heap memory
 
 .Remarks
-Calls cbject_Object_alloc() and does the necessary casting
+Calls cbject_ObjectClass_alloc() and does the necessary casting
 
 .Params
-* klass - Name of class
+* type - Name of class
 
 .Return
 Reference of the allocated object
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_alloc(klass) \
-    ((klass *)cbject_Object_alloc((cbject_ObjectClass *)klass##Class_instance()))
+#define cbject_utils_alloc(type) \
+    ((type *)cbject_ObjectClass_alloc((cbject_ObjectClass *)type##Class_instance()))
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_stackAlloc()
 ====
 ----
-cbject_utils_stackAlloc(klass)
+cbject_utils_stackAlloc(type)
 ----
 Allocates an object on the stack
 
 .Params
-* klass - Name of class
+* type - Name of class
 
 .Return
 Reference of the allocated memory
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_stackAlloc(klass) \
-    ((klass *)cbject_Object_allocHelper((cbject_Object *)&(klass){}, (cbject_ObjectClass *)klass##Class_instance()))
+#define cbject_utils_stackAlloc(type) \
+    ((type *)cbject_Object_allocHelper((cbject_Object *)&(type){}, (cbject_ObjectClass *)type##Class_instance()))
 
 /*************************************************************************************************** tag::function[]
 = cbject_utils_init()
 ====
 ----
-cbject_utils_init(object)
+cbject_utils_init(self)
 ----
 Initializes an object
 
@@ -77,20 +77,20 @@ Initializes an object
 Calls cbject_Object_init() and does the necessary casting
 
 .Params
-* object - cbject_Object reference
+* self - cbject_Object reference
 
 .Return
 Initialized object
 ====
 end::function[] ***********************************************************************************/
-#define cbject_utils_init(object) \
-    cbject_Object_init((cbject_Object *)(object))
+#define cbject_utils_init(self) \
+    cbject_Object_init((cbject_Object *)(self))
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_hashCode()
 ====
 ----
-cbject_utils_hashCode(object)
+cbject_utils_hashCode(self)
 ----
 Gets the hash code of the object
 
@@ -98,20 +98,20 @@ Gets the hash code of the object
 Calls cbject_Object_hashCode() and does the necessary casting
 
 .Params
-* object - cbject_Object reference
+* self - cbject_Object reference
 
 .Return
 The hash code of the object
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_hashCode(object) \
-    cbject_Object_hashCode((cbject_Object *)(object))
+#define cbject_utils_hashCode(self) \
+    cbject_Object_hashCode((cbject_Object *)(self))
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_equals()
 ====
 ----
-cbject_utils_equals(object, otherObject)
+cbject_utils_equals(self, object)
 ----
 Compares two objects
 
@@ -119,22 +119,22 @@ Compares two objects
 Calls cbject_Object_equals() and does the necessary casting
 
 .Params
-* object - cbject_Object reference
-* otherObject - Reference for the compared object
+* self - cbject_Object reference
+* object - Reference for the compared object
 
 .Return
 * true - If the objects are equal
 * false - If the objects are different
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_equals(object, otherObject) \
-    cbject_Object_equals((cbject_Object *)(object), (cbject_Object *)(otherObject))
+#define cbject_utils_equals(self, object) \
+    cbject_Object_equals((cbject_Object *)(self), (cbject_Object *)(object))
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_copy()
 ====
 ----
-cbject_utils_copy(object, copyObject)
+cbject_utils_copy(self, object)
 ----
 Copies the object to the provided instance.
 
@@ -142,21 +142,21 @@ Copies the object to the provided instance.
 Calls cbject_Object_copy() and does the necessary casting
 
 .Params
-* object - cbject_Object reference
-* copyObject - Reference of a new object in which to copy the original one
+* self - cbject_Object reference
+* object - Reference of a new object in which to copy the original one
 
 .Return
-Reference of copyObject
+Reference of object
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_copy(object, copyObject) \
-    cbject_Object_copy((cbject_Object *)(object), (cbject_Object *)(copyObject))
+#define cbject_utils_copy(self, object) \
+    cbject_Object_copy((cbject_Object *)(self), (cbject_Object *)(object))
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_retain()
 ====
 ----
-cbject_utils_retain(object)
+cbject_utils_retain(self)
 ----
 Increases the reference count of the object
 
@@ -164,20 +164,20 @@ Increases the reference count of the object
 Calls cbject_Object_retain() and does the necessary casting
 
 .Params
-* object - cbject_Object reference
+* self - cbject_Object reference
 
 .Return
 Reference to object
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_retain(object) \
-    cbject_Object_retain((cbject_Object *)(object))
+#define cbject_utils_retain(self) \
+    cbject_Object_retain((cbject_Object *)(self))
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_release()
 ====
 ----
-cbject_utils_release(object)
+cbject_utils_release(self)
 ----
 Decreases the reference count of the object and performs deallocation if reference count reaches 0
 
@@ -185,37 +185,37 @@ Decreases the reference count of the object and performs deallocation if referen
 Calls cbject_Object_release() and does the necessary casting
 
 .Params
-* object - cbject_Object reference
+* self - cbject_Object reference
 
 .Return
 NULL
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_release(object) \
-    cbject_Object_release((cbject_Object *)(object))
+#define cbject_utils_release(self) \
+    cbject_Object_release((cbject_Object *)(self))
 
 /*************************************************************************************************** tag::function[]
-= cbject_utils_isOfClass()
+= cbject_utils_isOfType()
 ====
 ----
-cbject_utils_isOfClass(object, klass)
+cbject_utils_isOfType(self, type)
 ----
 Checks if an object is of a given class
 
 .Remarks
-Calls cbject_Object_isOfClass() and does the necessary casting
+Calls cbject_Object_isOfType() and does the necessary casting
 
 .Params
-* object - cbject_Object reference
-* klass - Name of class
+* self - cbject_Object reference
+* type - Name of class
 
 .Return
 * true - If the object is of the provided class
 * false - If the object is of a different class
 ====
 end::function[] ***********************************************************************************/
-#define cbject_utils_isOfClass(object, klass) \
-    cbject_Object_isOfClass((cbject_Object *)(object), (cbject_ObjectClass *)klass##Class_instance())
+#define cbject_utils_isOfType(self, type) \
+    cbject_Object_isOfType((cbject_Object *)(self), (cbject_ObjectClass *)type##Class_instance())
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_allocPool()
@@ -232,8 +232,13 @@ cbject_Class must be defined before using this macro
 * poolSize - Size of pool (number of objects in pool)
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_allocPool(poolSize) \
+#define cbject_utils_allocPool(poolSize)                                                                        \
+    enum { cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _poolSize) = poolSize }; \
     static cbject_utils_Pair_getFirst(cbject_Class) cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool)[poolSize]
+
+#define cbject_utils_nullPool                                                                            \
+    enum { cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _poolSize) = 0 }; \
+    static cbject_utils_Pair_getFirst(cbject_Class) * cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool) = NULL
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_doOnce
@@ -317,33 +322,33 @@ Polymorphic call of a super method (object or class)
 cbject_Class must be defined before using this macro
 
 .Params
-* klass - Name of the class
+* type - Name of the class
 * method - Name of the method
 * ...
-** object - cbject_Object reference (optional - in case of object method)
+** self - cbject_Object reference (optional - in case of object method)
 ** ... - Method params
 
 .Return
 Depends on the called method
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_invokeSuperMethod(klass, method, ...) \
-    ((klass##Class *)((cbject_ObjectClass *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), Class_instance()))->superClass)->method(__VA_ARGS__)
+#define cbject_utils_invokeSuperMethod(type, method, ...) \
+    ((type##Class *)((cbject_ObjectClass *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), Class_instance()))->superClass)->method(__VA_ARGS__)
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_Array_length()
 ====
 ----
-cbject_utils_Array_length(array)
+cbject_utils_Array_length(self)
 ----
 Gets length of an array
 
 .Params
-* array - Array for which to get the length
+* self - Array for which to get the length
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_Array_length(array) \
-    (sizeof(array) / sizeof(array[0]))
+#define cbject_utils_Array_length(self) \
+    (sizeof(self) / sizeof(self[0]))
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_assertStatic()
@@ -365,63 +370,63 @@ end::macro[] *******************************************************************
 = cbject_utils_Token_concat()
 ====
 ----
-cbject_utils_Token_concat(token, otherToken)
+cbject_utils_Token_concat(self, token)
 ----
 Concatenates otherToken after the provided token
 
 .Params
-* token - Token
-* otherToken - Token to add after the provided token
+* self - Token
+* token - Token to add after the provided token
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_Token_concat(token, otherToken) \
-    token##otherToken
+#define cbject_utils_Token_concat(self, token) \
+    self##token
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_Token_concatIndirect()
 ====
 ----
-cbject_utils_Token_concatIndirect(token, otherToken)
+cbject_utils_Token_concatIndirect(self, token)
 ----
 Concatenates otherToken after the provided token indirectly
 
 .Params
-* token - Token
-* otherToken - Token to add after the provided token
+* self - Token
+* token - Token to add after the provided token
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_Token_concatIndirect(token, otherToken) \
-    cbject_utils_Token_concat(token, otherToken)
+#define cbject_utils_Token_concatIndirect(self, token) \
+    cbject_utils_Token_concat(self, token)
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_Token_stringify()
 ====
 ----
-cbject_utils_Token_stringify(token)
+cbject_utils_Token_stringify(self)
 ----
 Stringifies the provided token
 
 .Params
-* token - Token
+* self - Token
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_Token_stringify(token) \
-#token
+#define cbject_utils_Token_stringify(self) \
+#self
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_Token_stringifyIndirect()
 ====
 ----
-cbject_utils_Token_stringifyIndirect(token)
+cbject_utils_Token_stringifyIndirect(self)
 ----
 Stringifies the provided token indirectly
 
 .Params
-* token - Token
+* self - Token
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_Token_stringifyIndirect(token) \
-    cbject_utils_Token_stringify(token)
+#define cbject_utils_Token_stringifyIndirect(self) \
+    cbject_utils_Token_stringify(self)
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_VaArgs_getFirst()
@@ -513,30 +518,30 @@ end::macro[] *******************************************************************
 = cbject_utils_Pair_getFirst()
 ====
 ----
-cbject_utils_Pair_getFirst(pair)
+cbject_utils_Pair_getFirst(self)
 ----
 Gets first element from pair
 
 .Params
-* pair - (first, second)
+* self - (first, second)
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_Pair_getFirst(pair) \
-    cbject_utils_VaArgs_getFirst pair
+#define cbject_utils_Pair_getFirst(self) \
+    cbject_utils_VaArgs_getFirst self
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_Pair_getSecond()
 ====
 ----
-cbject_utils_Pair_getSecond(pair)
+cbject_utils_Pair_getSecond(self)
 ----
 Gets second element from pair
 
 .Params
-* pair - (first, second)
+* self - (first, second)
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_Pair_getSecond(pair) \
-    cbject_utils_VaArgs_getSecond pair
+#define cbject_utils_Pair_getSecond(self) \
+    cbject_utils_VaArgs_getSecond self
 
 #endif // CBJECT_UTILS_H

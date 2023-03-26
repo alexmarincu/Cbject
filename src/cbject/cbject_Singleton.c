@@ -4,39 +4,39 @@
 
 #define cbject_Class (cbject_Singleton, cbject_Object)
 #if (cbject_config_useStaticPool == true)
-cbject_utils_allocPool(0);
+cbject_utils_nullPool;
 #endif
 
-cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const singleton) {
-    cbject_utils_init(singleton);
-    return singleton;
+cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const self) {
+    cbject_utils_init(self);
+    return self;
 }
 
 #if (cbject_config_useHeap == true)
-static cbject_Object * alloc(cbject_ObjectClass * const objectClass) {
+static cbject_Object * alloc(cbject_ObjectClass * const self) {
     assert("Singleton cannot be allocated" && false);
-    (void)objectClass;
+    (void)self;
     return NULL;
 }
 #endif // (cbject_config_useHeap == true)
 
-static cbject_Object * copy(cbject_Object const * const object, cbject_Object * const copyObject) {
+static cbject_Object * copy(cbject_Object const * const self, cbject_Object * const object) {
     assert("Singleton cannot be copied" && false);
+    (void)(self);
     (void)(object);
-    (void)(copyObject);
     return NULL;
 }
 
 cbject_SingletonClass * cbject_SingletonClass_instance(void) {
-    static cbject_SingletonClass klass;
+    static cbject_SingletonClass self;
     cbject_utils_doOnce {
-        cbject_ObjectClass_setup(&klass);
+        cbject_ObjectClass_setup(&self);
 #if (cbject_config_useHeap == true)
-        klass.objectClass.alloc = alloc;
+        ((cbject_ObjectClass *)&self)->alloc = alloc;
 #endif
-        klass.objectClass.copy = copy;
+        ((cbject_ObjectClass *)&self)->copy = copy;
     }
-    return &klass;
+    return &self;
 }
 
 #undef cbject_Class

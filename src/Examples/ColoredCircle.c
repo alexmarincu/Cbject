@@ -1,30 +1,30 @@
 #include "ColoredCircle.h"
 
 #define cbject_Class (ColoredCircle, Circle)
-cbject_utils_allocPool(0);
+cbject_utils_nullPool;
 
 ColoredCircle * ColoredCircle_init(
-    ColoredCircle * const coloredCircle,
+    ColoredCircle * const self,
     Point const origin,
     uint32_t const radius,
     Color const color
 ) {
-    Circle_init((Circle *)coloredCircle, origin, radius);
-    coloredCircle->color = color;
-    return coloredCircle;
+    Circle_init((Circle *)self, origin, radius);
+    self->color = color;
+    return self;
 }
 
-static void draw(Drawable const * const drawable) {
-    cbject_utils_invokeSuperMethod(Drawable, draw, drawable);
+static void draw(Drawable const * const self) {
+    cbject_utils_invokeSuperMethod(Drawable, draw, self);
 }
 
 ColoredCircleClass * ColoredCircleClass_instance(void) {
-    static ColoredCircleClass klass;
+    static ColoredCircleClass self;
     cbject_utils_doOnce {
-        cbject_ObjectClass_setup(&klass);
-        klass.circleClass.drawableClass.draw = draw;
+        cbject_ObjectClass_setup(&self);
+        ((DrawableClass *)&self)->draw = draw;
     }
-    return &klass;
+    return &self;
 }
 
 #undef cbject_Class

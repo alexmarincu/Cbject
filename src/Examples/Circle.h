@@ -6,16 +6,16 @@ typedef struct Circle Circle;
 typedef struct CircleClass CircleClass;
 
 struct Circle {
-    Drawable drawable;
+    Drawable super;
     uint32_t radius;
 };
 
 struct CircleClass {
-    DrawableClass drawableClass;
+    DrawableClass super;
 };
 
 Circle * Circle_init(
-    Circle * const circle,
+    Circle * const self,
     Point origin,
     uint32_t radius
 );

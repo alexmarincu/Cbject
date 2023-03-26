@@ -76,17 +76,17 @@ void test_cbject_Object_hashCode(void) {
 }
 
 /*************************************************************************************************** tag::test[]
-= test_cbject_Object_isOfClass
+= test_cbject_Object_isOfType
 ====
-Test isOfClass method
+Test isOfType method
 
 .Preconditions
 . Define a dummy TestClass which extends cbject_ObjectClass
 
 .Steps
 . Allocate object on stack an initialize it
-. Check if isOfClass method returns true when checked against cbject_Object
-. Check if isOfClass method returns false when checked against Test
+. Check if isOfType method returns true when checked against cbject_Object
+. Check if isOfType method returns false when checked against Test
 ====
 end::test[] ***************************************************************************************/
 #define cbject_Class (Test, cbject_Object)
@@ -95,22 +95,22 @@ typedef struct TestClass TestClass;
 struct Test {
     cbject_Object object;
 };
-static Test Test_pool[0];
+cbject_utils_nullPool;
 struct TestClass {
     cbject_ObjectClass objectClass;
 };
 cbject_ObjectClass * TestClass_instance(void) {
-    static cbject_ObjectClass klass;
+    static cbject_ObjectClass self;
     cbject_utils_doOnce {
-        cbject_ObjectClass_setup(&klass);
+        cbject_ObjectClass_setup(&self);
     }
-    return &klass;
+    return &self;
 }
 #undef cbject_Class
-void test_cbject_Object_isOfClass(void) {
+void test_cbject_Object_isOfType(void) {
     cbject_Object * object = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    TEST_ASSERT_TRUE(cbject_utils_isOfClass(object, cbject_Object));
-    TEST_ASSERT_FALSE(cbject_utils_isOfClass(object, Test));
+    TEST_ASSERT_TRUE(cbject_utils_isOfType(object, cbject_Object));
+    TEST_ASSERT_FALSE(cbject_utils_isOfType(object, Test));
 }
 
 /*************************************************************************************************** tag::test[]

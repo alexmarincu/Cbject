@@ -32,7 +32,7 @@ void test_cbject_LinkedList_init(void) {
         cbject_ObjectClass_instance(),
         cbject_LinkedList_NodeSource_heap
     );
-    TEST_ASSERT(cbject_utils_isOfClass(linkedList, cbject_LinkedList));
+    TEST_ASSERT(cbject_utils_isOfType(linkedList, cbject_LinkedList));
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == true);
     cbject_utils_release(linkedList);
@@ -67,11 +67,11 @@ Data * Data_init(Data * const data) {
     return data;
 }
 cbject_ObjectClass * DataClass_instance(void) {
-    static cbject_ObjectClass klass;
+    static cbject_ObjectClass self;
     cbject_utils_doOnce {
-        cbject_ObjectClass_setup(&klass);
+        cbject_ObjectClass_setup(&self);
     }
-    return &klass;
+    return &self;
 }
 #undef cbject_Class
 void test_cbject_LinkedList_addFirst(void) {

@@ -6,11 +6,11 @@ typedef struct Application Application;
 typedef struct ApplicationClass ApplicationClass;
 
 struct ApplicationClass {
-    cbject_SingletonClass singletonClass;
+    cbject_SingletonClass super;
 };
 
 Application * Application_instance(void);
-void Application_main(Application * const application);
+void Application_main(Application * const self);
 ApplicationClass * ApplicationClass_instance(void);
 
 #endif // APPLICATION_H

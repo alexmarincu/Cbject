@@ -568,8 +568,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_functions">2.3.3. Functions</a>
 <ul class="sectlevel4">
-<li><a href="#_cbject_object_acquire">cbject_Object_acquire()</a></li>
-<li><a href="#_cbject_object_alloc">cbject_Object_alloc()</a></li>
+<li><a href="#_cbject_objectclass_acquire">cbject_ObjectClass_acquire()</a></li>
+<li><a href="#_cbject_objectclass_alloc">cbject_ObjectClass_alloc()</a></li>
 <li><a href="#_cbject_object_init">cbject_Object_init()</a></li>
 <li><a href="#_cbject_object_allochelper">cbject_Object_allocHelper()</a></li>
 <li><a href="#_cbject_object_copy">cbject_Object_copy()</a></li>
@@ -577,7 +577,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_object_hashcode">cbject_Object_hashCode()</a></li>
 <li><a href="#_cbject_object_retain">cbject_Object_retain()</a></li>
 <li><a href="#_cbject_object_release">cbject_Object_release()</a></li>
-<li><a href="#_cbject_object_isofclass">cbject_Object_isOfClass()</a></li>
+<li><a href="#_cbject_object_isoftype">cbject_Object_isOfType()</a></li>
 <li><a href="#_cbject_objectclass_instance">cbject_ObjectClass_instance()</a></li>
 </ul>
 </li>
@@ -594,7 +594,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_test_cbject_object_init">test_cbject_Object_init</a></li>
 <li><a href="#_test_cbject_object_equals">test_cbject_Object_equals</a></li>
 <li><a href="#_test_cbject_object_hashcode">test_cbject_Object_hashCode</a></li>
-<li><a href="#_test_cbject_object_isofclass">test_cbject_Object_isOfClass</a></li>
+<li><a href="#_test_cbject_object_isoftype">test_cbject_Object_isOfType</a></li>
 <li><a href="#_test_cbject_object_copy">test_cbject_Object_copy</a></li>
 </ul>
 </li>
@@ -785,7 +785,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * object = cbject_Object_init(cbject_Object_alloc(cbject_Object));
+<pre>cbject_Object * object = cbject_Object_init(cbject_ObjectClass_alloc(cbject_Object));
 printf("%d\n", cbject_Object_hashCode(object));
 cbject_utils_dealloc(object);</pre>
 </div>
@@ -797,13 +797,13 @@ cbject_utils_dealloc(object);</pre>
 <h3 id="_cbject_object_model">1.3. cbject_Object model</h3>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-building-blocks.png" alt="diag building blocks" width="767" height="211">
+<img src="media/diag-building-blocks.png" alt="diag building blocks" width="730" height="211">
 </div>
 <div class="title">Figure 1. Building blocks</div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-rectangle-class-example.png" alt="diag rectangle class example" width="615" height="948">
+<img src="media/diag-rectangle-class-example.png" alt="diag rectangle class example" width="575" height="948">
 </div>
 <div class="title">Figure 2. Rectangle class example</div>
 </div>
@@ -1016,7 +1016,7 @@ cbject_utils_dealloc(object);</pre>
 <h4 id="_overview_4">2.3.1. Overview</h4>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-object.png" alt="diag object" width="767" height="211">
+<img src="media/diag-object.png" alt="diag object" width="730" height="211">
 </div>
 <div class="title">Figure 3. Context diagram</div>
 </div>
@@ -1173,12 +1173,12 @@ cbject_utils_dealloc(object);</pre>
     cbject_Object * pool;
     uint64_t poolSize;
     cbject_Object * poolFirstFreeObject;
-    cbject_Object * (*acquire)(cbject_ObjectClass * const objectClass);
-    cbject_Object * (*alloc)(cbject_ObjectClass * const objectClass);
-    uint64_t (*hashCode)(cbject_Object const * const object);
-    cbject_Object * (*copy)(cbject_Object const * const object, cbject_Object * const copyObject);
-    bool (*equals)(cbject_Object const * const object, cbject_Object const * const otherObject);
-    cbject_Object * (*terminate)(cbject_Object * object);
+    cbject_Object * (*acquire)(cbject_ObjectClass * const self);
+    cbject_Object * (*alloc)(cbject_ObjectClass * const self);
+    uint64_t (*hashCode)(cbject_Object const * const self);
+    cbject_Object * (*copy)(cbject_Object const * const self, cbject_Object * const object);
+    bool (*equals)(cbject_Object const * const self, cbject_Object const * const object);
+    cbject_Object * (*terminate)(cbject_Object * self);
 };</pre>
 </div>
 </div>
@@ -1233,12 +1233,12 @@ cbject_utils_dealloc(object);</pre>
 <div class="sect3">
 <h4 id="_functions">2.3.3. Functions</h4>
 <div class="sect4">
-<h5 id="_cbject_object_acquire">cbject_Object_acquire()</h5>
+<h5 id="_cbject_objectclass_acquire">cbject_ObjectClass_acquire()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_Object_acquire(cbject_ObjectClass * const objectClass);</pre>
+<pre>cbject_Object * cbject_ObjectClass_acquire(cbject_ObjectClass * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1248,7 +1248,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>objectClass - cbject_ObjectClass reference</p>
+<p>self - cbject_ObjectClass reference</p>
 </li>
 </ul>
 </div>
@@ -1260,12 +1260,12 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_object_alloc">cbject_Object_alloc()</h5>
+<h5 id="_cbject_objectclass_alloc">cbject_ObjectClass_alloc()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_Object_alloc(cbject_ObjectClass * const objectClass);</pre>
+<pre>cbject_Object * cbject_ObjectClass_alloc(cbject_ObjectClass * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1275,7 +1275,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>objectClass - cbject_ObjectClass reference</p>
+<p>self - cbject_ObjectClass reference</p>
 </li>
 </ul>
 </div>
@@ -1292,7 +1292,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_Object_init(cbject_Object * const object);</pre>
+<pre>cbject_Object * cbject_Object_init(cbject_Object * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1302,7 +1302,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - cbject_Object reference</p>
+<p>self - cbject_Object reference</p>
 </li>
 </ul>
 </div>
@@ -1319,7 +1319,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_Object_allocHelper(cbject_Object * const object, cbject_ObjectClass * const objectClass);</pre>
+<pre>cbject_Object * cbject_Object_allocHelper(cbject_Object * const self, cbject_ObjectClass * const objectClass);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1329,7 +1329,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - cbject_Object reference</p>
+<p>self - cbject_Object reference</p>
 </li>
 <li>
 <p>objectClass - cbject_ObjectClass reference</p>
@@ -1349,7 +1349,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_Object_copy(cbject_Object const * const object, cbject_Object * const copyObject);</pre>
+<pre>cbject_Object * cbject_Object_copy(cbject_Object const * const self, cbject_Object * const object);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1359,16 +1359,16 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - cbject_Object reference</p>
+<p>self - cbject_Object reference</p>
 </li>
 <li>
-<p>copyObject - Reference of a new object in which to copy the original one</p>
+<p>object - Reference of a new object in which to copy the original one</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <div class="title">Return</div>
-<p>Reference of copyObject</p>
+<p>Reference of object</p>
 </div>
 </div>
 </div>
@@ -1379,7 +1379,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>bool cbject_Object_equals(cbject_Object const * const object, cbject_Object const * const otherObject);</pre>
+<pre>bool cbject_Object_equals(cbject_Object const * const self, cbject_Object const * const object);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1389,10 +1389,10 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - cbject_Object reference</p>
+<p>self - cbject_Object reference</p>
 </li>
 <li>
-<p>otherObject - Reference for the compared object</p>
+<p>object - Reference for the compared object</p>
 </li>
 </ul>
 </div>
@@ -1416,7 +1416,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>uint64_t cbject_Object_hashCode(cbject_Object const * const object);</pre>
+<pre>uint64_t cbject_Object_hashCode(cbject_Object const * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1426,7 +1426,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - cbject_Object reference</p>
+<p>self - cbject_Object reference</p>
 </li>
 </ul>
 </div>
@@ -1443,7 +1443,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_Object_retain(cbject_Object * const object);</pre>
+<pre>cbject_Object * cbject_Object_retain(cbject_Object * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1453,7 +1453,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - cbject_Object reference</p>
+<p>self - cbject_Object reference</p>
 </li>
 </ul>
 </div>
@@ -1470,7 +1470,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>void * cbject_Object_release(cbject_Object * const object);</pre>
+<pre>void * cbject_Object_release(cbject_Object * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1480,7 +1480,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - cbject_Object reference</p>
+<p>self - cbject_Object reference</p>
 </li>
 </ul>
 </div>
@@ -1492,12 +1492,12 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_object_isofclass">cbject_Object_isOfClass()</h5>
+<h5 id="_cbject_object_isoftype">cbject_Object_isOfType()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>bool cbject_Object_isOfClass(cbject_Object const * const object, cbject_ObjectClass const * const objectClass);</pre>
+<pre>bool cbject_Object_isOfType(cbject_Object const * const self, cbject_ObjectClass const * const objectClass);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1507,7 +1507,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - cbject_Object reference</p>
+<p>self - cbject_Object reference</p>
 </li>
 <li>
 <p>objectClass - Class reference</p>
@@ -1556,7 +1556,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_ObjectClass_setup(klass)</pre>
+<pre>cbject_ObjectClass_setup(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1570,7 +1570,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>klass - Class reference</p>
+<p>self - Class reference</p>
 </li>
 </ul>
 </div>
@@ -1728,11 +1728,11 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_test_cbject_object_isofclass">test_cbject_Object_isOfClass</h5>
+<h5 id="_test_cbject_object_isoftype">test_cbject_Object_isOfType</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
-<p>Test isOfClass method</p>
+<p>Test isOfType method</p>
 </div>
 <div class="olist arabic">
 <div class="title">Preconditions</div>
@@ -1749,10 +1749,10 @@ cbject_utils_dealloc(object);</pre>
 <p>Allocate object on stack an initialize it</p>
 </li>
 <li>
-<p>Check if isOfClass method returns true when checked against cbject_Object</p>
+<p>Check if isOfType method returns true when checked against cbject_Object</p>
 </li>
 <li>
-<p>Check if isOfClass method returns false when checked against Test</p>
+<p>Check if isOfType method returns false when checked against Test</p>
 </li>
 </ol>
 </div>
@@ -1800,7 +1800,7 @@ cbject_utils_dealloc(object);</pre>
 <h4 id="_overview_5">2.4.1. Overview</h4>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-singleton.png" alt="diag singleton" width="617" height="456">
+<img src="media/diag-singleton.png" alt="diag singleton" width="584" height="456">
 </div>
 <div class="title">Figure 4. Context diagram</div>
 </div>
@@ -1844,7 +1844,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="listingblock">
 <div class="content">
 <pre>struct cbject_Singleton {
-    cbject_Object object;
+    cbject_Object super;
 
 };</pre>
 </div>
@@ -1856,7 +1856,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Members</div>
 <ul>
 <li>
-<p>object - Parent</p>
+<p>super - Parent</p>
 </li>
 </ul>
 </div>
@@ -1870,7 +1870,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="listingblock">
 <div class="content">
 <pre>struct cbject_SingletonClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass super;
 };</pre>
 </div>
 </div>
@@ -1881,7 +1881,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Members</div>
 <ul>
 <li>
-<p>cbject_ObjectCLass - class of parent</p>
+<p>super - Parent</p>
 </li>
 </ul>
 </div>
@@ -1897,7 +1897,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const singleton);</pre>
+<pre>cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1907,7 +1907,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>singleton - cbject_Singleton reference</p>
+<p>self - cbject_Singleton reference</p>
 </li>
 </ul>
 </div>
@@ -1948,7 +1948,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-node.png" alt="diag node" width="617" height="497">
+<img src="media/diag-node.png" alt="diag node" width="584" height="497">
 </div>
 <div class="title">Figure 5. Context diagram</div>
 </div>
@@ -1992,7 +1992,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="listingblock">
 <div class="content">
 <pre>struct cbject_Node {
-    cbject_Object object;
+    cbject_Object super;
     cbject_Object * element;
     cbject_Node * previous;
     cbject_Node * next;
@@ -2007,7 +2007,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Members</div>
 <ul>
 <li>
-<p>object - Parent</p>
+<p>super - Parent</p>
 </li>
 <li>
 <p>element - Reference to the element</p>
@@ -2041,7 +2041,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Members</div>
 <ul>
 <li>
-<p>cbject_ObjectCLass - class of parent</p>
+<p>super - Parent</p>
 </li>
 </ul>
 </div>
@@ -2057,7 +2057,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Node * cbject_Node_init(cbject_Node * const node, cbject_Object * const object);</pre>
+<pre>cbject_Node * cbject_Node_init(cbject_Node * const self, cbject_Object * const object);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2067,7 +2067,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>node - cbject_Node reference</p>
+<p>self - cbject_Node reference</p>
 </li>
 <li>
 <p>object - Object to store in the node</p>
@@ -2087,7 +2087,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_Node_getElement(cbject_Node const * const node);</pre>
+<pre>cbject_Object * cbject_Node_getElement(cbject_Node const * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2097,7 +2097,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>node - cbject_Node reference</p>
+<p>self - cbject_Node reference</p>
 </li>
 </ul>
 </div>
@@ -2114,7 +2114,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Node * cbject_Node_getPrevious(cbject_Node const * const node);</pre>
+<pre>cbject_Node * cbject_Node_getPrevious(cbject_Node const * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2124,7 +2124,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>node - cbject_Node reference</p>
+<p>self - cbject_Node reference</p>
 </li>
 </ul>
 </div>
@@ -2141,7 +2141,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>void cbject_Node_setPrevious(cbject_Node * const node, cbject_Node * const previousNode);</pre>
+<pre>void cbject_Node_setPrevious(cbject_Node * const self, cbject_Node * const previousNode);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2151,7 +2151,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>node - cbject_Node reference</p>
+<p>self - cbject_Node reference</p>
 </li>
 <li>
 <p>previousNode - cbject_Node reference</p>
@@ -2167,7 +2167,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Node * cbject_Node_getNext(cbject_Node const * const node);</pre>
+<pre>cbject_Node * cbject_Node_getNext(cbject_Node const * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2177,7 +2177,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>node - cbject_Node reference</p>
+<p>self - cbject_Node reference</p>
 </li>
 </ul>
 </div>
@@ -2194,7 +2194,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>void cbject_Node_setNext(cbject_Node * const node, cbject_Node * const nextNode);</pre>
+<pre>void cbject_Node_setNext(cbject_Node * const self, cbject_Node * const nextNode);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2204,7 +2204,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>node - cbject_Node reference</p>
+<p>self - cbject_Node reference</p>
 </li>
 <li>
 <p>nextNode - cbject_Node reference</p>
@@ -2292,7 +2292,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="media/diag-linkedList.png" alt="diag linkedList" width="617" height="525">
+<img src="media/diag-linkedList.png" alt="diag linkedList" width="585" height="525">
 </div>
 <div class="title">Figure 6. Context diagram</div>
 </div>
@@ -2369,7 +2369,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="listingblock">
 <div class="content">
 <pre>struct cbject_LinkedList {
-    cbject_Object object;
+    cbject_Object super;
     cbject_ObjectClass const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
@@ -2385,7 +2385,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Members</div>
 <ul>
 <li>
-<p>object - Parent</p>
+<p>super - Parent</p>
 </li>
 <li>
 <p>elementClass - Class of the elements stored in the list</p>
@@ -2414,7 +2414,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="listingblock">
 <div class="content">
 <pre>struct cbject_LinkedListClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass super;
 };</pre>
 </div>
 </div>
@@ -2425,7 +2425,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Members</div>
 <ul>
 <li>
-<p>cbject_ObjectCLass - class of parent</p>
+<p>super - Parent</p>
 </li>
 </ul>
 </div>
@@ -2442,7 +2442,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="listingblock">
 <div class="content">
 <pre>cbject_LinkedList * cbject_LinkedList_init(
-    cbject_LinkedList * const linkedList,
+    cbject_LinkedList * const self,
     cbject_LinkedList_NodeSource const nodeSource
 );</pre>
 </div>
@@ -2454,7 +2454,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>linkedList - cbject_LinkedList reference</p>
+<p>self - cbject_LinkedList reference</p>
 </li>
 <li>
 <p>nodeSource - Source for node creation (heap/staticPool)
@@ -2472,7 +2472,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const linkedList);</pre>
+<pre>bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2482,7 +2482,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>linkedList - cbject_LinkedList reference</p>
+<p>self - cbject_LinkedList reference</p>
 </li>
 </ul>
 </div>
@@ -2506,7 +2506,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>void cbject_LinkedList_addLast(cbject_LinkedList * const linkedList, cbject_Object * const object);</pre>
+<pre>void cbject_LinkedList_addLast(cbject_LinkedList * const self, cbject_Object * const object);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2516,7 +2516,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>linkedList - cbject_LinkedList reference</p>
+<p>self - cbject_LinkedList reference</p>
 </li>
 <li>
 <p>object - Object to be added in the list</p>
@@ -2532,7 +2532,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>void cbject_LinkedList_addFirst(cbject_LinkedList * const linkedList, cbject_Object * const object);</pre>
+<pre>void cbject_LinkedList_addFirst(cbject_LinkedList * const self, cbject_Object * const object);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2542,7 +2542,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>linkedList - cbject_LinkedList reference</p>
+<p>self - cbject_LinkedList reference</p>
 </li>
 <li>
 <p>object - Object to be added in the list</p>
@@ -2558,7 +2558,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>void cbject_LinkedList_removeLast(cbject_LinkedList * const linkedList);</pre>
+<pre>void cbject_LinkedList_removeLast(cbject_LinkedList * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2568,7 +2568,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>linkedList - cbject_LinkedList reference</p>
+<p>self - cbject_LinkedList reference</p>
 </li>
 </ul>
 </div>
@@ -2581,7 +2581,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>void cbject_LinkedList_removeFirst(cbject_LinkedList * const linkedList);</pre>
+<pre>void cbject_LinkedList_removeFirst(cbject_LinkedList * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2591,7 +2591,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>linkedList - cbject_LinkedList reference</p>
+<p>self - cbject_LinkedList reference</p>
 </li>
 </ul>
 </div>
@@ -2604,7 +2604,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>void cbject_LinkedList_clear(cbject_LinkedList * const linkedList);</pre>
+<pre>void cbject_LinkedList_clear(cbject_LinkedList * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2614,7 +2614,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>linkedList - cbject_LinkedList reference</p>
+<p>self - cbject_LinkedList reference</p>
 </li>
 </ul>
 </div>
@@ -2627,7 +2627,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_LinkedList_getFirst(cbject_LinkedList const * const linkedList);</pre>
+<pre>cbject_Object * cbject_LinkedList_getFirst(cbject_LinkedList const * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2637,7 +2637,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>linkedList - cbject_LinkedList reference</p>
+<p>self - cbject_LinkedList reference</p>
 </li>
 </ul>
 </div>
@@ -2654,7 +2654,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const linkedList);</pre>
+<pre>cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2664,7 +2664,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>linkedList - cbject_LinkedList reference</p>
+<p>self - cbject_LinkedList reference</p>
 </li>
 </ul>
 </div>
@@ -2681,7 +2681,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const linkedList, uint64_t index);</pre>
+<pre>cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2691,7 +2691,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>linkedList - cbject_LinkedList reference</p>
+<p>self - cbject_LinkedList reference</p>
 </li>
 <li>
 <p>index - index of the element to return</p>
@@ -2711,7 +2711,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const linkedList);</pre>
+<pre>uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const self);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2721,7 +2721,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>linkedList - cbject_LinkedList reference</p>
+<p>self - cbject_LinkedList reference</p>
 </li>
 </ul>
 </div>
@@ -2924,7 +2924,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_acquire(klass)</pre>
+<pre>cbject_utils_acquire(type)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2932,13 +2932,13 @@ Initialized and empty LinkedList</p>
 </div>
 <div class="paragraph">
 <div class="title">Remarks</div>
-<p>Calls cbject_Object_acquire() and does the necessary casting</p>
+<p>Calls cbject_ObjectClass_acquire() and does the necessary casting</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
 <ul>
 <li>
-<p>klass - Name of class</p>
+<p>type - Name of class</p>
 </li>
 </ul>
 </div>
@@ -2955,7 +2955,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_alloc(klass)</pre>
+<pre>cbject_utils_alloc(type)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2963,13 +2963,13 @@ Initialized and empty LinkedList</p>
 </div>
 <div class="paragraph">
 <div class="title">Remarks</div>
-<p>Calls cbject_Object_alloc() and does the necessary casting</p>
+<p>Calls cbject_ObjectClass_alloc() and does the necessary casting</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
 <ul>
 <li>
-<p>klass - Name of class</p>
+<p>type - Name of class</p>
 </li>
 </ul>
 </div>
@@ -2986,7 +2986,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_stackAlloc(klass)</pre>
+<pre>cbject_utils_stackAlloc(type)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2996,7 +2996,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>klass - Name of class</p>
+<p>type - Name of class</p>
 </li>
 </ul>
 </div>
@@ -3013,7 +3013,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_hashCode(object)</pre>
+<pre>cbject_utils_hashCode(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3027,7 +3027,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - cbject_Object reference</p>
+<p>self - cbject_Object reference</p>
 </li>
 </ul>
 </div>
@@ -3044,7 +3044,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_equals(object, otherObject)</pre>
+<pre>cbject_utils_equals(self, object)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3058,10 +3058,10 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - cbject_Object reference</p>
+<p>self - cbject_Object reference</p>
 </li>
 <li>
-<p>otherObject - Reference for the compared object</p>
+<p>object - Reference for the compared object</p>
 </li>
 </ul>
 </div>
@@ -3085,7 +3085,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_copy(object, copyObject)</pre>
+<pre>cbject_utils_copy(self, object)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3099,16 +3099,16 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - cbject_Object reference</p>
+<p>self - cbject_Object reference</p>
 </li>
 <li>
-<p>copyObject - Reference of a new object in which to copy the original one</p>
+<p>object - Reference of a new object in which to copy the original one</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <div class="title">Return</div>
-<p>Reference of copyObject</p>
+<p>Reference of object</p>
 </div>
 </div>
 </div>
@@ -3119,7 +3119,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_retain(object)</pre>
+<pre>cbject_utils_retain(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3133,7 +3133,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - cbject_Object reference</p>
+<p>self - cbject_Object reference</p>
 </li>
 </ul>
 </div>
@@ -3150,7 +3150,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_release(object)</pre>
+<pre>cbject_utils_release(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3164,7 +3164,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>object - cbject_Object reference</p>
+<p>self - cbject_Object reference</p>
 </li>
 </ul>
 </div>
@@ -3328,7 +3328,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>klass - Name of the class</p>
+<p>type - Name of the class</p>
 </li>
 <li>
 <p>method - Name of the method</p>
@@ -3338,7 +3338,7 @@ Initialized and empty LinkedList</p>
 <div class="ulist">
 <ul>
 <li>
-<p>object - cbject_Object reference (optional - in case of object method)</p>
+<p>self - cbject_Object reference (optional - in case of object method)</p>
 </li>
 <li>
 <p>&#8230;&#8203; - Method params</p>
@@ -3361,7 +3361,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Array_length(array)</pre>
+<pre>cbject_utils_Array_length(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3371,7 +3371,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>array - Array for which to get the length</p>
+<p>self - Array for which to get the length</p>
 </li>
 </ul>
 </div>
@@ -3410,7 +3410,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Token_concat(token, otherToken)</pre>
+<pre>cbject_utils_Token_concat(self, token)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3420,10 +3420,10 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>token - Token</p>
+<p>self - Token</p>
 </li>
 <li>
-<p>otherToken - Token to add after the provided token</p>
+<p>token - Token to add after the provided token</p>
 </li>
 </ul>
 </div>
@@ -3436,7 +3436,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Token_concatIndirect(token, otherToken)</pre>
+<pre>cbject_utils_Token_concatIndirect(self, token)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3446,10 +3446,10 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>token - Token</p>
+<p>self - Token</p>
 </li>
 <li>
-<p>otherToken - Token to add after the provided token</p>
+<p>token - Token to add after the provided token</p>
 </li>
 </ul>
 </div>
@@ -3462,7 +3462,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Token_stringify(token)</pre>
+<pre>cbject_utils_Token_stringify(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3472,7 +3472,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>token - Token</p>
+<p>self - Token</p>
 </li>
 </ul>
 </div>
@@ -3485,7 +3485,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Token_stringifyIndirect(token)</pre>
+<pre>cbject_utils_Token_stringifyIndirect(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3495,7 +3495,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>token - Token</p>
+<p>self - Token</p>
 </li>
 </ul>
 </div>
@@ -3588,7 +3588,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Pair_getFirst(pair)</pre>
+<pre>cbject_utils_Pair_getFirst(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3598,7 +3598,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>pair - (first, second)</p>
+<p>self - (first, second)</p>
 </li>
 </ul>
 </div>
@@ -3611,7 +3611,7 @@ Initialized and empty LinkedList</p>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Pair_getSecond(pair)</pre>
+<pre>cbject_utils_Pair_getSecond(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3621,7 +3621,7 @@ Initialized and empty LinkedList</p>
 <div class="title">Params</div>
 <ul>
 <li>
-<p>pair - (first, second)</p>
+<p>self - (first, second)</p>
 </li>
 </ul>
 </div>
