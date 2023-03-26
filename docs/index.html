@@ -703,6 +703,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_utils_retain">cbject_utils_retain()</a></li>
 <li><a href="#_cbject_utils_release">cbject_utils_release()</a></li>
 <li><a href="#_cbject_utils_allocpool">cbject_utils_allocPool()</a></li>
+<li><a href="#_cbject_utils_nullpool">cbject_utils_nullPool</a></li>
 <li><a href="#_cbject_utils_doonce">cbject_utils_doOnce</a></li>
 <li><a href="#_cbject_utils_invokemethod">cbject_utils_invokeMethod()</a></li>
 <li><a href="#_cbject_utils_invokeclassmethod">cbject_utils_invokeClassMethod()</a></li>
@@ -3198,6 +3199,26 @@ Initialized and empty LinkedList</p>
 <p>poolSize - Size of pool (number of objects in pool)</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_utils_nullpool">cbject_utils_nullPool</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_utils_nullPool</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Declares a null static pool</p>
+</div>
+<div class="paragraph">
+<div class="title">Remarks</div>
+<p>cbject_Class must be defined before using this macro
+Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 </div>

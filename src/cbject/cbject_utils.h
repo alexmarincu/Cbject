@@ -236,6 +236,19 @@ end::macro[] *******************************************************************
     enum { cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _poolSize) = poolSize }; \
     static cbject_utils_Pair_getFirst(cbject_Class) cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool)[poolSize]
 
+/*************************************************************************************************** tag::macro[]
+= cbject_utils_nullPool
+====
+----
+cbject_utils_nullPool
+----
+Declares a null static pool
+
+.Remarks
+cbject_Class must be defined before using this macro
+Use instead of cbject_utils_allocPool if no static pool is needed
+====
+end::macro[] **************************************************************************************/
 #define cbject_utils_nullPool                                                                            \
     enum { cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _poolSize) = 0 }; \
     static cbject_utils_Pair_getFirst(cbject_Class) * cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool) = NULL
