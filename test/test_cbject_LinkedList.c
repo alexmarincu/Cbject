@@ -223,7 +223,6 @@ void test_cbject_LinkedList_removeFirst(void) {
     cbject_LinkedList_removeFirst(linkedList);
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == true);
-    cbject_LinkedList_removeFirst(linkedList);
     cbject_utils_release(linkedList);
 }
 
@@ -273,7 +272,6 @@ void test_cbject_LinkedList_removeLast(void) {
     cbject_LinkedList_removeLast(linkedList);
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == true);
-    cbject_LinkedList_removeLast(linkedList);
     cbject_utils_release(linkedList);
 }
 

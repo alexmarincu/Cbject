@@ -95,7 +95,7 @@ typedef struct TestClass TestClass;
 struct Test {
     cbject_Object object;
 };
-cbject_utils_nullPool;
+cbject_utils_noPool;
 struct TestClass {
     cbject_ObjectClass objectClass;
 };

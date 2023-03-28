@@ -7,7 +7,7 @@
 #define cbject_Class (cbject_Object, NULL)
 
 #if (cbject_config_useStaticPool == true)
-cbject_utils_nullPool;
+cbject_utils_noPool;
 
 cbject_Object * cbject_ObjectClass_acquire(cbject_ObjectClass * const self) {
     return cbject_utils_invokeClassMethod(acquire, self);

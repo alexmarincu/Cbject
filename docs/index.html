@@ -665,14 +665,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel4">
 <li><a href="#_cbject_linkedlist_init">cbject_LinkedList_init()</a></li>
 <li><a href="#_cbject_linkedlist_isempty">cbject_LinkedList_isEmpty()</a></li>
+<li><a href="#_cbject_linkedlist_add">cbject_LinkedList_add()</a></li>
 <li><a href="#_cbject_linkedlist_addlast">cbject_LinkedList_addLast()</a></li>
 <li><a href="#_cbject_linkedlist_addfirst">cbject_LinkedList_addFirst()</a></li>
-<li><a href="#_cbject_linkedlist_removelast">cbject_LinkedList_removeLast()</a></li>
+<li><a href="#_cbject_linkedlist_remove">cbject_LinkedList_remove()</a></li>
 <li><a href="#_cbject_linkedlist_removefirst">cbject_LinkedList_removeFirst()</a></li>
+<li><a href="#_cbject_linkedlist_removelast">cbject_LinkedList_removeLast()</a></li>
 <li><a href="#_cbject_linkedlist_clear">cbject_LinkedList_clear()</a></li>
+<li><a href="#_cbject_linkedlist_get">cbject_LinkedList_get()</a></li>
 <li><a href="#_cbject_linkedlist_getfirst">cbject_LinkedList_getFirst()</a></li>
 <li><a href="#_cbject_linkedlist_getlast">cbject_LinkedList_getLast()</a></li>
-<li><a href="#_cbject_linkedlist_get">cbject_LinkedList_get()</a></li>
 <li><a href="#_cbject_linkedlist_getsize">cbject_LinkedList_getSize()</a></li>
 <li><a href="#_cbject_linkedlistclass_instance">cbject_LinkedListClass_instance()</a></li>
 </ul>
@@ -703,7 +705,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_utils_retain">cbject_utils_retain()</a></li>
 <li><a href="#_cbject_utils_release">cbject_utils_release()</a></li>
 <li><a href="#_cbject_utils_allocpool">cbject_utils_allocPool()</a></li>
-<li><a href="#_cbject_utils_nullpool">cbject_utils_nullPool</a></li>
+<li><a href="#_cbject_utils_nopool">cbject_utils_noPool</a></li>
 <li><a href="#_cbject_utils_doonce">cbject_utils_doOnce</a></li>
 <li><a href="#_cbject_utils_invokemethod">cbject_utils_invokeMethod()</a></li>
 <li><a href="#_cbject_utils_invokeclassmethod">cbject_utils_invokeClassMethod()</a></li>
@@ -2502,6 +2504,35 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect4">
+<h5 id="_cbject_linkedlist_add">cbject_LinkedList_add()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>void cbject_LinkedList_add(cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Adds an element to the end of the list</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>self - cbject_LinkedList reference</p>
+</li>
+<li>
+<p>index - Index in the list where to add the object</p>
+</li>
+<li>
+<p>object - Object to be added in the list</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
 <h5 id="_cbject_linkedlist_addlast">cbject_LinkedList_addLast()</h5>
 <div class="exampleblock">
 <div class="content">
@@ -2554,22 +2585,25 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_linkedlist_removelast">cbject_LinkedList_removeLast()</h5>
+<h5 id="_cbject_linkedlist_remove">cbject_LinkedList_remove()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>void cbject_LinkedList_removeLast(cbject_LinkedList * const self);</pre>
+<pre>void cbject_LinkedList_remove(cbject_LinkedList * const self, uint64_t const index);</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Removes last element in the list</p>
+<p>Removes last element in the list at provided index</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
 <ul>
 <li>
 <p>self - cbject_LinkedList reference</p>
+</li>
+<li>
+<p>index - Index in the list from where to remove the object</p>
 </li>
 </ul>
 </div>
@@ -2587,6 +2621,29 @@ Initialized and empty LinkedList</p>
 </div>
 <div class="paragraph">
 <p>Removes first element in the list</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>self - cbject_LinkedList reference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_removelast">cbject_LinkedList_removeLast()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>void cbject_LinkedList_removeLast(cbject_LinkedList * const self);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Removes last element in the list</p>
 </div>
 <div class="ulist">
 <div class="title">Params</div>
@@ -2618,6 +2675,36 @@ Initialized and empty LinkedList</p>
 <p>self - cbject_LinkedList reference</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_linkedlist_get">cbject_LinkedList_get()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index);</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets element at specified index</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>self - cbject_LinkedList reference</p>
+</li>
+<li>
+<p>index - index of the element to return</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Element at specified index</p>
 </div>
 </div>
 </div>
@@ -2672,36 +2759,6 @@ Initialized and empty LinkedList</p>
 <div class="paragraph">
 <div class="title">Return</div>
 <p>Last element in list</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_linkedlist_get">cbject_LinkedList_get()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index);</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Gets element at specified index</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>self - cbject_LinkedList reference</p>
-</li>
-<li>
-<p>index - index of the element to return</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Element at specified index</p>
 </div>
 </div>
 </div>
@@ -3204,12 +3261,12 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_nullpool">cbject_utils_nullPool</h5>
+<h5 id="_cbject_utils_nopool">cbject_utils_noPool</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_nullPool</pre>
+<pre>cbject_utils_noPool</pre>
 </div>
 </div>
 <div class="paragraph">

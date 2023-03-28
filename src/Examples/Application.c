@@ -12,7 +12,7 @@ struct Application {
     Rectangle * rectangle;
 };
 
-cbject_utils_nullPool;
+cbject_utils_noPool;
 
 Application * Application_instance(void) {
     static Application self;

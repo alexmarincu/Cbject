@@ -30,7 +30,7 @@ bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const self) {
     return self->size == 0;
 }
 
-static cbject_Node * cbject_LinkedList_createNode(cbject_LinkedList * const self, cbject_Object * const object) {
+static cbject_Node * createNode(cbject_LinkedList * const self, cbject_Object * const object) {
     assert(cbject_Object_isOfType(object, self->elementClass));
     cbject_Node * node;
 #if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
@@ -48,83 +48,111 @@ static cbject_Node * cbject_LinkedList_createNode(cbject_LinkedList * const self
     return node;
 }
 
-void cbject_LinkedList_addLast(cbject_LinkedList * const self, cbject_Object * const object) {
-    cbject_Node * node = cbject_LinkedList_createNode(self, object);
-    if (self->last != NULL) {
-        cbject_Node_setNext(self->last, node);
-        cbject_Node_setPrevious(node, self->last);
-        self->last = node;
+static cbject_Node * getNode(cbject_LinkedList const * const self, uint64_t index) {
+    assert(index < self->size);
+    cbject_Node * node;
+    if (index <= self->size / 2) {
+        node = self->first;
+        for (uint64_t i = 0; i < index; i++) {
+            node = cbject_Node_getNext(node);
+        }
     } else {
-        self->first = node;
-        self->last = node;
+        node = self->last;
+        for (uint64_t i = self->size - 1; i > index; i--) {
+            node = cbject_Node_getPrevious(node);
+        }
+    }
+    return node;
+}
+
+void cbject_LinkedList_add(cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object) {
+    assert(index <= self->size);
+    cbject_Node * newNode = createNode(self, object);
+    if (self->size == 0) {
+        self->first = newNode;
+        self->last = newNode;
+    } else {
+        if (index == self->size) {
+            cbject_Node * node = self->last;
+            cbject_Node_setNext(node, newNode);
+            cbject_Node_setPrevious(newNode, node);
+            self->last = newNode;
+        } else if (index == 0) {
+            cbject_Node * node = self->first;
+            cbject_Node_setNext(newNode, node);
+            cbject_Node_setPrevious(node, newNode);
+            self->first = newNode;
+        } else {
+            cbject_Node * node = getNode(self, index);
+            cbject_Node_setNext(cbject_Node_getPrevious(node), newNode);
+            cbject_Node_setPrevious(newNode, cbject_Node_getPrevious(node));
+            cbject_Node_setNext(newNode, node);
+            cbject_Node_setPrevious(node, newNode);
+        }
     }
     self->size++;
 }
 
 void cbject_LinkedList_addFirst(cbject_LinkedList * const self, cbject_Object * const object) {
-    cbject_Node * node = cbject_LinkedList_createNode(self, object);
-    if (self->first != NULL) {
-        cbject_Node_setPrevious(self->first, node);
-        cbject_Node_setNext(node, self->first);
-        self->first = node;
-    } else {
-        self->first = node;
-        self->last = node;
-    }
-    self->size++;
+    cbject_LinkedList_add(self, 0, object);
 }
 
-void cbject_LinkedList_removeLast(cbject_LinkedList * const self) {
-    if (self->size != 0) {
-        cbject_Node * node = self->last;
-        self->last = cbject_Node_getPrevious(node);
-        if (self->last != NULL) {
-            cbject_Node_setNext(self->last, NULL);
-        } else {
-            self->first = NULL;
-        }
-        self->size--;
+void cbject_LinkedList_addLast(cbject_LinkedList * const self, cbject_Object * const object) {
+    cbject_LinkedList_add(self, self->size, object);
+}
+
+void cbject_LinkedList_remove(cbject_LinkedList * const self, uint64_t const index) {
+    assert(index < self->size);
+    if (self->size == 1) {
+        cbject_Node * node = self->first;
         cbject_utils_release(node);
+        self->first = NULL;
+        self->last = NULL;
+    } else {
+        if (index == self->size - 1) {
+            cbject_Node * node = self->last;
+            self->last = cbject_Node_getPrevious(node);
+            cbject_Node_setNext(self->last, NULL);
+            cbject_utils_release(node);
+        } else if (index == 0) {
+            cbject_Node * node = self->first;
+            self->first = cbject_Node_getNext(node);
+            cbject_Node_setPrevious(self->first, NULL);
+            cbject_utils_release(node);
+        } else {
+            cbject_Node * node = getNode(self, index);
+            cbject_Node_setNext(cbject_Node_getPrevious(node), cbject_Node_getNext(node));
+            cbject_Node_setPrevious(cbject_Node_getNext(node), cbject_Node_getPrevious(node));
+            cbject_utils_release(node);
+        }
     }
+    self->size--;
 }
 
 void cbject_LinkedList_removeFirst(cbject_LinkedList * const self) {
-    if (self->size != 0) {
-        cbject_Node * node = self->first;
-        self->first = cbject_Node_getNext(node);
-        if (self->first != NULL) {
-            cbject_Node_setPrevious(self->first, NULL);
-        } else {
-            self->last = NULL;
-        }
-        self->size--;
-        cbject_utils_release(node);
-    }
+    cbject_LinkedList_remove(self, 0);
+}
+
+void cbject_LinkedList_removeLast(cbject_LinkedList * const self) {
+    cbject_LinkedList_remove(self, self->size - 1);
 }
 
 void cbject_LinkedList_clear(cbject_LinkedList * const self) {
-    while (self->last != NULL) {
+    while (self->size > 0) {
         cbject_LinkedList_removeLast(self);
     }
 }
 
 cbject_Object * cbject_LinkedList_getFirst(cbject_LinkedList const * const self) {
-    assert(self->first);
     return cbject_Node_getElement(self->first);
 }
 
 cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const self) {
-    assert(self->first);
     return cbject_Node_getElement(self->last);
 }
 
 cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index) {
-    assert(index < self->size);
-    cbject_Node * node = self->first;
-    for (uint64_t i = 0; i < index; i++) {
-        node = cbject_Node_getNext(node);
-    }
-    return cbject_Node_getElement(node);
+    return cbject_Node_getElement(getNode(self, index));
 }
 
 uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const self) {

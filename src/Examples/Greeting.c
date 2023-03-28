@@ -8,7 +8,7 @@ struct Greeting {
     char * text;
 };
 
-cbject_utils_nullPool;
+cbject_utils_noPool;
 
 Greeting * Greeting_init(Greeting * const self, char * const text) {
     cbject_utils_init(self);

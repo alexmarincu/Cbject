@@ -182,6 +182,22 @@ end::function[] ****************************************************************
 bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const self);
 
 /*************************************************************************************************** tag::function[]
+= cbject_LinkedList_add()
+====
+----
+void cbject_LinkedList_add(cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object);
+----
+Adds an element to the end of the list
+
+.Params
+* self - cbject_LinkedList reference
+* index - Index in the list where to add the object
+* object - Object to be added in the list
+====
+end::function[] ***********************************************************************************/
+void cbject_LinkedList_add(cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object);
+
+/*************************************************************************************************** tag::function[]
 = cbject_LinkedList_addLast()
 ====
 ----
@@ -212,18 +228,19 @@ end::function[] ****************************************************************
 void cbject_LinkedList_addFirst(cbject_LinkedList * const self, cbject_Object * const object);
 
 /*************************************************************************************************** tag::function[]
-= cbject_LinkedList_removeLast()
+= cbject_LinkedList_remove()
 ====
 ----
-void cbject_LinkedList_removeLast(cbject_LinkedList * const self);
+void cbject_LinkedList_remove(cbject_LinkedList * const self, uint64_t const index);
 ----
-Removes last element in the list
+Removes last element in the list at provided index
 
 .Params
 * self - cbject_LinkedList reference
+* index - Index in the list from where to remove the object
 ====
 end::function[] ***********************************************************************************/
-void cbject_LinkedList_removeLast(cbject_LinkedList * const self);
+void cbject_LinkedList_remove(cbject_LinkedList * const self, uint64_t const index);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_removeFirst()
@@ -240,6 +257,20 @@ end::function[] ****************************************************************
 void cbject_LinkedList_removeFirst(cbject_LinkedList * const self);
 
 /*************************************************************************************************** tag::function[]
+= cbject_LinkedList_removeLast()
+====
+----
+void cbject_LinkedList_removeLast(cbject_LinkedList * const self);
+----
+Removes last element in the list
+
+.Params
+* self - cbject_LinkedList reference
+====
+end::function[] ***********************************************************************************/
+void cbject_LinkedList_removeLast(cbject_LinkedList * const self);
+
+/*************************************************************************************************** tag::function[]
 = cbject_LinkedList_clear()
 ====
 ----
@@ -252,6 +283,24 @@ Removes all elements from the list
 ====
 end::function[] ***********************************************************************************/
 void cbject_LinkedList_clear(cbject_LinkedList * const self);
+
+/*************************************************************************************************** tag::function[]
+= cbject_LinkedList_get()
+====
+----
+cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index);
+----
+Gets element at specified index
+
+.Params
+* self - cbject_LinkedList reference
+* index - index of the element to return
+
+.Return
+Element at specified index
+====
+end::function[] ***********************************************************************************/
+cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_getFirst()
@@ -286,24 +335,6 @@ Last element in list
 ====
 end::function[] ***********************************************************************************/
 cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const self);
-
-/*************************************************************************************************** tag::function[]
-= cbject_LinkedList_get()
-====
-----
-cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index);
-----
-Gets element at specified index
-
-.Params
-* self - cbject_LinkedList reference
-* index - index of the element to return
-
-.Return
-Element at specified index
-====
-end::function[] ***********************************************************************************/
-cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_getSize()

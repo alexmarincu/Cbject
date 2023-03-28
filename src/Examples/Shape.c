@@ -1,7 +1,7 @@
 #include "Shape.h"
 
 #define cbject_Class (Shape, cbject_Object)
-cbject_utils_nullPool;
+cbject_utils_noPool;
 
 Shape * Shape_init(Shape * const self, Point origin) {
     cbject_utils_init(self);

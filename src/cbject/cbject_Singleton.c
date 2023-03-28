@@ -4,7 +4,7 @@
 
 #define cbject_Class (cbject_Singleton, cbject_Object)
 #if (cbject_config_useStaticPool == true)
-cbject_utils_nullPool;
+cbject_utils_noPool;
 #endif
 
 cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const self) {

@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #define cbject_Class (Drawable, Shape)
-cbject_utils_nullPool;
+cbject_utils_noPool;
 
 void Drawable_init(
     Drawable * const self,
