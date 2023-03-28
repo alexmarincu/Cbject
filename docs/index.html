@@ -577,7 +577,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_object_hashcode">cbject_Object_hashCode()</a></li>
 <li><a href="#_cbject_object_retain">cbject_Object_retain()</a></li>
 <li><a href="#_cbject_object_release">cbject_Object_release()</a></li>
-<li><a href="#_cbject_object_isoftype">cbject_Object_isOfType()</a></li>
+<li><a href="#_cbject_object_isofclass">cbject_Object_isOfClass()</a></li>
 <li><a href="#_cbject_objectclass_instance">cbject_ObjectClass_instance()</a></li>
 </ul>
 </li>
@@ -594,7 +594,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_test_cbject_object_init">test_cbject_Object_init</a></li>
 <li><a href="#_test_cbject_object_equals">test_cbject_Object_equals</a></li>
 <li><a href="#_test_cbject_object_hashcode">test_cbject_Object_hashCode</a></li>
-<li><a href="#_test_cbject_object_isoftype">test_cbject_Object_isOfType</a></li>
+<li><a href="#_test_cbject_object_isofclass">test_cbject_Object_isOfClass</a></li>
 <li><a href="#_test_cbject_object_copy">test_cbject_Object_copy</a></li>
 </ul>
 </li>
@@ -1133,7 +1133,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="listingblock">
 <div class="content">
 <pre>struct cbject_Object {
-    cbject_ObjectClass * objectClass;
+    cbject_ObjectClass * klass;
     uint64_t referenceCount;
     cbject_Object_Source source;
     cbject_Object_PoolUsageStatus poolUsageStatus;
@@ -1147,7 +1147,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="title">Members</div>
 <ul>
 <li>
-<p>objectClass - cbject_ObjectClass reference</p>
+<p>klass - cbject_ObjectClass reference</p>
 </li>
 <li>
 <p>referenceCount - The reference count (number of owners of the object)</p>
@@ -1322,7 +1322,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_Object_allocHelper(cbject_Object * const self, cbject_ObjectClass * const objectClass);</pre>
+<pre>cbject_Object * cbject_Object_allocHelper(cbject_Object * const self, cbject_ObjectClass * const klass);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1335,7 +1335,7 @@ cbject_utils_dealloc(object);</pre>
 <p>self - cbject_Object reference</p>
 </li>
 <li>
-<p>objectClass - cbject_ObjectClass reference</p>
+<p>klass - cbject_ObjectClass reference</p>
 </li>
 </ul>
 </div>
@@ -1495,12 +1495,12 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_object_isoftype">cbject_Object_isOfType()</h5>
+<h5 id="_cbject_object_isofclass">cbject_Object_isOfClass()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>bool cbject_Object_isOfType(cbject_Object const * const self, cbject_ObjectClass const * const objectClass);</pre>
+<pre>bool cbject_Object_isOfClass(cbject_Object const * const self, cbject_ObjectClass const * const klass);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1513,7 +1513,7 @@ cbject_utils_dealloc(object);</pre>
 <p>self - cbject_Object reference</p>
 </li>
 <li>
-<p>objectClass - Class reference</p>
+<p>klass - Class reference</p>
 </li>
 </ul>
 </div>
@@ -1731,7 +1731,7 @@ cbject_utils_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_test_cbject_object_isoftype">test_cbject_Object_isOfType</h5>
+<h5 id="_test_cbject_object_isofclass">test_cbject_Object_isOfClass</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="paragraph">
@@ -2033,7 +2033,7 @@ cbject_utils_dealloc(object);</pre>
 <div class="listingblock">
 <div class="content">
 <pre>struct cbject_NodeClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass klass;
 };</pre>
 </div>
 </div>

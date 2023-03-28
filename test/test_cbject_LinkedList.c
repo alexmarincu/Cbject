@@ -60,7 +60,7 @@ struct Data {
 };
 cbject_utils_allocPool(1);
 struct DataClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass klass;
 };
 Data * Data_init(Data * const data) {
     cbject_utils_init(data);

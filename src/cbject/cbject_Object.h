@@ -101,7 +101,7 @@ typedef enum {
 ====
 ----
 struct cbject_Object {
-    cbject_ObjectClass * objectClass;
+    cbject_ObjectClass * klass;
     uint64_t referenceCount;
     cbject_Object_Source source;
     cbject_Object_PoolUsageStatus poolUsageStatus;
@@ -110,7 +110,7 @@ struct cbject_Object {
 Definition of struct cbject_Object
 
 .Members
-* objectClass - cbject_ObjectClass reference
+* klass - cbject_ObjectClass reference
 * referenceCount - The reference count (number of owners of the object)
 * source - Source from where the object was created (stack/heap/staticPool)
 * poolUsageStatus - Usage status of object (free/inUse)
@@ -118,14 +118,14 @@ Definition of struct cbject_Object
 end::type[] ***************************************************************************************/
 /*************************************************************************************************** @startuml(id=cbject_Object)
 object cbject_Object {
-    cbject_ObjectClass * objectClass;
+    cbject_ObjectClass * klass;
     uint64_t referenceCount;
     cbject_Object_Source source;
     cbject_Object_PoolUsageStatus poolUsageStatus;
 }
 @enduml *******************************************************************************************/
 struct cbject_Object {
-    cbject_ObjectClass * objectClass;
+    cbject_ObjectClass * klass;
     uint64_t referenceCount;
 #if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
     cbject_Object_Source source;
@@ -265,19 +265,19 @@ cbject_Object * cbject_Object_init(cbject_Object * const self);
 = cbject_Object_allocHelper()
 ====
 ----
-cbject_Object * cbject_Object_allocHelper(cbject_Object * const self, cbject_ObjectClass * const objectClass);
+cbject_Object * cbject_Object_allocHelper(cbject_Object * const self, cbject_ObjectClass * const klass);
 ----
 Sets the class of the object and other proprieties needed for allocation
 
 .Params
 * self - cbject_Object reference
-* objectClass - cbject_ObjectClass reference
+* klass - cbject_ObjectClass reference
 
 .Return
 Reference to the object
 ====
 end::function[] ***********************************************************************************/
-cbject_Object * cbject_Object_allocHelper(cbject_Object * const self, cbject_ObjectClass * const objectClass);
+cbject_Object * cbject_Object_allocHelper(cbject_Object * const self, cbject_ObjectClass * const klass);
 
 /*************************************************************************************************** tag::function[]
 = cbject_Object_copy()
@@ -368,23 +368,23 @@ end::function[] ****************************************************************
 void * cbject_Object_release(cbject_Object * const self);
 
 /*************************************************************************************************** tag::function[]
-= cbject_Object_isOfType()
+= cbject_Object_isOfClass()
 ====
 ----
-bool cbject_Object_isOfType(cbject_Object const * const self, cbject_ObjectClass const * const objectClass);
+bool cbject_Object_isOfClass(cbject_Object const * const self, cbject_ObjectClass const * const klass);
 ----
 Checks if an object is of a given class
 
 .Params
 * self - cbject_Object reference
-* objectClass - Class reference
+* klass - Class reference
 
 .Return
 * true - If the object is of the provided class
 * false - If the object is of a different class
 ====
 end::function[] ***********************************************************************************/
-bool cbject_Object_isOfType(cbject_Object const * const self, cbject_ObjectClass const * const objectClass);
+bool cbject_Object_isOfClass(cbject_Object const * const self, cbject_ObjectClass const * const klass);
 
 /*************************************************************************************************** tag::function[]
 = cbject_ObjectClass_instance()
@@ -450,7 +450,7 @@ Class reference
 ====
 end::macro[] **************************************************************************************/
 #define cbject_Object_class(self) \
-    ((cbject_Object *)(self))->objectClass
+    ((cbject_Object *)(self))->klass
 
 /*************************************************************************************************** tag::macro[]
 = cbject_Object_instanceSize()

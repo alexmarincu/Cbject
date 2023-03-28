@@ -31,7 +31,7 @@ bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const self) {
 }
 
 static cbject_Node * createNode(cbject_LinkedList * const self, cbject_Object * const object) {
-    assert(cbject_Object_isOfType(object, self->elementClass));
+    assert(cbject_Object_isOfClass(object, self->elementClass));
     cbject_Node * node;
 #if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
     if (self->nodeSource == cbject_LinkedList_NodeSource_staticPool) {

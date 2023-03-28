@@ -82,7 +82,7 @@ struct cbject_Node {
 ====
 ----
 struct cbject_NodeClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass klass;
 };
 ----
 Definition of struct cbject_NodeClass

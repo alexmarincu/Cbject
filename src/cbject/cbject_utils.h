@@ -203,7 +203,7 @@ cbject_utils_isOfType(self, type)
 Checks if an object is of a given class
 
 .Remarks
-Calls cbject_Object_isOfType() and does the necessary casting
+Calls cbject_Object_isOfClass() and does the necessary casting
 
 .Params
 * self - cbject_Object reference
@@ -215,7 +215,7 @@ Calls cbject_Object_isOfType() and does the necessary casting
 ====
 end::function[] ***********************************************************************************/
 #define cbject_utils_isOfType(self, type) \
-    cbject_Object_isOfType((cbject_Object *)(self), (cbject_ObjectClass *)type##Class_instance())
+    cbject_Object_isOfClass((cbject_Object *)(self), (cbject_ObjectClass *)type##Class_instance())
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_allocPool()
@@ -299,7 +299,7 @@ Depends on the called method
 ====
 end::macro[] **************************************************************************************/
 #define cbject_utils_invokeMethod(method, ...) \
-    ((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), Class) *)((cbject_Object *)cbject_utils_VaArgs_getFirst(__VA_ARGS__))->objectClass)->method(__VA_ARGS__)
+    ((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), Class) *)((cbject_Object *)cbject_utils_VaArgs_getFirst(__VA_ARGS__))->klass)->method(__VA_ARGS__)
 
 /*************************************************************************************************** tag::macro[]
 = cbject_utils_invokeClassMethod()

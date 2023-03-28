@@ -76,7 +76,7 @@ void test_cbject_Object_hashCode(void) {
 }
 
 /*************************************************************************************************** tag::test[]
-= test_cbject_Object_isOfType
+= test_cbject_Object_isOfClass
 ====
 Test isOfType method
 
@@ -97,7 +97,7 @@ struct Test {
 };
 cbject_utils_noPool;
 struct TestClass {
-    cbject_ObjectClass objectClass;
+    cbject_ObjectClass klass;
 };
 cbject_ObjectClass * TestClass_instance(void) {
     static cbject_ObjectClass self;
@@ -107,7 +107,7 @@ cbject_ObjectClass * TestClass_instance(void) {
     return &self;
 }
 #undef cbject_Class
-void test_cbject_Object_isOfType(void) {
+void test_cbject_Object_isOfClass(void) {
     cbject_Object * object = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
     TEST_ASSERT_TRUE(cbject_utils_isOfType(object, cbject_Object));
     TEST_ASSERT_FALSE(cbject_utils_isOfType(object, Test));

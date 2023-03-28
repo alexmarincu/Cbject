@@ -18,7 +18,7 @@ static cbject_Object * acquire(cbject_ObjectClass * const self) {
     if ((void *)self->poolFirstFreeObject < ((void *)self->pool + (self->instanceSize * self->poolSize))) {
         object = self->poolFirstFreeObject;
         memset(object, 0, self->instanceSize);
-        object->objectClass = self;
+        object->klass = self;
         object->referenceCount = 1;
         object->source = cbject_Object_Source_staticPool;
         object->poolUsageStatus = cbject_Object_PoolUsageStatus_inUse;
@@ -34,8 +34,8 @@ static cbject_Object * acquire(cbject_ObjectClass * const self) {
 
 static void dispose(cbject_Object * const self) {
     self->poolUsageStatus = cbject_Object_PoolUsageStatus_free;
-    if (self < self->objectClass->poolFirstFreeObject) {
-        self->objectClass->poolFirstFreeObject = self;
+    if (self < self->klass->poolFirstFreeObject) {
+        self->klass->poolFirstFreeObject = self;
     }
 }
 #endif // (cbject_config_useStaticPool == true)
@@ -48,7 +48,7 @@ cbject_Object * cbject_ObjectClass_alloc(cbject_ObjectClass * const self) {
 static cbject_Object * alloc(cbject_ObjectClass * const self) {
     cbject_Object * object = (cbject_Object *)calloc(1, self->instanceSize);
     assert(object);
-    object->objectClass = self;
+    object->klass = self;
     object->referenceCount = 1;
     object->source = cbject_Object_Source_heap;
     return object;
@@ -93,8 +93,8 @@ cbject_Object * cbject_Object_init(cbject_Object * const self) {
     return self;
 }
 
-cbject_Object * cbject_Object_allocHelper(cbject_Object * const self, cbject_ObjectClass * const objectClass) {
-    self->objectClass = objectClass;
+cbject_Object * cbject_Object_allocHelper(cbject_Object * const self, cbject_ObjectClass * const klass) {
+    self->klass = klass;
     self->referenceCount = 1;
 #if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
     self->source = cbject_Object_Source_stack;
@@ -132,15 +132,15 @@ static cbject_Object * terminate(cbject_Object * const self) {
     return NULL;
 }
 
-bool cbject_Object_isOfType(cbject_Object const * const self, cbject_ObjectClass const * const objectClass) {
+bool cbject_Object_isOfClass(cbject_Object const * const self, cbject_ObjectClass const * const klass) {
     bool isOfType = false;
-    cbject_ObjectClass const * _objectClass = self->objectClass;
-    while (_objectClass != NULL) {
-        if (_objectClass == objectClass) {
+    cbject_ObjectClass const * _klass = self->klass;
+    while (_klass != NULL) {
+        if (_klass == klass) {
             isOfType = true;
-            _objectClass = NULL;
+            _klass = NULL;
         } else {
-            _objectClass = _objectClass->superClass;
+            _klass = _klass->superClass;
         }
     }
     return isOfType;
