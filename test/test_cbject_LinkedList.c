@@ -276,6 +276,55 @@ void test_cbject_LinkedList_removeLast(void) {
 }
 
 /*************************************************************************************************** tag::test[]
+= test_cbject_LinkedList_addAndRemove
+====
+Test adding and removing elements at a certain index
+
+.Steps
+. Create a linked list and some objects
+. Add the objects to the list and check the state
+. Remove objects from the list and check the state
+. Release the linked list
+====
+end::test[] ***************************************************************************************/
+void test_cbject_LinkedList_addAndRemove(void) {
+    cbject_LinkedList * linkedList = cbject_LinkedList_init(
+        cbject_utils_stackAlloc(cbject_LinkedList),
+        cbject_ObjectClass_instance(),
+        cbject_LinkedList_NodeSource_heap
+    );
+    cbject_Object * object1 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
+    cbject_Object * object2 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
+    cbject_Object * object3 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
+    cbject_Object * object4 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
+    cbject_Object * object5 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
+    cbject_LinkedList_add(linkedList, 0, object1);
+    cbject_LinkedList_add(linkedList, 1, object2);
+    cbject_LinkedList_add(linkedList, 2, object3);
+    cbject_LinkedList_add(linkedList, 3, object4);
+    cbject_LinkedList_add(linkedList, 1, object5);
+    TEST_ASSERT(cbject_LinkedList_get(linkedList, 0) == object1);
+    TEST_ASSERT(cbject_LinkedList_get(linkedList, 1) == object5);
+    TEST_ASSERT(cbject_LinkedList_get(linkedList, 2) == object2);
+    TEST_ASSERT(cbject_LinkedList_get(linkedList, 3) == object3);
+    TEST_ASSERT(cbject_LinkedList_get(linkedList, 4) == object4);
+    TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 5);
+    cbject_LinkedList_remove(linkedList, 3);
+    TEST_ASSERT(cbject_LinkedList_get(linkedList, 0) == object1);
+    TEST_ASSERT(cbject_LinkedList_get(linkedList, 1) == object5);
+    TEST_ASSERT(cbject_LinkedList_get(linkedList, 2) == object2);
+    TEST_ASSERT(cbject_LinkedList_get(linkedList, 3) == object4);
+    TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 4);
+    cbject_LinkedList_remove(linkedList, 3);
+    cbject_LinkedList_remove(linkedList, 2);
+    cbject_LinkedList_remove(linkedList, 1);
+    cbject_LinkedList_remove(linkedList, 0);
+    TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
+    TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == true);
+    cbject_utils_release(linkedList);
+}
+
+/*************************************************************************************************** tag::test[]
 = test_cbject_LinkedList_clear
 ====
 Test clearing elements from a list
