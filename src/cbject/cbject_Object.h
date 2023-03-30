@@ -265,19 +265,30 @@ cbject_Object * cbject_Object_init(cbject_Object * const self);
 = cbject_Object_allocHelper()
 ====
 ----
-cbject_Object * cbject_Object_allocHelper(cbject_Object * const self, cbject_ObjectClass * const klass);
+cbject_Object * cbject_Object_allocHelper(
+    cbject_Object * const self,
+    cbject_ObjectClass * const klass,
+    cbject_Object_Source const source
+);
 ----
 Sets the class of the object and other proprieties needed for allocation
 
 .Params
 * self - cbject_Object reference
 * klass - cbject_ObjectClass reference
+* source - cbject_Object_Source (optional - depends on heap and static pool config)
 
 .Return
 Reference to the object
 ====
 end::function[] ***********************************************************************************/
-cbject_Object * cbject_Object_allocHelper(cbject_Object * const self, cbject_ObjectClass * const klass);
+cbject_Object * cbject_Object_allocHelper(
+    cbject_Object * const self,
+    cbject_ObjectClass * const klass,
+#if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
+    cbject_Object_Source const source
+#endif
+);
 
 /*************************************************************************************************** tag::function[]
 = cbject_Object_copy()

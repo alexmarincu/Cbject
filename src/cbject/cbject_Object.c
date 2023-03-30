@@ -9,6 +9,21 @@
 #if (cbject_config_useStaticPool == true)
 cbject_utils_noPool;
 
+cbject_Object * cbject_Object_allocHelper(
+    cbject_Object * const self,
+    cbject_ObjectClass * const klass,
+#if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
+    cbject_Object_Source const source
+#endif
+) {
+    self->klass = klass;
+    self->referenceCount = 1;
+#if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
+    self->source = source;
+#endif
+    return self;
+}
+
 cbject_Object * cbject_ObjectClass_acquire(cbject_ObjectClass * const self) {
     return cbject_utils_invokeClassMethod(acquire, self);
 }
@@ -18,9 +33,7 @@ static cbject_Object * acquire(cbject_ObjectClass * const self) {
     if ((void *)self->poolFirstFreeObject < ((void *)self->pool + (self->instanceSize * self->poolSize))) {
         object = self->poolFirstFreeObject;
         memset(object, 0, self->instanceSize);
-        object->klass = self;
-        object->referenceCount = 1;
-        object->source = cbject_Object_Source_staticPool;
+        cbject_Object_allocHelper(object, self, cbject_Object_Source_staticPool);
         object->poolUsageStatus = cbject_Object_PoolUsageStatus_inUse;
         do {
             self->poolFirstFreeObject = (void *)self->poolFirstFreeObject + self->instanceSize;
@@ -48,9 +61,7 @@ cbject_Object * cbject_ObjectClass_alloc(cbject_ObjectClass * const self) {
 static cbject_Object * alloc(cbject_ObjectClass * const self) {
     cbject_Object * object = (cbject_Object *)calloc(1, self->instanceSize);
     assert(object);
-    object->klass = self;
-    object->referenceCount = 1;
-    object->source = cbject_Object_Source_heap;
+    cbject_Object_allocHelper(object, self, cbject_Object_Source_heap);
     return object;
 }
 
@@ -90,15 +101,6 @@ void * cbject_Object_release(cbject_Object * const self) {
 }
 
 cbject_Object * cbject_Object_init(cbject_Object * const self) {
-    return self;
-}
-
-cbject_Object * cbject_Object_allocHelper(cbject_Object * const self, cbject_ObjectClass * const klass) {
-    self->klass = klass;
-    self->referenceCount = 1;
-#if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
-    self->source = cbject_Object_Source_stack;
-#endif
     return self;
 }
 

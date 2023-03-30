@@ -686,6 +686,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_test_cbject_linkedlist_addlast">test_cbject_LinkedList_addLast</a></li>
 <li><a href="#_test_cbject_linkedlist_removefirst">test_cbject_LinkedList_removeFirst</a></li>
 <li><a href="#_test_cbject_linkedlist_removelast">test_cbject_LinkedList_removeLast</a></li>
+<li><a href="#_test_cbject_linkedlist_addandremove">test_cbject_LinkedList_addAndRemove</a></li>
 <li><a href="#_test_cbject_linkedlist_clear">test_cbject_LinkedList_clear</a></li>
 </ul>
 </li>
@@ -1322,7 +1323,11 @@ cbject_utils_dealloc(object);</pre>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_Object_allocHelper(cbject_Object * const self, cbject_ObjectClass * const klass);</pre>
+<pre>cbject_Object * cbject_Object_allocHelper(
+    cbject_Object * const self,
+    cbject_ObjectClass * const klass,
+    cbject_Object_Source const source
+);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1336,6 +1341,9 @@ cbject_utils_dealloc(object);</pre>
 </li>
 <li>
 <p>klass - cbject_ObjectClass reference</p>
+</li>
+<li>
+<p>source - cbject_Object_Source (optional - depends on heap and static pool config)</p>
 </li>
 </ul>
 </div>
@@ -2934,6 +2942,33 @@ Initialized and empty LinkedList</p>
 </li>
 <li>
 <p>Terminate the linked list</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_test_cbject_linkedlist_addandremove">test_cbject_LinkedList_addAndRemove</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Test adding and removing elements at a certain index</p>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p>Create a linked list and some objects</p>
+</li>
+<li>
+<p>Add the objects to the list and check the state</p>
+</li>
+<li>
+<p>Remove objects from the list and check the state</p>
+</li>
+<li>
+<p>Release the linked list</p>
 </li>
 </ol>
 </div>

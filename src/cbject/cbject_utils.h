@@ -62,8 +62,20 @@ Allocates an object on the stack
 Reference of the allocated memory
 ====
 end::macro[] **************************************************************************************/
-#define cbject_utils_stackAlloc(type) \
-    ((type *)cbject_Object_allocHelper((cbject_Object *)&(type){}, (cbject_ObjectClass *)type##Class_instance()))
+#if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
+#define cbject_utils_stackAlloc(type)                 \
+    ((type *)cbject_Object_allocHelper(               \
+        (cbject_Object *)&(type){},                   \
+        (cbject_ObjectClass *)type##Class_instance(), \
+        cbject_Object_Source_stack                    \
+    ))
+#else
+#define cbject_utils_stackAlloc(type)                \
+    ((type *)cbject_Object_allocHelper(              \
+        (cbject_Object *)&(type){},                  \
+        (cbject_ObjectClass *)type##Class_instance() \
+    ))
+#endif
 
 /*************************************************************************************************** tag::function[]
 = cbject_utils_init()
