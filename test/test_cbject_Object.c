@@ -1,5 +1,6 @@
 #include "CException.h"
-#include "cbject.h"
+#include "cbject_Object.h"
+#include "cbject_internal.h"
 #include "unity.h"
 
 TEST_FILE("cbject_Object.c")
