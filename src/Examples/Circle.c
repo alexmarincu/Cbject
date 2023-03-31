@@ -39,7 +39,7 @@ static cbject_Object * terminate(cbject_Object * self) {
 Circle_Class * Circle_Class_instance(void) {
     static Circle_Class self;
     cbject_doOnce {
-        cbject_Object_Class_setup(&self);
+        cbject_Class_setup(&self);
         ((cbject_Object_Class *)&self)->terminate = terminate;
         ((Shape_Class *)&self)->area = area;
         ((Drawable_Class *)&self)->draw = draw;

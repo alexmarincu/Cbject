@@ -6,6 +6,76 @@ end::overview[] ****************************************************************
 #include <assert.h>
 
 /*************************************************************************************************** tag::macro[]
+= cbject_Class_setup()
+====
+----
+cbject_Class_setup(self)
+----
+Populates the class instance
+
+.Remark
+cbject_Class must be defined before using this macro
+
+.Params
+* self - Class reference
+====
+end::macro[] **************************************************************************************/
+#if (cbject_config_useStaticPool == true)
+#define cbject_Class_setup(self)                                                                                                                              \
+    *((cbject_Token_concatIndirect(cbject_Pair_getSecond(cbject_Class), _Class) *)(self)) =                                                                   \
+        *cbject_Token_concatIndirect(cbject_Pair_getSecond(cbject_Class), _Class_instance());                                                                 \
+    ((cbject_Object_Class *)(self))->name = cbject_Token_stringifyIndirect(cbject_Pair_getFirst(cbject_Class));                                               \
+    ((cbject_Object_Class *)(self))->instanceSize = sizeof(cbject_Pair_getFirst(cbject_Class));                                                               \
+    ((cbject_Object_Class *)(self))->superClass = (cbject_Object_Class *)cbject_Token_concatIndirect(cbject_Pair_getSecond(cbject_Class), _Class_instance()); \
+    ((cbject_Object_Class *)(self))->pool = (cbject_Object *)cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), _pool);                          \
+    ((cbject_Object_Class *)(self))->poolSize = cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), _poolSize);                                   \
+    ((cbject_Object_Class *)(self))->poolFirstFreeObject = (cbject_Object *)cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), _pool)
+#else
+#define cbject_Class_setup(self)                                                                                \
+    *((cbject_Token_concatIndirect(cbject_Pair_getSecond(cbject_Class), Class) *)(self)) =                      \
+        *cbject_Token_concatIndirect(cbject_Pair_getSecond(cbject_Class), Class_instance());                    \
+    ((cbject_Object_Class *)(self))->name = cbject_Token_stringifyIndirect(cbject_Pair_getFirst(cbject_Class)); \
+    ((cbject_Object_Class *)(self))->instanceSize = sizeof(cbject_Pair_getFirst(cbject_Class));                 \
+    ((cbject_Object_Class *)(self))->superClass = (cbject_Object_Class *)cbject_Token_concatIndirect(cbject_Pair_getSecond(cbject_Class), Class_instance())
+#endif
+
+/*************************************************************************************************** tag::macro[]
+= cbject_getClass()
+====
+----
+cbject_getClass(object)
+----
+Gets the class of an object
+
+.Params
+* object - cbject_Object reference
+
+.Return
+Class reference
+====
+end::macro[] **************************************************************************************/
+#define cbject_getClass(self) \
+    ((cbject_Object *)(self))->klass
+
+/*************************************************************************************************** tag::macro[]
+= cbject_getInstanceSize()
+====
+----
+cbject_getInstanceSize(object)
+----
+Gets the size in memory of an object
+
+.Params
+* object - cbject_Object reference
+
+.Return
+The size in memory of the object
+====
+end::macro[] **************************************************************************************/
+#define cbject_getInstanceSize(self) \
+    cbject_getClass(self)->instanceSize
+
+/*************************************************************************************************** tag::macro[]
 = cbject_acquire()
 ====
 ----
@@ -384,10 +454,10 @@ end::macro[] *******************************************************************
     ((type##_Class *)((cbject_Object_Class *)cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), _Class_instance()))->superClass)->method(__VA_ARGS__)
 
 /*************************************************************************************************** tag::macro[]
-= cbject_Array_length()
+= cbject_Array_getLength()
 ====
 ----
-cbject_Array_length(self)
+cbject_Array_getLength(self)
 ----
 Gets length of an array
 
@@ -395,7 +465,7 @@ Gets length of an array
 * self - Array for which to get the length
 ====
 end::macro[] **************************************************************************************/
-#define cbject_Array_length(self) \
+#define cbject_Array_getLength(self) \
     (sizeof(self) / sizeof(self[0]))
 
 /*************************************************************************************************** tag::macro[]

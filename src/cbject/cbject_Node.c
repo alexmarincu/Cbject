@@ -49,7 +49,7 @@ static cbject_Object * terminate(cbject_Object * const self) {
 cbject_Node_Class * cbject_Node_Class_instance(void) {
     static cbject_Node_Class self;
     cbject_doOnce {
-        cbject_Object_Class_setup(&self);
+        cbject_Class_setup(&self);
         ((cbject_Object_Class *)&self)->terminate = terminate;
     }
     return &self;

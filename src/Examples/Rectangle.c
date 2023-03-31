@@ -71,7 +71,7 @@ static void draw(Drawable const * const self) {
 Rectangle_Class * Rectangle_Class_instance(void) {
     static Rectangle_Class self;
     cbject_doOnce {
-        cbject_Object_Class_setup(&self);
+        cbject_Class_setup(&self);
         ((cbject_Object_Class *)&self)->terminate = terminate;
         ((Shape_Class *)&self)->area = area;
         ((Drawable_Class *)&self)->draw = draw;

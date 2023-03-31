@@ -21,7 +21,7 @@ static float area(Shape const * const self) {
 Shape_Class * Shape_Class_instance(void) {
     static Shape_Class self;
     cbject_doOnce {
-        cbject_Object_Class_setup(&self);
+        cbject_Class_setup(&self);
         self.area = area;
     }
     return &self;

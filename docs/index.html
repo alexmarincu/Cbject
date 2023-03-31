@@ -581,14 +581,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_object_class_instance">cbject_Object_Class_instance()</a></li>
 </ul>
 </li>
-<li><a href="#_macros_2">2.3.4. Macros</a>
-<ul class="sectlevel4">
-<li><a href="#_cbject_object_class_setup">cbject_Object_Class_setup()</a></li>
-<li><a href="#_cbject_object_class_2">cbject_Object_class()</a></li>
-<li><a href="#_cbject_object_instancesize">cbject_Object_instanceSize()</a></li>
-</ul>
-</li>
-<li><a href="#_tests">2.3.5. Tests</a>
+<li><a href="#_tests">2.3.4. Tests</a>
 <ul class="sectlevel4">
 <li><a href="#_test_cbject_object_class">test_cbject_Object_Class</a></li>
 <li><a href="#_test_cbject_object_init">test_cbject_Object_init</a></li>
@@ -694,8 +687,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_internal">2.7. cbject_internal</a>
 <ul class="sectlevel3">
 <li><a href="#_overview_8">2.7.1. Overview</a></li>
-<li><a href="#_macros_3">2.7.2. Macros</a>
+<li><a href="#_macros_2">2.7.2. Macros</a>
 <ul class="sectlevel4">
+<li><a href="#_cbject_class_setup">cbject_Class_setup()</a></li>
+<li><a href="#_cbject_getclass">cbject_getClass()</a></li>
+<li><a href="#_cbject_getinstancesize">cbject_getInstanceSize()</a></li>
 <li><a href="#_cbject_acquire">cbject_acquire()</a></li>
 <li><a href="#_cbject_alloc">cbject_alloc()</a></li>
 <li><a href="#_cbject_stackalloc">cbject_stackAlloc()</a></li>
@@ -710,7 +706,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_cbject_invokemethod">cbject_invokeMethod()</a></li>
 <li><a href="#_cbject_invokeclassmethod">cbject_invokeClassMethod()</a></li>
 <li><a href="#_cbject_invokesupermethod">cbject_invokeSuperMethod()</a></li>
-<li><a href="#_cbject_array_length">cbject_Array_length()</a></li>
+<li><a href="#_cbject_array_getlength">cbject_Array_getLength()</a></li>
 <li><a href="#_cbject_assertstatic">cbject_assertStatic()</a></li>
 <li><a href="#_cbject_token_concat">cbject_Token_concat()</a></li>
 <li><a href="#_cbject_token_concatindirect">cbject_Token_concatIndirect()</a></li>
@@ -788,9 +784,85 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * object = cbject_Object_init(cbject_Object_Class_alloc(cbject_Object));
-printf("%d\n", cbject_Object_hashCode(object));
-cbject_dealloc(object);</pre>
+<pre>cbject_Object * object = cbject_Object_init(cbject_alloc(cbject_Object));
+uint64_t hashCode = cbject_hashCode(object);
+cbject_release(object);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="title">Example 3. How to declare a custom class</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#include "../cbject/cbject.h"
+
+typedef struct Greeting Greeting;
+typedef struct Greeting_Class Greeting_Class;
+
+struct Greeting_Class {
+    cbject_Object_Class super;
+};
+
+Greeting * Greeting_init(Greeting * const self, char * const text);
+void Greeting_print(Greeting * const self);
+Greeting_Class * Greeting_Class_instance(void);</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="title">Example 4. How to implement a custom class</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>#include "Greeting.h"
+#include &lt;stdio.h&gt;
+
+#define cbject_Class (Greeting, cbject_Object)
+
+struct Greeting {
+    cbject_Object super;
+    char * text;
+};
+
+cbject_noPool;
+
+Greeting * Greeting_init(Greeting * const self, char * const text) {
+    cbject_init(self);
+    self-&gt;text = text;
+    return self;
+}
+
+void Greeting_print(Greeting * const self) {
+    printf("%s\n", self-&gt;text);
+}
+
+Greeting_Class * Greeting_Class_instance(void) {
+    static Greeting_Class self;
+    cbject_doOnce {
+        cbject_Class_setup(&amp;self);
+    }
+    return &amp;self;
+}
+
+#undef cbject_Class</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="exampleblock">
+<div class="title">Example 5. How to use a custom class</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>// Allocate and initialize a Greeting object
+Greeting * greeting = Greeting_init(cbject_alloc(Greeting), "Hello Cbject!");
+// Call Greeting print function on the greeting object
+Greeting_print(greeting);
+// Free memory allocated for the Greeting object
+cbject_release(greeting);</pre>
 </div>
 </div>
 </div>
@@ -1559,91 +1631,7 @@ cbject_dealloc(object);</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_macros_2">2.3.4. Macros</h4>
-<div class="sect4">
-<h5 id="_cbject_object_class_setup">cbject_Object_Class_setup()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_Object_Class_setup(self)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Populates the class instance</p>
-</div>
-<div class="paragraph">
-<div class="title">Remark</div>
-<p>cbject_Class must be defined before using this macro</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>self - Class reference</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_object_class_2">cbject_Object_class()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_Object_class(object)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Gets the class of an object</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>object - cbject_Object reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>Class reference</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_cbject_object_instancesize">cbject_Object_instanceSize()</h5>
-<div class="exampleblock">
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre>cbject_Object_instanceSize(object)</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Gets the size in memory of an object</p>
-</div>
-<div class="ulist">
-<div class="title">Params</div>
-<ul>
-<li>
-<p>object - cbject_Object reference</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<div class="title">Return</div>
-<p>The size in memory of the object</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_tests">2.3.5. Tests</h4>
+<h4 id="_tests">2.3.4. Tests</h4>
 <div class="sect4">
 <h5 id="_test_cbject_object_class">test_cbject_Object_Class</h5>
 <div class="exampleblock">
@@ -2976,7 +2964,88 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_macros_3">2.7.2. Macros</h4>
+<h4 id="_macros_2">2.7.2. Macros</h4>
+<div class="sect4">
+<h5 id="_cbject_class_setup">cbject_Class_setup()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_Class_setup(self)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Populates the class instance</p>
+</div>
+<div class="paragraph">
+<div class="title">Remark</div>
+<p>cbject_Class must be defined before using this macro</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>self - Class reference</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_getclass">cbject_getClass()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_getClass(object)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets the class of an object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - cbject_Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>Class reference</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_cbject_getinstancesize">cbject_getInstanceSize()</h5>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre>cbject_getInstanceSize(object)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gets the size in memory of an object</p>
+</div>
+<div class="ulist">
+<div class="title">Params</div>
+<ul>
+<li>
+<p>object - cbject_Object reference</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Return</div>
+<p>The size in memory of the object</p>
+</div>
+</div>
+</div>
+</div>
 <div class="sect4">
 <h5 id="_cbject_acquire">cbject_acquire()</h5>
 <div class="exampleblock">
@@ -3435,12 +3504,12 @@ Use instead of cbject_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_array_length">cbject_Array_length()</h5>
+<h5 id="_cbject_array_getlength">cbject_Array_getLength()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Array_length(self)</pre>
+<pre>cbject_Array_getLength(self)</pre>
 </div>
 </div>
 <div class="paragraph">

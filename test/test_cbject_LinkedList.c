@@ -69,7 +69,7 @@ Data * Data_init(Data * const data) {
 cbject_Object_Class * Data_Class_instance(void) {
     static cbject_Object_Class self;
     cbject_doOnce {
-        cbject_Object_Class_setup(&self);
+        cbject_Class_setup(&self);
     }
     return &self;
 }
@@ -86,7 +86,7 @@ void test_cbject_LinkedList_addFirst(void) {
         cbject_Object_Class_instance(),
         cbject_Object_Source_staticPool
     );
-    for (uint8_t i = 0; i < cbject_Array_length(linkedLists); i++) {
+    for (uint8_t i = 0; i < cbject_Array_getLength(linkedLists); i++) {
         cbject_Object * data1 = (cbject_Object *)Data_init(cbject_stackAlloc(Data));
         cbject_Object * data2 = (cbject_Object *)Data_init(cbject_stackAlloc(Data));
         cbject_Object * data3 = (cbject_Object *)Data_init(cbject_alloc(Data));

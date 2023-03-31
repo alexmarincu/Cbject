@@ -30,7 +30,7 @@ static cbject_Object * copy(cbject_Object const * const self, cbject_Object * co
 cbject_Singleton_Class * cbject_Singleton_Class_instance(void) {
     static cbject_Singleton_Class self;
     cbject_doOnce {
-        cbject_Object_Class_setup(&self);
+        cbject_Class_setup(&self);
 #if (cbject_config_useHeap == true)
         ((cbject_Object_Class *)&self)->alloc = alloc;
 #endif

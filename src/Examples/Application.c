@@ -24,12 +24,14 @@ Application * Application_instance(void) {
 
 static void greetingExample(Application * const self) {
     (void)(self);
-    // Allocate and initialize a Greeting application
+    // tag::usageUseCustomClass[]
+    // Allocate and initialize a Greeting object
     Greeting * greeting = Greeting_init(cbject_alloc(Greeting), "Hello Cbject!");
-    // Call Greeting print function on the greeting application
+    // Call Greeting print function on the greeting object
     Greeting_print(greeting);
-    // Free memory allocated for the Greeting application
+    // Free memory allocated for the Greeting object
     cbject_release(greeting);
+    // end::usageUseCustomClass[]
 }
 
 static void circleExample(Application * const self) {
@@ -82,12 +84,12 @@ static void polymorphismExample(Application * const self) {
         (Shape *)self->rectangle,
     };
     // Loop through the list of shapes and call various polymorphic functions
-    for (uint8_t i = 0; i < cbject_Array_length(shapes); i++) {
+    for (uint8_t i = 0; i < cbject_Array_getLength(shapes); i++) {
         // Get area through Shape object polymorphic call
         float area = Shape_area(shapes[i]);
         (void)(area);
         // Get size of shape object
-        size_t instanceSize = cbject_Object_instanceSize(shapes[i]);
+        size_t instanceSize = cbject_getInstanceSize(shapes[i]);
         (void)(instanceSize);
         // Get hash code of shape object
         uint64_t hashCode = cbject_hashCode(shapes[i]);
@@ -124,7 +126,7 @@ static cbject_Object * terminate(cbject_Object * const self) {
 Application_Class * Application_Class_instance(void) {
     static Application_Class self;
     cbject_doOnce {
-        cbject_Object_Class_setup(&self);
+        cbject_Class_setup(&self);
         ((cbject_Object_Class *)&self)->terminate = terminate;
     }
     return &self;

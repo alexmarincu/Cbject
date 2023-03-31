@@ -38,9 +38,28 @@ Include the following header file:
 .How to create an object
 ====
 ----
-cbject_Object * object = cbject_Object_init(cbject_Object_Class_alloc(cbject_Object));
-printf("%d\n", cbject_Object_hashCode(object));
-cbject_dealloc(object);
+include::../test/test_cbject_Object.c[tag=usageCreateAndUseObject, indent=0]
+----
+====
+
+.How to declare a custom class
+====
+----
+include::../src/Examples/Greeting.h[tag=usageDeclareCustomClass, indent=0]
+----
+====
+
+.How to implement a custom class
+====
+----
+include::../src/Examples/Greeting.c[tag=usageImplementCustomClass, indent=0]
+----
+====
+
+.How to use a custom class
+====
+----
+include::../src/Examples/Application.c[tag=usageUseCustomClass, indent=0]
 ----
 ====
 
@@ -94,9 +113,6 @@ include::../src/cbject/cbject_Object.h[tag=type, leveloffset=+4]
 
 ==== Functions
 include::../src/cbject/cbject_Object.h[tag=function, leveloffset=+4]
-
-==== Macros
-include::../src/cbject/cbject_Object.h[tag=macro, leveloffset=+4]
 
 ==== Tests
 include::../test/test_cbject_Object.c[tag=test, leveloffset=+4]

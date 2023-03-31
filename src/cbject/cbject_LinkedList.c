@@ -169,7 +169,7 @@ static cbject_Object * terminate(cbject_Object * const self) {
 cbject_LinkedList_Class * cbject_LinkedList_Class_instance(void) {
     static cbject_LinkedList_Class self;
     cbject_doOnce {
-        cbject_Object_Class_setup(&self);
+        cbject_Class_setup(&self);
         ((cbject_Object_Class *)&self)->terminate = terminate;
     }
     return &self;

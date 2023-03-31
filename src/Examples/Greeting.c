@@ -1,3 +1,4 @@
+// tag::usageImplementCustomClass[]
 #include "Greeting.h"
 #include <stdio.h>
 
@@ -23,9 +24,10 @@ void Greeting_print(Greeting * const self) {
 Greeting_Class * Greeting_Class_instance(void) {
     static Greeting_Class self;
     cbject_doOnce {
-        cbject_Object_Class_setup(&self);
+        cbject_Class_setup(&self);
     }
     return &self;
 }
 
 #undef cbject_Class
+// end::usageImplementCustomClass[]

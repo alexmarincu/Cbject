@@ -25,7 +25,7 @@ static void draw(Drawable const * const self) {
 Drawable_Class * Drawable_Class_instance(void) {
     static Drawable_Class self;
     cbject_doOnce {
-        cbject_Object_Class_setup(&self);
+        cbject_Class_setup(&self);
         self.draw = draw;
     }
     return &self;

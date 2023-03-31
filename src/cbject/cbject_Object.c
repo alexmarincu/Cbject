@@ -109,7 +109,7 @@ cbject_Object * cbject_Object_copy(cbject_Object const * const self, cbject_Obje
 }
 
 static cbject_Object * copy(cbject_Object const * const self, cbject_Object * const object) {
-    memcpy(object, self, cbject_Object_instanceSize(self));
+    memcpy(object, self, cbject_getInstanceSize(self));
     return object;
 }
 

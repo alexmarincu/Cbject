@@ -21,7 +21,7 @@ static void draw(Drawable const * const self) {
 ColoredCircle_Class * ColoredCircle_Class_instance(void) {
     static ColoredCircle_Class self;
     cbject_doOnce {
-        cbject_Object_Class_setup(&self);
+        cbject_Class_setup(&self);
         ((Drawable_Class *)&self)->draw = draw;
     }
     return &self;

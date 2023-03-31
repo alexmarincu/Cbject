@@ -38,7 +38,7 @@ Test initialization of cbject_Object
 end::test[] ***************************************************************************************/
 void test_cbject_Object_init(void) {
     cbject_Object * object = cbject_init(cbject_stackAlloc(cbject_Object));
-    TEST_ASSERT_EQUAL_PTR(cbject_Object_class(object), cbject_Object_Class_instance());
+    TEST_ASSERT_EQUAL_PTR(cbject_getClass(object), cbject_Object_Class_instance());
 }
 
 /*************************************************************************************************** tag::test[]
@@ -71,8 +71,12 @@ Test hashCode method
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_hashCode(void) {
-    cbject_Object * object = cbject_init(cbject_stackAlloc(cbject_Object));
-    TEST_ASSERT_EQUAL_UINT64((uint64_t)object, cbject_hashCode(object));
+    // tag::usageCreateAndUseObject[]
+    cbject_Object * object = cbject_Object_init(cbject_alloc(cbject_Object));
+    uint64_t hashCode = cbject_hashCode(object);
+    cbject_release(object);
+    // end::usageCreateAndUseObject[]
+    TEST_ASSERT_EQUAL_UINT64((uint64_t)object, hashCode);
 }
 
 /*************************************************************************************************** tag::test[]
@@ -102,7 +106,7 @@ struct Test_Class {
 cbject_Object_Class * Test_Class_instance(void) {
     static cbject_Object_Class self;
     cbject_doOnce {
-        cbject_Object_Class_setup(&self);
+        cbject_Class_setup(&self);
     }
     return &self;
 }
@@ -130,8 +134,8 @@ end::test[] ********************************************************************
 void test_cbject_Object_copy(void) {
     cbject_Object * object = cbject_init(cbject_stackAlloc(cbject_Object));
     cbject_Object * copyObjectInStack = cbject_copy(object, cbject_stackAlloc(cbject_Object));
-    TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInStack, cbject_Object_instanceSize(object));
+    TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInStack, cbject_getInstanceSize(object));
     cbject_Object * copyObjectInHeap = cbject_copy(object, cbject_alloc(cbject_Object));
-    TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInHeap, cbject_Object_instanceSize(object));
+    TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInHeap, cbject_getInstanceSize(object));
     cbject_release(copyObjectInHeap);
 }
