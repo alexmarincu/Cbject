@@ -427,22 +427,22 @@ cbject_Class must be defined before using this macro
 ====
 end::macro[] **************************************************************************************/
 #if (cbject_config_useStaticPool == true)
-#define cbject_ObjectClass_setup(self)                                                                                                                                 \
-    *((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class) *)(self)) =                                                                 \
-        *cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance());                                                               \
-    ((cbject_ObjectClass *)(self))->name = cbject_utils_Token_stringifyIndirect(cbject_utils_Pair_getFirst(cbject_Class));                                             \
-    ((cbject_ObjectClass *)(self))->instanceSize = sizeof(cbject_utils_Pair_getFirst(cbject_Class));                                                                   \
-    ((cbject_ObjectClass *)(self))->superClass = (cbject_ObjectClass *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance()); \
-    ((cbject_ObjectClass *)(self))->pool = (cbject_Object *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool);                        \
-    ((cbject_ObjectClass *)(self))->poolSize = cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _poolSize);                                 \
-    ((cbject_ObjectClass *)(self))->poolFirstFreeObject = (cbject_Object *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getFirst(cbject_Class), _pool)
+#define cbject_ObjectClass_setup(self)                                                                                                                     \
+    *((cbject_Token_concatIndirect(cbject_Pair_getSecond(cbject_Class), Class) *)(self)) =                                                                 \
+        *cbject_Token_concatIndirect(cbject_Pair_getSecond(cbject_Class), Class_instance());                                                               \
+    ((cbject_ObjectClass *)(self))->name = cbject_Token_stringifyIndirect(cbject_Pair_getFirst(cbject_Class));                                             \
+    ((cbject_ObjectClass *)(self))->instanceSize = sizeof(cbject_Pair_getFirst(cbject_Class));                                                             \
+    ((cbject_ObjectClass *)(self))->superClass = (cbject_ObjectClass *)cbject_Token_concatIndirect(cbject_Pair_getSecond(cbject_Class), Class_instance()); \
+    ((cbject_ObjectClass *)(self))->pool = (cbject_Object *)cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), _pool);                        \
+    ((cbject_ObjectClass *)(self))->poolSize = cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), _poolSize);                                 \
+    ((cbject_ObjectClass *)(self))->poolFirstFreeObject = (cbject_Object *)cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), _pool)
 #else
-#define cbject_ObjectClass_setup(self)                                                                                     \
-    *((cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class) *)(self)) =                     \
-        *cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance());                   \
-    ((cbject_ObjectClass *)(self))->name = cbject_utils_Token_stringifyIndirect(cbject_utils_Pair_getFirst(cbject_Class)); \
-    ((cbject_ObjectClass *)(self))->instanceSize = sizeof(cbject_utils_Pair_getFirst(cbject_Class));                       \
-    ((cbject_ObjectClass *)(self))->superClass = (cbject_ObjectClass *)cbject_utils_Token_concatIndirect(cbject_utils_Pair_getSecond(cbject_Class), Class_instance())
+#define cbject_ObjectClass_setup(self)                                                                         \
+    *((cbject_Token_concatIndirect(cbject_Pair_getSecond(cbject_Class), Class) *)(self)) =                     \
+        *cbject_Token_concatIndirect(cbject_Pair_getSecond(cbject_Class), Class_instance());                   \
+    ((cbject_ObjectClass *)(self))->name = cbject_Token_stringifyIndirect(cbject_Pair_getFirst(cbject_Class)); \
+    ((cbject_ObjectClass *)(self))->instanceSize = sizeof(cbject_Pair_getFirst(cbject_Class));                 \
+    ((cbject_ObjectClass *)(self))->superClass = (cbject_ObjectClass *)cbject_Token_concatIndirect(cbject_Pair_getSecond(cbject_Class), Class_instance())
 #endif
 
 /*************************************************************************************************** tag::macro[]

@@ -1,14 +1,14 @@
 #include "cbject_Singleton.h"
 #if (cbject_config_useSingleton == true)
-#include "cbject_utils.h"
+#include "cbject_internal.h"
 
 #define cbject_Class (cbject_Singleton, cbject_Object)
 #if (cbject_config_useStaticPool == true)
-cbject_utils_noPool;
+cbject_noPool;
 #endif
 
 cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const self) {
-    cbject_utils_init(self);
+    cbject_init(self);
     return self;
 }
 
@@ -29,7 +29,7 @@ static cbject_Object * copy(cbject_Object const * const self, cbject_Object * co
 
 cbject_SingletonClass * cbject_SingletonClass_instance(void) {
     static cbject_SingletonClass self;
-    cbject_utils_doOnce {
+    cbject_doOnce {
         cbject_ObjectClass_setup(&self);
 #if (cbject_config_useHeap == true)
         ((cbject_ObjectClass *)&self)->alloc = alloc;

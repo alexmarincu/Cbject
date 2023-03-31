@@ -3,7 +3,7 @@
 #include "cbject_LinkedList.h"
 #include "cbject_Node.h"
 #include "cbject_Object.h"
-#include "cbject_utils.h"
+#include "cbject_internal.h"
 #include "unity.h"
 
 TEST_FILE("cbject_LinkedList.c")
@@ -28,14 +28,14 @@ Test LinkedList initialization
 end::test[] ***************************************************************************************/
 void test_cbject_LinkedList_init(void) {
     cbject_LinkedList * linkedList = cbject_LinkedList_init(
-        cbject_utils_stackAlloc(cbject_LinkedList),
+        cbject_stackAlloc(cbject_LinkedList),
         cbject_ObjectClass_instance(),
         cbject_LinkedList_NodeSource_heap
     );
-    TEST_ASSERT(cbject_utils_isOfType(linkedList, cbject_LinkedList));
+    TEST_ASSERT(cbject_isOfType(linkedList, cbject_LinkedList));
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == true);
-    cbject_utils_release(linkedList);
+    cbject_release(linkedList);
 }
 
 /*************************************************************************************************** tag::test[]
@@ -58,17 +58,17 @@ typedef struct DataClass DataClass;
 struct Data {
     cbject_Object object;
 };
-cbject_utils_allocPool(1);
+cbject_allocPool(1);
 struct DataClass {
     cbject_ObjectClass klass;
 };
 Data * Data_init(Data * const data) {
-    cbject_utils_init(data);
+    cbject_init(data);
     return data;
 }
 cbject_ObjectClass * DataClass_instance(void) {
     static cbject_ObjectClass self;
-    cbject_utils_doOnce {
+    cbject_doOnce {
         cbject_ObjectClass_setup(&self);
     }
     return &self;
@@ -77,20 +77,20 @@ cbject_ObjectClass * DataClass_instance(void) {
 void test_cbject_LinkedList_addFirst(void) {
     cbject_LinkedList * linkedLists[2];
     linkedLists[0] = cbject_LinkedList_init(
-        cbject_utils_stackAlloc(cbject_LinkedList),
+        cbject_stackAlloc(cbject_LinkedList),
         cbject_ObjectClass_instance(),
         cbject_LinkedList_NodeSource_heap
     );
     linkedLists[1] = cbject_LinkedList_init(
-        cbject_utils_stackAlloc(cbject_LinkedList),
+        cbject_stackAlloc(cbject_LinkedList),
         cbject_ObjectClass_instance(),
         cbject_LinkedList_NodeSource_staticPool
     );
-    for (uint8_t i = 0; i < cbject_utils_Array_length(linkedLists); i++) {
-        cbject_Object * data1 = (cbject_Object *)Data_init(cbject_utils_stackAlloc(Data));
-        cbject_Object * data2 = (cbject_Object *)Data_init(cbject_utils_stackAlloc(Data));
-        cbject_Object * data3 = (cbject_Object *)Data_init(cbject_utils_alloc(Data));
-        cbject_Object * data4 = (cbject_Object *)Data_init(cbject_utils_acquire(Data));
+    for (uint8_t i = 0; i < cbject_Array_length(linkedLists); i++) {
+        cbject_Object * data1 = (cbject_Object *)Data_init(cbject_stackAlloc(Data));
+        cbject_Object * data2 = (cbject_Object *)Data_init(cbject_stackAlloc(Data));
+        cbject_Object * data3 = (cbject_Object *)Data_init(cbject_alloc(Data));
+        cbject_Object * data4 = (cbject_Object *)Data_init(cbject_acquire(Data));
         cbject_LinkedList_addFirst(linkedLists[i], data1);
         TEST_ASSERT(cbject_LinkedList_getFirst(linkedLists[i]) == data1);
         TEST_ASSERT(cbject_LinkedList_getLast(linkedLists[i]) == data1);
@@ -118,11 +118,11 @@ void test_cbject_LinkedList_addFirst(void) {
         TEST_ASSERT(cbject_LinkedList_get(linkedLists[i], 3) == data1);
         TEST_ASSERT(cbject_LinkedList_getSize(linkedLists[i]) == 4);
         TEST_ASSERT(cbject_LinkedList_isEmpty(linkedLists[i]) == false);
-        cbject_utils_release(linkedLists[i]);
-        cbject_utils_release(data1);
-        cbject_utils_release(data2);
-        cbject_utils_release(data3);
-        cbject_utils_release(data4);
+        cbject_release(linkedLists[i]);
+        cbject_release(data1);
+        cbject_release(data2);
+        cbject_release(data3);
+        cbject_release(data4);
     }
 }
 
@@ -139,14 +139,14 @@ Test adding elements at the end of LinkedList
 end::test[] ***************************************************************************************/
 void test_cbject_LinkedList_addLast(void) {
     cbject_LinkedList * linkedList = cbject_LinkedList_init(
-        cbject_utils_stackAlloc(cbject_LinkedList),
+        cbject_stackAlloc(cbject_LinkedList),
         cbject_ObjectClass_instance(),
         cbject_LinkedList_NodeSource_heap
     );
-    cbject_Object * object1 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object2 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object3 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object4 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
+    cbject_Object * object1 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object2 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object3 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object4 = cbject_init(cbject_stackAlloc(cbject_Object));
     cbject_LinkedList_addLast(linkedList, object1);
     TEST_ASSERT(cbject_LinkedList_getFirst(linkedList) == object1);
     TEST_ASSERT(cbject_LinkedList_getLast(linkedList) == object1);
@@ -174,7 +174,7 @@ void test_cbject_LinkedList_addLast(void) {
     TEST_ASSERT(cbject_LinkedList_get(linkedList, 3) == object4);
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 4);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == false);
-    cbject_utils_release(linkedList);
+    cbject_release(linkedList);
 }
 
 /*************************************************************************************************** tag::test[]
@@ -190,14 +190,14 @@ Test removing elements at the beginning of the list
 end::test[] ***************************************************************************************/
 void test_cbject_LinkedList_removeFirst(void) {
     cbject_LinkedList * linkedList = cbject_LinkedList_init(
-        cbject_utils_stackAlloc(cbject_LinkedList),
+        cbject_stackAlloc(cbject_LinkedList),
         cbject_ObjectClass_instance(),
         cbject_LinkedList_NodeSource_heap
     );
-    cbject_Object * object1 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object2 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object3 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object4 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
+    cbject_Object * object1 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object2 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object3 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object4 = cbject_init(cbject_stackAlloc(cbject_Object));
     cbject_LinkedList_addFirst(linkedList, object1);
     cbject_LinkedList_addFirst(linkedList, object2);
     cbject_LinkedList_addFirst(linkedList, object3);
@@ -223,7 +223,7 @@ void test_cbject_LinkedList_removeFirst(void) {
     cbject_LinkedList_removeFirst(linkedList);
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == true);
-    cbject_utils_release(linkedList);
+    cbject_release(linkedList);
 }
 
 /*************************************************************************************************** tag::test[]
@@ -239,14 +239,14 @@ Test removing elements at the end of the list
 end::test[] ***************************************************************************************/
 void test_cbject_LinkedList_removeLast(void) {
     cbject_LinkedList * linkedList = cbject_LinkedList_init(
-        cbject_utils_stackAlloc(cbject_LinkedList),
+        cbject_stackAlloc(cbject_LinkedList),
         cbject_ObjectClass_instance(),
         cbject_LinkedList_NodeSource_heap
     );
-    cbject_Object * object1 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object2 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object3 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object4 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
+    cbject_Object * object1 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object2 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object3 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object4 = cbject_init(cbject_stackAlloc(cbject_Object));
     cbject_LinkedList_addLast(linkedList, object1);
     cbject_LinkedList_addLast(linkedList, object2);
     cbject_LinkedList_addLast(linkedList, object3);
@@ -272,7 +272,7 @@ void test_cbject_LinkedList_removeLast(void) {
     cbject_LinkedList_removeLast(linkedList);
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == true);
-    cbject_utils_release(linkedList);
+    cbject_release(linkedList);
 }
 
 /*************************************************************************************************** tag::test[]
@@ -289,15 +289,15 @@ Test adding and removing elements at a certain index
 end::test[] ***************************************************************************************/
 void test_cbject_LinkedList_addAndRemove(void) {
     cbject_LinkedList * linkedList = cbject_LinkedList_init(
-        cbject_utils_stackAlloc(cbject_LinkedList),
+        cbject_stackAlloc(cbject_LinkedList),
         cbject_ObjectClass_instance(),
         cbject_LinkedList_NodeSource_heap
     );
-    cbject_Object * object1 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object2 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object3 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object4 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object5 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
+    cbject_Object * object1 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object2 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object3 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object4 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object5 = cbject_init(cbject_stackAlloc(cbject_Object));
     cbject_LinkedList_add(linkedList, 0, object1);
     cbject_LinkedList_add(linkedList, 1, object2);
     cbject_LinkedList_add(linkedList, 2, object3);
@@ -321,7 +321,7 @@ void test_cbject_LinkedList_addAndRemove(void) {
     cbject_LinkedList_remove(linkedList, 0);
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == true);
-    cbject_utils_release(linkedList);
+    cbject_release(linkedList);
 }
 
 /*************************************************************************************************** tag::test[]
@@ -337,14 +337,14 @@ Test clearing elements from a list
 end::test[] ***************************************************************************************/
 void test_cbject_LinkedList_clear(void) {
     cbject_LinkedList * linkedList = cbject_LinkedList_init(
-        cbject_utils_stackAlloc(cbject_LinkedList),
+        cbject_stackAlloc(cbject_LinkedList),
         cbject_ObjectClass_instance(),
         cbject_LinkedList_NodeSource_heap
     );
-    cbject_Object * object1 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object2 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object3 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * object4 = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
+    cbject_Object * object1 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object2 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object3 = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * object4 = cbject_init(cbject_stackAlloc(cbject_Object));
     cbject_LinkedList_addLast(linkedList, object1);
     cbject_LinkedList_addLast(linkedList, object2);
     cbject_LinkedList_addLast(linkedList, object3);
@@ -352,5 +352,5 @@ void test_cbject_LinkedList_clear(void) {
     cbject_LinkedList_clear(linkedList);
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
     TEST_ASSERT(cbject_LinkedList_isEmpty(linkedList) == true);
-    cbject_utils_release(linkedList);
+    cbject_release(linkedList);
 }

@@ -1,5 +1,5 @@
 #include "cbject_Object.h"
-#include "cbject_utils.h"
+#include "cbject_internal.h"
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,7 +7,7 @@
 #define cbject_Class (cbject_Object, NULL)
 
 #if (cbject_config_useStaticPool == true)
-cbject_utils_noPool;
+cbject_noPool;
 
 cbject_Object * cbject_Object_allocHelper(
     cbject_Object * const self,
@@ -25,7 +25,7 @@ cbject_Object * cbject_Object_allocHelper(
 }
 
 cbject_Object * cbject_ObjectClass_acquire(cbject_ObjectClass * const self) {
-    return cbject_utils_invokeClassMethod(acquire, self);
+    return cbject_invokeClassMethod(acquire, self);
 }
 
 static cbject_Object * acquire(cbject_ObjectClass * const self) {
@@ -55,7 +55,7 @@ static void dispose(cbject_Object * const self) {
 
 #if (cbject_config_useHeap == true)
 cbject_Object * cbject_ObjectClass_alloc(cbject_ObjectClass * const self) {
-    return cbject_utils_invokeClassMethod(alloc, self);
+    return cbject_invokeClassMethod(alloc, self);
 }
 
 static cbject_Object * alloc(cbject_ObjectClass * const self) {
@@ -78,7 +78,7 @@ cbject_Object * cbject_Object_retain(cbject_Object * const self) {
 void * cbject_Object_release(cbject_Object * const self) {
     self->referenceCount--;
     if (self->referenceCount == 0) {
-        cbject_utils_invokeMethod(terminate, self);
+        cbject_invokeMethod(terminate, self);
 #if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
         switch (self->source) {
 #if (cbject_config_useHeap == true)
@@ -105,7 +105,7 @@ cbject_Object * cbject_Object_init(cbject_Object * const self) {
 }
 
 cbject_Object * cbject_Object_copy(cbject_Object const * const self, cbject_Object * const object) {
-    return cbject_utils_invokeMethod(copy, self, object);
+    return cbject_invokeMethod(copy, self, object);
 }
 
 static cbject_Object * copy(cbject_Object const * const self, cbject_Object * const object) {
@@ -114,7 +114,7 @@ static cbject_Object * copy(cbject_Object const * const self, cbject_Object * co
 }
 
 bool cbject_Object_equals(cbject_Object const * const self, cbject_Object const * const object) {
-    return cbject_utils_invokeMethod(equals, self, object);
+    return cbject_invokeMethod(equals, self, object);
 }
 
 static bool equals(cbject_Object const * const self, cbject_Object const * const object) {
@@ -122,7 +122,7 @@ static bool equals(cbject_Object const * const self, cbject_Object const * const
 }
 
 uint64_t cbject_Object_hashCode(cbject_Object const * const self) {
-    return cbject_utils_invokeMethod(hashCode, self);
+    return cbject_invokeMethod(hashCode, self);
 }
 
 static uint64_t hashCode(cbject_Object const * const self) {
@@ -150,7 +150,7 @@ bool cbject_Object_isOfClass(cbject_Object const * const self, cbject_ObjectClas
 
 cbject_ObjectClass * cbject_ObjectClass_instance(void) {
     static cbject_ObjectClass self;
-    cbject_utils_doOnce {
+    cbject_doOnce {
         self.name = "cbject_Object";
         self.instanceSize = sizeof(cbject_Object);
         self.superClass = NULL;

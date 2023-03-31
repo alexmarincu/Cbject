@@ -692,36 +692,36 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#_cbject_utils">2.7. cbject_utils</a>
+<li><a href="#_cbject_internal">2.7. cbject_internal</a>
 <ul class="sectlevel3">
 <li><a href="#_overview_8">2.7.1. Overview</a></li>
 <li><a href="#_macros_3">2.7.2. Macros</a>
 <ul class="sectlevel4">
-<li><a href="#_cbject_utils_acquire">cbject_utils_acquire()</a></li>
-<li><a href="#_cbject_utils_alloc">cbject_utils_alloc()</a></li>
-<li><a href="#_cbject_utils_stackalloc">cbject_utils_stackAlloc()</a></li>
-<li><a href="#_cbject_utils_hashcode">cbject_utils_hashCode()</a></li>
-<li><a href="#_cbject_utils_equals">cbject_utils_equals()</a></li>
-<li><a href="#_cbject_utils_copy">cbject_utils_copy()</a></li>
-<li><a href="#_cbject_utils_retain">cbject_utils_retain()</a></li>
-<li><a href="#_cbject_utils_release">cbject_utils_release()</a></li>
-<li><a href="#_cbject_utils_allocpool">cbject_utils_allocPool()</a></li>
-<li><a href="#_cbject_utils_nopool">cbject_utils_noPool</a></li>
-<li><a href="#_cbject_utils_doonce">cbject_utils_doOnce</a></li>
-<li><a href="#_cbject_utils_invokemethod">cbject_utils_invokeMethod()</a></li>
-<li><a href="#_cbject_utils_invokeclassmethod">cbject_utils_invokeClassMethod()</a></li>
-<li><a href="#_cbject_utils_invokesupermethod">cbject_utils_invokeSuperMethod()</a></li>
-<li><a href="#_cbject_utils_array_length">cbject_utils_Array_length()</a></li>
-<li><a href="#_cbject_utils_assertstatic">cbject_utils_assertStatic()</a></li>
-<li><a href="#_cbject_utils_token_concat">cbject_utils_Token_concat()</a></li>
-<li><a href="#_cbject_utils_token_concatindirect">cbject_utils_Token_concatIndirect()</a></li>
-<li><a href="#_cbject_utils_token_stringify">cbject_utils_Token_stringify()</a></li>
-<li><a href="#_cbject_utils_token_stringifyindirect">cbject_utils_Token_stringifyIndirect()</a></li>
-<li><a href="#_cbject_utils_vaargs_getfirst">cbject_utils_VaArgs_getFirst()</a></li>
-<li><a href="#_cbject_utils_vaargs_getsecond">cbject_utils_VaArgs_getSecond()</a></li>
-<li><a href="#_cbject_utils_vaargs_getrest">cbject_utils_VaArgs_getRest()</a></li>
-<li><a href="#_cbject_utils_pair_getfirst">cbject_utils_Pair_getFirst()</a></li>
-<li><a href="#_cbject_utils_pair_getsecond">cbject_utils_Pair_getSecond()</a></li>
+<li><a href="#_cbject_acquire">cbject_acquire()</a></li>
+<li><a href="#_cbject_alloc">cbject_alloc()</a></li>
+<li><a href="#_cbject_stackalloc">cbject_stackAlloc()</a></li>
+<li><a href="#_cbject_hashcode">cbject_hashCode()</a></li>
+<li><a href="#_cbject_equals">cbject_equals()</a></li>
+<li><a href="#_cbject_copy">cbject_copy()</a></li>
+<li><a href="#_cbject_retain">cbject_retain()</a></li>
+<li><a href="#_cbject_release">cbject_release()</a></li>
+<li><a href="#_cbject_allocpool">cbject_allocPool()</a></li>
+<li><a href="#_cbject_nopool">cbject_noPool</a></li>
+<li><a href="#_cbject_doonce">cbject_doOnce</a></li>
+<li><a href="#_cbject_invokemethod">cbject_invokeMethod()</a></li>
+<li><a href="#_cbject_invokeclassmethod">cbject_invokeClassMethod()</a></li>
+<li><a href="#_cbject_invokesupermethod">cbject_invokeSuperMethod()</a></li>
+<li><a href="#_cbject_array_length">cbject_Array_length()</a></li>
+<li><a href="#_cbject_assertstatic">cbject_assertStatic()</a></li>
+<li><a href="#_cbject_token_concat">cbject_Token_concat()</a></li>
+<li><a href="#_cbject_token_concatindirect">cbject_Token_concatIndirect()</a></li>
+<li><a href="#_cbject_token_stringify">cbject_Token_stringify()</a></li>
+<li><a href="#_cbject_token_stringifyindirect">cbject_Token_stringifyIndirect()</a></li>
+<li><a href="#_cbject_vaargs_getfirst">cbject_VaArgs_getFirst()</a></li>
+<li><a href="#_cbject_vaargs_getsecond">cbject_VaArgs_getSecond()</a></li>
+<li><a href="#_cbject_vaargs_getrest">cbject_VaArgs_getRest()</a></li>
+<li><a href="#_cbject_pair_getfirst">cbject_Pair_getFirst()</a></li>
+<li><a href="#_cbject_pair_getsecond">cbject_Pair_getSecond()</a></li>
 </ul>
 </li>
 </ul>
@@ -791,7 +791,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="content">
 <pre>cbject_Object * object = cbject_Object_init(cbject_ObjectClass_alloc(cbject_Object));
 printf("%d\n", cbject_Object_hashCode(object));
-cbject_utils_dealloc(object);</pre>
+cbject_dealloc(object);</pre>
 </div>
 </div>
 </div>
@@ -3002,7 +3002,7 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_cbject_utils">2.7. cbject_utils</h3>
+<h3 id="_cbject_internal">2.7. cbject_internal</h3>
 <div class="sect3">
 <h4 id="_overview_8">2.7.1. Overview</h4>
 <div class="paragraph">
@@ -3012,12 +3012,12 @@ Initialized and empty LinkedList</p>
 <div class="sect3">
 <h4 id="_macros_3">2.7.2. Macros</h4>
 <div class="sect4">
-<h5 id="_cbject_utils_acquire">cbject_utils_acquire()</h5>
+<h5 id="_cbject_acquire">cbject_acquire()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_acquire(type)</pre>
+<pre>cbject_acquire(type)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3043,12 +3043,12 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_alloc">cbject_utils_alloc()</h5>
+<h5 id="_cbject_alloc">cbject_alloc()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_alloc(type)</pre>
+<pre>cbject_alloc(type)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3074,12 +3074,12 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_stackalloc">cbject_utils_stackAlloc()</h5>
+<h5 id="_cbject_stackalloc">cbject_stackAlloc()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_stackAlloc(type)</pre>
+<pre>cbject_stackAlloc(type)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3101,12 +3101,12 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_hashcode">cbject_utils_hashCode()</h5>
+<h5 id="_cbject_hashcode">cbject_hashCode()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_hashCode(self)</pre>
+<pre>cbject_hashCode(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3132,12 +3132,12 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_equals">cbject_utils_equals()</h5>
+<h5 id="_cbject_equals">cbject_equals()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_equals(self, object)</pre>
+<pre>cbject_equals(self, object)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3173,12 +3173,12 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_copy">cbject_utils_copy()</h5>
+<h5 id="_cbject_copy">cbject_copy()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_copy(self, object)</pre>
+<pre>cbject_copy(self, object)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3207,12 +3207,12 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_retain">cbject_utils_retain()</h5>
+<h5 id="_cbject_retain">cbject_retain()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_retain(self)</pre>
+<pre>cbject_retain(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3238,12 +3238,12 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_release">cbject_utils_release()</h5>
+<h5 id="_cbject_release">cbject_release()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_release(self)</pre>
+<pre>cbject_release(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3269,12 +3269,12 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_allocpool">cbject_utils_allocPool()</h5>
+<h5 id="_cbject_allocpool">cbject_allocPool()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_allocPool(poolSize)</pre>
+<pre>cbject_allocPool(poolSize)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3296,12 +3296,12 @@ Initialized and empty LinkedList</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_nopool">cbject_utils_noPool</h5>
+<h5 id="_cbject_nopool">cbject_noPool</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_noPool</pre>
+<pre>cbject_noPool</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3310,18 +3310,18 @@ Initialized and empty LinkedList</p>
 <div class="paragraph">
 <div class="title">Remarks</div>
 <p>cbject_Class must be defined before using this macro
-Use instead of cbject_utils_allocPool if no static pool is needed</p>
+Use instead of cbject_allocPool if no static pool is needed</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_doonce">cbject_utils_doOnce</h5>
+<h5 id="_cbject_doonce">cbject_doOnce</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_doOnce</pre>
+<pre>cbject_doOnce</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3330,7 +3330,7 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 <div class="listingblock">
 <div class="title">Usage</div>
 <div class="content">
-<pre>cbject_utils_doOnce {
+<pre>cbject_doOnce {
     functionCall();
     anotherFunctionCall();
 }</pre>
@@ -3344,12 +3344,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_invokemethod">cbject_utils_invokeMethod()</h5>
+<h5 id="_cbject_invokemethod">cbject_invokeMethod()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_invokeMethod(method, ...)</pre>
+<pre>cbject_invokeMethod(method, ...)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3388,12 +3388,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_invokeclassmethod">cbject_utils_invokeClassMethod()</h5>
+<h5 id="_cbject_invokeclassmethod">cbject_invokeClassMethod()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_invokeClassMethod(method, ...)</pre>
+<pre>cbject_invokeClassMethod(method, ...)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3422,12 +3422,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_invokesupermethod">cbject_utils_invokeSuperMethod()</h5>
+<h5 id="_cbject_invokesupermethod">cbject_invokeSuperMethod()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_invokeSuperMethod(type, method, ...)</pre>
+<pre>cbject_invokeSuperMethod(type, method, ...)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3469,12 +3469,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_array_length">cbject_utils_Array_length()</h5>
+<h5 id="_cbject_array_length">cbject_Array_length()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Array_length(self)</pre>
+<pre>cbject_Array_length(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3492,12 +3492,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_assertstatic">cbject_utils_assertStatic()</h5>
+<h5 id="_cbject_assertstatic">cbject_assertStatic()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_assertStatic(expression, identifier)</pre>
+<pre>cbject_assertStatic(expression, identifier)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3518,12 +3518,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_token_concat">cbject_utils_Token_concat()</h5>
+<h5 id="_cbject_token_concat">cbject_Token_concat()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Token_concat(self, token)</pre>
+<pre>cbject_Token_concat(self, token)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3544,12 +3544,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_token_concatindirect">cbject_utils_Token_concatIndirect()</h5>
+<h5 id="_cbject_token_concatindirect">cbject_Token_concatIndirect()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Token_concatIndirect(self, token)</pre>
+<pre>cbject_Token_concatIndirect(self, token)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3570,12 +3570,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_token_stringify">cbject_utils_Token_stringify()</h5>
+<h5 id="_cbject_token_stringify">cbject_Token_stringify()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Token_stringify(self)</pre>
+<pre>cbject_Token_stringify(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3593,12 +3593,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_token_stringifyindirect">cbject_utils_Token_stringifyIndirect()</h5>
+<h5 id="_cbject_token_stringifyindirect">cbject_Token_stringifyIndirect()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Token_stringifyIndirect(self)</pre>
+<pre>cbject_Token_stringifyIndirect(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3616,12 +3616,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_vaargs_getfirst">cbject_utils_VaArgs_getFirst()</h5>
+<h5 id="_cbject_vaargs_getfirst">cbject_VaArgs_getFirst()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_VaArgs_getFirst(...)</pre>
+<pre>cbject_VaArgs_getFirst(...)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3639,12 +3639,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_vaargs_getsecond">cbject_utils_VaArgs_getSecond()</h5>
+<h5 id="_cbject_vaargs_getsecond">cbject_VaArgs_getSecond()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_VaArgs_getSecond(...)</pre>
+<pre>cbject_VaArgs_getSecond(...)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3662,12 +3662,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_vaargs_getrest">cbject_utils_VaArgs_getRest()</h5>
+<h5 id="_cbject_vaargs_getrest">cbject_VaArgs_getRest()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_VaArgs_getRest(...)</pre>
+<pre>cbject_VaArgs_getRest(...)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3696,12 +3696,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_pair_getfirst">cbject_utils_Pair_getFirst()</h5>
+<h5 id="_cbject_pair_getfirst">cbject_Pair_getFirst()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Pair_getFirst(self)</pre>
+<pre>cbject_Pair_getFirst(self)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3719,12 +3719,12 @@ Use instead of cbject_utils_allocPool if no static pool is needed</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_cbject_utils_pair_getsecond">cbject_utils_Pair_getSecond()</h5>
+<h5 id="_cbject_pair_getsecond">cbject_Pair_getSecond()</h5>
 <div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_utils_Pair_getSecond(self)</pre>
+<pre>cbject_Pair_getSecond(self)</pre>
 </div>
 </div>
 <div class="paragraph">

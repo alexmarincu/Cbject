@@ -7,5 +7,5 @@ end::overview[] ****************************************************************
 #include "cbject_Object.h"
 #include "cbject_Singleton.h"
 #include "cbject_config.h"
-#include "cbject_utils.h"
+#include "cbject_internal.h"
 #endif // CBJECT_H

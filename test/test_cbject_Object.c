@@ -37,7 +37,7 @@ Test initialization of cbject_Object
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_init(void) {
-    cbject_Object * object = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
+    cbject_Object * object = cbject_init(cbject_stackAlloc(cbject_Object));
     TEST_ASSERT_EQUAL_PTR(cbject_Object_class(object), cbject_ObjectClass_instance());
 }
 
@@ -54,10 +54,10 @@ Test equals method
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_equals(void) {
-    cbject_Object * object = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    TEST_ASSERT_TRUE(cbject_utils_equals(object, object));
-    cbject_Object * otherObject = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    TEST_ASSERT_FALSE(cbject_utils_equals(object, otherObject));
+    cbject_Object * object = cbject_init(cbject_stackAlloc(cbject_Object));
+    TEST_ASSERT_TRUE(cbject_equals(object, object));
+    cbject_Object * otherObject = cbject_init(cbject_stackAlloc(cbject_Object));
+    TEST_ASSERT_FALSE(cbject_equals(object, otherObject));
 }
 
 /*************************************************************************************************** tag::test[]
@@ -71,8 +71,8 @@ Test hashCode method
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_hashCode(void) {
-    cbject_Object * object = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    TEST_ASSERT_EQUAL_UINT64((uint64_t)object, cbject_utils_hashCode(object));
+    cbject_Object * object = cbject_init(cbject_stackAlloc(cbject_Object));
+    TEST_ASSERT_EQUAL_UINT64((uint64_t)object, cbject_hashCode(object));
 }
 
 /*************************************************************************************************** tag::test[]
@@ -95,22 +95,22 @@ typedef struct TestClass TestClass;
 struct Test {
     cbject_Object object;
 };
-cbject_utils_noPool;
+cbject_noPool;
 struct TestClass {
     cbject_ObjectClass klass;
 };
 cbject_ObjectClass * TestClass_instance(void) {
     static cbject_ObjectClass self;
-    cbject_utils_doOnce {
+    cbject_doOnce {
         cbject_ObjectClass_setup(&self);
     }
     return &self;
 }
 #undef cbject_Class
 void test_cbject_Object_isOfClass(void) {
-    cbject_Object * object = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    TEST_ASSERT_TRUE(cbject_utils_isOfType(object, cbject_Object));
-    TEST_ASSERT_FALSE(cbject_utils_isOfType(object, Test));
+    cbject_Object * object = cbject_init(cbject_stackAlloc(cbject_Object));
+    TEST_ASSERT_TRUE(cbject_isOfType(object, cbject_Object));
+    TEST_ASSERT_FALSE(cbject_isOfType(object, Test));
 }
 
 /*************************************************************************************************** tag::test[]
@@ -128,10 +128,10 @@ Test copy method
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_copy(void) {
-    cbject_Object * object = cbject_utils_init(cbject_utils_stackAlloc(cbject_Object));
-    cbject_Object * copyObjectInStack = cbject_utils_copy(object, cbject_utils_stackAlloc(cbject_Object));
+    cbject_Object * object = cbject_init(cbject_stackAlloc(cbject_Object));
+    cbject_Object * copyObjectInStack = cbject_copy(object, cbject_stackAlloc(cbject_Object));
     TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInStack, cbject_Object_instanceSize(object));
-    cbject_Object * copyObjectInHeap = cbject_utils_copy(object, cbject_utils_alloc(cbject_Object));
+    cbject_Object * copyObjectInHeap = cbject_copy(object, cbject_alloc(cbject_Object));
     TEST_ASSERT_EQUAL_MEMORY(object, copyObjectInHeap, cbject_Object_instanceSize(object));
-    cbject_utils_release(copyObjectInHeap);
+    cbject_release(copyObjectInHeap);
 }

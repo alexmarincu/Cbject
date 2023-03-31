@@ -1,16 +1,16 @@
 #include "cbject_Node.h"
 #if (cbject_config_useLinkedList == true) || (cbject_config_useNode == true)
-#include "cbject_utils.h"
+#include "cbject_internal.h"
 
 #define cbject_Class (cbject_Node, cbject_Object)
 #if (cbject_config_useStaticPool == true)
-cbject_utils_allocPool(cbject_config_nodePoolSize);
+cbject_allocPool(cbject_config_nodePoolSize);
 #endif
 
 cbject_Node * cbject_Node_init(cbject_Node * const self, cbject_Object * const object) {
-    cbject_utils_init(self);
+    cbject_init(self);
     if (object) {
-        cbject_utils_retain(object);
+        cbject_retain(object);
     }
     self->element = object;
     self->previous = NULL;
@@ -41,14 +41,14 @@ void cbject_Node_setNext(cbject_Node * const self, cbject_Node * const nextNode)
 static cbject_Object * terminate(cbject_Object * const self) {
     cbject_Node * node = (cbject_Node *)self;
     if (node->element) {
-        cbject_utils_release(node->element);
+        cbject_release(node->element);
     }
-    return cbject_utils_invokeSuperMethod(cbject_Object, terminate, self);
+    return cbject_invokeSuperMethod(cbject_Object, terminate, self);
 }
 
 cbject_NodeClass * cbject_NodeClass_instance(void) {
     static cbject_NodeClass self;
-    cbject_utils_doOnce {
+    cbject_doOnce {
         cbject_ObjectClass_setup(&self);
         ((cbject_ObjectClass *)&self)->terminate = terminate;
     }

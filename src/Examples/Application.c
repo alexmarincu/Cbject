@@ -12,11 +12,11 @@ struct Application {
     Rectangle * rectangle;
 };
 
-cbject_utils_noPool;
+cbject_noPool;
 
 Application * Application_instance(void) {
     static Application self;
-    cbject_utils_doOnce {
+    cbject_doOnce {
         cbject_Singleton_init((cbject_Singleton *)&self);
     }
     return &self;
@@ -25,16 +25,16 @@ Application * Application_instance(void) {
 static void greetingExample(Application * const self) {
     (void)(self);
     // Allocate and initialize a Greeting application
-    Greeting * greeting = Greeting_init(cbject_utils_alloc(Greeting), "Hello Cbject!");
+    Greeting * greeting = Greeting_init(cbject_alloc(Greeting), "Hello Cbject!");
     // Call Greeting print function on the greeting application
     Greeting_print(greeting);
     // Free memory allocated for the Greeting application
-    cbject_utils_release(greeting);
+    cbject_release(greeting);
 }
 
 static void circleExample(Application * const self) {
     // Allocate and initialize a Circle object
-    self->circle = Circle_init(cbject_utils_alloc(Circle), (Point){ 0, 1 }, 2);
+    self->circle = Circle_init(cbject_alloc(Circle), (Point){ 0, 1 }, 2);
     // Get circle radius
     uint32_t radius = self->circle->radius;
     (void)(radius);
@@ -54,7 +54,7 @@ static void circleExample(Application * const self) {
 
 static void rectangleExample(Application * const self) {
     // Allocate and initialize a Rectangle object
-    self->rectangle = Rectangle_init(cbject_utils_alloc(Rectangle), ((Point){ 0, 1 }), 2, 3);
+    self->rectangle = Rectangle_init(cbject_alloc(Rectangle), ((Point){ 0, 1 }), 2, 3);
     // Get rectangle width and height
     uint32_t width = Rectangle_getWidth(self->rectangle);
     (void)(width);
@@ -82,7 +82,7 @@ static void polymorphismExample(Application * const self) {
         (Shape *)self->rectangle,
     };
     // Loop through the list of shapes and call various polymorphic functions
-    for (uint8_t i = 0; i < cbject_utils_Array_length(shapes); i++) {
+    for (uint8_t i = 0; i < cbject_Array_length(shapes); i++) {
         // Get area through Shape object polymorphic call
         float area = Shape_area(shapes[i]);
         (void)(area);
@@ -90,14 +90,14 @@ static void polymorphismExample(Application * const self) {
         size_t instanceSize = cbject_Object_instanceSize(shapes[i]);
         (void)(instanceSize);
         // Get hash code of shape object
-        uint64_t hashCode = cbject_utils_hashCode(shapes[i]);
+        uint64_t hashCode = cbject_hashCode(shapes[i]);
         (void)(hashCode);
         // Check class of chape object
-        if (cbject_utils_isOfType(shapes[i], Circle)) {
+        if (cbject_isOfType(shapes[i], Circle)) {
             // Get circle radius
             uint32_t radius = ((Circle *)shapes[i])->radius;
             (void)(radius);
-        } else if (cbject_utils_isOfType(shapes[i], Rectangle)) {
+        } else if (cbject_isOfType(shapes[i], Rectangle)) {
             // Get rectangle width and height
             uint32_t width = Rectangle_getWidth((Rectangle *)shapes[i]);
             (void)(width);
@@ -116,14 +116,14 @@ void Application_main(Application * const self) {
 
 static cbject_Object * terminate(cbject_Object * const self) {
     Application * application = (Application *)self;
-    cbject_utils_release(application->rectangle);
-    cbject_utils_release(application->circle);
-    return cbject_utils_invokeSuperMethod(cbject_Object, terminate, self);
+    cbject_release(application->rectangle);
+    cbject_release(application->circle);
+    return cbject_invokeSuperMethod(cbject_Object, terminate, self);
 }
 
 ApplicationClass * ApplicationClass_instance(void) {
     static ApplicationClass self;
-    cbject_utils_doOnce {
+    cbject_doOnce {
         cbject_ObjectClass_setup(&self);
         ((cbject_ObjectClass *)&self)->terminate = terminate;
     }

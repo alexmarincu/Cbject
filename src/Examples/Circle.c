@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #define cbject_Class (Circle, Drawable)
-cbject_utils_noPool;
+cbject_noPool;
 
 Circle * Circle_init(
     Circle * const self,
@@ -33,12 +33,12 @@ static void draw(Drawable const * const self) {
 }
 
 static cbject_Object * terminate(cbject_Object * self) {
-    return cbject_utils_invokeSuperMethod(cbject_Object, terminate, self);
+    return cbject_invokeSuperMethod(cbject_Object, terminate, self);
 }
 
 CircleClass * CircleClass_instance(void) {
     static CircleClass self;
-    cbject_utils_doOnce {
+    cbject_doOnce {
         cbject_ObjectClass_setup(&self);
         ((cbject_ObjectClass *)&self)->terminate = terminate;
         ((ShapeClass *)&self)->area = area;

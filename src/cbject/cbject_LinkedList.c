@@ -1,11 +1,11 @@
 #include "cbject_LinkedList.h"
 #if (cbject_config_useLinkedList == true)
 #if (cbject_config_useHeap == true) || (cbject_config_useStaticPool == true)
-#include "cbject_utils.h"
+#include "cbject_internal.h"
 
 #define cbject_Class (cbject_LinkedList, cbject_Object)
 #if (cbject_config_useStaticPool == true)
-cbject_utils_allocPool(cbject_config_linkedListPoolSize);
+cbject_allocPool(cbject_config_linkedListPoolSize);
 #endif
 
 cbject_LinkedList * cbject_LinkedList_init(
@@ -15,7 +15,7 @@ cbject_LinkedList * cbject_LinkedList_init(
     cbject_LinkedList_NodeSource const nodeSource
 #endif
 ) {
-    cbject_utils_init(self);
+    cbject_init(self);
     self->elementClass = elementClass;
     self->size = 0;
     self->first = NULL;
@@ -31,18 +31,18 @@ bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const self) {
 }
 
 static cbject_Node * createNode(cbject_LinkedList * const self, cbject_Object * const object) {
-    assert(cbject_Object_isOfClass(object, self->elementClass));
+    assert(cbject_isOfClass(object, self->elementClass));
     cbject_Node * node;
 #if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
     if (self->nodeSource == cbject_LinkedList_NodeSource_staticPool) {
-        node = cbject_utils_acquire(cbject_Node);
+        node = cbject_acquire(cbject_Node);
     } else {
-        node = cbject_utils_alloc(cbject_Node);
+        node = cbject_alloc(cbject_Node);
     }
 #elif (cbject_config_useStaticPool == true)
-    node = cbject_utils_acquire(cbject_Node);
+    node = cbject_acquire(cbject_Node);
 #elif (cbject_config_useHeap == true)
-    node = cbject_utils_alloc(cbject_Node);
+    node = cbject_alloc(cbject_Node);
 #endif
     node = cbject_Node_init(node, object);
     return node;
@@ -105,7 +105,7 @@ void cbject_LinkedList_remove(cbject_LinkedList * const self, uint64_t const ind
     assert(index < self->size);
     if (self->size == 1) {
         cbject_Node * node = self->first;
-        cbject_utils_release(node);
+        cbject_release(node);
         self->first = NULL;
         self->last = NULL;
     } else {
@@ -113,17 +113,17 @@ void cbject_LinkedList_remove(cbject_LinkedList * const self, uint64_t const ind
             cbject_Node * node = self->last;
             self->last = cbject_Node_getPrevious(node);
             cbject_Node_setNext(self->last, NULL);
-            cbject_utils_release(node);
+            cbject_release(node);
         } else if (index == 0) {
             cbject_Node * node = self->first;
             self->first = cbject_Node_getNext(node);
             cbject_Node_setPrevious(self->first, NULL);
-            cbject_utils_release(node);
+            cbject_release(node);
         } else {
             cbject_Node * node = getNode(self, index);
             cbject_Node_setNext(cbject_Node_getPrevious(node), cbject_Node_getNext(node));
             cbject_Node_setPrevious(cbject_Node_getNext(node), cbject_Node_getPrevious(node));
-            cbject_utils_release(node);
+            cbject_release(node);
         }
     }
     self->size--;
@@ -161,12 +161,12 @@ uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const self) {
 
 static cbject_Object * terminate(cbject_Object * const self) {
     cbject_LinkedList_clear((cbject_LinkedList *)self);
-    return cbject_utils_invokeSuperMethod(cbject_Object, terminate, self);
+    return cbject_invokeSuperMethod(cbject_Object, terminate, self);
 }
 
 cbject_LinkedListClass * cbject_LinkedListClass_instance(void) {
     static cbject_LinkedListClass self;
-    cbject_utils_doOnce {
+    cbject_doOnce {
         cbject_ObjectClass_setup(&self);
         ((cbject_ObjectClass *)&self)->terminate = terminate;
     }
