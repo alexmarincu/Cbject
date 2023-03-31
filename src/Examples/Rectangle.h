@@ -3,7 +3,7 @@
 #include "Drawable.h"
 
 typedef struct Rectangle Rectangle;
-typedef struct RectangleClass RectangleClass;
+typedef struct Rectangle_Class Rectangle_Class;
 
 /*************************************************************************** @startuml(id=Rectangle)
 object Rectangle {
@@ -18,13 +18,13 @@ struct Rectangle {
     uint32_t height;
 };
 
-/********************************************************************** @startuml(id=RectangleClass)
-object RectangleClass {
-    DrawableClass super;
+/********************************************************************** @startuml(id=Rectangle_Class)
+object Rectangle_Class {
+    Drawable_Class super;
 }
 @enduml *******************************************************************************************/
-struct RectangleClass {
-    DrawableClass super;
+struct Rectangle_Class {
+    Drawable_Class super;
 };
 
 Rectangle * Rectangle_init(
@@ -38,6 +38,6 @@ void Rectangle_setWidth(Rectangle * const self, uint32_t const width);
 uint32_t Rectangle_getHeight(Rectangle const * const self);
 void Rectangle_setHeight(Rectangle * const self, uint32_t const height);
 void Rectangle_makeSquare(Rectangle * const self, uint32_t const edgeSize);
-RectangleClass * RectangleClass_instance(void);
+Rectangle_Class * Rectangle_Class_instance(void);
 
 #endif // RECTANGLE_H

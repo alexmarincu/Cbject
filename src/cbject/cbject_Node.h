@@ -5,12 +5,12 @@ Node data structure used in linked lists
 .Context diagram
 ----
 !include ../src/cbject/cbject_Node.h!cbject_Node
-!include ../src/cbject/cbject_Node.h!cbject_NodeClass
+!include ../src/cbject/cbject_Node.h!cbject_Node_Class
 !include ../src/cbject/cbject_Object.h!cbject_Object
-!include ../src/cbject/cbject_Object.h!cbject_ObjectClass
+!include ../src/cbject/cbject_Object.h!cbject_Object_Class
 cbject_Node -u-|> cbject_Object
-cbject_Object -r-> cbject_NodeClass
-cbject_NodeClass -u-|> cbject_ObjectClass
+cbject_Object -r-> cbject_Node_Class
+cbject_Node_Class -u-|> cbject_Object_Class
 ----
 end::overview[] ***********************************************************************************/
 #ifndef CBJECT_NODE_H
@@ -31,15 +31,15 @@ end::type[] ********************************************************************
 typedef struct cbject_Node cbject_Node;
 
 /*************************************************************************************************** tag::type[]
-= cbject_NodeClass
+= cbject_Node_Class
 ====
 ----
-typedef struct cbject_NodeClass cbject_NodeClass;
+typedef struct cbject_Node_Class cbject_Node_Class;
 ----
-Typedef for struct cbject_NodeClass
+Typedef for struct cbject_Node_Class
 ====
 end::type[] ***************************************************************************************/
-typedef struct cbject_NodeClass cbject_NodeClass;
+typedef struct cbject_Node_Class cbject_Node_Class;
 
 /*************************************************************************************************** tag::type[]
 = struct cbject_Node
@@ -78,26 +78,26 @@ struct cbject_Node {
 };
 
 /*************************************************************************************************** tag::type[]
-= struct cbject_NodeClass
+= struct cbject_Node_Class
 ====
 ----
-struct cbject_NodeClass {
-    cbject_ObjectClass klass;
+struct cbject_Node_Class {
+    cbject_Object_Class klass;
 };
 ----
-Definition of struct cbject_NodeClass
+Definition of struct cbject_Node_Class
 
 .Members
 * super - Parent
 ====
 end::type[] ***************************************************************************************/
-/*************************************************************************************************** @startuml(id=cbject_NodeClass)
-object cbject_NodeClass {
-    cbject_ObjectClass super;
+/*************************************************************************************************** @startuml(id=cbject_Node_Class)
+object cbject_Node_Class {
+    cbject_Object_Class super;
 }
 @enduml *******************************************************************************************/
-struct cbject_NodeClass {
-    cbject_ObjectClass super;
+struct cbject_Node_Class {
+    cbject_Object_Class super;
 };
 
 /*************************************************************************************************** tag::function[]
@@ -200,18 +200,18 @@ end::function[] ****************************************************************
 void cbject_Node_setNext(cbject_Node * const self, cbject_Node * const nextNode);
 
 /*************************************************************************************************** tag::function[]
-= cbject_NodeClass_instance()
+= cbject_Node_Class_instance()
 ====
 ----
-cbject_NodeClass * cbject_NodeClass_instance(void);
+cbject_Node_Class * cbject_Node_Class_instance(void);
 ----
-Gets cbject_NodeClass instance
+Gets cbject_Node_Class instance
 
 .Return
 Reference of the class instance
 ====
 end::function[] ***********************************************************************************/
-cbject_NodeClass * cbject_NodeClass_instance(void);
+cbject_Node_Class * cbject_Node_Class_instance(void);
 
 #endif // (cbject_config_useLinkedList == true) || (cbject_config_useNode == true)
 #endif // CBJECT_NODE_H

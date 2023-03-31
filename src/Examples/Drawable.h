@@ -3,7 +3,7 @@
 #include "Shape.h"
 
 typedef struct Drawable Drawable;
-typedef struct DrawableClass DrawableClass;
+typedef struct Drawable_Class Drawable_Class;
 
 /**************************************************************************** @startuml(id=Drawable)
 object Drawable {
@@ -16,14 +16,14 @@ struct Drawable {
     uint16_t scale;
 };
 
-/*********************************************************************** @startuml(id=DrawableClass)
-object DrawableClass {
-    ShapeClass super;
+/*********************************************************************** @startuml(id=Drawable_Class)
+object Drawable_Class {
+    Shape_Class super;
     void (*draw)(Drawable const * const self);
 }
 @enduml *******************************************************************************************/
-struct DrawableClass {
-    ShapeClass super;
+struct Drawable_Class {
+    Shape_Class super;
     void (*draw)(Drawable const * const self);
 };
 
@@ -33,6 +33,6 @@ void Drawable_init(
     uint16_t const scale
 );
 void Drawable_draw(Drawable const * const self);
-DrawableClass * DrawableClass_instance(void);
+Drawable_Class * Drawable_Class_instance(void);
 
 #endif // DRAWABLE_H

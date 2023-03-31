@@ -3,14 +3,14 @@
 #include "../cbject/cbject.h"
 
 typedef struct Application Application;
-typedef struct ApplicationClass ApplicationClass;
+typedef struct Application_Class Application_Class;
 
-struct ApplicationClass {
-    cbject_SingletonClass super;
+struct Application_Class {
+    cbject_Singleton_Class super;
 };
 
 Application * Application_instance(void);
 void Application_main(Application * const self);
-ApplicationClass * ApplicationClass_instance(void);
+Application_Class * Application_Class_instance(void);
 
 #endif // APPLICATION_H

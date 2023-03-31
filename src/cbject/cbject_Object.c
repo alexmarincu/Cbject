@@ -11,7 +11,7 @@ cbject_noPool;
 
 cbject_Object * cbject_Object_allocHelper(
     cbject_Object * const self,
-    cbject_ObjectClass * const klass,
+    cbject_Object_Class * const klass,
 #if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
     cbject_Object_Source const source
 #endif
@@ -24,11 +24,11 @@ cbject_Object * cbject_Object_allocHelper(
     return self;
 }
 
-cbject_Object * cbject_ObjectClass_acquire(cbject_ObjectClass * const self) {
+cbject_Object * cbject_Object_Class_acquire(cbject_Object_Class * const self) {
     return cbject_invokeClassMethod(acquire, self);
 }
 
-static cbject_Object * acquire(cbject_ObjectClass * const self) {
+static cbject_Object * acquire(cbject_Object_Class * const self) {
     cbject_Object * object = NULL;
     if ((void *)self->poolFirstFreeObject < ((void *)self->pool + (self->instanceSize * self->poolSize))) {
         object = self->poolFirstFreeObject;
@@ -54,11 +54,11 @@ static void dispose(cbject_Object * const self) {
 #endif // (cbject_config_useStaticPool == true)
 
 #if (cbject_config_useHeap == true)
-cbject_Object * cbject_ObjectClass_alloc(cbject_ObjectClass * const self) {
+cbject_Object * cbject_Object_Class_alloc(cbject_Object_Class * const self) {
     return cbject_invokeClassMethod(alloc, self);
 }
 
-static cbject_Object * alloc(cbject_ObjectClass * const self) {
+static cbject_Object * alloc(cbject_Object_Class * const self) {
     cbject_Object * object = (cbject_Object *)calloc(1, self->instanceSize);
     assert(object);
     cbject_Object_allocHelper(object, self, cbject_Object_Source_heap);
@@ -134,9 +134,9 @@ static cbject_Object * terminate(cbject_Object * const self) {
     return NULL;
 }
 
-bool cbject_Object_isOfClass(cbject_Object const * const self, cbject_ObjectClass const * const klass) {
+bool cbject_Object_isOfClass(cbject_Object const * const self, cbject_Object_Class const * const klass) {
     bool isOfType = false;
-    cbject_ObjectClass const * _klass = self->klass;
+    cbject_Object_Class const * _klass = self->klass;
     while (_klass != NULL) {
         if (_klass == klass) {
             isOfType = true;
@@ -148,8 +148,8 @@ bool cbject_Object_isOfClass(cbject_Object const * const self, cbject_ObjectClas
     return isOfType;
 }
 
-cbject_ObjectClass * cbject_ObjectClass_instance(void) {
-    static cbject_ObjectClass self;
+cbject_Object_Class * cbject_Object_Class_instance(void) {
+    static cbject_Object_Class self;
     cbject_doOnce {
         self.name = "cbject_Object";
         self.instanceSize = sizeof(cbject_Object);

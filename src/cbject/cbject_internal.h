@@ -14,7 +14,7 @@ cbject_acquire(type)
 Acquires an object from the static pool
 
 .Remarks
-Calls cbject_ObjectClass_acquire() and does the necessary casting
+Calls cbject_Object_Class_acquire() and does the necessary casting
 
 .Params
 * type - Name of class
@@ -24,7 +24,7 @@ Reference of the acquired object
 ====
 end::macro[] **************************************************************************************/
 #define cbject_acquire(type) \
-    ((type *)cbject_ObjectClass_acquire((cbject_ObjectClass *)type##Class_instance()))
+    ((type *)cbject_Object_Class_acquire((cbject_Object_Class *)type##_Class_instance()))
 
 /*************************************************************************************************** tag::macro[]
 = cbject_alloc()
@@ -35,7 +35,7 @@ cbject_alloc(type)
 Allocates an object in heap memory
 
 .Remarks
-Calls cbject_ObjectClass_alloc() and does the necessary casting
+Calls cbject_Object_Class_alloc() and does the necessary casting
 
 .Params
 * type - Name of class
@@ -45,7 +45,7 @@ Reference of the allocated object
 ====
 end::macro[] **************************************************************************************/
 #define cbject_alloc(type) \
-    ((type *)cbject_ObjectClass_alloc((cbject_ObjectClass *)type##Class_instance()))
+    ((type *)cbject_Object_Class_alloc((cbject_Object_Class *)type##_Class_instance()))
 
 /*************************************************************************************************** tag::macro[]
 = cbject_stackAlloc()
@@ -63,17 +63,17 @@ Reference of the allocated memory
 ====
 end::macro[] **************************************************************************************/
 #if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
-#define cbject_stackAlloc(type)                       \
-    ((type *)cbject_Object_allocHelper(               \
-        (cbject_Object *)&(type){},                   \
-        (cbject_ObjectClass *)type##Class_instance(), \
-        cbject_Object_Source_stack                    \
+#define cbject_stackAlloc(type)                         \
+    ((type *)cbject_Object_allocHelper(                 \
+        (cbject_Object *)&(type){},                     \
+        (cbject_Object_Class *)type##_Class_instance(), \
+        cbject_Object_Source_stack                      \
     ))
 #else
-#define cbject_stackAlloc(type)                      \
-    ((type *)cbject_Object_allocHelper(              \
-        (cbject_Object *)&(type){},                  \
-        (cbject_ObjectClass *)type##Class_instance() \
+#define cbject_stackAlloc(type)                        \
+    ((type *)cbject_Object_allocHelper(                \
+        (cbject_Object *)&(type){},                    \
+        (cbject_Object_Class *)type##_Class_instance() \
     ))
 #endif
 
@@ -227,7 +227,7 @@ Calls cbject_isOfClass() and does the necessary casting
 ====
 end::function[] ***********************************************************************************/
 #define cbject_isOfType(self, type) \
-    cbject_Object_isOfClass((cbject_Object *)(self), (cbject_ObjectClass *)type##Class_instance())
+    cbject_Object_isOfClass((cbject_Object *)(self), (cbject_Object_Class *)type##_Class_instance())
 
 /*************************************************************************************************** tag::function[]
 = cbject_isOfClass()
@@ -242,7 +242,7 @@ Calls cbject_Object_isOfClass() and does the necessary casting
 
 .Params
 * self - cbject_Object reference
-* klass - cbject_ObjectClass reference
+* klass - cbject_Object_Class reference
 
 .Return
 * true - If the object is of the provided class
@@ -250,7 +250,7 @@ Calls cbject_Object_isOfClass() and does the necessary casting
 ====
 end::function[] ***********************************************************************************/
 #define cbject_isOfClass(self, klass) \
-    cbject_Object_isOfClass((cbject_Object *)(self), (cbject_ObjectClass *)klass)
+    cbject_Object_isOfClass((cbject_Object *)(self), (cbject_Object_Class *)klass)
 
 /*************************************************************************************************** tag::macro[]
 = cbject_allocPool()
@@ -334,7 +334,7 @@ Depends on the called method
 ====
 end::macro[] **************************************************************************************/
 #define cbject_invokeMethod(method, ...) \
-    ((cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), Class) *)((cbject_Object *)cbject_VaArgs_getFirst(__VA_ARGS__))->klass)->method(__VA_ARGS__)
+    ((cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), _Class) *)((cbject_Object *)cbject_VaArgs_getFirst(__VA_ARGS__))->klass)->method(__VA_ARGS__)
 
 /*************************************************************************************************** tag::macro[]
 = cbject_invokeClassMethod()
@@ -356,7 +356,7 @@ Depends on the called method
 ====
 end::macro[] **************************************************************************************/
 #define cbject_invokeClassMethod(method, ...) \
-    ((cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), Class) *)cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), Class_instance()))->method(__VA_ARGS__)
+    ((cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), _Class) *)cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), _Class_instance()))->method(__VA_ARGS__)
 
 /*************************************************************************************************** tag::macro[]
 = cbject_invokeSuperMethod()
@@ -381,7 +381,7 @@ Depends on the called method
 ====
 end::macro[] **************************************************************************************/
 #define cbject_invokeSuperMethod(type, method, ...) \
-    ((type##Class *)((cbject_ObjectClass *)cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), Class_instance()))->superClass)->method(__VA_ARGS__)
+    ((type##_Class *)((cbject_Object_Class *)cbject_Token_concatIndirect(cbject_Pair_getFirst(cbject_Class), _Class_instance()))->superClass)->method(__VA_ARGS__)
 
 /*************************************************************************************************** tag::macro[]
 = cbject_Array_length()

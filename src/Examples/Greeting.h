@@ -3,14 +3,14 @@
 #include "../cbject/cbject.h"
 
 typedef struct Greeting Greeting;
-typedef struct GreetingClass GreetingClass;
+typedef struct Greeting_Class Greeting_Class;
 
-struct GreetingClass {
-    cbject_ObjectClass super;
+struct Greeting_Class {
+    cbject_Object_Class super;
 };
 
 Greeting * Greeting_init(Greeting * const self, char * const text);
 void Greeting_print(Greeting * const self);
-GreetingClass * GreetingClass_instance(void);
+Greeting_Class * Greeting_Class_instance(void);
 
 #endif // GREETING_H

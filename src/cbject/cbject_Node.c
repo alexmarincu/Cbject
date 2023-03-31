@@ -46,11 +46,11 @@ static cbject_Object * terminate(cbject_Object * const self) {
     return cbject_invokeSuperMethod(cbject_Object, terminate, self);
 }
 
-cbject_NodeClass * cbject_NodeClass_instance(void) {
-    static cbject_NodeClass self;
+cbject_Node_Class * cbject_Node_Class_instance(void) {
+    static cbject_Node_Class self;
     cbject_doOnce {
-        cbject_ObjectClass_setup(&self);
-        ((cbject_ObjectClass *)&self)->terminate = terminate;
+        cbject_Object_Class_setup(&self);
+        ((cbject_Object_Class *)&self)->terminate = terminate;
     }
     return &self;
 }

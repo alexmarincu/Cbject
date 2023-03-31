@@ -29,8 +29,8 @@ end::test[] ********************************************************************
 void test_cbject_LinkedList_init(void) {
     cbject_LinkedList * linkedList = cbject_LinkedList_init(
         cbject_stackAlloc(cbject_LinkedList),
-        cbject_ObjectClass_instance(),
-        cbject_LinkedList_NodeSource_heap
+        cbject_Object_Class_instance(),
+        cbject_Object_Source_heap
     );
     TEST_ASSERT(cbject_isOfType(linkedList, cbject_LinkedList));
     TEST_ASSERT(cbject_LinkedList_getSize(linkedList) == 0);
@@ -44,7 +44,7 @@ void test_cbject_LinkedList_init(void) {
 Test adding elements at beginning of LinkedList
 
 .Preconditions
-. Define a DataClass which extends cbject_ObjectClass
+. Define a Data_Class which extends cbject_Object_Class
 
 .Steps
 . Create a linked list and some data objects
@@ -54,22 +54,22 @@ Test adding elements at beginning of LinkedList
 end::test[] ***************************************************************************************/
 #define cbject_Class (Data, cbject_Object)
 typedef struct Data Data;
-typedef struct DataClass DataClass;
+typedef struct Data_Class Data_Class;
 struct Data {
     cbject_Object object;
 };
 cbject_allocPool(1);
-struct DataClass {
-    cbject_ObjectClass klass;
+struct Data_Class {
+    cbject_Object_Class klass;
 };
 Data * Data_init(Data * const data) {
     cbject_init(data);
     return data;
 }
-cbject_ObjectClass * DataClass_instance(void) {
-    static cbject_ObjectClass self;
+cbject_Object_Class * Data_Class_instance(void) {
+    static cbject_Object_Class self;
     cbject_doOnce {
-        cbject_ObjectClass_setup(&self);
+        cbject_Object_Class_setup(&self);
     }
     return &self;
 }
@@ -78,13 +78,13 @@ void test_cbject_LinkedList_addFirst(void) {
     cbject_LinkedList * linkedLists[2];
     linkedLists[0] = cbject_LinkedList_init(
         cbject_stackAlloc(cbject_LinkedList),
-        cbject_ObjectClass_instance(),
-        cbject_LinkedList_NodeSource_heap
+        cbject_Object_Class_instance(),
+        cbject_Object_Source_heap
     );
     linkedLists[1] = cbject_LinkedList_init(
         cbject_stackAlloc(cbject_LinkedList),
-        cbject_ObjectClass_instance(),
-        cbject_LinkedList_NodeSource_staticPool
+        cbject_Object_Class_instance(),
+        cbject_Object_Source_staticPool
     );
     for (uint8_t i = 0; i < cbject_Array_length(linkedLists); i++) {
         cbject_Object * data1 = (cbject_Object *)Data_init(cbject_stackAlloc(Data));
@@ -140,8 +140,8 @@ end::test[] ********************************************************************
 void test_cbject_LinkedList_addLast(void) {
     cbject_LinkedList * linkedList = cbject_LinkedList_init(
         cbject_stackAlloc(cbject_LinkedList),
-        cbject_ObjectClass_instance(),
-        cbject_LinkedList_NodeSource_heap
+        cbject_Object_Class_instance(),
+        cbject_Object_Source_heap
     );
     cbject_Object * object1 = cbject_init(cbject_stackAlloc(cbject_Object));
     cbject_Object * object2 = cbject_init(cbject_stackAlloc(cbject_Object));
@@ -191,8 +191,8 @@ end::test[] ********************************************************************
 void test_cbject_LinkedList_removeFirst(void) {
     cbject_LinkedList * linkedList = cbject_LinkedList_init(
         cbject_stackAlloc(cbject_LinkedList),
-        cbject_ObjectClass_instance(),
-        cbject_LinkedList_NodeSource_heap
+        cbject_Object_Class_instance(),
+        cbject_Object_Source_heap
     );
     cbject_Object * object1 = cbject_init(cbject_stackAlloc(cbject_Object));
     cbject_Object * object2 = cbject_init(cbject_stackAlloc(cbject_Object));
@@ -240,8 +240,8 @@ end::test[] ********************************************************************
 void test_cbject_LinkedList_removeLast(void) {
     cbject_LinkedList * linkedList = cbject_LinkedList_init(
         cbject_stackAlloc(cbject_LinkedList),
-        cbject_ObjectClass_instance(),
-        cbject_LinkedList_NodeSource_heap
+        cbject_Object_Class_instance(),
+        cbject_Object_Source_heap
     );
     cbject_Object * object1 = cbject_init(cbject_stackAlloc(cbject_Object));
     cbject_Object * object2 = cbject_init(cbject_stackAlloc(cbject_Object));
@@ -290,8 +290,8 @@ end::test[] ********************************************************************
 void test_cbject_LinkedList_addAndRemove(void) {
     cbject_LinkedList * linkedList = cbject_LinkedList_init(
         cbject_stackAlloc(cbject_LinkedList),
-        cbject_ObjectClass_instance(),
-        cbject_LinkedList_NodeSource_heap
+        cbject_Object_Class_instance(),
+        cbject_Object_Source_heap
     );
     cbject_Object * object1 = cbject_init(cbject_stackAlloc(cbject_Object));
     cbject_Object * object2 = cbject_init(cbject_stackAlloc(cbject_Object));
@@ -338,8 +338,8 @@ end::test[] ********************************************************************
 void test_cbject_LinkedList_clear(void) {
     cbject_LinkedList * linkedList = cbject_LinkedList_init(
         cbject_stackAlloc(cbject_LinkedList),
-        cbject_ObjectClass_instance(),
-        cbject_LinkedList_NodeSource_heap
+        cbject_Object_Class_instance(),
+        cbject_Object_Source_heap
     );
     cbject_Object * object1 = cbject_init(cbject_stackAlloc(cbject_Object));
     cbject_Object * object2 = cbject_init(cbject_stackAlloc(cbject_Object));

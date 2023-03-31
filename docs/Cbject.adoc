@@ -38,7 +38,7 @@ Include the following header file:
 .How to create an object
 ====
 ----
-cbject_Object * object = cbject_Object_init(cbject_ObjectClass_alloc(cbject_Object));
+cbject_Object * object = cbject_Object_init(cbject_Object_Class_alloc(cbject_Object));
 printf("%d\n", cbject_Object_hashCode(object));
 cbject_dealloc(object);
 ----
@@ -49,28 +49,28 @@ cbject_dealloc(object);
 .Building blocks
 ----
 !include ../src/cbject/cbject_Object.h!cbject_Object
-!include ../src/cbject/cbject_Object.h!cbject_ObjectClass
-cbject_Object -r-> cbject_ObjectClass
+!include ../src/cbject/cbject_Object.h!cbject_Object_Class
+cbject_Object -r-> cbject_Object_Class
 ----
 
 [plantuml, target=diag-rectangle-class-example]
 .Rectangle class example
 ----
 !include ../src/Examples/Rectangle.h!Rectangle
-!include ../src/Examples/Rectangle.h!RectangleClass
+!include ../src/Examples/Rectangle.h!Rectangle_Class
 !include ../src/Examples/Drawable.h!Drawable
-!include ../src/Examples/Drawable.h!DrawableClass
+!include ../src/Examples/Drawable.h!Drawable_Class
 !include ../src/Examples/Shape.h!Shape
-!include ../src/Examples/Shape.h!ShapeClass
+!include ../src/Examples/Shape.h!Shape_Class
 !include ../src/cbject/cbject_Object.h!cbject_Object
-!include ../src/cbject/cbject_Object.h!cbject_ObjectClass
+!include ../src/cbject/cbject_Object.h!cbject_Object_Class
 Rectangle -u-|> Drawable
-RectangleClass -u-|> DrawableClass
+Rectangle_Class -u-|> Drawable_Class
 Drawable -u-|> Shape
-DrawableClass -u-|> ShapeClass
+Drawable_Class -u-|> Shape_Class
 Shape -u-|> cbject_Object
-ShapeClass -u-|> cbject_ObjectClass
-cbject_Object -r-> RectangleClass
+Shape_Class -u-|> cbject_Object_Class
+cbject_Object -r-> Rectangle_Class
 ----
 
 == API

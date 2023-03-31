@@ -20,10 +20,10 @@ void Greeting_print(Greeting * const self) {
     printf("%s\n", self->text);
 }
 
-GreetingClass * GreetingClass_instance(void) {
-    static GreetingClass self;
+Greeting_Class * Greeting_Class_instance(void) {
+    static Greeting_Class self;
     cbject_doOnce {
-        cbject_ObjectClass_setup(&self);
+        cbject_Object_Class_setup(&self);
     }
     return &self;
 }

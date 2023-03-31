@@ -3,15 +3,15 @@
 #include "Drawable.h"
 
 typedef struct Circle Circle;
-typedef struct CircleClass CircleClass;
+typedef struct Circle_Class Circle_Class;
 
 struct Circle {
     Drawable super;
     uint32_t radius;
 };
 
-struct CircleClass {
-    DrawableClass super;
+struct Circle_Class {
+    Drawable_Class super;
 };
 
 Circle * Circle_init(
@@ -19,6 +19,6 @@ Circle * Circle_init(
     Point origin,
     uint32_t radius
 );
-CircleClass * CircleClass_instance(void);
+Circle_Class * Circle_Class_instance(void);
 
 #endif // CIRCLE_H

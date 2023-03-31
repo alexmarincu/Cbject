@@ -22,10 +22,10 @@ static void draw(Drawable const * const self) {
     (void)(self);
 }
 
-DrawableClass * DrawableClass_instance(void) {
-    static DrawableClass self;
+Drawable_Class * Drawable_Class_instance(void) {
+    static Drawable_Class self;
     cbject_doOnce {
-        cbject_ObjectClass_setup(&self);
+        cbject_Object_Class_setup(&self);
         self.draw = draw;
     }
     return &self;

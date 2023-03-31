@@ -3,12 +3,12 @@
 .Context diagram
 ----
 !include ../src/cbject/cbject_Singleton.h!cbject_Singleton
-!include ../src/cbject/cbject_Singleton.h!cbject_SingletonClass
+!include ../src/cbject/cbject_Singleton.h!cbject_Singleton_Class
 !include ../src/cbject/cbject_Object.h!cbject_Object
-!include ../src/cbject/cbject_Object.h!cbject_ObjectClass
+!include ../src/cbject/cbject_Object.h!cbject_Object_Class
 cbject_Singleton -u-|> cbject_Object
-cbject_Object -r-> cbject_SingletonClass
-cbject_SingletonClass -u-|> cbject_ObjectClass
+cbject_Object -r-> cbject_Singleton_Class
+cbject_Singleton_Class -u-|> cbject_Object_Class
 ----
 end::overview[] ***********************************************************************************/
 #ifndef CBJECT_SINGLETON_H
@@ -29,15 +29,15 @@ end::type[] ********************************************************************
 typedef struct cbject_Singleton cbject_Singleton;
 
 /*************************************************************************************************** tag::type[]
-= cbject_SingletonClass
+= cbject_Singleton_Class
 ====
 ----
-typedef struct cbject_SingletonClass cbject_SingletonClass;
+typedef struct cbject_Singleton_Class cbject_Singleton_Class;
 ----
-Typedef for struct cbject_SingletonClass
+Typedef for struct cbject_Singleton_Class
 ====
 end::type[] ***************************************************************************************/
-typedef struct cbject_SingletonClass cbject_SingletonClass;
+typedef struct cbject_Singleton_Class cbject_Singleton_Class;
 
 /*************************************************************************************************** tag::type[]
 = struct cbject_Singleton
@@ -64,26 +64,26 @@ struct cbject_Singleton {
 };
 
 /*************************************************************************************************** tag::type[]
-= struct cbject_SingletonClass
+= struct cbject_Singleton_Class
 ====
 ----
-struct cbject_SingletonClass {
-    cbject_ObjectClass super;
+struct cbject_Singleton_Class {
+    cbject_Object_Class super;
 };
 ----
-Definition of struct cbject_SingletonClass
+Definition of struct cbject_Singleton_Class
 
 .Members
 * super - Parent
 ====
 end::type[] ***************************************************************************************/
-/*************************************************************** @startuml(id=cbject_SingletonClass)
-object cbject_SingletonClass {
-    cbject_ObjectClass super;
+/*************************************************************** @startuml(id=cbject_Singleton_Class)
+object cbject_Singleton_Class {
+    cbject_Object_Class super;
 }
 @enduml *******************************************************************************************/
-struct cbject_SingletonClass {
-    cbject_ObjectClass super;
+struct cbject_Singleton_Class {
+    cbject_Object_Class super;
 };
 
 /*************************************************************************************************** tag::function[]
@@ -104,18 +104,18 @@ end::function[] ****************************************************************
 cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const self);
 
 /*************************************************************************************************** tag::function[]
-= cbject_SingletonClass_instance()
+= cbject_Singleton_Class_instance()
 ====
 ----
-cbject_SingletonClass * cbject_SingletonClass_instance(void);
+cbject_Singleton_Class * cbject_Singleton_Class_instance(void);
 ----
-Gets cbject_SingletonClass instance
+Gets cbject_Singleton_Class instance
 
 .Return
 Reference of the class instance
 ====
 end::function[] ***********************************************************************************/
-cbject_SingletonClass * cbject_SingletonClass_instance(void);
+cbject_Singleton_Class * cbject_Singleton_Class_instance(void);
 
 #endif // (cbject_config_useSingleton == true)
 #endif // CBJECT_SINGLETON_H

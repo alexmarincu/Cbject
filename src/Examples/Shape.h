@@ -4,7 +4,7 @@
 #include "Point.h"
 
 typedef struct Shape Shape;
-typedef struct ShapeClass ShapeClass;
+typedef struct Shape_Class Shape_Class;
 
 /******************************************************************************* @startuml(id=Shape)
 object Shape {
@@ -17,19 +17,19 @@ struct Shape {
     Point origin;
 };
 
-/************************************************************************** @startuml(id=ShapeClass)
-object ShapeClass {
-    cbject_ObjectClass super;
+/************************************************************************** @startuml(id=Shape_Class)
+object Shape_Class {
+    cbject_Object_Class super;
     float (*area)(Shape const * const self);
 }
 @enduml *******************************************************************************************/
-struct ShapeClass {
-    cbject_ObjectClass super;
+struct Shape_Class {
+    cbject_Object_Class super;
     float (*area)(Shape const * const self);
 };
 
 Shape * Shape_init(Shape * const self, Point origin);
 float Shape_area(Shape const * const self);
-ShapeClass * ShapeClass_instance(void);
+Shape_Class * Shape_Class_instance(void);
 
 #endif // SHAPE_H

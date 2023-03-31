@@ -10,9 +10,9 @@ cbject_allocPool(cbject_config_linkedListPoolSize);
 
 cbject_LinkedList * cbject_LinkedList_init(
     cbject_LinkedList * const self,
-    cbject_ObjectClass const * const elementClass,
+    cbject_Object_Class const * const elementClass,
 #if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
-    cbject_LinkedList_NodeSource const nodeSource
+    cbject_Object_Source const nodeSource
 #endif
 ) {
     cbject_init(self);
@@ -34,10 +34,12 @@ static cbject_Node * createNode(cbject_LinkedList * const self, cbject_Object * 
     assert(cbject_isOfClass(object, self->elementClass));
     cbject_Node * node;
 #if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
-    if (self->nodeSource == cbject_LinkedList_NodeSource_staticPool) {
+    if (self->nodeSource == cbject_Object_Source_staticPool) {
         node = cbject_acquire(cbject_Node);
-    } else {
+    } else if (self->nodeSource == cbject_Object_Source_heap) {
         node = cbject_alloc(cbject_Node);
+    } else {
+        assert("Incorrect object source chosen for node creation" && false);
     }
 #elif (cbject_config_useStaticPool == true)
     node = cbject_acquire(cbject_Node);
@@ -164,11 +166,11 @@ static cbject_Object * terminate(cbject_Object * const self) {
     return cbject_invokeSuperMethod(cbject_Object, terminate, self);
 }
 
-cbject_LinkedListClass * cbject_LinkedListClass_instance(void) {
-    static cbject_LinkedListClass self;
+cbject_LinkedList_Class * cbject_LinkedList_Class_instance(void) {
+    static cbject_LinkedList_Class self;
     cbject_doOnce {
-        cbject_ObjectClass_setup(&self);
-        ((cbject_ObjectClass *)&self)->terminate = terminate;
+        cbject_Object_Class_setup(&self);
+        ((cbject_Object_Class *)&self)->terminate = terminate;
     }
     return &self;
 }

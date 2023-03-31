@@ -36,13 +36,13 @@ static cbject_Object * terminate(cbject_Object * self) {
     return cbject_invokeSuperMethod(cbject_Object, terminate, self);
 }
 
-CircleClass * CircleClass_instance(void) {
-    static CircleClass self;
+Circle_Class * Circle_Class_instance(void) {
+    static Circle_Class self;
     cbject_doOnce {
-        cbject_ObjectClass_setup(&self);
-        ((cbject_ObjectClass *)&self)->terminate = terminate;
-        ((ShapeClass *)&self)->area = area;
-        ((DrawableClass *)&self)->draw = draw;
+        cbject_Object_Class_setup(&self);
+        ((cbject_Object_Class *)&self)->terminate = terminate;
+        ((Shape_Class *)&self)->area = area;
+        ((Drawable_Class *)&self)->draw = draw;
     }
     return &self;
 }

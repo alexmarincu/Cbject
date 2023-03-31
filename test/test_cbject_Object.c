@@ -10,7 +10,7 @@ void tearDown(void) {
 }
 
 /*************************************************************************************************** tag::test[]
-= test_cbject_ObjectClass
+= test_cbject_Object_Class
 ====
 Test setup of ObjectClass
 
@@ -20,10 +20,10 @@ Test setup of ObjectClass
 . Check that the function pointers in the class are initialized
 ====
 end::test[] ***************************************************************************************/
-void test_cbject_ObjectClass_instance(void) {
-    TEST_ASSERT_EQUAL_STRING("cbject_Object", cbject_ObjectClass_instance()->name);
-    TEST_ASSERT_EQUAL_size_t(sizeof(cbject_Object), cbject_ObjectClass_instance()->instanceSize);
-    TEST_ASSERT_NULL(cbject_ObjectClass_instance()->superClass);
+void test_cbject_Object_Class_instance(void) {
+    TEST_ASSERT_EQUAL_STRING("cbject_Object", cbject_Object_Class_instance()->name);
+    TEST_ASSERT_EQUAL_size_t(sizeof(cbject_Object), cbject_Object_Class_instance()->instanceSize);
+    TEST_ASSERT_NULL(cbject_Object_Class_instance()->superClass);
 }
 
 /*************************************************************************************************** tag::test[]
@@ -33,12 +33,12 @@ Test initialization of cbject_Object
 
 .Steps
 . Allocate object on stack an initialize it
-. Check if object class points to cbject_ObjectClass instance
+. Check if object class points to cbject_Object_Class instance
 ====
 end::test[] ***************************************************************************************/
 void test_cbject_Object_init(void) {
     cbject_Object * object = cbject_init(cbject_stackAlloc(cbject_Object));
-    TEST_ASSERT_EQUAL_PTR(cbject_Object_class(object), cbject_ObjectClass_instance());
+    TEST_ASSERT_EQUAL_PTR(cbject_Object_class(object), cbject_Object_Class_instance());
 }
 
 /*************************************************************************************************** tag::test[]
@@ -81,7 +81,7 @@ void test_cbject_Object_hashCode(void) {
 Test isOfType method
 
 .Preconditions
-. Define a dummy TestClass which extends cbject_ObjectClass
+. Define a dummy Test_Class which extends cbject_Object_Class
 
 .Steps
 . Allocate object on stack an initialize it
@@ -91,18 +91,18 @@ Test isOfType method
 end::test[] ***************************************************************************************/
 #define cbject_Class (Test, cbject_Object)
 typedef struct Test Test;
-typedef struct TestClass TestClass;
+typedef struct Test_Class Test_Class;
 struct Test {
     cbject_Object object;
 };
 cbject_noPool;
-struct TestClass {
-    cbject_ObjectClass klass;
+struct Test_Class {
+    cbject_Object_Class klass;
 };
-cbject_ObjectClass * TestClass_instance(void) {
-    static cbject_ObjectClass self;
+cbject_Object_Class * Test_Class_instance(void) {
+    static cbject_Object_Class self;
     cbject_doOnce {
-        cbject_ObjectClass_setup(&self);
+        cbject_Object_Class_setup(&self);
     }
     return &self;
 }

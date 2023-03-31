@@ -5,12 +5,12 @@ Linked list data structure
 .Context diagram
 ----
 !include ../src/cbject/cbject_LinkedList.h!cbject_LinkedList
-!include ../src/cbject/cbject_LinkedList.h!cbject_LinkedListClass
+!include ../src/cbject/cbject_LinkedList.h!cbject_LinkedList_Class
 !include ../src/cbject/cbject_Object.h!cbject_Object
-!include ../src/cbject/cbject_Object.h!cbject_ObjectClass
+!include ../src/cbject/cbject_Object.h!cbject_Object_Class
 cbject_LinkedList -u-|> cbject_Object
-cbject_Object -r-> cbject_LinkedListClass
-cbject_LinkedListClass -u-|> cbject_ObjectClass
+cbject_Object -r-> cbject_LinkedList_Class
+cbject_LinkedList_Class -u-|> cbject_Object_Class
 ----
 end::overview[] ***********************************************************************************/
 #ifndef CBJECT_LINKEDLIST_H
@@ -33,41 +33,15 @@ end::type[] ********************************************************************
 typedef struct cbject_LinkedList cbject_LinkedList;
 
 /*************************************************************************************************** tag::type[]
-= cbject_LinkedListClass
+= cbject_LinkedList_Class
 ====
 ----
-typedef struct cbject_LinkedListClass cbject_LinkedListClass;
+typedef struct cbject_LinkedList_Class cbject_LinkedList_Class;
 ----
-Typedef for struct cbject_LinkedListClass
-====
-end::type[] ***************************************************************************************/
-typedef struct cbject_LinkedListClass cbject_LinkedListClass;
-
-/*************************************************************************************************** tag::type[]
-= cbject_LinkedList_NodeSource
-====
-----
-typedef enum {
-    cbject_LinkedList_NodeSource_heap,
-    cbject_LinkedList_NodeSource_staticPool
-} cbject_LinkedList_NodeSource;
-----
-Typedef and struct definition for cbject_LinkedList_NodeSource
-
-.Remark
-Used for linked list functionality
-
-.Values
-* heap
-* staticPool
+Typedef for struct cbject_LinkedList_Class
 ====
 end::type[] ***************************************************************************************/
-#if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
-typedef enum {
-    cbject_LinkedList_NodeSource_heap,
-    cbject_LinkedList_NodeSource_staticPool
-} cbject_LinkedList_NodeSource;
-#endif
+typedef struct cbject_LinkedList_Class cbject_LinkedList_Class;
 
 /*************************************************************************************************** tag::type[]
 = struct cbject_LinkedList
@@ -75,11 +49,11 @@ typedef enum {
 ----
 struct cbject_LinkedList {
     cbject_Object super;
-    cbject_ObjectClass const * elementClass;
+    cbject_Object_Class const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
     uint64_t size;
-    cbject_LinkedList_NodeSource nodeSource;
+    cbject_Object_Source nodeSource;
 };
 ----
 Definition of struct cbject_LinkedList
@@ -90,51 +64,51 @@ Definition of struct cbject_LinkedList
 * first - Reference to the first node in the list
 * last - Reference to the last node in the list
 * size - Size of the list (number of elements)
-* nodeSource - Source for node creation (heap/staticPool)
+* nodeSource - Source for node creation (see cbject_Object_Source - only heap/staticPool is allowed)
 ====
 end::type[] ***************************************************************************************/
 /*************************************************************************************************** @startuml(id=cbject_LinkedList)
 object cbject_LinkedList {
     cbject_Object super;
-    cbject_ObjectClass const * elementClass;
+    cbject_Object_Class const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
     uint64_t size;
-    cbject_LinkedList_NodeSource nodeSource;
+    cbject_Object_Source nodeSource;
 }
 @enduml *******************************************************************************************/
 struct cbject_LinkedList {
     cbject_Object super;
-    cbject_ObjectClass const * elementClass;
+    cbject_Object_Class const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
     uint64_t size;
 #if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
-    cbject_LinkedList_NodeSource nodeSource;
+    cbject_Object_Source nodeSource;
 #endif
 };
 
 /*************************************************************************************************** tag::type[]
-= struct cbject_LinkedListClass
+= struct cbject_LinkedList_Class
 ====
 ----
-struct cbject_LinkedListClass {
-    cbject_ObjectClass super;
+struct cbject_LinkedList_Class {
+    cbject_Object_Class super;
 };
 ----
-Definition of struct cbject_LinkedListClass
+Definition of struct cbject_LinkedList_Class
 
 .Members
 * super - Parent
 ====
 end::type[] ***************************************************************************************/
-/*************************************************************************************************** @startuml(id=cbject_LinkedListClass)
-object cbject_LinkedListClass {
-    cbject_ObjectClass super;
+/*************************************************************************************************** @startuml(id=cbject_LinkedList_Class)
+object cbject_LinkedList_Class {
+    cbject_Object_Class super;
 }
 @enduml *******************************************************************************************/
-struct cbject_LinkedListClass {
-    cbject_ObjectClass super;
+struct cbject_LinkedList_Class {
+    cbject_Object_Class super;
 };
 
 /*************************************************************************************************** tag::function[]
@@ -143,23 +117,23 @@ struct cbject_LinkedListClass {
 ----
 cbject_LinkedList * cbject_LinkedList_init(
     cbject_LinkedList * const self,
-    cbject_LinkedList_NodeSource const nodeSource
+    cbject_Object_Source const nodeSource
 );
 ----
 Initializes a LinkedList
 
 .Params
 * self - cbject_LinkedList reference
-* nodeSource - Source for node creation (heap/staticPool)
+* nodeSource - Source for node creation (see cbject_Object_Source - only heap/staticPool is allowed)
 .Return
 Initialized and empty LinkedList
 ====
 end::function[] ***********************************************************************************/
 cbject_LinkedList * cbject_LinkedList_init(
     cbject_LinkedList * const self,
-    cbject_ObjectClass const * const elementClass,
+    cbject_Object_Class const * const elementClass,
 #if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
-    cbject_LinkedList_NodeSource const nodeSource
+    cbject_Object_Source const nodeSource
 #endif
 );
 
@@ -354,18 +328,18 @@ end::function[] ****************************************************************
 uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const self);
 
 /*************************************************************************************************** tag::function[]
-= cbject_LinkedListClass_instance()
+= cbject_LinkedList_Class_instance()
 ====
 ----
-cbject_LinkedListClass * cbject_LinkedListClass_instance(void);
+cbject_LinkedList_Class * cbject_LinkedList_Class_instance(void);
 ----
-Gets cbject_LinkedListClass instance
+Gets cbject_LinkedList_Class instance
 
 .Return
 Reference of the class instance
 ====
 end::function[] ***********************************************************************************/
-cbject_LinkedListClass * cbject_LinkedListClass_instance(void);
+cbject_LinkedList_Class * cbject_LinkedList_Class_instance(void);
 #endif // (cbject_config_useHeap == true) || (cbject_config_useStaticPool == true)
 #endif // (cbject_config_useLinkedList == true)
 #endif // CBJECT_LINKEDLIST_H

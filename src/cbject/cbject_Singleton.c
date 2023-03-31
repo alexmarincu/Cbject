@@ -13,7 +13,7 @@ cbject_Singleton * cbject_Singleton_init(cbject_Singleton * const self) {
 }
 
 #if (cbject_config_useHeap == true)
-static cbject_Object * alloc(cbject_ObjectClass * const self) {
+static cbject_Object * alloc(cbject_Object_Class * const self) {
     assert("Singleton cannot be allocated" && false);
     (void)self;
     return NULL;
@@ -27,14 +27,14 @@ static cbject_Object * copy(cbject_Object const * const self, cbject_Object * co
     return NULL;
 }
 
-cbject_SingletonClass * cbject_SingletonClass_instance(void) {
-    static cbject_SingletonClass self;
+cbject_Singleton_Class * cbject_Singleton_Class_instance(void) {
+    static cbject_Singleton_Class self;
     cbject_doOnce {
-        cbject_ObjectClass_setup(&self);
+        cbject_Object_Class_setup(&self);
 #if (cbject_config_useHeap == true)
-        ((cbject_ObjectClass *)&self)->alloc = alloc;
+        ((cbject_Object_Class *)&self)->alloc = alloc;
 #endif
-        ((cbject_ObjectClass *)&self)->copy = copy;
+        ((cbject_Object_Class *)&self)->copy = copy;
     }
     return &self;
 }

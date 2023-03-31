@@ -18,11 +18,11 @@ static void draw(Drawable const * const self) {
     cbject_invokeSuperMethod(Drawable, draw, self);
 }
 
-ColoredCircleClass * ColoredCircleClass_instance(void) {
-    static ColoredCircleClass self;
+ColoredCircle_Class * ColoredCircle_Class_instance(void) {
+    static ColoredCircle_Class self;
     cbject_doOnce {
-        cbject_ObjectClass_setup(&self);
-        ((DrawableClass *)&self)->draw = draw;
+        cbject_Object_Class_setup(&self);
+        ((Drawable_Class *)&self)->draw = draw;
     }
     return &self;
 }

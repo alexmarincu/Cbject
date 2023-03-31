@@ -121,11 +121,11 @@ static cbject_Object * terminate(cbject_Object * const self) {
     return cbject_invokeSuperMethod(cbject_Object, terminate, self);
 }
 
-ApplicationClass * ApplicationClass_instance(void) {
-    static ApplicationClass self;
+Application_Class * Application_Class_instance(void) {
+    static Application_Class self;
     cbject_doOnce {
-        cbject_ObjectClass_setup(&self);
-        ((cbject_ObjectClass *)&self)->terminate = terminate;
+        cbject_Object_Class_setup(&self);
+        ((cbject_Object_Class *)&self)->terminate = terminate;
     }
     return &self;
 }
