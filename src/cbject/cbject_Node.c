@@ -1,8 +1,9 @@
 #include "cbject_Node.h"
-#if (cbject_config_useLinkedList == true) || (cbject_config_useNode == true)
+#if ((cbject_config_useLinkedList == true) || (cbject_config_useNode == true))
 #include "cbject_internal.h"
 
 #define cbject_Class (cbject_Node, cbject_Object)
+
 #if (cbject_config_useStaticPool == true)
 cbject_allocPool(cbject_config_nodePoolSize);
 #endif
@@ -56,4 +57,4 @@ cbject_Node_Class * cbject_Node_Class_instance(void) {
 }
 
 #undef cbject_Class
-#endif // (cbject_config_useLinkedList == true) || (cbject_config_useNode == true)
+#endif

@@ -16,8 +16,10 @@ end::overview[] ****************************************************************
 #ifndef CBJECT_LINKEDLIST_H
 #define CBJECT_LINKEDLIST_H
 #include "cbject_config.h"
-#if (cbject_config_useLinkedList == true)
-#if (cbject_config_useHeap == true) || (cbject_config_useStaticPool == true)
+#if (                                                                             \
+    (cbject_config_useLinkedList == true) /**/                                    \
+    && ((cbject_config_useHeap == true) || (cbject_config_useStaticPool == true)) \
+)
 #include "cbject_Node.h"
 #include "cbject_Object.h"
 
@@ -53,7 +55,9 @@ struct cbject_LinkedList {
     cbject_Node * first;
     cbject_Node * last;
     uint64_t size;
+#if ((cbject_config_useHeap == true) && (cbject_config_useStaticPool == true))
     cbject_Object_Source nodeSource;
+#endif
 };
 ----
 Definition of struct cbject_LinkedList
@@ -74,7 +78,9 @@ object cbject_LinkedList {
     cbject_Node * first;
     cbject_Node * last;
     uint64_t size;
+#if ((cbject_config_useHeap == true) && (cbject_config_useStaticPool == true))
     cbject_Object_Source nodeSource;
+#endif
 }
 @enduml *******************************************************************************************/
 struct cbject_LinkedList {
@@ -83,7 +89,7 @@ struct cbject_LinkedList {
     cbject_Node * first;
     cbject_Node * last;
     uint64_t size;
-#if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
+#if ((cbject_config_useHeap == true) && (cbject_config_useStaticPool == true))
     cbject_Object_Source nodeSource;
 #endif
 };
@@ -116,23 +122,27 @@ struct cbject_LinkedList_Class {
 ====
 ----
 cbject_LinkedList * cbject_LinkedList_init(
-    cbject_LinkedList * const self,
+    cbject_LinkedList * const self, cbject_Object_Class const * const elementClass,
+#if ((cbject_config_useHeap == true) && (cbject_config_useStaticPool == true))
     cbject_Object_Source const nodeSource
+#endif
 );
 ----
 Initializes a LinkedList
 
 .Params
 * self - cbject_LinkedList reference
-* nodeSource - Source for node creation (see cbject_Object_Source - only heap/staticPool is allowed)
+* elementClass - Class of the elements stored in the list
+* nodeSource - Memory source for node creation
+                (see cbject_Object_Source - only heap/staticPool is allowed)
+
 .Return
 Initialized and empty LinkedList
 ====
 end::function[] ***********************************************************************************/
 cbject_LinkedList * cbject_LinkedList_init(
-    cbject_LinkedList * const self,
-    cbject_Object_Class const * const elementClass,
-#if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
+    cbject_LinkedList * const self, cbject_Object_Class const * const elementClass,
+#if ((cbject_config_useHeap == true) && (cbject_config_useStaticPool == true))
     cbject_Object_Source const nodeSource
 #endif
 );
@@ -159,7 +169,9 @@ bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const self);
 = cbject_LinkedList_add()
 ====
 ----
-void cbject_LinkedList_add(cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object);
+void cbject_LinkedList_add(
+    cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object
+);
 ----
 Adds an element to the end of the list
 
@@ -169,7 +181,9 @@ Adds an element to the end of the list
 * object - Object to be added in the list
 ====
 end::function[] ***********************************************************************************/
-void cbject_LinkedList_add(cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object);
+void cbject_LinkedList_add(
+    cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object
+);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_addLast()
@@ -340,6 +354,5 @@ Reference of the class instance
 ====
 end::function[] ***********************************************************************************/
 cbject_LinkedList_Class * cbject_LinkedList_Class_instance(void);
-#endif // (cbject_config_useHeap == true) || (cbject_config_useStaticPool == true)
-#endif // (cbject_config_useLinkedList == true)
+#endif
 #endif // CBJECT_LINKEDLIST_H

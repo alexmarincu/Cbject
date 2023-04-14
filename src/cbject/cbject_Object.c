@@ -8,67 +8,78 @@
 
 #if (cbject_config_useStaticPool == true)
 cbject_noPool;
+#endif
 
 cbject_Object * cbject_Object_allocHelper(
-    cbject_Object * const self,
-    cbject_Object_Class * const klass,
-#if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
+    cbject_Object * const self, cbject_Object_Class * const klass,
+#if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
     cbject_Object_Source const source
 #endif
 ) {
     self->klass = klass;
     self->referenceCount = 1;
-#if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
+#if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
     self->source = source;
 #endif
     return self;
 }
 
+#if (cbject_config_useStaticPool == true)
 cbject_Object * cbject_Object_Class_acquire(cbject_Object_Class * const self) {
     return cbject_invokeClassMethod(acquire, self);
 }
+#endif
 
+#if (cbject_config_useStaticPool == true)
 static cbject_Object * acquire(cbject_Object_Class * const self) {
     cbject_Object * object = NULL;
-    if ((void *)self->poolFirstFreeObject < ((void *)self->pool + (self->instanceSize * self->poolSize))) {
+    void * endOfPool = (void *)self->pool + (self->instanceSize * self->poolSize);
+    if ((void *)self->poolFirstFreeObject < endOfPool) {
         object = self->poolFirstFreeObject;
         memset(object, 0, self->instanceSize);
         cbject_Object_allocHelper(object, self, cbject_Object_Source_staticPool);
         object->poolUsageStatus = cbject_Object_PoolUsageStatus_inUse;
         do {
             self->poolFirstFreeObject = (void *)self->poolFirstFreeObject + self->instanceSize;
-        } while ((self->poolFirstFreeObject->poolUsageStatus != cbject_Object_PoolUsageStatus_free) //
-                 && ((void *)self->poolFirstFreeObject < ((void *)self->pool + (self->instanceSize * self->poolSize)))
+        } while (
+            (self->poolFirstFreeObject->poolUsageStatus != cbject_Object_PoolUsageStatus_free) //
+            && ((void *)self->poolFirstFreeObject < endOfPool)
         );
     }
     assert(object);
     return object;
 }
+#endif
 
+#if (cbject_config_useStaticPool == true)
 static void dispose(cbject_Object * const self) {
     self->poolUsageStatus = cbject_Object_PoolUsageStatus_free;
     if (self < self->klass->poolFirstFreeObject) {
         self->klass->poolFirstFreeObject = self;
     }
 }
-#endif // (cbject_config_useStaticPool == true)
+#endif
 
 #if (cbject_config_useHeap == true)
 cbject_Object * cbject_Object_Class_alloc(cbject_Object_Class * const self) {
     return cbject_invokeClassMethod(alloc, self);
 }
+#endif
 
+#if (cbject_config_useHeap == true)
 static cbject_Object * alloc(cbject_Object_Class * const self) {
     cbject_Object * object = (cbject_Object *)calloc(1, self->instanceSize);
     assert(object);
     cbject_Object_allocHelper(object, self, cbject_Object_Source_heap);
     return object;
 }
+#endif
 
+#if (cbject_config_useHeap == true)
 static void dealloc(cbject_Object * const self) {
     free(self);
 }
-#endif // (cbject_config_useHeap == true)
+#endif
 
 cbject_Object * cbject_Object_retain(cbject_Object * const self) {
     self->referenceCount++;
@@ -79,7 +90,7 @@ void * cbject_Object_release(cbject_Object * const self) {
     self->referenceCount--;
     if (self->referenceCount == 0) {
         cbject_invokeMethod(terminate, self);
-#if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
+#if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
         switch (self->source) {
 #if (cbject_config_useHeap == true)
             case cbject_Object_Source_heap:
@@ -134,7 +145,9 @@ static cbject_Object * terminate(cbject_Object * const self) {
     return NULL;
 }
 
-bool cbject_Object_isOfClass(cbject_Object const * const self, cbject_Object_Class const * const klass) {
+bool cbject_Object_isOfClass(
+    cbject_Object const * const self, cbject_Object_Class const * const klass
+) {
     bool isOfType = false;
     cbject_Object_Class const * _klass = self->klass;
     while (_klass != NULL) {

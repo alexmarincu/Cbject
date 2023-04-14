@@ -1,17 +1,19 @@
 #include "cbject_LinkedList.h"
-#if (cbject_config_useLinkedList == true)
-#if (cbject_config_useHeap == true) || (cbject_config_useStaticPool == true)
+#if (                                                                             \
+    (cbject_config_useLinkedList == true) /**/                                    \
+    && ((cbject_config_useHeap == true) || (cbject_config_useStaticPool == true)) \
+)
 #include "cbject_internal.h"
 
 #define cbject_Class (cbject_LinkedList, cbject_Object)
+
 #if (cbject_config_useStaticPool == true)
 cbject_allocPool(cbject_config_linkedListPoolSize);
 #endif
 
 cbject_LinkedList * cbject_LinkedList_init(
-    cbject_LinkedList * const self,
-    cbject_Object_Class const * const elementClass,
-#if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
+    cbject_LinkedList * const self, cbject_Object_Class const * const elementClass,
+#if ((cbject_config_useHeap == true) && (cbject_config_useStaticPool == true))
     cbject_Object_Source const nodeSource
 #endif
 ) {
@@ -20,20 +22,20 @@ cbject_LinkedList * cbject_LinkedList_init(
     self->size = 0;
     self->first = NULL;
     self->last = NULL;
-#if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
+#if ((cbject_config_useHeap == true) && (cbject_config_useStaticPool == true))
     self->nodeSource = nodeSource;
 #endif
     return self;
 }
 
 bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const self) {
-    return self->size == 0;
+    return (self->size == 0);
 }
 
 static cbject_Node * createNode(cbject_LinkedList * const self, cbject_Object * const object) {
     assert(cbject_isOfClass(object, self->elementClass));
     cbject_Node * node;
-#if (cbject_config_useHeap == true) && (cbject_config_useStaticPool == true)
+#if ((cbject_config_useHeap == true) && (cbject_config_useStaticPool == true))
     if (self->nodeSource == cbject_Object_Source_staticPool) {
         node = cbject_acquire(cbject_Node);
     } else if (self->nodeSource == cbject_Object_Source_heap) {
@@ -67,7 +69,9 @@ static cbject_Node * getNode(cbject_LinkedList const * const self, uint64_t inde
     return node;
 }
 
-void cbject_LinkedList_add(cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object) {
+void cbject_LinkedList_add(
+    cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object
+) {
     assert(index <= self->size);
     cbject_Node * newNode = createNode(self, object);
     if (self->size == 0) {
@@ -176,5 +180,4 @@ cbject_LinkedList_Class * cbject_LinkedList_Class_instance(void) {
 }
 
 #undef cbject_Class
-#endif // (cbject_config_useHeap == true) || (cbject_config_useStaticPool == true)
-#endif // (cbject_config_useLinkedList == true)
+#endif

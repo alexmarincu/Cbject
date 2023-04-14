@@ -42,10 +42,12 @@ typedef struct cbject_Object_Class cbject_Object_Class;
 = cbject_Object_PoolUsageStatus
 ====
 ----
+#if (cbject_config_useStaticPool == true)
 typedef enum {
     cbject_Object_PoolUsageStatus_free = 0,
     cbject_Object_PoolUsageStatus_inUse
 } cbject_Object_PoolUsageStatus;
+#endif
 ----
 Typedef and struct definition for cbject_Object_PoolUsageStatus
 
@@ -68,11 +70,17 @@ typedef enum {
 = cbject_Object_Source
 ====
 ----
+#if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
 typedef enum {
     cbject_Object_Source_stack,
+#if (cbject_config_useHeap == true)
     cbject_Object_Source_heap,
+#endif
+#if (cbject_config_useStaticPool == true)
     cbject_Object_Source_staticPool
+#endif
 } cbject_Object_Source;
+#endif
 ----
 Typedef and struct definition for cbject_Object_Source
 
@@ -84,7 +92,7 @@ Used if heap or static pool usage is activated
 * inUse
 ====
 end::type[] ***************************************************************************************/
-#if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
+#if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
 typedef enum {
     cbject_Object_Source_stack,
 #if (cbject_config_useHeap == true)
@@ -103,8 +111,12 @@ typedef enum {
 struct cbject_Object {
     cbject_Object_Class * klass;
     uint64_t referenceCount;
+#if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
     cbject_Object_Source source;
+#if (cbject_config_useStaticPool == true)
     cbject_Object_PoolUsageStatus poolUsageStatus;
+#endif
+#endif
 };
 ----
 Definition of struct cbject_Object
@@ -120,14 +132,18 @@ end::type[] ********************************************************************
 object cbject_Object {
     cbject_Object_Class * klass;
     uint64_t referenceCount;
+#if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
     cbject_Object_Source source;
+#if (cbject_config_useStaticPool == true)
     cbject_Object_PoolUsageStatus poolUsageStatus;
+#endif
+#endif
 }
 @enduml *******************************************************************************************/
 struct cbject_Object {
     cbject_Object_Class * klass;
     uint64_t referenceCount;
-#if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
+#if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
     cbject_Object_Source source;
 #if (cbject_config_useStaticPool == true)
     cbject_Object_PoolUsageStatus poolUsageStatus;
@@ -143,11 +159,15 @@ struct cbject_Object_Class {
     char const * name;
     size_t instanceSize;
     cbject_Object_Class const * superClass;
+#if (cbject_config_useStaticPool == true)
     cbject_Object * pool;
     uint64_t poolSize;
     cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_Object_Class * const self);
+#endif
+#if (cbject_config_useHeap == true)
     cbject_Object * (*alloc)(cbject_Object_Class * const self);
+#endif
     uint64_t (*hashCode)(cbject_Object const * const self);
     cbject_Object * (*copy)(cbject_Object const * const self, cbject_Object * const object);
     bool (*equals)(cbject_Object const * const self, cbject_Object const * const object);
@@ -176,11 +196,15 @@ object cbject_Object_Class {
     char const * name;
     size_t instanceSize;
     cbject_Object_Class const * superClass;
+#if (cbject_config_useStaticPool == true)
     cbject_Object * pool;
     uint64_t poolSize;
     cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_Object_Class * const self);
+#endif
+#if (cbject_config_useHeap == true)
     cbject_Object * (*alloc)(cbject_Object_Class * const self);
+#endif
     uint64_t (*hashCode)(cbject_Object const * const self);
     cbject_Object * (*copy)(cbject_Object const * const self, cbject_Object * const object);
     bool (*equals)(cbject_Object const * const self, cbject_Object const * const object);
@@ -210,7 +234,9 @@ struct cbject_Object_Class {
 = cbject_Object_Class_acquire()
 ====
 ----
+#if (cbject_config_useStaticPool == true)
 cbject_Object * cbject_Object_Class_acquire(cbject_Object_Class * const self);
+#endif
 ----
 Acquires an object from the static pool
 
@@ -229,7 +255,9 @@ cbject_Object * cbject_Object_Class_acquire(cbject_Object_Class * const self);
 = cbject_Object_Class_alloc()
 ====
 ----
+#if (cbject_config_useHeap == true)
 cbject_Object * cbject_Object_Class_alloc(cbject_Object_Class * const self);
+#endif
 ----
 Allocates an object in heap memory
 
@@ -266,9 +294,10 @@ cbject_Object * cbject_Object_init(cbject_Object * const self);
 ====
 ----
 cbject_Object * cbject_Object_allocHelper(
-    cbject_Object * const self,
-    cbject_Object_Class * const klass,
+    cbject_Object * const self, cbject_Object_Class * const klass,
+#if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
     cbject_Object_Source const source
+#endif
 );
 ----
 Sets the class of the object and other proprieties needed for allocation
@@ -283,9 +312,8 @@ Reference to the object
 ====
 end::function[] ***********************************************************************************/
 cbject_Object * cbject_Object_allocHelper(
-    cbject_Object * const self,
-    cbject_Object_Class * const klass,
-#if (cbject_config_useStaticPool == true) || (cbject_config_useHeap == true)
+    cbject_Object * const self, cbject_Object_Class * const klass,
+#if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
     cbject_Object_Source const source
 #endif
 );
@@ -382,7 +410,9 @@ void * cbject_Object_release(cbject_Object * const self);
 = cbject_Object_isOfClass()
 ====
 ----
-bool cbject_Object_isOfClass(cbject_Object const * const self, cbject_Object_Class const * const klass);
+bool cbject_Object_isOfClass(
+    cbject_Object const * const self, cbject_Object_Class const * const klass
+);
 ----
 Checks if an object is of a given class
 
@@ -395,7 +425,9 @@ Checks if an object is of a given class
 * false - If the object is of a different class
 ====
 end::function[] ***********************************************************************************/
-bool cbject_Object_isOfClass(cbject_Object const * const self, cbject_Object_Class const * const klass);
+bool cbject_Object_isOfClass(
+    cbject_Object const * const self, cbject_Object_Class const * const klass
+);
 
 /*************************************************************************************************** tag::function[]
 = cbject_Object_Class_instance()

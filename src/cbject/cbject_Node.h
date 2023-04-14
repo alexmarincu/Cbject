@@ -16,7 +16,7 @@ end::overview[] ****************************************************************
 #ifndef CBJECT_NODE_H
 #define CBJECT_NODE_H
 #include "cbject_config.h"
-#if (cbject_config_useLinkedList == true) || (cbject_config_useNode == true)
+#if ((cbject_config_useLinkedList == true) || (cbject_config_useNode == true))
 #include "cbject_Object.h"
 
 /*************************************************************************************************** tag::type[]
@@ -82,7 +82,7 @@ struct cbject_Node {
 ====
 ----
 struct cbject_Node_Class {
-    cbject_Object_Class klass;
+    cbject_Object_Class super;
 };
 ----
 Definition of struct cbject_Node_Class
@@ -213,5 +213,5 @@ Reference of the class instance
 end::function[] ***********************************************************************************/
 cbject_Node_Class * cbject_Node_Class_instance(void);
 
-#endif // (cbject_config_useLinkedList == true) || (cbject_config_useNode == true)
+#endif
 #endif // CBJECT_NODE_H

@@ -117,5 +117,5 @@ Reference of the class instance
 end::function[] ***********************************************************************************/
 cbject_Singleton_Class * cbject_Singleton_Class_instance(void);
 
-#endif // (cbject_config_useSingleton == true)
+#endif
 #endif // CBJECT_SINGLETON_H
