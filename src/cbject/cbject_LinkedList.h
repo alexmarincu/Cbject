@@ -54,7 +54,7 @@ struct cbject_LinkedList {
     cbject_Object_Class const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
-    uint64_t size;
+    size_t size;
 #if ((cbject_config_useHeap == true) && (cbject_config_useStaticPool == true))
     cbject_Object_Source nodeSource;
 #endif
@@ -77,7 +77,7 @@ object cbject_LinkedList {
     cbject_Object_Class const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
-    uint64_t size;
+    size_t size;
 #if ((cbject_config_useHeap == true) && (cbject_config_useStaticPool == true))
     cbject_Object_Source nodeSource;
 #endif
@@ -88,7 +88,7 @@ struct cbject_LinkedList {
     cbject_Object_Class const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
-    uint64_t size;
+    size_t size;
 #if ((cbject_config_useHeap == true) && (cbject_config_useStaticPool == true))
     cbject_Object_Source nodeSource;
 #endif
@@ -170,7 +170,7 @@ bool cbject_LinkedList_isEmpty(cbject_LinkedList const * const self);
 ====
 ----
 void cbject_LinkedList_add(
-    cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object
+    cbject_LinkedList * const self, size_t const index, cbject_Object * const object
 );
 ----
 Adds an element to the end of the list
@@ -182,7 +182,7 @@ Adds an element to the end of the list
 ====
 end::function[] ***********************************************************************************/
 void cbject_LinkedList_add(
-    cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object
+    cbject_LinkedList * const self, size_t const index, cbject_Object * const object
 );
 
 /*************************************************************************************************** tag::function[]
@@ -219,7 +219,7 @@ void cbject_LinkedList_addFirst(cbject_LinkedList * const self, cbject_Object * 
 = cbject_LinkedList_remove()
 ====
 ----
-void cbject_LinkedList_remove(cbject_LinkedList * const self, uint64_t const index);
+void cbject_LinkedList_remove(cbject_LinkedList * const self, size_t const index);
 ----
 Removes last element in the list at provided index
 
@@ -228,7 +228,7 @@ Removes last element in the list at provided index
 * index - Index in the list from where to remove the object
 ====
 end::function[] ***********************************************************************************/
-void cbject_LinkedList_remove(cbject_LinkedList * const self, uint64_t const index);
+void cbject_LinkedList_remove(cbject_LinkedList * const self, size_t const index);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_removeFirst()
@@ -276,7 +276,7 @@ void cbject_LinkedList_clear(cbject_LinkedList * const self);
 = cbject_LinkedList_get()
 ====
 ----
-cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index);
+cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, size_t index);
 ----
 Gets element at specified index
 
@@ -288,7 +288,7 @@ Gets element at specified index
 Element at specified index
 ====
 end::function[] ***********************************************************************************/
-cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index);
+cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, size_t index);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_getFirst()
@@ -328,7 +328,7 @@ cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const self);
 = cbject_LinkedList_getSize()
 ====
 ----
-uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const self);
+size_t cbject_LinkedList_getSize(cbject_LinkedList const * const self);
 ----
 Gets the size of the list (number of elements)
 
@@ -339,7 +339,7 @@ Gets the size of the list (number of elements)
 Size of list (number of elements)
 ====
 end::function[] ***********************************************************************************/
-uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const self);
+size_t cbject_LinkedList_getSize(cbject_LinkedList const * const self);
 
 /*************************************************************************************************** tag::function[]
 = cbject_LinkedList_Class_instance()

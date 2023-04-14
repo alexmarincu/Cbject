@@ -1214,7 +1214,7 @@ typedef enum {
 <div class="content">
 <pre>struct cbject_Object {
     cbject_Object_Class * klass;
-    uint64_t referenceCount;
+    size_t referenceCount;
 #if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
     cbject_Object_Source source;
 #if (cbject_config_useStaticPool == true)
@@ -1259,7 +1259,7 @@ typedef enum {
     cbject_Object_Class const * superClass;
 #if (cbject_config_useStaticPool == true)
     cbject_Object * pool;
-    uint64_t poolSize;
+    size_t poolSize;
     cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_Object_Class * const self);
 #endif
@@ -2361,7 +2361,7 @@ cbject_Object * cbject_Object_Class_alloc(cbject_Object_Class * const self);
     cbject_Object_Class const * elementClass;
     cbject_Node * first;
     cbject_Node * last;
-    uint64_t size;
+    size_t size;
 #if ((cbject_config_useHeap == true) &amp;&amp; (cbject_config_useStaticPool == true))
     cbject_Object_Source nodeSource;
 #endif
@@ -2505,7 +2505,7 @@ cbject_Object * cbject_Object_Class_alloc(cbject_Object_Class * const self);
 <div class="listingblock">
 <div class="content">
 <pre>void cbject_LinkedList_add(
-    cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object
+    cbject_LinkedList * const self, size_t const index, cbject_Object * const object
 );</pre>
 </div>
 </div>
@@ -2587,7 +2587,7 @@ cbject_Object * cbject_Object_Class_alloc(cbject_Object_Class * const self);
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>void cbject_LinkedList_remove(cbject_LinkedList * const self, uint64_t const index);</pre>
+<pre>void cbject_LinkedList_remove(cbject_LinkedList * const self, size_t const index);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2682,7 +2682,7 @@ cbject_Object * cbject_Object_Class_alloc(cbject_Object_Class * const self);
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index);</pre>
+<pre>cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, size_t index);</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2766,7 +2766,7 @@ cbject_Object * cbject_Object_Class_alloc(cbject_Object_Class * const self);
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre>uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const self);</pre>
+<pre>size_t cbject_LinkedList_getSize(cbject_LinkedList const * const self);</pre>
 </div>
 </div>
 <div class="paragraph">

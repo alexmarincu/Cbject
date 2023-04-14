@@ -52,17 +52,17 @@ static cbject_Node * createNode(cbject_LinkedList * const self, cbject_Object * 
     return node;
 }
 
-static cbject_Node * getNode(cbject_LinkedList const * const self, uint64_t index) {
+static cbject_Node * getNode(cbject_LinkedList const * const self, size_t index) {
     assert(index < self->size);
     cbject_Node * node;
     if (index <= self->size / 2) {
         node = self->first;
-        for (uint64_t i = 0; i < index; i++) {
+        for (size_t i = 0; i < index; i++) {
             node = cbject_Node_getNext(node);
         }
     } else {
         node = self->last;
-        for (uint64_t i = self->size - 1; i > index; i--) {
+        for (size_t i = self->size - 1; i > index; i--) {
             node = cbject_Node_getPrevious(node);
         }
     }
@@ -70,7 +70,7 @@ static cbject_Node * getNode(cbject_LinkedList const * const self, uint64_t inde
 }
 
 void cbject_LinkedList_add(
-    cbject_LinkedList * const self, uint64_t const index, cbject_Object * const object
+    cbject_LinkedList * const self, size_t const index, cbject_Object * const object
 ) {
     assert(index <= self->size);
     cbject_Node * newNode = createNode(self, object);
@@ -107,7 +107,7 @@ void cbject_LinkedList_addLast(cbject_LinkedList * const self, cbject_Object * c
     cbject_LinkedList_add(self, self->size, object);
 }
 
-void cbject_LinkedList_remove(cbject_LinkedList * const self, uint64_t const index) {
+void cbject_LinkedList_remove(cbject_LinkedList * const self, size_t const index) {
     assert(index < self->size);
     if (self->size == 1) {
         cbject_Node * node = self->first;
@@ -157,11 +157,11 @@ cbject_Object * cbject_LinkedList_getLast(cbject_LinkedList const * const self) 
     return cbject_Node_getElement(self->last);
 }
 
-cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, uint64_t index) {
+cbject_Object * cbject_LinkedList_get(cbject_LinkedList const * const self, size_t index) {
     return cbject_Node_getElement(getNode(self, index));
 }
 
-uint64_t cbject_LinkedList_getSize(cbject_LinkedList const * const self) {
+size_t cbject_LinkedList_getSize(cbject_LinkedList const * const self) {
     return self->size;
 }
 

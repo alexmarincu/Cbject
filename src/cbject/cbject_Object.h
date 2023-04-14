@@ -110,7 +110,7 @@ typedef enum {
 ----
 struct cbject_Object {
     cbject_Object_Class * klass;
-    uint64_t referenceCount;
+    size_t referenceCount;
 #if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
     cbject_Object_Source source;
 #if (cbject_config_useStaticPool == true)
@@ -131,7 +131,7 @@ end::type[] ********************************************************************
 /*************************************************************************************************** @startuml(id=cbject_Object)
 object cbject_Object {
     cbject_Object_Class * klass;
-    uint64_t referenceCount;
+    size_t referenceCount;
 #if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
     cbject_Object_Source source;
 #if (cbject_config_useStaticPool == true)
@@ -142,7 +142,7 @@ object cbject_Object {
 @enduml *******************************************************************************************/
 struct cbject_Object {
     cbject_Object_Class * klass;
-    uint64_t referenceCount;
+    size_t referenceCount;
 #if ((cbject_config_useStaticPool == true) || (cbject_config_useHeap == true))
     cbject_Object_Source source;
 #if (cbject_config_useStaticPool == true)
@@ -161,7 +161,7 @@ struct cbject_Object_Class {
     cbject_Object_Class const * superClass;
 #if (cbject_config_useStaticPool == true)
     cbject_Object * pool;
-    uint64_t poolSize;
+    size_t poolSize;
     cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_Object_Class * const self);
 #endif
@@ -198,7 +198,7 @@ object cbject_Object_Class {
     cbject_Object_Class const * superClass;
 #if (cbject_config_useStaticPool == true)
     cbject_Object * pool;
-    uint64_t poolSize;
+    size_t poolSize;
     cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_Object_Class * const self);
 #endif
@@ -217,7 +217,7 @@ struct cbject_Object_Class {
     cbject_Object_Class const * superClass;
 #if (cbject_config_useStaticPool == true)
     cbject_Object * pool;
-    uint64_t poolSize;
+    size_t poolSize;
     cbject_Object * poolFirstFreeObject;
     cbject_Object * (*acquire)(cbject_Object_Class * const self);
 #endif
