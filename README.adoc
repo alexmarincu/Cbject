@@ -4,12 +4,19 @@
 
 OOP framework for standard C99
 
-https://github.com/alexmarincu/cbject/actions/workflows/ci.yml[image:https://github.com/alexmarincu/cbject/actions/workflows/ci.yml/badge.svg[CI]] https://github.com/alexmarincu/cbject/releases[image:https://img.shields.io/github/v/release/alexmarincu/Cbject?include_prereleases[GitHub release (latest by date including pre-releases)]] https://github.com/alexmarincu/cbject/blob/master/LICENSE[image:https://img.shields.io/github/license/alexmarincu/Cbject[GitHub]]
+https://github.com/alexmarincu/cbject/actions/workflows/ci.yml[image:https://github.com/alexmarincu/cbject/actions/workflows/ci.yml/badge.svg[CI]]
+https://github.com/alexmarincu/cbject/releases[image:https://img.shields.io/github/v/release/alexmarincu/Cbject?include_prereleases[GitHub release (latest by date including pre-releases)]] https://github.com/alexmarincu/cbject/blob/master/LICENSE[image:https://img.shields.io/github/license/alexmarincu/Cbject[GitHub]]
 
-https://ko-fi.com/alexmarincu[image:https://ko-fi.com/img/githubbutton_sm.svg[ko-fi alexmarincu]]
-
-https://www.buymeacoffee.com/alexmarincu[image:https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png[buymeacoffee alexmarincu]]
-
-Cbject makes it easier to write object oriented code in C.
+Cbject makes it easier to write object-oriented code in C.
 
 To dive right in check the https://github.com/alexmarincu/cbject/tree/master/src[src] and the https://github.com/alexmarincu/cbject/tree/master/test[test] folder, or read the https://cbject.swdevstudio.com[docs].
+
+---
+
+*You can help this project by sponsoring:*
+
+https://github.com/sponsors/alexmarincu[image:https://img.shields.io/badge/github%20sponsor-%23EA4AAA?style=for-the-badge&logo=github&logoColor=white[Static Badge]]
+https://ko-fi.com/alexmarincu[image:https://img.shields.io/badge/ko--fi-%23F16061?style=for-the-badge&logo=ko-fi&logoColor=white[Static Badge]]
+https://www.buymeacoffee.com/alexmarincu[image:https://img.shields.io/badge/buy%20me%20a%20coffee-%23FFDD00?style=for-the-badge&logo=buy%20me%20a%20coffee&logoColor=black[Static Badge]]
+https://paypal.me/alexmarincu[image:https://img.shields.io/badge/paypal%20me-%2300457C?style=for-the-badge&logo=paypal&logoColor=white[Static Badge]]
+https://www.revolut.me/alexmarincu[image:https://img.shields.io/badge/revolut%20me-%232A60FD?style=for-the-badge&logo=revolut&logoColor=white[Static Badge]]
